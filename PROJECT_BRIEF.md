@@ -59,7 +59,14 @@ Provide consistent, battle-tested patterns and workflows that can be seamlessly 
 **Use Cases:** Creating new skills, updating existing skills, understanding skill best practices
 **Key Features:** Skill creation process (understand, plan, initialize, edit, package, iterate), progressive disclosure (metadata → SKILL.md → bundled resources), resource organization (scripts/, references/, assets/), description field as trigger, no extraneous files
 
-### 8. Report Export (PDF + Print)
+### 8. API Error Handling
+
+**Domain:** Backend Development (REST APIs)
+**Purpose:** Comprehensive, standardized error response system for PHP REST APIs with SweetAlert2 integration
+**Use Cases:** Building REST APIs, consistent error formatting, PDOException parsing, validation error handling, frontend error display
+**Key Features:** Standardized JSON envelopes (success/error), HTTP status code mapping, PDOException message extraction (SQLSTATE 45000, 23000, deadlocks), ApiResponse helper, ExceptionHandler with specific error parsing, custom exception classes, SweetAlert2 integration, business rule extraction, request ID tracking
+
+### 9. Report Export (PDF + Print)
 
 **Domain:** Reporting
 **Purpose:** Clean, consistent report exports for PDF and browser printing
@@ -91,6 +98,16 @@ skills/
 │   └── SKILL.md
 ├── pdf-export/
 │   └── SKILL.md
+├── api-error-handling/
+│   ├── SKILL.md
+│   ├── references/
+│   │   ├── ApiResponse.php
+│   │   ├── ExceptionHandler.php
+│   │   ├── CustomExceptions.php
+│   │   └── bootstrap.php
+│   └── examples/
+│       ├── InvoicesEndpoint.php
+│       └── ApiClient.js
 ├── skills/
 │   └── skill-writing/
 │       └── SKILL.md

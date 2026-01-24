@@ -74,6 +74,7 @@ skills/
 ├── dual-auth-rbac/           # Dual auth + RBAC security skill
 ├── webapp-gui-design/        # Web app GUI design skill
 ├── pdf-export/               # Report export via PDF + print
+├── api-error-handling/       # API error handling with SweetAlert2
 ├── skills/
 │   └── skill-writing/        # Skill creator (meta-skill)
 ├── PROJECT_BRIEF.md          # Quick overview

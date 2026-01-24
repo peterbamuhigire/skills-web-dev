@@ -214,7 +214,45 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ---
 
-### 8. Report Export (PDF + Print)
+### 8. API Error Handling
+
+**Focus:** Comprehensive error response system for PHP REST APIs
+
+**When to use:**
+
+- Building PHP REST APIs requiring consistent error formatting
+- Need specific error message extraction from database exceptions
+- Handling validation errors with field-level detail
+- Integrating frontend error display with SweetAlert2
+- Implementing business rule enforcement via database triggers
+- Require request tracking for debugging
+
+**Key capabilities:**
+
+- Standardized JSON response envelope (success/error structure)
+- HTTP status code mapping (400, 401, 403, 404, 409, 422, 429, 500, 503)
+- PDOException parsing and message extraction:
+  - SQLSTATE 45000 (user-defined exceptions from triggers)
+  - SQLSTATE 23000 (integrity constraints - duplicates, foreign keys)
+  - Deadlock detection and handling
+- ApiResponse helper class with static methods for all response types
+- ExceptionHandler converting all exceptions to standardized API responses
+- Custom exception classes (ValidationException, AuthenticationException, etc.)
+- API bootstrap file with helper functions
+- Frontend ApiClient with automatic SweetAlert2 error display
+- Validation error field highlighting
+- Request ID tracking for error tracing
+- Security considerations (no stack traces in production)
+
+**Skill location:** `api-error-handling/SKILL.md`
+
+**Reference files:** `references/ApiResponse.php`, `references/ExceptionHandler.php`, `references/CustomExceptions.php`, `references/bootstrap.php`
+
+**Examples:** `examples/InvoicesEndpoint.php`, `examples/ApiClient.js`
+
+---
+
+### 9. Report Export (PDF + Print)
 
 **Focus:** Clean, consistent report exports for PDF and browser printing
 
@@ -502,6 +540,16 @@ skills/
 ├── skills/
 │   └── skill-writing/            # Skill creator (meta-skill)
 │       └── SKILL.md
+├── api-error-handling/           # API error handling skill
+│   ├── SKILL.md
+│   ├── references/
+│   │   ├── ApiResponse.php
+│   │   ├── ExceptionHandler.php
+│   │   ├── CustomExceptions.php
+│   │   └── bootstrap.php
+│   └── examples/
+│       ├── InvoicesEndpoint.php
+│       └── ApiClient.js
 ├── PROJECT_BRIEF.md              # Quick project overview
 ├── README.md                     # This file
 └── CLAUDE.md                     # Claude Code specific guide

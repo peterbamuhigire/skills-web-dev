@@ -16,9 +16,8 @@ Production-grade multi-tenant SaaS architecture with strict tenant isolation, ze
 - Audit everything: Immutable audit trails for privileged operations
 
 **See subdirectories for:**
-- `references/` - Database schemas, permission models
-- `documentation/` - Feature flags, monitoring, privacy, DR
-- `examples/` - Code patterns and implementations
+- `references/` - Database schemas (database-schema.md), permission models (permission-model.md)
+- `documentation/` - Migration patterns (migration.md)
 
 ## When to Use
 

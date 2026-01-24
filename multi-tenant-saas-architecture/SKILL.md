@@ -375,8 +375,6 @@ POST   /api/v1/admin/impersonate     → Start impersonation
 - Audit trails: 7 years (compliance)
 - Operational logs: 90 days
 
-**See `documentation/audit-compliance.md` for complete patterns**
-
 ## Operational Safeguards
 
 ### Tenant Lifecycle
@@ -478,11 +476,8 @@ describe('Order API', () => {
 - Immutable audit trails
 
 **See Also:**
-- `references/database-schema.md` - Complete database design
-- `references/permission-model.md` - RBAC implementation
-- `documentation/feature-flags.md` - Safe deployment patterns
-- `documentation/monitoring.md` - Logging and alerting
-- `documentation/data-privacy.md` - GDPR, CCPA compliance
-- `examples/api-patterns.js` - Code examples
+- `references/database-schema.md` - Complete database design, indexes, partitioning
+- `references/permission-model.md` - RBAC implementation, caching, middleware
+- `documentation/migration.md` - Adding tenant_id, zero-downtime migrations, rollback
 
 **Remember:** Security failures in multi-tenant systems affect ALL tenants. Test isolation exhaustively.

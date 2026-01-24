@@ -5,13 +5,11 @@ description: "Dual authentication system (Session + JWT) with role-based access 
 
 # Dual Authentication with RBAC
 
-## Overview
-
-Production-grade dual authentication combining session-based (stateful) and JWT-based (stateless) auth with comprehensive RBAC and multi-tenant isolation.
+Implement production-grade dual authentication combining session-based (stateful) and JWT-based (stateless) auth with comprehensive RBAC and multi-tenant isolation.
 
 **Core Principle:** Different clients need different auth strategies. Web UIs benefit from sessions; APIs/mobile need stateless tokens. RBAC must work seamlessly across both.
 
-**See references/ for:** `schema.sql`, `password-security.md`, `jwt-patterns.md`
+**See references/ for:** `schema.sql` (complete database design with 9 tables)
 
 ## When to Use
 

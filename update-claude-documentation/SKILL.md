@@ -5,9 +5,7 @@ description: "Update project documentation files (README.md, PROJECT_BRIEF.md, T
 
 # Update Claude Documentation
 
-## Overview
-
-Systematic workflow for updating project documentation after significant changes. Ensures all files remain consistent and accurate.
+Update project documentation systematically after significant changes. Keep all files consistent and accurate.
 
 **Core Principle:** Documentation tells one cohesive story. Each file serves a specific audience but must reflect the same reality.
 

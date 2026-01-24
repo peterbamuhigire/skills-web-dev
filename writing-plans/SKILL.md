@@ -1,39 +1,29 @@
 ---
 name: writing-plans
-description: Use when you have a spec or requirements for a multi-step task, before touching code
+description: Create comprehensive, bite-sized implementation plans for multi-step features using TDD workflow. Use when planning complex features, multi-file changes, or tasks requiring step-by-step guidance (examples: new authentication system, API endpoint with tests, database migration, refactoring). Generates detailed plans with exact file paths, complete code, test-driven workflow, and frequent commits.
 ---
 
 # Writing Plans
 
-## Overview
-
-Write comprehensive implementation plans assuming the engineer has zero context for our codebase and questionable taste. Document everything they need to know: which files to touch for each task, code, testing, docs they might need to check, how to test it. Give them the whole plan as bite-sized tasks. DRY. YAGNI. TDD. Frequent commits.
-
-Assume they are a skilled developer, but know almost nothing about our toolset or problem domain. Assume they don't know good test design very well.
-
-**Announce at start:** "I'm using the writing-plans skill to create the implementation plan."
-
-**Context:** This should be run in a dedicated worktree (created by brainstorming skill).
+Create comprehensive implementation plans for multi-step tasks. Each plan breaks work into bite-sized tasks (2-5 minutes each) with exact file paths, complete code, and test-driven development workflow.
 
 **Save plans to:** `docs/plans/YYYY-MM-DD-<feature-name>.md`
 
 ## Bite-Sized Task Granularity
 
-**Each step is one action (2-5 minutes):**
-- "Write the failing test" - step
-- "Run it to make sure it fails" - step
-- "Implement the minimal code to make the test pass" - step
-- "Run the tests and make sure they pass" - step
-- "Commit" - step
+Break each feature into one-action steps (2-5 minutes):
+- Write failing test → step
+- Run to verify failure → step
+- Implement minimal code → step
+- Run to verify pass → step
+- Commit → step
 
 ## Plan Document Header
 
-**Every plan MUST start with this header:**
+Start every plan with this header:
 
 ```markdown
 # [Feature Name] Implementation Plan
-
-> **For Claude:** REQUIRED SUB-SKILL: Use executing-plans to implement this plan task-by-task.
 
 **Goal:** [One sentence describing what this builds]
 
@@ -44,7 +34,7 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 ---
 ```
 
-## Task Structure
+## Task Structure Template
 
 ```markdown
 ### Task N: [Component Name]
@@ -54,7 +44,7 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 - Modify: `exact/path/to/existing.py:123-145`
 - Test: `tests/exact/path/to/test.py`
 
-**Step 1: Write the failing test**
+**Step 1: Write failing test**
 
 ```python
 def test_specific_behavior():
@@ -62,7 +52,7 @@ def test_specific_behavior():
     assert result == expected
 ```
 
-**Step 2: Run test to verify it fails**
+**Step 2: Run test to verify failure**
 
 Run: `pytest tests/path/test.py::test_name -v`
 Expected: FAIL with "function not defined"
@@ -74,7 +64,7 @@ def function(input):
     return expected
 ```
 
-**Step 4: Run test to verify it passes**
+**Step 4: Run test to verify pass**
 
 Run: `pytest tests/path/test.py::test_name -v`
 Expected: PASS
@@ -87,30 +77,28 @@ git commit -m "feat: add specific feature"
 ```
 ```
 
-## Remember
-- Exact file paths always
-- Complete code in plan (not "add validation")
-- Exact commands with expected output
-- Reference relevant skills with @ syntax
-- DRY, YAGNI, TDD, frequent commits
+## Plan Essentials
 
-## Execution Handoff
+Include in every plan:
+- **Exact file paths** - Never "add validation to the file"
+- **Complete code** - Full implementations, not placeholders
+- **Exact commands** - With expected output
+- **Test-first** - Write test, verify fail, implement, verify pass
+- **Frequent commits** - After each passing test
 
-After saving the plan, offer execution choice:
+## Best Practices
 
-**"Plan complete and saved to `docs/plans/<filename>.md`. Two execution options:**
+**DO:**
+- Break into 2-5 minute tasks
+- Include complete code samples
+- Specify exact paths and line numbers
+- Follow DRY, YAGNI principles
+- Test-driven development
+- Commit after each green test
 
-**1. Subagent-Driven (this session)** - I dispatch fresh subagent per task, review between tasks, fast iteration
-
-**2. Parallel Session (separate)** - Open new session with executing-plans, batch execution with checkpoints
-
-**Which approach?"**
-
-**If Subagent-Driven chosen:**
-- **REQUIRED SUB-SKILL:** Use superpowers:subagent-driven-development
-- Stay in this session
-- Fresh subagent per task + code review
-
-**If Parallel Session chosen:**
-- Guide them to open new session in worktree
-- **REQUIRED SUB-SKILL:** New session uses superpowers:executing-plans
+**DON'T:**
+- Create huge monolithic tasks
+- Use pseudocode or placeholders
+- Skip test verification steps
+- Assume context exists
+- Make untested changes

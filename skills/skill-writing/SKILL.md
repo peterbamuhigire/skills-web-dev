@@ -317,6 +317,127 @@ Do not include any other fields in YAML frontmatter.
 
 Write instructions for using the skill and its bundled resources.
 
+#### SKILL.md Generation Guidelines (Claude Code)
+
+Use the following prompt when you want Claude to generate a complete, production-ready SKILL.md from your feature/pattern/module details.
+
+##### What You Provide
+
+Use this structure:
+
+### Name
+[What should this skill be called?]
+
+### Purpose
+[What is this skill for? What problem does it solve?]
+
+### When to Use
+[When should Claude use this skill? What triggers would indicate this skill is needed?]
+
+### Key Concepts/Patterns
+[What are the core patterns, rules, or approaches that define this skill?]
+
+### Implementation Details
+[How should this be implemented? Any specific steps, configurations, or important details?]
+
+### Code Examples (if applicable)
+[Concrete code examples showing proper implementation]
+
+### Common Mistakes
+[What are the biggest mistakes people make? What should be avoided?]
+
+### Bundled Resources (if applicable)
+[What files/scripts/assets should be included? What goes in each?]
+
+### Project Context
+[Any specific context about your SaaS projects?]
+
+##### What You Require from Claude
+
+Generate a SKILL.md file that:
+
+1. **YAML Frontmatter** (required):
+    - `name`: Concise, lowercase, hyphen-separated skill name
+    - `description`: Clear, specific description that tells Claude when to use this skill. Include:
+      - What the skill does
+      - Specific triggers/contexts for when to use it
+      - Key capabilities it covers
+    - Keep the description 1-2 sentences maximum
+
+2. **Body Structure** (markdown):
+    - **Overview**: 2-3 sentences explaining the core purpose
+    - **Quick Reference**: Table or brief list of main use cases (if applicable)
+    - **Core Instructions**: Step-by-step guidance for implementing/using this pattern
+    - **Key Patterns**: Specific examples or patterns to follow
+    - **Reference Files**: If you mention bundled files, explain what goes in references/, scripts/, assets/
+    - **Common Pitfalls**: What NOT to do
+    - **Examples**: Concrete examples of proper implementation
+
+3. **Content Quality**:
+    - Assume Claude is smart; do not over-explain basic concepts
+    - Focus on what is unique/specific to your implementation, not generic knowledge
+    - Keep it under 500 lines (reference large content separately)
+    - Use imperative language ("Use X", "Implement Y", "Follow Z")
+    - Include code examples only if essential for understanding
+
+4. **File References** (if applicable):
+    - If SKILL.md references `scripts/`, `references/`, or `assets/`, explicitly state:
+      - Which files go where
+      - What each file contains
+      - When Claude should use/read that file
+
+5. **Frontmatter Only**:
+    - Include only `name` and `description` in YAML
+    - Do not add license, compatibility, or other fields
+
+##### Example of Good Input
+
+### Name
+PDF and Printing Standards
+
+### Purpose
+Standardized mPDF configuration and print queue handling across all SaaS platforms.
+
+### When to Use
+- Implementing PDF exports (invoices, receipts, reports, certificates)
+- Setting up print queues
+- Configuring document output formatting
+- Creating PDF templates
+- Handling print-to-queue workflows
+
+### Key Concepts/Patterns
+- All PDFs use mPDF 8.1.3
+- Standard page layout: A4, 10mm margins, DejaVuSansMono font
+- Headers: Company logo + date
+- Footers: Page number + "Printed by {username}"
+- All PDF classes extend a base PDFGenerator class
+- Print queue uses synchronous processing with error logging
+
+### Implementation Details
+- Initialize mPDF before adding content
+- Embed all fonts
+- Use CMYK color mode for production printing
+- Enable compression on all PDFs
+- Log errors to /var/log/pdf-errors.log
+
+### Code Examples
+[Include your exact mPDF configuration code here]
+
+### Common Mistakes
+- Using RGB colors instead of CMYK
+- Not embedding fonts
+- Initializing mPDF after adding content
+- Missing error handling for large documents
+
+### Bundled Resources
+- scripts/pdf_generator.php: Base PDFGenerator class
+- scripts/print_handler.php: Print queue management
+- references/mpdf_config.md: Exact configuration parameters
+- references/templates.md: Standard templates
+
+### Project Context
+Building African-focused SaaS platforms with local printing standards.
+
 ### Step 5: Packaging a Skill
 
 Once development of the skill is complete, it must be packaged into a distributable .skill file that gets shared with the user. The packaging process automatically validates the skill first to ensure it meets all requirements:

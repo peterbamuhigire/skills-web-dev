@@ -281,26 +281,29 @@ Practical examples of using the skill.
 
 #### Structure Requirements
 
-✅ **One SKILL.md per skill** (required)
+✅ **One SKILL.md per skill** (required, max 500 lines)
 ✅ **Keep skills one level deep** in /skills/ directory
-✅ **Optional subdirectories:** scripts/, references/, assets/ for supporting files
+✅ **Subdirectories for details:** references/, documentation/, examples/
 ✅ **Self-contained:** No dependencies between skills
 
 **Example structure:**
 ```
 skills/skill-name/
-├── SKILL.md           # Main instructions
-├── scripts/           # Optional: Reusable code snippets
-├── references/        # Optional: Database schemas, API patterns
-└── assets/            # Optional: Images, diagrams
+├── SKILL.md             # Main patterns (under 500 lines)
+├── references/          # Database schemas, data models
+├── documentation/       # Detailed guides (feature-flags.md, monitoring.md)
+└── examples/            # Code examples, templates
 ```
 
 #### SKILL.md Essentials
 
-✅ **Frontmatter** with name and description (required)
-✅ **Description mentions when/how to use** (helps Claude remember)
-✅ **Body under 500 lines** (keeps skills focused)
-✅ **Reference supporting files** in body (so Claude knows they exist)
+✅ **500-line hard limit** (enforced strictly)
+✅ **Scannable by AI:** Clear headings, bullet points, specific commands
+✅ **Focus on core patterns** applicable to 75-90% of use cases
+✅ **Avoid generic tasks** AI already knows (basic CRUD, standard patterns)
+✅ **Move details to subdirectories** (schemas, verbose guides, examples)
+✅ **Frontmatter with name + description** (description acts as trigger)
+✅ **Reference subdirectory files** in SKILL.md (so Claude knows they exist)
 
 #### Usage with Claude Code CLI
 

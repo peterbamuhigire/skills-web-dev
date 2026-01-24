@@ -122,29 +122,51 @@ description: When to use this skill
 - Skills live at `skills/skill-name/SKILL.md`
 - Never nest skills deeper (no `skills/category/skill-name/`)
 
-✅ **Optional subdirectories** for supporting files:
+✅ **Subdirectories for detailed content:**
 ```
 skills/skill-name/
-├── SKILL.md           # Main skill (required)
-├── scripts/           # Optional: Reusable code snippets
-├── references/        # Optional: Database schemas, API patterns, procedures
-└── assets/            # Optional: Images, diagrams, examples
+├── SKILL.md             # Core patterns (max 500 lines, strictly enforced)
+├── references/          # Database schemas, data models, specifications
+├── documentation/       # Detailed guides (monitoring.md, migration.md, etc.)
+└── examples/            # Code examples, templates, implementations
 ```
 
 ✅ **Skills are self-contained**
 - No dependencies between skills
-- Each skill can be loaded independently
-- Supporting files are optional and skill-specific
+- Each skill loaded independently
+- Subdirectories contain supplementary content
 
 ### SKILL.md Essentials
 
 **Every SKILL.md must have:**
 
-✅ **Frontmatter with name and description** (required)
+✅ **500-line hard limit** (strictly enforced)
+- Core patterns and essentials only
+- Move detailed content to subdirectories
+- If explaining takes >500 lines, restructure
+
+✅ **Scannable by AI:**
+- Clear markdown headings (##, ###)
+- Bullet points for lists
+- Code blocks for examples
+- Specific, unambiguous commands
+
+✅ **Focus on broadly applicable patterns** (75-90% of use cases)
+- Not edge cases or niche scenarios
+- Common patterns most projects need
+- Transferable across projects
+
+✅ **Avoid generic tasks AI already knows:**
+- No basic CRUD explanations
+- No standard REST conventions
+- No generic programming concepts
+- No code style/linting rules
+
+✅ **Frontmatter with name + description** (required)
 ```yaml
 ---
 name: skill-name
-description: "When to use this skill and what it does"
+description: "When to use this skill and what it does (acts as trigger)"
 ---
 ```
 

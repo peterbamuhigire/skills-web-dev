@@ -81,10 +81,17 @@ skills/
 ## Best Practices
 
 **Structure:**
-- One SKILL.md per skill (max 500 lines)
+- One SKILL.md per skill (500-line hard limit, strictly enforced)
 - Keep skills one level deep in /skills/
-- Optional: scripts/, references/, assets/ subdirectories
+- Use subdirectories: references/, documentation/, examples/
+- Move detailed content to subdirectories
 - Skills are self-contained (no dependencies)
+
+**Content:**
+- Scannable by AI: clear headings, bullet points, specific commands
+- Focus on core patterns (75-90% of use cases)
+- Avoid generic tasks AI already knows
+- Move verbose content to subdirectories
 
 **Usage:**
 - Explicitly mention skills in prompts: "Using skill-name..."

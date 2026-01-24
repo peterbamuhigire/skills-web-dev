@@ -66,7 +66,14 @@ Provide consistent, battle-tested patterns and workflows that can be seamlessly 
 **Use Cases:** Building REST APIs, consistent error formatting, PDOException parsing, validation error handling, frontend error display
 **Key Features:** Standardized JSON envelopes (success/error), HTTP status code mapping, PDOException message extraction (SQLSTATE 45000, 23000, deadlocks), ApiResponse helper, ExceptionHandler with specific error parsing, custom exception classes, SweetAlert2 integration, business rule extraction, request ID tracking
 
-### 9. Report Export (PDF + Print)
+### 9. MySQL Best Practices
+
+**Domain:** Database Design & Optimization
+**Purpose:** MySQL 8.x best practices for high-performance SaaS applications
+**Use Cases:** Schema design, query optimization, multi-tenant isolation, data integrity, high-concurrency systems
+**Key Features:** UTF8MB4 + InnoDB standards, ESR composite indexing, normalization strategies, stored procedures, triggers, concurrency patterns, security (TDE, SSL, SQL injection prevention), partitioning, backup/recovery, monitoring, connection pooling, multi-tenant isolation patterns
+
+### 10. Report Export (PDF + Print)
 
 **Domain:** Reporting
 **Purpose:** Clean, consistent report exports for PDF and browser printing
@@ -108,6 +115,14 @@ skills/
 │   └── examples/
 │       ├── InvoicesEndpoint.php
 │       └── ApiClient.js
+├── mysql-best-practices/
+│   ├── SKILL.md
+│   ├── references/
+│   │   ├── stored-procedures.sql
+│   │   ├── triggers.sql
+│   │   └── partitioning.sql
+│   └── examples/
+│       └── saas-schema.sql
 ├── skills/
 │   └── skill-writing/
 │       └── SKILL.md

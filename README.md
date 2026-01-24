@@ -252,7 +252,47 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ---
 
-### 9. Report Export (PDF + Print)
+### 9. MySQL Best Practices
+
+**Focus:** MySQL 8.x best practices for high-performance SaaS
+
+**When to use:**
+
+- Designing MySQL database schemas for multi-tenant SaaS platforms
+- Optimizing slow queries and table structures
+- Implementing multi-tenant data isolation patterns
+- Building transactional financial systems
+- Ensuring data integrity with triggers and foreign keys
+- Scaling for high concurrency (Africa-wide platforms)
+- Securing databases with encryption and proper user privileges
+
+**Key capabilities:**
+
+- Character set and collation (UTF8MB4 for global support)
+- Storage engine best practices (InnoDB with ROW_FORMAT=DYNAMIC)
+- Table design: auto-increment primary keys, appropriate data type sizing
+- Normalization strategies (1NF, 2NF, 3NF) and strategic denormalization
+- Indexing strategy: ESR principle (Equality, Sort, Range) for composite indexes
+- Foreign key configuration with appropriate ON DELETE/UPDATE strategies
+- Stored procedures with transaction safety and error handling
+- Triggers for audit trails, data consistency, and prevention
+- Concurrency: transaction isolation levels, row-level locking, deadlock prevention
+- Security: user privileges, TDE/SSL encryption, SQL injection prevention, multi-tenant isolation
+- Performance optimization: query optimization, covering indexes, statistics, slow query logging
+- Partitioning strategies: HASH (tenant), RANGE (date), LIST (region)
+- Backup and recovery: binary logging, point-in-time recovery
+- Monitoring: connection pools, fragmentation, buffer pool stats
+- Complete implementation checklists
+
+**Skill location:** `mysql-best-practices/SKILL.md`
+
+**Reference files:** `references/stored-procedures.sql`, `references/triggers.sql`, `references/partitioning.sql`
+
+**Examples:** `examples/saas-schema.sql` (complete multi-tenant schema)
+
+---
+
+### 10. Report Export (PDF + Print)
 
 **Focus:** Clean, consistent report exports for PDF and browser printing
 
@@ -550,6 +590,14 @@ skills/
 │   └── examples/
 │       ├── InvoicesEndpoint.php
 │       └── ApiClient.js
+├── mysql-best-practices/         # MySQL best practices skill
+│   ├── SKILL.md
+│   ├── references/
+│   │   ├── stored-procedures.sql
+│   │   ├── triggers.sql
+│   │   └── partitioning.sql
+│   └── examples/
+│       └── saas-schema.sql
 ├── PROJECT_BRIEF.md              # Quick project overview
 ├── README.md                     # This file
 └── CLAUDE.md                     # Claude Code specific guide

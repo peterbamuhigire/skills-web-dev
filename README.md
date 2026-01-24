@@ -142,6 +142,31 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 **Skill location:** `dual-auth-rbac/SKILL.md`
 
+---
+
+### 6. Web App GUI Design
+**Focus:** Professional web app UIs using commercial templates (Tabler/Bootstrap 5)
+
+**When to use:**
+- Building CRUD interfaces, admin panels, dashboards
+- Data management UIs needing professional look
+- Need consistent component patterns fast
+- Web applications (NOT marketing sites)
+
+**Key capabilities:**
+- Tabler (Bootstrap 5.3.0) base framework
+- Mandatory SweetAlert2 for all dialogs (NO native alert/confirm)
+- DataTables with Bootstrap 5 integration
+- Modular architecture (includes/head.php, topbar.php, footer.php, foot.php)
+- Bootstrap Icons only (bi-*)
+- Flatpickr auto-applied date pickers
+- Select2 for enhanced selects
+- Clone seeder-page.php template pattern
+- Mobile-first responsive design
+- Complete utility functions (formatCurrency, formatDate, escapeHtml, debounce)
+
+**Skill location:** `webapp-gui-design/SKILL.md`
+
 ## Installation
 
 ### Option 1: Use Skills Directly
@@ -368,6 +393,8 @@ skills/
 │   ├── SKILL.md
 │   └── references/
 │       └── schema.sql
+├── webapp-gui-design/            # Web app GUI design skill
+│   └── SKILL.md
 ├── PROJECT_BRIEF.md              # Quick project overview
 ├── README.md                     # This file
 └── CLAUDE.md                     # Claude Code specific guide

@@ -38,6 +38,12 @@ Provide consistent, battle-tested patterns and workflows that can be seamlessly 
 **Use Cases:** Multi-tenant SaaS, web + API authentication, mobile apps, tenant-scoped permissions
 **Key Features:** Session + JWT auth, RBAC, Argon2ID passwords, token revocation, multi-tenant isolation, cross-platform
 
+### 6. Web App GUI Design
+**Domain:** Frontend Development (Web Applications)
+**Purpose:** Professional web app UIs using commercial templates with established component patterns
+**Use Cases:** CRUD interfaces, admin panels, dashboards, data management UIs
+**Key Features:** Tabler (Bootstrap 5), mandatory SweetAlert2, DataTables, modular architecture (includes), Flatpickr, Select2, seeder-page.php template pattern, Bootstrap Icons only
+
 ## Repository Structure
 ```
 skills/
@@ -54,6 +60,8 @@ skills/
 │   ├── SKILL.md
 │   └── references/
 │       └── schema.sql
+├── webapp-gui-design/
+│   └── SKILL.md
 ├── PROJECT_BRIEF.md
 ├── README.md
 └── CLAUDE.md

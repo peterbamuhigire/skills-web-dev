@@ -71,7 +71,9 @@ skills/
 ├── writing-plans/            # Implementation planning skill
 ├── update-claude-documentation/  # Documentation maintenance skill
 ├── dual-auth-rbac/           # Dual auth + RBAC security skill
-├── [future-skills]/          # Additional skills as added
+├── webapp-gui-design/        # Web app GUI design skill
+├── skills/
+│   └── skill-writing/        # Skill creator (meta-skill)
 ├── PROJECT_BRIEF.md          # Quick overview
 ├── README.md                 # Full documentation
 └── CLAUDE.md                 # This file

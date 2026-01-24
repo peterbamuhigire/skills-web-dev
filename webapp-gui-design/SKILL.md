@@ -5,13 +5,9 @@ description: "Professional web app UI using commercial templates (Tabler/Bootstr
 
 # Web App GUI Design
 
-## Overview
-
 Build professional web UIs using commercial templates with established component patterns.
 
 **Core Principle:** Start with templates, follow modular architecture, maintain consistency.
-
-**See references/ for:** Complete examples, utilities, component library
 
 ## When to Use
 

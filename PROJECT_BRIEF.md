@@ -44,14 +44,24 @@ Provide consistent, battle-tested patterns and workflows that can be seamlessly 
 **Use Cases:** CRUD interfaces, admin panels, dashboards, data management UIs
 **Key Features:** Tabler (Bootstrap 5), mandatory SweetAlert2, DataTables, modular architecture (includes), Flatpickr, Select2, seeder-page.php template pattern, Bootstrap Icons only
 
+### 7. Skill Creator
+**Domain:** Meta-Skill (Skill Development)
+**Purpose:** Guide for creating effective skills with progressive disclosure and proper structure
+**Use Cases:** Creating new skills, updating existing skills, understanding skill best practices
+**Key Features:** Skill creation process (understand, plan, initialize, edit, package, iterate), progressive disclosure (metadata → SKILL.md → bundled resources), resource organization (scripts/, references/, assets/), description field as trigger, no extraneous files
+
 ## Repository Structure
 ```
 skills/
 ├── frontend-design/
-│   ├── SKILL.md
-│   └── LICENSE.txt
-├── multi-tenant-saas-architecture/
 │   └── SKILL.md
+├── multi-tenant-saas-architecture/
+│   ├── SKILL.md
+│   ├── references/
+│   │   ├── database-schema.md
+│   │   └── permission-model.md
+│   └── documentation/
+│       └── migration.md
 ├── writing-plans/
 │   └── SKILL.md
 ├── update-claude-documentation/
@@ -62,6 +72,9 @@ skills/
 │       └── schema.sql
 ├── webapp-gui-design/
 │   └── SKILL.md
+├── skills/
+│   └── skill-writing/
+│       └── SKILL.md
 ├── PROJECT_BRIEF.md
 ├── README.md
 └── CLAUDE.md

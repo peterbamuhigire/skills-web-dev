@@ -15,9 +15,12 @@
 - [ ] Configure multer limits
 - [ ] Add compression middleware
 - [ ] Add validation middleware
+- [ ] Enforce min dimensions (200x200)
+- [ ] Return 413 on oversize after compression
 - [ ] Add storage service
 - [ ] Add routes
 - [ ] Add error handling + logging
+- [ ] Track compression stats (ratio, saved, time)
 
 ## Testing
 

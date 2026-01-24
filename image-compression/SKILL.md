@@ -76,10 +76,16 @@ Seamless image compression prior to upload with a hybrid approach:
 ## References (Load as Needed)
 
 - Client implementation: references/client.md
+- Client usage example: references/client-usage.md
 - Server middleware + routes: references/server.md
 - Storage adapters (S3/local): references/storage.md
 - Security checks: references/security.md
 - Monitoring & analytics: references/monitoring.md
+- Performance targets: references/performance.md
+- Quality examples: references/quality-metrics.md
+- Environment variables: references/env.md
+- Docker (Sharp): references/docker.md
+- Implementation checklist: references/implementation-checklist.md
 
 ## Output Expectations
 

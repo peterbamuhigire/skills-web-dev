@@ -3,6 +3,7 @@
 A curated collection of specialized skills for Claude Code that bring expert-level knowledge and patterns to your development workflow. Use these skills to maintain consistency across projects, accelerate development, and ensure best practices.
 
 ## Table of Contents
+
 - [Overview](#overview)
 - [Available Skills](#available-skills)
 - [Installation](#installation)
@@ -34,15 +35,18 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 ## Available Skills
 
 ### 1. Frontend Design
+
 **Focus:** Creating distinctive, production-grade user interfaces
 
 **When to use:**
+
 - Building web components, pages, or applications
 - Creating landing pages or dashboards
 - Designing React/Vue/HTML components
 - Styling and beautifying web UIs
 
 **Key capabilities:**
+
 - Bold aesthetic direction and creative design
 - Advanced typography and color theory
 - CSS animations and micro-interactions
@@ -54,9 +58,11 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 ---
 
 ### 2. Multi-Tenant SaaS Architecture
+
 **Focus:** Production-grade multi-tenant platform patterns
 
 **When to use:**
+
 - Designing multi-tenant SaaS platforms
 - Implementing authentication and authorization
 - Ensuring strict tenant isolation
@@ -64,6 +70,7 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 - Implementing audit trails and compliance features
 
 **Key capabilities:**
+
 - Zero-trust security architecture
 - Three-panel separation (Tenant App, Admin Panel, Customer Portal)
 - Comprehensive permission models
@@ -77,15 +84,18 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 ---
 
 ### 3. Writing Plans
+
 **Focus:** Comprehensive implementation planning
 
 **When to use:**
+
 - Before starting multi-step feature implementation
 - Planning complex technical tasks
 - Creating test-driven development workflows
 - Documenting implementation strategy
 
 **Key capabilities:**
+
 - Bite-sized task breakdown (2-5 minute steps)
 - TDD workflow (test, verify fail, implement, verify pass, commit)
 - Exact file paths and commands
@@ -98,9 +108,11 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 ---
 
 ### 4. Update Claude Documentation
+
 **Focus:** Efficiently update project documentation files
 
 **When to use:**
+
 - Adding new features or removing existing ones
 - Changing project architecture or design patterns
 - Updating dependencies or tech stack
@@ -109,6 +121,7 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 - Changing development workflows
 
 **Key capabilities:**
+
 - Systematic documentation update workflow
 - Documentation dependency mapping
 - Cross-reference verification
@@ -121,9 +134,11 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 ---
 
 ### 5. Dual Auth RBAC
+
 **Focus:** Dual authentication (Session + JWT) with role-based access control
 
 **When to use:**
+
 - Building multi-tenant SaaS with web + API access
 - Implementing authentication for web UI + mobile apps
 - Need role-based permissions with tenant isolation
@@ -131,6 +146,7 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 - Support multiple device sessions per user
 
 **Key capabilities:**
+
 - Session-based auth for web UI (stateful)
 - JWT-based auth for API/mobile (stateless)
 - RBAC with franchise/tenant-scoped permissions
@@ -145,15 +161,18 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 ---
 
 ### 6. Web App GUI Design
+
 **Focus:** Professional web app UIs using commercial templates (Tabler/Bootstrap 5)
 
 **When to use:**
+
 - Building CRUD interfaces, admin panels, dashboards
 - Data management UIs needing professional look
 - Need consistent component patterns fast
 - Web applications (NOT marketing sites)
 
 **Key capabilities:**
+
 - Tabler (Bootstrap 5.3.0) base framework
 - Mandatory SweetAlert2 for all dialogs (NO native alert/confirm)
 - DataTables with Bootstrap 5 integration
@@ -170,15 +189,18 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 ---
 
 ### 7. Skill Creator
+
 **Focus:** Creating effective skills that extend Claude's capabilities
 
 **When to use:**
+
 - Creating a new skill from scratch
 - Updating existing skills to follow best practices
 - Understanding skill structure and design patterns
 - Learning progressive disclosure and resource organization
 
 **Key capabilities:**
+
 - Skill creation process (understand, plan, initialize, edit, package, iterate)
 - Progressive disclosure design (metadata → SKILL.md → bundled resources)
 - Resource organization (scripts/, references/, assets/)
@@ -190,9 +212,34 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 **Note:** This is the authoritative guide for creating new skills. Consult this skill before adding new skills to the repository.
 
+---
+
+### 8. Report Export (PDF + Print)
+
+**Focus:** Clean, consistent report exports for PDF and browser printing
+
+**When to use:**
+
+- Generating PDF reports using mPDF
+- Printing HTML reports from the browser print dialog
+- Standardizing header/footer and typography across reports
+- Ensuring repeating table headers across pages
+- Enforcing date/number formatting rules
+
+**Key capabilities:**
+
+- Shared HTML layout for PDF and print
+- Compact header with logo/org details/report title
+- Pagination-friendly tables (repeating thead)
+- Footer with printed-by/printed-on metadata
+- DejaVu Sans for small-font clarity
+
+**Skill location:** `pdf-export/SKILL.md`
+
 ## Installation
 
 ### Option 1: Use Skills Directly
+
 Skills can be referenced in your Claude Code session using the skill invocation syntax.
 
 ```bash
@@ -201,6 +248,7 @@ Skills can be referenced in your Claude Code session using the skill invocation 
 ```
 
 ### Option 2: Clone Repository
+
 Clone this repository to a central location and reference skills as needed:
 
 ```bash
@@ -209,6 +257,7 @@ cd ~/claude-skills
 ```
 
 ### Option 3: Symlink to Projects
+
 Create symlinks in your projects to access skills:
 
 ```bash
@@ -232,6 +281,7 @@ Claude will load the skill instructions and apply that expertise to your task.
 ### Skill Invocation Examples
 
 **Creating a distinctive landing page:**
+
 ```
 User: "Create a landing page for a fintech startup"
 Claude: [Loads frontend-design skill]
@@ -239,6 +289,7 @@ Claude: [Loads frontend-design skill]
 ```
 
 **Implementing multi-tenant permissions:**
+
 ```
 User: "Help me design the permission model for our SaaS platform"
 Claude: [Loads multi-tenant-saas-architecture skill]
@@ -246,6 +297,7 @@ Claude: [Loads multi-tenant-saas-architecture skill]
 ```
 
 **Planning a complex feature:**
+
 ```
 User: "I need to implement user authentication with OAuth"
 Claude: [Loads writing-plans skill]
@@ -279,6 +331,7 @@ skill-name/
 ```
 
 **Key principles from Skill Creator:**
+
 - Description field acts as triggering mechanism (include all "when to use" info)
 - Progressive disclosure: metadata → SKILL.md → bundled resources
 - Assume Claude is already smart (only add context Claude doesn't have)
@@ -321,6 +374,7 @@ Practical examples of using the skill.
 ✅ **Self-contained:** No dependencies between skills
 
 **Example structure:**
+
 ```
 skills/skill-name/
 ├── SKILL.md             # Main patterns (under 500 lines)

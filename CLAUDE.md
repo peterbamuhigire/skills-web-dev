@@ -52,6 +52,7 @@ When users invoke a skill, Claude should:
 ```
 
 Example:
+
 ```
 User: "Use the frontend-design skill to create a landing page"
 
@@ -72,6 +73,7 @@ skills/
 ├── update-claude-documentation/  # Documentation maintenance skill
 ├── dual-auth-rbac/           # Dual auth + RBAC security skill
 ├── webapp-gui-design/        # Web app GUI design skill
+├── pdf-export/               # Report export via PDF + print
 ├── skills/
 │   └── skill-writing/        # Skill creator (meta-skill)
 ├── PROJECT_BRIEF.md          # Quick overview
@@ -117,14 +119,17 @@ description: When to use this skill
 **CRITICAL:** Always follow these structure rules:
 
 ✅ **One SKILL.md per skill** (required)
+
 - Each skill is a single SKILL.md file
 - No splitting across multiple files
 
 ✅ **Keep skills one level deep** in /skills/ directory
+
 - Skills live at `skills/skill-name/SKILL.md`
 - Never nest skills deeper (no `skills/category/skill-name/`)
 
 ✅ **Subdirectories for detailed content:**
+
 ```
 skills/skill-name/
 ├── SKILL.md             # Core patterns (max 500 lines, strictly enforced)
@@ -134,6 +139,7 @@ skills/skill-name/
 ```
 
 ✅ **Skills are self-contained**
+
 - No dependencies between skills
 - Each skill loaded independently
 - Subdirectories contain supplementary content
@@ -143,28 +149,33 @@ skills/skill-name/
 **Every SKILL.md must have:**
 
 ✅ **500-line hard limit** (strictly enforced)
+
 - Core patterns and essentials only
 - Move detailed content to subdirectories
 - If explaining takes >500 lines, restructure
 
 ✅ **Scannable by AI:**
+
 - Clear markdown headings (##, ###)
 - Bullet points for lists
 - Code blocks for examples
 - Specific, unambiguous commands
 
 ✅ **Focus on broadly applicable patterns** (75-90% of use cases)
+
 - Not edge cases or niche scenarios
 - Common patterns most projects need
 - Transferable across projects
 
 ✅ **Avoid generic tasks AI already knows:**
+
 - No basic CRUD explanations
 - No standard REST conventions
 - No generic programming concepts
 - No code style/linting rules
 
 ✅ **Frontmatter with name + description** (required)
+
 ```yaml
 ---
 name: skill-name
@@ -173,14 +184,17 @@ description: "When to use this skill and what it does (acts as trigger)"
 ```
 
 ✅ **Description mentions when/how to use**
+
 - Helps Claude remember when to apply the skill
 - Clear triggers: "Use when adding features..." or "Use for multi-tenant..."
 
 ✅ **Body under 500 lines** (hard limit)
+
 - Forces focus and clarity
 - If longer, split into multiple skills or move details to references/
 
 ✅ **Reference supporting files in body**
+
 - If scripts/ exists, mention in skill: "See scripts/deploy.sh for..."
 - If references/ exists, mention: "Database schema in references/schema.sql"
 - This tells Claude the files exist and are relevant
@@ -190,20 +204,24 @@ description: "When to use this skill and what it does (acts as trigger)"
 **How skills are loaded:**
 
 ✅ **Only explicitly mentioned skills get loaded**
+
 - User must mention skill in prompt: "Using frontend-design, create..."
 - This saves tokens and costs
 - Don't auto-load all skills
 
 ✅ **Multiple skills can be combined**
+
 - "Using skills/skill-1 and skill-2..."
 - "Using frontend-design and multi-tenant-saas-architecture..."
 - Load only what's needed for the task
 
 ✅ **Document skill usage in CLAUDE.md**
+
 - Each project's CLAUDE.md should list which skills to use when
 - Example: "For multi-tenant features, use multi-tenant-saas-architecture skill"
 
 ❌ **Don't load all skills globally**
+
 - Wastes tokens (expensive)
 - Adds irrelevant context
 - Confuses Claude with unrelated patterns
@@ -213,23 +231,27 @@ description: "When to use this skill and what it does (acts as trigger)"
 **Create skills for:**
 
 ✅ **Repeatable patterns across multiple projects**
+
 - PDF printing standards used in 5 apps
 - Multi-tenant isolation patterns
 - Deployment procedures
 
 ✅ **Company/domain-specific knowledge**
+
 - African market payment requirements
 - Healthcare compliance patterns (HIPAA, local regulations)
 - Legal document formatting standards
 - Education system-specific workflows
 
 ✅ **Complex workflows to remember**
+
 - Complete deployment procedures
 - Testing patterns with specific tools
 - Migration strategies
 - Security audit checklists
 
 ✅ **Code you find yourself re-explaining**
+
 - Specific mPDF configurations
 - Exact tenant isolation strategies
 - API authentication patterns
@@ -240,21 +262,25 @@ description: "When to use this skill and what it does (acts as trigger)"
 **Don't create skills for:**
 
 ❌ **Generic programming help**
+
 - Claude Code handles this natively
 - "How to write a for loop" - not a skill
 - "REST API basics" - Claude knows this
 
 ❌ **One-off features or experimental ideas**
+
 - Features used in only one project
 - Experiments that might not work out
 - Temporary workarounds
 
 ❌ **Frequently changing code** (too volatile)
+
 - Code that changes weekly
 - Experimental APIs
 - Unstable third-party integrations
 
 ❌ **Code style/linting rules**
+
 - Use ESLint, Prettier, PHPStan instead
 - Linters enforce better than docs
 - Skills should be about patterns, not syntax
@@ -262,6 +288,7 @@ description: "When to use this skill and what it does (acts as trigger)"
 ### Common Mistakes to Avoid
 
 ❌ **Don't load all skills globally**
+
 ```
 # BAD: Loading all skills always
 "When coding, always use all skills in /skills/"
@@ -271,6 +298,7 @@ description: "When to use this skill and what it does (acts as trigger)"
 ```
 
 ❌ **Don't stuff CLAUDE.md with unrelated instructions**
+
 ```
 # BAD: CLAUDE.md with everything
 CLAUDE.md: 5000 lines covering every possible scenario
@@ -280,6 +308,7 @@ CLAUDE.md: "For multi-tenant features, use multi-tenant-saas-architecture skill"
 ```
 
 ❌ **Don't create skills for generic tasks**
+
 ```
 # BAD: Generic skill
 skills/how-to-write-functions/SKILL.md
@@ -289,6 +318,7 @@ skills/maduuka-erp-patterns/SKILL.md (with actual business rules)
 ```
 
 ❌ **Don't nest skills more than one level deep**
+
 ```
 # BAD: Nested skills
 skills/backend/api/rest/SKILL.md
@@ -302,6 +332,7 @@ skills/api-patterns/SKILL.md
 **For cross-project standards:**
 
 1. Create shared skills repo
+
 ```bash
 skills-repo/
 ├── pdf-printing-standards/
@@ -309,13 +340,15 @@ skills-repo/
 └── african-market-payments/
 ```
 
-2. Use git submodule in each app
+1. Use git submodule in each app
+
 ```bash
 cd my-app
 git submodule add <skills-repo-url> skills
 ```
 
-3. Reference in project's CLAUDE.md
+1. Reference in project's CLAUDE.md
+
 ```markdown
 ## Available Skills
 
@@ -326,6 +359,7 @@ git submodule add <skills-repo-url> skills
 **For system-specific skills:**
 
 1. Create skill per major system
+
 ```
 skills/
 ├── maduuka-erp/          # ERP-specific patterns
@@ -334,7 +368,8 @@ skills/
 └── brightsoma/           # Education patterns
 ```
 
-2. Include actual data in references/
+1. Include actual data in references/
+
 ```
 skills/maduuka-erp/
 ├── SKILL.md
@@ -355,6 +390,7 @@ skills/maduuka-erp/
 - Explicit loading = only pay for what you use
 
 **Example:**
+
 ```
 # Expensive: Load all skills
 Total tokens: 50,000 (10 skills × 5,000 tokens each)
@@ -381,19 +417,24 @@ Every skill should be:
 Skills are organized by domain:
 
 ### Design Skills
+
 - **frontend-design:** UI/UX, visual design, animations
 
 ### Architecture Skills
+
 - **multi-tenant-saas-architecture:** Backend patterns, security, isolation
 
 ### Security Skills
+
 - **dual-auth-rbac:** Dual authentication (Session + JWT), RBAC, multi-tenant isolation
 
 ### Process Skills
+
 - **writing-plans:** Implementation planning, TDD workflows
 - **update-claude-documentation:** Documentation maintenance, consistency checking
 
 ### Future Categories
+
 - Testing, DevOps, API Design, Database Design, Performance
 
 ## Common Workflows
@@ -438,7 +479,7 @@ Claude:
 
 ## Best Practices for Claude
 
-### DO:
+### DO
 
 ✅ **Read skills completely** before applying them
 ✅ **Follow skill guidelines precisely** - they encode best practices
@@ -448,7 +489,7 @@ Claude:
 ✅ **Provide clear examples** in skills
 ✅ **Reference skills explicitly** when using them ("Using frontend-design skill...")
 
-### DON'T:
+### DON'T
 
 ❌ **Don't partially apply skills** - use the full guidance
 ❌ **Don't modify skills without updating docs**
@@ -475,6 +516,7 @@ Every skill should:
 ### With Other Projects
 
 Skills from this repository are used in:
+
 - Individual development projects
 - Client work
 - SaaS platforms
@@ -644,6 +686,7 @@ Would you like me to:
 ### Regular Reviews
 
 Periodically review skills for:
+
 - Outdated patterns or technologies
 - Improved best practices
 - User feedback
@@ -667,6 +710,7 @@ Created → Tested → Released → Maintained → Enhanced/Deprecated
 ### When Users Fork This Repo
 
 Users may fork to customize skills for their needs. Claude should:
+
 1. Respect their customizations
 2. Suggest merging improvements back upstream
 3. Maintain compatibility with standard skills
@@ -674,6 +718,7 @@ Users may fork to customize skills for their needs. Claude should:
 ### Cross-Platform Considerations
 
 Skills should work across:
+
 - Different operating systems (Windows, macOS, Linux)
 - Different tech stacks (JS, Python, PHP, Go, etc.)
 - Different project scales (startup to enterprise)

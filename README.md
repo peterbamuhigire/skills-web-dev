@@ -167,6 +167,29 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 **Skill location:** `webapp-gui-design/SKILL.md`
 
+---
+
+### 7. Skill Creator
+**Focus:** Creating effective skills that extend Claude's capabilities
+
+**When to use:**
+- Creating a new skill from scratch
+- Updating existing skills to follow best practices
+- Understanding skill structure and design patterns
+- Learning progressive disclosure and resource organization
+
+**Key capabilities:**
+- Skill creation process (understand, plan, initialize, edit, package, iterate)
+- Progressive disclosure design (metadata → SKILL.md → bundled resources)
+- Resource organization (scripts/, references/, assets/)
+- Description field as triggering mechanism
+- Best practices for concise, effective skills
+- Validation and packaging workflows
+
+**Skill location:** `skills/skill-writing/SKILL.md`
+
+**Note:** This is the authoritative guide for creating new skills. Consult this skill before adding new skills to the repository.
+
 ## Installation
 
 ### Option 1: Use Skills Directly
@@ -243,14 +266,25 @@ Skills can work together for comprehensive solutions:
 
 ### Creating a New Skill
 
+**IMPORTANT:** Before creating a new skill, consult the **Skill Creator** skill (`skills/skill-writing/SKILL.md`) for comprehensive guidance on skill creation best practices, structure, and workflow.
+
 Each skill follows a standard structure:
 
 ```
 skill-name/
-├── SKILL.md          # Main skill instructions
-├── LICENSE.txt       # License (if applicable)
-└── README.md         # Skill-specific documentation (optional)
+├── SKILL.md             # Main skill instructions (max 500 lines)
+├── scripts/             # Optional: Executable code for deterministic tasks
+├── references/          # Optional: Documentation loaded as needed
+└── assets/              # Optional: Files used in output (templates, images)
 ```
+
+**Key principles from Skill Creator:**
+- Description field acts as triggering mechanism (include all "when to use" info)
+- Progressive disclosure: metadata → SKILL.md → bundled resources
+- Assume Claude is already smart (only add context Claude doesn't have)
+- No extraneous documentation (no README.md, CHANGELOG.md, etc.)
+- Keep SKILL.md under 500 lines
+- Use imperative/infinitive form
 
 ### Skill File Format
 
@@ -345,12 +379,25 @@ skills/skill-name/
 
 ### Adding Your Skill
 
-1. Create a new directory: `your-skill-name/`
-2. Write `SKILL.md` following the format above
-3. Add any supporting files (scripts/, references/, assets/)
-4. Update this README with skill information
-5. Update PROJECT_BRIEF.md and CLAUDE.md
-6. Commit and push
+**Recommended workflow** (from Skill Creator):
+
+1. **Understand**: Gather concrete examples of how the skill will be used
+2. **Plan**: Identify reusable contents (scripts, references, assets)
+3. **Initialize**: Run `scripts/init_skill.py <skill-name>` (if available)
+4. **Implement**: Create bundled resources and write SKILL.md
+5. **Package**: Run `scripts/package_skill.py <path/to/skill>` (if available)
+6. **Document**: Update README.md, PROJECT_BRIEF.md, and CLAUDE.md
+7. **Commit**: Git commit and push
+
+**Manual workflow** (if scripts unavailable):
+
+1. Create directory: `your-skill-name/`
+2. Write `SKILL.md` with frontmatter (name, description) and body (<500 lines)
+3. Add bundled resources: scripts/, references/, assets/ (as needed)
+4. Update README.md, PROJECT_BRIEF.md, CLAUDE.md
+5. Commit and push
+
+**See `skills/skill-writing/SKILL.md` for complete guidance.**
 
 ## Contributing
 
@@ -398,6 +445,9 @@ skills/
 │       └── schema.sql
 ├── webapp-gui-design/            # Web app GUI design skill
 │   └── SKILL.md
+├── skills/
+│   └── skill-writing/            # Skill creator (meta-skill)
+│       └── SKILL.md
 ├── PROJECT_BRIEF.md              # Quick project overview
 ├── README.md                     # This file
 └── CLAUDE.md                     # Claude Code specific guide

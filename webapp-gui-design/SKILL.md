@@ -1,6 +1,6 @@
 ---
 name: webapp-gui-design
-description: "Professional web app UI using commercial templates (Tabler/Bootstrap 5). Use for CRUD interfaces, dashboards, admin panels with SweetAlert2, DataTables, Flatpickr. Clone seeder-page.php, use modular includes, follow established patterns."
+description: "Professional web app UI using commercial templates (Tabler/Bootstrap 5) with strong frontend design direction when needed. Use for CRUD interfaces, dashboards, admin panels with SweetAlert2, DataTables, Flatpickr. Clone seeder-page.php, use modular includes, follow established patterns."
 ---
 
 # Web App GUI Design
@@ -15,7 +15,9 @@ Build professional web UIs using commercial templates with established component
 ✅ Data management UIs
 ✅ Need professional look fast
 
-❌ Marketing sites (use frontend-design)
+✅ When asked for polished frontend aesthetics inside a web app
+
+❌ Marketing sites (not covered by this skill)
 ❌ Mobile-native apps
 
 ## Stack
@@ -36,6 +38,11 @@ includes/footer.php  → Footer
 includes/foot.php    → JS
 seeder-page.php      → Template (ALWAYS clone)
 ```
+
+**JavaScript separation:**
+- Keep pages clean—no inline JS blocks in the HTML.
+- All global JS lives in `includes/foot.php`.
+- Page-specific JS must be in its own file (one file per page) and included by that page.
 
 ## Page Template
 
@@ -79,7 +86,7 @@ if (!isLoggedIn()) { header('Location: ./sign-in.php'); exit(); }
         </div>
     </div>
     <?php include("./includes/foot.php"); ?>
-    <script>$(document).ready(function() { });</script>
+    <script src="./assets/js/pages/your-page.js"></script>
 </body>
 </html>
 ```
@@ -383,6 +390,33 @@ flatpickr('#range', {mode: 'range', dateFormat: 'Y-m-d'});
 ❌ Create from scratch
 ❌ Inline handlers
 ❌ Skip auth checks
+
+## Frontend Design Direction (When Asked for Bespoke Aesthetics)
+
+Use this only when the user asks for custom aesthetic direction beyond the standard Tabler look.
+
+### Design Thinking
+
+Before coding, understand the context and commit to a bold aesthetic direction:
+- **Purpose:** What problem does this interface solve? Who uses it?
+- **Tone:** Pick an extreme: brutally minimal, maximalist chaos, retro-futuristic, organic/natural, luxury/refined, playful/toy-like, editorial/magazine, brutalist/raw, art deco/geometric, soft/pastel, industrial/utilitarian, etc.
+- **Constraints:** Technical requirements (framework, performance, accessibility).
+- **Differentiation:** What makes this unforgettable? What’s the one thing someone will remember?
+
+**Critical:** Choose a clear conceptual direction and execute it with precision. Intentionality matters more than intensity.
+
+### Aesthetics Guidelines
+
+Focus on:
+- **Typography:** Choose distinctive fonts. Avoid generic choices like Arial/Inter. Pair a characterful display font with a refined body font.
+- **Color & Theme:** Commit to a cohesive aesthetic. Use CSS variables. Dominant colors with sharp accents outperform timid palettes.
+- **Motion:** Use animations for high-impact moments (staggered reveals, hover states). CSS-first for static HTML; use Motion libraries in React when available.
+- **Spatial Composition:** Unexpected layouts, asymmetry, overlap, generous negative space or controlled density.
+- **Backgrounds & Visual Details:** Add atmosphere with gradient meshes, noise textures, patterns, layered transparencies, dramatic shadows, decorative borders, and grain overlays.
+
+**Avoid:** Generic AI aesthetics—overused fonts, cliché palettes, predictable layouts, and cookie-cutter components.
+
+**Implementation Fit:** Match complexity to the aesthetic vision. Maximalist = elaborate code. Minimalist = restraint and precision.
 
 ## Common Mistakes
 

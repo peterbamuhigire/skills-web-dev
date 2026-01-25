@@ -54,11 +54,11 @@ When users invoke a skill, Claude should:
 Example:
 
 ```
-User: "Use the frontend-design skill to create a landing page"
+User: "Use the webapp-gui-design skill to create a dashboard UI"
 
-Claude: "I'm using the frontend-design skill to create a distinctive landing page.
+Claude: "I'm using the webapp-gui-design skill to create a polished dashboard UI.
 
-[Applies bold aesthetic choices, creative typography, advanced animations per skill guidelines]
+[Applies established template patterns and optional bespoke aesthetics per skill guidelines]
 ```
 
 ## Repository Structure Recognition
@@ -67,7 +67,6 @@ Claude should recognize these directories and their purposes:
 
 ```
 skills/
-├── frontend-design/           # UI/UX skill
 ├── multi-tenant-saas-architecture/  # SaaS backend skill
 ├── writing-plans/            # Implementation planning skill
 ├── update-claude-documentation/  # Documentation maintenance skill
@@ -207,14 +206,14 @@ description: "When to use this skill and what it does (acts as trigger)"
 
 ✅ **Only explicitly mentioned skills get loaded**
 
-- User must mention skill in prompt: "Using frontend-design, create..."
+- User must mention skill in prompt: "Using webapp-gui-design, create..."
 - This saves tokens and costs
 - Don't auto-load all skills
 
 ✅ **Multiple skills can be combined**
 
 - "Using skills/skill-1 and skill-2..."
-- "Using frontend-design and multi-tenant-saas-architecture..."
+- "Using webapp-gui-design and multi-tenant-saas-architecture..."
 - Load only what's needed for the task
 
 ✅ **Document skill usage in CLAUDE.md**
@@ -420,7 +419,7 @@ Skills are organized by domain:
 
 ### Design Skills
 
-- **frontend-design:** UI/UX, visual design, animations
+- **webapp-gui-design:** Web app UI patterns, optional bespoke aesthetics
 
 ### Architecture Skills
 
@@ -470,7 +469,7 @@ Claude:
 ### Workflow 3: Cross-Project Usage
 
 ```
-User in Project A: "Use the frontend-design skill"
+User in Project A: "Use the webapp-gui-design skill"
 
 Claude:
 1. Confirm skill location (this repo or local copy)
@@ -489,7 +488,7 @@ Claude:
 ✅ **Update documentation** when adding/modifying skills
 ✅ **Maintain consistency** across all skills in format and quality
 ✅ **Provide clear examples** in skills
-✅ **Reference skills explicitly** when using them ("Using frontend-design skill...")
+✅ **Reference skills explicitly** when using them ("Using webapp-gui-design skill...")
 
 ### DON'T
 
@@ -534,7 +533,7 @@ writing-plans → Creates implementation strategy
       ↓
 multi-tenant-saas-architecture → Provides backend patterns
       ↓
-frontend-design → Delivers UI components
+webapp-gui-design → Delivers UI components
       ↓
 [testing-skill] → Validates implementation
 ```

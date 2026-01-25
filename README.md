@@ -34,30 +34,7 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ## Available Skills
 
-### 1. Frontend Design
-
-**Focus:** Creating distinctive, production-grade user interfaces
-
-**When to use:**
-
-- Building web components, pages, or applications
-- Creating landing pages or dashboards
-- Designing React/Vue/HTML components
-- Styling and beautifying web UIs
-
-**Key capabilities:**
-
-- Bold aesthetic direction and creative design
-- Advanced typography and color theory
-- CSS animations and micro-interactions
-- Avoids generic "AI slop" aesthetics
-- Context-specific visual design
-
-**Skill location:** `frontend-design/SKILL.md`
-
----
-
-### 2. Multi-Tenant SaaS Architecture
+### 1. Multi-Tenant SaaS Architecture
 
 **Focus:** Production-grade multi-tenant platform patterns
 
@@ -83,7 +60,7 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ---
 
-### 3. Writing Plans
+### 2. Writing Plans
 
 **Focus:** Comprehensive implementation planning
 
@@ -107,7 +84,7 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ---
 
-### 4. Update Claude Documentation
+### 3. Update Claude Documentation
 
 **Focus:** Efficiently update project documentation files
 
@@ -133,7 +110,7 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ---
 
-### 5. Dual Auth RBAC
+### 4. Dual Auth RBAC
 
 **Focus:** Dual authentication (Session + JWT) with role-based access control
 
@@ -160,9 +137,9 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ---
 
-### 6. Web App GUI Design
+### 5. Web App GUI Design
 
-**Focus:** Professional web app UIs using commercial templates (Tabler/Bootstrap 5)
+**Focus:** Professional web app UIs using commercial templates (with optional bespoke aesthetics)
 
 **When to use:**
 
@@ -188,7 +165,7 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ---
 
-### 7. Skill Creator
+### 6. Skill Creator
 
 **Focus:** Creating effective skills that extend Claude's capabilities
 
@@ -214,7 +191,7 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ---
 
-### 8. API Error Handling
+### 7. API Error Handling
 
 **Focus:** Comprehensive error response system for PHP REST APIs
 
@@ -252,7 +229,7 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ---
 
-### 9. MySQL Best Practices
+### 8. MySQL Best Practices
 
 **Focus:** MySQL 8.x best practices for high-performance SaaS
 
@@ -292,7 +269,7 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ---
 
-### 10. Report Export (PDF + Print)
+### 9. Report Export (PDF + Print)
 
 **Focus:** Clean, consistent report exports for PDF and browser printing
 
@@ -322,7 +299,7 @@ Skills can be referenced in your Claude Code session using the skill invocation 
 
 ```bash
 # In your Claude Code session
-/skill path/to/skills/frontend-design
+/skill path/to/skills/webapp-gui-design
 ```
 
 ### Option 2: Clone Repository
@@ -340,7 +317,7 @@ Create symlinks in your projects to access skills:
 
 ```bash
 # In your project directory
-ln -s ~/claude-skills/frontend-design ./skills/frontend-design
+ln -s ~/claude-skills/webapp-gui-design ./skills/webapp-gui-design
 ```
 
 ## Usage
@@ -350,8 +327,8 @@ ln -s ~/claude-skills/frontend-design ./skills/frontend-design
 When working on a task that aligns with a specific skill, invoke it:
 
 ```bash
-# Example: Using frontend design skill
-/skill frontend-design
+# Example: Using web app GUI design skill
+/skill webapp-gui-design
 ```
 
 Claude will load the skill instructions and apply that expertise to your task.
@@ -361,9 +338,9 @@ Claude will load the skill instructions and apply that expertise to your task.
 **Creating a distinctive landing page:**
 
 ```
-User: "Create a landing page for a fintech startup"
-Claude: [Loads frontend-design skill]
-[Applies bold aesthetic choices, advanced animations, creative typography]
+User: "Create a dashboard UI for a fintech startup with a bold aesthetic"
+Claude: [Loads webapp-gui-design skill]
+[Applies optional frontend design direction within the web app]
 ```
 
 **Implementing multi-tenant permissions:**
@@ -389,7 +366,7 @@ Skills can work together for comprehensive solutions:
 ```
 1. Use writing-plans to create implementation strategy
 2. Use multi-tenant-saas-architecture for backend patterns
-3. Use frontend-design for UI components
+3. Use webapp-gui-design for UI components
 ```
 
 ## Skill Development
@@ -473,7 +450,7 @@ skills/skill-name/
 
 #### Usage with Claude Code CLI
 
-✅ **Explicitly mention in prompt:** "Using frontend-design, create..."
+✅ **Explicitly mention in prompt:** "Using webapp-gui-design, create..."
 ✅ **Only mentioned skills get loaded** (saves tokens/credits)
 ✅ **Multiple skills work:** "Using skills/skill-1 and skill-2..."
 ✅ **Document in CLAUDE.md** which skill to use for what task
@@ -562,9 +539,6 @@ We welcome contributions! To add or improve skills:
 
 ```
 skills/
-├── frontend-design/              # UI/UX design skill
-│   ├── SKILL.md
-│   └── LICENSE.txt
 ├── multi-tenant-saas-architecture/  # SaaS architecture skill
 │   └── SKILL.md
 ├── writing-plans/                # Implementation planning skill
@@ -620,7 +594,7 @@ skills/
 
 - **v1.0.0** (January 2026)
   - Initial release
-  - Frontend Design skill
+  - Web App GUI Design skill
   - Multi-Tenant SaaS Architecture skill
   - Writing Plans skill
 

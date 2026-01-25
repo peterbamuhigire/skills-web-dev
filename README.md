@@ -309,6 +309,7 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 - 8-to-80 usability philosophy
 - 3-level visual hierarchy and large touch targets
 - Progressive disclosure for multi-step flows
+- Attention-grabber focus cues at key milestones (invoice, product search, payment)
 - API-first interaction rules
 - Invoice/receipt output standards and templates
 

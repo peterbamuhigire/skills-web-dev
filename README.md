@@ -291,6 +291,29 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 **Skill location:** `pdf-export/SKILL.md`
 
+---
+
+### 10. POS & Sales Entry UI Design
+
+**Focus:** POS, checkout, and sales entry UI patterns for web apps
+
+**When to use:**
+
+- Designing POS or sales entry screens
+- Defining component patterns and layouts for sales workflows
+- Creating invoice/receipt UI and print standards (80mm, A4)
+- Enforcing API-first UI interactions
+
+**Key capabilities:**
+
+- 8-to-80 usability philosophy
+- 3-level visual hierarchy and large touch targets
+- Progressive disclosure for multi-step flows
+- API-first interaction rules
+- Invoice/receipt output standards and templates
+
+**Skill location:** `pos-sales-ui-design/SKILL.md`
+
 ## Installation
 
 ### Option 1: Use Skills Directly
@@ -551,6 +574,12 @@ skills/
 │       └── schema.sql
 ├── webapp-gui-design/            # Web app GUI design skill
 │   └── SKILL.md
+├── pdf-export/                   # Report export via PDF + print
+│   └── SKILL.md
+├── pos-sales-ui-design/          # POS & sales entry UI design
+│   ├── SKILL.md
+│   └── references/
+│       └── universal-sales-ui-design.md
 ├── skills/
 │   └── skill-writing/            # Skill creator (meta-skill)
 │       └── SKILL.md

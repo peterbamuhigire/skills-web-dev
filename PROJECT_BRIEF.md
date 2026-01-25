@@ -73,6 +73,13 @@ Provide consistent, battle-tested patterns and workflows that can be seamlessly 
 **Use Cases:** Financial PDFs, inventory reports, audit exports, browser printouts
 **Key Features:** Shared HTML template for PDF/print, compact header/footer, repeating table headers, DejaVu Sans typography, strict date/number formatting
 
+### 10. POS & Sales Entry UI Design
+
+**Domain:** Frontend UX for Sales Systems
+**Purpose:** POS, checkout, and sales entry UI patterns with API-first workflows and print-ready invoice/receipt standards
+**Use Cases:** POS terminals, sales encoding, invoice/receipt screen design, 80mm/A4 print layouts
+**Key Features:** 8-to-80 usability, 3-level hierarchy, large touch targets, progressive disclosure, API-first UI actions, invoice/receipt output standards
+
 ## Repository Structure
 
 ```
@@ -96,6 +103,10 @@ skills/
 │   └── SKILL.md
 ├── pdf-export/
 │   └── SKILL.md
+├── pos-sales-ui-design/
+│   ├── SKILL.md
+│   └── references/
+│       └── universal-sales-ui-design.md
 ├── api-error-handling/
 │   ├── SKILL.md
 │   ├── references/

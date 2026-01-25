@@ -72,6 +72,7 @@ skills/
 ├── update-claude-documentation/  # Documentation maintenance skill
 ├── dual-auth-rbac/           # Dual auth + RBAC security skill
 ├── webapp-gui-design/        # Web app GUI design skill
+├── pos-sales-ui-design/      # POS & sales entry UI design
 ├── pdf-export/               # Report export via PDF + print
 ├── api-error-handling/       # API error handling with SweetAlert2
 ├── mysql-best-practices/     # MySQL 8.x best practices for SaaS
@@ -420,6 +421,7 @@ Skills are organized by domain:
 ### Design Skills
 
 - **webapp-gui-design:** Web app UI patterns, optional bespoke aesthetics
+- **pos-sales-ui-design:** POS and sales entry UI patterns, invoice/receipt standards
 
 ### Architecture Skills
 

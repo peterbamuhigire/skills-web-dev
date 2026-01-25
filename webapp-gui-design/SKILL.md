@@ -366,6 +366,8 @@ Use consistent visual patterns for card lists with photos:
 - **Non-people entities** (products, assets, vehicles): banner cards using a random photo; fallback to default.jpg.
 - Always use `object-fit: cover` and fixed heights to prevent layout shift.
 - Keep actions compact (view/edit) and align to the right.
+- Avoid clipping avatar overlaps: set card `overflow: visible` or absolutely position the avatar within the banner.
+- Overlap **only the avatar** (not the name/role text) by applying negative margin on the avatar itself.
 ```
 
 ## Flatpickr

@@ -70,6 +70,8 @@ Follow the `dpc-details.php` approach:
 - Circular avatar (photo or default.jpg).
 - Name + role/position + 1–2 meta lines.
 - Actions inline (view/edit) with compact buttons.
+- Ensure the avatar overlap is visible (no clipping): set card `overflow: visible` or position avatar inside banner with `position: absolute` and higher `z-index`.
+- Prefer overlapping **only the avatar** (not the text): apply negative margin to the avatar itself, keep header text flow normal.
 
 ## Key Patterns
 ### Upload (client)

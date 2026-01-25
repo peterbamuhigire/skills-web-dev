@@ -13,6 +13,7 @@ Design sales entry screens that an 8-year-old and an 80-year-old can both use co
 - Use progressive disclosure and fast feedback for customer, invoice, and cart workflows.
 - Treat all backend actions as API-driven (search, pricing, tax, payment, printing).
 - Apply invoice/receipt output standards for 80mm and A4 formats with consistent totals and payment history.
+- Use attention-grabber focus cues, such as making the field glow and bounce at key milestones (e.g., invoice number, product search) to guide new staff.
 
 ## Quick Reference
 Use this skill when you need to:
@@ -61,6 +62,12 @@ Always show where/when/who/what constraints:
 - Show feedback within 100ms (loading, success, error).
 - Use icons + text (never color alone).
 
+### 7) Attention-grabber on milestone focus (Required)
+- When focus moves to key milestones (invoice number, product search, payment input), briefly animate the field.
+- Use a gentle glow + micro-bounce (1–2 seconds) to guide new staff without disrupting workflow.
+- Trigger on programmatic focus changes only (avoid constant animation on manual typing).
+- Keep effects subtle, accessible, and consistent with brand colors.
+
 ## API-First Rule (Required)
 All backend activity MUST go through APIs.
 - Use API calls for search, selection, cart updates, pricing, tax, and payment.
@@ -88,6 +95,7 @@ All backend activity MUST go through APIs.
 - Confirm destructive changes (change customer, clear cart).
 - Show keyboard shortcuts for power users (F2/F3/F9).
 - Use optimistic UI updates with rollback on failure.
+- Apply milestone focus cues after system-driven focus jumps (e.g., distributor -> invoice number; start transaction -> product search).
 
 ## Accessibility Checklist
 - WCAG 2.1 AA contrast minimums.

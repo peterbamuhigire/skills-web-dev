@@ -78,7 +78,7 @@ Provide consistent, battle-tested patterns and workflows that can be seamlessly 
 **Domain:** Frontend UX for Sales Systems
 **Purpose:** POS, checkout, and sales entry UI patterns with API-first workflows and print-ready invoice/receipt standards
 **Use Cases:** POS terminals, sales encoding, invoice/receipt screen design, 80mm/A4 print layouts
-**Key Features:** 8-to-80 usability, 3-level hierarchy, large touch targets, progressive disclosure, API-first UI actions, invoice/receipt output standards
+**Key Features:** 8-to-80 usability, 3-level hierarchy, large touch targets, progressive disclosure, attention-grabber focus cues at milestones, API-first UI actions, invoice/receipt output standards
 
 ## Repository Structure
 

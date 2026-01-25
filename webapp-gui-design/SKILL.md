@@ -357,6 +357,15 @@ function getStatusColor(status) {
 @media (max-width: 768px) {
     .priority-2, .priority-3 { display: none; }
 }
+
+## Photo Cards (Lists)
+
+Use consistent visual patterns for card lists with photos:
+
+- **People entities** (staff, customers, patients): social-style cards with circular avatar and banner background.jpg.
+- **Non-people entities** (products, assets, vehicles): banner cards using a random photo; fallback to default.jpg.
+- Always use `object-fit: cover` and fixed heights to prevent layout shift.
+- Keep actions compact (view/edit) and align to the right.
 ```
 
 ## Flatpickr

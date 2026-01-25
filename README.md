@@ -314,6 +314,28 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 **Skill location:** `pos-sales-ui-design/SKILL.md`
 
+---
+
+### 11. Photo Management
+
+**Focus:** Standardized photo upload, preview, storage, and deletion
+
+**When to use:**
+
+- Building any photo upload flow (DPC, assets, products, staff)
+- Implementing image galleries with delete actions
+- Enforcing upload limits and auto-upload UX
+- Ensuring all uploads are compressed via image-compression skill
+
+**Key capabilities:**
+
+- Client-side compression requirement
+- Minimal auto-upload UX
+- Permission-gated delete actions
+- Tenant-safe storage and deletion
+
+**Skill location:** `photo-management/SKILL.md`
+
 ## Installation
 
 ### Option 1: Use Skills Directly
@@ -580,6 +602,8 @@ skills/
 │   ├── SKILL.md
 │   └── references/
 │       └── universal-sales-ui-design.md
+├── photo-management/             # Photo upload & gallery patterns
+│   └── SKILL.md
 ├── skills/
 │   └── skill-writing/            # Skill creator (meta-skill)
 │       └── SKILL.md

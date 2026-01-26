@@ -30,4 +30,11 @@ Create the three AGENTS.md files using the templates.
 - **Planning AGENTS.md** (best-fit planning directory)
   - Spec-driven development workflow and spec.md format
 
+## 4) Plan Grouping Setup (first-time)
+
+- Identify core modules/areas from menus and docs.
+- Create `docs/plans/<module>/` subdirectories for each module.
+- Add or update the module list in `docs/plans/AGENTS.md`.
+- Allow manual additions: developers can add new folders and update the list.
+
 Populate content based on real findings and reuse constraints from [../references/logic-library.md](../references/logic-library.md).

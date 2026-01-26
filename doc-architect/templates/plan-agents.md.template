@@ -1,5 +1,15 @@
 # AGENTS.md (Plans)
 
+## Folder Map (edit when requested)
+
+```
+docs/plans/
+├── inventory/
+├── sales/
+├── finance/
+└── ...
+```
+
 ## Spec-Driven Development
 
 All work starts from a spec. Use a structured spec to guide implementation, review, and testing.
@@ -47,3 +57,17 @@ All work starts from a spec. Use a structured spec to guide implementation, revi
 2. Implement in small, traceable commits
 3. Update docs and AGENTS if needed
 4. Validate against the spec before merge
+
+## Plan Grouping
+
+Specs are grouped by module using subdirectories:
+
+```
+docs/plans/
+├── inventory/
+├── sales/
+├── finance/
+└── ...
+```
+
+Add new module folders as needed and update the module list in docs/plans/AGENTS.md.

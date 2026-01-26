@@ -123,6 +123,10 @@ const {value} = await Swal.fire({
 
 ## DataTables
 
+**Always paginate** with a default of **25 rows per page**. Use server-side pagination for large datasets.
+**Default ordering:** disable client-side sorting unless explicitly required. Keep ordering from the API/query.
+**Number formatting:** display numeric values with thousands separators (e.g., 254,150.35).
+
 ```javascript
 $('#myTable').DataTables({
     ajax: {url: './api/items.php', dataSrc: 'data'},
@@ -151,7 +155,7 @@ $('#myTable').DataTables({
             `
         }
     ],
-    order: [[0, 'desc']],
+    ordering: false,
     pageLength: 25,
     responsive: true
 });

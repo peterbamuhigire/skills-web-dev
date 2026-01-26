@@ -247,6 +247,33 @@ Always include `tenant_id` in WHERE clauses. Never allow queries without tenant 
 
 ## Performance
 
+### Pagination & Low-Latency Reads
+
+Always paginate large result sets and fetch only the columns you need. Preserve sort order in SQL and keep UI sorting disabled unless explicitly requested.
+
+```sql
+-- LIMIT/OFFSET (simple)
+SELECT id, code, name, total
+FROM tbl_items
+WHERE franchise_id = ?
+ORDER BY id DESC
+LIMIT ? OFFSET ?;
+
+-- Keyset pagination (faster at scale)
+SELECT id, code, name, total
+FROM tbl_items
+WHERE franchise_id = ?
+  AND id < ?
+ORDER BY id DESC
+LIMIT ?;
+```
+
+**Rules:**
+- Always filter with indexed columns (franchise_id, dates, status).
+- Avoid `SELECT *`.
+- Use covering indexes for list views.
+- Keep per-page size small (25 default for UI tables).
+
 ### Query Optimization
 
 ```sql

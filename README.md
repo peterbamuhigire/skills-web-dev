@@ -337,6 +337,26 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 **Skill location:** `photo-management/SKILL.md`
 
+---
+
+### 12. Doc Architect
+
+**Focus:** Automated Triple-Layer AGENTS.md documentation
+
+**When to use:**
+
+- Standardizing project documentation
+- Generating AGENTS.md files (Root, Data, Planning)
+- Creating structured documentation baselines for new projects
+
+**Key capabilities:**
+
+- Workspace scanning to identify tech stack and directories
+- Template-driven generation for Root/Data/Planning AGENTS.md
+- Reusable domain constraints via logic library
+
+**Skill location:** `doc-architect/SKILL.md`
+
 ## Installation
 
 ### Option 1: Use Skills Directly
@@ -590,6 +610,8 @@ skills/
 ├── writing-plans/                # Implementation planning skill
 │   └── SKILL.md
 ├── update-claude-documentation/  # Documentation maintenance skill
+│   └── SKILL.md
+├── doc-architect/                # Triple-Layer AGENTS.md generator
 │   └── SKILL.md
 ├── dual-auth-rbac/               # Dual authentication + RBAC skill
 │   ├── SKILL.md

@@ -80,6 +80,13 @@ Provide consistent, battle-tested patterns and workflows that can be seamlessly 
 **Use Cases:** POS terminals, sales encoding, invoice/receipt screen design, 80mm/A4 print layouts
 **Key Features:** 8-to-80 usability, 3-level hierarchy, large touch targets, progressive disclosure, attention-grabber focus cues at milestones, API-first UI actions, invoice/receipt output standards
 
+### 11. Doc Architect
+
+**Domain:** Documentation Architecture
+**Purpose:** Generate Triple-Layer AGENTS.md documentation (Root, Data, Planning)
+**Use Cases:** Standardizing documentation, generating agent files, establishing project baselines
+**Key Features:** Workspace scanning, tech stack inference, template-driven AGENTS.md generation, reusable domain constraints
+
 ## Repository Structure
 
 ```
@@ -94,6 +101,8 @@ skills/
 ├── writing-plans/
 │   └── SKILL.md
 ├── update-claude-documentation/
+│   └── SKILL.md
+├── doc-architect/
 │   └── SKILL.md
 ├── dual-auth-rbac/
 │   ├── SKILL.md

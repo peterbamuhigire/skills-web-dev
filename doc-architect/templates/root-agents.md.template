@@ -1,0 +1,42 @@
+# AGENTS.md (Root)
+
+## Project Identity
+
+- **Project Name**: {{project_name}}
+- **Mission**: {{project_mission}}
+- **Primary Domain**: {{primary_domain}}
+- **Key Stakeholders**: {{stakeholders}}
+
+## Tech Stack
+
+- **Language**: {{primary_language}}
+- **Framework**: {{primary_framework}}
+- **Database**: {{database_type}}
+- **Infra/Deployment**: {{deployment_environment}}
+- **Services**: {{supporting_services}}
+
+## Global Standards
+
+### Engineering Principles
+
+- Prefer clarity over cleverness
+- Keep boundaries explicit (modules, layers, namespaces)
+- Favor stability: avoid breaking changes without migration notes
+
+### Documentation Rules
+
+- Update core docs when architecture changes
+- Keep terminology consistent across README, ARCHITECTURE, and AGENTS
+- Document external dependencies and their purpose
+
+### Security & Compliance
+
+- Enforce input validation and output encoding
+- Store secrets only in environment or secrets managers
+- Avoid logging sensitive data
+
+## Execution Guidance
+
+- Confirm stack before major changes
+- Use spec-driven development (see docs/plans/AGENTS.md)
+- Keep all changes traceable to a spec or ticket

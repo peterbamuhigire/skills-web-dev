@@ -1,0 +1,49 @@
+# AGENTS.md (Plans)
+
+## Spec-Driven Development
+
+All work starts from a spec. Use a structured spec to guide implementation, review, and testing.
+
+## spec.md Format
+
+```
+# Title
+
+## Summary
+[One paragraph describing the change]
+
+## Goals
+- [Goal 1]
+- [Goal 2]
+
+## Non-Goals
+- [Explicit exclusions]
+
+## Design
+[Architecture and flow]
+
+## Data & API Impact
+- Tables/fields touched
+- Endpoints added/changed
+
+## Security & Privacy
+- Threats
+- Mitigations
+
+## Testing
+- Unit tests
+- Integration tests
+- Manual checks
+
+## Rollout
+- Migration steps
+- Feature flags
+- Backout plan
+```
+
+## Workflow
+
+1. Draft spec and get approval
+2. Implement in small, traceable commits
+3. Update docs and AGENTS if needed
+4. Validate against the spec before merge

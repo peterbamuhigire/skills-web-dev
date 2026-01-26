@@ -70,6 +70,7 @@ skills/
 ├── multi-tenant-saas-architecture/  # SaaS backend skill
 ├── writing-plans/            # Implementation planning skill
 ├── update-claude-documentation/  # Documentation maintenance skill
+├── doc-architect/            # Triple-Layer AGENTS.md generator
 ├── dual-auth-rbac/           # Dual auth + RBAC security skill
 ├── webapp-gui-design/        # Web app GUI design skill
 ├── pos-sales-ui-design/      # POS & sales entry UI design
@@ -435,6 +436,7 @@ Skills are organized by domain:
 
 - **writing-plans:** Implementation planning, TDD workflows
 - **update-claude-documentation:** Documentation maintenance, consistency checking
+- **doc-architect:** Generate Triple-Layer AGENTS.md documentation (Root/Data/Planning)
 
 ### Future Categories
 

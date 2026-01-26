@@ -1,0 +1,33 @@
+# AGENTS.md (Data / Schema)
+
+## Data Integrity Rules
+
+- Use explicit primary keys and foreign keys
+- Enforce referential integrity at the database level
+- Ensure migrations are reversible when possible
+
+## Domain Logic Constraints
+
+- **Currency**: Use fixed-precision decimals (no floats)
+- **Time**: Store timestamps in UTC, convert at the edge
+- **Identifiers**: Use stable, non-recycled IDs
+
+## No-Delete Policy
+
+- Prefer soft deletes for domain entities
+- Require audit trail for destructive operations
+- Disallow hard deletes except for ephemeral or test data
+
+## Schema Change Workflow
+
+1. Write a spec for the change
+2. Add migration with forward + backward steps
+3. Update data documentation and examples
+4. Validate with integration tests
+
+## Validation Checklist
+
+- [ ] Foreign keys defined
+- [ ] Indexes match query patterns
+- [ ] Defaults and nullability are explicit
+- [ ] Backfill plan documented

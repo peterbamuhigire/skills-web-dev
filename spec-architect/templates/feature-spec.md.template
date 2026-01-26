@@ -1,0 +1,27 @@
+# {Feature Title} — Spec
+**Status:** Draft | Approved | Implemented
+
+## User Story
+As a **{role}**, I want to **{action}** so that **{value}**.
+
+## Acceptance Criteria (Definition of Done)
+- [ ] {AC1}
+- [ ] {AC2}
+- [ ] {AC3}
+- [ ] {AC4}
+
+## Technical Constraints
+- {Constraint 1}
+- {Constraint 2}
+- {Constraint 3}
+
+## Data Model
+- **Tables:** {list tables}
+- **Columns:** {table.column — type — purpose}
+- **Indexes/Constraints:** {if any}
+
+## Execution Plan
+1. {Task 1} — `path/to/file.ext`
+2. {Task 2} — `path/to/file.ext`
+3. {Task 3} — `path/to/file.ext`
+4. {Task 4} — `path/to/file.ext`

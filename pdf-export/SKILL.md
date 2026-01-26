@@ -18,10 +18,11 @@ Build a single, minimal HTML report that renders consistently in **mPDF** and **
 ## Core Workflow
 
 1. **Prepare data and metadata**
-   - Resolve organization name, address, and logo path
-    - Compute report title and optional period label (e.g., `23 Aug, 2025`)
-   - Resolve “Printed By” from logged-in user name
-    - Format “Printed On” as `d F Y, h:i A` (e.g., `23 September 2025, 05:36 PM`)
+    - Resolve organization name, address, and logo path
+     - Compute report title and optional period label (e.g., `23 Aug, 2025`)
+    - Resolve “Printed By” from logged-in user name
+     - Format “Printed On” as `d F Y, h:i A` (e.g., `23 September 2025, 05:36 PM`)
+    - When building standalone PHP scripts outside of a namespace, never add `use DateTime` (it has no effect) or other global symbol `use` statements; just instantiate the built-in class via `new \DateTime()` so your files stay warning-free.
 
 2. **Build minimal HTML (shared by PDF + Print)**
    - Compact header: logo left, org name/address center/left, report title + period right

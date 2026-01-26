@@ -406,6 +406,7 @@ flatpickr('#range', {mode: 'range', dateFormat: 'Y-m-d'});
 ❌ Inline handlers
 ❌ Skip auth checks
 
+✅ Auto-trigger `window.print()` in `*-print.php` views so the dialog appears as soon as the DOM is ready, keeping `no-print` controls only for reprints.
 ## Frontend Design Direction (When Asked for Bespoke Aesthetics)
 
 Use this only when the user asks for custom aesthetic direction beyond the standard Tabler look.

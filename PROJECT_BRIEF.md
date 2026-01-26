@@ -110,7 +110,7 @@ skills/
 │       └── schema.sql
 ├── webapp-gui-design/
 │   └── SKILL.md
-├── pdf-export/
+├── report-print-pdf/
 │   └── SKILL.md
 ├── pos-sales-ui-design/
 │   ├── SKILL.md

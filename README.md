@@ -289,7 +289,7 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 - Footer with printed-by/printed-on metadata
 - DejaVu Sans for small-font clarity
 
-**Skill location:** `pdf-export/SKILL.md`
+**Skill location:** `report-print-pdf/SKILL.md`
 
 ---
 
@@ -619,7 +619,7 @@ skills/
 │       └── schema.sql
 ├── webapp-gui-design/            # Web app GUI design skill
 │   └── SKILL.md
-├── pdf-export/                   # Report export via PDF + print
+├── report-print-pdf/             # Report export via PDF + print + auto-print
 │   └── SKILL.md
 ├── pos-sales-ui-design/          # POS & sales entry UI design
 │   ├── SKILL.md

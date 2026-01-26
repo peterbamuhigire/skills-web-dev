@@ -74,7 +74,7 @@ skills/
 ├── dual-auth-rbac/           # Dual auth + RBAC security skill
 ├── webapp-gui-design/        # Web app GUI design skill
 ├── pos-sales-ui-design/      # POS & sales entry UI design
-├── pdf-export/               # Report export via PDF + print
+├── report-print-pdf/         # Report export via PDF + print + auto-print
 ├── api-error-handling/       # API error handling with SweetAlert2
 ├── mysql-best-practices/     # MySQL 8.x best practices for SaaS
 ├── skills/

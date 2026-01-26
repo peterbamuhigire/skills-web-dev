@@ -1,6 +1,6 @@
 ---
-name: pdf-export
-description: "Reusable report template and formatting helpers for both PDF export (mPDF) and browser printing. Use when generating HTML reports that must render identically in PDF streams and print dialogs with compact headers, repeating table headers, and strict date/number formatting."
+name: report-print-pdf
+description: "Guidance for building report templates that serve both mPDF exports and the browser-based print workflow, including the auto-print standard introduced in the report-printing-style guide."
 ---
 
 # Report Export (PDF + Print)
@@ -195,6 +195,23 @@ $mpdf->Output($fileName, 'I');
 3. UI opens a new window/tab, writes HTML, waits for load, then calls `window.print()`
 4. Print CSS mirrors the PDF layout (compact header, repeating `thead`, small footer)
 5. User prints or saves as PDF from the browser dialog
+
+## Auto-Print Helper
+
+- When building dedicated print views (e.g., `*-print.php`), append this snippet before `</body>` and keep `docs/report-printing-standard.md` in sync:
+
+```html
+<script>
+    window.addEventListener('DOMContentLoaded', function () {
+        setTimeout(function () {
+            window.print();
+        }, 400);
+    });
+</script>
+```
+
+- The short timeout allows logos, fonts, and computed layout to settle before the native dialog grabs the page.
+- Keep `no-print` helpers for reprint actions so the dialog can be reopened without a full refresh.
 
 ### Browser Print Example (JS)
 

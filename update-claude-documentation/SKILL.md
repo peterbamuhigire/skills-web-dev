@@ -9,6 +9,8 @@ Update project documentation systematically after significant changes. Keep all 
 
 **Core Principle:** Documentation tells one cohesive story. Each file serves a specific audience but must reflect the same reality.
 
+**Style Rule:** Be precise and concise. Do not add verbose or unnecessary text to any documentation file.
+
 ## When to Use
 
 ✅ Adding/removing features

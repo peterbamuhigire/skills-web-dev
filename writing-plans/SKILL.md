@@ -12,6 +12,7 @@ Create comprehensive implementation plans for multi-step tasks. Each plan breaks
 ## Bite-Sized Task Granularity
 
 Break each feature into one-action steps (2-5 minutes):
+
 - Write failing test → step
 - Run to verify failure → step
 - Implement minimal code → step
@@ -36,10 +37,11 @@ Start every plan with this header:
 
 ## Task Structure Template
 
-```markdown
+````markdown
 ### Task N: [Component Name]
 
 **Files:**
+
 - Create: `exact/path/to/file.py`
 - Modify: `exact/path/to/existing.py:123-145`
 - Test: `tests/exact/path/to/test.py`
@@ -51,6 +53,7 @@ def test_specific_behavior():
     result = function(input)
     assert result == expected
 ```
+````
 
 **Step 2: Run test to verify failure**
 
@@ -75,6 +78,7 @@ Expected: PASS
 git add tests/path/test.py src/path/file.py
 git commit -m "feat: add specific feature"
 ```
+
 ```
 
 ## Plan Essentials
@@ -85,6 +89,8 @@ Include in every plan:
 - **Exact commands** - With expected output
 - **Test-first** - Write test, verify fail, implement, verify pass
 - **Frequent commits** - After each passing test
+- **Testability** - Ensure all changes can be tested later (add hooks, APIs, fixtures, or logs where needed)
+- **PHP syntax check** - For any PHP files touched, include a `php -l <file>` step after changes
 
 ## Best Practices
 
@@ -102,3 +108,5 @@ Include in every plan:
 - Skip test verification steps
 - Assume context exists
 - Make untested changes
+- Leave PHP changes without a `php -l` syntax check
+```

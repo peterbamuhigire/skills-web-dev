@@ -47,6 +47,13 @@ seeder-page.php      → Template (ALWAYS clone)
 - All global JS lives in `includes/foot.php`.
 - Page-specific JS must be in its own file (one file per page) and included by that page.
 
+## Permissions (Required)
+
+- Apply **page-level permissions** for sensitive screens (e.g., admin settings, financial configuration).
+- Apply **action-level permissions** for sensitive buttons (create/edit/delete/export), so users only see actions they are allowed to perform.
+- **Do not add new permissions** for features that are available to all users. Use existing roles/permissions and keep access simple unless a business rule requires restriction.
+- When in doubt: protect destructive actions, keep read-only views available to broader roles.
+
 ## Page Template
 
 ```php

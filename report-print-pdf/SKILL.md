@@ -18,31 +18,46 @@ Build a single, minimal HTML report that renders consistently in **mPDF** and **
 ## Core Workflow
 
 1. **Prepare data and metadata**
-    - Resolve organization name, address, and logo path
-     - Compute report title and optional period label (e.g., `23 Aug, 2025`)
-    - Resolve “Printed By” from logged-in user name
-     - Format “Printed On” as `d F Y, h:i A` (e.g., `23 September 2025, 05:36 PM`)
-    - When building standalone PHP scripts outside of a namespace, never add `use DateTime` (it has no effect) or other global symbol `use` statements; just instantiate the built-in class via `new \DateTime()` so your files stay warning-free.
+   - Resolve organization name, address, and logo path
+   - Compute report title and optional period label (e.g., `23 Aug, 2025`)
+   - Resolve “Printed By” from logged-in user name
+   - Format “Printed On” as `d F Y, h:i A` (e.g., `23 September 2025, 05:36 PM`)
+   - Never render raw SQL timestamps (e.g., `2026-01-25 00:00:00`). Always format dates as `d M Y` or `d F Y`, and include time only when explicitly required.
+   - When building standalone PHP scripts outside of a namespace, never add `use DateTime` (it has no effect) or other global symbol `use` statements; just instantiate the built-in class via `new \DateTime()` so your files stay warning-free.
 
 2. **Build minimal HTML (shared by PDF + Print)**
    - Compact header: logo left, org name/address center/left, report title + period right
    - Tight vertical rhythm: 6–12px gaps, no large vertical spacing
    - DejaVu Sans for clarity at small sizes
-    - Table with `thead`/`tbody` and subtle borders
+   - Table with `thead`/`tbody` and subtle borders
 
 3. **Render with mPDF**
    - Use small margins and a clean footer
-    - Keep header inside body HTML (set empty mPDF header)
+   - Keep header inside body HTML (set empty mPDF header)
 
 4. **Render with browser print**
-    - API returns full HTML (`text/html`)
-    - UI opens new window/tab, writes HTML, calls `window.print()` when ready
-    - Print CSS mirrors the PDF layout (compact header, repeating headers, small footer)
+   - API returns full HTML (`text/html`)
+   - UI opens new window/tab, writes HTML, calls `window.print()` when ready
+   - Print CSS mirrors the PDF layout (compact header, repeating headers, small footer)
 
 ## Formatting Helpers
 
 ```php
 final class ReportFormatting {
+    public static function formatDateShort(?string $value): string {
+        if (empty($value)) {
+            return '-';
+        }
+        return (new DateTime(substr($value, 0, 10)))->format('d M Y');
+    }
+
+    public static function formatDateLong(?string $value): string {
+        if (empty($value)) {
+            return '-';
+        }
+        return (new DateTime(substr($value, 0, 10)))->format('d F Y');
+    }
+
     public static function formatPeriod(?string $startDate, ?string $endDate): string {
         if (empty($startDate) && empty($endDate)) {
             return '';
@@ -163,7 +178,7 @@ HTML;
 - Set `thead` to `display: table-header-group` for repeating headers
 - Keep padding tight (4–6px)
 - Use thin borders and subtle header shading
- - Avoid breaking rows across pages (`page-break-inside: avoid`)
+- Avoid breaking rows across pages (`page-break-inside: avoid`)
 
 ## mPDF Wrapper Setup
 
@@ -202,11 +217,11 @@ $mpdf->Output($fileName, 'I');
 
 ```html
 <script>
-    window.addEventListener('DOMContentLoaded', function () {
-        setTimeout(function () {
-            window.print();
-        }, 400);
-    });
+  window.addEventListener("DOMContentLoaded", function () {
+    setTimeout(function () {
+      window.print();
+    }, 400);
+  });
 </script>
 ```
 
@@ -217,19 +232,20 @@ $mpdf->Output($fileName, 'I');
 
 ```javascript
 async function openReportPrint(url, params) {
-    const query = new URLSearchParams(params).toString();
-    const html = await fetch(`${url}?${query}`, { credentials: 'include' })
-        .then(r => r.text());
+  const query = new URLSearchParams(params).toString();
+  const html = await fetch(`${url}?${query}`, { credentials: "include" }).then(
+    (r) => r.text(),
+  );
 
-    const printWindow = window.open('', '_blank');
-    printWindow.document.open();
-    printWindow.document.write(html);
-    printWindow.document.close();
+  const printWindow = window.open("", "_blank");
+  printWindow.document.open();
+  printWindow.document.write(html);
+  printWindow.document.close();
 
-    printWindow.onload = () => {
-        printWindow.focus();
-        printWindow.print();
-    };
+  printWindow.onload = () => {
+    printWindow.focus();
+    printWindow.print();
+  };
 }
 ```
 

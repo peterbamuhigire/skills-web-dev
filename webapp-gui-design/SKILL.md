@@ -9,6 +9,8 @@ Build professional web UIs using commercial templates with established component
 
 **Core Principle:** Start with templates, follow modular architecture, maintain consistency.
 
+**API-First Rule (Required):** Frontend must never access the database directly. All reads/writes go through backend services exposed via APIs so future clients (Android, iOS, etc.) reuse the same logic.
+
 ## When to Use
 
 ✅ CRUD interfaces, admin panels, dashboards
@@ -40,6 +42,7 @@ seeder-page.php      → Template (ALWAYS clone)
 ```
 
 **JavaScript separation:**
+
 - Keep pages clean—no inline JS blocks in the HTML.
 - All global JS lives in `includes/foot.php`.
 - Page-specific JS must be in its own file (one file per page) and included by that page.
@@ -97,27 +100,29 @@ if (!isLoggedIn()) { header('Location: ./sign-in.php'); exit(); }
 
 ```javascript
 // Success
-Swal.fire({icon: 'success', title: 'Saved!', timer: 2000});
+Swal.fire({ icon: "success", title: "Saved!", timer: 2000 });
 
 // Confirm
 const result = await Swal.fire({
-    icon: 'warning',
-    title: 'Delete?',
-    showCancelButton: true,
-    confirmButtonText: 'Delete',
-    confirmButtonColor: '#d63939'
+  icon: "warning",
+  title: "Delete?",
+  showCancelButton: true,
+  confirmButtonText: "Delete",
+  confirmButtonColor: "#d63939",
 });
-if (result.isConfirmed) { await deleteItem(id); }
+if (result.isConfirmed) {
+  await deleteItem(id);
+}
 
 // Loading
-Swal.fire({title: 'Processing...', didOpen: () => Swal.showLoading()});
+Swal.fire({ title: "Processing...", didOpen: () => Swal.showLoading() });
 Swal.close(); // When done
 
 // Input
-const {value} = await Swal.fire({
-    title: 'Name',
-    input: 'text',
-    inputValidator: (v) => !v ? 'Required' : null
+const { value } = await Swal.fire({
+  title: "Name",
+  input: "text",
+  inputValidator: (v) => (!v ? "Required" : null),
 });
 ```
 
@@ -128,14 +133,14 @@ const {value} = await Swal.fire({
 **Number formatting:** display numeric values with thousands separators (e.g., 254,150.35).
 
 ```javascript
-$('#myTable').DataTables({
-    ajax: {url: './api/items.php', dataSrc: 'data'},
-    columns: [
-        {data: 'id', visible: false},
-        {data: 'code', title: 'Code'},
-        {
-            data: null,
-            render: (d) => `
+$("#myTable").DataTables({
+  ajax: { url: "./api/items.php", dataSrc: "data" },
+  columns: [
+    { data: "id", visible: false },
+    { data: "code", title: "Code" },
+    {
+      data: null,
+      render: (d) => `
                 <div class="d-flex align-items-center">
                     <span class="avatar me-2" style="background-image:url('${d.photo_url}')"></span>
                     <div>
@@ -143,30 +148,44 @@ $('#myTable').DataTables({
                         <small class="text-muted">${d.category}</small>
                     </div>
                 </div>
-            `
-        },
-        {data: 'status', render: (d) => `<span class="badge bg-${getStatusColor(d)}">${d}</span>`},
-        {
-            data: null,
-            orderable: false,
-            render: (d) => `
+            `,
+    },
+    {
+      data: "status",
+      render: (d) => `<span class="badge bg-${getStatusColor(d)}">${d}</span>`,
+    },
+    {
+      data: null,
+      orderable: false,
+      render: (d) => `
                 <button class="btn btn-sm btn-primary btn-edit" data-id="${d.id}"><i class="bi bi-pencil"></i></button>
                 <button class="btn btn-sm btn-danger btn-delete" data-id="${d.id}"><i class="bi bi-trash"></i></button>
-            `
-        }
-    ],
-    ordering: false,
-    pageLength: 25,
-    responsive: true
+            `,
+    },
+  ],
+  ordering: false,
+  pageLength: 25,
+  responsive: true,
 });
 
-$('#myTable').on('click', '.btn-edit', function() { editItem($(this).data('id')); });
+$("#myTable").on("click", ".btn-edit", function () {
+  editItem($(this).data("id"));
+});
 ```
 
 **HTML:**
+
 ```html
 <table id="myTable" class="table table-striped" style="width:100%">
-    <thead><tr><th>ID</th><th>Code</th><th>Name</th><th>Status</th><th>Actions</th></tr></thead>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Code</th>
+      <th>Name</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
 </table>
 ```
 
@@ -174,79 +193,99 @@ $('#myTable').on('click', '.btn-edit', function() { editItem($(this).data('id'))
 
 ```html
 <form id="itemForm">
-    <input type="hidden" id="itemId">
-    <div class="row">
-        <div class="col-md-6 mb-3">
-            <label class="form-label required">Code</label>
-            <input type="text" class="form-control" id="code" required>
-        </div>
-        <div class="col-md-6 mb-3">
-            <label class="form-label required">Name</label>
-            <input type="text" class="form-control" id="name" required>
-        </div>
+  <input type="hidden" id="itemId" />
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <label class="form-label required">Code</label>
+      <input type="text" class="form-control" id="code" required />
     </div>
-    <div class="mb-3">
-        <label class="form-label">Description</label>
-        <textarea class="form-control" id="description" rows="3"></textarea>
+    <div class="col-md-6 mb-3">
+      <label class="form-label required">Name</label>
+      <input type="text" class="form-control" id="name" required />
     </div>
-    <div class="row">
-        <div class="col-md-6 mb-3">
-            <label class="form-label">Category</label>
-            <select class="form-select" id="categoryId"><option value="">Select...</option></select>
-        </div>
-        <div class="col-md-6 mb-3">
-            <label class="form-label">Date</label>
-            <input type="date" class="form-control" id="date">
-        </div>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Description</label>
+    <textarea class="form-control" id="description" rows="3"></textarea>
+  </div>
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <label class="form-label">Category</label>
+      <select class="form-select" id="categoryId">
+        <option value="">Select...</option>
+      </select>
     </div>
+    <div class="col-md-6 mb-3">
+      <label class="form-label">Date</label>
+      <input type="date" class="form-control" id="date" />
+    </div>
+  </div>
 </form>
 ```
 
 **Required CSS:**
+
 ```css
-.form-label.required::after { content: " *"; color: #d63939; }
+.form-label.required::after {
+  content: " *";
+  color: #d63939;
+}
 ```
 
 ## Modals
 
 ```html
 <div class="modal fade" id="itemModal" tabindex="-1">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 id="modalTitle">Add Item</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body"><!-- Form --></div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button class="btn btn-primary" id="saveBtn"><i class="bi bi-check me-1"></i> Save</button>
-            </div>
-        </div>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 id="modalTitle">Add Item</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+        ></button>
+      </div>
+      <div class="modal-body"><!-- Form --></div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">
+          Cancel
+        </button>
+        <button class="btn btn-primary" id="saveBtn">
+          <i class="bi bi-check me-1"></i> Save
+        </button>
+      </div>
     </div>
+  </div>
 </div>
 ```
 
 ```javascript
-const modal = new bootstrap.Modal($('#itemModal')[0]);
-$('#itemModal').on('hidden.bs.modal', resetForm);
+const modal = new bootstrap.Modal($("#itemModal")[0]);
+$("#itemModal").on("hidden.bs.modal", resetForm);
 
 function showAddModal() {
-    resetForm();
-    $('#modalTitle').text('Add Item');
-    modal.show();
+  resetForm();
+  $("#modalTitle").text("Add Item");
+  modal.show();
 }
 ```
 
 ## Icons (Bootstrap Icons Only)
 
 ```html
-<i class="bi bi-plus"></i>       <!-- Add -->
-<i class="bi bi-pencil"></i>     <!-- Edit -->
-<i class="bi bi-trash"></i>      <!-- Delete -->
-<i class="bi bi-eye"></i>        <!-- View -->
-<i class="bi bi-search"></i>     <!-- Search -->
-<i class="bi bi-download"></i>   <!-- Export -->
+<i class="bi bi-plus"></i>
+<!-- Add -->
+<i class="bi bi-pencil"></i>
+<!-- Edit -->
+<i class="bi bi-trash"></i>
+<!-- Delete -->
+<i class="bi bi-eye"></i>
+<!-- View -->
+<i class="bi bi-search"></i>
+<!-- Search -->
+<i class="bi bi-download"></i>
+<!-- Export -->
 
 <button class="btn btn-primary"><i class="bi bi-plus me-1"></i> Add</button>
 ```
@@ -256,87 +295,102 @@ function showAddModal() {
 ```javascript
 // GET
 async function loadItems() {
-    try {
-        const res = await fetch('./api/items.php?action=list');
-        const data = await res.json();
-        return data.success ? data.data : [];
-    } catch (error) {
-        Swal.fire('Error', error.message, 'error');
-        return [];
-    }
+  try {
+    const res = await fetch("./api/items.php?action=list");
+    const data = await res.json();
+    return data.success ? data.data : [];
+  } catch (error) {
+    Swal.fire("Error", error.message, "error");
+    return [];
+  }
 }
 
 // POST
 async function saveItem(itemData) {
-    try {
-        const res = await fetch('./api/items.php', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(itemData)
-        });
-        const data = await res.json();
-        if (data.success) {
-            Swal.fire('Success!', '', 'success');
-            return data;
-        }
-        throw new Error(data.message);
-    } catch (error) {
-        Swal.fire('Error', error.message, 'error');
-        return null;
+  try {
+    const res = await fetch("./api/items.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(itemData),
+    });
+    const data = await res.json();
+    if (data.success) {
+      Swal.fire("Success!", "", "success");
+      return data;
     }
+    throw new Error(data.message);
+  } catch (error) {
+    Swal.fire("Error", error.message, "error");
+    return null;
+  }
 }
 
 // DELETE
 async function deleteItem(id) {
-    const result = await Swal.fire({
-        icon: 'warning',
-        title: 'Delete?',
-        showCancelButton: true,
-        confirmButtonText: 'Delete',
-        confirmButtonColor: '#d63939'
-    });
-    if (!result.isConfirmed) return;
+  const result = await Swal.fire({
+    icon: "warning",
+    title: "Delete?",
+    showCancelButton: true,
+    confirmButtonText: "Delete",
+    confirmButtonColor: "#d63939",
+  });
+  if (!result.isConfirmed) return;
 
-    const res = await fetch(`./api/items.php?id=${id}`, {method: 'DELETE'});
-    const data = await res.json();
-    if (data.success) {
-        Swal.fire('Deleted!', '', 'success');
-        dataTable.ajax.reload();
-    }
+  const res = await fetch(`./api/items.php?id=${id}`, { method: "DELETE" });
+  const data = await res.json();
+  if (data.success) {
+    Swal.fire("Deleted!", "", "success");
+    dataTable.ajax.reload();
+  }
 }
 ```
 
 ## Utilities
 
 ```javascript
-function formatCurrency(amount, currency = 'USD') {
-    return new Intl.NumberFormat('en-US', {style: 'currency', currency}).format(amount || 0);
+function formatCurrency(amount, currency = "USD") {
+  return new Intl.NumberFormat("en-US", { style: "currency", currency }).format(
+    amount || 0,
+  );
 }
 
 function formatDate(dateString) {
-    if (!dateString) return 'N/A';
-    return new Date(dateString).toLocaleDateString('en-US', {
-        year: 'numeric', month: 'short', day: 'numeric'
-    });
+  if (!dateString) return "N/A";
+  return new Date(dateString).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
 }
 
 function escapeHtml(text) {
-    if (!text) return '';
-    const map = {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'};
-    return String(text).replace(/[&<>"']/g, m => map[m]);
+  if (!text) return "";
+  const map = {
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#039;",
+  };
+  return String(text).replace(/[&<>"']/g, (m) => map[m]);
 }
 
 function debounce(func, wait) {
-    let timeout;
-    return (...args) => {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => func(...args), wait);
-    };
+  let timeout;
+  return (...args) => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func(...args), wait);
+  };
 }
 
 function getStatusColor(status) {
-    const colors = {active: 'success', inactive: 'secondary', pending: 'warning', deleted: 'danger'};
-    return colors[status?.toLowerCase()] || 'secondary';
+  const colors = {
+    active: "success",
+    inactive: "secondary",
+    pending: "warning",
+    deleted: "danger",
+  };
+  return colors[status?.toLowerCase()] || "secondary";
 }
 ```
 
@@ -380,13 +434,13 @@ Auto-applied to `<input type="date">` with `Y-m-d` value, `d F Y` display.
 
 ```javascript
 // Manual
-flatpickr('#date', {dateFormat: 'Y-m-d', altInput: true, altFormat: 'd M Y'});
+flatpickr("#date", { dateFormat: "Y-m-d", altInput: true, altFormat: "d M Y" });
 
 // DateTime
-flatpickr('#datetime', {enableTime: true, dateFormat: 'Y-m-d H:i'});
+flatpickr("#datetime", { enableTime: true, dateFormat: "Y-m-d H:i" });
 
 // Range
-flatpickr('#range', {mode: 'range', dateFormat: 'Y-m-d'});
+flatpickr("#range", { mode: "range", dateFormat: "Y-m-d" });
 ```
 
 ## Best Practices
@@ -407,6 +461,7 @@ flatpickr('#range', {mode: 'range', dateFormat: 'Y-m-d'});
 ❌ Skip auth checks
 
 ✅ Auto-trigger `window.print()` in `*-print.php` views so the dialog appears as soon as the DOM is ready, keeping `no-print` controls only for reprints.
+
 ## Frontend Design Direction (When Asked for Bespoke Aesthetics)
 
 Use this only when the user asks for custom aesthetic direction beyond the standard Tabler look.
@@ -414,6 +469,7 @@ Use this only when the user asks for custom aesthetic direction beyond the stand
 ### Design Thinking
 
 Before coding, understand the context and commit to a bold aesthetic direction:
+
 - **Purpose:** What problem does this interface solve? Who uses it?
 - **Tone:** Pick an extreme: brutally minimal, maximalist chaos, retro-futuristic, organic/natural, luxury/refined, playful/toy-like, editorial/magazine, brutalist/raw, art deco/geometric, soft/pastel, industrial/utilitarian, etc.
 - **Constraints:** Technical requirements (framework, performance, accessibility).
@@ -424,6 +480,7 @@ Before coding, understand the context and commit to a bold aesthetic direction:
 ### Aesthetics Guidelines
 
 Focus on:
+
 - **Typography:** Choose distinctive fonts. Avoid generic choices like Arial/Inter. Pair a characterful display font with a refined body font.
 - **Color & Theme:** Commit to a cohesive aesthetic. Use CSS variables. Dominant colors with sharp accents outperform timid palettes.
 - **Motion:** Use animations for high-impact moments (staggered reveals, hover states). CSS-first for static HTML; use Motion libraries in React when available.
@@ -456,6 +513,7 @@ Focus on:
 ## Summary
 
 **Principles:**
+
 1. Clone seeder-page.php
 2. Tabler/Bootstrap 5
 3. SweetAlert2, DataTables, Flatpickr

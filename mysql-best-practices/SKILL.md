@@ -9,6 +9,8 @@ Production-grade MySQL patterns for high-performance, secure, scalable SaaS appl
 
 **Core Principle:** Design for performance, security, and multi-tenant isolation from day one.
 
+**Access Policy (Required):** Frontend clients must never access the database directly. All data access must flow through backend services exposed via APIs, so web, Android, and other clients reuse the same logic without duplication.
+
 **See subdirectories for:** `references/` (detailed examples), `examples/` (complete schemas)
 
 ## When to Use
@@ -159,6 +161,7 @@ CREATE TABLE organizations (
 ```
 
 **Strategies:**
+
 - `RESTRICT` - Prevent deletion if children exist
 - `CASCADE` - Delete children when parent deleted
 - `SET NULL` - Set FK to NULL
@@ -269,6 +272,7 @@ LIMIT ?;
 ```
 
 **Rules:**
+
 - Always filter with indexed columns (franchise_id, dates, status).
 - Avoid `SELECT *`.
 - Use covering indexes for list views.
@@ -340,37 +344,45 @@ SET GLOBAL wait_timeout = 28800;
 ## Checklist
 
 **Schema:**
+
 - [ ] UTF8MB4 + InnoDB + ROW_FORMAT=DYNAMIC
 - [ ] Auto-increment PKs, appropriate data types
 - [ ] 3NF normalized
 
 **Indexes:**
+
 - [ ] ESR composite indexes
 - [ ] No redundant indexes
 - [ ] Regular ANALYZE TABLE
 
 **Integrity:**
+
 - [ ] Explicit foreign keys
 - [ ] Audit triggers
 
 **Multi-Tenant:**
+
 - [ ] tenant_id in all queries
 
 **Concurrency:**
+
 - [ ] Row-level locking, consistent ordering
 
 **Security:**
+
 - [ ] Application user (not root)
 - [ ] Minimal privileges
 - [ ] Parameterized queries
 - [ ] TDE + SSL encryption
 
 **Performance:**
+
 - [ ] Connection pooling
 - [ ] Slow query logging
 - [ ] EXPLAIN on critical queries
 
 **Operations:**
+
 - [ ] Binary logging
 - [ ] Backup testing
 - [ ] Monitoring

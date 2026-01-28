@@ -7,9 +7,12 @@ description: "Generate Triple-Layer AGENTS.md documentation by scanning a projec
 
 Design and generate a portable Triple-Layer AGENTS.md documentation set that reflects the project’s real structure and constraints.
 
+**Modularize Instructions (Token Economy):** Avoid consolidating all AI/dev guidance into a single CLAUDE.md. Prefer smaller, focused docs (e.g., docs/setup.md, docs/api.md, docs/workflows.md) and reference them only when needed.
+
 ## Core Outcome
 
 Produce three aligned AGENTS.md files:
+
 - **Root AGENTS.md**: Project identity, tech stack, global standards
 - **Data AGENTS.md**: Data integrity rules and schema governance
 - **Planning AGENTS.md**: Spec-driven development workflow
@@ -17,13 +20,14 @@ Produce three aligned AGENTS.md files:
 ## Trigger Phrases
 
 The skill should activate when the user asks to:
+
 - Standardize project documentation
 - Generate agent files
 
 ## Standard Operating Procedure (SOP)
 
 1. **Scan the workspace**
-   - Inspect the root for identifiers (README, PROJECT_BRIEF, TECH_STACK, ARCHITECTURE, CLAUDE, package.json, composer.json, *.sln, pyproject.toml).
+   - Inspect the root for identifiers (README, PROJECT_BRIEF, TECH_STACK, ARCHITECTURE, CLAUDE, package.json, composer.json, \*.sln, pyproject.toml).
    - Locate likely data directories (database/, schema/, migrations/, sql/, db/).
    - Locate planning/documentation directories (docs/, docs/plans/, planning/, specs/).
    - Identify module/area entry points (menus, docs, feature folders) to group specs.
@@ -64,6 +68,7 @@ The skill should activate when the user asks to:
 ## Quick Example
 
 If a project uses Laravel + MySQL with docs/plans and database/schema:
+
 - Root: AGENTS.md → PHP/Laravel, MySQL, deployment standards
 - Data: database/schema/AGENTS.md → referential integrity, no-delete rules
 - Plans: docs/plans/AGENTS.md → spec.md format and workflow steps

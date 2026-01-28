@@ -11,6 +11,8 @@ Update project documentation systematically after significant changes. Keep all 
 
 **Style Rule:** Be precise and concise. Do not add verbose or unnecessary text to any documentation file.
 
+**Modularize Instructions (Token Economy):** Avoid packing everything into a single CLAUDE.md. Prefer multiple focused docs (e.g., docs/setup.md, docs/api.md, docs/workflows.md) and reference them only when needed to reduce context bloat.
+
 ## When to Use
 
 ✅ Adding/removing features
@@ -26,15 +28,18 @@ Update project documentation systematically after significant changes. Keep all 
 
 ## Documentation Files
 
-| File             | Audience                | Purpose            |
-| ---------------- | ----------------------- | ------------------ |
-| PROJECT_BRIEF.md | Stakeholders, new devs  | 30-sec overview    |
-| README.md        | Developers              | Setup, usage guide |
-| TECH_STACK.md    | Developers, DevOps      | Tech inventory     |
-| ARCHITECTURE.md  | Senior devs, architects | System design      |
-| docs/API.md      | API consumers           | API reference      |
-| docs/DATABASE.md | Backend devs, DBAs      | Schema docs        |
-| CLAUDE.md        | Claude Code             | Dev patterns       |
+| File              | Audience                | Purpose            |
+| ----------------- | ----------------------- | ------------------ |
+| PROJECT_BRIEF.md  | Stakeholders, new devs  | 30-sec overview    |
+| README.md         | Developers              | Setup, usage guide |
+| TECH_STACK.md     | Developers, DevOps      | Tech inventory     |
+| ARCHITECTURE.md   | Senior devs, architects | System design      |
+| docs/API.md       | API consumers           | API reference      |
+| docs/DATABASE.md  | Backend devs, DBAs      | Schema docs        |
+| CLAUDE.md         | Claude Code             | Dev patterns       |
+| docs/setup.md     | Developers              | Setup details      |
+| docs/api.md       | API consumers           | API usage guide    |
+| docs/workflows.md | Developers              | Workflow rules     |
 
 ## Change → File Mapping
 

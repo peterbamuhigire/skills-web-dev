@@ -9,6 +9,8 @@ Update project documentation systematically after significant changes. Keep all 
 
 **Core Principle:** Documentation tells one cohesive story. Each file serves a specific audience but must reflect the same reality.
 
+**Modularize Instructions (Token Economy):** Avoid packing everything into a single CLAUDE.md. Prefer multiple focused docs (e.g., docs/setup.md, docs/api.md, docs/workflows.md) and reference them only when needed to reduce context bloat.
+
 ## When to Use
 
 ✅ Adding/removing features
@@ -24,19 +26,23 @@ Update project documentation systematically after significant changes. Keep all 
 
 ## Documentation Files
 
-| File | Audience | Purpose |
-|------|----------|---------|
-| PROJECT_BRIEF.md | Stakeholders, new devs | 30-sec overview |
-| README.md | Developers | Setup, usage guide |
-| TECH_STACK.md | Developers, DevOps | Tech inventory |
-| ARCHITECTURE.md | Senior devs, architects | System design |
-| docs/API.md | API consumers | API reference |
-| docs/DATABASE.md | Backend devs, DBAs | Schema docs |
-| CLAUDE.md | Claude Code | Dev patterns |
+| File              | Audience                | Purpose            |
+| ----------------- | ----------------------- | ------------------ |
+| PROJECT_BRIEF.md  | Stakeholders, new devs  | 30-sec overview    |
+| README.md         | Developers              | Setup, usage guide |
+| TECH_STACK.md     | Developers, DevOps      | Tech inventory     |
+| ARCHITECTURE.md   | Senior devs, architects | System design      |
+| docs/API.md       | API consumers           | API reference      |
+| docs/DATABASE.md  | Backend devs, DBAs      | Schema docs        |
+| CLAUDE.md         | Claude Code             | Dev patterns       |
+| docs/setup.md     | Developers              | Setup details      |
+| docs/api.md       | API consumers           | API usage guide    |
+| docs/workflows.md | Developers              | Workflow rules     |
 
 ## Change → File Mapping
 
 **New Feature:**
+
 - README.md (usage)
 - docs/API.md (if adds endpoints)
 - docs/DATABASE.md (if adds tables)
@@ -45,18 +51,21 @@ Update project documentation systematically after significant changes. Keep all 
 - PROJECT_BRIEF.md (if significant)
 
 **Tech Stack Change:**
+
 - TECH_STACK.md (always)
 - README.md (setup instructions)
 - ARCHITECTURE.md (if affects design)
 - CLAUDE.md (if affects workflows)
 
 **Architecture Change:**
+
 - ARCHITECTURE.md (always)
 - README.md (overview section)
 - CLAUDE.md (patterns)
 - PROJECT_BRIEF.md (if major)
 
 **API/Database Change:**
+
 - docs/API.md or docs/DATABASE.md (always)
 - ARCHITECTURE.md (if changes contracts)
 - CLAUDE.md (if affects patterns)
@@ -67,6 +76,7 @@ Update project documentation systematically after significant changes. Keep all 
 ### 1. Understand Change (2-5 min)
 
 Document:
+
 - Type: Feature/Architecture/Tech Stack/API/Database
 - What: One sentence description
 - Impact: Who/what affected
@@ -75,6 +85,7 @@ Document:
 ### 2. Map to Files (1-2 min)
 
 Order: Specific → General
+
 1. Technical Specs (API.md, DATABASE.md)
 2. Architecture (ARCHITECTURE.md, TECH_STACK.md)
 3. AI Instructions (CLAUDE.md)
@@ -88,6 +99,7 @@ Read all affected files in parallel.
 ### 4. Update Systematically (10-20 min)
 
 **Per-file checklist:**
+
 - [ ] Update primary section
 - [ ] Update related sections
 - [ ] Update examples/code snippets
@@ -96,6 +108,7 @@ Read all affected files in parallel.
 ### 5. Verify Consistency (2-3 min)
 
 Check across all files:
+
 - [ ] Terminology consistent
 - [ ] Version numbers match
 - [ ] File paths consistent
@@ -115,44 +128,57 @@ Check across all files:
 ## Common Mistakes
 
 ❌ **Updating only one file**
+
 ```markdown
 # Updated README but forgot CLAUDE.md
+
 # Result: AI doesn't know new pattern
 ```
 
 ❌ **Inconsistent terminology**
+
 ```markdown
 # README.md: "Authentication Service"
+
 # ARCHITECTURE.md: "Auth Module"
+
 # CLAUDE.md: "Login System"
+
 # Pick ONE term everywhere
 ```
 
 ❌ **Forgetting breaking changes**
+
 ```markdown
 # Renamed API endpoint but README examples still use old path
+
 # Add migration notes EVERYWHERE affected
 ```
 
 ❌ **General → Specific order**
+
 ```markdown
 # BAD: Update BRIEF first, then API.md
+
 # GOOD: Update API.md first (precise), then BRIEF (summary)
 ```
 
 ## Quick Reference
 
 **Update Order:**
+
 ```
 API/DB Specs → Architecture → CLAUDE → README → BRIEF
 ```
 
 **Consistency Checks:**
+
 ```
 Terminology, Versions, Paths, Names, Features
 ```
 
 **Time Budget:**
+
 ```
 Small change: 5-10 min
 Medium change: 15-30 min
@@ -164,6 +190,7 @@ Major refactor: 45-60 min
 **Process:** Understand → Map → Read → Update → Verify → Review
 
 **Key Rules:**
+
 1. Update specific docs first, general last
 2. Read all affected files before editing
 3. Keep terminology consistent

@@ -13,6 +13,8 @@ Update project documentation systematically after significant changes. Keep all 
 
 **Modularize Instructions (Token Economy):** Avoid packing everything into a single CLAUDE.md. Prefer multiple focused docs (e.g., docs/setup.md, docs/api.md, docs/workflows.md) and reference them only when needed to reduce context bloat.
 
+**Docs Organization Rule (Required):** Any documentation placed under `docs/` must live in a relevant subdirectory. Do not add new files directly under `docs/` root. If a suitable folder does not exist, create one and update `docs/AGENTS.md`.
+
 ## When to Use
 
 ✅ Adding/removing features

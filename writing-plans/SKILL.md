@@ -91,6 +91,9 @@ Include in every plan:
 - **Frequent commits** - After each passing test
 - **Testability** - Ensure all changes can be tested later (add hooks, APIs, fixtures, or logs where needed)
 - **PHP syntax check** - For any PHP files touched, include a `php -l <file>` step after changes
+- **Schema adherence** - Verify all SQL aligns to `database/schema/*.sql` and update schema files, procedures, and triggers as needed
+- **Cross-layer completeness** - Explicitly cover database, stored procedures, triggers, UI, APIs, services, middleware, and any other impacted layers
+- **Verification steps** - Add concrete checks that confirm schema alignment and functional correctness
 
 ## Best Practices
 

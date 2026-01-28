@@ -87,6 +87,13 @@ Provide consistent, battle-tested patterns and workflows that can be seamlessly 
 **Use Cases:** Standardizing documentation, generating agent files, establishing project baselines
 **Key Features:** Workspace scanning, tech stack inference, template-driven AGENTS.md generation, reusable domain constraints
 
+### 12. Manual Guide
+
+**Domain:** End-User Documentation
+**Purpose:** Produce end-user manuals and module reference guides (distinct from AI agent docs)
+**Use Cases:** Documenting features, writing user manuals, syncing reference guides
+**Key Features:** Contextual discovery (plans/schema/code/docs), dual-workflow structure, edge-case coverage, professional instructional tone
+
 ## Repository Structure
 
 ```
@@ -103,6 +110,8 @@ skills/
 ├── update-claude-documentation/
 │   └── SKILL.md
 ├── doc-architect/
+│   └── SKILL.md
+├── manual-guide/
 │   └── SKILL.md
 ├── dual-auth-rbac/
 │   ├── SKILL.md

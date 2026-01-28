@@ -154,7 +154,7 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 - Mandatory SweetAlert2 for all dialogs (NO native alert/confirm)
 - DataTables with Bootstrap 5 integration
 - Modular architecture (includes/head.php, topbar.php, footer.php, foot.php)
-- Bootstrap Icons only (bi-*)
+- Bootstrap Icons only (bi-\*)
 - Flatpickr auto-applied date pickers
 - Select2 for enhanced selects
 - Clone seeder-page.php template pattern
@@ -357,6 +357,26 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 **Skill location:** `doc-architect/SKILL.md`
 
+---
+
+### 13. Manual Guide
+
+**Focus:** End-user manuals and reference guides (not AI agent docs)
+
+**When to use:**
+
+- Documenting a feature for users
+- Writing a user manual for a module
+- Syncing reference guides
+
+**Key capabilities:**
+
+- Contextual discovery from plans, schema, code, and docs
+- Dual-workflow guide structure (overview, steps, technical reference, edge cases)
+- Professional instructional tone with workflow comparisons
+
+**Skill location:** `manual-guide/SKILL.md`
+
 ## Installation
 
 ### Option 1: Use Skills Directly
@@ -473,15 +493,19 @@ description: Brief description of what this skill does and when to use it
 # Skill Name
 
 ## Overview
+
 Detailed explanation of the skill's purpose and capabilities.
 
 ## When to Use
+
 Clear guidelines on when to invoke this skill.
 
 ## Key Patterns
+
 Detailed patterns, code examples, and best practices.
 
 ## Examples
+
 Practical examples of using the skill.
 ```
 
@@ -612,6 +636,8 @@ skills/
 ├── update-claude-documentation/  # Documentation maintenance skill
 │   └── SKILL.md
 ├── doc-architect/                # Triple-Layer AGENTS.md generator
+│   └── SKILL.md
+├── manual-guide/                # End-user manuals and reference guides
 │   └── SKILL.md
 ├── dual-auth-rbac/               # Dual authentication + RBAC skill
 │   ├── SKILL.md

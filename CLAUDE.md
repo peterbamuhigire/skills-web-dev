@@ -71,6 +71,7 @@ skills/
 ├── writing-plans/            # Implementation planning skill
 ├── update-claude-documentation/  # Documentation maintenance skill
 ├── doc-architect/            # Triple-Layer AGENTS.md generator
+├── manual-guide/             # End-user manual and reference guide skill
 ├── dual-auth-rbac/           # Dual auth + RBAC security skill
 ├── webapp-gui-design/        # Web app GUI design skill
 ├── pos-sales-ui-design/      # POS & sales entry UI design
@@ -95,7 +96,6 @@ Each skill follows this structure:
 name: skill-name
 description: When to use this skill
 ---
-
 # Skill Content
 [Detailed guidelines, patterns, examples]
 ```

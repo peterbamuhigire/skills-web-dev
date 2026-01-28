@@ -92,6 +92,83 @@ seeder-page.php      → Template (ALWAYS clone)
   - Medicines: brand name + generic name + item code
   - Stock items/products: name + code
 
+### Dropdown Testing (MANDATORY Before Marking Features Complete)
+
+**CRITICAL:** Never mark a feature as "production ready" or "fully implemented" without testing dropdowns i.e the logic that loads them must return data, test these.
+
+**Testing Requirements:**
+
+✅ **Test in Browser** - Load the page and verify:
+
+- Dropdown populates with data (not empty)
+- Search functionality works
+- API calls succeed (check Network tab)
+- Console shows no errors
+
+✅ **Add Console Logging** - For dynamic dropdowns:
+
+```javascript
+async function loadGroups() {
+  console.log("Loading customer groups...");
+  const result = await apiGet(`${apiBase}/customer-groups.php`, false);
+
+  if (!result || !result.success) {
+    console.error("❌ Failed to load customer groups:", result?.message);
+    return;
+  }
+
+  const groups = result?.data?.groups || [];
+  console.log("✅ Customer groups loaded:", groups.length, "items");
+  // ... populate dropdown
+}
+```
+
+✅ **Error Handling** - API calls for dropdowns should:
+
+- Not show SweetAlert errors on page load (use `showErrors = false` parameter)
+- Log errors to console with clear ❌ prefix
+- Show user-friendly warning only if critical data fails
+- Handle empty arrays gracefully
+
+❌ **Common Mistakes:**
+
+- Marking feature complete without browser testing
+- API returning empty array but no error logged
+- Silent failures (dropdown stays empty, no console error)
+- Using wrong API endpoint path
+- API response structure doesn't match expected format
+
+**Example Error Handling:**
+
+```javascript
+async function apiGet(url, showErrors = true) {
+  try {
+    console.log("API GET:", url);
+    const resp = await fetch(url, {
+      method: "GET",
+      credentials: "same-origin",
+    });
+
+    const json = await resp.json().catch((e) => {
+      console.error("JSON parse error:", e);
+      return null;
+    });
+
+    if (!json) {
+      if (showErrors)
+        await Swal.fire("Error", "Invalid server response", "error");
+      return null;
+    }
+
+    return json;
+  } catch (error) {
+    console.error("❌ API GET exception:", error);
+    if (showErrors) await Swal.fire("Error", "Network error occurred", "error");
+    return null;
+  }
+}
+```
+
 ## Page Template
 
 ```php
@@ -554,6 +631,9 @@ Focus on:
 - [ ] HTML escaped
 - [ ] Responsive
 - [ ] CSRF tokens
+- [ ] **Dropdowns tested in browser** (not empty, search works, console clean)
+- [ ] **Console logging added** for dynamic dropdowns (✅ success, ❌ errors)
+- [ ] **Error handling** implemented (graceful failures, user-friendly messages)
 
 ## Summary
 

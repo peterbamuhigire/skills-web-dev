@@ -94,6 +94,8 @@ Include in every plan:
 - **Schema adherence** - Verify all SQL aligns to `database/schema/*.sql` and update schema files, procedures, and triggers as needed
 - **Cross-layer completeness** - Explicitly cover database, stored procedures, triggers, UI, APIs, services, middleware, and any other impacted layers
 - **Verification steps** - Add concrete checks that confirm schema alignment and functional correctness
+- **Skill mapping** - Explicitly state which skills from `skills/` apply to each plan section and why
+- **Multi-file plans** - If the plan is large, split into multiple markdown files and provide an index file that links to each section
 
 ## Best Practices
 

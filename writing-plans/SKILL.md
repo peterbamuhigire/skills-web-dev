@@ -96,6 +96,8 @@ Include in every plan:
 - **Verification steps** - Add concrete checks that confirm schema alignment and functional correctness
 - **Skill mapping** - Explicitly state which skills from `skills/` apply to each plan section and why
 - **Multi-file plans** - If the plan is large, split into multiple markdown files and provide an index file that links to each section
+- **Status tracking** - Include a status section (not-started/in-progress/completed) per task and keep it updated during implementation
+- **Self-updating plans** - If implementation decisions change or new optional steps are discovered, update the plan files immediately so progress is always current
 
 ## Best Practices
 

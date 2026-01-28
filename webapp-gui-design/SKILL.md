@@ -82,6 +82,16 @@ seeder-page.php      → Template (ALWAYS clone)
 - **Do not add new permissions** for features that are available to all users. Use existing roles/permissions and keep access simple unless a business rule requires restriction.
 - When in doubt: protect destructive actions, keep read-only views available to broader roles.
 
+## Searchable Dropdowns (Required)
+
+- Any dropdown that can exceed **30 items in production** must be a searchable Select2 (or equivalent).
+- Configure search to match **at least two attributes** where possible:
+  - Students: name + registration number
+  - Clients/customers: name + phone
+  - Diseases: disease name + ICD number
+  - Medicines: brand name + generic name + item code
+  - Stock items/products: name + code
+
 ## Page Template
 
 ```php

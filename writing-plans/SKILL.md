@@ -7,19 +7,22 @@ description: Create comprehensive, bite-sized implementation plans for multi-ste
 
 Create comprehensive implementation plans for multi-step tasks. Each plan breaks work into bite-sized tasks (2-5 minutes each) with exact file paths, complete code, and test-driven development workflow.
 
-**Standard plan directory (required):** `/plans/` (do NOT use `/docs/plans/`)
+**Standard plan directory (required):** `/docs/plans/`
 
-**Save plan index to:** `plans/YYYY-MM-DD-<feature-name>.md`
+**Save plan index to:** `docs/plans/YYYY-MM-DD-<feature-name>.md`
 
-**Save plan sections to:** `plans/<feature-name>/` (multi-file plans)
+**Save plan sections to:** `docs/plans/<feature-name>/` (multi-file plans)
+
+**Plan directory index (required):** Update `docs/plans/AGENTS.md` whenever a plan is added or its status changes.
 
 ## Standard Plan Structure (Required)
 
 Use the following canonical structure for all plans:
 
 ```
-plans/
-    YYYY-MM-DD-<feature-name>.md          # Index file linking all sections
+docs/plans/
+    AGENTS.md                              # Plans directory index (must stay current)
+    YYYY-MM-DD-<feature-name>.md           # Index file linking all sections
     <feature-name>/
         00-overview-and-scope.md
         01-...
@@ -32,7 +35,7 @@ The index file in `plans/` must:
 
 - Declare the plan goal and scope.
 - Link to every section file with relative links.
-- State the standard directory rule: all plan files live under `/plans/`.
+- State the standard directory rule: all plan files live under `/docs/plans/`.
 
 ### Section File Requirements
 

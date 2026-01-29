@@ -40,6 +40,7 @@ The skill should activate when the user asks to:
 3. **Set up plan grouping (first-time)**
    - Create `docs/plans/<module>/` subdirectories for each discovered module/area.
    - Update `docs/plans/AGENTS.md` with the current module list.
+   - Keep `docs/plans/AGENTS.md` updated whenever plans are added or their status changes.
    - Maintain a folder map at the top of `docs/plans/AGENTS.md` and update it when requested.
    - Note that developers can add new folders and update the list manually.
 

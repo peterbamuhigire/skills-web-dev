@@ -922,13 +922,638 @@ To improve this agent:
 **Last Updated**: January 2025
 **Maintained By**: Analytics Team
 
+````
+
+---
+
+## 📄 **4. index.js - Entry Point**
+
+**Purpose**: Entry point that exports your agent so it can be used by other files/apps.
+
+Think of it as the "front door" to your agent.
+
+---
+
+## 🎯 Why You Need index.js
+
+### Without index.js (Bad)
+```javascript
+// In your app, you'd have to do this:
+const SalesAnalyzerAgent = require('./agents/sales-analyzer/agent.js');
+const config = require('./agents/sales-analyzer/config.json');
+
+const agent = new SalesAnalyzerAgent(config);
+````
+
+**Problems**:
+
+- ❌ Need to know exact file path
+- ❌ Need to import config separately
+- ❌ Imports are scattered throughout your app
+- ❌ Hard to refactor later
+- ❌ Not clean
+
+### With index.js (Good)
+
+```javascript
+// In your app, you can simply do this:
+const { SalesAnalyzerAgent } = require("./agents/sales-analyzer");
+
+const agent = new SalesAnalyzerAgent(config);
 ```
+
+**Benefits**:
+
+- ✅ Clean, simple import
+- ✅ Path is shorter
+- ✅ Can reorganize files internally without changing imports
+- ✅ Exports exactly what users need
+- ✅ Professional structure
+
+---
+
+## 📝 Basic index.js Example
+
+**File**: `agents/sales-analyzer/index.js`
+
+```javascript
+/**
+ * Sales Analyzer Agent - Entry Point
+ *
+ * This file exports the agent class and helper functions.
+ * Users should import from this file, not from agent.js directly.
+ */
+
+// Import the agent class
+const SalesAnalyzerAgent = require("./agent");
+
+// Import configuration
+const config = require("./config.json");
+
+// ====== EXPORT THE AGENT ======
+
+// Option 1: Export just the class
+module.exports = SalesAnalyzerAgent;
+
+// Option 2: Export the class and config
+module.exports = {
+  SalesAnalyzerAgent,
+  config,
+};
+
+// Option 3: Export a factory function (most flexible)
+module.exports = {
+  SalesAnalyzerAgent,
+  config,
+  // Factory function to create agent with default config
+  createAgent: (overrideConfig = {}) => {
+    const finalConfig = { ...config, ...overrideConfig };
+    return new SalesAnalyzerAgent(finalConfig);
+  },
+};
+```
+
+---
+
+## 🚀 Different Patterns
+
+### Pattern 1: Simple Export (Best for Simple Agents)
+
+**File**: `agents/sales-analyzer/index.js`
+
+```javascript
+const SalesAnalyzerAgent = require("./agent");
+
+module.exports = SalesAnalyzerAgent;
+```
+
+**Usage**:
+
+```javascript
+const SalesAnalyzerAgent = require("./agents/sales-analyzer");
+
+const agent = new SalesAnalyzerAgent(config);
+await agent.run(input);
+```
+
+---
+
+### Pattern 2: Named Exports (Best for Multiple Exports)
+
+**File**: `agents/sales-analyzer/index.js`
+
+```javascript
+const SalesAnalyzerAgent = require("./agent");
+const config = require("./config.json");
+const DatabaseHelper = require("./tools/database");
+const ReportGenerator = require("./tools/reporting");
+
+module.exports = {
+  SalesAnalyzerAgent,
+  config,
+  DatabaseHelper,
+  ReportGenerator,
+  version: "1.0.0",
+  description: "Sales analysis agent",
+};
+```
+
+**Usage**:
+
+```javascript
+const {
+  SalesAnalyzerAgent,
+  config,
+  DatabaseHelper,
+} = require("./agents/sales-analyzer");
+
+const agent = new SalesAnalyzerAgent(config);
+```
+
+---
+
+### Pattern 3: Factory Pattern (Most Flexible)
+
+**File**: `agents/sales-analyzer/index.js`
+
+```javascript
+const SalesAnalyzerAgent = require("./agent");
+const config = require("./config.json");
+
+/**
+ * Create a pre-configured agent instance
+ * @param {Object} overrides - Override default config values
+ * @returns {SalesAnalyzerAgent} Configured agent instance
+ */
+function createAgent(overrides = {}) {
+  const finalConfig = {
+    ...config,
+    ...overrides,
+  };
+  return new SalesAnalyzerAgent(finalConfig);
+}
+
+module.exports = {
+  SalesAnalyzerAgent,
+  config,
+  createAgent,
+};
+```
+
+**Usage**:
+
+```javascript
+const { createAgent } = require("./agents/sales-analyzer");
+
+// Create with default config
+const agent1 = createAgent();
+
+// Create with custom config
+const agent2 = createAgent({
+  database: "different-db-url",
+  logLevel: "debug",
+});
+
+await agent1.run(input);
+```
+
+---
+
+## 💡 Real-World Examples
+
+### Example 1: Node.js App Using Agent
+
+**Your App File**: `src/main.js`
+
+```javascript
+// Thanks to index.js, this import is clean and simple
+const { SalesAnalyzerAgent, createAgent } = require("../agents/sales-analyzer");
+
+async function analyzeMonthlyData() {
+  // Create agent with default config
+  const agent = createAgent();
+
+  // Run analysis
+  const result = await agent.run({
+    action: "analyze",
+    period: "monthly",
+  });
+
+  return result;
+}
+
+async function analyzeWithCustomDB() {
+  // Create agent with custom database
+  const agent = createAgent({
+    database: "mysql://prod-server/sales",
+  });
+
+  const result = await agent.run({
+    action: "analyze",
+    period: "quarterly",
+  });
+
+  return result;
+}
+
+module.exports = { analyzeMonthlyData, analyzeWithCustomDB };
+```
+
+---
+
+### Example 2: Test File Using Agent
+
+**Test File**: `agents/sales-analyzer/tests/agent.test.js`
+
+```javascript
+// index.js makes importing in tests clean
+const { SalesAnalyzerAgent, createAgent } = require("../");
+
+describe("Sales Analyzer Agent", () => {
+  let agent;
+
+  beforeEach(() => {
+    // Create agent with test config
+    agent = createAgent({
+      database: "sqlite://test.db",
+      logLevel: "error",
+    });
+  });
+
+  test("should analyze sales data", async () => {
+    const result = await agent.analyze({
+      period: "monthly",
+    });
+
+    expect(result.success).toBe(true);
+    expect(result.metrics).toBeDefined();
+  });
+
+  test("should forecast sales", async () => {
+    const forecast = await agent.forecast({
+      months: 6,
+    });
+
+    expect(forecast.success).toBe(true);
+    expect(forecast.values).toHaveLength(6);
+  });
+});
+```
+
+---
+
+### Example 3: Multiple Agents in One Project
+
+**Root index.js**: `agents/index.js`
+
+```javascript
+/**
+ * All Agents - Master Export
+ *
+ * This file exports all agents in the project.
+ * Users can import any agent from this single point.
+ */
+
+const SalesAnalyzer = require("./sales-analyzer");
+const ReportGenerator = require("./report-generator");
+const DataProcessor = require("./data-processor");
+
+module.exports = {
+  SalesAnalyzer,
+  ReportGenerator,
+  DataProcessor,
+
+  // Helper to create any agent
+  createAgent: (agentName, config = {}) => {
+    const agents = {
+      "sales-analyzer": SalesAnalyzer,
+      "report-generator": ReportGenerator,
+      "data-processor": DataProcessor,
+    };
+
+    if (!agents[agentName]) {
+      throw new Error(`Unknown agent: ${agentName}`);
+    }
+
+    return agents[agentName].createAgent(config);
+  },
+};
+```
+
+**Usage**:
+
+```javascript
+const { SalesAnalyzer, createAgent } = require("./agents");
+
+// Option 1: Import specific agent
+const { createAgent: createSalesAgent } = require("./agents/sales-analyzer");
+const agent = createSalesAgent();
+
+// Option 2: Use master createAgent function
+const agent = createAgent("sales-analyzer", {
+  database: "custom-db",
+});
+```
+
+---
+
+## 📦 Python Agent Equivalent
+
+For Python agents, the equivalent would be an `__init__.py` file:
+
+**File**: `agents/data-processor/__init__.py`
+
+```python
+"""
+Data Processor Agent - Entry Point
+
+This module exports the agent class and helper functions.
+"""
+
+from .agent import DataProcessorAgent
+import json
+import os
+
+# Load config
+config_path = os.path.join(os.path.dirname(__file__), 'config.json')
+with open(config_path, 'r') as f:
+    config = json.load(f)
+
+# ====== EXPORTS ======
+
+def create_agent(overrides=None):
+    """
+    Create a pre-configured agent instance
+
+    Args:
+        overrides (dict): Override config values
+
+    Returns:
+        DataProcessorAgent: Configured agent instance
+    """
+    final_config = config.copy()
+    if overrides:
+        final_config.update(overrides)
+    return DataProcessorAgent(final_config)
+
+# Export publicly available items
+__all__ = [
+    'DataProcessorAgent',
+    'config',
+    'create_agent'
+]
+```
+
+**Usage**:
+
+```python
+from agents.data_processor import DataProcessorAgent, create_agent
+
+# Method 1
+agent = DataProcessorAgent(config)
+result = agent.run(input_data)
+
+# Method 2
+agent = create_agent({'log_level': 'debug'})
+result = agent.run(input_data)
+```
+
+---
+
+## 🎨 Best Practices for index.js
+
+### ✅ DO
+
+1. **Export the main class**
+
+   ```javascript
+   module.exports = SalesAnalyzerAgent;
+   ```
+
+2. **Export a factory function**
+
+   ```javascript
+   module.exports = {
+     SalesAnalyzerAgent,
+     createAgent: (config) => new SalesAnalyzerAgent(config),
+   };
+   ```
+
+3. **Export config**
+
+   ```javascript
+   module.exports = {
+     SalesAnalyzerAgent,
+     config,
+   };
+   ```
+
+4. **Document exports**
+
+   ```javascript
+   /**
+    * Sales Analyzer Agent
+    *
+    * @exports SalesAnalyzerAgent
+    * @exports config
+    * @exports createAgent
+    */
+   ```
+
+5. **Keep it simple**
+
+   ```javascript
+   // Short and clear
+   const Agent = require("./agent");
+   const config = require("./config.json");
+
+   module.exports = { Agent, config };
+   ```
+
+---
+
+### ❌ DON'T
+
+1. **Don't export everything**
+
+   ```javascript
+   // BAD: Exports internal helpers
+   module.exports = {
+     SalesAnalyzerAgent,
+     DatabaseHelper, // Internal
+     ReportGenerator, // Internal
+     Validator, // Internal
+     PrivateUtil, // Internal
+   };
+   ```
+
+2. **Don't create instances**
+
+   ```javascript
+   // BAD: Can't configure
+   const agent = new SalesAnalyzerAgent(config);
+   module.exports = agent; // This is wrong!
+   ```
+
+3. **Don't duplicate config loading**
+
+   ```javascript
+   // BAD: Loading config twice
+   const SalesAnalyzerAgent = require("./agent");
+   const config1 = require("./config.json");
+   const config2 = require("./config.json"); // Don't do this
+   ```
+
+4. **Don't make it too complex**
+   ```javascript
+   // BAD: Too many helper functions
+   module.exports = {
+     Agent,
+     createFromFile: () => {},
+     createFromDB: () => {},
+     createFromAPI: () => {},
+     createFromEnv: () => {},
+     // etc...
+   };
+   ```
+
+---
+
+## 📋 Complete Agent Folder With index.js
+
+```
+agents/sales-analyzer/
+├── index.js              ← ENTRY POINT (what users import)
+├── agent.js              ← Implementation (internal)
+├── config.json           ← Configuration (loaded by index.js)
+├── README.md             ← Documentation
+├── package.json
+├── .env.example
+├── tests/
+│   └── agent.test.js    ← Imports from index.js
+└── tools/                ← Internal helpers
+    ├── database.js
+    └── reporting.js
+```
+
+---
+
+## 🔄 Import Flow
+
+### How Users Import Your Agent
+
+```
+User Code (main.js)
+    ↓
+const { SalesAnalyzerAgent } = require('./agents/sales-analyzer');
+    ↓
+Looks for index.js in agents/sales-analyzer/
+    ↓
+index.js loads agent.js and config.json
+    ↓
+index.js exports SalesAnalyzerAgent
+    ↓
+User gets clean, configured agent
+```
+
+---
+
+## 🎯 Summary
+
+### What index.js Does
+
+| Job                     | Example                                           |
+| ----------------------- | ------------------------------------------------- |
+| Import agent class      | `const Agent = require('./agent')`                |
+| Import config           | `const config = require('./config.json')`         |
+| Create factory function | `createAgent = () => new Agent(config)`           |
+| Export everything       | `module.exports = { Agent, config, createAgent }` |
+
+### Result
+
+Users can do:
+
+```javascript
+// Clean, simple import
+const { SalesAnalyzerAgent, createAgent } = require("./agents/sales-analyzer");
+
+// Easy to use
+const agent = createAgent({ database: "custom" });
+```
+
+Instead of:
+
+```javascript
+// Messy imports from multiple files
+const SalesAnalyzerAgent = require("./agents/sales-analyzer/agent.js");
+const config = require("./agents/sales-analyzer/config.json");
+const DatabaseHelper = require("./agents/sales-analyzer/tools/database.js");
+
+const agent = new SalesAnalyzerAgent(config);
+```
+
+---
+
+## ✅ Recommended index.js Template
+
+Copy this for every new agent:
+
+```javascript
+/**
+ * [Agent Name] - Entry Point
+ *
+ * This file exports the agent class and utilities.
+ * Users should import from this file, not from agent.js directly.
+ *
+ * @example
+ * const { AgentClass, createAgent } = require('./agents/[agent-name]');
+ * const agent = createAgent();
+ */
+
+// Import agent class
+const AgentClass = require("./agent");
+
+// Import configuration
+const config = require("./config.json");
+
+/**
+ * Factory function to create a configured agent instance
+ * @param {Object} overrides - Override default config values
+ * @returns {AgentClass} Configured agent instance
+ */
+function createAgent(overrides = {}) {
+  const finalConfig = {
+    ...config,
+    ...overrides,
+  };
+  return new AgentClass(finalConfig);
+}
+
+// ====== EXPORTS ======
+
+module.exports = {
+  AgentClass,
+  config,
+  createAgent,
+  // Optional: Add version/metadata
+  version: config.agent?.version || "1.0.0",
+  name: config.agent?.name || "[Agent Name]",
+};
+
+// Alternative: Just export the class
+// module.exports = AgentClass;
+```
+
+---
+
+**index.js is the "public interface" of your agent folder. Keep it clean!** 🚀
 
 ---
 
 ## 🎯 **Summary: What Goes Where**
 
 ### **agent.js** (The Code)
+
 - Main agent class
 - All methods (analyze, forecast, report, etc.)
 - Business logic
@@ -936,6 +1561,7 @@ To improve this agent:
 - Error handling
 
 ### **config.json** (Settings)
+
 - Database configuration
 - Default parameters
 - Output directories
@@ -944,6 +1570,7 @@ To improve this agent:
 - Feature flags
 
 ### **README.md** (Documentation)
+
 - Overview of what agent does
 - Installation instructions
 - Configuration setup
@@ -988,6 +1615,1107 @@ agents/sales-analyzer/
 - [ ] `tools/` folder with helpers (if needed)
 - [ ] Clear comments in code
 - [ ] Examples in README
+
+---
+
+# 📁 tests/ and tools/ Folders - Complete Guide
+
+**Purpose**:
+
+- `tests/` - Verify your agent works correctly
+- `tools/` - Helper utilities that the agent uses
+
+---
+
+## 🧪 TESTS/ FOLDER
+
+### What Goes Here
+
+Test files that verify your agent works correctly.
+
+```
+agents/sales-analyzer/
+├── tests/
+│   ├── agent.test.js          ← Main agent tests
+│   ├── integration.test.js     ← Tests with real database
+│   ├── unit.test.js            ← Tests for specific methods
+│   └── fixtures/               ← Test data
+│       ├── sample-data.json
+│       └── mock-responses.json
+```
+
+---
+
+### Example 1: agent.test.js (Jest)
+
+**File**: `agents/sales-analyzer/tests/agent.test.js`
+
+```javascript
+/**
+ * Sales Analyzer Agent Tests
+ *
+ * Tests the main functionality of the agent
+ */
+
+// Import from index.js (thanks to index.js, this is clean!)
+const { SalesAnalyzerAgent, createAgent, config } = require("../");
+
+describe("Sales Analyzer Agent", () => {
+  let agent;
+
+  // Setup before each test
+  beforeEach(() => {
+    // Create agent with test config
+    agent = createAgent({
+      database: "sqlite://test.db",
+      logLevel: "error",
+      cacheEnabled: false, // Disable cache for tests
+    });
+  });
+
+  // Cleanup after each test
+  afterEach(async () => {
+    // Close connections, clean up
+    await agent.close?.();
+  });
+
+  // ====== CONSTRUCTOR TESTS ======
+
+  describe("constructor", () => {
+    test("should create agent with config", () => {
+      expect(agent).toBeDefined();
+      expect(agent.name).toBe("Sales Analyzer Agent");
+      expect(agent.tools).toContain("analyze");
+    });
+
+    test("should merge config overrides", () => {
+      const customAgent = createAgent({
+        logLevel: "debug",
+      });
+      expect(customAgent.config.logLevel).toBe("debug");
+    });
+
+    test("should have all required tools", () => {
+      const requiredTools = [
+        "analyze",
+        "forecast",
+        "generateReport",
+        "exportData",
+      ];
+      requiredTools.forEach((tool) => {
+        expect(agent.tools).toContain(tool);
+      });
+    });
+  });
+
+  // ====== ANALYZE METHOD TESTS ======
+
+  describe("analyze()", () => {
+    test("should analyze sales data for monthly period", async () => {
+      const result = await agent.analyze({
+        period: "monthly",
+      });
+
+      expect(result).toBeDefined();
+      expect(result.success).toBe(true);
+      expect(result.metrics).toBeDefined();
+      expect(result.metrics.total).toBeGreaterThanOrEqual(0);
+    });
+
+    test("should include metrics object", async () => {
+      const result = await agent.analyze({
+        period: "monthly",
+      });
+
+      const metrics = result.metrics;
+      expect(metrics).toHaveProperty("total");
+      expect(metrics).toHaveProperty("average");
+      expect(metrics).toHaveProperty("count");
+      expect(metrics).toHaveProperty("min");
+      expect(metrics).toHaveProperty("max");
+    });
+
+    test("should filter by region when provided", async () => {
+      const result = await agent.analyze({
+        period: "monthly",
+        region: "North America",
+      });
+
+      expect(result.success).toBe(true);
+      // In a real test, you'd verify region filtering worked
+    });
+
+    test("should throw error for invalid period", async () => {
+      await expect(agent.analyze({ period: "invalid" })).rejects.toThrow(
+        "Invalid period",
+      );
+    });
+
+    test("should support date range filtering", async () => {
+      const result = await agent.analyze({
+        period: "monthly",
+        startDate: "2024-01-01",
+        endDate: "2024-03-31",
+      });
+
+      expect(result.success).toBe(true);
+    });
+
+    test("should handle empty results gracefully", async () => {
+      // Empty database should not crash
+      const result = await agent.analyze({
+        period: "monthly",
+        startDate: "2000-01-01",
+        endDate: "2000-01-02",
+      });
+
+      expect(result.success).toBe(true);
+      expect(result.metrics.count).toBe(0);
+    });
+  });
+
+  // ====== FORECAST METHOD TESTS ======
+
+  describe("forecast()", () => {
+    test("should generate forecast for specified months", async () => {
+      const result = await agent.forecast({
+        months: 6,
+      });
+
+      expect(result.success).toBe(true);
+      expect(result.forecast).toBeDefined();
+      expect(result.forecast).toHaveLength(6);
+    });
+
+    test("should include confidence level", async () => {
+      const result = await agent.forecast({
+        months: 12,
+        confidence: 0.95,
+      });
+
+      expect(result.confidence).toBe(0.95);
+    });
+
+    test("should validate month range", async () => {
+      // Too many months
+      await expect(agent.forecast({ months: 100 })).rejects.toThrow();
+
+      // Zero months
+      await expect(agent.forecast({ months: 0 })).rejects.toThrow();
+    });
+
+    test("should return numeric forecast values", async () => {
+      const result = await agent.forecast({ months: 3 });
+
+      result.forecast.forEach((value) => {
+        expect(typeof value).toBe("number");
+        expect(value).toBeGreaterThanOrEqual(0);
+      });
+    });
+  });
+
+  // ====== GENERATE REPORT METHOD TESTS ======
+
+  describe("generateReport()", () => {
+    test("should generate PDF report", async () => {
+      const result = await agent.generateReport({
+        title: "Test Report",
+        period: "monthly",
+        format: "pdf",
+      });
+
+      expect(result.success).toBe(true);
+      expect(result.reportPath).toBeDefined();
+      expect(result.reportPath).toMatch(/\.pdf$/);
+    });
+
+    test("should support Excel format", async () => {
+      const result = await agent.generateReport({
+        title: "Test Report",
+        format: "excel",
+      });
+
+      expect(result.reportPath).toMatch(/\.xlsx$/);
+    });
+
+    test("should support CSV format", async () => {
+      const result = await agent.generateReport({
+        title: "Test Report",
+        format: "csv",
+      });
+
+      expect(result.reportPath).toMatch(/\.csv$/);
+    });
+
+    test("should reject unsupported format", async () => {
+      await expect(
+        agent.generateReport({
+          title: "Test",
+          format: "unknown",
+        }),
+      ).rejects.toThrow("Unsupported format");
+    });
+
+    test("should use default period if not specified", async () => {
+      const result = await agent.generateReport({
+        title: "Test",
+        format: "pdf",
+      });
+
+      expect(result.success).toBe(true);
+    });
+  });
+
+  // ====== EXPORT DATA METHOD TESTS ======
+
+  describe("exportData()", () => {
+    test("should export as CSV", async () => {
+      const result = await agent.exportData({
+        format: "csv",
+      });
+
+      expect(result.success).toBe(true);
+      expect(result.exportPath).toMatch(/\.csv$/);
+    });
+
+    test("should export as JSON", async () => {
+      const result = await agent.exportData({
+        format: "json",
+      });
+
+      expect(result.exportPath).toMatch(/\.json$/);
+    });
+
+    test("should use provided filename", async () => {
+      const result = await agent.exportData({
+        format: "csv",
+        filename: "custom-export",
+      });
+
+      expect(result.exportPath).toContain("custom-export");
+    });
+
+    test("should include row count in result", async () => {
+      const result = await agent.exportData({
+        format: "json",
+      });
+
+      expect(result.rows).toBeGreaterThanOrEqual(0);
+    });
+  });
+
+  // ====== RUN METHOD TESTS ======
+
+  describe("run()", () => {
+    test("should route to analyze action", async () => {
+      const result = await agent.run({
+        action: "analyze",
+        period: "monthly",
+      });
+
+      expect(result.success).toBe(true);
+      expect(result.metrics).toBeDefined();
+    });
+
+    test("should route to forecast action", async () => {
+      const result = await agent.run({
+        action: "forecast",
+        months: 6,
+      });
+
+      expect(result.success).toBe(true);
+      expect(result.forecast).toBeDefined();
+    });
+
+    test("should route to report action", async () => {
+      const result = await agent.run({
+        action: "report",
+        title: "Test",
+        format: "pdf",
+      });
+
+      expect(result.success).toBe(true);
+    });
+
+    test("should throw error for unknown action", async () => {
+      await expect(agent.run({ action: "unknown" })).rejects.toThrow(
+        "Unknown action",
+      );
+    });
+  });
+
+  // ====== ERROR HANDLING TESTS ======
+
+  describe("error handling", () => {
+    test("should handle database connection errors", async () => {
+      const badAgent = createAgent({
+        database: "mysql://invalid-host/nonexistent",
+      });
+
+      await expect(badAgent.analyze({ period: "monthly" })).rejects.toThrow();
+    });
+
+    test("should handle missing required parameters", async () => {
+      await expect(
+        agent.analyze({
+          /* missing period */
+        }),
+      ).rejects.toThrow();
+    });
+
+    test("should log errors appropriately", async () => {
+      const consoleSpy = jest.spyOn(console, "error");
+
+      try {
+        await agent.analyze({ period: "invalid" });
+      } catch (e) {
+        // Expected
+      }
+
+      expect(consoleSpy).toHaveBeenCalled();
+      consoleSpy.mockRestore();
+    });
+  });
+
+  // ====== PERFORMANCE TESTS ======
+
+  describe("performance", () => {
+    test("should analyze data quickly", async () => {
+      const start = Date.now();
+      await agent.analyze({ period: "monthly" });
+      const duration = Date.now() - start;
+
+      expect(duration).toBeLessThan(1000); // Less than 1 second
+    });
+
+    test("should handle multiple concurrent requests", async () => {
+      const promises = [
+        agent.analyze({ period: "monthly" }),
+        agent.analyze({ period: "weekly" }),
+        agent.forecast({ months: 6 }),
+      ];
+
+      const results = await Promise.all(promises);
+      expect(results).toHaveLength(3);
+      results.forEach((result) => {
+        expect(result.success).toBe(true);
+      });
+    });
+  });
+});
+```
+
+---
+
+### Example 2: integration.test.js
+
+**File**: `agents/sales-analyzer/tests/integration.test.js`
+
+```javascript
+/**
+ * Integration Tests
+ *
+ * Tests the agent with real database connections
+ * (runs against test database, not production)
+ */
+
+const { createAgent } = require("../");
+const mysql = require("mysql2/promise");
+
+describe("Sales Analyzer - Integration Tests", () => {
+  let agent;
+  let connection;
+
+  beforeAll(async () => {
+    // Setup test database
+    connection = await mysql.createConnection({
+      host: process.env.TEST_DB_HOST || "localhost",
+      user: process.env.TEST_DB_USER || "test_user",
+      password: process.env.TEST_DB_PASSWORD || "test_pass",
+      database: "sales_test",
+    });
+
+    // Create test data
+    await setupTestData(connection);
+  });
+
+  beforeEach(() => {
+    agent = createAgent({
+      database:
+        process.env.TEST_DB_URL ||
+        "mysql://test_user:test_pass@localhost/sales_test",
+    });
+  });
+
+  afterAll(async () => {
+    // Cleanup test database
+    await cleanupTestData(connection);
+    await connection.end();
+  });
+
+  test("should query real database and return results", async () => {
+    const result = await agent.analyze({
+      period: "monthly",
+    });
+
+    expect(result.success).toBe(true);
+    expect(result.metrics.count).toBeGreaterThan(0);
+  });
+
+  test("should handle complex queries with multiple filters", async () => {
+    const result = await agent.analyze({
+      period: "monthly",
+      region: "East Coast",
+      startDate: "2024-01-01",
+      endDate: "2024-03-31",
+    });
+
+    expect(result.success).toBe(true);
+  });
+
+  test("should calculate accurate metrics from real data", async () => {
+    const result = await agent.analyze({
+      period: "monthly",
+    });
+
+    // Verify calculations are correct
+    const expectedTotal = 0; // Calculate from test data
+    expect(result.metrics.total).toBe(expectedTotal);
+  });
+
+  test("should handle large datasets", async () => {
+    // Load 10,000 test records
+    await connection.query(
+      "INSERT INTO sales SELECT ... FROM large_dataset LIMIT 10000",
+    );
+
+    const result = await agent.analyze({
+      period: "monthly",
+    });
+
+    expect(result.success).toBe(true);
+    expect(result.metrics.count).toBe(10000);
+  });
+});
+
+// Test helper functions
+async function setupTestData(connection) {
+  await connection.query(`
+    CREATE TABLE IF NOT EXISTS sales (
+      id INT PRIMARY KEY,
+      amount DECIMAL(10,2),
+      date DATE,
+      region VARCHAR(100)
+    )
+  `);
+
+  // Insert test data
+  await connection.query(`
+    INSERT INTO sales VALUES
+    (1, 100.00, '2024-01-01', 'East Coast'),
+    (2, 200.00, '2024-01-02', 'West Coast'),
+    (3, 300.00, '2024-02-01', 'East Coast')
+  `);
+}
+
+async function cleanupTestData(connection) {
+  await connection.query("DROP TABLE IF EXISTS sales");
+}
+```
+
+---
+
+## 🛠️ TOOLS/ FOLDER
+
+### What Goes Here
+
+Helper utility modules that the agent uses internally.
+
+```
+agents/sales-analyzer/
+└── tools/
+    ├── database.js          ← Database helper class
+    ├── reporting.js         ← Report generation utilities
+    ├── validation.js        ← Input validation
+    ├── cache.js             ← Caching utilities (optional)
+    └── logger.js            ← Logging utilities (optional)
+```
+
+---
+
+### Example 1: tools/database.js
+
+**File**: `agents/sales-analyzer/tools/database.js`
+
+```javascript
+/**
+ * Database Helper
+ *
+ * Handles all database operations for the agent
+ */
+
+const mysql = require("mysql2/promise");
+
+class DatabaseHelper {
+  constructor(config) {
+    this.config = config;
+    this.pool = null;
+    this.initialized = false;
+  }
+
+  /**
+   * Initialize database connection
+   */
+  async initialize() {
+    if (this.initialized) return;
+
+    try {
+      console.log("[DatabaseHelper] Initializing connection...");
+
+      this.pool = await mysql.createPool({
+        host: this.config.host || "localhost",
+        user: this.config.user || "root",
+        password: this.config.password || "",
+        database: this.config.database || "sales",
+        waitForConnections: true,
+        connectionLimit: this.config.connectionLimit || 10,
+        queueLimit: 0,
+      });
+
+      this.initialized = true;
+      console.log("[DatabaseHelper] Connection initialized");
+    } catch (error) {
+      console.error("[DatabaseHelper] Initialization failed:", error);
+      throw error;
+    }
+  }
+
+  /**
+   * Query sales data
+   */
+  async querySales(options = {}) {
+    await this.initialize();
+
+    const { period, region, startDate, endDate } = options;
+
+    // Build dynamic query
+    let query = "SELECT * FROM sales WHERE 1=1";
+    const params = [];
+
+    // Add period-based date filter
+    if (period) {
+      const dateRange = this.getDateRange(period);
+      query += " AND date >= ? AND date <= ?";
+      params.push(dateRange.start, dateRange.end);
+    }
+
+    // Add custom date range
+    if (startDate) {
+      query += " AND date >= ?";
+      params.push(startDate);
+    }
+    if (endDate) {
+      query += " AND date <= ?";
+      params.push(endDate);
+    }
+
+    // Add region filter
+    if (region) {
+      query += " AND region = ?";
+      params.push(region);
+    }
+
+    // Execute query
+    try {
+      const connection = await this.pool.getConnection();
+      const [rows] = await connection.execute(query, params);
+      connection.release();
+
+      console.log(`[DatabaseHelper] Retrieved ${rows.length} rows`);
+      return rows;
+    } catch (error) {
+      console.error("[DatabaseHelper] Query failed:", error);
+      throw error;
+    }
+  }
+
+  /**
+   * Get historical data for forecasting
+   */
+  async getHistoricalData(months = 12) {
+    await this.initialize();
+
+    const query = `
+      SELECT SUM(amount) as total, DATE_TRUNC(date, MONTH) as month
+      FROM sales
+      WHERE date >= DATE_SUB(NOW(), INTERVAL ? MONTH)
+      GROUP BY DATE_TRUNC(date, MONTH)
+      ORDER BY month DESC
+    `;
+
+    try {
+      const connection = await this.pool.getConnection();
+      const [rows] = await connection.execute(query, [months]);
+      connection.release();
+
+      return rows.map((row) => row.total);
+    } catch (error) {
+      console.error("[DatabaseHelper] Historical query failed:", error);
+      throw error;
+    }
+  }
+
+  /**
+   * Helper: Get date range for period
+   */
+  getDateRange(period) {
+    const today = new Date();
+    let start,
+      end = today;
+
+    switch (period) {
+      case "daily":
+        start = new Date(today);
+        start.setDate(start.getDate() - 1);
+        break;
+      case "weekly":
+        start = new Date(today);
+        start.setDate(start.getDate() - 7);
+        break;
+      case "monthly":
+        start = new Date(today);
+        start.setMonth(start.getMonth() - 1);
+        break;
+      case "quarterly":
+        start = new Date(today);
+        start.setMonth(start.getMonth() - 3);
+        break;
+      case "yearly":
+        start = new Date(today);
+        start.setFullYear(start.getFullYear() - 1);
+        break;
+      default:
+        throw new Error(`Invalid period: ${period}`);
+    }
+
+    return { start, end };
+  }
+
+  /**
+   * Close database connection
+   */
+  async close() {
+    if (this.pool) {
+      await this.pool.end();
+      this.initialized = false;
+      console.log("[DatabaseHelper] Connection closed");
+    }
+  }
+}
+
+module.exports = DatabaseHelper;
+```
+
+---
+
+### Example 2: tools/reporting.js
+
+**File**: `agents/sales-analyzer/tools/reporting.js`
+
+```javascript
+/**
+ * Report Generator Utility
+ *
+ * Generates reports in various formats
+ */
+
+const PDFDocument = require("pdfkit");
+const ExcelJS = require("exceljs");
+const fs = require("fs");
+const path = require("path");
+
+class ReportGenerator {
+  constructor(config = {}) {
+    this.outputDir = config.outputDir || "./reports";
+    this.ensureOutputDir();
+  }
+
+  ensureOutputDir() {
+    if (!fs.existsSync(this.outputDir)) {
+      fs.mkdirSync(this.outputDir, { recursive: true });
+    }
+  }
+
+  /**
+   * Generate report in specified format
+   */
+  async generate(options) {
+    const { title, data, format } = options;
+
+    console.log(`[ReportGenerator] Generating ${format} report...`);
+
+    try {
+      switch (format) {
+        case "pdf":
+          return await this.generatePDF(title, data);
+        case "excel":
+          return await this.generateExcel(title, data);
+        case "csv":
+          return await this.generateCSV(title, data);
+        default:
+          throw new Error(`Unsupported format: ${format}`);
+      }
+    } catch (error) {
+      console.error("[ReportGenerator] Generation failed:", error);
+      throw error;
+    }
+  }
+
+  /**
+   * Generate PDF report
+   */
+  async generatePDF(title, data) {
+    const filename = `${title.replace(/\s+/g, "-")}-${Date.now()}.pdf`;
+    const filepath = path.join(this.outputDir, filename);
+
+    return new Promise((resolve, reject) => {
+      try {
+        const doc = new PDFDocument();
+        const stream = fs.createWriteStream(filepath);
+
+        doc.pipe(stream);
+
+        // Title
+        doc.fontSize(20).text(title, { align: "center" });
+        doc.moveDown();
+
+        // Metrics
+        doc.fontSize(12).text("Metrics:", { underline: true });
+        Object.entries(data.metrics).forEach(([key, value]) => {
+          doc.text(`  ${key}: ${value}`);
+        });
+
+        // Insights
+        doc.moveDown();
+        doc.fontSize(12).text("Insights:", { underline: true });
+        data.insights.forEach((insight) => {
+          doc.text(`  • ${insight}`);
+        });
+
+        doc.end();
+
+        stream.on("finish", () => {
+          console.log(`[ReportGenerator] PDF saved to ${filepath}`);
+          resolve(filepath);
+        });
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+
+  /**
+   * Generate Excel report
+   */
+  async generateExcel(title, data) {
+    const filename = `${title.replace(/\s+/g, "-")}-${Date.now()}.xlsx`;
+    const filepath = path.join(this.outputDir, filename);
+
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet("Report");
+
+    // Header
+    worksheet.columns = [
+      { header: "Metric", key: "metric", width: 20 },
+      { header: "Value", key: "value", width: 20 },
+    ];
+
+    // Add metrics
+    Object.entries(data.metrics).forEach(([key, value]) => {
+      worksheet.addRow({ metric: key, value });
+    });
+
+    // Save
+    await workbook.xlsx.writeFile(filepath);
+    console.log(`[ReportGenerator] Excel saved to ${filepath}`);
+
+    return filepath;
+  }
+
+  /**
+   * Generate CSV report
+   */
+  async generateCSV(title, data) {
+    const filename = `${title.replace(/\s+/g, "-")}-${Date.now()}.csv`;
+    const filepath = path.join(this.outputDir, filename);
+
+    const csv = [
+      ["Metric", "Value"],
+      ...Object.entries(data.metrics).map(([k, v]) => [k, v]),
+    ]
+      .map((row) => row.join(","))
+      .join("\n");
+
+    fs.writeFileSync(filepath, csv);
+    console.log(`[ReportGenerator] CSV saved to ${filepath}`);
+
+    return filepath;
+  }
+
+  /**
+   * Export data
+   */
+  async export(data, options = {}) {
+    const { format, filename } = options;
+    // Similar logic to generate()
+    return await this.generate({
+      title: filename || "export",
+      data,
+      format,
+    });
+  }
+}
+
+module.exports = ReportGenerator;
+```
+
+---
+
+### Example 3: tools/validation.js
+
+**File**: `agents/sales-analyzer/tools/validation.js`
+
+```javascript
+/**
+ * Input Validation Utility
+ *
+ * Validates inputs to agent methods
+ */
+
+class Validator {
+  /**
+   * Validate analysis options
+   */
+  validateAnalysisOptions(options = {}) {
+    if (!options.period) {
+      throw new Error("period is required");
+    }
+
+    const validPeriods = ["daily", "weekly", "monthly", "quarterly", "yearly"];
+    if (!validPeriods.includes(options.period)) {
+      throw new Error(
+        `Invalid period: ${options.period}. Must be one of: ${validPeriods.join(", ")}`,
+      );
+    }
+
+    if (options.startDate && !this.isValidDate(options.startDate)) {
+      throw new Error(`Invalid startDate format: ${options.startDate}`);
+    }
+
+    if (options.endDate && !this.isValidDate(options.endDate)) {
+      throw new Error(`Invalid endDate format: ${options.endDate}`);
+    }
+
+    if (options.region && typeof options.region !== "string") {
+      throw new Error("region must be a string");
+    }
+  }
+
+  /**
+   * Validate forecast options
+   */
+  validateForecastOptions(options = {}) {
+    if (!options.months) {
+      throw new Error("months is required");
+    }
+
+    if (
+      typeof options.months !== "number" ||
+      options.months < 1 ||
+      options.months > 24
+    ) {
+      throw new Error("months must be a number between 1 and 24");
+    }
+
+    if (options.confidence) {
+      if (
+        typeof options.confidence !== "number" ||
+        options.confidence < 0 ||
+        options.confidence > 1
+      ) {
+        throw new Error("confidence must be a number between 0 and 1");
+      }
+    }
+  }
+
+  /**
+   * Validate report options
+   */
+  validateReportOptions(options = {}) {
+    if (!options.title || typeof options.title !== "string") {
+      throw new Error("title is required and must be a string");
+    }
+
+    const validFormats = ["pdf", "excel", "csv"];
+    if (options.format && !validFormats.includes(options.format)) {
+      throw new Error(`format must be one of: ${validFormats.join(", ")}`);
+    }
+  }
+
+  /**
+   * Helper: Check if date is valid ISO format
+   */
+  isValidDate(dateString) {
+    const regex = /^\d{4}-\d{2}-\d{2}$/;
+    if (!regex.test(dateString)) return false;
+
+    const date = new Date(dateString);
+    return date instanceof Date && !isNaN(date);
+  }
+}
+
+module.exports = Validator;
+```
+
+---
+
+## 📊 How They Work Together
+
+```
+agent.js (Main logic)
+    ↓
+    ├→ imports from tools/database.js
+    │  └→ Queries database
+    │
+    ├→ imports from tools/reporting.js
+    │  └→ Generates reports
+    │
+    └→ imports from tools/validation.js
+       └→ Validates inputs
+
+tests/agent.test.js (Testing)
+    ↓
+    ├→ imports from index.js
+    │  └→ Creates agent instances
+    │
+    └→ Calls agent methods
+       └→ Verifies results
+```
+
+---
+
+## 🎯 Complete Folder Structure
+
+```
+agents/sales-analyzer/
+├── agent.js                  ← Main agent class
+├── config.json              ← Configuration
+├── README.md                ← Documentation
+├── index.js                 ← Entry point
+├── package.json             ← Dependencies
+├── .env.example             ← Secrets template
+│
+├── tests/                   ← TEST FILES
+│   ├── agent.test.js       ← Unit/integration tests
+│   ├── integration.test.js ← Real database tests
+│   ├── unit.test.js        ← Specific method tests
+│   └── fixtures/           ← Test data
+│       └── sample-data.json
+│
+└── tools/                   ← HELPER UTILITIES
+    ├── database.js         ← Database operations
+    ├── reporting.js        ← Report generation
+    ├── validation.js       ← Input validation
+    ├── cache.js            ← Caching logic (optional)
+    └── logger.js           ← Logging utilities (optional)
+```
+
+---
+
+## ✅ When to Use tests/ and tools/
+
+### ✅ Use tests/ When
+
+- Writing unit tests for methods
+- Testing edge cases
+- Integration testing with real database
+- Performance testing
+- Error handling tests
+
+### ✅ Use tools/ When
+
+- Database operations need a helper class
+- Report generation is complex
+- Input validation is needed
+- Caching logic is needed
+- Logging is centralized
+- Any utility the agent uses repeatedly
+
+### ❌ DON'T Use tools/ For
+
+- Code that belongs in agent.js main class
+- One-time use functions
+- Simple inline code
+
+---
+
+## 🚀 Running Tests
+
+```bash
+# Install test framework
+npm install --save-dev jest
+
+# Run all tests
+npm test
+
+# Run specific test file
+npm test tests/agent.test.js
+
+# Run with coverage report
+npm test -- --coverage
+
+# Run in watch mode (reruns on file change)
+npm test -- --watch
+```
+
+---
+
+## 📋 package.json Scripts
+
+```json
+{
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:integration": "jest tests/integration.test.js",
+    "test:unit": "jest tests/agent.test.js"
+  },
+  "devDependencies": {
+    "jest": "^29.0.0"
+  }
+}
+```
+
+---
+
+## 💡 Summary
+
+| Folder     | Purpose            | Contains   | Example Files                            |
+| ---------- | ------------------ | ---------- | ---------------------------------------- |
+| **tests/** | Verify agent works | Test files | agent.test.js, integration.test.js       |
+| **tools/** | Help agent work    | Utilities  | database.js, reporting.js, validation.js |
+
+**Result**:
+
+- ✅ Code is well-tested
+- ✅ Code is modular and maintainable
+- ✅ Logic is separated by concern
+- ✅ Easy to debug and extend
+
+---
+
+**Tests verify correctness. Tools prevent errors. Together they make your agent solid!** 🚀
 
 ---
 
@@ -1043,7 +2771,7 @@ agents/sales-analyzer/
 ├── reporting.js
 └── caching.js
 
-````
+```
 
 ---
 
@@ -1070,7 +2798,7 @@ class SalesAnalyzerAgent {
 }
 
 module.exports = SalesAnalyzerAgent;
-````
+```
 
 ### agents/sales-analyzer/package.json
 

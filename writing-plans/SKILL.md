@@ -46,6 +46,105 @@ Each section file in `plans/<feature-name>/` must:
 - Include status tracking per task.
 - Reference exact file paths and commands.
 
+## Architectural Decision Framework
+
+**CRITICAL**: Before creating any implementation plan, evaluate whether to use **static skills** vs **dynamic sub-agents** based on the decision matrix below. This choice significantly impacts token efficiency, development velocity, and maintenance costs.
+
+### Skills vs Sub-Agents Decision Matrix
+
+| Factor              | Use **Static Skills**            | Use **Dynamic Sub-Agents**       |
+| ------------------- | -------------------------------- | -------------------------------- |
+| **Token Usage**     | Low (pre-loaded)                 | Variable (loaded on demand)      |
+| **Execution Speed** | Fast (always ready)              | Slower (initialization overhead) |
+| **Customization**   | Limited (static code)            | High (dynamic, configurable)     |
+| **Maintenance**     | Low (infrequent updates)         | Higher (frequent iterations)     |
+| **Scalability**     | Limited (VS Code extension size) | High (unlimited agents)          |
+| **Complexity**      | Low (simple patterns)            | High (orchestration needed)      |
+| **Collaboration**   | Easy (shared codebase)           | Complex (distributed agents)     |
+
+### When to Use Static Skills
+
+✅ **Perfect for:**
+
+- **Common operations** (file editing, terminal commands, searches)
+- **Stable functionality** (rarely changing requirements)
+- **Performance-critical** tasks (must be fast)
+- **Simple workflows** (linear, predictable)
+- **Team collaboration** (shared understanding)
+- **Documentation tasks** (consistent formatting)
+- **Code analysis** (linting, validation)
+
+✅ **Example Use Cases:**
+
+- File creation and editing
+- Running terminal commands
+- Code searching and analysis
+- Basic refactoring operations
+- Documentation generation
+- Test execution
+
+### When to Use Dynamic Sub-Agents
+
+✅ **Perfect for:**
+
+- **Complex business logic** (custom algorithms, ML models)
+- **Evolving requirements** (frequent changes needed)
+- **Specialized domains** (industry-specific knowledge)
+- **Scalable systems** (many similar but different agents)
+- **Experimental features** (A/B testing, rapid prototyping)
+- **Third-party integrations** (APIs, databases, external services)
+- **Heavy computations** (data processing, analysis)
+
+✅ **Example Use Cases:**
+
+- Custom code generators
+- Data analysis and visualization
+- API integrations and workflows
+- Machine learning model serving
+- Business rule engines
+- Complex refactoring tools
+- Domain-specific assistants
+
+### Token Cost Analysis
+
+**Static Skills:**
+
+- **Initial Cost**: High (loaded with VS Code)
+- **Per-Use Cost**: Very Low (~10-50 tokens)
+- **Total Cost**: Low for frequent use
+- **Break-even**: After ~100 uses
+
+**Dynamic Sub-Agents:**
+
+- **Initial Cost**: Low (loaded on demand)
+- **Per-Use Cost**: Medium (~100-500 tokens)
+- **Total Cost**: Scales with usage
+- **Break-even**: Immediate for specialized tasks
+
+### Plan Enhancement Requirements
+
+**For Static Skills Plans:**
+
+- Focus on performance optimization
+- Minimize initialization overhead
+- Ensure VS Code extension compatibility
+- Plan for infrequent updates
+
+**For Dynamic Sub-Agents Plans:**
+
+- Include configuration management
+- Plan for registry integration
+- Add monitoring and analytics
+- Design for scalability and updates
+- Reference: `skills/custom-sub-agents/references/`
+
+**Required in Every Plan:**
+
+- **Architecture Declaration**: State whether using skills or sub-agents and why
+- **Token Cost Analysis**: Include estimated token usage and break-even analysis
+- **Skill References**: Link to relevant skills in `skills/` directory
+- **Migration Path**: If converting between approaches, include migration steps
+
 ## Bite-Sized Task Granularity
 
 Break each feature into one-action steps (2-5 minutes):
@@ -121,6 +220,9 @@ git commit -m "feat: add specific feature"
 ## Plan Essentials
 
 Include in every plan:
+- **Architecture Declaration**: State whether using static skills or dynamic sub-agents and provide justification based on the decision matrix
+- **Token Cost Analysis**: Include estimated token usage, break-even analysis, and performance implications
+- **Skill References**: Link to relevant skills in `skills/` directory and explain why they apply
 - **Exact file paths** - Never "add validation to the file"
 - **Complete code** - Full implementations, not placeholders
 - **Exact commands** - With expected output
@@ -131,7 +233,6 @@ Include in every plan:
 - **Schema adherence** - Verify all SQL aligns to `database/schema/*.sql` and update schema files, procedures, and triggers as needed
 - **Cross-layer completeness** - Explicitly cover database, stored procedures, triggers, UI, APIs, services, middleware, and any other impacted layers
 - **Verification steps** - Add concrete checks that confirm schema alignment and functional correctness
-- **Skill mapping** - Explicitly state which skills from `skills/` apply to each plan section and why
 - **Multi-file plans** - If the plan is large, split into multiple markdown files and provide an index file that links to each section
 - **Status tracking** - Include a status section (not-started/in-progress/completed) per task and keep it updated during implementation
 - **Self-updating plans** - If implementation decisions change or new optional steps are discovered, update the plan files immediately so progress is always current

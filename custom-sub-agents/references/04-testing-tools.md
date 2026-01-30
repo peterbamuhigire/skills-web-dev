@@ -23,15 +23,15 @@
  * Tests the core functionality of the SalesAnalyzerAgent class.
  */
 
-const { SalesAnalyzerAgent } = require('../agent');
-const { DatabaseTool } = require('../tools/database');
-const { ReportingTool } = require('../tools/reporting');
+const { SalesAnalyzerAgent } = require("../agent");
+const { DatabaseTool } = require("../tools/database");
+const { ReportingTool } = require("../tools/reporting");
 
 // Mock dependencies
-jest.mock('../tools/database');
-jest.mock('../tools/reporting');
+jest.mock("../tools/database");
+jest.mock("../tools/reporting");
 
-describe('SalesAnalyzerAgent', () => {
+describe("SalesAnalyzerAgent", () => {
   let agent;
   let mockDatabase;
   let mockReporting;
@@ -46,49 +46,54 @@ describe('SalesAnalyzerAgent', () => {
 
     // Mock return values
     mockDatabase.getSalesData.mockResolvedValue([
-      { date: '2024-01-01', amount: 1000, customer_id: 1 },
-      { date: '2024-01-02', amount: 1500, customer_id: 2 }
+      { date: "2024-01-01", amount: 1000, customer_id: 1 },
+      { date: "2024-01-02", amount: 1500, customer_id: 2 },
     ]);
 
     // Create agent with mocked dependencies
     agent = new SalesAnalyzerAgent({
       database: mockDatabase,
       reporting: mockReporting,
-      analysis: { maxRecords: 1000 }
+      analysis: { maxRecords: 1000 },
     });
   });
 
-  describe('analyze()', () => {
-    test('analyzes sales data correctly', async () => {
+  describe("analyze()", () => {
+    test("analyzes sales data correctly", async () => {
       const result = await agent.analyze({
-        startDate: '2024-01-01',
-        endDate: '2024-01-31',
-        groupBy: 'month'
+        startDate: "2024-01-01",
+        endDate: "2024-01-31",
+        groupBy: "month",
       });
 
       expect(result.success).toBe(true);
       expect(result.data).toBeDefined();
       expect(result.insights).toBeDefined();
-      expect(mockDatabase.getSalesData).toHaveBeenCalledWith('2024-01-01', '2024-01-31');
+      expect(mockDatabase.getSalesData).toHaveBeenCalledWith(
+        "2024-01-01",
+        "2024-01-31",
+      );
     });
 
-    test('handles database errors gracefully', async () => {
-      mockDatabase.getSalesData.mockRejectedValue(new Error('Database connection failed'));
+    test("handles database errors gracefully", async () => {
+      mockDatabase.getSalesData.mockRejectedValue(
+        new Error("Database connection failed"),
+      );
 
       const result = await agent.analyze({
-        startDate: '2024-01-01',
-        endDate: '2024-01-31'
+        startDate: "2024-01-01",
+        endDate: "2024-01-31",
       });
 
       expect(result.success).toBe(false);
-      expect(result.error).toBe('Database connection failed');
+      expect(result.error).toBe("Database connection failed");
     });
 
-    test('groups data by different periods', async () => {
+    test("groups data by different periods", async () => {
       const result = await agent.analyze({
-        startDate: '2024-01-01',
-        endDate: '2024-01-07',
-        groupBy: 'day'
+        startDate: "2024-01-01",
+        endDate: "2024-01-07",
+        groupBy: "day",
       });
 
       expect(result.success).toBe(true);
@@ -96,18 +101,20 @@ describe('SalesAnalyzerAgent', () => {
       expect(Object.keys(result.data)).toHaveLength(7); // 7 days
     });
 
-    test('respects maxRecords limit', async () => {
+    test("respects maxRecords limit", async () => {
       // Mock large dataset
-      const largeDataset = Array(2000).fill().map((_, i) => ({
-        date: '2024-01-01',
-        amount: 100 + i,
-        customer_id: i
-      }));
+      const largeDataset = Array(2000)
+        .fill()
+        .map((_, i) => ({
+          date: "2024-01-01",
+          amount: 100 + i,
+          customer_id: i,
+        }));
       mockDatabase.getSalesData.mockResolvedValue(largeDataset);
 
       const result = await agent.analyze({
-        startDate: '2024-01-01',
-        endDate: '2024-01-31'
+        startDate: "2024-01-01",
+        endDate: "2024-01-31",
       });
 
       expect(result.success).toBe(true);
@@ -115,49 +122,49 @@ describe('SalesAnalyzerAgent', () => {
     });
   });
 
-  describe('forecast()', () => {
+  describe("forecast()", () => {
     beforeEach(() => {
       mockDatabase.getHistoricalSales.mockResolvedValue([
-        { month: '2023-01', total: 10000 },
-        { month: '2023-02', total: 12000 },
-        { month: '2023-03', total: 11000 },
-        { month: '2023-04', total: 13000 },
-        { month: '2023-05', total: 12500 },
-        { month: '2023-06', total: 14000 }
+        { month: "2023-01", total: 10000 },
+        { month: "2023-02", total: 12000 },
+        { month: "2023-03", total: 11000 },
+        { month: "2023-04", total: 13000 },
+        { month: "2023-05", total: 12500 },
+        { month: "2023-06", total: 14000 },
       ]);
     });
 
-    test('generates forecast using linear method', async () => {
+    test("generates forecast using linear method", async () => {
       const result = await agent.forecast({
         months: 3,
-        method: 'linear'
+        method: "linear",
       });
 
       expect(result.success).toBe(true);
       expect(result.forecast).toHaveLength(3);
-      expect(result.method).toBe('linear');
+      expect(result.method).toBe("linear");
       expect(result.confidence).toBeGreaterThan(0);
     });
 
-    test('generates forecast using exponential method', async () => {
+    test("generates forecast using exponential method", async () => {
       const result = await agent.forecast({
         months: 2,
-        method: 'exponential'
+        method: "exponential",
       });
 
       expect(result.success).toBe(true);
       expect(result.forecast).toHaveLength(2);
-      expect(result.method).toBe('exponential');
+      expect(result.method).toBe("exponential");
     });
 
-    test('handles insufficient historical data', async () => {
+    test("handles insufficient historical data", async () => {
       mockDatabase.getHistoricalSales.mockResolvedValue([
-        { month: '2023-01', total: 10000 }
+        { month: "2023-01", total: 10000 },
       ]);
 
       const result = await agent.forecast({
         months: 3,
-        method: 'linear'
+        method: "linear",
       });
 
       expect(result.success).toBe(true);
@@ -165,101 +172,101 @@ describe('SalesAnalyzerAgent', () => {
     });
   });
 
-  describe('generateReport()', () => {
+  describe("generateReport()", () => {
     beforeEach(() => {
       mockReporting.generateSalesReport.mockResolvedValue({
-        format: 'pdf',
+        format: "pdf",
         size: 245760,
-        filename: 'sales-report-2024-01.pdf'
+        filename: "sales-report-2024-01.pdf",
       });
     });
 
-    test('generates PDF report with charts', async () => {
+    test("generates PDF report with charts", async () => {
       const result = await agent.generateReport({
-        format: 'pdf',
-        includeCharts: true
+        format: "pdf",
+        includeCharts: true,
       });
 
       expect(result.success).toBe(true);
-      expect(result.report.format).toBe('pdf');
+      expect(result.report.format).toBe("pdf");
       expect(mockReporting.generateSalesReport).toHaveBeenCalledWith(
         expect.any(Array),
         expect.objectContaining({
-          format: 'pdf',
+          format: "pdf",
           includeCharts: true,
-          title: expect.stringContaining('Sales Report')
-        })
+          title: expect.stringContaining("Sales Report"),
+        }),
       );
     });
 
-    test('generates Excel report without charts', async () => {
+    test("generates Excel report without charts", async () => {
       const result = await agent.generateReport({
-        format: 'excel',
-        includeCharts: false
+        format: "excel",
+        includeCharts: false,
       });
 
       expect(result.success).toBe(true);
-      expect(result.report.format).toBe('excel');
+      expect(result.report.format).toBe("excel");
       expect(mockReporting.generateSalesReport).toHaveBeenCalledWith(
         expect.any(Array),
         expect.objectContaining({
-          format: 'excel',
-          includeCharts: false
-        })
+          format: "excel",
+          includeCharts: false,
+        }),
       );
     });
 
-    test('handles reporting errors', async () => {
+    test("handles reporting errors", async () => {
       mockReporting.generateSalesReport.mockRejectedValue(
-        new Error('Chart generation failed')
+        new Error("Chart generation failed"),
       );
 
       const result = await agent.generateReport({
-        format: 'pdf',
-        includeCharts: true
+        format: "pdf",
+        includeCharts: true,
       });
 
       expect(result.success).toBe(false);
-      expect(result.error).toBe('Chart generation failed');
+      expect(result.error).toBe("Chart generation failed");
     });
   });
 
-  describe('exportData()', () => {
-    test('exports data as CSV', async () => {
+  describe("exportData()", () => {
+    test("exports data as CSV", async () => {
       const result = await agent.exportData({
-        format: 'csv',
-        startDate: '2024-01-01',
-        endDate: '2024-01-31'
+        format: "csv",
+        startDate: "2024-01-01",
+        endDate: "2024-01-31",
       });
 
       expect(result.success).toBe(true);
-      expect(result.format).toBe('csv');
-      expect(typeof result.data).toBe('string');
-      expect(result.data).toContain('date,amount,customer_id'); // CSV headers
+      expect(result.format).toBe("csv");
+      expect(typeof result.data).toBe("string");
+      expect(result.data).toContain("date,amount,customer_id"); // CSV headers
     });
 
-    test('exports data as JSON', async () => {
+    test("exports data as JSON", async () => {
       const result = await agent.exportData({
-        format: 'json',
-        startDate: '2024-01-01',
-        endDate: '2024-01-31'
+        format: "json",
+        startDate: "2024-01-01",
+        endDate: "2024-01-31",
       });
 
       expect(result.success).toBe(true);
-      expect(result.format).toBe('json');
+      expect(result.format).toBe("json");
       expect(Array.isArray(result.data)).toBe(true);
       expect(result.data).toHaveLength(2);
     });
 
-    test('handles unsupported formats', async () => {
+    test("handles unsupported formats", async () => {
       const result = await agent.exportData({
-        format: 'unsupported',
-        startDate: '2024-01-01',
-        endDate: '2024-01-31'
+        format: "unsupported",
+        startDate: "2024-01-01",
+        endDate: "2024-01-31",
       });
 
       expect(result.success).toBe(false);
-      expect(result.error).toContain('Unsupported export format');
+      expect(result.error).toContain("Unsupported export format");
     });
   });
 });
@@ -277,11 +284,14 @@ describe('SalesAnalyzerAgent', () => {
  * These tests are slower and may require external resources.
  */
 
-const { createAgent } = require('../index');
-const { setupTestDatabase, teardownTestDatabase } = require('./helpers/database');
-const { mockExternalAPI } = require('./helpers/api-mock');
+const { createAgent } = require("../index");
+const {
+  setupTestDatabase,
+  teardownTestDatabase,
+} = require("./helpers/database");
+const { mockExternalAPI } = require("./helpers/api-mock");
 
-describe('SalesAnalyzerAgent Integration', () => {
+describe("SalesAnalyzerAgent Integration", () => {
   let agent;
   let dbConnection;
 
@@ -292,15 +302,15 @@ describe('SalesAnalyzerAgent Integration', () => {
     // Create agent with real config
     agent = createAgent({
       database: {
-        host: process.env.TEST_DB_HOST || 'localhost',
-        database: 'test_sales_db',
-        user: 'test_user',
-        password: 'test_password'
+        host: process.env.TEST_DB_HOST || "localhost",
+        database: "test_sales_db",
+        user: "test_user",
+        password: "test_password",
       },
       analysis: {
         maxRecords: 1000,
-        cacheEnabled: false // Disable caching for tests
-      }
+        cacheEnabled: false, // Disable caching for tests
+      },
     });
   });
 
@@ -311,8 +321,8 @@ describe('SalesAnalyzerAgent Integration', () => {
 
   beforeEach(async () => {
     // Clear test data before each test
-    await dbConnection.query('DELETE FROM sales_transactions');
-    await dbConnection.query('DELETE FROM customers');
+    await dbConnection.query("DELETE FROM sales_transactions");
+    await dbConnection.query("DELETE FROM customers");
 
     // Insert test data
     await dbConnection.query(`
@@ -332,19 +342,22 @@ describe('SalesAnalyzerAgent Integration', () => {
     `);
   });
 
-  describe('End-to-End Analysis', () => {
-    test('analyzes real sales data from database', async () => {
+  describe("End-to-End Analysis", () => {
+    test("analyzes real sales data from database", async () => {
       const result = await agent.analyze({
-        startDate: '2024-01-01',
-        endDate: '2024-01-05',
-        groupBy: 'day'
+        startDate: "2024-01-01",
+        endDate: "2024-01-05",
+        groupBy: "day",
       });
 
       expect(result.success).toBe(true);
       expect(result.data).toBeDefined();
 
       // Verify data integrity
-      const totalSales = Object.values(result.data).reduce((sum, day) => sum + day.total, 0);
+      const totalSales = Object.values(result.data).reduce(
+        (sum, day) => sum + day.total,
+        0,
+      );
       expect(totalSales).toBe(5400); // 1000 + 1500 + 800 + 1200 + 900
 
       // Verify insights are generated
@@ -352,15 +365,19 @@ describe('SalesAnalyzerAgent Integration', () => {
       expect(Array.isArray(result.insights)).toBe(true);
     });
 
-    test('handles large datasets efficiently', async () => {
+    test("handles large datasets efficiently", async () => {
       // Insert large amount of test data
-      const largeData = Array(1000).fill().map((_, i) => ({
-        date: '2024-01-01',
-        amount: Math.random() * 1000,
-        customer_id: (i % 3) + 1
-      }));
+      const largeData = Array(1000)
+        .fill()
+        .map((_, i) => ({
+          date: "2024-01-01",
+          amount: Math.random() * 1000,
+          customer_id: (i % 3) + 1,
+        }));
 
-      const values = largeData.map(d => `('${d.date}', ${d.amount}, ${d.customer_id})`).join(', ');
+      const values = largeData
+        .map((d) => `('${d.date}', ${d.amount}, ${d.customer_id})`)
+        .join(", ");
       await dbConnection.query(`
         INSERT INTO sales_transactions (date, amount, customer_id) VALUES ${values}
       `);
@@ -368,9 +385,9 @@ describe('SalesAnalyzerAgent Integration', () => {
       const startTime = Date.now();
 
       const result = await agent.analyze({
-        startDate: '2024-01-01',
-        endDate: '2024-01-05',
-        groupBy: 'month'
+        startDate: "2024-01-01",
+        endDate: "2024-01-05",
+        groupBy: "month",
       });
 
       const duration = Date.now() - startTime;
@@ -379,40 +396,40 @@ describe('SalesAnalyzerAgent Integration', () => {
       expect(duration).toBeLessThan(5000); // Should complete within 5 seconds
     });
 
-    test('integrates with external reporting service', async () => {
+    test("integrates with external reporting service", async () => {
       // Mock external API
       const apiMock = mockExternalAPI({
-        endpoint: 'https://api.reporting-service.com/generate',
-        response: { reportId: 'report-123', status: 'completed' }
+        endpoint: "https://api.reporting-service.com/generate",
+        response: { reportId: "report-123", status: "completed" },
       });
 
       const result = await agent.generateReport({
-        format: 'pdf',
-        includeCharts: true
+        format: "pdf",
+        includeCharts: true,
       });
 
       expect(result.success).toBe(true);
-      expect(result.report.reportId).toBe('report-123');
+      expect(result.report.reportId).toBe("report-123");
 
       // Verify API was called correctly
       expect(apiMock.requests).toHaveLength(1);
       expect(apiMock.requests[0].body).toMatchObject({
-        format: 'pdf',
-        includeCharts: true
+        format: "pdf",
+        includeCharts: true,
       });
 
       apiMock.restore();
     });
   });
 
-  describe('Database Integration', () => {
-    test('handles database connection failures', async () => {
+  describe("Database Integration", () => {
+    test("handles database connection failures", async () => {
       // Temporarily break database connection
       await dbConnection.end();
 
       const result = await agent.analyze({
-        startDate: '2024-01-01',
-        endDate: '2024-01-05'
+        startDate: "2024-01-01",
+        endDate: "2024-01-05",
       });
 
       expect(result.success).toBe(false);
@@ -422,49 +439,60 @@ describe('SalesAnalyzerAgent Integration', () => {
       dbConnection = await setupTestDatabase();
     });
 
-    test('respects database query limits', async () => {
+    test("respects database query limits", async () => {
       // Insert more data than maxRecords
-      const excessData = Array(1500).fill().map((_, i) => ({
-        date: '2024-01-01',
-        amount: 100,
-        customer_id: 1
-      }));
+      const excessData = Array(1500)
+        .fill()
+        .map((_, i) => ({
+          date: "2024-01-01",
+          amount: 100,
+          customer_id: 1,
+        }));
 
-      const values = excessData.map(d => `('${d.date}', ${d.amount}, ${d.customer_id})`).join(', ');
+      const values = excessData
+        .map((d) => `('${d.date}', ${d.amount}, ${d.customer_id})`)
+        .join(", ");
       await dbConnection.query(`
         INSERT INTO sales_transactions (date, amount, customer_id) VALUES ${values}
       `);
 
       const result = await agent.analyze({
-        startDate: '2024-01-01',
-        endDate: '2024-01-05'
+        startDate: "2024-01-01",
+        endDate: "2024-01-05",
       });
 
       expect(result.success).toBe(true);
       // Should not exceed maxRecords limit
-      const totalRecords = Object.values(result.data).reduce((sum, day) => sum + day.count, 0);
+      const totalRecords = Object.values(result.data).reduce(
+        (sum, day) => sum + day.count,
+        0,
+      );
       expect(totalRecords).toBeLessThanOrEqual(1000);
     });
   });
 
-  describe('Performance Benchmarks', () => {
-    test('meets performance requirements', async () => {
+  describe("Performance Benchmarks", () => {
+    test("meets performance requirements", async () => {
       const testCases = [
         { records: 100, expectedTime: 100 },
         { records: 500, expectedTime: 200 },
-        { records: 1000, expectedTime: 500 }
+        { records: 1000, expectedTime: 500 },
       ];
 
       for (const testCase of testCases) {
         // Clear and insert test data
-        await dbConnection.query('DELETE FROM sales_transactions');
-        const data = Array(testCase.records).fill().map((_, i) => ({
-          date: '2024-01-01',
-          amount: Math.random() * 1000,
-          customer_id: (i % 3) + 1
-        }));
+        await dbConnection.query("DELETE FROM sales_transactions");
+        const data = Array(testCase.records)
+          .fill()
+          .map((_, i) => ({
+            date: "2024-01-01",
+            amount: Math.random() * 1000,
+            customer_id: (i % 3) + 1,
+          }));
 
-        const values = data.map(d => `('${d.date}', ${d.amount}, ${d.customer_id})`).join(', ');
+        const values = data
+          .map((d) => `('${d.date}', ${d.amount}, ${d.customer_id})`)
+          .join(", ");
         await dbConnection.query(`
           INSERT INTO sales_transactions (date, amount, customer_id) VALUES ${values}
         `);
@@ -472,8 +500,8 @@ describe('SalesAnalyzerAgent Integration', () => {
         const startTime = Date.now();
 
         const result = await agent.analyze({
-          startDate: '2024-01-01',
-          endDate: '2024-01-05'
+          startDate: "2024-01-01",
+          endDate: "2024-01-05",
         });
 
         const duration = Date.now() - startTime;
@@ -512,7 +540,7 @@ describe('SalesAnalyzerAgent Integration', () => {
  * Provides a clean interface for querying sales data.
  */
 
-const mysql = require('mysql2/promise');
+const mysql = require("mysql2/promise");
 
 class DatabaseTool {
   constructor(config) {
@@ -534,7 +562,7 @@ class DatabaseTool {
         acquireTimeout: this.config.acquireTimeoutMillis || 60000,
         timeout: this.config.timeout || 60000,
         enableKeepAlive: true,
-        keepAliveInitialDelay: 0
+        keepAliveInitialDelay: 0,
       });
     }
     return this.pool;
@@ -553,7 +581,7 @@ class DatabaseTool {
       const [rows] = await pool.execute(sql, params);
       return rows;
     } catch (error) {
-      console.error('Database query error:', error);
+      console.error("Database query error:", error);
       throw error;
     }
   }
@@ -584,32 +612,32 @@ class DatabaseTool {
     const results = await this.query(sql, [startDate, endDate, limit, offset]);
 
     // Convert date strings to Date objects for easier processing
-    return results.map(row => ({
+    return results.map((row) => ({
       ...row,
-      date: new Date(row.date)
+      date: new Date(row.date),
     }));
   }
 
-  async getSalesByPeriod(startDate, endDate, groupBy = 'month') {
+  async getSalesByPeriod(startDate, endDate, groupBy = "month") {
     let dateFormat;
     switch (groupBy) {
-      case 'day':
-        dateFormat = '%Y-%m-%d';
+      case "day":
+        dateFormat = "%Y-%m-%d";
         break;
-      case 'week':
-        dateFormat = '%Y-%u';
+      case "week":
+        dateFormat = "%Y-%u";
         break;
-      case 'month':
-        dateFormat = '%Y-%m';
+      case "month":
+        dateFormat = "%Y-%m";
         break;
-      case 'quarter':
+      case "quarter":
         dateFormat = 'CONCAT(%Y, "-", QUARTER(date))';
         break;
-      case 'year':
-        dateFormat = '%Y';
+      case "year":
+        dateFormat = "%Y";
         break;
       default:
-        dateFormat = '%Y-%m';
+        dateFormat = "%Y-%m";
     }
 
     const sql = `
@@ -646,11 +674,11 @@ class DatabaseTool {
   }
 
   async getTopCustomers(limit = 10, startDate = null, endDate = null) {
-    let dateFilter = '';
+    let dateFilter = "";
     let params = [limit];
 
     if (startDate && endDate) {
-      dateFilter = 'AND st.date BETWEEN ? AND ?';
+      dateFilter = "AND st.date BETWEEN ? AND ?";
       params = [startDate, endDate, limit];
     }
 
@@ -706,7 +734,7 @@ class DatabaseTool {
       transaction.customer_id,
       transaction.product_id,
       transaction.quantity,
-      transaction.unit_price
+      transaction.unit_price,
     ];
 
     const result = await this.query(sql, params);
@@ -726,7 +754,7 @@ class DatabaseTool {
 
     const sql = `
       UPDATE sales_transactions
-      SET ${setParts.join(', ')}
+      SET ${setParts.join(", ")}
       WHERE id = ?
     `;
 
@@ -734,16 +762,16 @@ class DatabaseTool {
   }
 
   async deleteSalesTransaction(id) {
-    const sql = 'DELETE FROM sales_transactions WHERE id = ?';
+    const sql = "DELETE FROM sales_transactions WHERE id = ?";
     return await this.query(sql, [id]);
   }
 
   async getTransactionCount(startDate = null, endDate = null) {
-    let sql = 'SELECT COUNT(*) as count FROM sales_transactions';
+    let sql = "SELECT COUNT(*) as count FROM sales_transactions";
     let params = [];
 
     if (startDate && endDate) {
-      sql += ' WHERE date BETWEEN ? AND ?';
+      sql += " WHERE date BETWEEN ? AND ?";
       params = [startDate, endDate];
     }
 
@@ -753,13 +781,13 @@ class DatabaseTool {
 
   async healthCheck() {
     try {
-      await this.query('SELECT 1');
-      return { status: 'healthy', timestamp: new Date() };
+      await this.query("SELECT 1");
+      return { status: "healthy", timestamp: new Date() };
     } catch (error) {
       return {
-        status: 'unhealthy',
+        status: "unhealthy",
         error: error.message,
-        timestamp: new Date()
+        timestamp: new Date(),
       };
     }
   }
@@ -1121,7 +1149,7 @@ module.exports = { ReportingTool };
  * for the Sales Analyzer Agent.
  */
 
-const Joi = require('joi');
+const Joi = require("joi");
 
 class ValidationTool {
   constructor(config) {
@@ -1137,34 +1165,42 @@ class ValidationTool {
         customer_id: Joi.number().integer().positive().required(),
         product_id: Joi.number().integer().positive().optional(),
         quantity: Joi.number().positive().precision(2).required(),
-        unit_price: Joi.number().positive().precision(2).required()
+        unit_price: Joi.number().positive().precision(2).required(),
       }),
 
       analysisRequest: Joi.object({
         startDate: Joi.date().required(),
-        endDate: Joi.date().when('startDate', {
-          is: Joi.exist(),
-          then: Joi.date().min(Joi.ref('startDate'))
-        }).required(),
-        groupBy: Joi.string().valid('day', 'week', 'month', 'quarter', 'year').default('month'),
-        limit: Joi.number().integer().min(1).max(100000).default(10000)
+        endDate: Joi.date()
+          .when("startDate", {
+            is: Joi.exist(),
+            then: Joi.date().min(Joi.ref("startDate")),
+          })
+          .required(),
+        groupBy: Joi.string()
+          .valid("day", "week", "month", "quarter", "year")
+          .default("month"),
+        limit: Joi.number().integer().min(1).max(100000).default(10000),
       }),
 
       forecastRequest: Joi.object({
         months: Joi.number().integer().min(1).max(24).default(3),
-        method: Joi.string().valid('linear', 'exponential', 'moving_average').default('linear'),
-        confidence: Joi.boolean().default(true)
+        method: Joi.string()
+          .valid("linear", "exponential", "moving_average")
+          .default("linear"),
+        confidence: Joi.boolean().default(true),
       }),
 
       reportRequest: Joi.object({
-        format: Joi.string().valid('pdf', 'excel', 'html', 'json').default('pdf'),
+        format: Joi.string()
+          .valid("pdf", "excel", "html", "json")
+          .default("pdf"),
         includeCharts: Joi.boolean().default(true),
-        title: Joi.string().max(100).default('Sales Report'),
+        title: Joi.string().max(100).default("Sales Report"),
         dateRange: Joi.object({
           start: Joi.date().required(),
-          end: Joi.date().required()
-        }).optional()
-      })
+          end: Joi.date().required(),
+        }).optional(),
+      }),
     };
   }
 
@@ -1176,58 +1212,66 @@ class ValidationTool {
 
     const { error, value } = schema.validate(data, {
       abortEarly: false,
-      stripUnknown: true
+      stripUnknown: true,
     });
 
     if (error) {
       return {
         valid: false,
-        errors: error.details.map(detail => ({
-          field: detail.path.join('.'),
+        errors: error.details.map((detail) => ({
+          field: detail.path.join("."),
           message: detail.message,
-          value: detail.context.value
+          value: detail.context.value,
         })),
-        sanitizedData: null
+        sanitizedData: null,
       };
     }
 
     return {
       valid: true,
       errors: [],
-      sanitizedData: value
+      sanitizedData: value,
     };
   }
 
   validateSalesTransaction(transaction) {
-    return this.validate(transaction, 'salesTransaction');
+    return this.validate(transaction, "salesTransaction");
   }
 
   validateAnalysisRequest(request) {
-    return this.validate(request, 'analysisRequest');
+    return this.validate(request, "analysisRequest");
   }
 
   validateForecastRequest(request) {
-    return this.validate(request, 'forecastRequest');
+    return this.validate(request, "forecastRequest");
   }
 
   validateReportRequest(request) {
-    return this.validate(request, 'reportRequest');
+    return this.validate(request, "reportRequest");
   }
 
   validateSalesData(data) {
     if (!Array.isArray(data)) {
       return {
         valid: false,
-        errors: [{ field: 'data', message: 'Data must be an array', value: typeof data }],
-        sanitizedData: null
+        errors: [
+          {
+            field: "data",
+            message: "Data must be an array",
+            value: typeof data,
+          },
+        ],
+        sanitizedData: null,
       };
     }
 
     if (data.length === 0) {
       return {
         valid: false,
-        errors: [{ field: 'data', message: 'Data array cannot be empty', value: 0 }],
-        sanitizedData: null
+        errors: [
+          { field: "data", message: "Data array cannot be empty", value: 0 },
+        ],
+        sanitizedData: null,
       };
     }
 
@@ -1239,7 +1283,7 @@ class ValidationTool {
       if (!validation.valid) {
         errors.push({
           index,
-          errors: validation.errors
+          errors: validation.errors,
         });
       } else {
         sanitizedData.push(validation.sanitizedData);
@@ -1249,7 +1293,7 @@ class ValidationTool {
     return {
       valid: errors.length === 0,
       errors,
-      sanitizedData: errors.length === 0 ? sanitizedData : null
+      sanitizedData: errors.length === 0 ? sanitizedData : null,
     };
   }
 
@@ -1257,23 +1301,33 @@ class ValidationTool {
     const errors = [];
 
     if (!startDate || !endDate) {
-      errors.push({ field: 'dateRange', message: 'Both start and end dates are required' });
+      errors.push({
+        field: "dateRange",
+        message: "Both start and end dates are required",
+      });
     } else {
       const start = new Date(startDate);
       const end = new Date(endDate);
 
       if (isNaN(start.getTime()) || isNaN(end.getTime())) {
-        errors.push({ field: 'dateRange', message: 'Invalid date format' });
+        errors.push({ field: "dateRange", message: "Invalid date format" });
       } else if (start > end) {
-        errors.push({ field: 'dateRange', message: 'Start date cannot be after end date' });
-      } else if (end - start > 365 * 24 * 60 * 60 * 1000) { // 1 year
-        errors.push({ field: 'dateRange', message: 'Date range cannot exceed 1 year' });
+        errors.push({
+          field: "dateRange",
+          message: "Start date cannot be after end date",
+        });
+      } else if (end - start > 365 * 24 * 60 * 60 * 1000) {
+        // 1 year
+        errors.push({
+          field: "dateRange",
+          message: "Date range cannot exceed 1 year",
+        });
       }
     }
 
     return {
       valid: errors.length === 0,
-      errors
+      errors,
     };
   }
 
@@ -1286,9 +1340,9 @@ class ValidationTool {
         if (item.amount < 0) {
           errors.push({
             index,
-            field: 'amount',
-            message: 'Transaction amount cannot be negative',
-            value: item.amount
+            field: "amount",
+            message: "Transaction amount cannot be negative",
+            value: item.amount,
           });
         }
       });
@@ -1301,9 +1355,9 @@ class ValidationTool {
         if (item.date > now) {
           errors.push({
             index,
-            field: 'date',
-            message: 'Transaction date cannot be in the future',
-            value: item.date
+            field: "date",
+            message: "Transaction date cannot be in the future",
+            value: item.date,
           });
         }
       });
@@ -1317,9 +1371,9 @@ class ValidationTool {
         if (seen.has(key)) {
           errors.push({
             index,
-            field: 'transaction',
-            message: 'Duplicate transaction detected',
-            value: key
+            field: "transaction",
+            message: "Duplicate transaction detected",
+            value: key,
           });
         }
         seen.add(key);
@@ -1328,23 +1382,23 @@ class ValidationTool {
 
     return {
       valid: errors.length === 0,
-      errors
+      errors,
     };
   }
 
   sanitizeData(data, options = {}) {
-    return data.map(item => {
+    return data.map((item) => {
       const sanitized = { ...item };
 
       // Trim string fields
-      Object.keys(sanitized).forEach(key => {
-        if (typeof sanitized[key] === 'string') {
+      Object.keys(sanitized).forEach((key) => {
+        if (typeof sanitized[key] === "string") {
           sanitized[key] = sanitized[key].trim();
         }
       });
 
       // Round numeric fields
-      if (options.roundAmounts && typeof sanitized.amount === 'number') {
+      if (options.roundAmounts && typeof sanitized.amount === "number") {
         sanitized.amount = Math.round(sanitized.amount * 100) / 100;
       }
 
@@ -1361,12 +1415,12 @@ class ValidationTool {
     return {
       summary: {
         totalRecords: data.length,
-        validRecords: validations.filter(v => v.valid).length,
-        invalidRecords: validations.filter(v => !v.valid).length,
-        totalErrors: validations.reduce((sum, v) => sum + v.errors.length, 0)
+        validRecords: validations.filter((v) => v.valid).length,
+        invalidRecords: validations.filter((v) => !v.valid).length,
+        totalErrors: validations.reduce((sum, v) => sum + v.errors.length, 0),
       },
       validations,
-      recommendations: this.generateRecommendations(validations)
+      recommendations: this.generateRecommendations(validations),
     };
   }
 
@@ -1375,8 +1429,8 @@ class ValidationTool {
     const errorCounts = {};
 
     // Count error types
-    validations.forEach(validation => {
-      validation.errors.forEach(error => {
+    validations.forEach((validation) => {
+      validation.errors.forEach((error) => {
         const key = `${error.field}:${error.message}`;
         errorCounts[key] = (errorCounts[key] || 0) + 1;
       });
@@ -1384,14 +1438,15 @@ class ValidationTool {
 
     // Generate recommendations based on error patterns
     Object.entries(errorCounts).forEach(([errorKey, count]) => {
-      if (count > validations.length * 0.1) { // More than 10% of records
-        const [field, message] = errorKey.split(':');
+      if (count > validations.length * 0.1) {
+        // More than 10% of records
+        const [field, message] = errorKey.split(":");
         recommendations.push({
-          type: 'data_quality',
+          type: "data_quality",
           field,
           issue: message,
           affectedRecords: count,
-          recommendation: this.getRecommendationForError(field, message)
+          recommendation: this.getRecommendationForError(field, message),
         });
       }
     });
@@ -1401,20 +1456,22 @@ class ValidationTool {
 
   getRecommendationForError(field, message) {
     const recommendations = {
-      'amount': {
-        'must be a positive number': 'Review data entry process for negative amounts',
-        'is required': 'Ensure amount field is always populated'
+      amount: {
+        "must be a positive number":
+          "Review data entry process for negative amounts",
+        "is required": "Ensure amount field is always populated",
       },
-      'date': {
-        'must be a valid date': 'Standardize date format across all data sources',
-        'cannot be in the future': 'Implement date validation at data entry'
+      date: {
+        "must be a valid date":
+          "Standardize date format across all data sources",
+        "cannot be in the future": "Implement date validation at data entry",
       },
-      'customer_id': {
-        'is required': 'Verify customer identification process'
-      }
+      customer_id: {
+        "is required": "Verify customer identification process",
+      },
     };
 
-    return recommendations[field]?.[message] || 'Review data validation rules';
+    return recommendations[field]?.[message] || "Review data validation rules";
   }
 }
 
@@ -1485,25 +1542,18 @@ tested by tests/integration.test.js (end-to-end)
 ```javascript
 // jest.config.js
 module.exports = {
-  testEnvironment: 'node',
-  testMatch: [
-    '<rootDir>/tests/**/*.test.js',
-    '<rootDir>/tests/**/*.spec.js'
-  ],
-  collectCoverageFrom: [
-    'agent.js',
-    'tools/**/*.js',
-    'index.js'
-  ],
+  testEnvironment: "node",
+  testMatch: ["<rootDir>/tests/**/*.test.js", "<rootDir>/tests/**/*.spec.js"],
+  collectCoverageFrom: ["agent.js", "tools/**/*.js", "index.js"],
   coverageThreshold: {
     global: {
       branches: 80,
       functions: 80,
       lines: 80,
-      statements: 80
-    }
+      statements: 80,
+    },
   },
-  setupFilesAfterEnv: ['<rootDir>/tests/setup.js']
+  setupFilesAfterEnv: ["<rootDir>/tests/setup.js"],
 };
 ```
 
@@ -1511,10 +1561,10 @@ module.exports = {
 
 ```javascript
 // tests/setup.js
-const dotenv = require('dotenv');
+const dotenv = require("dotenv");
 
 // Load test environment variables
-dotenv.config({ path: '.env.test' });
+dotenv.config({ path: ".env.test" });
 
 // Global test setup
 beforeAll(async () => {
@@ -1531,27 +1581,30 @@ expect.extend({
     const pass = received instanceof Date && !isNaN(received);
     return {
       message: () => `expected ${received} to be a valid Date`,
-      pass
+      pass,
     };
-  }
+  },
 });
 ```
 
 ## 📁 Summary
 
 ### tests/ Folder
+
 - **Purpose**: Ensure agent reliability and catch regressions
 - **Contents**: Unit tests, integration tests, fixtures, helpers
 - **Tools**: Jest, Mocha, test frameworks
 - **Coverage**: Aim for 80%+ code coverage
 
 ### tools/ Folder
+
 - **Purpose**: Encapsulate reusable logic and external integrations
 - **Contents**: Database helpers, API clients, validation, utilities
 - **Design**: Single responsibility, dependency injection
 - **Testing**: Test tools independently of agent logic
 
 ### Best Practice
+
 ```
 Keep agent.js focused on orchestration
 Move reusable logic to tools/

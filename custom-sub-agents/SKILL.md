@@ -54,6 +54,39 @@ skills/
 7. **Versioning**
    - Update this SKILL.md and the reference guide when adding, removing, or changing agents.
 
+## Technical Implementation & Benefits
+
+### File Naming Convention
+
+- **GitHub Copilot**: Recognizes and auto-loads markdown files named `agent-name.agent.md`
+- **Claude**: Compatible with standard markdown documentation
+- **Auto-loading**: Context is automatically included in every conversation
+
+### Context Window Optimization
+
+- **Massive Efficiency Gains**: Tasks that consumed 80k+ tokens now use <4k tokens
+- **Sustainable Development**: Enables complex, multi-step workflows without context bloat
+- **Scalable Architecture**: Supports large projects with extensive requirements
+
+### Implementation Ease
+
+- **Self-Implementing**: Ask Copilot/Claude to create new sub-agents with desired functionality
+- **Rapid Prototyping**: New agents can be created quickly with proper structure
+- **Iterative Development**: Easy to enhance and modify existing agents
+
+### Skills Integration
+
+- **Enhanced Capabilities**: Combine sub-agents with specialized skills for domain expertise
+- **Modular Architecture**: Mix and match agents and skills for specific workflows
+- **Best Practice Patterns**: Leverage proven skill frameworks within agent implementations
+
+### Use Case Optimization
+
+- **Big Functional Prompts**: Most beneficial for complex feature development
+- **Zero-to-POC Workflows**: Excellent for proof-of-concept and prototyping
+- **Simple Fixes**: Consider single LLM for basic "fix that error" scenarios
+- **Context-Aware Decisions**: Choose sub-agents when context conservation matters
+
 ## VS Code Integration & Enforcement Checklist
 
 - [ ] Register agent folder in `references/CUSTOM_SUB_AGENTS_GUIDE.md`

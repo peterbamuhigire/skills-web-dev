@@ -3146,7 +3146,7 @@ const agent = new SalesAnalyzerAgent(config);
 const result = await agent.analyze("Q4 sales trends");
 ````
 
-```
+````
 
 ---
 
@@ -3248,7 +3248,7 @@ class ConductorAgent extends BaseAgent {
 }
 
 module.exports = { ConductorAgent };
-```
+````
 
 #### 2. Planning Agent (Sub-Agent)
 
@@ -3256,7 +3256,7 @@ Specialized in task planning, requirements analysis, and execution strategy.
 
 ```javascript
 // agents/planning-agent/index.js
-const { BaseAgent } = require('../base-agent');
+const { BaseAgent } = require("../base-agent");
 
 class PlanningAgent extends BaseAgent {
   async execute(context) {
@@ -3276,7 +3276,7 @@ class PlanningAgent extends BaseAgent {
       requirements,
       plan,
       validation,
-      estimatedDuration: this.estimateDuration(plan)
+      estimatedDuration: this.estimateDuration(plan),
     };
   }
 
@@ -3285,20 +3285,24 @@ class PlanningAgent extends BaseAgent {
       dataSources: this.identifyDataSources(task),
       processingSteps: this.determineProcessingSteps(task),
       outputFormats: this.specifyOutputFormats(task),
-      constraints: this.identifyConstraints(task)
+      constraints: this.identifyConstraints(task),
     };
   }
 
   async generatePlan(requirements) {
     return {
       phases: [
-        { name: 'data-collection', duration: 5, dependencies: [] },
-        { name: 'data-processing', duration: 15, dependencies: ['data-collection'] },
-        { name: 'analysis', duration: 10, dependencies: ['data-processing'] },
-        { name: 'reporting', duration: 5, dependencies: ['analysis'] }
+        { name: "data-collection", duration: 5, dependencies: [] },
+        {
+          name: "data-processing",
+          duration: 15,
+          dependencies: ["data-collection"],
+        },
+        { name: "analysis", duration: 10, dependencies: ["data-processing"] },
+        { name: "reporting", duration: 5, dependencies: ["analysis"] },
       ],
       resources: this.allocateResources(requirements),
-      timeline: this.createTimeline(requirements)
+      timeline: this.createTimeline(requirements),
     };
   }
 
@@ -3306,18 +3310,18 @@ class PlanningAgent extends BaseAgent {
     const issues = [];
 
     // Check resource availability
-    if (!await this.checkResourceAvailability(plan.resources)) {
-      issues.push('Insufficient resources allocated');
+    if (!(await this.checkResourceAvailability(plan.resources))) {
+      issues.push("Insufficient resources allocated");
     }
 
     // Check timeline feasibility
     if (!this.validateTimeline(plan.timeline)) {
-      issues.push('Timeline conflicts detected');
+      issues.push("Timeline conflicts detected");
     }
 
     return {
       isValid: issues.length === 0,
-      issues
+      issues,
     };
   }
 }
@@ -3331,7 +3335,7 @@ Handles data collection, transformation, and processing operations.
 
 ```javascript
 // agents/data-processing-agent/index.js
-const { BaseAgent } = require('../base-agent');
+const { BaseAgent } = require("../base-agent");
 
 class DataProcessingAgent extends BaseAgent {
   async execute(context) {
@@ -3348,15 +3352,15 @@ class DataProcessingAgent extends BaseAgent {
       rawData: this.summarizeData(rawData),
       processedData: this.summarizeData(processedData),
       validation: validatedData,
-      metrics: this.calculateMetrics(processedData)
+      metrics: this.calculateMetrics(processedData),
     };
   }
 
   async collectData(task, plan) {
     const collectors = {
-      'database': () => this.collectFromDatabase(task.query),
-      'api': () => this.collectFromAPI(task.endpoint),
-      'files': () => this.collectFromFiles(task.filePaths)
+      database: () => this.collectFromDatabase(task.query),
+      api: () => this.collectFromAPI(task.endpoint),
+      files: () => this.collectFromFiles(task.filePaths),
     };
 
     const collector = collectors[task.dataSource];
@@ -3368,7 +3372,11 @@ class DataProcessingAgent extends BaseAgent {
   }
 
   async processData(rawData, plan) {
-    const processors = plan.processingSteps || ['clean', 'transform', 'aggregate'];
+    const processors = plan.processingSteps || [
+      "clean",
+      "transform",
+      "aggregate",
+    ];
 
     let processed = rawData;
     for (const step of processors) {
@@ -3382,16 +3390,16 @@ class DataProcessingAgent extends BaseAgent {
     const validations = [
       this.validateDataTypes(data),
       this.validateDataCompleteness(data),
-      this.validateBusinessRules(data)
+      this.validateBusinessRules(data),
     ];
 
     const results = await Promise.all(validations);
-    const issues = results.flatMap(r => r.issues || []);
+    const issues = results.flatMap((r) => r.issues || []);
 
     return {
       isValid: issues.length === 0,
       issues,
-      qualityScore: this.calculateQualityScore(data, issues)
+      qualityScore: this.calculateQualityScore(data, issues),
     };
   }
 
@@ -3400,7 +3408,7 @@ class DataProcessingAgent extends BaseAgent {
       recordCount: data.length,
       fieldCount: Object.keys(data[0] || {}).length,
       processingTime: Date.now() - this.startTime,
-      memoryUsage: process.memoryUsage().heapUsed
+      memoryUsage: process.memoryUsage().heapUsed,
     };
   }
 }
@@ -3414,7 +3422,7 @@ Generates reports, visualizations, and formatted outputs.
 
 ```javascript
 // agents/reporting-agent/index.js
-const { BaseAgent } = require('../base-agent');
+const { BaseAgent } = require("../base-agent");
 
 class ReportingAgent extends BaseAgent {
   async execute(context) {
@@ -3422,29 +3430,33 @@ class ReportingAgent extends BaseAgent {
     const processedData = results.data?.processedData;
 
     // Generate requested report formats
-    const reports = await this.generateReports(processedData, task.reportFormats);
+    const reports = await this.generateReports(
+      processedData,
+      task.reportFormats,
+    );
 
     // Apply formatting and styling
     const formattedReports = await this.formatReports(reports, task.formatting);
 
     // Generate visualizations if requested
-    const visualizations = task.includeCharts ?
-      await this.generateVisualizations(processedData) : [];
+    const visualizations = task.includeCharts
+      ? await this.generateVisualizations(processedData)
+      : [];
 
     return {
       success: true,
       reports: formattedReports,
       visualizations,
-      metadata: this.generateReportMetadata(task, results)
+      metadata: this.generateReportMetadata(task, results),
     };
   }
 
   async generateReports(data, formats) {
     const generators = {
-      'pdf': () => this.generatePDFReport(data),
-      'excel': () => this.generateExcelReport(data),
-      'json': () => this.generateJSONReport(data),
-      'html': () => this.generateHTMLReport(data)
+      pdf: () => this.generatePDFReport(data),
+      excel: () => this.generateExcelReport(data),
+      json: () => this.generateJSONReport(data),
+      html: () => this.generateHTMLReport(data),
     };
 
     const reports = {};
@@ -3494,7 +3506,7 @@ class ReportingAgent extends BaseAgent {
       task: task.name,
       executionTime: this.calculateExecutionTime(results),
       dataQuality: results.data?.validation?.qualityScore,
-      version: this.config.version
+      version: this.config.version,
     };
   }
 }
@@ -3602,30 +3614,33 @@ async evaluateCondition(condition, context) {
 // config/workflows.js
 module.exports = {
   analysis: {
-    type: 'sequential',
-    agents: ['planning', 'data', 'reporting'],
+    type: "sequential",
+    agents: ["planning", "data", "reporting"],
     timeout: 300000, // 5 minutes
     retryPolicy: {
       maxRetries: 3,
-      backoffMs: 1000
-    }
+      backoffMs: 1000,
+    },
   },
 
   quickReport: {
-    type: 'parallel',
-    agents: ['data', 'reporting'],
+    type: "parallel",
+    agents: ["data", "reporting"],
     timeout: 120000, // 2 minutes
-    skipPlanning: true
+    skipPlanning: true,
   },
 
   conditionalAnalysis: {
-    type: 'conditional',
+    type: "conditional",
     steps: [
-      { agent: 'planning', condition: null },
-      { agent: 'data', condition: { field: 'planning', operator: 'exists' } },
-      { agent: 'reporting', condition: { field: 'data', operator: 'equals', value: 'success' } }
-    ]
-  }
+      { agent: "planning", condition: null },
+      { agent: "data", condition: { field: "planning", operator: "exists" } },
+      {
+        agent: "reporting",
+        condition: { field: "data", operator: "equals", value: "success" },
+      },
+    ],
+  },
 };
 ```
 
@@ -3635,39 +3650,39 @@ module.exports = {
 // config/agents.js
 module.exports = {
   conductor: {
-    class: 'ConductorAgent',
+    class: "ConductorAgent",
     config: {
       retryOnFailure: true,
       maxConcurrency: 3,
-      timeoutMs: 300000
-    }
+      timeoutMs: 300000,
+    },
   },
 
   planning: {
-    class: 'PlanningAgent',
+    class: "PlanningAgent",
     config: {
       maxPlanningDepth: 5,
-      resourceOptimization: true
-    }
+      resourceOptimization: true,
+    },
   },
 
   data: {
-    class: 'DataProcessingAgent',
+    class: "DataProcessingAgent",
     config: {
       batchSize: 1000,
-      validationLevel: 'strict',
-      cachingEnabled: true
-    }
+      validationLevel: "strict",
+      cachingEnabled: true,
+    },
   },
 
   reporting: {
-    class: 'ReportingAgent',
+    class: "ReportingAgent",
     config: {
-      defaultFormats: ['pdf', 'json'],
-      chartLibrary: 'chartjs',
-      templateEngine: 'handlebars'
-    }
-  }
+      defaultFormats: ["pdf", "json"],
+      chartLibrary: "chartjs",
+      templateEngine: "handlebars",
+    },
+  },
 };
 ```
 
@@ -3683,7 +3698,7 @@ class ErrorHandler {
     this.recoveryStrategies = {
       retry: this.retryStrategy.bind(this),
       fallback: this.fallbackStrategy.bind(this),
-      skip: this.skipStrategy.bind(this)
+      skip: this.skipStrategy.bind(this),
     };
   }
 
@@ -3701,10 +3716,10 @@ class ErrorHandler {
   }
 
   determineStrategy(error, context) {
-    if (error.code === 'TIMEOUT') return 'retry';
-    if (error.code === 'VALIDATION_FAILED') return 'fallback';
-    if (error.code === 'RESOURCE_UNAVAILABLE') return 'skip';
-    return 'retry'; // default
+    if (error.code === "TIMEOUT") return "retry";
+    if (error.code === "VALIDATION_FAILED") return "fallback";
+    if (error.code === "RESOURCE_UNAVAILABLE") return "skip";
+    return "retry"; // default
   }
 
   async retryStrategy(agentName, error, context) {
@@ -3739,14 +3754,14 @@ class ErrorHandler {
 
   findFallbackAgent(agentName) {
     const fallbacks = {
-      'data': 'reporting', // Use reporting as fallback for data processing
-      'reporting': 'data'  // Use data processing as fallback for reporting
+      data: "reporting", // Use reporting as fallback for data processing
+      reporting: "data", // Use data processing as fallback for reporting
     };
     return fallbacks[agentName];
   }
 
   delay(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 }
 ```
@@ -3764,7 +3779,7 @@ class ExecutionMonitor {
       successfulExecutions: 0,
       failedExecutions: 0,
       averageExecutionTime: 0,
-      agentMetrics: {}
+      agentMetrics: {},
     };
   }
 
@@ -3774,8 +3789,8 @@ class ExecutionMonitor {
       workflowId,
       task,
       startTime: Date.now(),
-      status: 'running',
-      agentResults: {}
+      status: "running",
+      agentResults: {},
     };
 
     this.activeExecutions.set(execution.id, execution);
@@ -3788,7 +3803,7 @@ class ExecutionMonitor {
       execution.agentResults[agentName] = {
         result,
         timestamp: Date.now(),
-        duration: Date.now() - execution.startTime
+        duration: Date.now() - execution.startTime,
       };
     }
   }
@@ -3798,7 +3813,7 @@ class ExecutionMonitor {
     if (execution) {
       execution.endTime = Date.now();
       execution.duration = execution.endTime - execution.startTime;
-      execution.status = finalResult.success ? 'completed' : 'failed';
+      execution.status = finalResult.success ? "completed" : "failed";
       execution.finalResult = finalResult;
 
       this.updateMetrics(execution);
@@ -3809,20 +3824,26 @@ class ExecutionMonitor {
 
   updateMetrics(execution) {
     this.metrics.totalExecutions++;
-    if (execution.status === 'completed') {
+    if (execution.status === "completed") {
       this.metrics.successfulExecutions++;
     } else {
       this.metrics.failedExecutions++;
     }
 
     // Update average execution time
-    const totalTime = this.metrics.averageExecutionTime * (this.metrics.totalExecutions - 1);
-    this.metrics.averageExecutionTime = (totalTime + execution.duration) / this.metrics.totalExecutions;
+    const totalTime =
+      this.metrics.averageExecutionTime * (this.metrics.totalExecutions - 1);
+    this.metrics.averageExecutionTime =
+      (totalTime + execution.duration) / this.metrics.totalExecutions;
 
     // Update agent-specific metrics
-    Object.keys(execution.agentResults).forEach(agentName => {
+    Object.keys(execution.agentResults).forEach((agentName) => {
       if (!this.metrics.agentMetrics[agentName]) {
-        this.metrics.agentMetrics[agentName] = { executions: 0, failures: 0, avgTime: 0 };
+        this.metrics.agentMetrics[agentName] = {
+          executions: 0,
+          failures: 0,
+          avgTime: 0,
+        };
       }
 
       const agentMetric = this.metrics.agentMetrics[agentName];
@@ -3832,7 +3853,9 @@ class ExecutionMonitor {
       }
 
       const agentTime = execution.agentResults[agentName].duration;
-      agentMetric.avgTime = (agentMetric.avgTime * (agentMetric.executions - 1) + agentTime) / agentMetric.executions;
+      agentMetric.avgTime =
+        (agentMetric.avgTime * (agentMetric.executions - 1) + agentTime) /
+        agentMetric.executions;
     });
   }
 
@@ -3855,14 +3878,14 @@ class ExecutionMonitor {
 const conductor = new ConductorAgent(config);
 
 const result = await conductor.execute({
-  type: 'analysis',
-  name: 'Q4 Sales Analysis',
-  dataSource: 'database',
-  query: 'SELECT * FROM sales WHERE quarter = 4',
-  reportFormats: ['pdf', 'excel']
+  type: "analysis",
+  name: "Q4 Sales Analysis",
+  dataSource: "database",
+  query: "SELECT * FROM sales WHERE quarter = 4",
+  reportFormats: ["pdf", "excel"],
 });
 
-console.log('Analysis completed:', result.summary);
+console.log("Analysis completed:", result.summary);
 ```
 
 #### Parallel Processing
@@ -3872,12 +3895,12 @@ console.log('Analysis completed:', result.summary);
 const conductor = new ConductorAgent(config);
 
 const result = await conductor.execute({
-  type: 'parallel-reports',
+  type: "parallel-reports",
   reports: [
-    { name: 'Sales Report', data: salesData },
-    { name: 'Inventory Report', data: inventoryData },
-    { name: 'Financial Report', data: financialData }
-  ]
+    { name: "Sales Report", data: salesData },
+    { name: "Inventory Report", data: inventoryData },
+    { name: "Financial Report", data: financialData },
+  ],
 });
 ```
 
@@ -3888,14 +3911,14 @@ const result = await conductor.execute({
 const conductor = new ConductorAgent(config);
 
 const result = await conductor.execute({
-  type: 'conditional-analysis',
+  type: "conditional-analysis",
   conditions: {
-    'high-priority': salesData.urgent,
-    'data-quality-check': true
+    "high-priority": salesData.urgent,
+    "data-quality-check": true,
   },
   fallback: {
-    'data-processing-failed': 'basic-report'
-  }
+    "data-processing-failed": "basic-report",
+  },
 });
 ```
 
@@ -3936,25 +3959,29 @@ const result = await conductor.execute({
 
 ```javascript
 // tests/agents/planning-agent.test.js
-const { PlanningAgent } = require('../../agents/planning-agent');
+const { PlanningAgent } = require("../../agents/planning-agent");
 
-describe('PlanningAgent', () => {
+describe("PlanningAgent", () => {
   let agent;
 
   beforeEach(() => {
-    agent = new PlanningAgent({ /* config */ });
+    agent = new PlanningAgent({
+      /* config */
+    });
   });
 
-  test('analyzes requirements correctly', async () => {
-    const task = { type: 'analysis', complexity: 'high' };
+  test("analyzes requirements correctly", async () => {
+    const task = { type: "analysis", complexity: "high" };
     const requirements = await agent.analyzeRequirements(task);
 
-    expect(requirements).toHaveProperty('dataSources');
-    expect(requirements).toHaveProperty('processingSteps');
+    expect(requirements).toHaveProperty("dataSources");
+    expect(requirements).toHaveProperty("processingSteps");
   });
 
-  test('generates valid execution plan', async () => {
-    const requirements = { /* mock requirements */ };
+  test("generates valid execution plan", async () => {
+    const requirements = {
+      /* mock requirements */
+    };
     const plan = await agent.generatePlan(requirements);
 
     expect(plan.phases).toBeDefined();
@@ -3967,33 +3994,37 @@ describe('PlanningAgent', () => {
 
 ```javascript
 // tests/workflows/analysis-workflow.test.js
-const { ConductorAgent } = require('../../agents/conductor-agent');
+const { ConductorAgent } = require("../../agents/conductor-agent");
 
-describe('Analysis Workflow', () => {
+describe("Analysis Workflow", () => {
   let conductor;
 
   beforeEach(() => {
-    conductor = new ConductorAgent({ /* config */ });
+    conductor = new ConductorAgent({
+      /* config */
+    });
   });
 
-  test('executes complete analysis workflow', async () => {
+  test("executes complete analysis workflow", async () => {
     const task = {
-      type: 'analysis',
-      name: 'Test Analysis',
-      dataSource: 'mock'
+      type: "analysis",
+      name: "Test Analysis",
+      dataSource: "mock",
     };
 
     const result = await conductor.execute(task);
 
     expect(result.success).toBe(true);
-    expect(result.results).toHaveProperty('planning');
-    expect(result.results).toHaveProperty('data');
-    expect(result.results).toHaveProperty('reporting');
+    expect(result.results).toHaveProperty("planning");
+    expect(result.results).toHaveProperty("data");
+    expect(result.results).toHaveProperty("reporting");
   });
 
-  test('handles sub-agent failures gracefully', async () => {
+  test("handles sub-agent failures gracefully", async () => {
     // Mock a sub-agent to fail
-    const failingTask = { /* task that causes failure */ };
+    const failingTask = {
+      /* task that causes failure */
+    };
 
     const result = await conductor.execute(failingTask);
 
@@ -4007,8 +4038,8 @@ describe('Analysis Workflow', () => {
 
 ```javascript
 // tests/performance/workflow-performance.test.js
-describe('Workflow Performance', () => {
-  test('completes analysis within time limit', async () => {
+describe("Workflow Performance", () => {
+  test("completes analysis within time limit", async () => {
     const startTime = Date.now();
 
     const result = await conductor.execute(largeAnalysisTask);
@@ -4017,16 +4048,16 @@ describe('Workflow Performance', () => {
     expect(duration).toBeLessThan(300000); // 5 minutes
   });
 
-  test('handles concurrent workflows efficiently', async () => {
-    const promises = Array(5).fill().map(() =>
-      conductor.execute(analysisTask)
-    );
+  test("handles concurrent workflows efficiently", async () => {
+    const promises = Array(5)
+      .fill()
+      .map(() => conductor.execute(analysisTask));
 
     const startTime = Date.now();
     const results = await Promise.all(promises);
     const duration = Date.now() - startTime;
 
-    expect(results.every(r => r.success)).toBe(true);
+    expect(results.every((r) => r.success)).toBe(true);
     expect(duration).toBeLessThan(600000); // 10 minutes for 5 concurrent
   });
 });
@@ -4072,20 +4103,20 @@ spec:
         app: conductor-agent
     spec:
       containers:
-      - name: conductor
-        image: conductor-agent:latest
-        ports:
-        - containerPort: 3000
-        env:
-        - name: NODE_ENV
-          value: "production"
-        resources:
-          requests:
-            memory: "512Mi"
-            cpu: "250m"
-          limits:
-            memory: "1Gi"
-            cpu: "500m"
+        - name: conductor
+          image: conductor-agent:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: NODE_ENV
+              value: "production"
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "1Gi"
+              cpu: "500m"
 ```
 
 #### Horizontal Scaling Considerations
@@ -4114,7 +4145,9 @@ class SecurityManager {
 
     for (const agentName of workflow.agents) {
       if (!userPermissions.includes(`agent:${agentName}:execute`)) {
-        throw new Error(`User ${user.id} not authorized to execute ${agentName}`);
+        throw new Error(
+          `User ${user.id} not authorized to execute ${agentName}`,
+        );
       }
     }
 
@@ -4125,9 +4158,11 @@ class SecurityManager {
     // Validate data access permissions
     const dataPermissions = await this.getDataPermissions(user);
 
-    if (task.dataSource === 'database') {
+    if (task.dataSource === "database") {
       if (!dataPermissions.includes(`database:${task.database}:read`)) {
-        throw new Error(`User ${user.id} not authorized to access ${task.database}`);
+        throw new Error(
+          `User ${user.id} not authorized to access ${task.database}`,
+        );
       }
     }
 
@@ -4141,7 +4176,7 @@ class SecurityManager {
       userId: user.id,
       timestamp: new Date(),
       result: result.success,
-      agents: Object.keys(result.results || {})
+      agents: Object.keys(result.results || {}),
     });
   }
 }
@@ -4179,4 +4214,7 @@ class SecurityManager {
 - Recommended: top-level agents/
 - Use AGENTS.md for discovery and indexing
 - Keep each agent self-contained
+
+```
+
 ```

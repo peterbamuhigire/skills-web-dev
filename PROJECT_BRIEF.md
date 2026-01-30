@@ -112,8 +112,12 @@ skills/
 │   │   └── permission-model.md
 │   └── documentation/
 │       └── migration.md
-├── writing-plans/
-│   └── SKILL.md
+├── feature-planning/
+│   ├── SKILL.md
+│   ├── references/
+│   ├── templates/
+│   ├── protocols/
+│   └── spec-references/
 ├── update-claude-documentation/
 │   └── SKILL.md
 ├── doc-architect/

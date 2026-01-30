@@ -60,27 +60,27 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ---
 
-### 2. Writing Plans
+### 2. Feature Planning
 
-**Focus:** Comprehensive implementation planning
+**Focus:** Complete feature development from specification to implementation
 
 **When to use:**
 
-- Before starting multi-step feature implementation
-- Planning complex technical tasks
-- Creating test-driven development workflows
-- Documenting implementation strategy
+- Planning new features from requirements to code
+- Creating structured specifications with user stories
+- Breaking down features into detailed implementation plans
+- Test-driven development workflows
+- Multi-step feature development
 
 **Key capabilities:**
 
-- Bite-sized task breakdown (2-5 minute steps)
-- TDD workflow (test, verify fail, implement, verify pass, commit)
-- Exact file paths and commands
-- Complete code examples
-- Testing instructions
+- **Phase 1 - Specification:** User stories, acceptance criteria, technical constraints, data modeling
+- **Phase 2 - Implementation:** Bite-sized task breakdown (2-5 minute steps), TDD workflow, exact file paths
+- Complete code examples and testing instructions
 - DRY, YAGNI, and best practice adherence
+- Token cost analysis and architecture decision framework
 
-**Skill location:** `writing-plans/SKILL.md`
+**Skill location:** `feature-planning/SKILL.md`
 
 ---
 
@@ -474,8 +474,8 @@ Claude: [Loads multi-tenant-saas-architecture skill]
 
 ```
 User: "I need to implement user authentication with OAuth"
-Claude: [Loads writing-plans skill]
-[Creates comprehensive plan with TDD workflow, exact steps, testing strategy]
+Claude: [Loads feature-planning skill]
+[Creates spec with user stories, then detailed implementation plan with TDD workflow]
 ```
 
 ### Combining Skills
@@ -483,7 +483,7 @@ Claude: [Loads writing-plans skill]
 Skills can work together for comprehensive solutions:
 
 ```
-1. Use writing-plans to create implementation strategy
+1. Use feature-planning to create specification and implementation strategy
 2. Use multi-tenant-saas-architecture for backend patterns
 3. Use webapp-gui-design for UI components
 ```
@@ -664,8 +664,12 @@ We welcome contributions! To add or improve skills:
 skills/
 ├── multi-tenant-saas-architecture/  # SaaS architecture skill
 │   └── SKILL.md
-├── writing-plans/                # Implementation planning skill
-│   └── SKILL.md
+├── feature-planning/             # Complete feature planning skill (spec + implementation)
+│   ├── SKILL.md
+│   ├── references/               # Educational guides
+│   ├── templates/                # Spec templates
+│   ├── protocols/                # Naming conventions
+│   └── spec-references/          # Spec examples
 ├── update-claude-documentation/  # Documentation maintenance skill
 │   └── SKILL.md
 ├── doc-architect/                # Triple-Layer AGENTS.md generator

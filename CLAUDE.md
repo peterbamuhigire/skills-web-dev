@@ -68,7 +68,7 @@ Claude should recognize these directories and their purposes:
 ```
 skills/
 ├── multi-tenant-saas-architecture/  # SaaS backend skill
-├── writing-plans/            # Implementation planning skill
+├── feature-planning/         # Complete feature planning (spec + implementation)
 ├── update-claude-documentation/  # Documentation maintenance skill
 ├── doc-architect/            # Triple-Layer AGENTS.md generator
 ├── manual-guide/             # End-user manual and reference guide skill
@@ -434,7 +434,7 @@ Skills are organized by domain:
 
 ### Process Skills
 
-- **writing-plans:** Implementation planning, TDD workflows
+- **feature-planning:** Complete feature planning from specification to implementation, TDD workflows
 - **update-claude-documentation:** Documentation maintenance, consistency checking
 - **doc-architect:** Generate Triple-Layer AGENTS.md documentation (Root/Data/Planning)
 
@@ -533,7 +533,7 @@ Skills from this repository are used in:
 Skills should complement each other:
 
 ```
-writing-plans → Creates implementation strategy
+feature-planning → Creates spec + implementation strategy
       ↓
 multi-tenant-saas-architecture → Provides backend patterns
       ↓

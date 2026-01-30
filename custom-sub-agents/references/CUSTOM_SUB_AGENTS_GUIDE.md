@@ -670,7 +670,7 @@ If you can explain the documentation process in one paragraph, use a SKILL. If y
 
 ```bash
 # Use the planning skill to create comprehensive implementation plans
-# See: skills/writing-plans/SKILL.md
+# See: skills/feature-planning/SKILL.md
 ```
 
 ### 2. Agent Creation

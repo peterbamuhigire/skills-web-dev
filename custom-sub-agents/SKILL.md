@@ -87,6 +87,112 @@ skills/
 - **Simple Fixes**: Consider single LLM for basic "fix that error" scenarios
 - **Context-Aware Decisions**: Choose sub-agents when context conservation matters
 
+## Codebase Analysis & Planning
+
+### When to Use Sub-Agents vs Single LLM
+
+**Ask the AI Agent to analyze your codebase:**
+
+```
+"Analyze my codebase and recommend where sub-agents would be most beneficial.
+Consider: code complexity, domain areas, repetitive tasks, integration points,
+and context window requirements. Tell me what agents I need, where they should
+live, and how they should interact."
+```
+
+### Analysis Criteria
+
+**Create Sub-Agents For:**
+
+1. **Complex Domain Areas**
+   - Multi-step workflows (authentication, payments, inventory)
+   - Business logic with many edge cases
+   - Integration with external APIs/services
+
+2. **Repetitive Development Tasks**
+   - Code generation patterns (CRUD operations, API endpoints)
+   - Testing strategies for specific components
+   - Documentation generation for modules
+
+3. **Context-Intensive Work**
+   - Large codebases requiring sustained context
+   - Multi-file refactoring operations
+   - Complex architectural decisions
+
+4. **Specialized Expertise Areas**
+   - Security implementations
+   - Performance optimization
+   - Database schema design
+   - UI/UX pattern implementation
+
+**Use Single LLM For:**
+
+- Simple bug fixes and error resolution
+- Code reviews of individual files
+- Quick refactoring of small functions
+- Basic code explanations
+
+### Planning Your Sub-Agent Architecture
+
+**Step 1: Codebase Analysis Prompt**
+
+```
+Analyze this codebase structure and identify:
+- Key functional areas that could benefit from specialized agents
+- Integration points that require consistent handling
+- Repetitive patterns that could be automated
+- Complex workflows that consume significant context
+- Areas where domain expertise would improve outcomes
+```
+
+**Step 2: Agent Definition**
+For each identified area, define:
+
+- **Purpose**: What does this agent do?
+- **Scope**: What files/code does it handle?
+- **Inputs**: What information does it need?
+- **Outputs**: What does it produce?
+- **Interactions**: How does it work with other agents?
+
+**Step 3: Implementation Planning**
+
+- **File Structure**: Where will the agent live?
+- **Dependencies**: What tools/utilities does it need?
+- **Testing**: How will you validate the agent?
+- **Documentation**: How will users discover and use it?
+
+### Example Analysis Output
+
+**Recommended Sub-Agents:**
+
+1. **Database Migration Agent** (`database-migrations.agent.md`)
+   - Handles schema changes, data migrations, rollback strategies
+   - Location: `skills/custom-sub-agents/database-migrations/`
+
+2. **API Development Agent** (`api-development.agent.md`)
+   - Generates REST endpoints, validates requests, handles errors
+   - Location: `skills/custom-sub-agents/api-development/`
+
+3. **UI Component Agent** (`ui-components.agent.md`)
+   - Creates reusable components, handles styling, ensures consistency
+   - Location: `skills/custom-sub-agents/ui-components/`
+
+### Integration Points
+
+**Cross-Agent Communication:**
+
+- Define clear interfaces between agents
+- Establish data sharing protocols
+- Create shared utilities and helpers
+- Document agent dependencies and workflows
+
+**Context Management:**
+
+- Identify shared context requirements
+- Plan for context handoffs between agents
+- Optimize for minimal context overlap
+- Design for resumable workflows
+
 ## VS Code Integration & Enforcement Checklist
 
 - [ ] Register agent folder in `references/CUSTOM_SUB_AGENTS_GUIDE.md`

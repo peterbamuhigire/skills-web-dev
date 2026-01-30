@@ -381,18 +381,23 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ### 14. Custom Sub-Agents
 
-**Focus:** Creating, organizing, and documenting custom AI sub-agents for VS Code integration
+**Focus:** Analyzing codebases, planning, creating, organizing, and documenting custom AI sub-agents for VS Code integration
 
 **When to use:**
 
+- Analyzing codebases to determine sub-agent needs and architecture
+- Planning sub-agent implementation and integration strategies
 - Creating new AI agents or code assistants
 - Organizing agent code, config, and documentation
 - Ensuring compatibility with GitHub Copilot and Claude in VS Code
 - Building self-contained agent modules
 - Establishing agent development standards
+- Deciding between sub-agents vs single LLM approaches
 
 **Key capabilities:**
 
+- Codebase analysis framework for identifying sub-agent opportunities
+- Decision criteria for sub-agents vs single LLM usage
 - Complete folder structure per agent (code, config, docs, tests)
 - VS Code integration requirements (chat.customAgentInSubagent.enabled)
 - Self-contained agent organization (agent.js, config.json, README.md)
@@ -400,6 +405,8 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 - Testing and validation frameworks
 - Multi-language support (Node.js, Python, PHP, TypeScript)
 - Reference guide with detailed examples
+- Context window optimization strategies
+- Cross-agent integration and communication patterns
 
 **Skill location:** `custom-sub-agents/SKILL.md`
 

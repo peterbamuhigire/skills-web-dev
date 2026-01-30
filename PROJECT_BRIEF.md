@@ -94,6 +94,13 @@ Provide consistent, battle-tested patterns and workflows that can be seamlessly 
 **Use Cases:** Documenting features, writing user manuals, syncing reference guides
 **Key Features:** Contextual discovery (plans/schema/code/docs), dual-workflow structure, edge-case coverage, professional instructional tone
 
+### 13. Custom Sub-Agents
+
+**Domain:** AI Agent Architecture & Development
+**Purpose:** Analyze codebases, plan, create, organize, and document custom AI sub-agents for VS Code integration
+**Use Cases:** Codebase analysis for sub-agent needs, planning agent architecture, creating specialized AI assistants, organizing agent code and documentation, establishing agent development standards
+**Key Features:** Codebase analysis framework, decision criteria for sub-agents vs single LLM, complete folder structure per agent, VS Code integration requirements, self-contained agent organization, comprehensive documentation templates, context window optimization, cross-agent integration patterns
+
 ## Repository Structure
 
 ```
@@ -113,6 +120,15 @@ skills/
 │   └── SKILL.md
 ├── manual-guide/
 │   └── SKILL.md
+├── custom-sub-agents/
+│   ├── SKILL.md
+│   ├── references/
+│   │   └── CUSTOM_SUB_AGENTS_GUIDE.md
+│   └── [agent folders]/
+│       ├── agent-name/
+│       │   ├── agent.js
+│       │   ├── config.json
+│       │   └── README.md
 ├── dual-auth-rbac/
 │   ├── SKILL.md
 │   └── references/

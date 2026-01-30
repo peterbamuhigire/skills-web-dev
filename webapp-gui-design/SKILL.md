@@ -31,6 +31,18 @@ Build professional web UIs using commercial templates with established component
 - **Dates:** Flatpickr (auto-applied)
 - **Selects:** Select2
 
+## Print/PDF Letterhead (Mandatory)
+
+All report print and PDF outputs MUST include a full letterhead with:
+
+- Organization name
+- Physical address
+- Phone number
+- Email address
+- Logo
+
+Never ship a report print/PDF view without the complete letterhead. Print views must auto-trigger the browser print dialog on load.
+
 ## Date Formatting (UI Required)
 
 - Never display raw SQL timestamps (e.g., `2026-01-25 00:00:00`).

@@ -377,6 +377,32 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 **Skill location:** `manual-guide/SKILL.md`
 
+---
+
+### 14. Custom Sub-Agents
+
+**Focus:** Creating, organizing, and documenting custom AI sub-agents for VS Code integration
+
+**When to use:**
+
+- Creating new AI agents or code assistants
+- Organizing agent code, config, and documentation
+- Ensuring compatibility with GitHub Copilot and Claude in VS Code
+- Building self-contained agent modules
+- Establishing agent development standards
+
+**Key capabilities:**
+
+- Complete folder structure per agent (code, config, docs, tests)
+- VS Code integration requirements (chat.customAgentInSubagent.enabled)
+- Self-contained agent organization (agent.js, config.json, README.md)
+- Comprehensive documentation templates
+- Testing and validation frameworks
+- Multi-language support (Node.js, Python, PHP, TypeScript)
+- Reference guide with detailed examples
+
+**Skill location:** `custom-sub-agents/SKILL.md`
+
 ## Installation
 
 ### Option 1: Use Skills Directly

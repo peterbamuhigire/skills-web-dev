@@ -17,84 +17,91 @@ Provide consistent, battle-tested patterns and workflows that can be seamlessly 
 **Use Cases:** Building SaaS platforms, implementing permissions, ensuring tenant isolation
 **Key Features:** Zero-trust security, three-panel architecture, comprehensive audit trails, scalable patterns
 
-### 2. Writing Plans
+### 2. Modular SAAS Architecture
+
+**Domain:** Backend Architecture & Feature Management
+**Purpose:** Build SAAS platforms with pluggable business modules that can be enabled/disabled per tenant
+**Use Cases:** Modular feature systems, module marketplaces, per-tenant subscriptions, independent module development
+**Key Features:** Module independence, graceful degradation, dynamic navigation, module registry & dependencies, event-driven communication, billing integration
+
+### 3. Writing Plans
 
 **Domain:** Development Workflow
 **Purpose:** Create comprehensive, executable implementation plans for multi-step tasks
 **Use Cases:** Feature planning, technical specifications, TDD workflows
 **Key Features:** Bite-sized tasks, exact file paths, complete code examples, test-driven approach
 
-### 3. Update Claude Documentation
+### 4. Update Claude Documentation
 
 **Domain:** Documentation Maintenance
 **Purpose:** Efficiently update project documentation when significant changes occur
 **Use Cases:** Feature additions, architecture changes, tech stack updates, API modifications
 **Key Features:** Documentation dependency mapping, systematic update workflow, cross-reference verification, consistency checking
 
-### 4. Dual Auth RBAC
+### 5. Dual Auth RBAC
 
 **Domain:** Security & Authentication
 **Purpose:** Dual authentication system (Session + JWT) with role-based access control
 **Use Cases:** Multi-tenant SaaS, web + API authentication, mobile apps, tenant-scoped permissions
 **Key Features:** Session + JWT auth, RBAC, Argon2ID passwords, token revocation, multi-tenant isolation, cross-platform
 
-### 5. Web App GUI Design
+### 6. Web App GUI Design
 
 **Domain:** Frontend Development (Web Applications)
 **Purpose:** Professional web app UIs using commercial templates with established component patterns, with optional bespoke aesthetic direction
 **Use Cases:** CRUD interfaces, admin panels, dashboards, data management UIs, polished aesthetics inside web apps
 **Key Features:** Tabler (Bootstrap 5), mandatory SweetAlert2, DataTables, modular architecture (includes), Flatpickr, Select2, seeder-page.php template pattern, Bootstrap Icons only, optional frontend design direction
 
-### 6. Skill Creator
+### 7. Skill Creator
 
 **Domain:** Meta-Skill (Skill Development)
 **Purpose:** Guide for creating effective skills with progressive disclosure and proper structure
 **Use Cases:** Creating new skills, updating existing skills, understanding skill best practices
 **Key Features:** Skill creation process (understand, plan, initialize, edit, package, iterate), progressive disclosure (metadata → SKILL.md → bundled resources), resource organization (scripts/, references/, assets/), description field as trigger, no extraneous files
 
-### 7. API Error Handling
+### 8. API Error Handling
 
 **Domain:** Backend Development (REST APIs)
 **Purpose:** Comprehensive, standardized error response system for PHP REST APIs with SweetAlert2 integration
 **Use Cases:** Building REST APIs, consistent error formatting, PDOException parsing, validation error handling, frontend error display
 **Key Features:** Standardized JSON envelopes (success/error), HTTP status code mapping, PDOException message extraction (SQLSTATE 45000, 23000, deadlocks), ApiResponse helper, ExceptionHandler with specific error parsing, custom exception classes, SweetAlert2 integration, business rule extraction, request ID tracking
 
-### 8. MySQL Best Practices
+### 9. MySQL Best Practices
 
 **Domain:** Database Design & Optimization
 **Purpose:** MySQL 8.x best practices for high-performance SaaS applications
 **Use Cases:** Schema design, query optimization, multi-tenant isolation, data integrity, high-concurrency systems
 **Key Features:** UTF8MB4 + InnoDB standards, ESR composite indexing, normalization strategies, stored procedures, triggers, concurrency patterns, security (TDE, SSL, SQL injection prevention), partitioning, backup/recovery, monitoring, connection pooling, multi-tenant isolation patterns
 
-### 9. Report Export (PDF + Print)
+### 10. Report Export (PDF + Print)
 
 **Domain:** Reporting
 **Purpose:** Clean, consistent report exports for PDF and browser printing
 **Use Cases:** Financial PDFs, inventory reports, audit exports, browser printouts
 **Key Features:** Shared HTML template for PDF/print, compact header/footer, repeating table headers, DejaVu Sans typography, strict date/number formatting
 
-### 10. POS & Sales Entry UI Design
+### 11. POS & Sales Entry UI Design
 
 **Domain:** Frontend UX for Sales Systems
 **Purpose:** POS, checkout, and sales entry UI patterns with API-first workflows and print-ready invoice/receipt standards
 **Use Cases:** POS terminals, sales encoding, invoice/receipt screen design, 80mm/A4 print layouts
 **Key Features:** 8-to-80 usability, 3-level hierarchy, large touch targets, progressive disclosure, attention-grabber focus cues at milestones, API-first UI actions, invoice/receipt output standards
 
-### 11. Doc Architect
+### 12. Doc Architect
 
 **Domain:** Documentation Architecture
 **Purpose:** Generate Triple-Layer AGENTS.md documentation (Root, Data, Planning)
 **Use Cases:** Standardizing documentation, generating agent files, establishing project baselines
 **Key Features:** Workspace scanning, tech stack inference, template-driven AGENTS.md generation, reusable domain constraints
 
-### 12. Manual Guide
+### 13. Manual Guide
 
 **Domain:** End-User Documentation
 **Purpose:** Produce end-user manuals and module reference guides (distinct from AI agent docs)
 **Use Cases:** Documenting features, writing user manuals, syncing reference guides
 **Key Features:** Contextual discovery (plans/schema/code/docs), dual-workflow structure, edge-case coverage, professional instructional tone
 
-### 13. Custom Sub-Agents
+### 14. Custom Sub-Agents
 
 **Domain:** AI Agent Architecture & Development
 **Purpose:** Analyze codebases, plan, create, organize, and document custom AI sub-agents for VS Code integration
@@ -112,6 +119,14 @@ skills/
 │   │   └── permission-model.md
 │   └── documentation/
 │       └── migration.md
+├── modular-saas-architecture/
+│   ├── SKILL.md
+│   ├── references/
+│   │   └── database-schema.md
+│   ├── documentation/
+│   │   └── implementation-guide.md
+│   └── examples/
+│       └── module-config-example.php
 ├── feature-planning/
 │   ├── SKILL.md
 │   ├── references/

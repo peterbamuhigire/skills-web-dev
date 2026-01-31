@@ -60,7 +60,34 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ---
 
-### 2. Feature Planning
+### 2. Modular SAAS Architecture
+
+**Focus:** Building SAAS platforms with pluggable business modules
+
+**When to use:**
+
+- Designing SAAS with optional features/modules (Advanced Inventory, Restaurant, Pharmacy)
+- Implementing per-tenant module enable/disable functionality
+- Building module marketplaces with billing integration
+- Ensuring modules can be added/removed without breaking the system
+- Creating independent modules with clean interfaces
+
+**Key capabilities:**
+
+- Module independence patterns (self-contained modules)
+- Graceful degradation when modules are disabled
+- Per-tenant module subscriptions and billing
+- Dynamic navigation based on enabled modules
+- Module registry and dependency management
+- Database design for modular systems
+- Testing strategies for module isolation
+- Event-driven module communication
+
+**Skill location:** `modular-saas-architecture/SKILL.md`
+
+---
+
+### 3. Feature Planning
 
 **Focus:** Complete feature development from specification to implementation
 
@@ -84,7 +111,7 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ---
 
-### 3. Update Claude Documentation
+### 4. Update Claude Documentation
 
 **Focus:** Efficiently update project documentation files
 
@@ -110,7 +137,7 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ---
 
-### 4. Dual Auth RBAC
+### 5. Dual Auth RBAC
 
 **Focus:** Dual authentication (Session + JWT) with role-based access control
 
@@ -137,7 +164,7 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ---
 
-### 5. Web App GUI Design
+### 6. Web App GUI Design
 
 **Focus:** Professional web app UIs using commercial templates (with optional bespoke aesthetics)
 
@@ -165,7 +192,7 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ---
 
-### 6. Skill Creator
+### 7. Skill Creator
 
 **Focus:** Creating effective skills that extend Claude's capabilities
 
@@ -191,7 +218,7 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ---
 
-### 7. API Error Handling
+### 8. API Error Handling
 
 **Focus:** Comprehensive error response system for PHP REST APIs
 
@@ -229,7 +256,7 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ---
 
-### 8. MySQL Best Practices
+### 9. MySQL Best Practices
 
 **Focus:** MySQL 8.x best practices for high-performance SaaS
 
@@ -269,7 +296,7 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ---
 
-### 9. Report Export (PDF + Print)
+### 10. Report Export (PDF + Print)
 
 **Focus:** Clean, consistent report exports for PDF and browser printing
 
@@ -293,7 +320,7 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ---
 
-### 10. POS & Sales Entry UI Design
+### 11. POS & Sales Entry UI Design
 
 **Focus:** POS, checkout, and sales entry UI patterns for web apps
 
@@ -317,7 +344,7 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ---
 
-### 11. Photo Management
+### 12. Photo Management
 
 **Focus:** Standardized photo upload, preview, storage, and deletion
 
@@ -339,7 +366,7 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ---
 
-### 12. Doc Architect
+### 13. Doc Architect
 
 **Focus:** Automated Triple-Layer AGENTS.md documentation
 
@@ -359,7 +386,7 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ---
 
-### 13. Manual Guide
+### 14. Manual Guide
 
 **Focus:** End-user manuals and reference guides (not AI agent docs)
 
@@ -379,7 +406,7 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ---
 
-### 14. Custom Sub-Agents
+### 15. Custom Sub-Agents
 
 **Focus:** Analyzing codebases, planning, creating, organizing, and documenting custom AI sub-agents for VS Code integration
 

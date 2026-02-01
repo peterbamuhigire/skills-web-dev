@@ -18,10 +18,32 @@ Implement production-grade dual authentication combining session-based (stateful
 ✅ Role-based permissions with tenant isolation
 ✅ Token revocation capability required
 ✅ Multiple device sessions per user
+✅ Three-tier panel architecture (super admin, franchise admin, member portal)
 
 ❌ Simple single-tenant apps (overkill)
 ❌ Read-only public APIs
 ❌ Internal tools (simpler auth suffices)
+
+## Three-Tier Panel Structure Context
+
+**This authentication system supports three-tier panel architecture:**
+
+1. **`/public/` (root)** - Franchise Admin Panel
+   - Single franchise management workspace
+   - User types: `owner`, `staff`
+   - Session-based auth (web UI)
+
+2. **`/public/adminpanel/`** - Super Admin Panel
+   - System-wide multi-franchise oversight
+   - User type: `super_admin`
+   - Session-based + MFA recommended
+
+3. **`/public/memberpanel/`** - End User Portal
+   - Self-service for end users
+   - User types: `member`, `student`, `customer`, `patient`
+   - Session or JWT depending on client type
+
+**Key Principle:** `/public/` root is NOT a redirect router - it's the franchise admin workspace!
 
 ## Architecture
 
@@ -55,21 +77,27 @@ API    → JWT Access + Refresh
 
 ```
 Hash Flow:
-1. Random salt (16 bytes)
+1. Random salt (32 bytes - IMPORTANT: Use 32 bytes, not 16)
 2. Combine password + salt
-3. HMAC with pepper (env secret)
+3. HMAC with pepper (env secret, 64+ chars recommended)
 4. Argon2ID hash
-5. Store: salt + hash
+5. Store: salt(32 chars) + hash
 
 Parameters:
   memory_cost: 65536 KB
   time_cost: 4
   threads: 3
-  salt: 16 bytes
-  pepper: env variable
+  salt: 32 bytes
+  pepper: env variable (64+ chars)
 ```
 
 **Requirements:** Min 8 chars, uppercase + lowercase + numbers + special
+
+**CRITICAL: Admin User Creation**
+- NEVER use manual password_hash() or migration defaults (often bcrypt)
+- ALWAYS use a dedicated tool like `super-user-dev.php` that uses PasswordHelper
+- Ensures password hashing matches login verification
+- Example: Visit `http://localhost:8000/super-user-dev.php` to create admin users
 
 ## JWT Architecture
 
@@ -111,16 +139,36 @@ Parameters:
 **Config:**
 ```
 HttpOnly: true
-Secure: true
+Secure: auto-detect HTTPS (allow localhost HTTP)
 SameSite: Strict
 Lifetime: 30 minutes
 ```
 
-**Session data:**
+**Session Prefix System (Multi-Tenant Isolation):**
+```php
+// Define prefix per SaaS app
+define('SESSION_PREFIX', 'saas_app_'); // Change per SaaS
+
+// ALWAYS use helper functions
+setSession('user_id', 123);        // Sets $_SESSION['saas_app_user_id']
+$userId = getSession('user_id');   // Gets $_SESSION['saas_app_user_id']
+hasSession('user_id');             // Checks if exists
+
+// Benefits:
+// 1. Multiple SaaS apps on same domain won't collide
+// 2. Clear namespace per application
+// 3. Prevents accidental session variable conflicts
+```
+
+**Session data (with prefix):**
 ```
 {
-  user_id, franchise_id, user_type,
-  username, last_activity, csrf_token
+  saas_app_user_id,
+  saas_app_franchise_id,
+  saas_app_user_type,
+  saas_app_username,
+  saas_app_last_activity,
+  saas_app_csrf_token
 }
 ```
 
@@ -129,6 +177,17 @@ Lifetime: 30 minutes
 - Timeout check (30 min idle)
 - Complete destruction on logout
 - CSRF validation on mutations
+- Auto-detect HTTPS for secure cookie flag (allows localhost development)
+
+**HTTPS Auto-Detection (Critical for Localhost Development):**
+```php
+// Only set secure cookie if using HTTPS
+$isHttps = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
+           || $_SERVER['SERVER_PORT'] == 443;
+ini_set('session.cookie_secure', $isHttps ? '1' : '0');
+
+// Without this, sessions won't persist on localhost HTTP
+```
 
 ## RBAC Permission Resolution
 
@@ -192,10 +251,19 @@ hasPermission(userId, franchiseId, permissionCode):
 
 ## Multi-Tenant Isolation
 
-**Session-based:**
+**User Types & Franchise Requirements:**
 ```
-franchiseId = session.franchise_id
-SELECT * FROM orders WHERE franchise_id = ?
+super_admin - Platform operators (franchise_id CAN be NULL)
+owner       - Franchise owners (franchise_id REQUIRED)
+staff       - Franchise staff with permissions (franchise_id REQUIRED)
+member      - End users: student, customer, patient (franchise_id REQUIRED)
+```
+
+**Session-based (with prefix system):**
+```php
+$franchiseId = getSession('franchise_id'); // Uses session prefix
+$stmt = $db->prepare("SELECT * FROM orders WHERE franchise_id = ?");
+$stmt->execute([$franchiseId]);
 ```
 
 **JWT-based:**
@@ -203,6 +271,16 @@ SELECT * FROM orders WHERE franchise_id = ?
 token = verifyAccessToken(bearerToken)
 franchiseId = token.fid
 SELECT * FROM orders WHERE franchise_id = ?
+```
+
+**CRITICAL: ALWAYS Filter by franchise_id:**
+```php
+// CORRECT
+$stmt = $db->prepare("SELECT * FROM students WHERE franchise_id = ?");
+$stmt->execute([getSession('franchise_id')]);
+
+// WRONG - data leakage!
+$stmt = $db->prepare("SELECT * FROM students");
 ```
 
 **Cross-tenant protection:**
@@ -290,10 +368,18 @@ requirePermission(code):
 JWT_SECRET=<openssl rand -hex 32>
 JWT_ACCESS_TTL=900
 JWT_REFRESH_TTL=2592000
-PASSWORD_PEPPER=<openssl rand -hex 32>
+PASSWORD_PEPPER=<openssl rand -hex 64>  # 64+ chars recommended
+COOKIE_ENCRYPTION_KEY=<openssl rand -hex 32>
+COOKIE_DOMAIN=localhost  # or production domain
 SESSION_LIFETIME=1800
 MAX_LOGIN_ATTEMPTS=5
+APP_ENV=development  # or production
 ```
+
+**IMPORTANT:**
+- `PASSWORD_PEPPER`: Use 64+ chars for maximum security
+- `COOKIE_ENCRYPTION_KEY`: 32+ chars for secure cookie encryption
+- `APP_ENV`: Set to `production` to enable all security features
 
 ## Common Endpoints
 

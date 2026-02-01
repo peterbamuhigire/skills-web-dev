@@ -81,17 +81,32 @@ includes/foot.php    → JS
 seeder-page.php      → Template (ALWAYS clone)
 ```
 
-## Per-Panel Includes For Multi-Panel Templates
+## Three-Tier Panel Structure (Multi-Tenant SaaS)
 
-If the project has multiple panels (admin + member), give each panel its own
-includes folder and menus. Copy the includes folder for new panels.
+**CRITICAL: Three-tier architecture with separate includes per panel:**
 
-- Admin includes: public/adminpanel/includes (head.php, topbar.php, footer.php, foot.php)
-- Member includes: public/memberpanel/includes (head.php, topbar.php, footer.php, foot.php)
-- Menus live inside each panel includes folder (menus/admin.php, menus/member.php)
-- Shared assets live in public/assets and shared uploads in public/uploads
+1. **`/public/` (root)** - Franchise Admin Panel (THE MAIN WORKSPACE)
+   - Includes: `public/includes/` (head.php, topbar.php, footer.php, foot.php)
+   - Pages: `dashboard.php`, `students.php`, `inventory.php`, etc.
+   - Users: franchise owners, staff
+   - **This is NOT a member panel - it's the franchise management workspace!**
 
-If APIs live outside public, route /api to api/index.php via the web server.
+2. **`/public/adminpanel/`** - Super Admin Panel
+   - Includes: `public/adminpanel/includes/` (head.php, topbar.php, footer.php, foot.php)
+   - Pages: franchise management, system settings, cross-franchise analytics
+   - Users: super admins
+   - Menu: `menus/admin.php`
+
+3. **`/public/memberpanel/`** - End User Portal
+   - Includes: `public/memberpanel/includes/` (head.php, topbar.php, footer.php, foot.php)
+   - Pages: self-service features for end users
+   - Users: students, customers, patients, members
+   - Menu: `menus/member.php`
+
+**Shared Resources:**
+- Assets: `public/assets/` (CSS, JS, images)
+- Uploads: `public/uploads/` (user-uploaded files)
+- APIs: Can live outside `public/`, route `/api` to `api/index.php` via web server
 
 **JavaScript separation:**
 
@@ -293,28 +308,44 @@ async function apiGet(url, showErrors = true) {
 
 ## Page Template
 
+**ALWAYS clone `skeleton.php` for new pages in SaaS Seeder Template.**
+
 ```php
 <?php
-require_once 'src/config/auth.php';
-if (!isLoggedIn()) { header('Location: ./sign-in.php'); exit(); }
+require_once __DIR__ . '/../src/config/auth.php';
+requireAuth(); // Automatic auth check + session prefix system
+
+// Set page metadata
+$pageTitle = 'Students';
+$panel = 'admin'; // or 'member' depending on panel
+
+// Get franchise context (uses session prefix system)
+$franchiseId = getSession('franchise_id');
+$userType = getSession('user_type');
 ?>
 <!doctype html>
-<html>
-<head><?php include("./includes/head.php"); ?></head>
+<html lang="en">
+<head>
+    <?php include __DIR__ . "/includes/head.php"; ?>
+</head>
 <body>
+    <script src="/assets/tabler/js/tabler.min.js"></script>
+
     <div class="page">
-        <div class="sticky-top"><?php include("./includes/topbar.php"); ?></div>
+        <div class="sticky-top">
+            <?php include __DIR__ . "/includes/topbar.php"; ?>
+        </div>
         <div class="page-wrapper">
             <div class="page-header d-print-none">
                 <div class="container-xl">
                     <div class="row g-2 align-items-center">
                         <div class="col">
-                            <div class="page-pretitle">Module</div>
-                            <h2 class="page-title">Title</h2>
+                            <div class="page-pretitle">Student Management</div>
+                            <h2 class="page-title">Students</h2>
                         </div>
                         <div class="col-auto">
                             <button class="btn btn-primary" onclick="showAddModal()">
-                                <i class="bi bi-plus me-1"></i> Add
+                                <i class="bi bi-plus me-1"></i> Add Student
                             </button>
                         </div>
                     </div>
@@ -325,18 +356,39 @@ if (!isLoggedIn()) { header('Location: ./sign-in.php'); exit(); }
                     <div class="card">
                         <div class="card-body">
                             <!-- Content -->
+                            <table id="studentsTable" class="table table-striped" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
-            <footer><?php include './includes/footer.php'; ?></footer>
+            <footer class="footer footer-transparent d-print-none">
+                <?php include __DIR__ . '/includes/footer.php'; ?>
+            </footer>
         </div>
     </div>
-    <?php include("./includes/foot.php"); ?>
-    <script src="./assets/js/pages/your-page.js"></script>
+
+    <?php include __DIR__ . "/includes/foot.php"; ?>
+    <script src="./assets/js/pages/students.js"></script>
 </body>
 </html>
 ```
+
+**Key Points:**
+- Use `__DIR__` for all paths (works in any panel)
+- Call `requireAuth()` (automatic session check with prefix system)
+- Set `$pageTitle` and `$panel` variables for includes
+- Use `getSession('franchise_id')` to get franchise context
+- All database queries MUST filter by `franchise_id`
 
 ## SweetAlert2 (Mandatory)
 

@@ -437,6 +437,28 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 **Skill location:** `custom-sub-agents/SKILL.md`
 
+---
+
+### 16. SaaS Seeder
+
+**Focus:** Bootstrap a new SaaS repo from the seeder template
+
+**When to use:**
+
+- Preparing a new SaaS repository from the template
+- Creating the database and seeding auth/RBAC baseline
+- Importing existing schema dumps before feature development
+
+**Key capabilities:**
+
+- Prompt for MySQL credentials and database name
+- Create database and import database/schema SQL dumps
+- Run auth/RBAC migration and seed baseline roles
+- Seed demo franchise and default super user
+- Verify first login readiness
+
+**Skill location:** `saas-seeder/SKILL.md`
+
 ## Installation
 
 ### Option 1: Use Skills Directly

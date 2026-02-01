@@ -52,6 +52,14 @@ Production-grade multi-tenant SaaS architecture with strict tenant isolation, ze
 └───────────┘  └─────────┘  └─────────────┘
 ```
 
+## Template Repo Conventions
+
+- Admin panel naming is fixed: adminpanel
+- Member panel can be renamed later (customer portal, patient portal, etc.)
+- Each panel has its own includes folder (public/adminpanel/includes, public/memberpanel/includes)
+- Shared assets live under public/assets and uploads under public/uploads
+- APIs can live outside public and be routed through /api
+
 ### 1. Tenant App
 **Purpose:** Daily operations within a single tenant
 **Users:** Tenant owners, managers, staff

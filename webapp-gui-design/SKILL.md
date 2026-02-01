@@ -81,6 +81,18 @@ includes/foot.php    → JS
 seeder-page.php      → Template (ALWAYS clone)
 ```
 
+## Per-Panel Includes For Multi-Panel Templates
+
+If the project has multiple panels (admin + member), give each panel its own
+includes folder and menus. Copy the includes folder for new panels.
+
+- Admin includes: public/adminpanel/includes (head.php, topbar.php, footer.php, foot.php)
+- Member includes: public/memberpanel/includes (head.php, topbar.php, footer.php, foot.php)
+- Menus live inside each panel includes folder (menus/admin.php, menus/member.php)
+- Shared assets live in public/assets and shared uploads in public/uploads
+
+If APIs live outside public, route /api to api/index.php via the web server.
+
 **JavaScript separation:**
 
 - Keep pages clean—no inline JS blocks in the HTML.

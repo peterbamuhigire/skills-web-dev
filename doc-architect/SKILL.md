@@ -31,6 +31,7 @@ The skill should activate when the user asks to:
    - Locate likely data directories (database/, schema/, migrations/, sql/, db/).
    - Locate planning/documentation directories (docs/, docs/plans/, planning/, specs/).
    - Identify module/area entry points (menus, docs, feature folders) to group specs.
+   - Note template conventions (public/ as web root, per-panel includes, API outside public).
 
 2. **Identify the environment**
    - Determine primary language (PHP/C#/Python or other).

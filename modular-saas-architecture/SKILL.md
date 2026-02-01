@@ -285,6 +285,35 @@ requirePermissionGlobal('VIEW_INVENTORY');
 ?>
 ```
 
+### Minimal Module Registry Stub (Template Mode)
+
+Use this when scaffolding a template so UI and menu logic are already module-aware,
+even before real module tables exist.
+
+```php
+// src/Modules/ModuleRegistry.php
+class ModuleRegistry {
+    public function getAvailableModules(): array {
+        return [
+            'INVENTORY' => ['label' => 'Inventory', 'menu' => '/inventory.php'],
+            'SALES' => ['label' => 'Sales', 'menu' => '/sales.php'],
+        ];
+    }
+}
+
+// src/config/modules.php
+function hasModuleAccess(string $moduleCode, int $tenantId): bool {
+    return true;
+}
+
+function requireModuleAccess(string $moduleCode, int $tenantId): void {
+    if (!hasModuleAccess($moduleCode, $tenantId)) {
+        header('Location: /module-not-available.php');
+        exit();
+    }
+}
+```
+
 ## Module Independence Patterns
 
 ### 1. Optional Dependencies

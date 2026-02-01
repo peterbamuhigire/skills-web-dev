@@ -14,22 +14,89 @@ Use when the user says:
 - "Bootstrap a new SaaS from this template"
 - "Initialize the SaaS Seeder Template"
 - "Setup database for new SaaS project"
+- "Start a new project from the template"
+
+## Project Preparation Workflow
+
+**BEFORE bootstrapping, developers MUST provide:**
+
+### 1. Requirements & Design Specifications
+
+Place in `docs/project-requirements/`:
+```
+docs/project-requirements/
+├── requirements.md          # Detailed feature requirements
+├── business-rules.md         # Business logic and validation rules
+├── user-types.md             # User types and their permissions
+├── workflows.md              # Key user workflows and processes
+└── ui-mockups/               # UI mockups or wireframes (optional)
+```
+
+**Use the `project-requirements` skill to create these files with AI assistance.**
+
+### 2. Database Schema Files
+
+Place in `database/schema/`:
+```
+database/schema/
+├── core-schema.sql           # Main database schema
+├── seed-data.sql             # Sample/seed data (optional)
+└── schema-diagram.png        # Database diagram (optional)
+```
+
+**Schema Requirements:**
+- All franchise-scoped tables MUST have `franchise_id` column
+- Use `utf8mb4_unicode_ci` collation
+- Include proper indexes and foreign keys
+
+### AI Agent Preparation Steps
+
+When starting a new project:
+
+1. **Read Project Requirements**
+   - Load all files from `docs/project-requirements/`
+   - Understand user types, workflows, business rules
+   - Identify custom tables needed beyond template defaults
+
+2. **Review Database Schema**
+   - Read schema files from `database/schema/`
+   - Validate against multi-tenant patterns (franchise_id filtering)
+   - Ensure collation is utf8mb4_unicode_ci
+   - Check for proper indexes and foreign keys
+
+3. **Update Project Documentation**
+   - Replace README.md with project-specific content
+   - Update CLAUDE.md with project-specific guidance
+   - Remove template docs from docs/ (keep only project-relevant ones)
+   - Add project-specific documentation based on requirements
+
+4. **Customize Template**
+   - Update branding (SaaS Seeder → Project Name)
+   - Set SESSION_PREFIX to project-specific value
+   - Customize user types enum if needed
+   - Update environment variable examples
+
+5. **Validate Completeness**
+   - Check all requirements are documented
+   - Verify database schema follows multi-tenant patterns
+   - Ensure session prefix is customized
+   - Confirm user types match requirements
 
 ## Critical Architecture Standards
 
-### Three-Tier Panel Structure
+**See `references/architecture.md` for complete details.**
 
-**This is the CORE architectural concept:**
+### Three-Tier Panel Structure (CORE Concept)
 
-1. **`/public/adminpanel/`** - Super Admin Panel
+1. **`/public/` (root)** - Franchise Admin Panel (THE MAIN WORKSPACE)
+   - Single franchise management
+   - User types: `owner`, `staff`
+   - Files: `dashboard.php`, `skeleton.php`
+
+2. **`/public/adminpanel/`** - Super Admin Panel
    - System-wide management
    - Multi-franchise oversight
    - User type: `super_admin`
-
-2. **`/public/` (root)** - Franchise Admin Panel
-   - Single franchise management (THE MAIN WORKSPACE)
-   - Files: `dashboard.php`, `skeleton.php` (template)
-   - User types: `owner`, `staff`
 
 3. **`/public/memberpanel/`** - End User Portal
    - Self-service for end users
@@ -49,12 +116,14 @@ $userId = getSession('user_id');   // Gets $_SESSION['saas_app_user_id']
 hasSession('user_id');             // Checks if exists
 ```
 
+**Customize per SaaS:** `school_`, `restaurant_`, `clinic_`, etc.
+
 ### Password Hashing
 
 **Uses Argon2ID (NOT bcrypt):**
 ```
-Algorithm: Argon2ID + salt + pepper
-Hash: salt(32 chars) + Argon2ID(HMAC-SHA256(password, pepper) + salt)
+Algorithm: Argon2ID + salt(32 chars) + pepper(64+ chars)
+Hash: salt + Argon2ID(HMAC-SHA256(password, pepper) + salt)
 ```
 
 **CRITICAL:** Use `super-user-dev.php` to create admin users, NOT migration defaults!
@@ -63,7 +132,8 @@ Hash: salt(32 chars) + Argon2ID(HMAC-SHA256(password, pepper) + salt)
 
 - `docs/seeder-template/migration.sql` - Core auth/RBAC schema
 - `docs/seeder-template/fix-collation-and-create-franchises.sql` - Collation fixes + franchises table
-- `public/` - Web root
+- `docs/project-requirements/` - Project requirements (developer provides)
+- `database/schema/` - Project database schemas (developer provides)
 - `public/super-user-dev.php` - Super admin creator (DEV ONLY)
 - `public/dashboard.php` - Franchise admin dashboard
 - `public/skeleton.php` - Page template
@@ -71,116 +141,47 @@ Hash: salt(32 chars) + Argon2ID(HMAC-SHA256(password, pepper) + salt)
 
 ## Standard Workflow
 
-### 1. Environment Setup
+**See `references/workflow.md` for complete step-by-step guide.**
 
-Ask user for:
-- Database credentials (host, port, name, user, password)
-- Cookie domain (e.g., `localhost` or production domain)
-- Cookie encryption key (32+ random chars)
-- Password pepper (64+ random chars)
-- App environment (`development` or `production`)
+### Quick Bootstrap Steps
 
-Create/update `.env`:
-```env
-DB_HOST=localhost
-DB_PORT=3306
-DB_NAME=saas_seeder
-DB_USER=root
-DB_PASSWORD=
+1. **Environment Setup**
+   - Ask for DB credentials, cookie domain, encryption keys
+   - Create/update `.env` file
 
-COOKIE_DOMAIN=localhost
-COOKIE_ENCRYPTION_KEY=your-32-char-key
-PASSWORD_PEPPER=your-64-char-pepper
+2. **Install Dependencies**
+   ```bash
+   composer install
+   ```
 
-APP_ENV=development
-JWT_SECRET_KEY=
-```
+3. **Database Setup**
+   ```bash
+   .\setup-database.ps1  # Windows PowerShell
+   ```
 
-### 2. Install Dependencies
+4. **Fix Collations**
+   ```bash
+   .\fix-database.ps1  # Creates franchises table
+   ```
 
-```bash
-composer install
-```
+5. **Create Super Admin**
+   - Visit `http://localhost:8000/super-user-dev.php`
+   - Uses correct Argon2ID hashing
 
-### 3. Database Setup
+6. **Verify Setup**
+   - Login at `http://localhost:8000/sign-in.php`
+   - See landing page with navigation buttons
 
-```bash
-# Windows PowerShell
-.\setup-database.ps1
-
-# Or manual:
-mysql -u root -p < docs/seeder-template/migration.sql
-```
-
-### 4. Fix Collations (If Needed)
-
-```bash
-# Windows PowerShell
-.\fix-database.ps1
-
-# Or manual:
-mysql -u root -p saas_seeder < docs/seeder-template/fix-collation-and-create-franchises.sql
-```
-
-This script:
-- Fixes collation mismatches (utf8mb4_unicode_ci)
-- Creates `tbl_franchises` table
-- Creates default "system" franchise
-- Updates stored procedures
-
-### 5. Create Super Admin
-
-**DO NOT use migration defaults!** Use the dev tool:
-
-1. Start server: `php -S localhost:8000 -t public/`
-2. Visit: `http://localhost:8000/super-user-dev.php`
-3. Fill form with admin details
-4. Click "Create Super Admin"
-
-The tool uses correct Argon2ID hashing that matches login.
-
-### 6. Verify Setup
-
-Test login:
-1. Visit: `http://localhost:8000/sign-in.php`
-2. Login with created admin credentials
-3. Should see beautiful landing page with two buttons:
-   - "Super Admin Panel" → `/adminpanel/`
-   - "Franchise Dashboard" → `/dashboard.php`
-   - "Page Template (Skeleton)" → `/skeleton.php`
-
-### 7. First-Time Configuration
-
-**Update session prefix (IMPORTANT):**
-
-Edit `src/config/session.php`:
-```php
-// Change from default
-define('SESSION_PREFIX', 'saas_app_');
-
-// To your SaaS-specific prefix
-define('SESSION_PREFIX', 'school_');     // School SaaS
-define('SESSION_PREFIX', 'restaurant_'); // Restaurant SaaS
-define('SESSION_PREFIX', 'clinic_');     // Medical SaaS
-```
-
-**Customize user types (if needed):**
-
-Edit database enum:
-```sql
-ALTER TABLE tbl_users MODIFY user_type ENUM(
-  'super_admin',
-  'owner',
-  'staff',
-  'student',    -- For school SaaS
-  'customer',   -- For restaurant SaaS
-  'patient'     -- For medical SaaS
-) NOT NULL DEFAULT 'staff';
-```
+7. **Project Customization**
+   - Update SESSION_PREFIX in `src/config/session.php`
+   - Customize user types enum
+   - Apply project database schema
+   - Update branding throughout
+   - Create project-specific CLAUDE.md
 
 ## Seeding Rules
 
-### User Types
+### User Types & Franchise Requirements
 
 - `super_admin` - Platform operators (franchise_id CAN be NULL)
 - `owner` - Franchise owners (franchise_id REQUIRED)
@@ -205,50 +206,121 @@ $stmt = $db->prepare("SELECT * FROM students");
 - Format: `RESOURCE_ACTION`
 - Examples: `INVOICE_CREATE`, `STUDENT_DELETE`, `REPORT_VIEW`
 
-## Common Customizations
+## Troubleshooting
 
-### 1. Rename Branding
+**See `references/troubleshooting.md` for complete guide.**
 
-Replace "SaaS Seeder" throughout:
-- `public/index.php` - Landing page title
-- `public/includes/topbar.php` - Navbar brand
-- README.md - Documentation
+### Common Issues
 
-### 2. Add Custom Features
+**Session Not Persisting**
+- HTTPS auto-detection already handled
+- Localhost HTTP works without HTTPS requirement
 
-Create pages in `/public/` using `skeleton.php` as template:
+**Password Mismatch**
+- Use `super-user-dev.php`, NOT manual password_hash()
+- Template uses Argon2ID, not bcrypt
 
-```php
-<?php
-require_once __DIR__ . '/../src/config/auth.php';
-requireAuth();
+**Collation Errors**
+- Run `.\fix-database.ps1`
+- Fixes utf8mb4_unicode_ci mismatches
 
-$pageTitle = 'Students';
-$panel = 'admin';
-$franchiseId = getSession('franchise_id');
-?>
-<!doctype html>
-<html lang="en">
-<head>
-   <?php include __DIR__ . "/includes/head.php"; ?>
-</head>
-<body>
-    <?php include __DIR__ . "/includes/topbar.php"; ?>
-    <!-- Your content here -->
-    <?php include __DIR__ . "/includes/footer.php"; ?>
-</body>
-</html>
+**Missing Franchises Table**
+- Run `.\fix-database.ps1`
+- Creates tbl_franchises with default data
+
+## Output After Completion
+
+### For New Project from Template
+
+Report to user:
+```
+✅ [Project Name] Initialized!
+
+Requirements Loaded:
+- ✅ Read from docs/project-requirements/
+- ✅ Database schema reviewed from database/schema/
+- ✅ User types customized: [list custom types]
+- ✅ Session prefix set to: [prefix]_
+
+Database Setup:
+- ✅ Core schema applied
+- ✅ Seed data loaded (if provided)
+- ✅ Multi-tenant validation passed
+
+Project Documentation:
+- ✅ README.md updated for [Project Name]
+- ✅ CLAUDE.md created with project-specific guidance
+- ✅ Template docs archived/removed
+
+Branding:
+- ✅ Updated throughout application
+- ✅ Landing page customized
+- ✅ Login page branded
+
+Next Steps:
+1. Review updated CLAUDE.md for project-specific guidance
+2. Create super admin at http://localhost:8000/super-user-dev.php
+3. Login and verify three-tier panel structure
+4. Begin implementing features from docs/project-requirements/
+
+References:
+- Requirements: docs/project-requirements/
+- Schema: database/schema/
+- Development Guide: CLAUDE.md
 ```
 
-### 3. Extend Franchises Table
+## File Structure After Setup
 
-Add custom fields to `tbl_franchises`:
-```sql
-ALTER TABLE tbl_franchises
-  ADD COLUMN school_type ENUM('primary','secondary','university'),
-  ADD COLUMN student_capacity INT,
-  ADD COLUMN academic_year VARCHAR(20);
+### Template Structure (Before Project Customization)
+
 ```
+saas-seeder/
+├── public/                # Web root
+│   ├── index.php         # Landing page with nav buttons
+│   ├── sign-in.php       # Login
+│   ├── super-user-dev.php # Super admin creator
+│   ├── dashboard.php     # Franchise admin dashboard
+│   ├── skeleton.php      # Page template
+│   ├── adminpanel/       # Super admin panel
+│   ├── memberpanel/      # End user portal
+│   └── assets/           # Shared CSS/JS
+├── src/
+│   ├── config/
+│   │   ├── auth.php      # Auth functions + access control
+│   │   ├── session.php   # Session prefix helpers
+│   │   └── database.php  # Database connection
+│   └── Auth/             # Auth services, helpers, DTOs
+├── docs/
+│   ├── seeder-template/  # Template schemas
+│   ├── PANEL-STRUCTURE.md # Architecture guide
+│   └── project-requirements/ # ⭐ PUT PROJECT REQUIREMENTS HERE
+│       ├── requirements.md
+│       ├── business-rules.md
+│       ├── user-types.md
+│       └── workflows.md
+├── database/
+│   └── schema/           # ⭐ PUT DATABASE SCHEMAS HERE
+│       ├── core-schema.sql
+│       └── seed-data.sql
+├── .env                  # Environment config
+├── composer.json         # Dependencies
+├── setup-database.ps1    # Setup script
+├── fix-database.ps1      # Fix script
+└── CLAUDE.md             # Development guide
+```
+
+## References
+
+**Complete documentation in subdirectories:**
+
+- `references/architecture.md` - Complete architectural standards
+- `references/workflow.md` - Detailed step-by-step workflow
+- `references/troubleshooting.md` - Common issues and solutions
+
+**External references:**
+- `../../docs/PANEL-STRUCTURE.md` - Three-tier architecture guide
+- `../../CLAUDE.md` - Development guidelines
+- `../project-requirements/` - Skill for creating requirements docs
 
 ## Security Checklist Before Production
 
@@ -260,107 +332,3 @@ ALTER TABLE tbl_franchises
 - [ ] Enable HTTPS (session cookies require it)
 - [ ] Review all queries for franchise_id filtering
 - [ ] Set proper file permissions on `.env` (600)
-
-## Troubleshooting
-
-### Session Not Persisting
-
-**Issue:** Login successful but redirects back to login.
-
-**Solution:** Session cookie secure flag. Already handled:
-```php
-// Automatically disabled on HTTP (localhost)
-$isHttps = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
-           || $_SERVER['SERVER_PORT'] == 443;
-ini_set('session.cookie_secure', $isHttps ? '1' : '0');
-```
-
-### Password Mismatch
-
-**Issue:** Can't login after creating user.
-
-**Solution:** Use `super-user-dev.php` NOT manual password_hash():
-```php
-// CORRECT (super-user-dev.php does this)
-$passwordHelper = new PasswordHelper();
-$hash = $passwordHelper->hashPassword($password);
-
-// WRONG - won't match login!
-$hash = password_hash($password, PASSWORD_BCRYPT);
-```
-
-### Collation Errors
-
-**Issue:** "Illegal mix of collations" errors.
-
-**Solution:** Run `fix-database.ps1`:
-```bash
-.\fix-database.ps1
-```
-
-### Missing Franchises Table
-
-**Issue:** "Table 'tbl_franchises' doesn't exist".
-
-**Solution:** Run fix script (includes franchises table creation).
-
-## File Structure After Setup
-
-```
-saas-seeder/
-├── public/
-│   ├── index.php           # Landing page with nav buttons
-│   ├── sign-in.php         # Login with SweetAlert
-│   ├── super-user-dev.php  # Super admin creator (REMOVE IN PROD)
-│   ├── dashboard.php       # Franchise admin dashboard
-│   ├── skeleton.php        # Page template
-│   ├── adminpanel/         # Super admin panel
-│   ├── memberpanel/        # End user portal
-│   └── assets/             # Shared CSS/JS
-├── src/
-│   ├── config/
-│   │   ├── auth.php        # Auth functions + automatic access control
-│   │   ├── session.php     # Session prefix helpers
-│   │   └── database.php    # Database connection
-│   └── Auth/               # Auth services, helpers, DTOs
-├── docs/
-│   └── seeder-template/
-│       ├── migration.sql                            # Core schema
-│       └── fix-collation-and-create-franchises.sql  # Fixes
-├── .env                    # Environment config
-├── composer.json           # Dependencies
-├── setup-database.ps1      # Setup script
-├── fix-database.ps1        # Fix script
-└── CLAUDE.md               # Development guide
-```
-
-## Output After Completion
-
-Report to user:
-```
-✅ SaaS Seeder Template Ready!
-
-Database: [name] created and configured
-Franchises: tbl_franchises table created
-Super Admin: Create at http://localhost:8000/super-user-dev.php
-Login: http://localhost:8000/sign-in.php
-
-Next Steps:
-1. Visit super-user-dev.php to create admin user
-2. Login and explore three-tier panel structure
-3. Customize SESSION_PREFIX in src/config/session.php
-4. Start building your franchise management features!
-
-Documentation:
-- README.md - Quick start
-- docs/PANEL-STRUCTURE.md - Three-tier architecture
-- CLAUDE.md - Development guide
-```
-
-## References
-
-See:
-- `../multi-tenant-saas-architecture/` - Multi-tenant patterns
-- `../dual-auth-rbac/` - Authentication & RBAC
-- `../../docs/PANEL-STRUCTURE.md` - Complete three-tier guide
-- `../../CLAUDE.md` - Development guidelines

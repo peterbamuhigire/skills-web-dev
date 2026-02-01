@@ -561,6 +561,14 @@ CREATE TABLE tbl_sales (
 
 ### 1. Dynamic Navigation
 
+**Menu constraints (Required):**
+- Keep navigation minimal and job-focused.
+- Each menu may have **max 5 submenus**.
+- Each submenu may have **max 6 items**.
+- If more items are needed, add **one** extra submenu level (no deeper).
+- Use Bootstrap Icons on **all** headings and entries (`bi-*`).
+- Prefer fewer pages: group related features into one screen with permissioned sections.
+
 ```php
 // includes/topbar.php
 <?php

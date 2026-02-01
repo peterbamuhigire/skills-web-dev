@@ -15,6 +15,7 @@ When generating or modifying web UI code, AUTOMATICALLY:
 **Trigger:** Any `<select>` for entities (stock items, customers, products, vendors, users, etc.)
 
 **Auto-generate:**
+
 ```javascript
 // Initialize Select2 on all entity dropdowns
 $('#entitySelect').select2({
@@ -26,6 +27,7 @@ $('#entitySelect').select2({
 ```
 
 **Detection patterns:**
+
 - `name="stock_item_id"` → Stock item select
 - `name="product_id"` → Product select
 - `name="customer_id"` → Customer select
@@ -37,6 +39,7 @@ $('#entitySelect').select2({
 **Trigger:** Any button that makes async calls
 
 **Auto-generate:**
+
 ```javascript
 $('#submitBtn')
     .html('<i class="spinner-border spinner-border-sm me-2"></i>Saving...')
@@ -53,6 +56,7 @@ $('#submitBtn')
 **Trigger:** Delete, cancel, or destructive action buttons
 
 **Auto-generate:**
+
 ```javascript
 Swal.fire({
     icon: 'warning',
@@ -74,6 +78,7 @@ Swal.fire({
 **Trigger:** Any error handling code
 
 **Auto-generate:**
+
 ```javascript
 try {
     // API call
@@ -88,6 +93,7 @@ try {
 ```
 
 **NEVER generate:**
+
 ```javascript
 // BAD - Never show technical errors to users
 alert(error.message);
@@ -99,6 +105,7 @@ Swal.fire('Error', error.toString(), 'error');
 **Trigger:** Lists/tables that might be empty
 
 **Auto-generate:**
+
 ```html
 <div class="empty-state">
     <div class="empty-state-icon">
@@ -117,6 +124,7 @@ Swal.fire('Error', error.toString(), 'error');
 **Trigger:** Any list/table query fetching data
 
 **Auto-include in API:**
+
 ```php
 $page = (int)($_GET['page'] ?? 1);
 $limit = min((int)($_GET['limit'] ?? 50), 200);
@@ -130,6 +138,7 @@ $params[] = $offset;
 ### 7. Mobile-First CSS
 
 **Auto-add to all forms/tables:**
+
 ```css
 @media (max-width: 768px) {
     .data-table {
@@ -140,6 +149,19 @@ $params[] = $offset;
         max-width: 100%;
     }
 }
+
+### 8. Menu Design Rules (Mandatory)
+
+**Trigger:** Any navigation menus for admin/member panels
+
+**Auto-apply:**
+- Keep menus minimal and easy on the eye.
+- Group items by job role; a user should find their work in one menu.
+- Each menu can have at most **5 submenus**.
+- Each submenu can have at most **6 items**.
+- If more items are needed, add **one** extra submenu level (no deeper).
+- Use Bootstrap Icons on **all** menu headings and entries (`bi-*`).
+- Prefer fewer pages by grouping related functions on a single page with permissioned sections/tabs/cards.
 ```
 
 ---
@@ -192,6 +214,7 @@ Before marking code complete, verify:
 ## Common Patterns Library
 
 ### Pattern: Stock Item Dropdown
+
 ```html
 <select id="stockItemSelect" name="stock_item_id" class="form-select" required style="width: 100%;">
     <option value="">Select stock item...</option>
@@ -208,6 +231,7 @@ $('#stockItemSelect').select2({
 ```
 
 ### Pattern: Customer Dropdown
+
 ```html
 <select id="customerSelect" name="customer_id" class="form-select" style="width: 100%;">
     <option value="">Select customer...</option>
@@ -240,6 +264,7 @@ $('#customerSelect').select2({
 ```
 
 ### Pattern: Submit Button with Loading
+
 ```html
 <button type="submit" id="submitBtn" class="btn btn-primary">
     <i class="bi bi-check me-2"></i>Save
@@ -275,6 +300,7 @@ $('#form').on('submit', async function(e) {
 ```
 
 ### Pattern: Delete Confirmation
+
 ```javascript
 function deleteItem(id, name) {
     Swal.fire({
@@ -310,7 +336,8 @@ function deleteItem(id, name) {
 
 ## Integration with Development Workflow
 
-### When Claude Code generates new forms:
+### When Claude Code generates new forms
+
 1. Identify all dropdowns → Apply Select2
 2. Identify submit buttons → Add loading states
 3. Identify delete buttons → Add confirmations
@@ -318,7 +345,8 @@ function deleteItem(id, name) {
 5. Add empty state HTML for lists
 6. Add pagination params to queries
 
-### When reviewing existing code:
+### When reviewing existing code
+
 1. Search for `<select>` → Verify Select2
 2. Search for `delete` → Verify confirmation
 3. Search for `fetch(` → Verify error handling
@@ -330,17 +358,20 @@ function deleteItem(id, name) {
 ## Priority Levels
 
 **P0 - BLOCKING (must fix before deploy):**
+
 - Non-searchable dropdown with entity data
 - Delete without confirmation
 - Technical errors shown to users
 - No loading state on async actions
 
 **P1 - HIGH (fix within sprint):**
+
 - Missing empty states
 - Lists without pagination (> 50 items)
 - Poor mobile responsiveness
 
 **P2 - MEDIUM (fix in next sprint):**
+
 - Missing keyboard shortcuts
 - No success animations
 - Inconsistent spacing/styling

@@ -459,6 +459,8 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 **Skill location:** `saas-seeder/SKILL.md`
 
+**Alias:** seeder-script
+
 ## Installation
 
 ### Option 1: Use Skills Directly

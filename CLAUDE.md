@@ -19,6 +19,8 @@ If a user mentions they want to use a skill from this collection:
 3. **Explain how to load it:** Provide clear instructions for skill invocation
 4. **Apply the skill's patterns:** Once loaded, follow the skill's guidelines precisely
 
+If a user says "seeder-script", treat it as the saas-seeder skill.
+
 ### When Adding New Skills
 
 If asked to create a new skill:
@@ -78,6 +80,7 @@ skills/
 ├── report-print-pdf/         # Report export via PDF + print + auto-print
 ├── api-error-handling/       # API error handling with SweetAlert2
 ├── mysql-best-practices/     # MySQL 8.x best practices for SaaS
+├── saas-seeder/               # SaaS bootstrap and seeding workflow
 ├── skills/
 │   └── skill-writing/        # Skill creator (meta-skill)
 ├── PROJECT_BRIEF.md          # Quick overview

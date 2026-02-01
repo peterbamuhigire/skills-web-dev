@@ -1,6 +1,6 @@
 ---
 name: saas-seeder
-description: "Prepare a new SaaS repository from the seeder template: prompt for MySQL credentials, create the database, import database/schema SQL, run the auth/RBAC migration, seed a demo franchise and super user, and verify first login. Use when asked to bootstrap a new SaaS from the template."
+description: "Prepare a new SaaS repository from the seeder template (also called seeder-script): prompt for MySQL credentials, create the database, import database/schema SQL, run the auth/RBAC migration, seed a demo franchise and super user, and verify first login. Use when asked to bootstrap a new SaaS from the template."
 ---
 
 # SaaS Seeder
@@ -23,6 +23,8 @@ Always prompt for the following before running commands:
 - MySQL username
 - MySQL password
 - Database name to create
+- MySQL CLI path for CLAUDE.md
+- PHP CLI path for CLAUDE.md
 - Franchise details (code, name, email, telephone, country, timezone, currency)
 - Super user details (username, email, password)
 - Confirm whether to import database/schema SQL dumps
@@ -41,15 +43,16 @@ Use the MySQL CLI path defined in root CLAUDE.md.
 
 1. Validate MySQL connectivity using provided credentials.
 2. Create the database if it does not exist.
-3. If database/schema exists, import all .sql files in deterministic order.
+3. Update root CLAUDE.md with mysql.exe and php.exe paths.
+4. If database/schema exists, import all .sql files in deterministic order.
    - Use alphabetical ordering to avoid dependency issues.
    - If stored procedures are provided separately, import after tables.
-4. Run docs/seeder-template/migration.sql to create auth/RBAC baseline.
-5. Seed a demo franchise if tbl_franchises exists in the imported schema.
-6. Seed baseline roles and permissions using Maduuka conventions:
+5. Run docs/seeder-template/migration.sql to create auth/RBAC baseline.
+6. Seed a demo franchise if tbl_franchises exists in the imported schema.
+7. Seed baseline roles and permissions using Maduuka conventions:
    - Super Admin, Manager, Finance, Staff, Distributor, HR, Accountant
-7. Seed the default super user using the provided credentials.
-8. Provide final verification steps and first login URL.
+8. Seed the default super user using the provided credentials.
+9. Provide final verification steps and first login URL.
 
 ## Seeding Rules
 

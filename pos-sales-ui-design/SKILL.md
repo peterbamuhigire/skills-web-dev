@@ -75,6 +75,13 @@ All backend activity MUST go through APIs.
 - Keep UI optimistic where possible and reconcile with API responses.
 - Standardize error handling for network, validation, and business logic errors.
 
+### Invoice Generation Timing (Critical)
+**DO NOT** generate invoice headers on page load or context changes.
+- Invoice generation should ONLY occur when the user clicks the payment button (PAY/CHARGE/CREDIT).
+- Never auto-generate invoices when: selecting a shop, selecting a customer, creating a customer, or adding items to cart.
+- This prevents orphaned invoices (empty invoices with 0 0 0 0) when users navigate away without completing a transaction.
+- Always check if an invoice exists before payment; generate only if missing.
+
 ## Key Patterns
 ### Component Essentials
 - Context Header (sales point, branch, store, price list, date/time).
@@ -110,6 +117,7 @@ All backend activity MUST go through APIs.
 - Skipping confirmation on destructive actions.
 - Triggering API searches on every keystroke without debounce.
 - Coupling UI to direct database access instead of APIs.
+- **Generating invoices too early** (on page load, shop selection, or customer selection) - this creates orphaned invoices when users navigate away without completing transactions.
 
 ## Examples
 ### Debounced customer search (API-first)
@@ -130,6 +138,25 @@ customerInput.addEventListener("input", (e) => {
 if (cart.length > 0) {
 	showConfirm("Change customer? This will clear your cart.")
 		.then((confirmed) => confirmed && resetCustomer());
+}
+```
+
+### Invoice generation on payment only
+```javascript
+// WRONG: Generating invoice on page load or shop selection
+async handleShopSelect(shopId) {
+	this.currentShop = shopId;
+	await this.generateInvoice(); // ❌ Creates orphaned invoices
+}
+
+// CORRECT: Generate invoice only when user clicks pay
+async submitPayment() {
+	// Only generate invoice if it doesn't exist
+	if (!this.invoiceNumber) {
+		await this.generateInvoice(); // ✅ Invoice created on payment intent
+	}
+	// Process payment
+	await this.processPayment();
 }
 ```
 

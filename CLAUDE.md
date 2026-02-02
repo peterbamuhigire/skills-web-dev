@@ -8,7 +8,7 @@ This document provides specific guidance for Claude Code when working with this 
 **Type:** Reference/Knowledge Repository
 **Usage Pattern:** Skills are loaded into Claude Code sessions in other projects
 
-## How Claude Should Work With This Repository
+## How Claude Should Work With This Repository.
 
 ### When Asked to Use Skills
 

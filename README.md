@@ -399,6 +399,34 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 **Key capabilities:**
 
 - Contextual discovery from plans, schema, code, and docs
+
+---
+
+### 15. Inventory Management
+
+**Focus:** Implementation-grade stock and inventory controls for multi-location distribution networks
+
+**When to use:**
+
+- Building product master data with multi-warehouse support
+- Designing costing, stock-on-hand, and BOM flows
+- Integrating POS/receiving transactions into inventory valuations
+- Enforcing bookkeeping rules (FIFO, shrinkage allowances, journal entries)
+- Adding new inventory reports or dashboards
+
+**Key capabilities:**
+
+- Tenant-aware product catalog with category hierarchy, units, and conversion factors
+- Movement tracking for purchases, sales, transfers, adjustments, and returns
+- BOM/routing sequencing with inventory reservation and validation
+- Shrinkage periodic close, FIFO cost roll-up, and stock valuation calculations
+- Reporting patterns (aging, variances, stock take, adjustments) plus required SQL safeguards (franchise_id filtering, group-by with MAX)
+- Storyboard for bringing inventory updates to downstream users (finance, operations, compliance)
+
+**Skill location:** `inventory-management/SKILL.md`
+
+**Reference files:** `inventory-management/references/inventory-playbook.md`
+
 - Dual-workflow guide structure (overview, steps, technical reference, edge cases)
 - Professional instructional tone with workflow comparisons
 

@@ -154,7 +154,24 @@ Hash: salt + Argon2ID(HMAC-SHA256(password, pepper) + salt)
    composer install
    ```
 
-3. **Database Setup**
+3. **Install PHP Development Tools**
+
+   **See `references/php-tooling.md` for complete setup guide.**
+
+   **Quick install:**
+   ```bash
+   # Check existing tools
+   composer show | grep -E "(phpstan|phpunit|pest|php-cs-fixer)"
+
+   # Install essential tools
+   composer require --dev phpstan/phpstan
+   composer require --dev friendsofphp/php-cs-fixer
+   composer require --dev pestphp/pest --with-all-dependencies
+   ```
+
+   **Create configs and add composer scripts (see references/php-tooling.md for details).**
+
+4. **Database Setup**
    ```bash
    .\setup-database.ps1  # Windows PowerShell
    ```
@@ -247,6 +264,13 @@ Database Setup:
 - ✅ Seed data loaded (if provided)
 - ✅ Multi-tenant validation passed
 
+PHP Development Tools Installed:
+- ✅ PHPStan (level 8) - Static analysis
+- ✅ PHP CS Fixer - PSR-12 formatting
+- ✅ PHPUnit/Pest - Testing framework
+- ✅ Configuration files created
+- ✅ Composer scripts configured
+
 Project Documentation:
 - ✅ README.md updated for [Project Name]
 - ✅ CLAUDE.md created with project-specific guidance
@@ -261,7 +285,14 @@ Next Steps:
 1. Review updated CLAUDE.md for project-specific guidance
 2. Create super admin at http://localhost:8000/super-user-dev.php
 3. Login and verify three-tier panel structure
-4. Begin implementing features from docs/project-requirements/
+4. Run quality checks: composer quality
+5. Begin implementing features from docs/project-requirements/
+
+Development Commands:
+- composer test          # Run tests
+- composer stan          # Static analysis
+- composer cs-fix        # Format code (PSR-12)
+- composer quality       # Run all checks
 
 References:
 - Requirements: docs/project-requirements/
@@ -316,11 +347,37 @@ saas-seeder/
 - `references/architecture.md` - Complete architectural standards
 - `references/workflow.md` - Detailed step-by-step workflow
 - `references/troubleshooting.md` - Common issues and solutions
+- `references/php-tooling.md` - PHP development tools setup and usage guide
 
 **External references:**
 - `../../docs/PANEL-STRUCTURE.md` - Three-tier architecture guide
 - `../../CLAUDE.md` - Development guidelines
 - `../project-requirements/` - Skill for creating requirements docs
+
+## Quality Assurance
+
+**See `references/php-tooling.md` for complete guide.**
+
+### Quick Commands
+
+```bash
+composer cs-fix     # Format code (PSR-12)
+composer stan       # Static analysis
+composer test       # Run tests
+composer quality    # All checks
+```
+
+### Pre-Commit Workflow
+
+```bash
+composer quality && git commit -m "feat: description"
+```
+
+### What to Test
+
+✅ Authentication, franchise isolation, permissions, password hashing, session management, input validation
+
+**See `references/php-tooling.md` for testing examples, CI/CD setup, and IDE integration.**
 
 ## Security Checklist Before Production
 

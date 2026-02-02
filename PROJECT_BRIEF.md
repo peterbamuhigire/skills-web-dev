@@ -66,42 +66,49 @@ Provide consistent, battle-tested patterns and workflows that can be seamlessly 
 **Use Cases:** Building REST APIs, consistent error formatting, PDOException parsing, validation error handling, frontend error display
 **Key Features:** Standardized JSON envelopes (success/error), HTTP status code mapping, PDOException message extraction (SQLSTATE 45000, 23000, deadlocks), ApiResponse helper, ExceptionHandler with specific error parsing, custom exception classes, SweetAlert2 integration, business rule extraction, request ID tracking
 
-### 9. MySQL Best Practices
+### 9. PHP Modern Standards
+
+**Domain:** Backend Development (PHP)
+**Purpose:** Modern PHP development for maintainable, testable, object-oriented code following 2026 international standards
+**Use Cases:** PHP 8+ applications, OOP architecture, security implementation, Laravel development, performance optimization, TDD workflows
+**Key Features:** Strict typing + PSR compliance, modern PHP 8+ features (enums, attributes, match, readonly), SOLID principles, comprehensive security patterns (SQL injection, XSS, CSRF prevention), input validation, password security (Argon2id), generators for memory efficiency, SPL data structures, Laravel conventions (Spatie guidelines), session security, file upload handling
+
+### 10. MySQL Best Practices
 
 **Domain:** Database Design & Optimization
 **Purpose:** MySQL 8.x best practices for high-performance SaaS applications
 **Use Cases:** Schema design, query optimization, multi-tenant isolation, data integrity, high-concurrency systems
 **Key Features:** UTF8MB4 + InnoDB standards, ESR composite indexing, normalization strategies, stored procedures, triggers, concurrency patterns, security (TDE, SSL, SQL injection prevention), partitioning, backup/recovery, monitoring, connection pooling, multi-tenant isolation patterns
 
-### 10. Report Export (PDF + Print)
+### 11. Report Export (PDF + Print)
 
 **Domain:** Reporting
 **Purpose:** Clean, consistent report exports for PDF and browser printing
 **Use Cases:** Financial PDFs, inventory reports, audit exports, browser printouts
 **Key Features:** Shared HTML template for PDF/print, compact header/footer, repeating table headers, DejaVu Sans typography, strict date/number formatting
 
-### 11. POS & Sales Entry UI Design
+### 12. POS & Sales Entry UI Design
 
 **Domain:** Frontend UX for Sales Systems
 **Purpose:** POS, checkout, and sales entry UI patterns with API-first workflows and print-ready invoice/receipt standards
 **Use Cases:** POS terminals, sales encoding, invoice/receipt screen design, 80mm/A4 print layouts
 **Key Features:** 8-to-80 usability, 3-level hierarchy, large touch targets, progressive disclosure, attention-grabber focus cues at milestones, API-first UI actions, invoice/receipt output standards
 
-### 12. Doc Architect
+### 13. Doc Architect
 
 **Domain:** Documentation Architecture
 **Purpose:** Generate Triple-Layer AGENTS.md documentation (Root, Data, Planning)
 **Use Cases:** Standardizing documentation, generating agent files, establishing project baselines
 **Key Features:** Workspace scanning, tech stack inference, template-driven AGENTS.md generation, reusable domain constraints
 
-### 13. Manual Guide
+### 14. Manual Guide
 
 **Domain:** End-User Documentation
 **Purpose:** Produce end-user manuals and module reference guides (distinct from AI agent docs)
 **Use Cases:** Documenting features, writing user manuals, syncing reference guides
 **Key Features:** Contextual discovery (plans/schema/code/docs), dual-workflow structure, edge-case coverage, professional instructional tone
 
-### 14. Custom Sub-Agents
+### 15. Custom Sub-Agents
 
 **Domain:** AI Agent Architecture & Development
 **Purpose:** Analyze codebases, plan, create, organize, and document custom AI sub-agents for VS Code integration
@@ -178,6 +185,13 @@ skills/
 │   │   └── partitioning.sql
 │   └── examples/
 │       └── saas-schema.sql
+├── php-modern-standards/
+│   ├── SKILL.md
+│   ├── references/
+│   │   └── security-patterns.md
+│   └── examples/
+│       ├── modern-php-patterns.php
+│       └── laravel-patterns.php
 ├── skills/
 │   └── skill-writing/
 │       └── SKILL.md

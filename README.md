@@ -256,7 +256,44 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ---
 
-### 9. MySQL Best Practices
+### 9. PHP Modern Standards
+
+**Focus:** Modern PHP development for maintainable, testable, object-oriented code
+
+**When to use:**
+
+- Writing PHP 8+ applications
+- Implementing object-oriented architecture
+- Ensuring code security and type safety
+- Building testable, maintainable systems
+- Optimizing PHP performance with generators and SPL
+- Following Laravel conventions
+- Implementing SOLID principles and design patterns
+
+**Key capabilities:**
+
+- Strict typing and modern type system (union types, intersection types, readonly, never)
+- PSR standards compliance (PSR-1, PSR-2, PSR-12, PSR-4)
+- Modern PHP 8+ features (enums, attributes, match expressions, named arguments, nullsafe operator)
+- Constructor property promotion and readonly classes
+- Object-oriented design patterns (SOLID principles, dependency injection, interfaces)
+- Comprehensive security patterns (SQL injection prevention, XSS protection, CSRF defense, secure password handling)
+- Input validation and sanitization best practices
+- Performance optimization (generators for large datasets, SPL data structures, memory management)
+- Laravel-specific patterns (Eloquent models, controllers, form requests, repositories, actions)
+- Testing patterns and TDD workflows
+- Session security and file upload handling
+- Command injection prevention and security headers
+
+**Skill location:** `php-modern-standards/SKILL.md`
+
+**Reference files:** `references/security-patterns.md` (comprehensive security guide with examples)
+
+**Examples:** `examples/modern-php-patterns.php` (enums, value objects, repositories, generators), `examples/laravel-patterns.php` (Laravel best practices)
+
+---
+
+### 10. MySQL Best Practices
 
 **Focus:** MySQL 8.x best practices for high-performance SaaS
 
@@ -296,7 +333,7 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ---
 
-### 10. Report Export (PDF + Print)
+### 11. Report Export (PDF + Print)
 
 **Focus:** Clean, consistent report exports for PDF and browser printing
 
@@ -320,7 +357,7 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ---
 
-### 11. POS & Sales Entry UI Design
+### 12. POS & Sales Entry UI Design
 
 **Focus:** POS, checkout, and sales entry UI patterns for web apps
 
@@ -344,7 +381,7 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ---
 
-### 12. Photo Management
+### 13. Photo Management
 
 **Focus:** Standardized photo upload, preview, storage, and deletion
 
@@ -366,7 +403,7 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ---
 
-### 13. Doc Architect
+### 14. Doc Architect
 
 **Focus:** Automated Triple-Layer AGENTS.md documentation
 
@@ -386,7 +423,7 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ---
 
-### 14. Manual Guide
+### 15. Manual Guide
 
 **Focus:** End-user manuals and reference guides (not AI agent docs)
 
@@ -402,7 +439,7 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ---
 
-### 15. Inventory Management
+### 16. Inventory Management
 
 **Focus:** Implementation-grade stock and inventory controls for multi-location distribution networks
 
@@ -434,7 +471,7 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ---
 
-### 15. Custom Sub-Agents
+### 17. Custom Sub-Agents
 
 **Focus:** Analyzing codebases, planning, creating, organizing, and documenting custom AI sub-agents for VS Code integration
 
@@ -467,7 +504,7 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ---
 
-### 16. SaaS Seeder
+### 18. SaaS Seeder
 
 **Focus:** Bootstrap a new SaaS repo from the seeder template
 

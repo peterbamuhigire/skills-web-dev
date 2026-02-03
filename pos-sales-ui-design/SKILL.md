@@ -92,6 +92,49 @@ All backend activity MUST go through APIs.
 - Large Primary Action Button (Start/Pay/Save).
 - Prominent Alerts for date windows or constraints.
 
+### Product Display for Large Inventories (REQUIRED)
+**Standard enforced for all POS screens (pharmacy, retail, wholesale - NOT restaurant):**
+
+- **≤ 49 products:** Use card/grid view by default
+  - Provide toggle button to switch between card view and table view
+  - Save user preference in localStorage
+  - Cards are visual, easy to scan for small catalogs
+
+- **> 49 products:** FORCE table view only (no toggle)
+  - Use DataTables (https://datatables.net/) for pagination, search, and sorting
+  - Display alert: "You have X products. Table view enforced for better performance."
+  - Table configuration:
+    - Page length: 25 (options: 10, 25, 50, 100, All)
+    - Sort by product name (ascending) by default
+    - Enable column search in header
+    - Make entire row clickable to add product (not just button)
+    - Prevent row click when clicking action button (`event.stopPropagation()`)
+
+- **Table columns (standard):**
+  - Product Name (40% width)
+  - Code/SKU (15%)
+  - Price (15%)
+  - Stock/Availability (10%) - with color-coded badge
+  - Action button (20%) - "Add to Cart" with icon
+
+- **Table UX rules:**
+  - Hover effect on rows for visual feedback
+  - Cursor pointer on rows
+  - Row click adds product (same as clicking Add button)
+  - Action button stops event propagation to prevent double-add
+  - Stock badge: green (>10), yellow (1-10), red (0)
+
+**Why this matters:**
+- Card grids with 100+ products cause scroll fatigue
+- Tables are faster to scan with search/filter
+- Pharmacies often have 200-500 SKUs
+- Table view handles large datasets efficiently
+
+**Restaurant exception:**
+- Restaurants keep menus manageable (<50 items typically)
+- Visual card view works better for food/drinks
+- No need for table view toggle in restaurant POS
+
 ### Layout Patterns
 - Header-Content-Footer structure.
 - 3-column step grid on desktop; stacked on mobile.

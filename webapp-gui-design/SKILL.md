@@ -436,6 +436,7 @@ const { value } = await Swal.fire({
 
 **Always paginate** with a default of **25 rows per page**. Use server-side pagination for large datasets.
 **Default ordering:** disable client-side sorting unless explicitly required. Keep ordering from the API/query.
+**Reports with money or dates:** disable DataTables ordering to avoid string-based sorting errors (e.g., 85,000 as text). Preserve server order (largest arrears first when required).
 **Number formatting:** display numeric values with thousands separators (e.g., 254,150.35).
 
 ```javascript

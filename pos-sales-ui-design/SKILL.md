@@ -21,6 +21,7 @@ Use this skill when you need to:
 - Create component specs, layout patterns, or interaction rules for sales UIs.
 - Review existing sales UIs for accessibility and usability.
 - Define API-first UI workflows (search, add to cart, payment, save).
+- Standardize restaurant POS UI to the approved layout and workflow.
 
 ## Core Workflow
 1. Identify the sales flow type: POS (walk-in) vs sales encoding (invoice-first).
@@ -50,8 +51,8 @@ Always show where/when/who/what constraints:
 - Level 3: Actions/details (inputs, buttons, hints).
 
 ### 4) Use large touch targets
-- Minimum 48x48px for all interactive elements.
-- Inputs 42-48px height; primary action buttons 60px height.
+- Minimum 56x56px for all interactive elements.
+- Inputs 48-56px height; primary action buttons 60px height.
 
 ### 5) Progressive disclosure
 - Start with a simple search or selection.
@@ -67,6 +68,29 @@ Always show where/when/who/what constraints:
 - Use a gentle glow + micro-bounce (1–2 seconds) to guide new staff without disrupting workflow.
 - Trigger on programmatic focus changes only (avoid constant animation on manual typing).
 - Keep effects subtle, accessible, and consistent with brand colors.
+
+## Standard POS UI Baseline (All POS Screens)
+
+These elements are mandatory across all POS screens (retail, pharmacy, restaurant):
+
+- Sticky context header with outlet/server/time/order type
+- Search-first layout with auto-focus on load
+- Quick access lanes (Recent, Favorites, Popular) where feasible
+- Sticky or floating cart panel with dominant Pay CTA
+- Large touch targets (>= 56px) and 60px primary actions
+- Accessibility and keyboard flow (ARIA labels, focus states, shortcuts)
+
+Use the Restaurant POS standard as the design benchmark for these elements:
+- Apply `pos-restaurant-ui-standard` where a full POS overhaul is required
+- Borrow the layout and interaction patterns even when the domain is not restaurant
+
+## Restaurant POS Standard (Required)
+
+For restaurant POS screens, apply the standard UI defined in the Restaurant POS redesign plan.
+
+- Use the dedicated skill: `pos-restaurant-ui-standard`
+- Canonical plan: docs/plans/restaurant-pos/2026-02-03-restaurant-pos-ui-redesign.md
+- Follow the component specs and breakpoints in the plan sections
 
 ## API-First Rule (Required)
 All backend activity MUST go through APIs.

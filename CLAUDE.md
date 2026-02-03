@@ -21,6 +21,10 @@ If a user mentions they want to use a skill from this collection:
 
 If a user says "seeder-script", treat it as the saas-seeder skill.
 
+### Security Baseline (Required for Web Apps)
+
+For any web application work (frontend, backend, APIs), always load and apply the **Vibe Security Skill** alongside the primary skill. Security principles are non-optional and must be enforced in every relevant change.
+
 ### When Adding New Skills
 
 If asked to create a new skill:
@@ -81,6 +85,7 @@ skills/
 ├── api-error-handling/       # API error handling with SweetAlert2
 ├── mysql-best-practices/     # MySQL 8.x best practices for SaaS
 ├── saas-seeder/               # SaaS bootstrap and seeding workflow
+├── vibe-security-skill/       # Secure coding for web apps
 ├── skills/
 │   └── skill-writing/        # Skill creator (meta-skill)
 ├── PROJECT_BRIEF.md          # Quick overview

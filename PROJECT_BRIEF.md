@@ -2,6 +2,13 @@
 
 ## Overview
 
+### 15. Vibe Security Skill
+
+**Domain:** Web Application Security
+**Purpose:** Secure coding practices for web applications with a bug-hunter mindset
+**Use Cases:** Any web app development, API work, authentication/authorization, file uploads, redirects, and third-party integrations
+**Key Features:** Access control validation, XSS/CSRF/SSRF/SQLi/XXE protection, secure headers, secrets handling, secure error handling
+
 A curated collection of reusable Claude Code skills designed to accelerate development across multiple projects. Each skill provides specialized expertise in specific domains, from web app GUI design to multi-tenant architecture.
 
 ## Purpose
@@ -79,6 +86,8 @@ Provide consistent, battle-tested patterns and workflows that can be seamlessly 
 **Purpose:** MySQL 8.x best practices for high-performance SaaS applications
 **Use Cases:** Schema design, query optimization, multi-tenant isolation, data integrity, high-concurrency systems
 **Key Features:** UTF8MB4 + InnoDB standards, ESR composite indexing, normalization strategies, stored procedures, triggers, concurrency patterns, security (TDE, SSL, SQL injection prevention), partitioning, backup/recovery, monitoring, connection pooling, multi-tenant isolation patterns
+├── vibe-security-skill/
+│ └── SKILL.md
 
 ### 11. Report Export (PDF + Print)
 

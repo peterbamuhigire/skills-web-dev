@@ -526,6 +526,28 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 **Alias:** seeder-script
 
+---
+
+### 17. Vibe Security Skill
+
+**Focus:** Secure coding practices for web applications
+
+**When to use:**
+
+- Working on any web application (frontend, backend, APIs)
+- Implementing authentication, authorization, or data access
+- Handling user input, file uploads, redirects, or third-party integrations
+
+**Key capabilities:**
+
+- Defense-in-depth security checklist
+- Access control and IDOR prevention
+- XSS, CSRF, SSRF, SQLi, XXE, and upload hardening
+- Secure headers and safe error handling
+- Secret management and data exposure prevention
+
+**Skill location:** `vibe-security-skill/SKILL.md`
+
 ## Installation
 
 ### Option 1: Use Skills Directly
@@ -568,6 +590,10 @@ When working on a task that aligns with a specific skill, invoke it:
 
 Claude will load the skill instructions and apply that expertise to your task.
 
+**Security baseline (required for web apps):**
+
+For any web application work, always load `vibe-security-skill` alongside the primary skill to ensure secure coding practices are applied.
+
 ### Skill Invocation Examples
 
 **Creating a distinctive landing page:**
@@ -599,9 +625,10 @@ Claude: [Loads feature-planning skill]
 Skills can work together for comprehensive solutions:
 
 ```
-1. Use feature-planning to create specification and implementation strategy
-2. Use multi-tenant-saas-architecture for backend patterns
-3. Use webapp-gui-design for UI components
+1. Use vibe-security-skill to establish the security baseline
+2. Use feature-planning to create specification and implementation strategy
+3. Use multi-tenant-saas-architecture for backend patterns
+4. Use webapp-gui-design for UI components
 ```
 
 ## Skill Development

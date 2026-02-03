@@ -11,6 +11,10 @@ Build professional web UIs using commercial templates with established component
 
 **API-First Rule (Required):** Frontend must never access the database directly. All reads/writes go through backend services exposed via APIs so future clients (Android, iOS, etc.) reuse the same logic.
 
+## Security Baseline (Required)
+
+Always load and apply the **Vibe Security Skill** for any web UI work. UI changes must align with secure data handling, CSRF protections, output encoding, and safe error display.
+
 ## When to Use
 
 ✅ CRUD interfaces, admin panels, dashboards
@@ -104,6 +108,7 @@ seeder-page.php      → Template (ALWAYS clone)
    - Menu: `menus/member.php`
 
 **Shared Resources:**
+
 - Assets: `public/assets/` (CSS, JS, images)
 - Uploads: `public/uploads/` (user-uploaded files)
 - APIs: Can live outside `public/`, route `/api` to `api/index.php` via web server
@@ -127,6 +132,7 @@ seeder-page.php      → Template (ALWAYS clone)
 ### Menu Structure Examples (Use as a guide)
 
 **Finance** `bi-cash-stack`
+
 - Overview `bi-speedometer2`
   - Summary `bi-clipboard-data`
   - KPIs `bi-graph-up`
@@ -154,6 +160,7 @@ seeder-page.php      → Template (ALWAYS clone)
     - Audit Trail `bi-shield-check`
 
 **HR & Payroll** `bi-people`
+
 - People `bi-person-badge`
   - Directory `bi-people`
   - Profiles `bi-person-lines-fill`
@@ -173,6 +180,7 @@ seeder-page.php      → Template (ALWAYS clone)
   - Contracts `bi-file-earmark-text`
 
 **Stores & Inventory** `bi-box-seam`
+
 - Catalog `bi-boxes`
   - Items `bi-box`
   - Categories `bi-tags`
@@ -195,6 +203,7 @@ seeder-page.php      → Template (ALWAYS clone)
   - Stock Ledger `bi-journal-text`
 
 **System Settings** `bi-gear`
+
 - Access Control `bi-shield-lock`
   - Roles `bi-person-gear`
   - Permissions `bi-key`
@@ -384,6 +393,7 @@ $userType = getSession('user_type');
 ```
 
 **Key Points:**
+
 - Use `__DIR__` for all paths (works in any panel)
 - Call `requireAuth()` (automatic session check with prefix system)
 - Set `$pageTitle` and `$panel` variables for includes

@@ -10,12 +10,16 @@ description: "Production-grade multi-tenant SaaS platform architecture with thre
 Production-grade multi-tenant SaaS architecture with strict tenant isolation, zero-trust security, and three-panel separation.
 
 **Core Principles:**
+
 - Zero-trust: Every request authenticated, authorized, validated
 - Tenant isolation by default: No cross-tenant data access
 - Least privilege: Granular, explicit, auditable permissions
 - Audit everything: Immutable audit trails for privileged operations
 
+**Security Baseline (Required):** Always load and apply the **Vibe Security Skill** for any web app, API, or data access work. Its controls are mandatory alongside multi-tenant patterns.
+
 **See subdirectories for:**
+
 - `references/` - Database schemas (database-schema.md), permission models (permission-model.md)
 - `documentation/` - Migration patterns (migration.md)
 
@@ -87,12 +91,14 @@ public/
 **Scope:** Single franchise only, cannot access other franchises
 
 **Key Constraints:**
+
 - All queries include `WHERE franchise_id = ?`
 - Cannot modify platform settings
 - Cannot create/suspend other franchises
 - All operations logged for franchise audit
 
 **Example Pages:**
+
 - `/public/dashboard.php` - Franchise admin dashboard
 - `/public/students.php` - Manage students (school SaaS)
 - `/public/inventory.php` - Manage inventory (restaurant SaaS)
@@ -108,6 +114,7 @@ public/
 **Scope:** Cross-franchise with audit trails
 
 **Capabilities:**
+
 - Create/suspend franchises
 - Manage platform users
 - View cross-franchise analytics
@@ -115,6 +122,7 @@ public/
 - Access all franchise data (logged)
 
 **Critical Rules:**
+
 - Every action creates audit log
 - Production data access logged
 - franchise_id can be NULL for super admins
@@ -130,6 +138,7 @@ public/
 **Scope:** Own records only, read-mostly
 
 **Examples:**
+
 - Student portal - View grades, assignments
 - Customer portal - Order tracking, invoices
 - Patient portal - View medical records, appointments
@@ -174,6 +183,7 @@ SELECT * FROM students WHERE franchise_id = ? AND id = ?;
 ```
 
 **Option 2: Schema-Per-Franchise**
+
 ```sql
 -- PostgreSQL: Separate schema per franchise
 CREATE SCHEMA franchise_123;
@@ -185,6 +195,7 @@ CREATE TABLE franchise_123.students (...);
 **Recommendation:** Start with Option 1 (row-level), migrate to Option 2 for large/regulated franchises.
 
 **SaaS Seeder Template Convention:**
+
 - Table prefix: `tbl_` for shared tables (users, franchises, roles)
 - No prefix: For franchise-scoped data (students, orders, inventory)
 - Collation: `utf8mb4_unicode_ci` for all text columns
@@ -193,6 +204,7 @@ CREATE TABLE franchise_123.students (...);
 ### Application-Level Enforcement
 
 **PHP Pattern (Session-based with prefix system):**
+
 ```php
 // Extract franchise context from session (with prefix)
 $franchiseId = getSession('franchise_id'); // Uses SESSION_PREFIX
@@ -228,25 +240,27 @@ if ($userType === 'super_admin') {
 ```
 
 **JavaScript Pattern (JWT-based):**
+
 ```javascript
 // Extract franchise context from JWT
 function extractFranchiseContext(req) {
   const token = verifyJWT(req.headers.authorization);
   return {
     userId: token.sub,
-    franchiseId: token.fid,  // franchise_id in token
-    userType: token.ut        // user_type in token
+    franchiseId: token.fid, // franchise_id in token
+    userType: token.ut, // user_type in token
   };
 }
 
 // Enforce franchise scope on all queries
 function scopeQuery(query, franchiseId) {
-  if (!franchiseId) throw new Error('Missing franchise context');
-  return query.where('franchise_id', franchiseId);
+  if (!franchiseId) throw new Error("Missing franchise context");
+  return query.where("franchise_id", franchiseId);
 }
 ```
 
 **Critical: Never trust client-provided franchise_id**
+
 ```php
 // BAD - Client controls franchise_id
 $franchiseId = $_POST['franchise_id']; // ❌ NEVER DO THIS!
@@ -263,6 +277,7 @@ $franchiseId = $jwtPayload->fid; // ✅
 ### User Types
 
 **SaaS Seeder Template User Types:**
+
 - `super_admin` - Platform management, cross-franchise (franchise_id CAN be NULL)
 - `owner` - Full control within franchise (franchise_id REQUIRED)
 - `staff` - Operational permissions within franchise (franchise_id REQUIRED)
@@ -273,6 +288,7 @@ $franchiseId = $jwtPayload->fid; // ✅
   - `member` - Generic end user
 
 **Customizing User Types:**
+
 ```sql
 -- Edit database enum to match your SaaS domain
 ALTER TABLE tbl_users MODIFY user_type ENUM(
@@ -299,7 +315,7 @@ ALTER TABLE tbl_users MODIFY user_type ENUM(
 
 function hasPermission(userId, tenantId, permission) {
   // Super admin bypass
-  if (user.type === 'super_admin') return true;
+  if (user.type === "super_admin") return true;
 
   // Check explicit denials
   if (userPermissions.denied(userId, tenantId, permission)) return false;
@@ -343,6 +359,7 @@ setSession('last_activity', time());
 ```
 
 **Customize prefix per SaaS:**
+
 ```php
 define('SESSION_PREFIX', 'school_');     // School SaaS
 define('SESSION_PREFIX', 'restaurant_'); // Restaurant SaaS
@@ -351,6 +368,7 @@ define('SESSION_PREFIX', 'hotel_');      // Hospitality SaaS
 ```
 
 **Web (Session-based):**
+
 ```
 HttpOnly: true
 Secure: auto-detect HTTPS (allow localhost HTTP)
@@ -360,6 +378,7 @@ Regenerate on login
 ```
 
 **HTTPS Auto-Detection (Critical for Development):**
+
 ```php
 // Only set secure cookie if using HTTPS
 $isHttps = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
@@ -370,6 +389,7 @@ ini_set('session.cookie_secure', $isHttps ? '1' : '0');
 ```
 
 **API (JWT-based):**
+
 ```
 Access token: 15 minutes
 Refresh token: 30 days
@@ -382,6 +402,7 @@ Revocation table for logout
 ### Zero-Trust Checklist
 
 **Authentication:**
+
 - [ ] MFA for admin access
 - [ ] Password: Argon2ID + salt + pepper
 - [ ] Account lockout after 5 failures
@@ -389,18 +410,21 @@ Revocation table for logout
 - [ ] Token rotation on refresh
 
 **Authorization:**
+
 - [ ] Tenant context in every request
 - [ ] Permission check before every operation
 - [ ] Super admin actions audited
 - [ ] Impersonation logged with justification
 
 **Data Access:**
+
 - [ ] `tenant_id` in WHERE clause (ALWAYS)
 - [ ] Prepared statements (no SQL injection)
 - [ ] Input validation at API boundary
 - [ ] Output encoding (XSS prevention)
 
 **API Security:**
+
 - [ ] Rate limiting (per tenant, per user)
 - [ ] CORS whitelist (no wildcards)
 - [ ] Request size limits
@@ -409,12 +433,15 @@ Revocation table for logout
 ### Common Security Mistakes
 
 ❌ **Trusting client-provided franchise_id**
+
 ```php
 // BAD - Client controls!
 $franchiseId = $_POST['franchise_id'];
 $stmt = $db->prepare("SELECT * FROM students WHERE franchise_id = ?");
 ```
+
 ✅ **Extract from server-side session (with prefix)**
+
 ```php
 // GOOD - Server-side session with prefix
 $franchiseId = getSession('franchise_id');
@@ -422,12 +449,15 @@ $stmt = $db->prepare("SELECT * FROM students WHERE franchise_id = ?");
 ```
 
 ❌ **Missing franchise_id in queries**
+
 ```php
 // BAD - Missing franchise check! Data leakage!
 $stmt = $db->prepare("SELECT * FROM students WHERE id = ?");
 $stmt->execute([$studentId]);
 ```
+
 ✅ **Always include franchise scope**
+
 ```php
 // GOOD - Always filter by franchise_id
 $stmt = $db->prepare("
@@ -438,13 +468,16 @@ $stmt->execute([getSession('franchise_id'), $studentId]);
 ```
 
 ❌ **Super admin without audit**
+
 ```php
 if (getSession('user_type') === 'super_admin') {
     // Direct action without logging
     deleteStudent($studentId);
 }
 ```
+
 ✅ **Super admin WITH audit**
+
 ```php
 if (getSession('user_type') === 'super_admin') {
     // Log cross-franchise access
@@ -458,12 +491,15 @@ if (getSession('user_type') === 'super_admin') {
 ```
 
 ❌ **Not using session prefix system**
+
 ```php
 // BAD - Direct session access (collision risk)
 $_SESSION['user_id'] = $userId;
 $userId = $_SESSION['user_id'];
 ```
+
 ✅ **Use session prefix helpers**
+
 ```php
 // GOOD - Prefixed session (namespace isolation)
 setSession('user_id', $userId);
@@ -475,16 +511,19 @@ $userId = getSession('user_id');
 ### Tenant Context in Requests
 
 **Option 1: Subdomain**
+
 ```
 https://tenant-slug.yourapp.com/api/v1/orders
 ```
 
 **Option 2: Path parameter**
+
 ```
 https://api.yourapp.com/v1/tenants/{tenant_id}/orders
 ```
 
 **Option 3: Header**
+
 ```
 X-Tenant-ID: 123
 Authorization: Bearer <token>
@@ -523,6 +562,7 @@ POST   /api/v1/admin/impersonate     → Start impersonation
 ```
 
 **Error format:**
+
 ```json
 {
   "success": false,
@@ -539,6 +579,7 @@ POST   /api/v1/admin/impersonate     → Start impersonation
 ### What to Audit
 
 **Always log:**
+
 - Super admin actions (ALL)
 - Impersonation start/end
 - Permission changes
@@ -548,6 +589,7 @@ POST   /api/v1/admin/impersonate     → Start impersonation
 - Cross-tenant access attempts (should be 0)
 
 **Audit record format:**
+
 ```json
 {
   "id": "uuid",
@@ -565,6 +607,7 @@ POST   /api/v1/admin/impersonate     → Start impersonation
 ```
 
 **Retention:**
+
 - Security logs: 1 year minimum
 - Audit trails: 7 years (compliance)
 - Operational logs: 90 days
@@ -585,12 +628,14 @@ PENDING → ACTIVE → SUSPENDED → ARCHIVED
 ### Data Protection
 
 **Backups:**
+
 - Daily automated backups
 - Point-in-time recovery (30 days)
 - Test restore quarterly
 - Tenant-level restore capability
 
 **Encryption:**
+
 - At rest: AES-256
 - In transit: TLS 1.3
 - Sensitive fields: Application-level encryption (PII, payment)
@@ -607,6 +652,7 @@ Admin endpoints: 50 req/min
 ### Monitoring Alerts
 
 **Critical:**
+
 - Cross-tenant access attempt
 - Super admin login from new IP
 - Failed auth spike (>100/min)
@@ -618,6 +664,7 @@ Admin endpoints: 50 req/min
 ### Code Review Checklist
 
 **Every feature must:**
+
 - [ ] Include `tenant_id` in all queries
 - [ ] Validate permissions before operations
 - [ ] Create audit log for privileged actions
@@ -628,8 +675,8 @@ Admin endpoints: 50 req/min
 ### Testing Requirements
 
 ```javascript
-describe('Order API', () => {
-  it('prevents cross-tenant data access', async () => {
+describe("Order API", () => {
+  it("prevents cross-tenant data access", async () => {
     const tenant1Order = await createOrder(tenant1);
     const tenant2User = await authenticateAs(tenant2.user);
 
@@ -637,11 +684,11 @@ describe('Order API', () => {
     expect(response.status).toBe(404); // Not 403 (info leak)
   });
 
-  it('requires permission for operation', async () => {
+  it("requires permission for operation", async () => {
     const user = await authenticateAs(limitedUser);
-    const response = await user.delete('/orders/123');
+    const response = await user.delete("/orders/123");
     expect(response.status).toBe(403);
-    expect(response.body.error.code).toBe('PERMISSION_DENIED');
+    expect(response.body.error.code).toBe("PERMISSION_DENIED");
   });
 });
 ```
@@ -665,6 +712,7 @@ describe('Order API', () => {
 9. **Monitoring**: Alert on cross-franchise access attempts
 
 **Architecture Patterns:**
+
 - **Three-tier panel structure** (CORE concept):
   - `/public/` root = Franchise admin workspace (NOT member panel!)
   - `/adminpanel/` = Super admin system
@@ -676,6 +724,7 @@ describe('Order API', () => {
 - Immutable audit trails
 
 **SaaS Seeder Template Specifics:**
+
 - Session prefix: `saas_app_` (customize per SaaS)
 - Password hashing: Argon2ID + salt(32 chars) + pepper(64+ chars)
 - Use `super-user-dev.php` to create admin users (correct hashing)
@@ -683,6 +732,7 @@ describe('Order API', () => {
 - Collation: `utf8mb4_unicode_ci` for all text columns
 
 **See Also:**
+
 - `../../docs/PANEL-STRUCTURE.md` - Complete three-tier architecture guide
 - `../../CLAUDE.md` - Development guidelines and common pitfalls
 - `references/database-schema.md` - Complete database design, indexes, partitioning

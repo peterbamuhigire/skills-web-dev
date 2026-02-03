@@ -10,13 +10,17 @@ description: "Build SAAS platforms with pluggable business modules (Advanced Inv
 Architecture pattern for building SAAS platforms where business modules (Advanced Inventory, Restaurant, Pharmacy, Retail, etc.) can be independently enabled, disabled, or added without affecting other parts of the system.
 
 **Core Principles:**
+
 - **Module Independence**: Each module is self-contained with minimal dependencies
 - **Graceful Degradation**: Disabling a module doesn't break dependent features
 - **Per-Tenant Control**: Each tenant can enable only the modules they need
 - **Zero Breaking Changes**: Adding/removing modules preserves existing functionality
 - **Clean Interfaces**: Modules communicate through well-defined contracts
 
+**Security Baseline (Required):** Always load and apply the **Vibe Security Skill** for any web app, API, or module implementation work.
+
 **Key Benefits:**
+
 - Customers pay only for modules they use
 - Faster feature development (independent teams per module)
 - Easier testing (modules tested in isolation)
@@ -26,6 +30,7 @@ Architecture pattern for building SAAS platforms where business modules (Advance
 ## When to Use
 
 ✅ **Use for:**
+
 - Multi-tenant SAAS platforms with diverse customer needs
 - Systems serving different industries (retail, healthcare, hospitality, etc.)
 - Platforms with optional premium features
@@ -33,6 +38,7 @@ Architecture pattern for building SAAS platforms where business modules (Advance
 - Systems with varying compliance requirements per industry
 
 ❌ **Don't use for:**
+
 - Single-tenant applications
 - Simple CRUD apps without feature variations
 - Tightly coupled monolithic systems
@@ -562,6 +568,7 @@ CREATE TABLE tbl_sales (
 ### 1. Dynamic Navigation
 
 **Menu constraints (Required):**
+
 - Keep navigation minimal and job-focused.
 - Each menu may have **max 5 submenus**.
 - Each submenu may have **max 6 items**.
@@ -838,6 +845,7 @@ public function testRestaurantWithoutInventory() {
 ### DO ✅
 
 **Module Design:**
+
 - Keep modules self-contained (own tables, own logic)
 - Use feature flags for module checks (`hasModuleAccess()`)
 - Provide fallback when optional modules are disabled
@@ -845,12 +853,14 @@ public function testRestaurantWithoutInventory() {
 - Document module dependencies clearly
 
 **Database:**
+
 - Always include `franchise_id` for tenant isolation
 - Use migrations for module schema changes
 - Keep data when module is disabled (soft delete)
 - Use nullable FKs for cross-module references
 
 **Testing:**
+
 - Test module works independently
 - Test graceful degradation when dependencies missing
 - Test re-enabling after disable (data preserved)
@@ -859,18 +869,21 @@ public function testRestaurantWithoutInventory() {
 ### DON'T ❌
 
 **Module Design:**
+
 - Don't hard-code module dependencies (check at runtime)
 - Don't break core features when module disabled
 - Don't expose module internals to other modules
 - Don't assume module is always enabled
 
 **Database:**
+
 - Don't delete module data on disable (user may re-enable)
 - Don't use hard FK constraints for optional modules
 - Don't share tables between modules (coupling)
 - Don't skip tenant_id in module tables
 
 **UI/UX:**
+
 - Don't show disabled module navigation
 - Don't let users access disabled module pages
 - Don't display cryptic errors (show upgrade CTA)
@@ -963,6 +976,7 @@ public function disableModule($franchiseId, $moduleCode) {
 ## Summary
 
 **Core Principles:**
+
 1. **Module Independence**: Each module is self-contained and optional
 2. **Graceful Degradation**: System works when modules are disabled
 3. **Per-Tenant Control**: Each tenant enables only needed modules
@@ -970,6 +984,7 @@ public function disableModule($franchiseId, $moduleCode) {
 5. **Clean Interfaces**: Modules communicate through contracts
 
 **Implementation Checklist:**
+
 - [ ] Module config file with metadata
 - [ ] Module access control (`requireModuleAccess()`)
 - [ ] Optional dependency checks (`hasModuleAccess()`)
@@ -982,4 +997,3 @@ public function disableModule($franchiseId, $moduleCode) {
 - [ ] Tests for module isolation and integration
 
 **Key Insight:** Build modules like Lego blocks—each piece works independently, but they snap together perfectly to create more powerful features.
-

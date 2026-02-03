@@ -8,6 +8,7 @@ description: "Comprehensive, standardized error response system for PHP REST API
 Implement comprehensive, standardized error response system for PHP REST APIs with consistent JSON envelopes, specific error message extraction, and SweetAlert2 integration.
 
 **Core Principles:**
+
 - Consistent JSON envelope across all endpoints
 - Specific error messages extracted from all exception types
 - Appropriate HTTP status codes for all error categories
@@ -16,17 +17,23 @@ Implement comprehensive, standardized error response system for PHP REST APIs wi
 - Secure error handling (no stack traces in production)
 - Comprehensive logging with request IDs
 
+**Security Baseline (Required):** Always load and apply the **Vibe Security Skill** for PHP API work. Do not leak sensitive data in responses or logs.
+
 **See subdirectories for:**
+
 - `references/` - Complete PHP classes (ApiResponse, ExceptionHandler, Exceptions)
 - `examples/` - Full endpoint implementation, frontend client
 
 ## Response Envelope Standard
 
 **Success:**
+
 ```json
 {
   "success": true,
-  "data": { /* payload */ },
+  "data": {
+    /* payload */
+  },
   "message": "Optional success message",
   "meta": {
     "timestamp": "2026-01-24T10:30:00Z",
@@ -36,6 +43,7 @@ Implement comprehensive, standardized error response system for PHP REST APIs wi
 ```
 
 **Error:**
+
 ```json
 {
   "success": false,
@@ -43,7 +51,9 @@ Implement comprehensive, standardized error response system for PHP REST APIs wi
   "error": {
     "code": "ERROR_CODE",
     "type": "validation_error",
-    "details": { /* field-specific errors */ }
+    "details": {
+      /* field-specific errors */
+    }
   },
   "meta": {
     "timestamp": "2026-01-24T10:30:00Z",
@@ -54,18 +64,18 @@ Implement comprehensive, standardized error response system for PHP REST APIs wi
 
 ## HTTP Status Codes
 
-| Status | Error Type | Use Case | Error Code Examples |
-|--------|------------|----------|---------------------|
-| 400 | Bad Request | Malformed JSON, missing params | INVALID_JSON, MISSING_PARAMETER |
-| 401 | Unauthorized | Missing/invalid auth token | TOKEN_MISSING, TOKEN_EXPIRED |
-| 403 | Forbidden | Valid auth but no permission | PERMISSION_DENIED, ACCESS_FORBIDDEN |
-| 404 | Not Found | Resource doesn't exist | RESOURCE_NOT_FOUND, INVOICE_NOT_FOUND |
-| 405 | Method Not Allowed | Wrong HTTP method | METHOD_NOT_ALLOWED |
-| 409 | Conflict | Business rule violation | ALREADY_EXISTS, OVERPAYMENT |
-| 422 | Unprocessable Entity | Validation errors | VALIDATION_FAILED, INVALID_EMAIL |
-| 429 | Too Many Requests | Rate limiting | RATE_LIMIT_EXCEEDED |
-| 500 | Internal Server Error | Unexpected errors | INTERNAL_ERROR, DATABASE_ERROR |
-| 503 | Service Unavailable | Maintenance/overload | SERVICE_UNAVAILABLE, DEADLOCK |
+| Status | Error Type            | Use Case                       | Error Code Examples                   |
+| ------ | --------------------- | ------------------------------ | ------------------------------------- |
+| 400    | Bad Request           | Malformed JSON, missing params | INVALID_JSON, MISSING_PARAMETER       |
+| 401    | Unauthorized          | Missing/invalid auth token     | TOKEN_MISSING, TOKEN_EXPIRED          |
+| 403    | Forbidden             | Valid auth but no permission   | PERMISSION_DENIED, ACCESS_FORBIDDEN   |
+| 404    | Not Found             | Resource doesn't exist         | RESOURCE_NOT_FOUND, INVOICE_NOT_FOUND |
+| 405    | Method Not Allowed    | Wrong HTTP method              | METHOD_NOT_ALLOWED                    |
+| 409    | Conflict              | Business rule violation        | ALREADY_EXISTS, OVERPAYMENT           |
+| 422    | Unprocessable Entity  | Validation errors              | VALIDATION_FAILED, INVALID_EMAIL      |
+| 429    | Too Many Requests     | Rate limiting                  | RATE_LIMIT_EXCEEDED                   |
+| 500    | Internal Server Error | Unexpected errors              | INTERNAL_ERROR, DATABASE_ERROR        |
+| 503    | Service Unavailable   | Maintenance/overload           | SERVICE_UNAVAILABLE, DEADLOCK         |
 
 ## ApiResponse Helper (Quick Reference)
 
@@ -94,6 +104,7 @@ ApiResponse::serviceUnavailable($message);
 **See `references/ExceptionHandler.php` for complete implementation**
 
 **Key Features:**
+
 - Extracts specific messages from PDOException
 - Parses SQLSTATE 45000 (user-defined exceptions from triggers)
 - Extracts constraint violation messages
@@ -102,6 +113,7 @@ ApiResponse::serviceUnavailable($message);
 - Hides stack traces in production
 
 **PDOException Parsing:**
+
 ```php
 // SQLSTATE 45000: Business rule from trigger
 // "SQLSTATE[45000]: <<1>>: 1644 Overpayment not allowed"
@@ -199,27 +211,27 @@ function handlePost(): void {
 **See `examples/ApiClient.js` for complete implementation**
 
 ```javascript
-const api = new ApiClient('./api');
+const api = new ApiClient("./api");
 
 // GET - Errors automatically shown via SweetAlert2
-const response = await api.get('invoices.php', { status: 'pending' });
+const response = await api.get("invoices.php", { status: "pending" });
 if (response) renderInvoices(response.data);
 
 // POST - Validation errors highlight form fields
-showLoading('Creating...');
-const result = await api.post('invoices.php', formData);
+showLoading("Creating...");
+const result = await api.post("invoices.php", formData);
 hideLoading();
-if (result) showSuccess('Created successfully');
+if (result) showSuccess("Created successfully");
 
 // DELETE - With confirmation
 const { value: reason } = await Swal.fire({
-    title: 'Void?',
-    input: 'textarea',
-    showCancelButton: true
+  title: "Void?",
+  input: "textarea",
+  showCancelButton: true,
 });
 if (reason) {
-    const res = await api.delete(`invoices.php?id=${id}`, { reason });
-    if (res) showSuccess('Voided');
+  const res = await api.delete(`invoices.php?id=${id}`, { reason });
+  if (res) showSuccess("Voided");
 }
 
 // Helpers: showSuccess/Error/Warning/Info, showConfirm, showLoading, hideLoading
@@ -228,24 +240,28 @@ if (reason) {
 ## Error Message Extraction
 
 **SQLSTATE 45000 (Trigger):**
+
 ```sql
 SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Overpayment not allowed';
 -- Extracted: "Overpayment not allowed" → Code: OVERPAYMENT_NOT_ALLOWED
 ```
 
 **SQLSTATE 23000 (Duplicate):**
+
 ```
 "Duplicate entry 'john@example.com' for key 'uk_email'"
 -- Extracted: "A record with this Email already exists: 'john@example.com'"
 ```
 
 **SQLSTATE 23000 (Foreign Key):**
+
 ```
 "Cannot delete or update a parent row..."
 -- Extracted: "Referenced Customer does not exist or cannot be deleted"
 ```
 
 **Deadlock:**
+
 ```
 "Deadlock found when trying to get lock..."
 -- Extracted: "Database conflict. Please try again." → HTTP 503
@@ -254,6 +270,7 @@ SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Overpayment not allowed';
 ## Validation Pattern
 
 **Backend:**
+
 ```php
 $errors = [];
 if (empty($data['email'])) $errors['email'] = 'Email required';
@@ -264,6 +281,7 @@ if ($errors) ApiResponse::validationError($errors);
 ```
 
 **Frontend automatically:**
+
 - SweetAlert2 with formatted error list
 - Highlights fields with `.is-invalid`
 - Adds `.invalid-feedback` elements
@@ -294,6 +312,7 @@ Context: {"user_id":123,"franchise_id":5,"url":"/api/payments.php","method":"POS
 ## Implementation Checklist
 
 **Backend:**
+
 - [ ] All endpoints use `ApiResponse` helper
 - [ ] All exceptions caught by `ExceptionHandler`
 - [ ] Specific error codes for each error type
@@ -306,6 +325,7 @@ Context: {"user_id":123,"franchise_id":5,"url":"/api/payments.php","method":"POS
 - [ ] Bootstrap file included in all endpoints
 
 **Frontend:**
+
 - [ ] All API calls use centralized `ApiClient`
 - [ ] Errors displayed via SweetAlert2 only (no native alert/confirm)
 - [ ] Validation errors highlight form fields
@@ -316,6 +336,7 @@ Context: {"user_id":123,"franchise_id":5,"url":"/api/payments.php","method":"POS
 - [ ] Request IDs logged for debugging
 
 **Database:**
+
 - [ ] Triggers use SQLSTATE 45000 for business rules
 - [ ] Clear, user-friendly error messages in triggers
 - [ ] Constraints have descriptive names (uk_email_franchise)
@@ -349,17 +370,20 @@ ApiResponse::serverError('Unexpected error occurred');
 ## Security Considerations
 
 **Production:**
+
 - Never expose stack traces
 - Sanitize database error messages
 - Log full errors server-side only
 - Generic messages for unexpected errors
 
 **Development:**
+
 - Set `APP_DEBUG=true` for detailed errors
 - Stack traces in logs
 - Actual error messages displayed
 
 **Sensitive Data:**
+
 - Never include passwords in logs
 - Sanitize SQL queries in error messages
 - Remove file paths from production errors
@@ -367,6 +391,7 @@ ApiResponse::serverError('Unexpected error occurred');
 ## Summary
 
 **Implementation:**
+
 1. Include `bootstrap.php` at top of all endpoints
 2. Use `ApiResponse` helper for all responses
 3. Throw custom exceptions for specific errors
@@ -375,6 +400,7 @@ ApiResponse::serverError('Unexpected error occurred');
 6. Display all errors via SweetAlert2
 
 **Key Files:**
+
 - `references/ApiResponse.php` - Response helper
 - `references/ExceptionHandler.php` - Exception converter
 - `references/CustomExceptions.php` - Exception classes
@@ -383,6 +409,7 @@ ApiResponse::serverError('Unexpected error occurred');
 - `examples/ApiClient.js` - Frontend client
 
 **Benefits:**
+
 - Consistent error format across all endpoints
 - Specific messages from database exceptions
 - Beautiful error display with SweetAlert2

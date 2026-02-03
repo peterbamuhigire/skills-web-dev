@@ -6,10 +6,17 @@ description: Manage photo uploads, previews, storage, and deletion across the ap
 # Photo Management
 
 ## Overview
+
 Standardize photo upload UX, storage, and deletion patterns for all modules (DPC shops, assets, products, staff, etc.). Always compress images before upload using the Image Compression skill.
 
+## Security Baseline (Required)
+
+Always load and apply the **Vibe Security Skill** for upload flows (XSS, CSRF, file validation, path traversal, and access control are mandatory).
+
 ## Entity Photo Rules (Mandatory)
+
 ### A) People / Individual Entities (1 photo max)
+
 **Examples:** distributor, client, customer, employee, student, patient, member.
 
 - **Limit:** 1 photo per individual.
@@ -21,6 +28,7 @@ Standardize photo upload UX, storage, and deletion patterns for all modules (DPC
 - **Detail view:** Show the avatar prominently with edit/upload UI near it.
 
 ### B) Non‑People Entities (3 photos max)
+
 **Examples:** products, farms, vehicles, animals, crops, stock items, buildings, assets, shops.
 
 - **Limit:** 3 photos per entity.
@@ -31,12 +39,14 @@ Standardize photo upload UX, storage, and deletion patterns for all modules (DPC
 - **Detail view:** show minimal gallery (3-photo grid) above tabs (like `dpc-details.php`).
 
 ## Quick Reference
+
 - **UI upload flow:** compress → preview → auto-upload → reload gallery
 - **Storage:** per-module folders in `uploads/` with defaults
 - **Deletion:** confirm → delete DB row → delete file
 - **Limits:** hide upload UI when max count reached
 
 ## Core Instructions
+
 1. **Always apply compression**
    - Load and use `skills/image-compression` rules.
    - Use `window.prepareImageUpload()` for client-side compression.
@@ -51,6 +61,7 @@ Standardize photo upload UX, storage, and deletion patterns for all modules (DPC
    - Hide upload UI when limit reached.
 
 ## Minimalistic Detail Page Pattern (3‑Photo Entities)
+
 Follow the `dpc-details.php` approach:
 
 - **Photo section above tabs**, compact, 3 columns.
@@ -60,12 +71,15 @@ Follow the `dpc-details.php` approach:
 - **Delete button** overlay only when permission is granted.
 
 ## Card List Pattern
+
 ### Non‑People Entities (banner cards)
+
 - Banner image = random pick among the 3 photos.
 - If none, fallback to default.jpg.
 - Keep the card minimal: image + name + status + 1–2 meta lines.
 
 ### People Entities (social cards)
+
 - Use `background.jpg` as banner.
 - Circular avatar (photo or default.jpg).
 - Name + role/position + 1–2 meta lines.
@@ -74,36 +88,43 @@ Follow the `dpc-details.php` approach:
 - Prefer overlapping **only the avatar** (not the text): apply negative margin to the avatar itself, keep header text flow normal.
 
 ## Key Patterns
+
 ### Upload (client)
+
 - Input change → compress → size check → `FormData` → POST → reload gallery.
 
 ### Gallery (client)
+
 - Render a grid with a max of 3 items.
 - Hide uploader when full.
 - Show delete button only for authorized users.
 
 ### API (server)
+
 - **GET:** return photo list with URLs.
 - **POST:** validate, store, insert DB row.
 - **DELETE:** validate ownership, remove DB row and file.
 
 ## API Response Format (Align with Maduuka)
+
 Use the standard JSON envelope used across the app:
 
 - Success:
-   - `success: true`, `message`, `data`, `timestamp`
+  - `success: true`, `message`, `data`, `timestamp`
 - Validation error:
-   - `success: false`, `message`, `errors`
+  - `success: false`, `message`, `errors`
 
 Keep payloads lean: return only `id`, `file_name`, `file_path`, `created_at`.
 
 ## Database Schema Tips (Maduuka Best Practice)
+
 - Store **relative** file path (e.g., `uploads/dpc-photos/abc.jpg`).
 - Index `(franchise_id, entity_id)` for fast retrieval.
 - Store `created_by`, `created_at` for auditability.
 - Prefer soft delete only if required by audit rules; otherwise hard delete with file cleanup.
 
 ## Security & Efficiency
+
 - Verify **franchise ownership** on every read/write/delete.
 - Enforce allowed MIME types and extensions server-side.
 - Use unique filenames (timestamp + random suffix), never trust original names.
@@ -113,6 +134,7 @@ Keep payloads lean: return only `id`, `file_name`, `file_path`, `created_at`.
 - Return 404 for missing records and 403 for cross-franchise access.
 
 ## Tips & Tricks (Efficiency + UX)
+
 - Use `object-fit: cover` for all thumbnails.
 - Use consistent sizes (e.g., 3-column grid with fixed height) to avoid layout shift.
 - Use `loading="lazy"` for card images in large lists.
@@ -123,14 +145,17 @@ Keep payloads lean: return only `id`, `file_name`, `file_path`, `created_at`.
 - Prefer CDN/local caching headers for read-heavy image endpoints where applicable.
 
 ## Reference Files
+
 - Use `skills/image-compression/SKILL.md` for compression defaults and rules.
 
 ## Common Pitfalls
+
 - Skipping compression (breaks bandwidth/storage goals).
 - Missing `franchise_id` filter on queries.
 - Leaving upload UI visible when max photos already exist.
 - Using native `alert()` instead of SweetAlert2.
 
 ## Examples
+
 - DPC photo management: `api/dpc-photos.php` + client gallery pattern.
 - Asset photo management: `api/asset-photos.php` + client gallery pattern.

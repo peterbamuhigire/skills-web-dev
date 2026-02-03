@@ -7,6 +7,10 @@ description: "Guidance for building report templates that serve both mPDF export
 
 Build a single, minimal HTML report that renders consistently in **mPDF** and **browser print** (HTML → print dialog). Keep typography compact, tables pagination-friendly, and metadata consistent across outputs.
 
+## Security Baseline (Required)
+
+Always load and apply the **Vibe Security Skill** when reports touch user input, filters, file paths, or authentication. Treat output encoding and access control as mandatory.
+
 ## When to Use
 
 - Generating PDF reports with mPDF in PHP

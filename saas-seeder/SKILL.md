@@ -7,9 +7,14 @@ description: "Bootstrap a new SaaS from the SaaS Seeder Template: setup database
 
 Bootstrap a new multi-tenant SaaS project using the SaaS Seeder Template with proper three-tier panel architecture, Argon2ID authentication, and franchise isolation.
 
+## Security Baseline (Required)
+
+Always load and apply the **Vibe Security Skill** for any seeder work that touches web pages, APIs, authentication, data access, or file handling. Treat its checklist as mandatory.
+
 ## When to Use
 
 Use when the user says:
+
 - "Using the seeder-script skill, prepare this repository for [SaaS name]"
 - "Bootstrap a new SaaS from this template"
 - "Initialize the SaaS Seeder Template"
@@ -23,6 +28,7 @@ Use when the user says:
 ### 1. Requirements & Design Specifications
 
 Place in `docs/project-requirements/`:
+
 ```
 docs/project-requirements/
 ├── requirements.md          # Detailed feature requirements
@@ -37,6 +43,7 @@ docs/project-requirements/
 ### 2. Database Schema Files
 
 Place in `database/schema/`:
+
 ```
 database/schema/
 ├── core-schema.sql           # Main database schema
@@ -45,6 +52,7 @@ database/schema/
 ```
 
 **Schema Requirements:**
+
 - All franchise-scoped tables MUST have `franchise_id` column
 - Use `utf8mb4_unicode_ci` collation
 - Include proper indexes and foreign keys
@@ -107,6 +115,7 @@ When starting a new project:
 ### Session Prefix System
 
 **All session variables use a prefix:**
+
 ```php
 define('SESSION_PREFIX', 'saas_app_'); // Change per SaaS
 
@@ -121,6 +130,7 @@ hasSession('user_id');             // Checks if exists
 ### Password Hashing
 
 **Uses Argon2ID (NOT bcrypt):**
+
 ```
 Algorithm: Argon2ID + salt(32 chars) + pepper(64+ chars)
 Hash: salt + Argon2ID(HMAC-SHA256(password, pepper) + salt)
@@ -150,6 +160,7 @@ Hash: salt + Argon2ID(HMAC-SHA256(password, pepper) + salt)
    - Create/update `.env` file
 
 2. **Install Dependencies**
+
    ```bash
    composer install
    ```
@@ -176,20 +187,21 @@ Hash: salt + Argon2ID(HMAC-SHA256(password, pepper) + salt)
    .\setup-database.ps1  # Windows PowerShell
    ```
 
-4. **Fix Collations**
+5. **Fix Collations**
+
    ```bash
    .\fix-database.ps1  # Creates franchises table
    ```
 
-5. **Create Super Admin**
+6. **Create Super Admin**
    - Visit `http://localhost:8000/super-user-dev.php`
    - Uses correct Argon2ID hashing
 
-6. **Verify Setup**
+7. **Verify Setup**
    - Login at `http://localhost:8000/sign-in.php`
    - See landing page with navigation buttons
 
-7. **Project Customization**
+8. **Project Customization**
    - Update SESSION_PREFIX in `src/config/session.php`
    - Customize user types enum
    - Apply project database schema
@@ -208,6 +220,7 @@ Hash: salt + Argon2ID(HMAC-SHA256(password, pepper) + salt)
 ### Franchise Data
 
 **ALWAYS filter by franchise_id:**
+
 ```php
 // CORRECT
 $stmt = $db->prepare("SELECT * FROM students WHERE franchise_id = ?");
@@ -230,18 +243,22 @@ $stmt = $db->prepare("SELECT * FROM students");
 ### Common Issues
 
 **Session Not Persisting**
+
 - HTTPS auto-detection already handled
 - Localhost HTTP works without HTTPS requirement
 
 **Password Mismatch**
+
 - Use `super-user-dev.php`, NOT manual password_hash()
 - Template uses Argon2ID, not bcrypt
 
 **Collation Errors**
+
 - Run `.\fix-database.ps1`
 - Fixes utf8mb4_unicode_ci mismatches
 
 **Missing Franchises Table**
+
 - Run `.\fix-database.ps1`
 - Creates tbl_franchises with default data
 
@@ -250,6 +267,7 @@ $stmt = $db->prepare("SELECT * FROM students");
 ### For New Project from Template
 
 Report to user:
+
 ```
 ✅ [Project Name] Initialized!
 
@@ -350,6 +368,7 @@ saas-seeder/
 - `references/php-tooling.md` - PHP development tools setup and usage guide
 
 **External references:**
+
 - `../../docs/PANEL-STRUCTURE.md` - Three-tier architecture guide
 - `../../CLAUDE.md` - Development guidelines
 - `../project-requirements/` - Skill for creating requirements docs

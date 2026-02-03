@@ -77,6 +77,7 @@ When starting a new project:
    - Update CLAUDE.md with project-specific guidance
    - Remove template docs from docs/ (keep only project-relevant ones)
    - Add project-specific documentation based on requirements
+   - Ensure `docs/plans/INDEX.md` exists as the master plan status index and is maintained as plans are created or updated
 
 4. **Customize Template**
    - Update branding (SaaS Seeder → Project Name)

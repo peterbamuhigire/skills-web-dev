@@ -30,6 +30,8 @@ docs/project-requirements/
 ├── user-types.md         # User roles and permissions
 ├── workflows.md          # Key user workflows
 └── ui-mockups/           # Optional UI designs (images/PDFs)
+
+**Planning Index Rule:** When feature plans are created later, always update `docs/plans/INDEX.md` with status, urgency, last implementation date, and last modification date.
 ```
 
 ## Guided Interview Process

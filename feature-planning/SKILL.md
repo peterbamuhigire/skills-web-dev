@@ -14,6 +14,7 @@ Complete feature development planning from **specification** to **implementation
 **Save multi-file plans to:** `docs/plans/[feature-name]/` (implementation details)
 
 **Plan directory index (required):** Update `docs/plans/AGENTS.md` whenever a plan or spec is added.
+**Plans status index (required):** Update `docs/plans/INDEX.md` whenever a plan is created, modified, implemented, or completed. Record status, urgency, last implementation date, and last modification date.
 
 ## 📋 Two-Phase Planning Process
 

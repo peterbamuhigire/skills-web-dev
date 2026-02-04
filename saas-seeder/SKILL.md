@@ -84,6 +84,7 @@ When starting a new project:
    - Set SESSION_PREFIX to project-specific value
    - Customize user types enum if needed
    - Update environment variable examples
+   - Register GIS settings when mapping is required (system_settings.osm_api_key)
 
 5. **Validate Completeness**
    - Check all requirements are documented
@@ -171,6 +172,7 @@ Hash: salt + Argon2ID(HMAC-SHA256(password, pepper) + salt)
    **See `references/php-tooling.md` for complete setup guide.**
 
    **Quick install:**
+
    ```bash
    # Check existing tools
    composer show | grep -E "(phpstan|phpunit|pest|php-cs-fixer)"
@@ -184,6 +186,7 @@ Hash: salt + Argon2ID(HMAC-SHA256(password, pepper) + salt)
    **Create configs and add composer scripts (see references/php-tooling.md for details).**
 
 4. **Database Setup**
+
    ```bash
    .\setup-database.ps1  # Windows PowerShell
    ```

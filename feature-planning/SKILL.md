@@ -52,6 +52,7 @@ Activate when the user says:
 3. **Data Model**: Which tables/fields are involved (especially tenant isolation)?
 4. **Workflow/UI**: What exact UI flow and user actions are expected?
 5. **Compliance/Reporting**: Any audit, reporting, or approval requirements?
+6. **GIS/Mapping**: Will this feature require maps or geofencing? If yes, add `osm_api_key` to system settings and document it.
 
 ### Specification Template Structure
 

@@ -8,7 +8,12 @@ This sub-skill focuses on enforcing geo-fencing with OpenStreetMap in web apps.
 
 ```javascript
 const map = L.map("map").setView([51.505, -0.09], 13);
-L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+const osmApiKey = window.osmApiKey || "";
+const osmTileUrl = osmApiKey
+  ? `https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?api_key=${osmApiKey}`
+  : "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
+
+L.tileLayer(osmTileUrl, {
   attribution: "© OpenStreetMap contributors",
 }).addTo(map);
 ```
@@ -316,3 +321,4 @@ function validateCoordinates(lat, lng, bounds) {
 - Cache tiles if you host your own tile server
 - Debounce map interactions
 - Validate on the backend even if UI blocks invalid selections
+- Store the OpenStreetMap API key in system settings (`osm_api_key`) and inject as `window.osmApiKey`

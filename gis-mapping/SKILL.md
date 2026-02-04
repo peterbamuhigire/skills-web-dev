@@ -25,6 +25,8 @@ description: "Use for web apps that need OpenStreetMap-based GIS mapping, locati
 - Capture geometry in GeoJSON and validate server-side.
 - Use bounding-box checks before deeper polygon math.
 - Cluster markers when data is large or dense.
+- Store the OpenStreetMap API key in system settings (`osm_api_key`) and load it at runtime.
+- Default to terrain tiles (OpenTopoMap) for administrative borders.
 
 ## Stack Choices (Frontend)
 
@@ -55,9 +57,25 @@ Recommended formats:
 
 ```javascript
 const map = L.map("map").setView([0.3476, 32.5825], 12);
-L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+const osmApiKey = window.osmApiKey || "";
+const osmTileUrl = osmApiKey
+  ? `https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?api_key=${osmApiKey}`
+  : "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
+
+const osm = L.tileLayer(osmTileUrl, {
   attribution: "© OpenStreetMap contributors",
-}).addTo(map);
+  maxZoom: 19,
+});
+
+const terrain = L.tileLayer(
+  "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png",
+  {
+    attribution: "© OpenTopoMap",
+    maxZoom: 17,
+  },
+);
+
+terrain.addTo(map);
 ```
 
 ## Location Selection Patterns
@@ -127,6 +145,7 @@ Always validate coordinates server-side:
 - Ensure latitude is between -90 and 90
 - Ensure longitude is between -180 and 180
 - Enforce geofence boundaries with the same logic as UI
+- Load `osm_api_key` from system settings when building map pages
 
 ## Privacy & Security
 

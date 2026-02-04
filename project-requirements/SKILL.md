@@ -10,6 +10,7 @@ Create comprehensive requirements documentation for a new SaaS project through a
 ## When to Use
 
 Use when starting a new SaaS project from the template:
+
 - "Help me create project requirements for [SaaS name]"
 - "I need to document requirements for my SaaS"
 - "Create requirements documentation for a new project"
@@ -66,6 +67,7 @@ docs/project-requirements/
    - Security requirements
    - Scalability needs (how many franchises, users per franchise)
    - Usability requirements (mobile, offline, languages)
+   - GIS requirements (maps, geofencing, OpenStreetMap API key if needed)
 
 **Output:** Generate `docs/project-requirements/requirements.md`
 
@@ -167,6 +169,7 @@ docs/project-requirements/
 ### Ask Follow-Up Questions
 
 **When user gives vague answer:**
+
 ```
 User: "I need a student management system"
 AI: "Great! Let's break that down:
@@ -179,6 +182,7 @@ AI: "Great! Let's break that down:
 ### Use Examples
 
 **When explaining complex concepts:**
+
 ```
 AI: "For grade calculation, here's an example:
   Subject 1: Grade A (4.0), Credits 3 → 4.0 × 3 = 12
@@ -191,6 +195,7 @@ AI: "For grade calculation, here's an example:
 ### Provide Templates
 
 **Show structure to guide thinking:**
+
 ```
 AI: "For each feature, let's capture:
   ✓ Feature name
@@ -224,6 +229,7 @@ AI: "For each feature, let's capture:
 **Reference the template files:**
 
 When starting the interview, tell the user:
+
 ```
 I'll help you create comprehensive requirements documentation.
 We have template files to guide us:
@@ -236,6 +242,7 @@ Let's start with your project overview...
 ```
 
 **Use template structure but customize content:**
+
 - Replace example content with user's actual requirements
 - Add more sections as needed
 - Remove sections not applicable
@@ -246,6 +253,7 @@ Let's start with your project overview...
 **After completing requirements documentation:**
 
 1. Verify files are in `docs/project-requirements/`:
+
    ```
    ✓ requirements.md
    ✓ business-rules.md
@@ -342,6 +350,7 @@ Ready to bootstrap? Use:
 ## Best Practices
 
 **Do:**
+
 - Ask open-ended questions first, then drill down
 - Provide examples to illustrate concepts
 - Summarize what you've learned before moving to next section
@@ -349,6 +358,7 @@ Ready to bootstrap? Use:
 - Keep documentation practical and actionable
 
 **Don't:**
+
 - Assume requirements without asking
 - Skip validations and edge cases
 - Create generic documentation (make it specific to their SaaS)

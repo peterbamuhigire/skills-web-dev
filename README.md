@@ -548,6 +548,30 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 **Skill location:** `vibe-security-skill/SKILL.md`
 
+---
+
+### 18. GIS Mapping (OpenStreetMap)
+
+**Focus:** OpenStreetMap-based GIS mapping, location selection, and geofencing patterns
+
+**When to use:**
+
+- Adding interactive maps to web applications
+- Capturing customer/asset/farm locations in GIS-enabled workflows
+- Enforcing geo-fencing and boundary validation
+- Building map views with filters, legends, and clustering
+
+**Key capabilities:**
+
+- Leaflet/OpenLayers setup with proper OSM attribution
+- Marker and polygon selection patterns
+- Client + server geo-fence validation (point-in-polygon)
+- Performance guidance (clustering, bounding boxes, debouncing)
+
+**Skill location:** `gis-mapping/SKILL.md`
+
+**Sub-skill:** `gis-mapping/geofencing.md`
+
 ## Installation
 
 ### Option 1: Use Skills Directly

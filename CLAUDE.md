@@ -85,6 +85,7 @@ skills/
 ├── api-error-handling/       # API error handling with SweetAlert2
 ├── mysql-best-practices/     # MySQL 8.x best practices for SaaS
 ├── saas-seeder/               # SaaS bootstrap and seeding workflow
+├── gis-mapping/              # OpenStreetMap GIS mapping + geofencing
 ├── vibe-security-skill/       # Secure coding for web apps
 ├── skills/
 │   └── skill-writing/        # Skill creator (meta-skill)

@@ -40,6 +40,12 @@ docs/project-requirements/
 
 **Use the `project-requirements` skill to create these files with AI assistance.**
 
+### 1.1 Documentation Readiness (Required)
+
+- Confirm end-user manual scope is defined for each core feature
+- Plan manual locations in `/manuals/` and a public entry point (e.g., `/public/user-manuals.php`)
+- Ensure specs are written in a way that can be translated into manuals and step-by-step guides
+
 ### 2. Database Schema Files
 
 Place in `database/schema/`:

@@ -32,6 +32,9 @@ docs/project-requirements/
 ├── workflows.md          # Key user workflows
 └── ui-mockups/           # Optional UI designs (images/PDFs)
 
+**Documentation Requirement (Mandatory):**
+- Define the end-user manual scope for each core feature so manuals can be built immediately after implementation.
+
 **Planning Index Rule:** When feature plans are created later, always update `docs/plans/INDEX.md` with status, urgency, last implementation date, and last modification date.
 ```
 
@@ -68,6 +71,7 @@ docs/project-requirements/
    - Scalability needs (how many franchises, users per franchise)
    - Usability requirements (mobile, offline, languages)
    - GIS requirements (maps, geofencing, OpenStreetMap API key if needed)
+   - Documentation requirements (manuals, guides, release notes, FAQs)
 
 **Output:** Generate `docs/project-requirements/requirements.md`
 

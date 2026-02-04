@@ -7,6 +7,14 @@ description: "Generate end-user manuals and reference guides for ERP modules. Us
 
 Create **end-user manuals** and **reference guides**. This is **not** for AI instruction documents. Do **not** edit or generate AGENTS.md or other AI guidance files when this skill is used.
 
+## Why Manuals Matter (SaaS Baseline)
+
+End-user manuals and system guides are **required** deliverables for any SaaS application. Features are not considered complete until:
+
+- A user-facing manual exists for the feature
+- The manual includes step-by-step instructions, screenshots/visuals, and edge cases
+- The manual is aligned with the feature spec and user workflows
+
 ## Trigger Phrases
 
 Activate when the user asks to:
@@ -41,6 +49,59 @@ Every guide must include:
 
 4. **Edge Cases**
    - Derived from schema constraints and validation rules
+
+## Comprehensive Manual Standards (Required)
+
+Use these standards to design manuals for SaaS web apps. Summarize and adapt per module.
+
+### 1) Documentation Strategy
+
+- Define audience personas (first-time users, regular users, admins, integrators)
+- Define documentation types (getting started, feature guides, troubleshooting, API docs)
+- Maintain a content audit checklist per release
+
+### 2) Information Architecture
+
+Organize manuals with a clear hierarchy:
+
+- Getting Started
+- Tutorials & Guides
+- How-To Articles
+- Reference (feature specs, error codes, shortcuts)
+- Troubleshooting
+- Best Practices
+- What’s New
+
+### 3) Writing & Microcopy Standards
+
+- Use active voice and direct instructions
+- Provide numbered, testable steps
+- Use consistent UI terms and button labels
+- Include FAQ and common errors
+
+### 4) Visual & Media Standards
+
+- High-resolution screenshots, annotated where needed
+- Blur sensitive data
+- Use consistent naming and alt text
+- Optional short videos with captions
+
+### 5) Accessibility & Localization
+
+- Meet WCAG accessibility basics (contrast, headings, alt text, keyboard nav)
+- Prepare for translation and locale formatting
+
+### 6) Maintenance & Versioning
+
+- Update manuals alongside feature releases
+- Track changes via version control and changelogs
+- Use analytics/feedback to prioritize improvements
+
+### 7) Distribution & Promotion
+
+- Provide in-app help links and searchable docs
+- Publish release notes and guided walkthroughs
+- Maintain downloadable print/PDF versions
 
 ## Tone & Style
 

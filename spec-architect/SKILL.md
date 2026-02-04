@@ -28,6 +28,9 @@ When triggered, begin with:
 2. Ask **3–5 clarifying questions** about business logic and edge cases.
 3. Generate the final `spec.md` using the template at:
    `skills/spec-architect/templates/feature-spec.md.template`
+4. Ensure the spec is **manual-ready**:
+   - Define user-facing workflows and UI actions in a way that can be translated into a manual
+   - Capture permissions, prerequisites, and edge cases that must appear in user documentation
 
 ## Clarifying Questions (Pick 3–5)
 
@@ -52,4 +55,5 @@ Specs must:
 - Keep the spec concise and implementation-ready.
 - Reference exact file paths in the **Execution Plan**.
 - Include validation and rollback steps in **Acceptance Criteria** or **Execution Plan** when relevant.
+- Include a **Documentation Impact** note describing how the feature will be documented in manuals.
 - Do not include external URLs in the spec or questions.

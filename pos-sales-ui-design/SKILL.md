@@ -185,6 +185,59 @@ All backend activity MUST go through APIs.
 - Support keyboard navigation for all interactions.
 - Never rely on color alone to convey meaning.
 
+## Mandatory Transaction Controls (Audit Compliance)
+
+### POS Session Locking (CRITICAL - Recommendation #2)
+**Status:** Mandatory for Audit Compliance | **Priority:** Critical
+**Implementation Timeline:** 3 weeks | **Budget:** $3,000
+
+**What's Required:**
+- **Session Start/End Workflow:** Supervisor approval required for session start and closure
+- **Database-Level Locks:** Prevent backdated transactions after session closure (enforce at DB level)
+- **Automatic Timeout:** Sessions automatically close after 12 hours of inactivity
+- **Historical Session View:** Complete sales summary per session with audit trail
+
+**Why This Matters:**
+- Prevents backdated transaction manipulation (critical audit finding)
+- Core requirement for audit trail integrity and SOX compliance
+- Addresses high-risk control gap in revenue management
+- Blocks downstream receipt sequencing implementation until complete
+
+**Implementation Notes:**
+- Session status stored in database: 'open', 'closed', 'locked'
+- Database trigger prevents invoice creation/modification if session closed
+- Session closure requires supervisor PIN/password verification
+- Session history page shows: session ID, cashier, start time, end time, total sales, transaction count
+
+### Sequential Receipt Control (CRITICAL - Recommendation #6)
+**Status:** Mandatory for Audit Compliance | **Priority:** Critical
+**Implementation Timeline:** 2 weeks | **Budget:** $2,000
+**Depends On:** POS Session Locking (M1)
+
+**What's Required:**
+- **Automated Gap Detection:** Daily cron job identifies missing receipt numbers
+- **Management Alerts:** Email/SMS notifications for detected gaps with details
+- **Voided Receipt Tracking:** All voids require justification notes (minimum 10 characters)
+- **Supervisor Override Workflow:** Gap resolution requires supervisor approval with documented reason
+
+**Why This Matters:**
+- Critical for revenue leakage prevention (high-priority audit finding)
+- External audit sign-off requirement for financial statements
+- Detects potential fraud through missing receipt sequences
+- Ensures complete transaction recording for compliance
+
+**Implementation Notes:**
+- Receipt numbers must be sequential per sales point (not globally)
+- Gap detection query runs daily at midnight checking previous day
+- Void tracking includes: original invoice, void reason code, void date, approver
+- Supervisor override creates audit log entry: gap ID, resolution notes, approval timestamp
+
+**UI Requirements:**
+- Display session status badge in header (OPEN/CLOSED with color coding)
+- Show "Session Closed - No transactions allowed" blocking modal if session inactive
+- Receipt void button requires confirmation with reason dropdown + notes textarea
+- Gap resolution interface for supervisors: list gaps, view details, approve/reject with notes
+
 ## Common Pitfalls
 - Hiding essential context (branch/store/prices) below the fold.
 - Using small buttons or dense tables that are not touch-friendly.
@@ -192,6 +245,8 @@ All backend activity MUST go through APIs.
 - Triggering API searches on every keystroke without debounce.
 - Coupling UI to direct database access instead of APIs.
 - **Generating invoices too early** (on page load, shop selection, or customer selection) - this creates orphaned invoices when users navigate away without completing transactions.
+- **Implementing POS without session locking** - This creates audit compliance issues and enables backdated transaction fraud.
+- **Ignoring receipt sequencing requirements** - Gaps in receipt numbers indicate potential revenue leakage and will trigger audit findings.
 
 ## Examples
 ### Debounced customer search (API-first)

@@ -171,6 +171,13 @@ All backend activity MUST go through APIs.
 - Use optimistic UI updates with rollback on failure.
 - Apply milestone focus cues after system-driven focus jumps (e.g., distributor -> invoice number; start transaction -> product search).
 
+### Barcode Scanner Support (Required)
+- Treat barcode scanners as keyboard input that ends with Enter.
+- On Enter, attempt an exact barcode match against product data (`barcode` field).
+- If matched, add one unit to cart and clear/refocus the search input.
+- Support both grid cards and table rows (use `data-barcode` or row data payloads).
+- If no match, show a brief non-blocking warning (SweetAlert2 toast).
+
 ## Accessibility Checklist
 - WCAG 2.1 AA contrast minimums.
 - Visible focus indicators for all controls.

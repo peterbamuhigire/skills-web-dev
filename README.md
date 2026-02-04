@@ -218,7 +218,28 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ---
 
-### 8. API Error Handling
+### 8. Skill Safety Audit
+
+**Focus:** Scan skills for unsafe or malicious instructions before acceptance
+
+**When to use:**
+
+- Any new skill added to the repository
+- Any third-party skill update or import
+- Any skill with new setup steps or external dependencies
+
+**Key capabilities:**
+
+- Detects unsafe install commands and remote scripts
+- Flags credential harvesting or secret handling
+- Verifies alignment with project security policies
+- Standard audit workflow and required reporting
+
+**Skill location:** `skill-safety-audit/SKILL.md`
+
+---
+
+### 9. API Error Handling
 
 **Focus:** Comprehensive error response system for PHP REST APIs
 
@@ -256,7 +277,7 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ---
 
-### 9. PHP Modern Standards
+### 10. PHP Modern Standards
 
 **Focus:** Modern PHP development for maintainable, testable, object-oriented code
 
@@ -293,7 +314,7 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ---
 
-### 10. MySQL Best Practices
+### 11. MySQL Best Practices
 
 **Focus:** MySQL 8.x best practices for high-performance SaaS
 
@@ -333,7 +354,7 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ---
 
-### 11. Report Export (PDF + Print)
+### 12. Report Export (PDF + Print)
 
 **Focus:** Clean, consistent report exports for PDF and browser printing
 
@@ -357,7 +378,7 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ---
 
-### 12. POS & Sales Entry UI Design
+### 13. POS & Sales Entry UI Design
 
 **Focus:** POS, checkout, and sales entry UI patterns for web apps
 
@@ -381,7 +402,7 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ---
 
-### 13. Photo Management
+### 14. Photo Management
 
 **Focus:** Standardized photo upload, preview, storage, and deletion
 
@@ -403,7 +424,7 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ---
 
-### 14. Doc Architect
+### 15. Doc Architect
 
 **Focus:** Automated Triple-Layer AGENTS.md documentation
 
@@ -423,7 +444,7 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ---
 
-### 15. Manual Guide
+### 16. Manual Guide
 
 **Focus:** End-user manuals and reference guides (not AI agent docs)
 
@@ -439,7 +460,7 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ---
 
-### 16. Inventory Management
+### 17. Inventory Management
 
 **Focus:** Implementation-grade stock and inventory controls for multi-location distribution networks
 
@@ -471,7 +492,7 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ---
 
-### 17. Custom Sub-Agents
+### 18. Custom Sub-Agents
 
 **Focus:** Analyzing codebases, planning, creating, organizing, and documenting custom AI sub-agents for VS Code integration
 
@@ -504,7 +525,7 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ---
 
-### 18. SaaS Seeder
+### 19. SaaS Seeder
 
 **Focus:** Bootstrap a new SaaS repo from the seeder template
 
@@ -528,7 +549,7 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ---
 
-### 17. Vibe Security Skill
+### 20. Vibe Security Skill
 
 **Focus:** Secure coding practices for web applications
 
@@ -550,7 +571,7 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ---
 
-### 18. GIS Mapping (OpenStreetMap)
+### 21. GIS Mapping (OpenStreetMap)
 
 **Focus:** OpenStreetMap-based GIS mapping, location selection, and geofencing patterns
 
@@ -571,6 +592,27 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 **Skill location:** `gis-mapping/SKILL.md`
 
 **Sub-skill:** `gis-mapping/geofencing.md`
+
+---
+
+### 22. Markdown Lint Cleanup
+
+**Focus:** Remove markdown lint warnings and normalize documentation formatting
+
+**When to use:**
+
+- After editing documentation files
+- When markdown lint warnings appear
+- Before publishing or sharing docs
+
+**Key capabilities:**
+
+- Enforces proper headings (no bold-only headings)
+- Adds blank lines around lists and fences
+- Adds language tags to code fences
+- Standardizes markdown spacing with minimal content changes
+
+**Skill location:** `markdown-lint-cleanup/SKILL.md`
 
 ## Installation
 
@@ -622,7 +664,7 @@ For any web application work, always load `vibe-security-skill` alongside the pr
 
 **Creating a distinctive landing page:**
 
-```
+```text
 User: "Create a dashboard UI for a fintech startup with a bold aesthetic"
 Claude: [Loads webapp-gui-design skill]
 [Applies optional frontend design direction within the web app]
@@ -630,7 +672,7 @@ Claude: [Loads webapp-gui-design skill]
 
 **Implementing multi-tenant permissions:**
 
-```
+```text
 User: "Help me design the permission model for our SaaS platform"
 Claude: [Loads multi-tenant-saas-architecture skill]
 [Applies three-panel architecture, zero-trust patterns, audit trails]
@@ -638,7 +680,7 @@ Claude: [Loads multi-tenant-saas-architecture skill]
 
 **Planning a complex feature:**
 
-```
+```text
 User: "I need to implement user authentication with OAuth"
 Claude: [Loads feature-planning skill]
 [Creates spec with user stories, then detailed implementation plan with TDD workflow]
@@ -648,7 +690,7 @@ Claude: [Loads feature-planning skill]
 
 Skills can work together for comprehensive solutions:
 
-```
+```text
 1. Use vibe-security-skill to establish the security baseline
 2. Use feature-planning to create specification and implementation strategy
 3. Use multi-tenant-saas-architecture for backend patterns
@@ -663,7 +705,7 @@ Skills can work together for comprehensive solutions:
 
 Each skill follows a standard structure:
 
-```
+```text
 skill-name/
 ├── SKILL.md             # Main skill instructions (max 500 lines)
 ├── scripts/             # Optional: Executable code for deterministic tasks
@@ -720,7 +762,7 @@ Practical examples of using the skill.
 
 **Example structure:**
 
-```
+```text
 skills/skill-name/
 ├── SKILL.md             # Main patterns (under 500 lines)
 ├── references/          # Database schemas, data models
@@ -785,16 +827,18 @@ skills/skill-name/
 3. **Initialize**: Run `scripts/init_skill.py <skill-name>` (if available)
 4. **Implement**: Create bundled resources and write SKILL.md
 5. **Package**: Run `scripts/package_skill.py <path/to/skill>` (if available)
-6. **Document**: Update README.md, PROJECT_BRIEF.md, and CLAUDE.md
-7. **Commit**: Git commit and push
+6. **Audit**: Run `skill-safety-audit` on the new/updated skill
+7. **Document**: Update README.md, PROJECT_BRIEF.md, and CLAUDE.md
+8. **Commit**: Git commit and push
 
 **Manual workflow** (if scripts unavailable):
 
 1. Create directory: `your-skill-name/`
 2. Write `SKILL.md` with frontmatter (name, description) and body (<500 lines)
 3. Add bundled resources: scripts/, references/, assets/ (as needed)
-4. Update README.md, PROJECT_BRIEF.md, CLAUDE.md
-5. Commit and push
+4. Run `skill-safety-audit` on the new/updated skill
+5. Update README.md, PROJECT_BRIEF.md, CLAUDE.md
+6. Commit and push
 
 **See `skills/skill-writing/SKILL.md` for complete guidance.**
 
@@ -827,7 +871,7 @@ We welcome contributions! To add or improve skills:
 
 ## Repository Structure
 
-```
+```text
 skills/
 ├── multi-tenant-saas-architecture/  # SaaS architecture skill
 │   └── SKILL.md
@@ -856,6 +900,10 @@ skills/
 │   └── references/
 │       └── universal-sales-ui-design.md
 ├── photo-management/             # Photo upload & gallery patterns
+│   └── SKILL.md
+├── skill-safety-audit/            # Skill safety scanning and audit
+│   └── SKILL.md
+├── markdown-lint-cleanup/          # Markdown lint cleanup and formatting
 │   └── SKILL.md
 ├── skills/
 │   └── skill-writing/            # Skill creator (meta-skill)

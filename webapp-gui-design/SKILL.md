@@ -315,6 +315,90 @@ async function apiGet(url, showErrors = true) {
 }
 ```
 
+### Select2 Visual Styling (Standard)
+
+**Make searchable dropdowns visually distinct with a cream background:**
+
+This helps users immediately identify which dropdowns are searchable vs. static.
+
+```css
+/* Custom styling for Select2 searchable dropdowns */
+.select2-container--bootstrap-5 .select2-selection {
+    background-color: #faf9f5 !important;
+    border: 1px solid #d4c5a9 !important;
+    transition: all 0.2s ease;
+}
+
+.select2-container--bootstrap-5 .select2-selection:hover {
+    background-color: #f5f3ed !important;
+    border-color: #c4b599 !important;
+}
+
+.select2-container--bootstrap-5.select2-container--focus .select2-selection,
+.select2-container--bootstrap-5.select2-container--open .select2-selection {
+    background-color: #ffffff !important;
+    border-color: #0d6efd !important;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15);
+}
+
+/* Add a small search icon indicator */
+.select2-container--bootstrap-5 .select2-selection--single::before {
+    content: '\f52a';
+    font-family: 'bootstrap-icons';
+    position: absolute;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6c757d;
+    font-size: 0.875rem;
+    pointer-events: none;
+}
+
+/* Dropdown results styling */
+.select2-container--bootstrap-5 .select2-dropdown {
+    border-color: #d4c5a9;
+}
+
+.select2-container--bootstrap-5 .select2-search--dropdown .select2-search__field {
+    background-color: #faf9f5;
+    border-color: #d4c5a9;
+}
+
+.select2-container--bootstrap-5 .select2-search--dropdown .select2-search__field:focus {
+    background-color: #ffffff;
+    border-color: #0d6efd;
+}
+```
+
+**Visual States:**
+
+- **Default (closed):** Cream background (`#faf9f5`), tan border, search icon visible
+- **Hover:** Slightly darker cream (`#f5f3ed`), darker tan border
+- **Focus/Open:** White background, blue border with glow (standard focus state)
+- **Dropdown search:** Cream background matching main input
+
+**Why This Works:**
+
+✅ **Visual affordance** - Users immediately see which dropdowns are searchable
+✅ **Subtle distinction** - Cream color is noticeable but not jarring
+✅ **Progressive enhancement** - Regular dropdowns remain standard white
+✅ **Accessibility** - Maintains proper contrast ratios
+✅ **Consistency** - All searchable dropdowns have same styling
+
+**Usage Example:**
+
+```javascript
+// Initialize Select2 with Bootstrap 5 theme (required for styling)
+$('#filterAgent').select2({
+    placeholder: 'Search agents...',
+    allowClear: true,
+    width: '100%',
+    theme: 'bootstrap-5'  // Required for cream styling
+});
+```
+
+**Note:** The `theme: 'bootstrap-5'` parameter is required for the cream styling to apply correctly.
+
 ## Page Template
 
 **ALWAYS clone `skeleton.php` for new pages in SaaS Seeder Template.**

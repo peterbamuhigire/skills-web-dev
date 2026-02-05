@@ -1,6 +1,6 @@
 ---
 name: update-claude-documentation
-description: "Update project documentation files (README.md, PROJECT_BRIEF.md, TECH_STACK.md, ARCHITECTURE.md, docs/API.md, docs/DATABASE.md, CLAUDE.md) when significant changes occur. Use for feature additions, architecture changes, dependency updates, API/database modifications. Ensures consistency across all docs."
+description: "Update project documentation files (README.md, PROJECT_BRIEF.md, TECH_STACK.md, ARCHITECTURE.md, docs/API.md, docs/DATABASE.md, CLAUDE.md, docs/plans/NEXT_FEATURES.md) when significant changes occur. MANDATORY at end of each work session to update NEXT_FEATURES.md priority roadmap. Use for feature additions, architecture changes, dependency updates, API/database modifications. Ensures consistency across all docs."
 ---
 
 # Update Claude Documentation
@@ -27,25 +27,66 @@ Update project documentation systematically after significant changes. Keep all 
 ✅ API endpoints or database schema changes
 ✅ Project directory restructuring
 ✅ Development workflow changes
+✅ **End of work session** - User says "update project documentation", "update docs", or "close for the day"
 
 ❌ Typo fixes (do directly)
 ❌ Code comments
 ❌ WIP features not yet merged
 
+## End-of-Session Documentation (CRITICAL)
+
+**When user says "update project documentation", "update docs", or "close for the day":**
+
+**MANDATORY Steps:**
+
+1. **Create completion document** - `docs/plans/YYYY-MM-DD-[feature-name]-completion.md`
+   - Detailed technical report
+   - All features and bug fixes
+   - Code examples and patterns
+   - Key learnings
+
+2. **Update docs/plans/INDEX.md**
+   - Move completed work to "Completed Plans"
+   - Add completion date
+   - Update status
+
+3. **Update docs/plans/NEXT_FEATURES.md** (MANDATORY)
+   - Mark completed features in "Recently Completed"
+   - Update priority levels
+   - Adjust effort estimates
+   - Update recommended next steps
+
+4. **Update MEMORY.md**
+   - Critical patterns discovered
+   - Common mistakes to avoid
+   - API response structures
+   - Key file references
+
+5. **Create end-of-day summary** (Optional but recommended)
+   - `docs/YYYY-MM-DD-END-OF-DAY-SUMMARY.md`
+   - Quick reference for accomplishments
+   - Next session priorities
+
+**This workflow ensures:**
+- Continuity between sessions
+- Knowledge preservation
+- Clear priorities for next session
+- Reduced context loss
+
 ## Documentation Files
 
-| File              | Audience                | Purpose            |
-| ----------------- | ----------------------- | ------------------ |
-| PROJECT_BRIEF.md  | Stakeholders, new devs  | 30-sec overview    |
-| README.md         | Developers              | Setup, usage guide |
-| TECH_STACK.md     | Developers, DevOps      | Tech inventory     |
-| ARCHITECTURE.md   | Senior devs, architects | System design      |
-| docs/API.md       | API consumers           | API reference      |
-| docs/DATABASE.md  | Backend devs, DBAs      | Schema docs        |
-| CLAUDE.md         | Claude Code             | Dev patterns       |
-| docs/setup.md     | Developers              | Setup details      |
-| docs/api.md       | API consumers           | API usage guide    |
-| docs/workflows.md | Developers              | Workflow rules     |
+| File                       | Audience                | Purpose                     | Update Frequency      |
+| -------------------------- | ----------------------- | --------------------------- | --------------------- |
+| PROJECT_BRIEF.md           | Stakeholders, new devs  | 30-sec overview             | Major changes         |
+| README.md                  | Developers              | Setup, usage guide          | Feature additions     |
+| TECH_STACK.md              | Developers, DevOps      | Tech inventory              | Stack changes         |
+| ARCHITECTURE.md            | Senior devs, architects | System design               | Architecture changes  |
+| docs/API.md                | API consumers           | API reference               | API changes           |
+| docs/DATABASE.md           | Backend devs, DBAs      | Schema docs                 | Schema changes        |
+| CLAUDE.md                  | Claude Code             | Dev patterns                | Pattern changes       |
+| docs/plans/NEXT_FEATURES.md| Team, Claude Code       | **Priority roadmap**        | **Every session**     |
+| docs/plans/INDEX.md        | Team, Claude Code       | Plans index                 | Plan status changes   |
+| MEMORY.md                  | Claude Code             | Session memory, learnings   | End of each session   |
 
 ## Change → File Mapping
 
@@ -57,6 +98,9 @@ Update project documentation systematically after significant changes. Keep all 
 - ARCHITECTURE.md (if adds components)
 - CLAUDE.md (if changes patterns)
 - PROJECT_BRIEF.md (if significant)
+- **docs/plans/NEXT_FEATURES.md (MANDATORY - mark as completed, update priorities)**
+- docs/plans/INDEX.md (update status)
+- MEMORY.md (capture key learnings)
 - Each affected `skills/*/SKILL.md` front-matter and hero section should follow the module-header template above so Claude sees the change immediately and can re-trigger the skill with the new context.
 
 **Tech Stack Change:**
@@ -100,6 +144,7 @@ Order: Specific → General
 3. AI Instructions (CLAUDE.md)
 4. User Guides (README.md)
 5. Overview (PROJECT_BRIEF.md)
+6. **Priority Roadmap (docs/plans/NEXT_FEATURES.md)** - MANDATORY every session
 
 ### 3. Read Current State (2-3 min)
 
@@ -128,15 +173,58 @@ Check across all files:
 - [ ] Component names consistent
 - [ ] Features described consistently
 
-### 6. Final Review (1 min)
+### 6. Update NEXT_FEATURES.md (MANDATORY - 5 min)
+
+**CRITICAL:** This MUST be done at the end of every work session, even if no other docs changed.
+
+**When user says "update project documentation" or "close for the day":**
+
+1. **Mark completed work:**
+   - Move completed features from "Active" to "Recently Completed"
+   - Add completion date
+   - Add brief summary of what was delivered
+
+2. **Update priorities:**
+   - Adjust priority levels based on new information
+   - Add newly identified features
+   - Remove obsolete features
+
+3. **Update effort estimates:**
+   - Revise estimates based on recent work velocity
+   - Add new estimates for newly identified work
+
+4. **Update recommended next steps:**
+   - Reflect current project state
+   - Consider dependencies and urgency
+   - Update "Recommended Next Session Plan"
+
+**Template structure:**
+```markdown
+## 🔴 CRITICAL PRIORITY
+[Feature name] - Why critical, effort estimate, start point
+
+## 🟠 HIGH PRIORITY
+[Feature name] - Why high priority, effort estimate, start point
+
+## 🟡 MEDIUM PRIORITY
+[Feature name] - Why medium priority, effort estimate, start point
+
+## ✅ Recently Completed
+[Feature name] - Completion date, brief summary
+```
+
+**Location:** `docs/plans/NEXT_FEATURES.md`
+
+### 7. Final Review (1 min)
 
 - [ ] New dev can understand from README
 - [ ] CLAUDE.md has context
 - [ ] Breaking changes marked
 - [ ] Examples work
 - [ ] No contradictions
+- [ ] **NEXT_FEATURES.md updated with session changes**
 
-**Total:** 15-30 minutes
+**Total:** 20-35 minutes (includes NEXT_FEATURES.md update)
 
 ## Common Mistakes
 

@@ -70,7 +70,7 @@ docs/project-requirements/
    - Security requirements
    - Scalability needs (how many franchises, users per franchise)
    - Usability requirements (mobile, offline, languages)
-   - GIS requirements (maps, geofencing, OpenStreetMap API key if needed)
+   - GIS requirements (Leaflet maps, geofencing, optional tile provider API key if needed)
    - Documentation requirements (manuals, guides, release notes, FAQs)
 
 **Output:** Generate `docs/project-requirements/requirements.md`

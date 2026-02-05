@@ -1,10 +1,10 @@
-# Geofencing Sub-skill (OpenStreetMap + Web Apps)
+# Geofencing Sub-skill (Leaflet-First GIS)
 
-This sub-skill focuses on enforcing geo-fencing with OpenStreetMap in web apps.
+This sub-skill focuses on enforcing geo-fencing with Leaflet-first mapping in web apps.
 
-## 1. Popular OSM Libraries
+## 1. Popular GIS Libraries
 
-### Leaflet (most common)
+### Leaflet (default)
 
 ```javascript
 const map = L.map("map").setView([51.505, -0.09], 13);
@@ -18,7 +18,7 @@ L.tileLayer(osmTileUrl, {
 }).addTo(map);
 ```
 
-### OpenLayers
+### OpenLayers (optional)
 
 ```javascript
 import Map from "ol/Map";

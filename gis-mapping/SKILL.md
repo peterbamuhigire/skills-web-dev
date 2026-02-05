@@ -1,16 +1,35 @@
 ---
 name: gis-mapping
-description: "Use for web apps that need OpenStreetMap-based GIS mapping, location selection, map-driven UIs, or geofencing validation. Covers Leaflet/OpenLayers setup, data storage, and backend validation patterns."
+description: "Use for web apps that need Leaflet-first GIS mapping, location selection, map-driven UIs, or geofencing validation. Covers Leaflet setup, optional tile providers, data storage, and backend validation patterns."
 ---
 
-# GIS Mapping (OpenStreetMap)
+# GIS Mapping (Leaflet-First)
 
 ## Quick Summary
 
-- OpenStreetMap mapping with Leaflet/OpenLayers for web apps
+- Leaflet-first mapping for web apps (default engine)
+- Optional OpenStreetMap tiles or other providers
 - Location selection (marker, polygon, rectangle) + map UI patterns
 - Geofencing enforcement with client + server validation (see geofencing.md)
 - Performance, clustering, and safe storage of spatial data
+
+## Capability Index (Leaflet-First)
+
+Use this index to load only the section you need. Details live in
+[skills/gis-mapping/references/leaflet-capabilities.md](skills/gis-mapping/references/leaflet-capabilities.md).
+
+1. **Basic Mapping & Visualization** (core Leaflet)
+2. **Spatial Queries** (Turf.js)
+3. **Geocoding** (Nominatim or Leaflet Control Geocoder)
+4. **Buffering & Zone Analysis** (Turf.js)
+5. **Heatmaps & Density** (leaflet.heat)
+6. **Routing & Network Analysis** (OSRM / GraphHopper + leaflet-routing-machine)
+7. **Drawing & Editing** (leaflet.draw / Geoman)
+8. **Measurement Tools** (leaflet-measure or custom)
+9. **Clustering & Aggregation** (leaflet.markercluster)
+10. **Spatial Analysis** (Turf.js)
+11. **Time-Based Analysis** (custom + heat)
+12. **Export & Printing** (html2canvas/jsPDF + GeoJSON export)
 
 ## When to Use
 
@@ -21,18 +40,25 @@ description: "Use for web apps that need OpenStreetMap-based GIS mapping, locati
 
 ## Key Patterns
 
-- Always include OSM attribution.
+- Leaflet is the default mapping engine.
+- Always include attribution for the chosen tile provider.
 - Capture geometry in GeoJSON and validate server-side.
 - Use bounding-box checks before deeper polygon math.
 - Cluster markers when data is large or dense.
-- Store the OpenStreetMap API key in system settings (`osm_api_key`) and load it at runtime.
+- Store optional tile provider API keys in system settings (e.g., `osm_api_key`) and load them at runtime.
 - Default to terrain tiles (OpenTopoMap) for administrative borders.
+
+## Leaflet Standardization (BIRDC)
+
+- Use a shared Leaflet configuration for tile URLs, attribution, and defaults.
+- Prefer a shared loader or include pattern so Leaflet CSS/JS is consistent across pages.
+- Use [public/farmer-profile.php](public/farmer-profile.php) as the canonical Leaflet UI reference.
 
 ## Stack Choices (Frontend)
 
-- **Leaflet**: Lightweight, fastest to implement, best for most apps.
-- **OpenLayers**: Heavyweight GIS controls and projections.
-- **MapLibre GL JS**: Vector tiles, smoother at scale.
+- **Leaflet (default)**: Lightweight, fastest to implement, best for most apps.
+- **OpenLayers (optional)**: Heavyweight GIS controls and projections.
+- **MapLibre GL JS (optional)**: Vector tiles, smoother at scale.
 
 ## Data Model & Storage
 
@@ -145,7 +171,7 @@ Always validate coordinates server-side:
 - Ensure latitude is between -90 and 90
 - Ensure longitude is between -180 and 180
 - Enforce geofence boundaries with the same logic as UI
-- Load `osm_api_key` from system settings when building map pages
+- Load optional tile provider keys (for example `osm_api_key`) from system settings when building map pages
 
 ## Privacy & Security
 
@@ -163,3 +189,5 @@ Always validate coordinates server-side:
 ## References
 
 - geofencing.md (sub-skill)
+- references/leaflet-capabilities.md
+- references/leaflet-arcgis-equivalents.md (index)

@@ -94,7 +94,7 @@ When starting a new project:
    - Set SESSION_PREFIX to project-specific value
    - Customize user types enum if needed
    - Update environment variable examples
-   - Register GIS settings when mapping is required (system_settings.osm_api_key)
+   - Register GIS settings when mapping is required (tile provider keys such as system_settings.osm_api_key)
 
 5. **Validate Completeness**
    - Check all requirements are documented

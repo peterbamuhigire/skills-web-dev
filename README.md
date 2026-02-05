@@ -571,9 +571,9 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ---
 
-### 21. GIS Mapping (OpenStreetMap)
+### 21. GIS Mapping (Leaflet-First)
 
-**Focus:** OpenStreetMap-based GIS mapping, location selection, and geofencing patterns
+**Focus:** Leaflet-first GIS mapping, location selection, and geofencing patterns
 
 **When to use:**
 
@@ -584,7 +584,7 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 **Key capabilities:**
 
-- Leaflet/OpenLayers setup with proper OSM attribution
+- Leaflet-first setup with proper tile provider attribution
 - Marker and polygon selection patterns
 - Client + server geo-fence validation (point-in-polygon)
 - Performance guidance (clustering, bounding boxes, debouncing)

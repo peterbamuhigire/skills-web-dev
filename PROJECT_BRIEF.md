@@ -124,12 +124,12 @@ Provide consistent, battle-tested patterns and workflows that can be seamlessly 
 **Use Cases:** Codebase analysis for sub-agent needs, planning agent architecture, creating specialized AI assistants, organizing agent code and documentation, establishing agent development standards
 **Key Features:** Codebase analysis framework, decision criteria for sub-agents vs single LLM, complete folder structure per agent, VS Code integration requirements, self-contained agent organization, comprehensive documentation templates, context window optimization, cross-agent integration patterns
 
-### 16. GIS Mapping (OpenStreetMap)
+### 16. GIS Mapping (Leaflet-First)
 
 **Domain:** GIS & Mapping
-**Purpose:** OpenStreetMap-based mapping, location selection, and geofencing patterns for web apps
+**Purpose:** Leaflet-first mapping, location selection, and geofencing patterns for web apps
 **Use Cases:** Customer/asset/farm mapping, GIS dashboards, boundary enforcement, location selection workflows
-**Key Features:** Leaflet/OpenLayers setup, marker/polygon selection, geo-fencing validation, clustering/performance guidance, server-side validation patterns
+**Key Features:** Leaflet setup, marker/polygon selection, geo-fencing validation, clustering/performance guidance, server-side validation patterns
 
 ## Repository Structure
 

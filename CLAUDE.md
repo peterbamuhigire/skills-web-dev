@@ -441,6 +441,10 @@ Skills are organized by domain:
 
 - **dual-auth-rbac:** Dual authentication (Session + JWT), RBAC, multi-tenant isolation
 
+### Database Skills
+
+- **mysql-best-practices:** **MANDATORY for ALL database work** - Schema design, migrations, stored procedures, indexing, performance, multi-tenant isolation
+
 ### Process Skills
 
 - **feature-planning:** Complete feature planning from specification to implementation, TDD workflows
@@ -449,7 +453,38 @@ Skills are organized by domain:
 
 ### Future Categories
 
-- Testing, DevOps, API Design, Database Design, Performance
+- Testing, DevOps, API Design, Performance
+
+## Database Standards (CRITICAL)
+
+**All database-related work MUST reference mysql-best-practices skill:**
+
+### When to Use mysql-best-practices
+
+✅ **ALWAYS use for:**
+- Database migrations (adding/dropping tables, columns)
+- Schema design and modifications
+- Creating/updating stored procedures, triggers, views
+- Adding indexes or foreign keys
+- Query optimization
+- Multi-tenant isolation patterns
+
+### Migration Checklist (MANDATORY)
+
+The mysql-best-practices skill includes a comprehensive migration checklist that MUST be followed:
+
+**Pre-Migration:**
+1. Grep entire codebase for table/column references
+2. Check all stored procedures, triggers, views
+3. Backup database
+
+**Post-Migration:**
+4. Verify no orphaned references in code
+5. Test all affected endpoints
+6. Export updated schema
+7. Document rollback procedure
+
+**Failure to follow this checklist causes production failures** (see MEMORY.md for examples).
 
 ## Common Workflows
 

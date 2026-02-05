@@ -18,6 +18,8 @@ Production-grade multi-tenant SaaS architecture with strict tenant isolation, ze
 
 **Security Baseline (Required):** Always load and apply the **Vibe Security Skill** for any web app, API, or data access work. Its controls are mandatory alongside multi-tenant patterns.
 
+**Database Standards (Required):** All database work (schema design, migrations, stored procedures, queries) MUST follow **mysql-best-practices** skill patterns. See that skill's migration checklist for required pre/post-migration steps.
+
 **See subdirectories for:**
 
 - `references/` - Database schemas (database-schema.md), permission models (permission-model.md)

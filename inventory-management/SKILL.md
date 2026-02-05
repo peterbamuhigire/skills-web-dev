@@ -8,6 +8,8 @@ description: Coordinate infrastructure for inventory, stock movement, BOMs, valu
 ## Overview
 Pair the existing Maduuka stock-tracking implementation (stock-ledgers, UnitConversionService, stock movements, purchase/sales flows, asset-level constraints) with general bookkeeping principles such as multi-location control, valuation methods, auditing, and SKU types. Use this skill whenever a change touches stock items, transfers, inventory valuation, assembly/BOM flows, stock adjustments, or reporting so Claude can recommend consistent behavior.
 
+**Database Standards:** All inventory database changes (tables, stored procedures, triggers) MUST follow **mysql-best-practices** skill migration checklist to ensure schema-code synchronization.
+
 ## Quick Reference
 - **Product categories**: Recognize services (no stock), direct stock items, bundles, and manufactured assemblies before touching inventory code.
 - **Stock flows**: Follow the purchase → receiving → movement → sale path and keep logs for adjustments/transfers.

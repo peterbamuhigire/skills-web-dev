@@ -316,6 +316,118 @@ SET GLOBAL innodb_stats_auto_recalc = ON;
 -- By date: PARTITION BY RANGE(YEAR(created_at))
 ```
 
+## Database Migrations
+
+### CRITICAL: Schema-Code Synchronization
+
+**Never modify schema without updating ALL references in code.**
+
+### Pre-Migration Checklist (MANDATORY)
+
+Before running ANY migration:
+
+```bash
+# 1. Find all code references to tables/columns being changed
+grep -r "table_name" --include="*.php" --include="*.sql" .
+
+# 2. List all stored procedures that reference the table
+mysql -e "SELECT ROUTINE_NAME FROM INFORMATION_SCHEMA.ROUTINES
+  WHERE ROUTINE_TYPE='PROCEDURE' AND ROUTINE_DEFINITION LIKE '%table_name%'"
+
+# 3. Check for triggers and views
+mysql -e "SHOW TRIGGERS LIKE 'table_name%'"
+mysql -e "SHOW FULL TABLES WHERE TABLE_TYPE LIKE 'VIEW'"
+```
+
+### Migration Workflow
+
+```sql
+-- 1. Backup before migration
+mysqldump --single-transaction --routines --triggers maduuka > backup_pre_migration.sql
+
+-- 2. Run migration in transaction (if possible)
+START TRANSACTION;
+ALTER TABLE tbl_invoices DROP COLUMN old_column;
+-- Test immediately
+SELECT * FROM tbl_invoices LIMIT 1;
+COMMIT;
+
+-- 3. Update stored procedures that reference changed schema
+DROP PROCEDURE IF EXISTS sp_insert_invoice;
+CREATE PROCEDURE sp_insert_invoice(...) BEGIN
+  -- Updated to match new schema
+END;
+
+-- 4. Verify no orphaned references
+-- Check error logs, run affected endpoints
+```
+
+### Post-Migration Verification (MANDATORY)
+
+```bash
+# 1. Verify column removed from all procedures
+mysql -e "SELECT ROUTINE_NAME FROM INFORMATION_SCHEMA.ROUTINES
+  WHERE ROUTINE_DEFINITION LIKE '%dropped_column%'"  # Should return 0 rows
+
+# 2. Check PHP code for removed columns
+grep -r "dropped_column" --include="*.php" .  # Should return 0 results
+
+# 3. Test affected endpoints
+curl http://localhost/api/endpoint
+tail -50 /var/log/php_error.log  # Check for schema errors
+
+# 4. Export updated schema
+mysqldump --no-data --routines --triggers maduuka > database/schema/current.sql
+```
+
+### Migration Best Practices
+
+```sql
+-- ✓ DO: Add columns with defaults (non-breaking)
+ALTER TABLE orders ADD COLUMN tracking_number VARCHAR(50) DEFAULT NULL;
+
+-- ✓ DO: Make columns nullable first, then migrate data
+ALTER TABLE orders MODIFY COLUMN legacy_id INT NULL;
+UPDATE orders SET legacy_id = NULL WHERE legacy_id = 0;
+ALTER TABLE orders DROP COLUMN legacy_id;
+
+-- ✗ DON'T: Drop columns without grep-checking codebase
+-- ALTER TABLE orders DROP COLUMN customer_id;  -- DANGER!
+-- Must verify: grep -r "customer_id" . returns 0 results
+
+-- ✗ DON'T: Rename columns without updating procedures
+-- ALTER TABLE orders CHANGE old_name new_name VARCHAR(50);
+-- Must update: ALL stored procedures, triggers, views, PHP code
+```
+
+### Common Migration Errors
+
+```
+Error: "Unknown column 'customer_id' in 'field list'"
+Cause: Stored procedure references dropped/non-existent column
+Fix: Update procedure to remove column reference
+
+Error: "Table 'tbl_franchise_role_overrides' doesn't exist"
+Cause: Migration dropped table but code still queries it
+Fix: Either restore table or update code to not reference it
+
+Error: "Data truncated for column"
+Cause: Changed column type without migrating existing data
+Fix: Migrate data before changing type, or make column larger
+```
+
+### Migration Rollback
+
+```sql
+-- Always have rollback plan
+-- 1. Keep backup before migration
+-- 2. If migration fails, restore:
+mysql maduuka < backup_pre_migration.sql
+
+-- 3. Document rollback steps in migration file
+-- Rollback: ALTER TABLE orders ADD COLUMN customer_id BIGINT UNSIGNED;
+```
+
 ## Backup
 
 ```sql
@@ -386,6 +498,16 @@ SET GLOBAL wait_timeout = 28800;
 - [ ] Binary logging
 - [ ] Backup testing
 - [ ] Monitoring
+
+**Migrations:**
+
+- [ ] Pre-migration: grep all table/column references
+- [ ] Pre-migration: check stored procedures, triggers, views
+- [ ] Pre-migration: backup database
+- [ ] Post-migration: verify no orphaned references in code
+- [ ] Post-migration: test affected endpoints
+- [ ] Post-migration: export updated schema
+- [ ] Document rollback procedure
 
 ## Summary
 

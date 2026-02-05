@@ -9,6 +9,8 @@ Implement production-grade dual authentication combining session-based (stateful
 
 **Core Principle:** Different clients need different auth strategies. Web UIs benefit from sessions; APIs/mobile need stateless tokens. RBAC must work seamlessly across both.
 
+**Database Standards:** All database schema changes (adding auth tables, stored procedures, indexes) MUST follow **mysql-best-practices** skill migration checklist.
+
 **See references/ for:** `schema.sql` (complete database design with 9 tables)
 
 ## When to Use

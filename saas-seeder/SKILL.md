@@ -11,6 +11,10 @@ Bootstrap a new multi-tenant SaaS project using the SaaS Seeder Template with pr
 
 Always load and apply the **Vibe Security Skill** for any seeder work that touches web pages, APIs, authentication, data access, or file handling. Treat its checklist as mandatory.
 
+## Database Standards (Required)
+
+All database schema setup, seeding, and migrations MUST follow **mysql-best-practices** skill patterns including character sets, indexing, foreign keys, and stored procedures.
+
 ## When to Use
 
 Use when the user says:

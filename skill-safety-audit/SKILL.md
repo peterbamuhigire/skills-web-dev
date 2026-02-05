@@ -30,6 +30,11 @@ Flag any instruction that:
 - Adds new package repositories without approval
 - Uses shell one-liners that execute fetched content
 
+Also scan for:
+
+- **Malicious or unnecessary packages** added without justification
+- **Tooling pulled from unverified sources** (unknown registries, file shares)
+
 ### 2) Credential or Secret Harvesting
 
 Flag any instruction that:
@@ -37,6 +42,11 @@ Flag any instruction that:
 - Requests API keys, passwords, tokens, or secrets
 - Suggests storing secrets in code or committing to git
 - Collects environment variables without necessity
+
+Also scan for:
+
+- **Prompt-injection attempts** embedded in examples or references
+- **Data exfiltration instructions** (upload logs, send files externally)
 
 ### 3) Unauthorized Network or System Actions
 
@@ -54,6 +64,14 @@ Flag any instruction that:
 - Installs system‑level tools unrelated to the task
 - Requires root/admin access without justification
 
+### 5) Hidden Actions in Bundled Resources
+
+Flag any instruction or script that:
+
+- Executes commands not described in the skill body
+- Downloads external content without explicit approval
+- Modifies system settings or policies indirectly
+
 ## Allowed Instructions (Safe Patterns)
 
 - Use existing project tools already documented in this repo
@@ -65,10 +83,11 @@ Flag any instruction that:
 
 1. **Read the new or changed SKILL.md** in full.
 2. **Search for install or execute commands** (curl/wget/powershell, package installs).
-3. **Check for new external dependencies** and verify they are approved.
-4. **Check for credential requests** or any data collection.
-5. **Confirm instructions align with project policies** in `CLAUDE.md` and `.github/copilot-instructions.md`.
-6. **Record outcome**:
+3. **Review bundled scripts and references** for hidden commands or prompt-injection content.
+4. **Check for new external dependencies** and verify they are approved.
+5. **Check for credential requests** or any data collection.
+6. **Confirm instructions align with project policies** in `CLAUDE.md` and `.github/copilot-instructions.md`.
+7. **Record outcome**:
    - ✅ Safe: no malicious or unsafe instructions.
    - ⚠️ Needs review: uncertain or questionable instructions.
    - ❌ Unsafe: remove or reject the skill.

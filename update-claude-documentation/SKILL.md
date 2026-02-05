@@ -13,6 +13,8 @@ Update project documentation systematically after significant changes. Keep all 
 
 **Modularize Instructions (Token Economy):** Avoid packing everything into a single CLAUDE.md. Prefer multiple focused docs (e.g., docs/setup.md, docs/api.md, docs/workflows.md) and reference them only when needed to reduce context bloat.
 
+**CLAUDE.md as Navigation Hub (CRITICAL):** Keep CLAUDE.md under 10k characters as a quick-reference hub with links to detailed documentation. Move verbose sections (detailed workflows, extensive examples, module-specific guides) to appropriate `docs/` subdirectories. CLAUDE.md should provide essential patterns and pointers, not duplicate comprehensive content that exists elsewhere. This reduces AI context window usage by 80%+ and makes information easier to maintain.
+
 **Docs Organization Rule (Required):** All documentation markdown now lives under `docs/` plus a semantic subdirectory (overview, architecture, pharmacy, localization, etc.). Do not add new files directly to the repo root—move existing root markdown into the appropriate `docs/<module>` folder before editing, then update `docs/agents/AGENTS.md` and always update `docs/plans/AGENTS.md` when plans are added or their status changes. The canonical landing doc is now `docs/overview/README.md`, and the root `README.md` should only point people into `docs/`.
 
 **Claude-Ready Module Headers (Required):** Updating documentation now includes refreshing `CLAUDE.md` and the hero portion of each touched skill (`skills/*/SKILL.md`). Claude relies on the YAML `name`/`description` pair and the opening markdown (hero title, quick summary, when-to-use bullets) for each skill, so keep that block aligned with the module-header template in `references/module-header-template.md`. The template spells out the claude-friendly structure with a checklist for ensuring the front-matter description triggers the right use cases and the leading sections stay concise yet informative.
@@ -172,6 +174,16 @@ Check across all files:
 # BAD: Update BRIEF first, then API.md
 
 # GOOD: Update API.md first (precise), then BRIEF (summary)
+```
+
+❌ **Bloated CLAUDE.md with duplicate content**
+
+```markdown
+# BAD: 40k+ character CLAUDE.md with detailed implementation guides
+
+# GOOD: 6k character CLAUDE.md hub linking to docs/coding/UI_DEVELOPMENT_GUIDE.md
+
+# Result: 84% reduction in AI context usage, easier maintenance
 ```
 
 ## Quick Reference

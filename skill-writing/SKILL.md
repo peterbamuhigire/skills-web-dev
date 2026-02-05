@@ -111,6 +111,23 @@ A skill should only contain essential files that directly support its functional
 
 The skill should only contain the information needed for an AI agent to do the job at hand. It should not contain auxilary context about the process that went into creating it, setup and testing procedures, user-facing documentation, etc. Creating additional documentation files just adds clutter and confusion.
 
+### Best Practices (High Impact)
+
+- **Start simple, then add code:** Begin with concise Markdown instructions. Add scripts or code examples only when the workflow demands determinism or repetition.
+- **Write precise descriptions:** Skill metadata should be specific enough to trigger reliably on the intended prompts.
+- **Test prompt phrasing:** Validate triggering across multiple phrasings of the same request to reduce false negatives.
+- **Keep skills focused:** Prefer one skill per workflow; split unrelated workflows into separate skills.
+- **Include sample inputs/outputs:** Add minimal examples to clarify expected usage and results.
+- **Version each release:** Track versions in the skill frontmatter or a top-level version note to enable rollback.
+
+### Security and Risk Awareness
+
+Skills can introduce risk via scripts, references, or instructions. Always:
+
+- **Audit new or updated skills** using the `skill-safety-audit` workflow.
+- **Inspect scripts and references** for hidden installers, prompt-injection patterns, or data exfiltration.
+- **Avoid secrets** in skills, examples, or assets.
+
 ### Progressive Disclosure Design Principle
 
 Skills use a three-level loading system to manage context efficiently:
@@ -327,30 +344,39 @@ Use the following prompt when you want Claude to generate a complete, production
 Use this structure:
 
 ### Name
+
 [What should this skill be called?]
 
 ### Purpose
+
 [What is this skill for? What problem does it solve?]
 
 ### When to Use
+
 [When should Claude use this skill? What triggers would indicate this skill is needed?]
 
 ### Key Concepts/Patterns
+
 [What are the core patterns, rules, or approaches that define this skill?]
 
 ### Implementation Details
+
 [How should this be implemented? Any specific steps, configurations, or important details?]
 
 ### Code Examples (if applicable)
+
 [Concrete code examples showing proper implementation]
 
 ### Common Mistakes
+
 [What are the biggest mistakes people make? What should be avoided?]
 
 ### Bundled Resources (if applicable)
+
 [What files/scripts/assets should be included? What goes in each?]
 
 ### Project Context
+
 [Any specific context about your SaaS projects?]
 
 ##### What You Require from Claude
@@ -358,48 +384,51 @@ Use this structure:
 Generate a SKILL.md file that:
 
 1. **YAML Frontmatter** (required):
-    - `name`: Concise, lowercase, hyphen-separated skill name
-    - `description`: Clear, specific description that tells Claude when to use this skill. Include:
-      - What the skill does
-      - Specific triggers/contexts for when to use it
-      - Key capabilities it covers
-    - Keep the description 1-2 sentences maximum
+   - `name`: Concise, lowercase, hyphen-separated skill name
+   - `description`: Clear, specific description that tells Claude when to use this skill. Include:
+     - What the skill does
+     - Specific triggers/contexts for when to use it
+     - Key capabilities it covers
+   - Keep the description 1-2 sentences maximum
 
 2. **Body Structure** (markdown):
-    - **Overview**: 2-3 sentences explaining the core purpose
-    - **Quick Reference**: Table or brief list of main use cases (if applicable)
-    - **Core Instructions**: Step-by-step guidance for implementing/using this pattern
-    - **Key Patterns**: Specific examples or patterns to follow
-    - **Reference Files**: If you mention bundled files, explain what goes in references/, scripts/, assets/
-    - **Common Pitfalls**: What NOT to do
-    - **Examples**: Concrete examples of proper implementation
+   - **Overview**: 2-3 sentences explaining the core purpose
+   - **Quick Reference**: Table or brief list of main use cases (if applicable)
+   - **Core Instructions**: Step-by-step guidance for implementing/using this pattern
+   - **Key Patterns**: Specific examples or patterns to follow
+   - **Reference Files**: If you mention bundled files, explain what goes in references/, scripts/, assets/
+   - **Common Pitfalls**: What NOT to do
+   - **Examples**: Concrete examples of proper implementation
 
 3. **Content Quality**:
-    - Assume Claude is smart; do not over-explain basic concepts
-    - Focus on what is unique/specific to your implementation, not generic knowledge
-    - Keep it under 500 lines (reference large content separately)
-    - Use imperative language ("Use X", "Implement Y", "Follow Z")
-    - Include code examples only if essential for understanding
+   - Assume Claude is smart; do not over-explain basic concepts
+   - Focus on what is unique/specific to your implementation, not generic knowledge
+   - Keep it under 500 lines (reference large content separately)
+   - Use imperative language ("Use X", "Implement Y", "Follow Z")
+   - Include code examples only if essential for understanding
 
 4. **File References** (if applicable):
-    - If SKILL.md references `scripts/`, `references/`, or `assets/`, explicitly state:
-      - Which files go where
-      - What each file contains
-      - When Claude should use/read that file
+   - If SKILL.md references `scripts/`, `references/`, or `assets/`, explicitly state:
+     - Which files go where
+     - What each file contains
+     - When Claude should use/read that file
 
 5. **Frontmatter Only**:
-    - Include only `name` and `description` in YAML
-    - Do not add license, compatibility, or other fields
+   - Include only `name` and `description` in YAML
+   - Do not add license, compatibility, or other fields
 
 ##### Example of Good Input
 
 ### Name
+
 PDF and Printing Standards
 
 ### Purpose
+
 Standardized mPDF configuration and print queue handling across all SaaS platforms.
 
 ### When to Use
+
 - Implementing PDF exports (invoices, receipts, reports, certificates)
 - Setting up print queues
 - Configuring document output formatting
@@ -407,6 +436,7 @@ Standardized mPDF configuration and print queue handling across all SaaS platfor
 - Handling print-to-queue workflows
 
 ### Key Concepts/Patterns
+
 - All PDFs use mPDF 8.1.3
 - Standard page layout: A4, 10mm margins, DejaVuSansMono font
 - Headers: Company logo + date
@@ -415,6 +445,7 @@ Standardized mPDF configuration and print queue handling across all SaaS platfor
 - Print queue uses synchronous processing with error logging
 
 ### Implementation Details
+
 - Initialize mPDF before adding content
 - Embed all fonts
 - Use CMYK color mode for production printing
@@ -422,21 +453,25 @@ Standardized mPDF configuration and print queue handling across all SaaS platfor
 - Log errors to /var/log/pdf-errors.log
 
 ### Code Examples
+
 [Include your exact mPDF configuration code here]
 
 ### Common Mistakes
+
 - Using RGB colors instead of CMYK
 - Not embedding fonts
 - Initializing mPDF after adding content
 - Missing error handling for large documents
 
 ### Bundled Resources
+
 - scripts/pdf_generator.php: Base PDFGenerator class
 - scripts/print_handler.php: Print queue management
 - references/mpdf_config.md: Exact configuration parameters
 - references/templates.md: Standard templates
 
 ### Project Context
+
 Building African-focused SaaS platforms with local printing standards.
 
 ### Step 5: Packaging a Skill
@@ -456,7 +491,6 @@ scripts/package_skill.py <path/to/skill-folder> ./dist
 The packaging script will:
 
 1. **Validate** the skill automatically, checking:
-
    - YAML frontmatter format and required fields
    - Skill naming conventions and directory structure
    - Description completeness and quality

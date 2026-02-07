@@ -34,7 +34,40 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ## Available Skills
 
-### 1. Multi-Tenant SaaS Architecture
+### 1. Android Development
+
+**Focus:** Android development standards for AI agent implementation
+
+**When to use:**
+
+- Building new Android applications or features
+- Reviewing Android code for quality and standards compliance
+- Generating Kotlin/Compose code via AI agents
+- Setting up Android project structure
+- Implementing security, testing, or performance patterns
+- Integrating with REST APIs from Android clients
+
+**Key capabilities:**
+
+- Kotlin 100% with Jetpack Compose UI
+- MVVM + Clean Architecture (data, domain, presentation layers)
+- Hilt dependency injection with proper scoping
+- Comprehensive security (EncryptedSharedPreferences, cert pinning, biometrics)
+- Material 3 design system with reusable components
+- Complete screen patterns (list, form, detail with pull-to-refresh)
+- Testing standards (ViewModel, UseCase, Compose UI tests with Turbine/MockK)
+- Gradle KTS build configuration with version catalog
+- Retrofit API integration with typed error handling
+- Firebase analytics and performance monitoring
+- AI agent quality checklist for generated code
+
+**Skill location:** `android-development/SKILL.md`
+
+**Reference files:** `references/` (12 topic-specific guides covering project structure, Kotlin conventions, architecture, DI, security, UI, screens, testing, build config, API integration, analytics, and AI guidelines)
+
+---
+
+### 2. Multi-Tenant SaaS Architecture
 
 **Focus:** Production-grade multi-tenant platform patterns
 
@@ -1075,6 +1108,9 @@ We welcome contributions! To add or improve skills:
 
 ```text
 skills/
+├── android-development/             # Android dev standards
+│   ├── SKILL.md
+│   └── references/                  # 12 topic-specific guides
 ├── multi-tenant-saas-architecture/  # SaaS architecture skill
 │   └── SKILL.md
 ├── feature-planning/             # Complete feature planning skill (spec + implementation)

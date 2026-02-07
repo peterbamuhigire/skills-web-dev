@@ -83,6 +83,7 @@ Claude: "I'm using the webapp-gui-design skill to create a polished dashboard UI
 
 ```
 skills/
+├── android-development/             # Android dev standards (Kotlin, Compose, MVVM, Hilt)
 ├── multi-tenant-saas-architecture/  # SaaS backend patterns
 ├── feature-planning/                # Complete feature planning (spec + implementation)
 ├── ai-assisted-development/         # AI agent orchestration for development workflows

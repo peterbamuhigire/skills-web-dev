@@ -1,0 +1,342 @@
+# Screen Implementation Patterns
+
+Complete screen templates with state management, error handling, and lifecycle awareness.
+
+## Standard Screen Template
+
+Every screen should include:
+1. State management with ViewModel
+2. Error handling with retry
+3. Loading states
+4. Empty states
+5. Pull-to-refresh
+6. Side effect handling
+
+```kotlin
+@Composable
+fun UserProfileScreen(
+    userId: String,
+    onNavigateBack: () -> Unit,
+    onEditProfile: () -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: UserProfileViewModel = hiltViewModel()
+) {
+    // Collect UI state (lifecycle-aware)
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    // Handle one-time side effects
+    val snackbarHostState = remember { SnackbarHostState() }
+
+    LaunchedEffect(Unit) {
+        viewModel.sideEffects.collect { effect ->
+            when (effect) {
+                is SideEffect.ShowMessage -> {
+                    snackbarHostState.showSnackbar(effect.message)
+                }
+                is SideEffect.NavigateTo -> {
+                    // Handle navigation
+                }
+            }
+        }
+    }
+
+    // Initial data load
+    LaunchedEffect(userId) {
+        viewModel.loadUserProfile(userId)
+    }
+
+    // Screen structure
+    Scaffold(
+        topBar = {
+            StandardTopBar(
+                title = "Profile",
+                onNavigationClick = onNavigateBack,
+                actions = {
+                    IconButton(onClick = onEditProfile) {
+                        Icon(Icons.Default.Edit, contentDescription = "Edit")
+                    }
+                }
+            )
+        },
+        snackbarHost = { SnackbarHost(snackbarHostState) }
+    ) { paddingValues ->
+        UserProfileContent(
+            uiState = uiState,
+            onRefresh = viewModel::refreshProfile,
+            modifier = modifier.padding(paddingValues)
+        )
+    }
+
+    // Error dialog (separate from content)
+    uiState.error?.let { error ->
+        AlertDialog(
+            onDismissRequest = viewModel::clearError,
+            title = { Text("Error") },
+            text = { Text(error) },
+            confirmButton = {
+                TextButton(onClick = viewModel::retry) { Text("Retry") }
+            },
+            dismissButton = {
+                TextButton(onClick = viewModel::clearError) { Text("Dismiss") }
+            }
+        )
+    }
+}
+```
+
+## Content with Pull-to-Refresh
+
+```kotlin
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun UserProfileContent(
+    uiState: UserProfileUiState,
+    onRefresh: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val pullRefreshState = rememberPullToRefreshState()
+
+    PullToRefreshBox(
+        isRefreshing = uiState.isRefreshing,
+        onRefresh = onRefresh,
+        state = pullRefreshState,
+        modifier = modifier.fillMaxSize()
+    ) {
+        when {
+            uiState.isLoading && uiState.user == null -> {
+                LoadingIndicator()
+            }
+            uiState.isEmpty -> {
+                EmptyState(
+                    title = "No Profile Data",
+                    message = "Complete your profile to get started",
+                    actionText = "Complete Profile",
+                    onAction = { /* navigate */ }
+                )
+            }
+            uiState.user != null -> {
+                LazyColumn(
+                    verticalArrangement = Arrangement.spacedBy(DesignSystem.Spacing.md),
+                    contentPadding = PaddingValues(DesignSystem.Spacing.md)
+                ) {
+                    item { UserHeaderCard(uiState.user) }
+                    item { StatsSection(uiState.stats) }
+
+                    if (uiState.recentActivity.isNotEmpty()) {
+                        item {
+                            Text(
+                                "Recent Activity",
+                                style = MaterialTheme.typography.titleMedium
+                            )
+                        }
+                        items(
+                            items = uiState.recentActivity,
+                            key = { it.id }
+                        ) { activity ->
+                            ActivityItem(activity)
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
+## List Screen Pattern
+
+```kotlin
+@Composable
+fun OrderListScreen(
+    onNavigateBack: () -> Unit,
+    onOrderClick: (String) -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: OrderListViewModel = hiltViewModel()
+) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val searchQuery by viewModel.searchQuery.collectAsStateWithLifecycle()
+
+    Scaffold(
+        topBar = {
+            SearchableTopBar(
+                title = "Orders",
+                searchQuery = searchQuery,
+                onSearchQueryChange = viewModel::onSearchQueryChange,
+                onNavigationClick = onNavigateBack
+            )
+        },
+        floatingActionButton = {
+            FloatingActionButton(onClick = { /* create new */ }) {
+                Icon(Icons.Default.Add, contentDescription = "New Order")
+            }
+        }
+    ) { paddingValues ->
+        OrderListContent(
+            uiState = uiState,
+            onOrderClick = onOrderClick,
+            onRefresh = viewModel::refresh,
+            onLoadMore = viewModel::loadNextPage,
+            modifier = modifier.padding(paddingValues)
+        )
+    }
+}
+
+@Composable
+private fun OrderListContent(
+    uiState: OrderListUiState,
+    onOrderClick: (String) -> Unit,
+    onRefresh: () -> Unit,
+    onLoadMore: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    when {
+        uiState.isLoading && uiState.orders.isEmpty() -> LoadingIndicator()
+        uiState.orders.isEmpty() -> EmptyState(
+            title = "No Orders",
+            message = "You haven't placed any orders yet"
+        )
+        else -> {
+            LazyColumn(
+                modifier = modifier.fillMaxSize(),
+                contentPadding = PaddingValues(DesignSystem.Spacing.md),
+                verticalArrangement = Arrangement.spacedBy(DesignSystem.Spacing.sm)
+            ) {
+                items(
+                    items = uiState.orders,
+                    key = { it.id }
+                ) { order ->
+                    OrderCard(
+                        order = order,
+                        onClick = { onOrderClick(order.id) }
+                    )
+                }
+
+                // Pagination loading
+                if (uiState.hasMore) {
+                    item {
+                        LaunchedEffect(Unit) { onLoadMore() }
+                        Box(
+                            modifier = Modifier.fillMaxWidth().padding(DesignSystem.Spacing.md),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            CircularProgressIndicator(modifier = Modifier.size(24.dp))
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
+## Form Screen Pattern
+
+```kotlin
+@Composable
+fun EditProfileScreen(
+    onNavigateBack: () -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: EditProfileViewModel = hiltViewModel()
+) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val formState by viewModel.formState.collectAsStateWithLifecycle()
+
+    // Confirm discard on back press with unsaved changes
+    var showDiscardDialog by remember { mutableStateOf(false) }
+    BackHandler(enabled = formState.hasChanges) {
+        showDiscardDialog = true
+    }
+
+    Scaffold(
+        topBar = {
+            StandardTopBar(
+                title = "Edit Profile",
+                onNavigationClick = {
+                    if (formState.hasChanges) showDiscardDialog = true
+                    else onNavigateBack()
+                },
+                actions = {
+                    TextButton(
+                        onClick = viewModel::save,
+                        enabled = formState.isValid && !uiState.isSaving
+                    ) {
+                        if (uiState.isSaving) {
+                            CircularProgressIndicator(
+                                modifier = Modifier.size(16.dp),
+                                strokeWidth = 2.dp
+                            )
+                        } else {
+                            Text("Save")
+                        }
+                    }
+                }
+            )
+        }
+    ) { paddingValues ->
+        Column(
+            modifier = modifier
+                .padding(paddingValues)
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
+                .padding(DesignSystem.Spacing.md),
+            verticalArrangement = Arrangement.spacedBy(DesignSystem.Spacing.md)
+        ) {
+            OutlinedTextField(
+                value = formState.name,
+                onValueChange = viewModel::onNameChange,
+                label = { Text("Name") },
+                isError = formState.nameError != null,
+                supportingText = formState.nameError?.let { { Text(it) } },
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            OutlinedTextField(
+                value = formState.email,
+                onValueChange = viewModel::onEmailChange,
+                label = { Text("Email") },
+                isError = formState.emailError != null,
+                supportingText = formState.emailError?.let { { Text(it) } },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            OutlinedTextField(
+                value = formState.phone,
+                onValueChange = viewModel::onPhoneChange,
+                label = { Text("Phone") },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
+    }
+
+    if (showDiscardDialog) {
+        AlertDialog(
+            onDismissRequest = { showDiscardDialog = false },
+            title = { Text("Discard Changes?") },
+            text = { Text("You have unsaved changes. Are you sure you want to leave?") },
+            confirmButton = {
+                TextButton(onClick = { showDiscardDialog = false; onNavigateBack() }) {
+                    Text("Discard")
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showDiscardDialog = false }) {
+                    Text("Keep Editing")
+                }
+            }
+        )
+    }
+}
+```
+
+## Screen Pattern Rules
+
+1. **Screen composable** owns Scaffold, receives navigation callbacks
+2. **Content composable** is private, receives uiState, handles display only
+3. **ViewModel** manages state and business logic, never UI elements
+4. **Side effects** via Channel for one-time events (snackbar, navigation)
+5. **Back handler** for unsaved changes in form screens
+6. **Pull-to-refresh** for data-display screens
+7. **Pagination** via `LaunchedEffect` at list bottom
+8. **Keys** always provided in `LazyColumn` items

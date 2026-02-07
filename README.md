@@ -867,6 +867,183 @@ skills/skill-name/
 
 **See `skills/skill-writing/SKILL.md` for complete guidance.**
 
+---
+
+## 🤖 AI-Assisted Development Skills (New in v3.1)
+
+**Purpose:** Skills that enhance Claude Code's ability to help you develop software by enforcing patterns, preventing errors, and optimizing AI-assisted workflows.
+
+### AI-Assisted Development
+
+**Focus:** Orchestrating multiple AI agents in software development workflows
+
+**When to use:**
+
+- Coordinating multiple AI agents on a single project
+- Planning complex features with AI assistance
+- Setting up multi-agent development pipelines
+- Optimizing AI-assisted development processes
+
+**Key capabilities:**
+
+- 5 orchestration strategies (Sequential, Parallel, Conditional, Looping, Retry)
+- 3 AI-specific patterns (Agent Handoff, Fan-Out/Fan-In, Human-in-the-Loop)
+- Real-world examples from MADUUKA and BRIGHTSOMA applications
+- 30-75% faster development through parallelization
+- Complete references for strategies, patterns, and practical examples
+
+**Skill location:** `ai-assisted-development/SKILL.md`
+
+---
+
+### AI Error Prevention
+
+**Focus:** Error prevention strategies for AI-assisted development (Trust But Verify)
+
+**When to use:**
+
+- Working with Claude to generate code (use always!)
+- Want to minimize wasted tokens on wrong solutions
+- Need to catch Claude's mistakes early
+- Developing production-ready code with AI
+
+**Key capabilities:**
+
+- **7 prevention strategies:** Verification-First, Test-Driven Validation, Specification Matching, Incrementalism, Dual Approach, Fallback Code, Documentation Validation
+- **Common failure modes:** Hallucination, Incomplete Solutions, Misunderstanding, Lazy Solutions, Wrong Patterns
+- **App-specific checklists:** MADUUKA, MEDIC8, BRIGHTSOMA, DDA, CROWNPOINT
+- **Token savings:** 50-75% reduction in wasted tokens through early error detection
+- Prevents errors BEFORE they happen by changing HOW you interact with Claude
+
+**Skill location:** `ai-error-prevention/SKILL.md`
+
+---
+
+### Orchestration Best Practices
+
+**Focus:** The 10 Commandments of Orchestration for multi-step workflows
+
+**When to use:**
+
+- Generating code for multi-step workflows
+- Agent coordination tasks
+- Complex process implementation
+- System design with multiple components
+
+**Key capabilities:**
+
+- **The 10 rules:** Define steps, identify dependencies, validate inputs, handle errors, validate outputs, log progress, document thoroughly, test comprehensively, have fallbacks, consider parallelization
+- Complete code examples showing good vs bad patterns
+- Verification checklist for all generated code
+- Anti-patterns guide to avoid common mistakes
+- Ensures consistent code structure across all AI-generated code
+
+**Skill location:** `orchestration-best-practices/SKILL.md`
+
+---
+
+### AI Error Handling
+
+**Focus:** 5-layer validation stack for AI-generated code
+
+**When to use:**
+
+- Validating AI-generated code before production
+- Ensuring code correctness and security
+- Building production-ready code with AI
+- Need systematic verification approach
+
+**Key capabilities:**
+
+- **5 validation layers:** Syntax, Requirements, Testing, Security, Documentation
+- Quality scoring system (0-100 with 80% acceptance threshold)
+- Validation loop with max 3 iterations
+- Automated recovery strategies for each failure type
+- Integration with ai-error-prevention for complete workflow
+
+**Skill location:** `ai-error-handling/SKILL.md`
+
+---
+
+### Reference Guides
+
+#### Prompting Patterns Reference
+
+**Focus:** 10 essential patterns for better AI instructions
+
+**Key capabilities:**
+
+- Clear Task + Context + Constraints, Chain-of-Thought, Few-Shot Learning, Role-Based, Structured Output, etc.
+- Reduces clarification questions by 50%
+- Improves first-time-right code by 60%
+- 4x faster implementation with better prompts
+
+**File:** `prompting-patterns-reference.md`
+
+---
+
+#### Orchestration Patterns Reference
+
+**Focus:** Comprehensive guide for coordinating multiple agents/tasks
+
+**Key capabilities:**
+
+- 5 orchestration types with real-world examples
+- 4 core patterns (Map-Reduce, Pipeline, Fan-Out/Fan-In, Circuit Breaker)
+- Decision trees and complexity vs performance analysis
+- 30-50% faster execution through smart orchestration
+
+**File:** `orchestration-patterns-reference.md`
+
+---
+
+#### Encoding Patterns into Skills
+
+**Focus:** How to create skills that automatically enforce patterns
+
+**Key capabilities:**
+
+- Formula: Rules + Examples + Checklists + Decision Trees
+- Pattern encoding templates
+- Skill effectiveness and iteration strategies
+- Makes Claude automatically follow your patterns
+
+**File:** `encoding-patterns-into-skills.md`
+
+---
+
+### How AI Skills Work Together
+
+```
+REQUEST PREPARATION (ai-error-prevention)
+├─ Use prompting patterns
+├─ Break into small steps
+└─ Clear task + context + constraints
+    ↓
+CLAUDE GENERATES CODE
+    ↓
+IMMEDIATE VERIFICATION (ai-error-prevention)
+├─ Verification-First strategy
+├─ Test-Driven Validation
+└─ Specification Matching
+    ↓
+STRUCTURE CHECK (orchestration-best-practices)
+├─ Steps clearly defined?
+├─ Dependencies identified?
+└─ Error handling present?
+    ↓
+VALIDATION (ai-error-handling)
+├─ 5-layer validation stack
+└─ Quality threshold >= 80/100
+    ↓
+ACCEPTANCE OR ITERATION
+└─ All checks passed? → USE CODE ✓
+```
+
+**Result:** Production-ready code, 50-75% fewer wasted tokens, higher quality output
+
+---
+
 ## Contributing
 
 We welcome contributions! To add or improve skills:

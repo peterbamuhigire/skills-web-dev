@@ -86,6 +86,9 @@ skills/
 ├── multi-tenant-saas-architecture/  # SaaS backend patterns
 ├── feature-planning/                # Complete feature planning (spec + implementation)
 ├── ai-assisted-development/         # AI agent orchestration for development workflows
+├── ai-error-prevention/             # Error prevention for AI-assisted development (trust but verify)
+├── orchestration-best-practices/    # The 10 commandments of orchestration
+├── ai-error-handling/               # 5-layer validation stack for AI output
 ├── update-claude-documentation/     # Documentation maintenance
 ├── doc-architect/                   # Triple-Layer AGENTS.md generator
 ├── manual-guide/                    # End-user manuals and guides

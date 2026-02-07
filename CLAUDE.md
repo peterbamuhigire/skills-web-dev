@@ -124,6 +124,36 @@ description: When to use this skill
 4. **Define scope clearly:** When to use and when not to use
 5. **Include anti-patterns:** Show what to avoid
 
+## Documentation Standards (MANDATORY)
+
+**CRITICAL:** ALL markdown files (.md) created in this repository MUST follow strict standards:
+
+✅ **500-line hard limit for ALL .md files** - No exceptions
+- SKILL.md files: Max 500 lines
+- Plan documents: Max 500 lines per file
+- Specifications: Max 500 lines per file
+- Manuals: Max 500 lines per page
+- Reference docs: Max 500 lines per file
+- Any other .md file: Max 500 lines
+
+✅ **Two-tier documentation structure** (Required)
+- **Tier 1:** High-level table of contents / index docs (200-300 lines)
+- **Tier 2:** Deep dive topic-specific docs (max 500 lines each)
+
+✅ **Smart subdirectory grouping** (Required)
+- Group related docs in logical subdirectories
+- Module-based: `docs/inventory/`, `docs/sales/`
+- Type-based: `docs/coding/`, `docs/testing/`
+- Workflow-based: `docs/buy-matooke/`, `docs/manufacturing/`
+
+✅ **Regular documentation grooming**
+- Improves session bootstrapping
+- Reduces token consumption
+- Better AI comprehension
+- Easier knowledge transfer
+
+📖 **See `skills/doc-standards.md` for complete requirements and examples**
+
 ## Skills Best Practices & Checklist
 
 ### Structure Requirements
@@ -145,8 +175,8 @@ description: When to use this skill
 ```
 skills/skill-name/
 ├── SKILL.md             # Core patterns (max 500 lines, strictly enforced)
-├── references/          # Database schemas, data models, specifications
-├── documentation/       # Detailed guides (monitoring.md, migration.md, etc.)
+├── references/          # Database schemas, data models (max 500 lines each)
+├── documentation/       # Detailed guides (max 500 lines each)
 └── examples/            # Code examples, templates, implementations
 ```
 

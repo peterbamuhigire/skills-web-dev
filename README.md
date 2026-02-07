@@ -751,34 +751,59 @@ Detailed patterns, code examples, and best practices.
 Practical examples of using the skill.
 ```
 
+### Documentation Standards (MANDATORY)
+
+**CRITICAL:** ALL markdown files (.md) created in skills and projects MUST follow strict standards:
+
+✅ **500-line hard limit for ALL .md files** - No exceptions
+- SKILL.md: Max 500 lines
+- Plan docs: Max 500 lines per file
+- Specs: Max 500 lines per file
+- Manuals: Max 500 lines per page
+- Reference docs: Max 500 lines each
+- Any other .md: Max 500 lines
+
+✅ **Two-tier structure** (Required)
+- **Tier 1:** High-level TOC/index (200-300 lines)
+- **Tier 2:** Deep dive topics (max 500 lines each)
+
+✅ **Smart subdirectory grouping**
+- Module-based, type-based, or workflow-based
+- Logical organization improves AI comprehension
+
+✅ **Regular grooming** - Improves session bootstrapping and reduces token costs
+
+📖 **See `skills/doc-standards.md` for complete requirements**
+
 ### Skills Checklist
 
 #### Structure Requirements
 
 ✅ **One SKILL.md per skill** (required, max 500 lines)
 ✅ **Keep skills one level deep** in /skills/ directory
-✅ **Subdirectories for details:** references/, documentation/, examples/
+✅ **Subdirectories for details:** references/, documentation/, examples/ (each file max 500 lines)
 ✅ **Self-contained:** No dependencies between skills
 
 **Example structure:**
 
 ```text
 skills/skill-name/
-├── SKILL.md             # Main patterns (under 500 lines)
-├── references/          # Database schemas, data models
-├── documentation/       # Detailed guides (feature-flags.md, monitoring.md)
+├── SKILL.md             # Main patterns (max 500 lines)
+├── references/          # Database schemas, data models (max 500 lines each)
+├── documentation/       # Detailed guides (max 500 lines each)
 └── examples/            # Code examples, templates
 ```
 
 #### SKILL.md Essentials
 
-✅ **500-line hard limit** (enforced strictly)
+✅ **500-line hard limit for ALL .md files** (enforced strictly)
 ✅ **Scannable by AI:** Clear headings, bullet points, specific commands
 ✅ **Focus on core patterns** applicable to 75-90% of use cases
 ✅ **Avoid generic tasks** AI already knows (basic CRUD, standard patterns)
 ✅ **Move details to subdirectories** (schemas, verbose guides, examples)
 ✅ **Frontmatter with name + description** (description acts as trigger)
 ✅ **Reference subdirectory files** in SKILL.md (so Claude knows they exist)
+✅ **Applies to ALL docs created by skills** (plans, specs, manuals, guides)
 
 #### Usage with Claude Code CLI
 

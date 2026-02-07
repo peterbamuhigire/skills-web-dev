@@ -9,6 +9,12 @@ Design and generate a portable Triple-Layer AGENTS.md documentation set that ref
 
 **Modularize Instructions (Token Economy):** Avoid consolidating all AI/dev guidance into a single CLAUDE.md. Prefer smaller, focused docs (e.g., docs/setup.md, docs/api.md, docs/workflows.md) and reference them only when needed.
 
+**Documentation Standards (MANDATORY):** ALL generated markdown files must follow strict formatting rules:
+- **500-line hard limit** - no exceptions for any .md file
+- **Two-tier structure**: High-level TOC (Tier 1) + Deep dive docs (Tier 2)
+- **Smart subdirectory grouping** for related documentation
+- **See `skills/doc-standards.md` for complete requirements**
+
 ## Core Outcome
 
 Produce three aligned AGENTS.md files:

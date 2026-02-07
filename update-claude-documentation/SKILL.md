@@ -11,6 +11,12 @@ Update project documentation systematically after significant changes. Keep all 
 
 **Style Rule:** Be precise and concise. Do not add verbose or unnecessary text to any documentation file.
 
+**Documentation Standards (MANDATORY):** ALL markdown files (.md) must follow strict formatting rules:
+- **500-line hard limit** - no exceptions
+- **Two-tier structure**: High-level TOC docs + Deep dive topic docs
+- **Smart subdirectory grouping** for related documentation
+- **See `skills/doc-standards.md` for complete requirements**
+
 **Modularize Instructions (Token Economy):** Avoid packing everything into a single CLAUDE.md. Prefer multiple focused docs (e.g., docs/setup.md, docs/api.md, docs/workflows.md) and reference them only when needed to reduce context bloat.
 
 **CLAUDE.md as Navigation Hub (CRITICAL):** Keep CLAUDE.md under 10k characters as a quick-reference hub with links to detailed documentation. Move verbose sections (detailed workflows, extensive examples, module-specific guides) to appropriate `docs/` subdirectories. CLAUDE.md should provide essential patterns and pointers, not duplicate comprehensive content that exists elsewhere. This reduces AI context window usage by 80%+ and makes information easier to maintain.

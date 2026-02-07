@@ -15,6 +15,12 @@ End-user manuals and system guides are **required** deliverables for any SaaS ap
 - The manual includes step-by-step instructions, screenshots/visuals, and edge cases
 - The manual is aligned with the feature spec and user workflows
 
+**Documentation Standards (MANDATORY):** ALL manual files must follow strict formatting rules:
+- **500-line hard limit** per manual page - no exceptions
+- **Two-tier structure**: Manual index/TOC + Individual topic pages (max 500 lines each)
+- **Smart subdirectory grouping** in `/manuals/` by module
+- **See `skills/doc-standards.md` for complete requirements**
+
 ## Trigger Phrases
 
 Activate when the user asks to:

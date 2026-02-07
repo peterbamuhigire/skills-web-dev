@@ -13,6 +13,12 @@ Complete feature development planning from **specification** to **implementation
 **Save implementation plans to:** `docs/plans/YYYY-MM-DD-[feature-name].md`
 **Save multi-file plans to:** `docs/plans/[feature-name]/` (implementation details)
 
+**Documentation Standards (MANDATORY):** ALL plan and spec files must follow strict formatting rules:
+- **500-line hard limit** per file - no exceptions
+- **Two-tier structure**: Plan overview/index + Detailed section files (max 500 lines each)
+- **Smart subdirectory grouping** for complex plans
+- **See `skills/doc-standards.md` for complete requirements**
+
 **Plan directory index (required):** Update `docs/plans/AGENTS.md` whenever a plan or spec is added.
 **Plans status index (required):** Update `docs/plans/INDEX.md` whenever a plan is created, modified, implemented, or completed. Record status, urgency, last implementation date, and last modification date.
 

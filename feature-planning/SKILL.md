@@ -165,6 +165,15 @@ Break each feature into one-action steps (2-5 minutes):
 **Index File:** `docs/plans/YYYY-MM-DD-[feature-name].md`
 **Section Files:** `docs/plans/[feature-name]/` (for complex features)
 
+**📖 IMPORTANT:** Use **Prompting Patterns** for better plans. See `references/prompting-patterns.md` for:
+- Clear Task + Context + Constraints (every task)
+- Chain-of-Thought for complex logic
+- Few-Shot Learning for code examples
+- Structured Output for tests
+- Constraints for scope control
+
+Apply these patterns to make plans AI-agent executable with minimal clarification.
+
 ```
 docs/plans/
 ├── AGENTS.md                              # Plans directory index
@@ -179,22 +188,39 @@ docs/plans/
 
 ### Task Structure Template
 
+**💡 Use Prompting Patterns:** Every task should include TASK + CONTEXT + CONSTRAINTS. See `references/prompting-patterns.md` for examples.
+
 ````markdown
 ### Task N: [Component Name]
 
-**Files:**
+**FILE:** `exact/path/to/file.py`
 
-- Create: `exact/path/to/file.py`
-- Modify: `exact/path/to/existing.py:123-145`
-- Test: `tests/exact/path/to/test.py`
+**TASK:** [Specific action to perform - clear and unambiguous]
 
-**Step 1: Write failing test**
+**CONTEXT:** [Why this is needed - business/technical reason]
 
+**CONSTRAINTS:**
+- [Technical constraint 1]
+- [Limit/requirement 2]
+- [Standard/convention 3]
+
+**THINK STEP-BY-STEP:** (for complex tasks)
+1. [Step 1] - [Reasoning]
+2. [Step 2] - [Reasoning]
+3. [Final approach]
+
+**CODE:**
 ```python
-def test_specific_behavior():
-    result = function(input)
-    assert result == expected
+def function_name(input: Type) -> ReturnType:
+    """Clear docstring."""
+    # Complete, runnable implementation
+    return result
 ```
+
+**VALIDATION:**
+- [ ] Test passes
+- [ ] Follows project conventions
+- [ ] Handles edge cases
 ````
 
 **Step 2: Run test to verify failure**

@@ -85,6 +85,7 @@ Claude: "I'm using the webapp-gui-design skill to create a polished dashboard UI
 skills/
 ├── multi-tenant-saas-architecture/  # SaaS backend patterns
 ├── feature-planning/                # Complete feature planning (spec + implementation)
+├── ai-assisted-development/         # AI agent orchestration for development workflows
 ├── update-claude-documentation/     # Documentation maintenance
 ├── doc-architect/                   # Triple-Layer AGENTS.md generator
 ├── manual-guide/                    # End-user manuals and guides
@@ -98,6 +99,8 @@ skills/
 ├── gis-mapping/                     # OpenStreetMap GIS + geofencing
 ├── vibe-security-skill/             # Secure coding for web apps
 ├── skill-writing/                   # Skill creator (meta-skill)
+├── prompting-patterns-reference.md  # Prompting patterns for AI instructions
+├── orchestration-patterns-reference.md # Orchestration strategies for multi-agent workflows
 ├── doc-standards.md                 # Documentation formatting standards (MANDATORY)
 ├── claude-guides/                   # Deep dive guides (this file's Tier 2)
 │   ├── skill-creation-workflow.md   # Creating and modifying skills

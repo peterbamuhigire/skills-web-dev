@@ -165,14 +165,23 @@ Break each feature into one-action steps (2-5 minutes):
 **Index File:** `docs/plans/YYYY-MM-DD-[feature-name].md`
 **Section Files:** `docs/plans/[feature-name]/` (for complex features)
 
-**📖 IMPORTANT:** Use **Prompting Patterns** for better plans. See `references/prompting-patterns.md` for:
+**📖 IMPORTANT:** Use **Prompting Patterns** and **Orchestration** for better plans:
+
+**Prompting Patterns** (`references/prompting-patterns.md`):
 - Clear Task + Context + Constraints (every task)
 - Chain-of-Thought for complex logic
 - Few-Shot Learning for code examples
 - Structured Output for tests
 - Constraints for scope control
 
-Apply these patterns to make plans AI-agent executable with minimal clarification.
+**Orchestration** (`references/orchestration-patterns.md`):
+- Sequential for dependent tasks (database → model → controller)
+- Parallel for independent tasks (API + UI simultaneously - 30% faster)
+- Conditional for different paths (if external API vs if CSV import)
+- Looping for repeated processes (multi-module setup)
+- Retry for unreliable operations (external APIs)
+
+Apply these patterns to make plans AI-agent executable with minimal clarification and optimal execution.
 
 ```
 docs/plans/

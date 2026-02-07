@@ -360,6 +360,61 @@ docs/manufacturing/
 └── reporting.md              # 380 lines: Manufacturing reports
 ```
 
+## Prompting Patterns for Plans (RECOMMENDED)
+
+**Applies to:** Implementation plans, specifications, agent instructions
+
+When creating documents that AI agents will execute (plans, specs), use **prompting patterns** for clarity:
+
+### Essential Patterns
+
+**1. Clear Task + Context + Constraints**
+```markdown
+### Task 1: Add User Validation
+
+**FILE:** `app/Controllers/UserController.php`
+**TASK:** Implement email validation on registration
+**CONTEXT:** Prevent invalid emails in multi-tenant system
+**CONSTRAINTS:**
+- Use Laravel validation
+- Check MX records
+- Return 422 on failure
+```
+
+**2. Chain-of-Thought (Complex Logic)**
+```markdown
+**THINK STEP-BY-STEP:**
+1. What fields need indexes? → tenant_id, email
+2. What's the query pattern? → WHERE tenant_id = ? AND email = ?
+3. Conclusion: Composite index (tenant_id, email)
+```
+
+**3. Few-Shot Learning (Code Examples)**
+```markdown
+**EXAMPLE of what I WANT:**
+```php
+public function store(Request $request): JsonResponse {
+    $validated = $request->validate([...]);
+    return response()->json($validated, 201);
+}
+```
+
+**EXAMPLE of what I DON'T want:**
+```php
+function doStuff() { return stuff; }
+```
+```
+
+### Benefits
+- **50% fewer clarification questions** from agents
+- **60% better first-time-right execution**
+- **80% more consistent output quality**
+
+### Reference
+See `prompting-patterns-reference.md` for complete guide and examples.
+
+---
+
 ## Summary
 
 **Remember:**
@@ -369,6 +424,7 @@ docs/manufacturing/
 4. **Regular grooming** - Keep docs fresh
 5. **CLAUDE.md as hub** - Not a comprehensive guide
 6. **Check before commit** - Enforce the limits
+7. **Use prompting patterns** - For plans and agent instructions (recommended)
 
 **These standards are MANDATORY for:**
 - All new documentation

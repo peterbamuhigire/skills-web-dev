@@ -234,11 +234,32 @@ private fun CardPreview() {
 
 ## Responsive Design
 
-### Adaptive Spacing
+All apps MUST work on phones AND tablets. Use `WindowSizeClass` for adaptive layouts — never hardcode device checks. See `responsive-adaptive.md` for the complete 4-step playbook.
+
+### Adaptive Spacing (WindowSizeClass-Based)
 
 ```kotlin
-val screenPadding = if (isTablet()) 24.dp else 16.dp
-val maxContentWidth = 600.dp // Prevent overly wide content on tablets
+// Use WindowSizeClass breakpoints — not isTablet() booleans
+val screenPadding = when {
+    windowSizeClass.isWidthAtLeastBreakpoint(
+        WindowSizeClass.WIDTH_DP_EXPANDED_LOWER_BOUND
+    ) -> 32.dp
+    windowSizeClass.isWidthAtLeastBreakpoint(
+        WindowSizeClass.WIDTH_DP_MEDIUM_LOWER_BOUND
+    ) -> 24.dp
+    else -> 16.dp
+}
+
+// Constrain content width on large screens
+val maxContentWidth = when {
+    windowSizeClass.isWidthAtLeastBreakpoint(
+        WindowSizeClass.WIDTH_DP_EXPANDED_LOWER_BOUND
+    ) -> 840.dp
+    windowSizeClass.isWidthAtLeastBreakpoint(
+        WindowSizeClass.WIDTH_DP_MEDIUM_LOWER_BOUND
+    ) -> 600.dp
+    else -> Dp.Unspecified
+}
 
 Box(
     modifier = Modifier.fillMaxSize(),
@@ -246,7 +267,10 @@ Box(
 ) {
     Column(
         modifier = Modifier
-            .widthIn(max = maxContentWidth)
+            .then(
+                if (maxContentWidth != Dp.Unspecified) Modifier.widthIn(max = maxContentWidth)
+                else Modifier.fillMaxWidth()
+            )
             .padding(horizontal = screenPadding)
     ) {
         // Content stays readable on all screen sizes
@@ -266,3 +290,5 @@ Box(
 - [ ] Dark theme looks intentional, not accidental
 - [ ] Whitespace is generous - screen doesn't feel cramped
 - [ ] Visual hierarchy is clear within 2 seconds of looking
+- [ ] Layout adapts properly on phone, tablet, and foldable screens
+- [ ] No wall of whitespace or stretched components on tablets

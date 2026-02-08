@@ -143,6 +143,92 @@ val bottomNavItems = listOf(
 )
 ```
 
+### Adaptive Navigation (Phone/Tablet/Desktop)
+
+Navigation components adapt based on `WindowSizeClass`. See `responsive-adaptive.md` for the full pattern.
+
+| Width Class | Component | Usage |
+|-------------|-----------|-------|
+| **Compact** | `NavigationBar` | Bottom bar (phones) |
+| **Medium** | `NavigationRail` | Side rail (tablets portrait, foldables) |
+| **Expanded** | `PermanentNavigationDrawer` | Permanent drawer (tablets landscape) |
+
+```kotlin
+@Composable
+fun AdaptiveMainScreen(
+    windowSizeClass: WindowSizeClass,
+    navController: NavHostController = rememberNavController()
+) {
+    val currentRoute = navController.currentBackStackEntryAsState()
+        .value?.destination?.route
+
+    // Helper: standard nav click with state save
+    val onNavClick: (String) -> Unit = { route ->
+        navController.navigate(route) {
+            popUpTo(navController.graph.findStartDestination().id) { saveState = true }
+            launchSingleTop = true; restoreState = true
+        }
+    }
+
+    when {
+        windowSizeClass.isWidthAtLeastBreakpoint(
+            WindowSizeClass.WIDTH_DP_EXPANDED_LOWER_BOUND
+        ) -> {
+            PermanentNavigationDrawer(
+                drawerContent = {
+                    PermanentDrawerSheet(Modifier.width(240.dp)) {
+                        navItems.forEach { item ->
+                            NavigationDrawerItem(
+                                label = { Text(item.label) },
+                                selected = currentRoute == item.route,
+                                onClick = { onNavClick(item.route) },
+                                icon = { Icon(item.icon, item.label) },
+                                modifier = Modifier.padding(horizontal = 12.dp)
+                            )
+                        }
+                    }
+                }
+            ) { AppNavigation(navController) }
+        }
+        windowSizeClass.isWidthAtLeastBreakpoint(
+            WindowSizeClass.WIDTH_DP_MEDIUM_LOWER_BOUND
+        ) -> {
+            Row {
+                NavigationRail {
+                    Spacer(Modifier.weight(1f))
+                    navItems.forEach { item ->
+                        NavigationRailItem(
+                            selected = currentRoute == item.route,
+                            onClick = { onNavClick(item.route) },
+                            icon = { Icon(item.icon, item.label) },
+                            label = { Text(item.label) }
+                        )
+                    }
+                    Spacer(Modifier.weight(1f))
+                }
+                Box(Modifier.weight(1f)) { AppNavigation(navController) }
+            }
+        }
+        else -> {
+            Scaffold(bottomBar = {
+                NavigationBar {
+                    navItems.forEach { item ->
+                        NavigationBarItem(
+                            selected = currentRoute == item.route,
+                            onClick = { onNavClick(item.route) },
+                            icon = { Icon(item.icon, item.label) },
+                            label = { Text(item.label) }
+                        )
+                    }
+                }
+            }) { padding ->
+                Box(Modifier.padding(padding)) { AppNavigation(navController) }
+            }
+        }
+    }
+}
+```
+
 ### Navigation Best Practices
 
 - Pass only IDs as arguments, not objects
@@ -150,6 +236,7 @@ val bottomNavItems = listOf(
 - Use `launchSingleTop = true` to avoid duplicate screens
 - Screen composables receive navigation callbacks, never `NavController`
 - ViewModel gets IDs from `SavedStateHandle`, not composable arguments
+- Adapt navigation component by screen width (bottom bar / rail / drawer)
 
 ```kotlin
 @HiltViewModel

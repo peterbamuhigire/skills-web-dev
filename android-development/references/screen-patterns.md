@@ -332,6 +332,105 @@ fun EditProfileScreen(
 }
 ```
 
+## Adaptive List-Detail Pattern
+
+The standard approach for list screens that need a detail view on tablets. Two-pane on medium/expanded, single-pane navigation on compact.
+
+```kotlin
+@Composable
+fun AdaptiveItemListScreen(
+    windowSizeClass: WindowSizeClass,
+    onNavigateBack: () -> Unit,
+    viewModel: ItemListViewModel = hiltViewModel(),
+    navController: NavHostController = rememberNavController()
+) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val selectedItem = viewModel.getItemById(viewModel.selectedItemId)
+
+    Scaffold(
+        topBar = {
+            StandardTopBar(title = "Items", onNavigationClick = onNavigateBack)
+        }
+    ) { padding ->
+        when {
+            windowSizeClass.isWidthAtLeastBreakpoint(
+                WindowSizeClass.WIDTH_DP_MEDIUM_LOWER_BOUND
+            ) -> {
+                // Two-pane: list + detail side by side
+                Row(modifier = Modifier.padding(padding).fillMaxSize()) {
+                    ItemListContent(
+                        uiState = uiState,
+                        onItemClick = { viewModel.selectItem(it) },
+                        modifier = Modifier.weight(0.4f)
+                    )
+                    VerticalDivider()
+                    if (selectedItem != null) {
+                        ItemDetailContent(
+                            item = selectedItem,
+                            modifier = Modifier.weight(0.6f)
+                        )
+                        BackHandler { viewModel.selectItem(null) }
+                    } else {
+                        Box(
+                            modifier = Modifier.weight(0.6f).fillMaxHeight(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(
+                                "Select an item to view details",
+                                style = MaterialTheme.typography.bodyLarge,
+                                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
+                            )
+                        }
+                    }
+                }
+            }
+            else -> {
+                // Single-pane: navigate between list and detail
+                NavHost(
+                    navController = navController,
+                    startDestination = "list",
+                    modifier = Modifier.padding(padding)
+                ) {
+                    composable("list") {
+                        ItemListContent(
+                            uiState = uiState,
+                            onItemClick = { id ->
+                                viewModel.selectItem(id)
+                                navController.navigate("detail/$id")
+                            }
+                        )
+                    }
+                    composable(
+                        "detail/{itemId}",
+                        arguments = listOf(navArgument("itemId") { type = NavType.StringType })
+                    ) { backStackEntry ->
+                        val itemId = backStackEntry.arguments?.getString("itemId")
+                        val item = viewModel.getItemById(itemId)
+                        if (item != null) {
+                            ItemDetailContent(
+                                item = item,
+                                showBackButton = true,
+                                onBack = {
+                                    viewModel.selectItem(null)
+                                    navController.popBackStack()
+                                }
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
+**Key rules for adaptive list-detail:**
+- ViewModel holds selection state (not the composable)
+- `BackHandler` in two-pane clears selection instead of exiting
+- Detail pane shows placeholder when nothing is selected
+- Use `VerticalDivider()` between panes for visual separation
+- Weight ratio 0.4/0.6 is the standard starting point
+
 ## Screen Pattern Rules
 
 1. **Screen composable** owns Scaffold, receives navigation callbacks
@@ -342,3 +441,5 @@ fun EditProfileScreen(
 6. **Pull-to-refresh** for data-display screens
 7. **Pagination** via `LaunchedEffect` at list bottom
 8. **Keys** always provided in `LazyColumn` items
+9. **Adaptive layouts** — screens with list+detail must use two-pane on tablets
+10. **WindowSizeClass** passed to screens that adapt their layout

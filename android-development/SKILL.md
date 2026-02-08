@@ -78,6 +78,8 @@ com.company.app/
 - `LaunchedEffect` for side effects, never in composition
 - `collectAsStateWithLifecycle()` for Flow collection
 - Stable keys for `LazyColumn`/`LazyRow` items
+- **Adaptive layouts mandatory** — use `WindowSizeClass` for phone/tablet/foldable
+- Material 3 adaptive library: `androidx.compose.material3.adaptive:adaptive`
 
 ### Security
 
@@ -112,6 +114,8 @@ com.company.app/
 - Missing `key` parameter in `LazyColumn` items
 - God ViewModels (split by feature, not by screen)
 - Ignoring lifecycle (use `collectAsStateWithLifecycle`)
+- Building phone-only UIs — all screens must adapt to tablets/foldables
+- Using hardcoded `isTablet()` checks instead of `WindowSizeClass` breakpoints
 
 ## Integration with Other Skills
 

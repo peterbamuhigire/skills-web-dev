@@ -17,6 +17,7 @@ description: "Jetpack Compose UI standards for beautiful, sleek, minimalistic An
 4. **Speed is UX** - If it feels slow, it's broken regardless of how it looks
 5. **Content-first hierarchy** - Important information is immediately visible
 6. **Touch-friendly targets** - Minimum 48dp for all interactive elements
+7. **Adaptive by default** - Every screen MUST work on phones AND tablets
 
 ### Visual Standards
 
@@ -25,7 +26,7 @@ description: "Jetpack Compose UI standards for beautiful, sleek, minimalistic An
 | **Corner radius** | 12-16dp for cards, 8dp for inputs, 24dp for FABs |
 | **Card elevation** | 0-2dp (subtle shadows, never heavy) |
 | **Content padding** | 16dp horizontal, 8-16dp vertical between items |
-| **Screen padding** | 16dp all sides (24dp on tablets) |
+| **Screen padding** | 16dp compact, 24dp medium, 32dp expanded |
 | **Touch targets** | Minimum 48dp height/width |
 | **Icon size** | 24dp standard, 20dp in buttons, 48dp for empty states |
 | **Typography scale** | Use Material 3 type scale exclusively |
@@ -35,6 +36,7 @@ description: "Jetpack Compose UI standards for beautiful, sleek, minimalistic An
 | Topic | Reference File | When to Use |
 |-------|---------------|-------------|
 | **Design Philosophy** | `references/design-philosophy.md` | Visual standards, spacing, color, typography |
+| **Responsive & Adaptive** | `references/responsive-adaptive.md` | WindowSizeClass, phone/tablet layouts, adaptive nav |
 | **Composable Patterns** | `references/composable-patterns.md` | State hoisting, MVVM, screen templates |
 | **Layouts & Components** | `references/layout-and-components.md` | Layouts, modifiers, Material components |
 | **Animation & Polish** | `references/animation-and-polish.md` | Transitions, micro-interactions, loading |
@@ -157,6 +159,38 @@ private fun FeatureContent(
     }
 }
 ```
+
+## Responsive & Adaptive Design (MANDATORY)
+
+All apps MUST be responsive for phones and tablets. Use `WindowSizeClass` from the Material 3 adaptive library — never hardcode device checks.
+
+**4-Step Playbook:** Know your space → Pass it down → Adapt layout → Polish transitions
+
+```kotlin
+// Step 1: Calculate in MainActivity
+val windowSizeClass = currentWindowAdaptiveInfo().windowSizeClass
+
+// Step 2: Pass to composables that need to adapt
+@Composable
+fun MyScreen(windowSizeClass: WindowSizeClass, ...) {
+    // Step 3: Switch layout based on breakpoint
+    when {
+        windowSizeClass.isWidthAtLeastBreakpoint(
+            WindowSizeClass.WIDTH_DP_MEDIUM_LOWER_BOUND
+        ) -> { /* Two-pane / Row layout for tablets */ }
+        else -> { /* Single-pane / Column layout for phones */ }
+    }
+}
+```
+
+**Key rules:**
+- Compact (<600dp): single column, bottom nav
+- Medium (600-840dp): optional two-pane, navigation rail
+- Expanded (>840dp): two-pane, permanent nav drawer
+- Use `AnimatedContent` for smooth layout transitions between size classes
+- Use `rememberSaveable` for state that must survive configuration changes
+
+See `references/responsive-adaptive.md` for complete patterns, adaptive navigation, and list-detail templates.
 
 ## Theming (Consistent Across Apps)
 
@@ -346,11 +380,13 @@ Crossfade(targetState = currentTab, label = "tab") { tab ->
 - Hoist all state out of reusable composables
 - Use `Modifier` parameter with default on every composable
 - Use MaterialTheme tokens for all colors, typography, shapes
-- Provide `@Preview` for every public composable (light + dark)
+- Provide `@Preview` for every public composable (light + dark + tablet)
 - Use `key` parameter in all lazy lists
 - Handle Loading, Error, Empty states on every screen
 - Keep composables small and focused (one responsibility)
 - Use `remember` for expensive computations
+- Use `WindowSizeClass` for adaptive layouts (phone/tablet/foldable)
+- Test on both phone and tablet emulators before shipping
 
 ### DON'T
 
@@ -362,6 +398,8 @@ Crossfade(targetState = currentTab, label = "tab") { tab ->
 - Skip the empty/error states ("I'll add them later")
 - Use heavy animations that block the UI thread
 - Nest scrollable containers (LazyColumn inside Column with scroll)
+- Hardcode `isTablet()` booleans — use `WindowSizeClass` breakpoints
+- Ship without verifying the UI on a tablet-sized screen
 
 ## Integration with Other Skills
 

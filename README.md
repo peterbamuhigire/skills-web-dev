@@ -67,6 +67,72 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ---
 
+### 1b. Android Test-Driven Development (TDD)
+
+**Focus:** TDD methodology for Android apps with Red-Green-Refactor cycle
+
+**When to use:**
+
+- Building Android features with test-first methodology
+- Setting up test infrastructure for Android projects
+- Reviewing test quality and coverage patterns
+- Onboarding teams to TDD practices for Android
+- Integrating CI/CD test pipelines for Android
+
+**Key capabilities:**
+
+- Red-Green-Refactor cycle enforcement
+- Test pyramid strategy (70% unit, 20% integration, 10% UI)
+- Layer-specific testing: Domain, ViewModel, Repository, Database, Network, UI
+- Coroutine and Flow testing with Turbine
+- LiveData testing with InstantTaskExecutorRule
+- MockWebServer for API layer testing
+- Room in-memory database testing
+- Espresso and Compose UI testing
+- Test data factories and parameterized tests
+- Hilt testing configuration
+- GitHub Actions CI pipeline setup
+- JaCoCo code coverage integration
+- Team adoption strategy and legacy code handling
+
+**Skill location:** `android-tdd/SKILL.md`
+
+**Reference files:** `references/` (5 deep-dive guides: TDD workflow, testing by layer, advanced techniques, tools & CI, team adoption)
+
+---
+
+### 1c. Jetpack Compose UI
+
+**Focus:** Beautiful, sleek, minimalistic Compose UI standard across all apps
+
+**When to use:**
+
+- Building any Compose UI screen or component
+- Ensuring consistent design language across apps
+- Reviewing Compose code for visual quality and performance
+- Implementing animations, transitions, and loading states
+- Setting up theming, navigation, and Material 3 patterns
+
+**Key capabilities:**
+
+- Design philosophy: minimalism, consistency, whitespace, content-first hierarchy
+- Material 3 theming with dynamic color support and dark theme
+- Spacing system (4dp grid), typography hierarchy, shape language
+- State hoisting and unidirectional data flow enforcement
+- Screen templates: List, Detail, Form (with complete code)
+- Shimmer/skeleton loading, pull-to-refresh, pagination
+- Micro-interactions: press effects, counter animations, staggered lists
+- AnimatedVisibility, Crossfade, AnimatedContent transitions
+- Navigation setup with bottom nav, arguments, and screen transitions
+- Performance: stability, remember, derivedStateOf, lazy list optimization
+- Component library: buttons, cards, text fields, chips, bottom sheets, dialogs
+
+**Skill location:** `jetpack-compose-ui/SKILL.md`
+
+**Reference files:** `references/` (5 deep-dive guides: design philosophy, composable patterns, layouts & components, animation & polish, navigation & performance)
+
+---
+
 ### 2. Multi-Tenant SaaS Architecture
 
 **Focus:** Production-grade multi-tenant platform patterns
@@ -1111,6 +1177,12 @@ skills/
 ├── android-development/             # Android dev standards
 │   ├── SKILL.md
 │   └── references/                  # 12 topic-specific guides
+├── android-tdd/                     # Android TDD methodology
+│   ├── SKILL.md
+│   └── references/                  # 5 deep-dive guides
+├── jetpack-compose-ui/              # Compose UI standards
+│   ├── SKILL.md
+│   └── references/                  # 5 deep-dive guides
 ├── multi-tenant-saas-architecture/  # SaaS architecture skill
 │   └── SKILL.md
 ├── feature-planning/             # Complete feature planning skill (spec + implementation)

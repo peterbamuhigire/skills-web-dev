@@ -2,6 +2,8 @@
 
 Material 3 design tokens and reusable component standards.
 
+**References:** See [Compose Samples](https://github.com/android/compose-samples) - JetNews (Material theming), Jetchat (Material 3 + dynamic colors), Jetsnack (custom design systems + animations), Reply (adaptive UI for phone/tablet/foldable).
+
 ## Design Tokens
 
 ```kotlin

@@ -129,16 +129,29 @@ vibe-security-skill        -> Security review
 
 **Always apply `vibe-security-skill`** alongside this skill for web-connected Android apps.
 
-## Reference Implementation
+## Reference Implementations
 
-**Now in Android** ([github.com/android/nowinandroid](https://github.com/android/nowinandroid)) is Google's official fully-functional reference app. Use it as the canonical example of:
+Google maintains three official reference repos. Use them as canonical examples:
 
-- Multi-module architecture with convention plugins
-- Jetpack Compose UI with Material 3
-- Offline-first with Room + network sync
-- Hilt dependency injection across modules
-- Kotlin coroutines + Flow for reactive data
-- Comprehensive testing (unit, UI, screenshot)
-- Build configuration with version catalogs and Gradle KTS
+### Now in Android ([github.com/android/nowinandroid](https://github.com/android/nowinandroid))
 
-When in doubt about how to structure something, check how Now in Android does it.
+Full production-quality app. **Use for:** multi-module architecture, convention plugins, offline-first (Room + network sync), Hilt across modules, version catalogs, Gradle KTS build config.
+
+### Architecture Samples ([github.com/android/architecture-samples](https://github.com/android/architecture-samples))
+
+Layered architecture TODO app. **Use for:** MVVM pattern clarity, Repository pattern with dual data sources, single-activity navigation with Compose, product flavors (mock/prod), comprehensive test suite (unit + integration + E2E), clean separation of concerns.
+
+### Compose Samples ([github.com/android/compose-samples](https://github.com/android/compose-samples))
+
+Collection of focused Compose apps. **Use for specific UI patterns:**
+
+| Sample | Use For |
+|--------|---------|
+| **JetNews** | Material app structure, theming, Compose testing |
+| **Jetchat** | Material 3, dynamic colors, navigation, state management |
+| **Jetsnack** | Custom design systems, layouts, animations |
+| **Jetcaster** | Redux-style architecture, dynamic theming, Room, coroutines |
+| **Reply** | Adaptive UI (phone/tablet/foldable), Material 3 |
+| **JetLagged** | Custom layouts, graphics, Canvas/Path drawing |
+
+When in doubt about how to implement something, check these repos first.

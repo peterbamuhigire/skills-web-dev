@@ -2,6 +2,8 @@
 
 Comprehensive testing patterns for ViewModels, Use Cases, and Compose UI.
 
+**References:** See [Architecture Samples](https://github.com/android/architecture-samples) for shared test implementations (unit + integration + E2E) and [JetNews](https://github.com/android/compose-samples/tree/main/JetNews) for Compose UI testing patterns.
+
 ## Test Structure
 
 ```

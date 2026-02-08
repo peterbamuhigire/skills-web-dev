@@ -2,7 +2,9 @@
 
 Standard Android project layout for scalable, maintainable applications.
 
-**Reference:** See [Now in Android](https://github.com/android/nowinandroid) for a production multi-module layout.
+**References:**
+- [Now in Android](https://github.com/android/nowinandroid) - production multi-module layout with convention plugins
+- [Architecture Samples](https://github.com/android/architecture-samples) - single-module layered layout with product flavors (mock/prod)
 
 ## Directory Layout
 

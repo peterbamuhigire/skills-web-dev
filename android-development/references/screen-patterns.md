@@ -2,6 +2,8 @@
 
 Complete screen templates with state management, error handling, and lifecycle awareness.
 
+**References:** See [Compose Samples](https://github.com/android/compose-samples) for real screen implementations and [Architecture Samples](https://github.com/android/architecture-samples) for MVVM screen patterns with Repository integration.
+
 ## Standard Screen Template
 
 Every screen should include:

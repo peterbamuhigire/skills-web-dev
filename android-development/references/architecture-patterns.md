@@ -2,7 +2,9 @@
 
 MVVM with Clean Architecture for scalable, testable Android applications.
 
-**Reference:** See [Now in Android](https://github.com/android/nowinandroid) for a production example of these patterns.
+**References:**
+- [Now in Android](https://github.com/android/nowinandroid) - production multi-module architecture
+- [Architecture Samples](https://github.com/android/architecture-samples) - clean MVVM layering, Repository pattern, dual data sources, test strategy
 
 ## Layer Overview
 

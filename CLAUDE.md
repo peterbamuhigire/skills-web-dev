@@ -86,6 +86,7 @@ skills/
 ├── android-development/             # Android dev standards (Kotlin, Compose, MVVM, Hilt)
 ├── android-tdd/                     # Android TDD (Red-Green-Refactor, test pyramid, CI)
 ├── jetpack-compose-ui/              # Compose UI (beautiful, minimalistic, Material 3)
+├── android-data-persistence/        # Room, DataStore, API sync, offline-first
 ├── multi-tenant-saas-architecture/  # SaaS backend patterns
 ├── feature-planning/                # Complete feature planning (spec + implementation)
 ├── ai-assisted-development/         # AI agent orchestration for development workflows

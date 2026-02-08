@@ -133,6 +133,41 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ---
 
+### 1d. Android Data Persistence
+
+**Focus:** Room database, DataStore, file storage, and API-backed cloud sync
+
+**When to use:**
+
+- Implementing any local data storage in Android apps
+- Setting up Room database with entities, DAOs, and migrations
+- Building offline-first features with API sync
+- Choosing between DataStore, SharedPreferences, Room, or file storage
+- Implementing Repository pattern for data layer
+- Caching API responses locally
+
+**Key capabilities:**
+
+- Storage decision guide (DataStore vs Room vs Files vs API sync)
+- Room essentials: entities, DAOs, database setup, TypeConverters, Hilt modules
+- Room advanced: one-to-many/many-to-many relations, migrations, auto-migrations
+- DataStore for preferences (replacing SharedPreferences)
+- EncryptedSharedPreferences for sensitive data
+- Internal/external file storage patterns
+- Repository pattern: Room as cache + custom API backend sync
+- Three sync strategies: cache-first, network-first, offline queue
+- Offline queue with WorkManager for write operations
+- Data layer mapping: DTO -> Entity -> Domain model separation
+- Network connectivity awareness
+- Paging 3 integration with Room
+- Migration testing patterns
+
+**Skill location:** `android-data-persistence/SKILL.md`
+
+**Reference files:** `references/` (4 deep-dive guides: Room essentials, Room advanced, local storage, API sync patterns)
+
+---
+
 ### 2. Multi-Tenant SaaS Architecture
 
 **Focus:** Production-grade multi-tenant platform patterns
@@ -1183,6 +1218,9 @@ skills/
 ├── jetpack-compose-ui/              # Compose UI standards
 │   ├── SKILL.md
 │   └── references/                  # 5 deep-dive guides
+├── android-data-persistence/        # Data persistence & sync
+│   ├── SKILL.md
+│   └── references/                  # 4 deep-dive guides
 ├── multi-tenant-saas-architecture/  # SaaS architecture skill
 │   └── SKILL.md
 ├── feature-planning/             # Complete feature planning skill (spec + implementation)

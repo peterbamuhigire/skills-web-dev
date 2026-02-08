@@ -21,6 +21,22 @@
 
 This skill guides the construction of distinctive, production-grade frontend interfaces that avoid generic “AI slop” aesthetics. Implement real working code with exceptional attention to detail and creative choices. When the user provides frontend requirements—be it a component, page, application, or interface—treat the ask as a chance to craft something unforgettable rather than a safe, templated layout. Refer to the complete terms in LICENSE.txt when invoking this aesthetic directive.
 
+## Executive UI Mode (C-Suite)
+
+When the UI is for executives or owners, enforce these rules:
+
+- Dashboard-first: show 4-6 KPIs at the top, then approvals, then reports.
+- At-a-glance: large numbers, short labels, one-line trend context.
+- Minimalism: remove secondary controls by default; hide advanced filters behind a toggle.
+- Actionability: pair insights with clear next actions (Approve, Decline, Contact).
+- Speed: prioritize first paint and cached summaries over deep tables.
+- Device-agnostic: identical workflows across desktop and mobile.
+- Readability: high contrast, large base font, plain language labels.
+- Dark mode: offer optional dark mode for extended viewing.
+- Brand control: use the product primary color for key highlights only.
+
+**Dynapharm brand note:** primary color is deep red. Use it sparingly for primary actions and critical highlights, never for large background fills.
+
 ### Design Thinking
 
 Before coding, understand the context and commit to a bold aesthetic direction:

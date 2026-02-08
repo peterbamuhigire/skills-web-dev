@@ -131,6 +131,13 @@ Provide consistent, battle-tested patterns and workflows that can be seamlessly 
 **Use Cases:** Customer/asset/farm mapping, GIS dashboards, boundary enforcement, location selection workflows
 **Key Features:** Leaflet setup, marker/polygon selection, geo-fencing validation, clustering/performance guidance, server-side validation patterns
 
+### 17. Google Play Store Review Readiness
+
+**Domain:** Android Release Compliance
+**Purpose:** Ensure Play Store submissions pass policy and technical checks quickly
+**Use Cases:** Preparing Android releases, validating data safety, permissions, ads, IAP, store listing accuracy, and reviewer notes
+**Key Features:** Policy compliance checklist, Data Safety alignment, permission discipline, target SDK hygiene, ads and monetization checks, review notes template, pre-submission test plan
+
 ## Repository Structure
 
 ```

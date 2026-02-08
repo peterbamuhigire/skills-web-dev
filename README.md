@@ -168,6 +168,33 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ---
 
+### 1e. Google Play Store Review Readiness
+
+**Focus:** Play Store policy compliance and first-time approval readiness
+
+**When to use:**
+
+- Preparing an Android release for Play Console submission
+- Validating policy compliance, data safety, and permissions
+- Checking ads, IAP, subscriptions, and store listing accuracy
+- Writing reviewer notes and running pre-submission checks
+
+**Key capabilities:**
+
+- Policy compliance checklist for restricted content and deceptive UX
+- Data Safety form alignment with SDKs and permissions
+- Permission discipline and runtime request patterns
+- Target SDK and background work hygiene
+- Store listing accuracy checks for screenshots and claims
+- Monetization compliance for subscriptions and trials
+- Review notes template and pre-submission test list
+
+**Skill location:** `google-play-store-review/SKILL.md`
+
+**Reference files:** `references/review-checklist.md`
+
+---
+
 ### 2. Multi-Tenant SaaS Architecture
 
 **Focus:** Production-grade multi-tenant platform patterns
@@ -1221,6 +1248,9 @@ skills/
 ├── android-data-persistence/        # Data persistence & sync
 │   ├── SKILL.md
 │   └── references/                  # 4 deep-dive guides
+├── google-play-store-review/        # Play Store review readiness
+│   ├── SKILL.md
+│   └── references/
 ├── multi-tenant-saas-architecture/  # SaaS architecture skill
 │   └── SKILL.md
 ├── feature-planning/             # Complete feature planning skill (spec + implementation)

@@ -87,6 +87,7 @@ skills/
 ├── android-tdd/                     # Android TDD (Red-Green-Refactor, test pyramid, CI)
 ├── jetpack-compose-ui/              # Compose UI (beautiful, minimalistic, Material 3)
 ├── android-data-persistence/        # Room, DataStore, API sync, offline-first
+├── google-play-store-review/        # Play Store review readiness
 ├── multi-tenant-saas-architecture/  # SaaS backend patterns
 ├── feature-planning/                # Complete feature planning (spec + implementation)
 ├── ai-assisted-development/         # AI agent orchestration for development workflows
@@ -101,6 +102,7 @@ skills/
 ├── pos-sales-ui-design/             # POS & sales entry UI
 ├── report-print-pdf/                # Report export (PDF + print)
 ├── api-error-handling/              # API error handling
+├── api-pagination/                 # Offset pagination (PHP + Android infinite scroll)
 ├── mysql-best-practices/            # MySQL 8.x best practices
 ├── saas-seeder/                     # SaaS bootstrap and seeding
 ├── gis-mapping/                     # OpenStreetMap GIS + geofencing

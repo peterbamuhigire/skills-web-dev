@@ -104,6 +104,14 @@ com.company.app/
 - Image loading via Coil with caching
 - ProGuard + resource shrinking in release
 
+### Google Play Review Readiness
+
+- Use the google-play-store-review skill before Play Console submission.
+- Keep targetSdk current and background work compliant.
+- Ensure Data Safety form matches SDKs and permissions.
+- Provide a public privacy policy and link it in-app.
+- Validate ads and IAP flows for transparency and user control.
+
 ## Anti-Patterns
 
 - Putting business logic in Composables
@@ -124,6 +132,8 @@ feature-planning           -> spec + implementation strategy
   |
 android-development        -> Kotlin/Compose implementation
   |
+google-play-store-review   -> Play policy and submission readiness
+  |
 api-error-handling         -> Backend API error patterns
   |
 mysql-best-practices       -> Database schema (backend)
@@ -132,6 +142,7 @@ vibe-security-skill        -> Security review
 ```
 
 **Always apply `vibe-security-skill`** alongside this skill for web-connected Android apps.
+Use google-play-store-review when preparing Play Console submissions.
 
 ## Reference Implementations
 

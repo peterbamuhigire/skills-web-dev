@@ -287,6 +287,68 @@ This guide covers:
 
 ---
 
+## 📱 Android SaaS App — Mandatory Phase 1 Bootstrap
+
+**TRIGGER:** When planning features for a **new** native Android app that connects to an existing SaaS backend.
+
+**RULE:** The first implementation plan MUST be **Phase 1: Login + Dashboard + Empty Tabs**. No business features are planned until Phase 1 is fully implemented, tested, and verified E2E.
+
+### Phase 1 Scope
+
+| Component | What It Delivers |
+|-----------|-----------------|
+| **Authentication** | JWT login/logout, token refresh with rotation, breach detection, encrypted token storage |
+| **Dashboard** | Real KPI stats from backend, offline-first Room caching, pull-to-refresh, shimmer loading |
+| **Navigation** | Bottom bar with max 5 major section tabs, placeholder "Coming Soon" screens |
+| **Infrastructure** | Hilt DI, Retrofit interceptor chain, Room DB, Material 3 theme, network monitor |
+| **Backend** | Mobile JWT endpoints + dual auth middleware (JWT for mobile, session for web) |
+| **Tests** | 40+ unit tests across all layers (ViewModels, Use Cases, Repos, Interceptors) |
+
+### Why This Order
+
+- Proves the full vertical slice works end-to-end before investing in features
+- Establishes all infrastructure patterns every future feature reuses
+- Gives the user a working installable app on day one
+- Uncovers integration issues (auth, env loading, session handling) before they compound
+
+### Phase 1 Plan Structure (11 Sections)
+
+```
+docs/plans/phase-1-login-dashboard/
+├── 00-build-variants.md
+├── 01-project-bootstrap.md
+├── 02-backend-api.md
+├── 03-core-infrastructure.md
+├── 04-authentication-feature.md
+├── 05-dashboard-feature.md
+├── 06-navigation-tabs.md
+├── 07-room-database.md
+├── 08-theme-ui-components.md
+├── 09-testing.md
+└── 10-verification.md
+```
+
+### Tab Limit Rule
+
+Bottom navigation tabs are limited to **5 maximum**. Group related features under tabs:
+
+- **Good:** Home, Sales, Network, Knowledge, Training (5 tabs)
+- **Bad:** Home, Sales, Invoices, Network, Clients, Products, Reports (7 tabs - too many)
+
+If more than 5 sections exist, nest sub-sections within tabs or use drawer navigation.
+
+### Phase 2+ Trigger
+
+Only plan Phase 2 after Phase 1 is:
+- Built successfully (`./gradlew assembleDevDebug`)
+- All tests passing (`./gradlew testDevDebugUnitTest`)
+- All backend endpoints verified via curl (login, refresh, dashboard, logout)
+- Breach detection verified (revoked token replay returns 401)
+
+See `android-saas-planning` skill for the complete Phase 1 template.
+
+---
+
 ## 🏗️ Architectural Decision Framework
 
 **CRITICAL**: Before creating any implementation plan, evaluate whether to use **static skills** vs **dynamic sub-agents** based on the decision matrix below. This choice significantly impacts token efficiency, development velocity, and maintenance costs.

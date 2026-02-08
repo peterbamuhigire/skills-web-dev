@@ -112,6 +112,27 @@ com.company.app/
 - Provide a public privacy policy and link it in-app.
 - Validate ads and IAP flows for transparency and user control.
 
+## Phase 1 Bootstrap Pattern (SaaS Mobile Apps)
+
+When building a native Android app for an existing SaaS backend, **always implement Phase 1 first**: Login + Dashboard + Empty Tabs. This is the mandatory starting point before any business features.
+
+### Phase 1 Delivers
+
+1. **JWT Auth** — Login/logout, token refresh with rotation, breach detection, encrypted storage
+2. **Dashboard** — Real KPI stats, offline-first Room caching, pull-to-refresh, shimmer loading
+3. **5-Tab Navigation** — Bottom bar with max 5 tabs, placeholder screens for future features
+4. **Full Infrastructure** — Hilt DI, Retrofit interceptor chain, Room DB, Material 3 theme, network monitor
+5. **40+ Unit Tests** — ViewModels, Use Cases, Repositories, Interceptors all tested
+
+### Why Phase 1 First
+
+- Proves the entire vertical slice (Compose UI → ViewModel → UseCase → Repo → Retrofit → PHP → MySQL)
+- Establishes all reusable infrastructure patterns
+- Gives user a working installable app immediately
+- Uncovers backend integration issues early
+
+See `android-saas-planning` skill for the complete Phase 1 plan template.
+
 ## Anti-Patterns
 
 - Putting business logic in Composables

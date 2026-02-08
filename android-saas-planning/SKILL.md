@@ -65,6 +65,79 @@ The user may request a **subset** of modules. Respect their selection:
 - Biometric authentication (fingerprint, face)
 - Push notifications (FCM)
 
+## Phase 1 Bootstrap Pattern (MANDATORY)
+
+**Every Android SaaS app MUST start with Phase 1: Login + Dashboard + Empty Tabs.**
+
+This is the proven foundation pattern. Before planning any business features, the first implementation phase always delivers:
+
+### Phase 1 Scope (Non-Negotiable)
+
+1. **JWT Authentication** — Login/logout with the SaaS backend (access tokens + refresh token rotation + breach detection)
+2. **Dashboard** — Real KPI stats from the backend, offline-first with Room caching, pull-to-refresh
+3. **Bottom Navigation** — Maximum 5 major section tabs (e.g., Home, Sales, Network, Knowledge, Training). Non-dashboard tabs show "Coming Soon" placeholder screens
+4. **Core Infrastructure** — Hilt DI modules, Retrofit + OkHttp interceptor chain (auth + tenant + logging), encrypted token storage, network monitor, Room database, Material 3 theme
+5. **Backend Endpoints** — Mobile login, token refresh, logout, and dashboard stats API endpoints with dual auth middleware (JWT for mobile + session for web backward compatibility)
+6. **Unit Tests** — Full test coverage for ViewModels, Use Cases, Repositories, Interceptors
+
+### Phase 1 Deliverables
+
+| Component | Android | Backend |
+|-----------|---------|---------|
+| Auth | LoginScreen, LoginViewModel, AuthRepository, AuthApiService, TokenManager, interceptors | mobile-login.php, mobile-refresh.php, mobile-logout.php, MobileAuthHelper, ApiAuthMiddleware |
+| Dashboard | DashboardScreen, DashboardViewModel, DashboardRepository, Room cache | dashboard-stats.php (dual auth) |
+| Navigation | 5-tab BottomBar, NavGraph, PlaceholderScreen for future tabs | — |
+| Infrastructure | DI modules, theme, encrypted prefs, network monitor | refresh_tokens table, .env loading |
+| Tests | 40+ unit tests across all layers | curl/Postman endpoint verification |
+
+### Why Phase 1 First
+
+- Proves the entire vertical slice works (UI → ViewModel → UseCase → Repository → API → Backend → Database)
+- Establishes all infrastructure patterns that every future feature reuses
+- Gives the user a working app they can install and log into immediately
+- Uncovers backend integration issues early (auth, CORS, env loading, session handling)
+- Creates the navigation skeleton that future phases fill in
+
+### Tab Selection (Max 5)
+
+When auditing modules, group them into a **maximum of 5 bottom navigation tabs**. Common patterns:
+
+| App Type | Tab 1 | Tab 2 | Tab 3 | Tab 4 | Tab 5 |
+|----------|-------|-------|-------|-------|-------|
+| **MLM/Distributor** | Home | Sales | Network | Knowledge | Training |
+| **ERP/Business** | Home | Sales | Inventory | Reports | Settings |
+| **CRM** | Home | Contacts | Deals | Tasks | Settings |
+| **POS/Retail** | Home | Sales | Products | Customers | Reports |
+| **Healthcare** | Home | Patients | Schedule | Records | Settings |
+| **Fintech** | Home | Transactions | Cards | Savings | Settings |
+
+If more than 5 sections exist, nest sub-sections within tabs or use drawer navigation for secondary items.
+
+### Phase 1 Implementation Plan Structure
+
+The Phase 1 plan MUST be structured as 11 sections (following the proven pattern):
+
+```
+docs/plans/phase-1-login-dashboard/
+├── 00-build-variants.md          # Dev/Staging/Prod flavors
+├── 01-project-bootstrap.md       # Gradle, manifest, strings, packages
+├── 02-backend-api.md             # PHP JWT endpoints + DB migration
+├── 03-core-infrastructure.md     # DI, security, network, interceptors
+├── 04-authentication-feature.md  # Login vertical slice (DTO→Entity→Domain)
+├── 05-dashboard-feature.md       # Dashboard with offline-first Room caching
+├── 06-navigation-tabs.md         # Bottom nav + placeholder screens
+├── 07-room-database.md           # Database class, converters, module
+├── 08-theme-ui-components.md     # Material 3 theme + reusable components
+├── 09-testing.md                 # 40+ unit tests across all layers
+└── 10-verification.md            # Backend curl tests + Android manual checklist
+```
+
+### Phase 2+ Planning
+
+Only after Phase 1 is **fully implemented, tested, and verified E2E** should Phase 2 features be planned. Phase 2 fills in the placeholder tabs with real functionality, reusing all the infrastructure from Phase 1.
+
+---
+
 ## Document Generation Workflow
 
 Generate documents **one at a time**, in order. Each document builds on the previous.

@@ -22,20 +22,20 @@ Production-grade Android development standards for AI-assisted implementation. K
 
 ## Quick Reference
 
-| Topic | Reference File | Covers |
-|-------|---------------|--------|
-| **Project Structure** | `references/project-structure.md` | Directory layout, module organization |
-| **Kotlin Conventions** | `references/kotlin-conventions.md` | Coding style, Compose patterns |
-| **Architecture** | `references/architecture-patterns.md` | MVVM, Clean Architecture layers |
-| **Dependency Injection** | `references/dependency-injection.md` | Hilt modules, scoping, ViewModel injection |
-| **Security** | `references/security.md` | Encrypted storage, biometrics, network security |
-| **UI Design System** | `references/ui-design-system.md` | Tokens, components, Material 3 |
-| **Screen Patterns** | `references/screen-patterns.md` | Complete screen templates, state handling |
-| **Testing** | `references/testing.md` | Unit, UI, instrumentation tests |
-| **Build Configuration** | `references/build-configuration.md` | Gradle KTS, dependencies, build types |
-| **API Integration** | `references/api-integration.md` | Retrofit, error handling, repository pattern |
-| **Analytics & Performance** | `references/analytics-performance.md` | Firebase, monitoring, optimization |
-| **AI Agent Guidelines** | `references/ai-agent-guidelines.md` | Prompt templates, quality checklists |
+| Topic                       | Reference File                        | Covers                                          |
+| --------------------------- | ------------------------------------- | ----------------------------------------------- |
+| **Project Structure**       | `references/project-structure.md`     | Directory layout, module organization           |
+| **Kotlin Conventions**      | `references/kotlin-conventions.md`    | Coding style, Compose patterns                  |
+| **Architecture**            | `references/architecture-patterns.md` | MVVM, Clean Architecture layers                 |
+| **Dependency Injection**    | `references/dependency-injection.md`  | Hilt modules, scoping, ViewModel injection      |
+| **Security**                | `references/security.md`              | Encrypted storage, biometrics, network security |
+| **UI Design System**        | `references/ui-design-system.md`      | Tokens, components, Material 3                  |
+| **Screen Patterns**         | `references/screen-patterns.md`       | Complete screen templates, state handling       |
+| **Testing**                 | `references/testing.md`               | Unit, UI, instrumentation tests                 |
+| **Build Configuration**     | `references/build-configuration.md`   | Gradle KTS, dependencies, build types           |
+| **API Integration**         | `references/api-integration.md`       | Retrofit, error handling, repository pattern    |
+| **Analytics & Performance** | `references/analytics-performance.md` | Firebase, monitoring, optimization              |
+| **AI Agent Guidelines**     | `references/ai-agent-guidelines.md`   | Prompt templates, quality checklists            |
 
 ## Architecture Overview
 
@@ -103,6 +103,12 @@ com.company.app/
 - `derivedStateOf` for expensive calculations
 - Image loading via Coil with caching
 - ProGuard + resource shrinking in release
+
+### Local Development Networking (WAMP)
+
+- When developing on a local machine (Windows WAMP or Ubuntu), the Android emulator must reach the backend via the host machine's static LAN IP, not `localhost`.
+- Always document the static IP in dev setup notes and use it for `BASE_URL` in the Android dev build.
+- Verify firewall rules allow inbound connections to the WAMP HTTP port.
 
 ### Google Play Review Readiness
 
@@ -181,13 +187,13 @@ Layered architecture TODO app. **Use for:** MVVM pattern clarity, Repository pat
 
 Collection of focused Compose apps. **Use for specific UI patterns:**
 
-| Sample | Use For |
-|--------|---------|
-| **JetNews** | Material app structure, theming, Compose testing |
-| **Jetchat** | Material 3, dynamic colors, navigation, state management |
-| **Jetsnack** | Custom design systems, layouts, animations |
+| Sample        | Use For                                                     |
+| ------------- | ----------------------------------------------------------- |
+| **JetNews**   | Material app structure, theming, Compose testing            |
+| **Jetchat**   | Material 3, dynamic colors, navigation, state management    |
+| **Jetsnack**  | Custom design systems, layouts, animations                  |
 | **Jetcaster** | Redux-style architecture, dynamic theming, Room, coroutines |
-| **Reply** | Adaptive UI (phone/tablet/foldable), Material 3 |
-| **JetLagged** | Custom layouts, graphics, Canvas/Path drawing |
+| **Reply**     | Adaptive UI (phone/tablet/foldable), Material 3             |
+| **JetLagged** | Custom layouts, graphics, Canvas/Path drawing               |
 
 When in doubt about how to implement something, check these repos first.

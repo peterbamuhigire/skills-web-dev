@@ -2,6 +2,11 @@
 
 Standard Kotlin and Jetpack Compose coding style for consistent, readable code.
 
+## Local Development Networking (WAMP)
+
+- On local Windows/Ubuntu dev machines, the Android emulator must reach the backend via the host machine's static LAN IP, not `localhost`.
+- Ensure firewall rules allow inbound access to the WAMP HTTP port.
+
 ## Language Standards
 
 - **Kotlin 100%** for all new code
@@ -214,15 +219,15 @@ val token = requireNotNull(authManager.getToken()) {
 
 ## Naming Conventions
 
-| Element | Convention | Example |
-|---------|-----------|---------|
-| Classes | PascalCase | `UserViewModel` |
-| Functions | camelCase | `loadUserProfile()` |
-| Properties | camelCase | `val userName` |
-| Constants | SCREAMING_SNAKE | `const val MAX_RETRIES = 3` |
-| Composables | PascalCase | `UserProfileScreen()` |
-| Packages | lowercase | `com.company.feature` |
-| Backing properties | underscore prefix | `private val _uiState` |
+| Element            | Convention           | Example                         |
+| ------------------ | -------------------- | ------------------------------- |
+| Classes            | PascalCase           | `UserViewModel`                 |
+| Functions          | camelCase            | `loadUserProfile()`             |
+| Properties         | camelCase            | `val userName`                  |
+| Constants          | SCREAMING_SNAKE      | `const val MAX_RETRIES = 3`     |
+| Composables        | PascalCase           | `UserProfileScreen()`           |
+| Packages           | lowercase            | `com.company.feature`           |
+| Backing properties | underscore prefix    | `private val _uiState`          |
 | Boolean properties | is/has/should prefix | `val isLoading`, `val hasError` |
 
 ## Documentation

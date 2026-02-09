@@ -2,11 +2,17 @@
 
 Complete screen templates with state management, error handling, and lifecycle awareness.
 
+## Local Development Networking (WAMP)
+
+- On local Windows/Ubuntu dev machines, the Android emulator must reach the backend via the host machine's static LAN IP, not `localhost`.
+- Ensure firewall rules allow inbound access to the WAMP HTTP port.
+
 **References:** See [Compose Samples](https://github.com/android/compose-samples) for real screen implementations and [Architecture Samples](https://github.com/android/architecture-samples) for MVVM screen patterns with Repository integration.
 
 ## Standard Screen Template
 
 Every screen should include:
+
 1. State management with ViewModel
 2. Error handling with retry
 3. Loading states
@@ -425,6 +431,7 @@ fun AdaptiveItemListScreen(
 ```
 
 **Key rules for adaptive list-detail:**
+
 - ViewModel holds selection state (not the composable)
 - `BackHandler` in two-pane clears selection instead of exiting
 - Detail pane shows placeholder when nothing is selected

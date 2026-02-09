@@ -2,6 +2,11 @@
 
 Hilt (Dagger) dependency injection with proper scoping for Android apps.
 
+## Local Development Networking (WAMP)
+
+- On local Windows/Ubuntu dev machines, the Android emulator must reach the backend via the host machine's static LAN IP, not `localhost`.
+- Ensure firewall rules allow inbound access to the WAMP HTTP port.
+
 ## Setup
 
 Application class must be annotated:
@@ -226,13 +231,13 @@ class UserViewModel @AssistedInject constructor(
 
 ## Scoping Guidelines
 
-| Scope | Component | Lifecycle | Use For |
-|-------|-----------|-----------|---------|
-| `@Singleton` | `SingletonComponent` | App lifetime | OkHttp, Retrofit, Room, Managers |
-| `@ActivityScoped` | `ActivityComponent` | Activity lifetime | Rarely needed |
-| `@ViewModelScoped` | `ViewModelComponent` | ViewModel lifetime | Shared within ViewModel |
-| `@ActivityRetainedScoped` | `ActivityRetainedComponent` | Survives config change | Rarely needed |
-| Unscoped | N/A | New instance each time | Use Cases, Mappers |
+| Scope                     | Component                   | Lifecycle              | Use For                          |
+| ------------------------- | --------------------------- | ---------------------- | -------------------------------- |
+| `@Singleton`              | `SingletonComponent`        | App lifetime           | OkHttp, Retrofit, Room, Managers |
+| `@ActivityScoped`         | `ActivityComponent`         | Activity lifetime      | Rarely needed                    |
+| `@ViewModelScoped`        | `ViewModelComponent`        | ViewModel lifetime     | Shared within ViewModel          |
+| `@ActivityRetainedScoped` | `ActivityRetainedComponent` | Survives config change | Rarely needed                    |
+| Unscoped                  | N/A                         | New instance each time | Use Cases, Mappers               |
 
 ### Scoping Rules
 

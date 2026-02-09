@@ -2,6 +2,11 @@
 
 Material 3 design tokens and reusable component standards.
 
+## Local Development Networking (WAMP)
+
+- On local Windows/Ubuntu dev machines, the Android emulator must reach the backend via the host machine's static LAN IP, not `localhost`.
+- Ensure firewall rules allow inbound access to the WAMP HTTP port.
+
 **References:** See [Compose Samples](https://github.com/android/compose-samples) - JetNews (Material theming), Jetchat (Material 3 + dynamic colors), Jetsnack (custom design systems + animations), Reply (adaptive UI for phone/tablet/foldable).
 
 ## Design Tokens

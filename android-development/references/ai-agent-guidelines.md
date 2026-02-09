@@ -2,6 +2,11 @@
 
 Standards for AI agents generating Android code.
 
+## Local Development Networking (WAMP)
+
+- On local Windows/Ubuntu dev machines, the Android emulator must reach the backend via the host machine's static LAN IP, not `localhost`.
+- Ensure firewall rules allow inbound access to the WAMP HTTP port.
+
 ## Standard Implementation Request Template
 
 When requesting Android implementation from an AI agent, use this structure:

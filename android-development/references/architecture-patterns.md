@@ -2,7 +2,13 @@
 
 MVVM with Clean Architecture for scalable, testable Android applications.
 
+## Local Development Networking (WAMP)
+
+- On local Windows/Ubuntu dev machines, the Android emulator must reach the backend via the host machine's static LAN IP, not `localhost`.
+- Ensure firewall rules allow inbound access to the WAMP HTTP port.
+
 **References:**
+
 - [Now in Android](https://github.com/android/nowinandroid) - production multi-module architecture
 - [Architecture Samples](https://github.com/android/architecture-samples) - clean MVVM layering, Repository pattern, dual data sources, test strategy
 

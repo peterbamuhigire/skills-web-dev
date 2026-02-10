@@ -17,6 +17,47 @@ Provide consistent, battle-tested patterns and workflows that can be seamlessly 
 
 ## Current Skills
 
+### Full Skill Index
+
+- ai-assisted-development
+- ai-error-handling
+- ai-error-prevention
+- android-data-persistence
+- android-development
+- android-reports
+- android-saas-planning
+- android-tdd
+- api-error-handling
+- api-pagination
+- custom-sub-agents
+- doc-architect
+- dual-auth-rbac
+- feature-planning
+- gis-mapping
+- google-play-store-review
+- image-compression
+- inventory-management
+- jetpack-compose-ui
+- manual-guide
+- markdown-lint-cleanup
+- modular-saas-architecture
+- multi-tenant-saas-architecture
+- mysql-best-practices
+- orchestration-best-practices
+- photo-management
+- php-modern-standards
+- pos-restaurant-ui-standard
+- pos-sales-ui-design
+- project-requirements
+- report-print-pdf
+- saas-seeder
+- skill-safety-audit
+- skill-writing
+- spec-architect
+- update-claude-documentation
+- vibe-security-skill
+- webapp-gui-design
+
 ### 1. Multi-Tenant SaaS Architecture
 
 **Domain:** Backend Architecture

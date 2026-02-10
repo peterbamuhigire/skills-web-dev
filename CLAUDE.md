@@ -87,8 +87,11 @@ skills/
 ├── android-tdd/                     # Android TDD (Red-Green-Refactor, test pyramid, CI)
 ├── jetpack-compose-ui/              # Compose UI (beautiful, minimalistic, Material 3)
 ├── android-data-persistence/        # Room, DataStore, API sync, offline-first
+├── android-reports/                 # Android report generation patterns
+├── android-saas-planning/           # Android companion app planning for SaaS
 ├── google-play-store-review/        # Play Store review readiness
 ├── multi-tenant-saas-architecture/  # SaaS backend patterns
+├── modular-saas-architecture/       # Pluggable SaaS modules
 ├── feature-planning/                # Complete feature planning (spec + implementation)
 ├── ai-assisted-development/         # AI agent orchestration for development workflows
 ├── ai-error-prevention/             # Error prevention for AI-assisted development (trust but verify)
@@ -97,17 +100,27 @@ skills/
 ├── update-claude-documentation/     # Documentation maintenance
 ├── doc-architect/                   # Triple-Layer AGENTS.md generator
 ├── manual-guide/                    # End-user manuals and guides
+├── custom-sub-agents/               # Custom AI sub-agent architecture and setup
 ├── dual-auth-rbac/                  # Dual auth + RBAC security
 ├── webapp-gui-design/               # Web app GUI design
+├── image-compression/               # Client-side image compression patterns
+├── inventory-management/            # Inventory management patterns
 ├── pos-sales-ui-design/             # POS & sales entry UI
+├── pos-restaurant-ui-standard/      # Restaurant POS UI standard
 ├── report-print-pdf/                # Report export (PDF + print)
+├── project-requirements/            # SaaS project requirements discovery
 ├── api-error-handling/              # API error handling
 ├── api-pagination/                 # Offset pagination (PHP + Android infinite scroll)
 ├── mysql-best-practices/            # MySQL 8.x best practices
+├── php-modern-standards/            # PHP 8+ modern standards
 ├── saas-seeder/                     # SaaS bootstrap and seeding
+├── skill-safety-audit/              # Skill safety audit workflow
 ├── gis-mapping/                     # OpenStreetMap GIS + geofencing
+├── markdown-lint-cleanup/           # Markdown lint cleanup and formatting
 ├── vibe-security-skill/             # Secure coding for web apps
+├── photo-management/                # Photo upload and gallery patterns
 ├── skill-writing/                   # Skill creator (meta-skill)
+├── spec-architect/                  # Specification architecture skill
 ├── prompting-patterns-reference.md  # Prompting patterns for AI instructions
 ├── orchestration-patterns-reference.md # Orchestration strategies for multi-agent workflows
 ├── doc-standards.md                 # Documentation formatting standards (MANDATORY)
@@ -142,6 +155,7 @@ skills/
 **All database-related work MUST reference mysql-best-practices skill and follow the migration checklist.**
 
 ✅ **Always use for:**
+
 - Database migrations (tables, columns, indexes)
 - Schema design and modifications
 - Stored procedures, triggers, views
@@ -176,6 +190,7 @@ description: Brief description of what this skill does and when to use it
 ```
 
 **Requirements:**
+
 - Max 500 lines
 - Clear frontmatter (name + description)
 - Scannable markdown structure
@@ -235,6 +250,7 @@ Every skill should:
 ### With Other Projects
 
 Skills from this repository are used in:
+
 - Individual development projects
 - Client work
 - SaaS platforms

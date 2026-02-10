@@ -251,6 +251,50 @@ const rows = Array.isArray(data)
     : [];
 ```
 
+## API Contract Validation (Frontend-Backend Alignment)
+
+**See `references/contract-validation.md` for complete guide**
+
+**Critical Pattern:** Always validate that frontend data matches backend API requirements. Missing fields cause 400 errors that are difficult to debug without detailed error messages.
+
+**Common Scenario:**
+```javascript
+// Frontend sends incomplete data
+{ agent_id: 2, payment_method: "Cash", amount: 10000 }
+
+// API expects (but doesn't communicate):
+{ agent_id: 2, sales_point_id: 5, remittance_date: "2026-02-10", ... }
+
+// Result: Generic 400 Bad Request ❌
+```
+
+**Solution: Field-Specific Validation**
+
+```php
+// Backend: Return specific errors (HTTP 422)
+$errors = [];
+if (empty($input['sales_point_id'])) {
+    $errors['sales_point_id'] = 'Sales point ID is required';
+}
+if (empty($input['remittance_date'])) {
+    $errors['remittance_date'] = 'Remittance date is required';
+}
+if (!empty($errors)) {
+    ResponseHandler::validationError($errors);
+}
+```
+
+**Quick Checklist:**
+- ✅ Document required fields in endpoint comments
+- ✅ Return field-specific errors (HTTP 422, not 400)
+- ✅ Validate frontend data before API call
+- ✅ Match parameter names exactly (snake_case consistency)
+- ✅ Log validation failures with request context
+
+**Debugging:** Check browser console → network tab → PHP error log → compare contracts → test with curl
+
+**Key Takeaway:** *"Always validate API requirements against the frontend data being sent. Generic 400 errors without field details make debugging exponentially harder."*
+
 ## Error Message Extraction
 
 **SQLSTATE 45000 (Trigger):**

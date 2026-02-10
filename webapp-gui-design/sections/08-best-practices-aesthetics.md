@@ -7,6 +7,8 @@
 ✅ Escape HTML
 ✅ Fetch API
 ✅ CSRF tokens
+✅ Cache-bust shared JS updates with `?v=YYYYMMDD`
+✅ Trace data shape end-to-end when debugging `not a function`
 
 **DON'T:**
 ❌ Native alert/confirm
@@ -69,6 +71,7 @@ Interpret creatively, pick unexpected choices, and rotate through light/dark the
 ❌ `alert('Success!');` → ✅ `Swal.fire('Success!', '', 'success');`
 ❌ `<div>${data.name}</div>` → ✅ `<div>${escapeHtml(data.name)}</div>`
 ❌ `<i class="fa fa-plus">` → ✅ `<i class="bi bi-plus">`
+❌ Assuming arrays from APIs → ✅ `Array.isArray(x) ? x : x.key || []`
 
 ## Checklist
 

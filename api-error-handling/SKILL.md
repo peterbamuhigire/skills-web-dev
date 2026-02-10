@@ -237,6 +237,20 @@ if (reason) {
 // Helpers: showSuccess/Error/Warning/Info, showConfirm, showLoading, hideLoading
 ```
 
+## Debugging Data Shape Mismatches
+
+- When you see `not a function` errors in JS, trace the full chain: service return → API wrapper → JS consumer.
+- Services may intentionally wrap arrays (e.g., `{ sales: [...] }`) for mobile consumers while web UI expects a flat array.
+- Normalize defensively when response shape may vary:
+
+```javascript
+const rows = Array.isArray(data)
+  ? data
+  : Array.isArray(data?.sales)
+    ? data.sales
+    : [];
+```
+
 ## Error Message Extraction
 
 **SQLSTATE 45000 (Trigger):**

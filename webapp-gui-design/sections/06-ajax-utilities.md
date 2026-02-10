@@ -1,6 +1,11 @@
 ## AJAX
 
-```javascript
+### Cache Busting (Shared JS)
+
+- When modifying shared JS files, always append a version query param (e.g., `?v=YYYYMMDD`) to the script URL.
+- This is critical for sub-apps that reference parent directory scripts via `../js/` to avoid stale cached code.
+
+````javascript
 // GET
 async function loadItems() {
   try {
@@ -51,7 +56,23 @@ async function deleteItem(id) {
     dataTable.ajax.reload();
   }
 }
-```
+
+### Defensive Array Extraction
+
+When API responses may return either a flat array or a keyed object, normalize defensively:
+
+```javascript
+function asArray(value, key) {
+  if (Array.isArray(value)) return value;
+  if (value && Array.isArray(value[key])) return value[key];
+  return [];
+}
+
+// Usage
+const rows = asArray(data?.data, "items");
+````
+
+````
 
 ## Utilities
 
@@ -100,4 +121,4 @@ function getStatusColor(status) {
   };
   return colors[status?.toLowerCase()] || "secondary";
 }
-```
+````

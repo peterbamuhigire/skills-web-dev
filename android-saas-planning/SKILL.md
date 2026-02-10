@@ -28,15 +28,15 @@ Before generating ANY documents, the agent must have or discover:
 
 ### 1. SaaS Profile (Required)
 
-| Field | What to Find |
-|-------|-------------|
-| Product name | Brand name and domain |
-| Domain | ERP, CRM, POS, Healthcare, Fintech, etc. |
-| Target market | Region, language, currency, payment methods |
+| Field         | What to Find                                      |
+| ------------- | ------------------------------------------------- |
+| Product name  | Brand name and domain                             |
+| Domain        | ERP, CRM, POS, Healthcare, Fintech, etc.          |
+| Target market | Region, language, currency, payment methods       |
 | Backend stack | PHP/MySQL, Node/PostgreSQL, Django, Laravel, etc. |
-| API base URL | Per environment (dev, staging, production) |
-| Auth model | JWT, OAuth2, session-based, API keys |
-| Multi-tenancy | Tenant ID in JWT, subdomain, DB-per-tenant |
+| API base URL  | Per environment (dev, staging, production)        |
+| Auth model    | JWT, OAuth2, session-based, API keys              |
+| Multi-tenancy | Tenant ID in JWT, subdomain, DB-per-tenant        |
 
 ### 2. Module Inventory (Required)
 
@@ -64,6 +64,7 @@ The user may request a **subset** of modules. Respect their selection:
 - Hardware peripherals (Bluetooth printer, barcode scanner, NFC)
 - Biometric authentication (fingerprint, face)
 - Push notifications (FCM)
+- Local dev networking: emulator must connect to WAMP via the host machine's static LAN IP (not `localhost`)
 
 ## Phase 1 Bootstrap Pattern (MANDATORY)
 
@@ -82,13 +83,13 @@ This is the proven foundation pattern. Before planning any business features, th
 
 ### Phase 1 Deliverables
 
-| Component | Android | Backend |
-|-----------|---------|---------|
-| Auth | LoginScreen, LoginViewModel, AuthRepository, AuthApiService, TokenManager, interceptors | mobile-login.php, mobile-refresh.php, mobile-logout.php, MobileAuthHelper, ApiAuthMiddleware |
-| Dashboard | DashboardScreen, DashboardViewModel, DashboardRepository, Room cache | dashboard-stats.php (dual auth) |
-| Navigation | 5-tab BottomBar, NavGraph, PlaceholderScreen for future tabs | — |
-| Infrastructure | DI modules, theme, encrypted prefs, network monitor | refresh_tokens table, .env loading |
-| Tests | 40+ unit tests across all layers | curl/Postman endpoint verification |
+| Component      | Android                                                                                 | Backend                                                                                      |
+| -------------- | --------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| Auth           | LoginScreen, LoginViewModel, AuthRepository, AuthApiService, TokenManager, interceptors | mobile-login.php, mobile-refresh.php, mobile-logout.php, MobileAuthHelper, ApiAuthMiddleware |
+| Dashboard      | DashboardScreen, DashboardViewModel, DashboardRepository, Room cache                    | dashboard-stats.php (dual auth)                                                              |
+| Navigation     | 5-tab BottomBar, NavGraph, PlaceholderScreen for future tabs                            | —                                                                                            |
+| Infrastructure | DI modules, theme, encrypted prefs, network monitor                                     | refresh_tokens table, .env loading                                                           |
+| Tests          | 40+ unit tests across all layers                                                        | curl/Postman endpoint verification                                                           |
 
 ### Why Phase 1 First
 
@@ -102,14 +103,14 @@ This is the proven foundation pattern. Before planning any business features, th
 
 When auditing modules, group them into a **maximum of 5 bottom navigation tabs**. Common patterns:
 
-| App Type | Tab 1 | Tab 2 | Tab 3 | Tab 4 | Tab 5 |
-|----------|-------|-------|-------|-------|-------|
-| **MLM/Distributor** | Home | Sales | Network | Knowledge | Training |
-| **ERP/Business** | Home | Sales | Inventory | Reports | Settings |
-| **CRM** | Home | Contacts | Deals | Tasks | Settings |
-| **POS/Retail** | Home | Sales | Products | Customers | Reports |
-| **Healthcare** | Home | Patients | Schedule | Records | Settings |
-| **Fintech** | Home | Transactions | Cards | Savings | Settings |
+| App Type            | Tab 1 | Tab 2        | Tab 3     | Tab 4     | Tab 5    |
+| ------------------- | ----- | ------------ | --------- | --------- | -------- |
+| **MLM/Distributor** | Home  | Sales        | Network   | Knowledge | Training |
+| **ERP/Business**    | Home  | Sales        | Inventory | Reports   | Settings |
+| **CRM**             | Home  | Contacts     | Deals     | Tasks     | Settings |
+| **POS/Retail**      | Home  | Sales        | Products  | Customers | Reports  |
+| **Healthcare**      | Home  | Patients     | Schedule  | Records   | Settings |
+| **Fintech**         | Home  | Transactions | Cards     | Savings   | Settings |
 
 If more than 5 sections exist, nest sub-sections within tabs or use drawer navigation for secondary items.
 
@@ -155,16 +156,16 @@ Before writing any documents:
 
 ### Step 2: Generate Documents in Order
 
-| Order | Document | Index File | Sub-files Directory |
-|-------|----------|-----------|-------------------|
-| 1 | README | `README.md` | — |
-| 2 | Product Requirements | `01_PRD.md` | `prd/` |
-| 3 | Software Requirements | `02_SRS.md` | `srs/` |
-| 4 | Software Design | `03_SDS.md` | `sds/` |
-| 5 | API Contract | `04_API_CONTRACT.md` | `api-contract/` |
-| 6 | User Journeys | `05_USER_JOURNEYS.md` | — (or split if >500 lines) |
-| 7 | Testing Strategy | `06_TESTING_STRATEGY.md` | `testing/` |
-| 8 | Release Plan | `07_RELEASE_PLAN.md` | — |
+| Order | Document              | Index File               | Sub-files Directory        |
+| ----- | --------------------- | ------------------------ | -------------------------- |
+| 1     | README                | `README.md`              | —                          |
+| 2     | Product Requirements  | `01_PRD.md`              | `prd/`                     |
+| 3     | Software Requirements | `02_SRS.md`              | `srs/`                     |
+| 4     | Software Design       | `03_SDS.md`              | `sds/`                     |
+| 5     | API Contract          | `04_API_CONTRACT.md`     | `api-contract/`            |
+| 6     | User Journeys         | `05_USER_JOURNEYS.md`    | — (or split if >500 lines) |
+| 7     | Testing Strategy      | `06_TESTING_STRATEGY.md` | `testing/`                 |
+| 8     | Release Plan          | `07_RELEASE_PLAN.md`     | —                          |
 
 ### Step 3: Review and Refine
 
@@ -192,22 +193,22 @@ After all documents are generated, verify:
 
 Use these unless the project context requires alternatives:
 
-| Layer | Technology | Version |
-|-------|-----------|---------|
-| Language | Kotlin | 2.0+ |
-| UI | Jetpack Compose + Material 3 | BOM 2024.06+ |
-| Architecture | MVVM + Clean Architecture | — |
-| DI | Dagger Hilt | 2.51+ |
-| Networking | Retrofit + OkHttp + Moshi | 2.11+ / 4.12+ |
-| Local DB | Room | 2.6+ |
-| Async | Coroutines + Flow | 1.8+ |
-| Background | WorkManager | 2.9+ |
-| Navigation | Navigation Compose | 2.7+ |
-| Image Loading | Coil | 2.6+ |
-| Security | EncryptedSharedPreferences, BiometricPrompt | AndroidX |
-| Logging | Timber | 5.0+ |
-| Testing | JUnit 5, MockK, Turbine, Compose UI Testing | — |
-| CI/CD | GitHub Actions | — |
+| Layer         | Technology                                  | Version       |
+| ------------- | ------------------------------------------- | ------------- |
+| Language      | Kotlin                                      | 2.0+          |
+| UI            | Jetpack Compose + Material 3                | BOM 2024.06+  |
+| Architecture  | MVVM + Clean Architecture                   | —             |
+| DI            | Dagger Hilt                                 | 2.51+         |
+| Networking    | Retrofit + OkHttp + Moshi                   | 2.11+ / 4.12+ |
+| Local DB      | Room                                        | 2.6+          |
+| Async         | Coroutines + Flow                           | 1.8+          |
+| Background    | WorkManager                                 | 2.9+          |
+| Navigation    | Navigation Compose                          | 2.7+          |
+| Image Loading | Coil                                        | 2.6+          |
+| Security      | EncryptedSharedPreferences, BiometricPrompt | AndroidX      |
+| Logging       | Timber                                      | 5.0+          |
+| Testing       | JUnit 5, MockK, Turbine, Compose UI Testing | —             |
+| CI/CD         | GitHub Actions                              | —             |
 
 ## Document Content Requirements
 

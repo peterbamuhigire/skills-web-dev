@@ -290,10 +290,26 @@ if (!empty($errors)) {
 - ✅ Validate frontend data before API call
 - ✅ Match parameter names exactly (snake_case consistency)
 - ✅ Log validation failures with request context
+- ✅ **Action in query string, payload in JSON body** (see below)
+
+**Action Parameter Location:**
+```javascript
+// ✅ CORRECT: Action in URL
+url: "./api/endpoint.php?action=create",
+data: JSON.stringify({ agent_id: 2, amount: 10000 })
+
+// ❌ WRONG: Action in body
+url: "./api/endpoint.php",
+data: JSON.stringify({ action: "create", agent_id: 2 })
+```
+
+**Why:** Query string for routing, JSON body for payload. Makes URLs clear, enables caching, readable logs.
 
 **Debugging:** Check browser console → network tab → PHP error log → compare contracts → test with curl
 
-**Key Takeaway:** *"Always validate API requirements against the frontend data being sent. Generic 400 errors without field details make debugging exponentially harder."*
+**Key Takeaways:**
+- *"Always validate API requirements against the frontend data being sent. Generic 400 errors without field details make debugging exponentially harder."*
+- *"Use query string for action/method routing, JSON body for request payload. Check BOTH where API reads it (`$_GET` vs `$input`) AND where frontend sends it (URL vs body)."*
 
 ## Error Message Extraction
 

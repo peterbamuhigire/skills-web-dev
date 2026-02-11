@@ -59,6 +59,7 @@ The user may request a **subset** of modules. Respect their selection:
 ### 4. Technical Constraints (Discover or Ask)
 
 - Minimum Android API level (default: API 29 / Android 10)
+- Apps must be tested against the latest stable Android release
 - Max APK size (default: 50MB)
 - Offline requirements (none / basic caching / full offline-first)
 - Hardware peripherals (Bluetooth printer, barcode scanner, NFC)

@@ -9,6 +9,8 @@ description: "Android data persistence standards with Room as primary local stor
 
 Our apps use **Room** for local persistence and **custom REST API backends** for cloud data. This skill covers every storage method and when to use each.
 
+Android 10+ required.
+
 **Architecture:** Offline-first with API sync via Repository pattern.
 
 ```
@@ -17,14 +19,14 @@ UI (Compose) → ViewModel → Repository → Room (local) + API (remote)
 
 ## Storage Decision Guide
 
-| Need | Solution | Complexity |
-|------|----------|------------|
-| App settings, flags, tokens | DataStore / SharedPreferences | Very Low |
-| Structured data (offline) | Room | Medium |
-| Large files (images, docs) | Internal/External files | Low |
-| Cloud-synced data | Room + API backend | Medium-High |
-| Real-time shared data | API with polling/WebSocket | High |
-| Cached API responses | Room as cache layer | Medium |
+| Need                        | Solution                      | Complexity  |
+| --------------------------- | ----------------------------- | ----------- |
+| App settings, flags, tokens | DataStore / SharedPreferences | Very Low    |
+| Structured data (offline)   | Room                          | Medium      |
+| Large files (images, docs)  | Internal/External files       | Low         |
+| Cloud-synced data           | Room + API backend            | Medium-High |
+| Real-time shared data       | API with polling/WebSocket    | High        |
+| Cached API responses        | Room as cache layer           | Medium      |
 
 ### Quick Decision
 
@@ -39,12 +41,12 @@ UI (Compose) → ViewModel → Repository → Room (local) + API (remote)
 
 ## Quick Reference
 
-| Topic | Reference File | When to Use |
-|-------|---------------|-------------|
-| **Room Essentials** | `references/room-essentials.md` | Entities, DAOs, Database setup, TypeConverters |
-| **Room Advanced** | `references/room-advanced.md` | Relations, migrations, testing, performance |
-| **Local Storage** | `references/local-storage.md` | DataStore, SharedPreferences, file I/O |
-| **API Sync Patterns** | `references/api-sync-patterns.md` | Offline-first, Repository, cache strategies |
+| Topic                 | Reference File                    | When to Use                                    |
+| --------------------- | --------------------------------- | ---------------------------------------------- |
+| **Room Essentials**   | `references/room-essentials.md`   | Entities, DAOs, Database setup, TypeConverters |
+| **Room Advanced**     | `references/room-advanced.md`     | Relations, migrations, testing, performance    |
+| **Local Storage**     | `references/local-storage.md`     | DataStore, SharedPreferences, file I/O         |
+| **API Sync Patterns** | `references/api-sync-patterns.md` | Offline-first, Repository, cache strategies    |
 
 ## Room: The Primary Local Database
 
@@ -333,6 +335,7 @@ android-tdd → Test DAOs, Repositories, ViewModels
 ```
 
 **Key integrations:**
+
 - **android-development**: Follows Clean Architecture layers
 - **android-tdd**: Room in-memory DB testing, MockWebServer for API tests
 - **api-error-handling**: Error patterns for API sync failures

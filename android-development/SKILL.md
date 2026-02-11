@@ -9,6 +9,7 @@ Production-grade Android development standards for AI-assisted implementation. K
 
 **Core Stack:** Kotlin 100% | Jetpack Compose (default UI toolkit) | MVVM + Clean Architecture | Hilt DI
 **Min SDK:** 29 (Android 10) | **Target SDK:** 34
+**Compatibility:** Must run flawlessly on the latest stable Android release
 **Reference App:** [Now in Android](https://github.com/android/nowinandroid) - Google's official sample demonstrating these standards in a production-quality codebase
 
 ## When to Use

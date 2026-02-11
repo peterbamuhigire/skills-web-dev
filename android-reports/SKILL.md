@@ -11,6 +11,8 @@ description: Best practices for designing mobile-optimized reports in Android ap
 
 Mobile reports require different design considerations than desktop reports due to screen size, touch interactions, and usage patterns. This skill provides proven patterns for creating effective, readable, and performant report experiences in Android apps using Jetpack Compose and Material 3.
 
+Android 10+ required.
+
 ## Core Principles
 
 ### 1. Responsive Layout with Relative Positioning

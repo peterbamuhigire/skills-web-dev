@@ -34,6 +34,47 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ## Available Skills
 
+### Full Skill Index
+
+- ai-assisted-development
+- ai-error-handling
+- ai-error-prevention
+- android-data-persistence
+- android-development
+- android-reports
+- android-saas-planning
+- android-tdd
+- api-error-handling
+- api-pagination
+- custom-sub-agents
+- doc-architect
+- dual-auth-rbac
+- feature-planning
+- gis-mapping
+- google-play-store-review
+- image-compression
+- inventory-management
+- jetpack-compose-ui
+- manual-guide
+- markdown-lint-cleanup
+- modular-saas-architecture
+- multi-tenant-saas-architecture
+- mysql-best-practices
+- orchestration-best-practices
+- photo-management
+- php-modern-standards
+- pos-restaurant-ui-standard
+- pos-sales-ui-design
+- project-requirements
+- report-print-pdf
+- saas-seeder
+- skill-safety-audit
+- skill-writing
+- spec-architect
+- update-claude-documentation
+- vibe-security-skill
+- webapp-gui-design
+
 ### 1. Android Development
 
 **Focus:** Android development standards for AI agent implementation
@@ -55,6 +96,7 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 - Comprehensive security (EncryptedSharedPreferences, cert pinning, biometrics)
 - Material 3 design system with reusable components
 - Complete screen patterns (list, form, detail with pull-to-refresh)
+- Standard charting via Vico (Compose-first)
 - Testing standards (ViewModel, UseCase, Compose UI tests with Turbine/MockK)
 - Gradle KTS build configuration with version catalog
 - Retrofit API integration with typed error handling
@@ -917,6 +959,7 @@ Practical examples of using the skill.
 **CRITICAL:** ALL markdown files (.md) created in skills and projects MUST follow strict standards:
 
 ✅ **500-line hard limit for ALL .md files** - No exceptions
+
 - SKILL.md: Max 500 lines
 - Plan docs: Max 500 lines per file
 - Specs: Max 500 lines per file
@@ -925,10 +968,12 @@ Practical examples of using the skill.
 - Any other .md: Max 500 lines
 
 ✅ **Two-tier structure** (Required)
+
 - **Tier 1:** High-level TOC/index (200-300 lines)
 - **Tier 2:** Deep dive topics (max 500 lines each)
 
 ✅ **Smart subdirectory grouping**
+
 - Module-based, type-based, or workflow-based
 - Logical organization improves AI comprehension
 

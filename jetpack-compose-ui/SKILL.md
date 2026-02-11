@@ -21,26 +21,27 @@ description: "Jetpack Compose UI standards for beautiful, sleek, minimalistic An
 
 ### Visual Standards
 
-| Element | Standard |
-|---------|----------|
-| **Corner radius** | 12-16dp for cards, 8dp for inputs, 24dp for FABs |
-| **Card elevation** | 0-2dp (subtle shadows, never heavy) |
-| **Content padding** | 16dp horizontal, 8-16dp vertical between items |
-| **Screen padding** | 16dp compact, 24dp medium, 32dp expanded |
-| **Touch targets** | Minimum 48dp height/width |
-| **Icon size** | 24dp standard, 20dp in buttons, 48dp for empty states |
-| **Typography scale** | Use Material 3 type scale exclusively |
+| Element              | Standard                                              |
+| -------------------- | ----------------------------------------------------- |
+| **Corner radius**    | 12-16dp for cards, 8dp for inputs, 24dp for FABs      |
+| **Card elevation**   | 0-2dp (subtle shadows, never heavy)                   |
+| **Content padding**  | 16dp horizontal, 8-16dp vertical between items        |
+| **Screen padding**   | 16dp compact, 24dp medium, 32dp expanded              |
+| **Touch targets**    | Minimum 48dp height/width                             |
+| **Icon size**        | 24dp standard, 20dp in buttons, 48dp for empty states |
+| **Typography scale** | Use Material 3 type scale exclusively                 |
 
 ## Quick Reference
 
-| Topic | Reference File | When to Use |
-|-------|---------------|-------------|
-| **Design Philosophy** | `references/design-philosophy.md` | Visual standards, spacing, color, typography |
-| **Responsive & Adaptive** | `references/responsive-adaptive.md` | WindowSizeClass, phone/tablet layouts, adaptive nav |
-| **Composable Patterns** | `references/composable-patterns.md` | State hoisting, MVVM, screen templates |
-| **Layouts & Components** | `references/layout-and-components.md` | Layouts, modifiers, Material components |
-| **Animation & Polish** | `references/animation-and-polish.md` | Transitions, micro-interactions, loading |
-| **Navigation & Perf** | `references/navigation-and-performance.md` | Nav setup, deep links, optimization |
+| Topic                     | Reference File                             | When to Use                                               |
+| ------------------------- | ------------------------------------------ | --------------------------------------------------------- |
+| **Design Philosophy**     | `references/design-philosophy.md`          | Visual standards, spacing, color, typography              |
+| **Responsive & Adaptive** | `references/responsive-adaptive.md`        | WindowSizeClass, phone/tablet layouts, adaptive nav       |
+| **Composable Patterns**   | `references/composable-patterns.md`        | State hoisting, MVVM, screen templates                    |
+| **Layouts & Components**  | `references/layout-and-components.md`      | Layouts, modifiers, Material components                   |
+| **Data Tables**           | `references/data-tables.md`                | Tables, pagination, responsive table/card layouts, badges |
+| **Animation & Polish**    | `references/animation-and-polish.md`       | Transitions, micro-interactions, loading                  |
+| **Navigation & Perf**     | `references/navigation-and-performance.md` | Nav setup, deep links, optimization                       |
 
 ## Core Compose Principles
 
@@ -184,6 +185,7 @@ fun MyScreen(windowSizeClass: WindowSizeClass, ...) {
 ```
 
 **Key rules:**
+
 - Compact (<600dp): single column, bottom nav
 - Medium (600-840dp): optional two-pane, navigation rail
 - Expanded (>840dp): two-pane, permanent nav drawer
@@ -275,6 +277,10 @@ fun StandardCard(
     )
 }
 ```
+
+### Chart Pattern (Compose)
+
+Use Vico for all charts. Do not introduce alternate chart libraries.
 
 ### Loading / Error / Empty States
 
@@ -414,6 +420,7 @@ android-tdd → Test composables and ViewModels
 ```
 
 **Key integrations:**
+
 - **android-development**: Architecture, DI, design tokens (this skill builds on that foundation)
 - **android-tdd**: Compose testing with `createComposeRule()`, `onNodeWithTag()`
 - **feature-planning**: Screen specs become composable implementations

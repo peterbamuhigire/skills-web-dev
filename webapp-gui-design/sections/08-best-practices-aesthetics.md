@@ -7,6 +7,8 @@
 ✅ Escape HTML
 ✅ Fetch API
 ✅ CSRF tokens
+✅ Cache-bust shared JS updates with `?v=YYYYMMDD`
+✅ Trace data shape end-to-end when debugging `not a function`
 
 **DON'T:**
 ❌ Native alert/confirm
@@ -20,6 +22,8 @@
 ## Frontend Design Standards
 
 This skill guides the construction of distinctive, production-grade frontend interfaces that avoid generic “AI slop” aesthetics. Implement real working code with exceptional attention to detail and creative choices. When the user provides frontend requirements—be it a component, page, application, or interface—treat the ask as a chance to craft something unforgettable rather than a safe, templated layout. Refer to the complete terms in LICENSE.txt when invoking this aesthetic directive.
+
+When the request is for dashboards, admin panels, SaaS apps, tools, settings pages, or data interfaces, follow the Interface Design workflow in [skills/webapp-gui-design/sections/09-interface-design.md](skills/webapp-gui-design/sections/09-interface-design.md) before proposing a direction or writing UI code.
 
 ## Executive UI Mode (C-Suite)
 
@@ -69,6 +73,7 @@ Interpret creatively, pick unexpected choices, and rotate through light/dark the
 ❌ `alert('Success!');` → ✅ `Swal.fire('Success!', '', 'success');`
 ❌ `<div>${data.name}</div>` → ✅ `<div>${escapeHtml(data.name)}</div>`
 ❌ `<i class="fa fa-plus">` → ✅ `<i class="bi bi-plus">`
+❌ Assuming arrays from APIs → ✅ `Array.isArray(x) ? x : x.key || []`
 
 ## Checklist
 

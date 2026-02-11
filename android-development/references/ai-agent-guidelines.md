@@ -2,6 +2,11 @@
 
 Standards for AI agents generating Android code.
 
+## Local Development Networking (WAMP)
+
+- On local Windows/Ubuntu dev machines, the Android emulator must reach the backend via the host machine's static LAN IP, not `localhost`.
+- Ensure firewall rules allow inbound access to the WAMP HTTP port.
+
 ## Standard Implementation Request Template
 
 When requesting Android implementation from an AI agent, use this structure:
@@ -16,7 +21,7 @@ REQUIREMENTS:
 3. [Requirement 3]
 
 TECH STACK:
-- Minimum SDK: 28 (Android 9.0)
+- Minimum SDK: 29 (Android 10)
 - Target SDK: 34
 - Language: Kotlin 100%
 - UI: Jetpack Compose

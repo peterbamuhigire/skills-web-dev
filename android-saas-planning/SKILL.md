@@ -58,7 +58,8 @@ The user may request a **subset** of modules. Respect their selection:
 
 ### 4. Technical Constraints (Discover or Ask)
 
-- Minimum Android API level (default: API 26 / Android 8.0)
+- Minimum Android API level (default: API 29 / Android 10)
+- Apps must be tested against the latest stable Android release
 - Max APK size (default: 50MB)
 - Offline requirements (none / basic caching / full offline-first)
 - Hardware peripherals (Bluetooth printer, barcode scanner, NFC)
@@ -205,6 +206,7 @@ Use these unless the project context requires alternatives:
 | Background    | WorkManager                                 | 2.9+          |
 | Navigation    | Navigation Compose                          | 2.7+          |
 | Image Loading | Coil                                        | 2.6+          |
+| Charting      | Vico (Compose-first)                        | Use guide     |
 | Security      | EncryptedSharedPreferences, BiometricPrompt | AndroidX      |
 | Logging       | Timber                                      | 5.0+          |
 | Testing       | JUnit 5, MockK, Turbine, Compose UI Testing | —             |

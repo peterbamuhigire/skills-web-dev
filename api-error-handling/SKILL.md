@@ -16,6 +16,7 @@ Implement comprehensive, standardized error response system for PHP REST APIs wi
 - Human-readable messages for SweetAlert2 display
 - Secure error handling (no stack traces in production)
 - Comprehensive logging with request IDs
+- **CRITICAL: Always show error messages to users in SweetAlert (never silent failures)**
 
 **Security Baseline (Required):** Always load and apply the **Vibe Security Skill** for PHP API work. Do not leak sensitive data in responses or logs.
 
@@ -236,6 +237,137 @@ if (reason) {
 
 // Helpers: showSuccess/Error/Warning/Info, showConfirm, showLoading, hideLoading
 ```
+
+## Critical Error Display Pattern
+
+**MANDATORY: Always show API errors to users in SweetAlert2**
+
+```javascript
+try {
+  const response = await $.ajax({
+    url: "./api/endpoint.php?action=verify",
+    method: "POST",
+    contentType: "application/json",
+    data: JSON.stringify({ id: 123 }),
+  });
+
+  // Check response.success BEFORE using data
+  if (!response.success) {
+    await Swal.fire({
+      icon: "error",
+      title: "Operation Failed",
+      text: response.message || "An error occurred",
+      confirmButtonText: "OK",
+    });
+    return; // Stop execution
+  }
+
+  // Success path
+  await Swal.fire({
+    icon: "success",
+    title: "Success!",
+    text: response.message || "Operation completed",
+  });
+
+} catch (error) {
+  // Extract error message from different formats
+  let errorMessage = "An unexpected error occurred";
+
+  if (error.responseJSON && error.responseJSON.message) {
+    errorMessage = error.responseJSON.message; // API error message
+  } else if (error.message) {
+    errorMessage = error.message; // JavaScript error
+  }
+
+  await Swal.fire({
+    icon: "error",
+    title: "Error",
+    text: errorMessage,
+    confirmButtonText: "OK",
+  });
+}
+```
+
+**Key Points:**
+- ✅ Always check `response.success` before proceeding
+- ✅ Show error message in SweetAlert (never silent failure)
+- ✅ Extract message from `response.message` or `error.responseJSON.message`
+- ✅ Close any open modals before showing error
+- ✅ Use `await` to ensure user sees error before code continues
+
+## Debugging Data Shape Mismatches
+
+- When you see `not a function` errors in JS, trace the full chain: service return → API wrapper → JS consumer.
+- Services may intentionally wrap arrays (e.g., `{ sales: [...] }`) for mobile consumers while web UI expects a flat array.
+- Normalize defensively when response shape may vary:
+
+```javascript
+const rows = Array.isArray(data)
+  ? data
+  : Array.isArray(data?.sales)
+    ? data.sales
+    : [];
+```
+
+## API Contract Validation (Frontend-Backend Alignment)
+
+**See `references/contract-validation.md` for complete guide**
+
+**Critical Pattern:** Always validate that frontend data matches backend API requirements. Missing fields cause 400 errors that are difficult to debug without detailed error messages.
+
+**Common Scenario:**
+```javascript
+// Frontend sends incomplete data
+{ agent_id: 2, payment_method: "Cash", amount: 10000 }
+
+// API expects (but doesn't communicate):
+{ agent_id: 2, sales_point_id: 5, remittance_date: "2026-02-10", ... }
+
+// Result: Generic 400 Bad Request ❌
+```
+
+**Solution: Field-Specific Validation**
+
+```php
+// Backend: Return specific errors (HTTP 422)
+$errors = [];
+if (empty($input['sales_point_id'])) {
+    $errors['sales_point_id'] = 'Sales point ID is required';
+}
+if (empty($input['remittance_date'])) {
+    $errors['remittance_date'] = 'Remittance date is required';
+}
+if (!empty($errors)) {
+    ResponseHandler::validationError($errors);
+}
+```
+
+**Quick Checklist:**
+- ✅ Document required fields in endpoint comments
+- ✅ Return field-specific errors (HTTP 422, not 400)
+- ✅ Validate frontend data before API call
+- ✅ Match parameter names exactly (snake_case consistency)
+- ✅ Log validation failures with request context
+- ✅ **Action in query string, payload in JSON body** (see below)
+
+**Action Parameter Location:**
+```javascript
+// ✅ CORRECT: Action in URL
+url: "./api/endpoint.php?action=create",
+data: JSON.stringify({ agent_id: 2, amount: 10000 })
+
+// ❌ WRONG: Action in body
+url: "./api/endpoint.php",
+data: JSON.stringify({ action: "create", agent_id: 2 })
+```
+
+**Why:** Query string for routing, JSON body for payload. Makes URLs clear, enables caching, readable logs.
+
+**Debugging:** Check browser console → network tab → PHP error log → compare contracts → test with curl
+
+**Key Takeaways:**
+- *"Always validate API requirements against the frontend data being sent. Generic 400 errors without field details make debugging exponentially harder."*
+- *"Use query string for action/method routing, JSON body for request payload. Check BOTH where API reads it (`$_GET` vs `$input`) AND where frontend sends it (URL vs body)."*
 
 ## Error Message Extraction
 

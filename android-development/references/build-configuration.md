@@ -2,6 +2,11 @@
 
 Gradle Kotlin DSL configuration for Android projects.
 
+## Local Development Networking (WAMP)
+
+- On local Windows/Ubuntu dev machines, the Android emulator must reach the backend via the host machine's static LAN IP, not `localhost`.
+- Ensure firewall rules allow inbound access to the WAMP HTTP port.
+
 ## App-Level build.gradle.kts
 
 ```kotlin
@@ -20,7 +25,7 @@ android {
 
     defaultConfig {
         applicationId = "com.company.saasapp"
-        minSdk = 28
+        minSdk = 29
         targetSdk = 34
         versionCode = 1
         versionName = "1.0.0"

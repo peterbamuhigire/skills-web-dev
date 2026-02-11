@@ -2,6 +2,11 @@
 
 Comprehensive testing patterns for ViewModels, Use Cases, and Compose UI.
 
+## Local Development Networking (WAMP)
+
+- On local Windows/Ubuntu dev machines, the Android emulator must reach the backend via the host machine's static LAN IP, not `localhost`.
+- Ensure firewall rules allow inbound access to the WAMP HTTP port.
+
 **References:** See [Architecture Samples](https://github.com/android/architecture-samples) for shared test implementations (unit + integration + E2E) and [JetNews](https://github.com/android/compose-samples/tree/main/JetNews) for Compose UI testing patterns.
 
 ## Test Structure
@@ -309,15 +314,15 @@ class UserProfileScreenTest {
 
 ## Testing Libraries
 
-| Library | Purpose |
-|---------|---------|
-| JUnit 4 | Test framework |
-| MockK | Kotlin-native mocking |
-| Turbine | Flow testing |
-| Truth / AssertJ | Assertions |
-| Coroutines Test | `runTest`, test dispatchers |
-| Compose Test | UI testing with `ComposeTestRule` |
-| Hilt Testing | DI in tests |
+| Library         | Purpose                           |
+| --------------- | --------------------------------- |
+| JUnit 4         | Test framework                    |
+| MockK           | Kotlin-native mocking             |
+| Turbine         | Flow testing                      |
+| Truth / AssertJ | Assertions                        |
+| Coroutines Test | `runTest`, test dispatchers       |
+| Compose Test    | UI testing with `ComposeTestRule` |
+| Hilt Testing    | DI in tests                       |
 
 ## Testing Rules
 

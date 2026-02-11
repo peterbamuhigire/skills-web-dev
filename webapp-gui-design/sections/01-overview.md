@@ -17,6 +17,15 @@ Build professional web UIs using commercial templates with established component
 ❌ Marketing sites (not covered by this skill)
 ❌ Mobile-native apps
 
+## Interface Design Checklist
+
+Use this for dashboards, admin panels, SaaS apps, tools, settings pages, and data interfaces. Follow [skills/webapp-gui-design/sections/09-interface-design.md](skills/webapp-gui-design/sections/09-interface-design.md) before proposing UI direction or writing UI code:
+
+1. Define human, verb, feel.
+2. Produce Domain, Color world, Signature, Defaults.
+3. Replace each default deliberately.
+4. Run swap, squint, signature, token checks.
+
 ## Stack
 
 - **Base:** Tabler (Bootstrap 5.3.0)

@@ -2,6 +2,11 @@
 
 Comprehensive security patterns for Android applications.
 
+## Local Development Networking (WAMP)
+
+- On local Windows/Ubuntu dev machines, the Android emulator must reach the backend via the host machine's static LAN IP, not `localhost`.
+- Ensure firewall rules allow inbound access to the WAMP HTTP port.
+
 ## Encrypted Storage
 
 ```kotlin

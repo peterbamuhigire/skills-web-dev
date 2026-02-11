@@ -2,7 +2,13 @@
 
 Standard Android project layout for scalable, maintainable applications.
 
+## Local Development Networking (WAMP)
+
+- On local Windows/Ubuntu dev machines, the Android emulator must reach the backend via the host machine's static LAN IP, not `localhost`.
+- Ensure firewall rules allow inbound access to the WAMP HTTP port.
+
 **References:**
+
 - [Now in Android](https://github.com/android/nowinandroid) - production multi-module layout with convention plugins
 - [Architecture Samples](https://github.com/android/architecture-samples) - single-module layered layout with product flavors (mock/prod)
 
@@ -96,19 +102,19 @@ com.company.app/
 
 ## File Naming Conventions
 
-| Type | Pattern | Example |
-|------|---------|---------|
-| Screen | `{Feature}Screen.kt` | `UserProfileScreen.kt` |
-| ViewModel | `{Feature}ViewModel.kt` | `UserProfileViewModel.kt` |
-| Repository Interface | `{Entity}Repository.kt` | `UserRepository.kt` |
-| Repository Impl | `{Entity}RepositoryImpl.kt` | `UserRepositoryImpl.kt` |
-| Use Case | `{Action}{Entity}UseCase.kt` | `GetUserUseCase.kt` |
-| API Service | `{Feature}ApiService.kt` | `UserApiService.kt` |
-| DAO | `{Entity}Dao.kt` | `UserDao.kt` |
-| Database | `{App}Database.kt` | `SaasDatabase.kt` |
-| DI Module | `{Scope}Module.kt` | `AppModule.kt`, `NetworkModule.kt` |
-| UI State | `{Feature}UiState.kt` | `UserProfileUiState.kt` |
-| Component | `Standard{Name}.kt` | `StandardButton.kt` |
+| Type                 | Pattern                      | Example                            |
+| -------------------- | ---------------------------- | ---------------------------------- |
+| Screen               | `{Feature}Screen.kt`         | `UserProfileScreen.kt`             |
+| ViewModel            | `{Feature}ViewModel.kt`      | `UserProfileViewModel.kt`          |
+| Repository Interface | `{Entity}Repository.kt`      | `UserRepository.kt`                |
+| Repository Impl      | `{Entity}RepositoryImpl.kt`  | `UserRepositoryImpl.kt`            |
+| Use Case             | `{Action}{Entity}UseCase.kt` | `GetUserUseCase.kt`                |
+| API Service          | `{Feature}ApiService.kt`     | `UserApiService.kt`                |
+| DAO                  | `{Entity}Dao.kt`             | `UserDao.kt`                       |
+| Database             | `{App}Database.kt`           | `SaasDatabase.kt`                  |
+| DI Module            | `{Scope}Module.kt`           | `AppModule.kt`, `NetworkModule.kt` |
+| UI State             | `{Feature}UiState.kt`        | `UserProfileUiState.kt`            |
+| Component            | `Standard{Name}.kt`          | `StandardButton.kt`                |
 
 ## Module Organization (Multi-Module)
 

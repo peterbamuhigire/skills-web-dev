@@ -17,3 +17,4 @@ This skill is split into sections to stay under the 500-line limit.
 6. [AJAX & Utilities](./sections/06-ajax-utilities.md)
 7. [Responsive, Photo Cards, Flatpickr](./sections/07-responsive-photo-flatpickr.md)
 8. [Best Practices & Aesthetics](./sections/08-best-practices-aesthetics.md)
+9. [Interface Design](./sections/09-interface-design.md)

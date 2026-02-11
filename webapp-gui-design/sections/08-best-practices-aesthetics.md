@@ -23,6 +23,8 @@
 
 This skill guides the construction of distinctive, production-grade frontend interfaces that avoid generic “AI slop” aesthetics. Implement real working code with exceptional attention to detail and creative choices. When the user provides frontend requirements—be it a component, page, application, or interface—treat the ask as a chance to craft something unforgettable rather than a safe, templated layout. Refer to the complete terms in LICENSE.txt when invoking this aesthetic directive.
 
+When the request is for dashboards, admin panels, SaaS apps, tools, settings pages, or data interfaces, follow the Interface Design workflow in [skills/webapp-gui-design/sections/09-interface-design.md](skills/webapp-gui-design/sections/09-interface-design.md) before proposing a direction or writing UI code.
+
 ## Executive UI Mode (C-Suite)
 
 When the UI is for executives or owners, enforce these rules:

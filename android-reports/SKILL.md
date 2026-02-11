@@ -1,8 +1,10 @@
 # Android Mobile Reports
 
 ---
+
 name: android-reports
 description: Best practices for designing mobile-optimized reports in Android apps using Jetpack Compose. Use when implementing report screens, data visualization, export functionality, or any feature that displays aggregated data, analytics, financial summaries, inventory reports, or business intelligence to users on mobile devices. Covers layout patterns, data presentation, filtering, interactivity, and export options.
+
 ---
 
 ## Overview
@@ -41,7 +43,7 @@ Mobile reports require different design considerations than desktop reports due 
 
 ### 5. Data Visualization
 
-- **Charts:** Use vector-based charts (Vico, MPAndroidChart) for crisp scaling
+- **Charts:** Use Vico only (Kotlin-first, Compose-friendly, and actively maintained)
 - **Tables:** Limit to 3-4 columns on phone, 5-6 on tablet
 - **Avoid nested tables** - use cards with grouped data instead
 - **Color coding:** Use color sparingly, ensure accessibility (not color-only indicators)
@@ -341,7 +343,20 @@ fun ExportMenu(
 
 ## Chart Integration
 
-### Using Vico Library (Recommended)
+### Using Vico (Required)
+
+Vico is our standard charting library for business apps.
+
+- 100% Kotlin, works with Jetpack Compose and the View system
+- Compose Multiplatform support for future sharing
+- Extensible, professional-grade charts and interactions
+- Actively maintained with a strong release cadence
+
+**Implementation checklist:**
+
+- Read the official guide at guide.vico.patrykandpatrick.com for setup
+- Use the Compose artifact for new screens; Views only for legacy screens
+- Start from the Vico sample module to mirror production patterns
 
 ```kotlin
 @Composable
@@ -454,6 +469,7 @@ fun ReportEmptyState(
 ## Report Types Reference
 
 See [references/report-types.md](references/report-types.md) for detailed patterns for:
+
 - Financial reports (Sales, Revenue, Expenses)
 - Inventory reports (Stock levels, Movements, Valuations)
 - Analytics reports (User activity, Performance metrics)

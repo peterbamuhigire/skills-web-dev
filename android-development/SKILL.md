@@ -7,8 +7,8 @@ description: "Android development standards for AI agent implementation. Kotlin-
 
 Production-grade Android development standards for AI-assisted implementation. Kotlin-first with Jetpack Compose, following modern Android best practices.
 
-**Core Stack:** Kotlin 100% | Jetpack Compose | MVVM + Clean Architecture | Hilt DI
-**Min SDK:** 28 (Android 9.0) | **Target SDK:** 34
+**Core Stack:** Kotlin 100% | Jetpack Compose (default UI toolkit) | MVVM + Clean Architecture | Hilt DI
+**Min SDK:** 29 (Android 10) | **Target SDK:** 34
 **Reference App:** [Now in Android](https://github.com/android/nowinandroid) - Google's official sample demonstrating these standards in a production-quality codebase
 
 ## When to Use
@@ -74,12 +74,21 @@ com.company.app/
 
 ### Compose
 
+- Jetpack Compose is the default UI toolkit for all new screens
+- Views are allowed only for legacy interop or third-party View-only SDKs
 - Stateless composables preferred (state hoisted to ViewModel)
 - `LaunchedEffect` for side effects, never in composition
 - `collectAsStateWithLifecycle()` for Flow collection
 - Stable keys for `LazyColumn`/`LazyRow` items
 - **Adaptive layouts mandatory** — use `WindowSizeClass` for phone/tablet/foldable
 - Material 3 adaptive library: `androidx.compose.material3.adaptive:adaptive`
+
+### Charting (Vico Standard)
+
+- Use Vico for all charting needs (line, bar, column, candle, etc.)
+- Prefer the Compose module for new screens; use Views only when required
+- Always follow the official guide for setup and current versions
+- Reference the Vico sample module for patterns and styling
 
 ### Security
 

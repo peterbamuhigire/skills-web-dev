@@ -96,6 +96,7 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 - Comprehensive security (EncryptedSharedPreferences, cert pinning, biometrics)
 - Material 3 design system with reusable components
 - Complete screen patterns (list, form, detail with pull-to-refresh)
+- Standard charting via Vico (Compose-first)
 - Testing standards (ViewModel, UseCase, Compose UI tests with Turbine/MockK)
 - Gradle KTS build configuration with version catalog
 - Retrofit API integration with typed error handling

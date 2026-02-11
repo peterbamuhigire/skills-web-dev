@@ -39,6 +39,7 @@ description: "Jetpack Compose UI standards for beautiful, sleek, minimalistic An
 | **Responsive & Adaptive** | `references/responsive-adaptive.md` | WindowSizeClass, phone/tablet layouts, adaptive nav |
 | **Composable Patterns** | `references/composable-patterns.md` | State hoisting, MVVM, screen templates |
 | **Layouts & Components** | `references/layout-and-components.md` | Layouts, modifiers, Material components |
+| **Data Tables** | `references/data-tables.md` | Tables, pagination, responsive table/card layouts, badges |
 | **Animation & Polish** | `references/animation-and-polish.md` | Transitions, micro-interactions, loading |
 | **Navigation & Perf** | `references/navigation-and-performance.md` | Nav setup, deep links, optimization |
 

@@ -76,7 +76,7 @@ fun QuantitySelector(
             onClick = { onQuantityChange((quantity - 1).coerceAtLeast(minValue)) },
             enabled = quantity > minValue
         ) {
-            Icon(Icons.Default.Remove, "Decrease")
+            Icon(painterResource(R.drawable.minus), "Decrease")
         }
         Text(
             text = quantity.toString(),
@@ -88,7 +88,7 @@ fun QuantitySelector(
             onClick = { onQuantityChange((quantity + 1).coerceAtMost(maxValue)) },
             enabled = quantity < maxValue
         ) {
-            Icon(Icons.Default.Add, "Increase")
+            Icon(painterResource(R.drawable.plus), "Increase")
         }
     }
 }
@@ -175,7 +175,7 @@ fun ItemListScreen(
                 title = { Text("Items") },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, "Back")
+                        Icon(painterResource(R.drawable.back), "Back")
                     }
                 }
             )
@@ -185,7 +185,7 @@ fun ItemListScreen(
                 onClick = { /* create new */ },
                 shape = RoundedCornerShape(16.dp)
             ) {
-                Icon(Icons.Default.Add, "Add item")
+                Icon(painterResource(R.drawable.add), "Add item")
             }
         }
     ) { padding ->
@@ -198,7 +198,7 @@ fun ItemListScreen(
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp, vertical = 8.dp),
                 placeholder = { Text("Search items...") },
-                leadingIcon = { Icon(Icons.Default.Search, null) },
+                leadingIcon = { Icon(painterResource(R.drawable.search), null) },
                 singleLine = true,
                 shape = RoundedCornerShape(12.dp)
             )
@@ -207,7 +207,7 @@ fun ItemListScreen(
             when (val state = uiState) {
                 is UiState.Loading -> LoadingScreen()
                 is UiState.Empty -> EmptyScreen(
-                    icon = Icons.Outlined.Inbox,
+                    iconRes = R.drawable.inbox,
                     title = "No items yet",
                     subtitle = "Tap + to add your first item"
                 )
@@ -263,15 +263,15 @@ fun ItemDetailScreen(
                 title = { Text("Details") },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, "Back")
+                        Icon(painterResource(R.drawable.back), "Back")
                     }
                 },
                 actions = {
                     IconButton(onClick = viewModel::onEditClick) {
-                        Icon(Icons.Default.Edit, "Edit")
+                        Icon(painterResource(R.drawable.edit), "Edit")
                     }
                     IconButton(onClick = viewModel::onDeleteClick) {
-                        Icon(Icons.Default.Delete, "Delete")
+                        Icon(painterResource(R.drawable.delete), "Delete")
                     }
                 }
             )
@@ -315,7 +315,7 @@ fun CreateItemScreen(
                         if (formState.hasChanges) showDiscardDialog = true
                         else onNavigateBack()
                     }) {
-                        Icon(Icons.Default.Close, "Cancel")
+                        Icon(painterResource(R.drawable.cancel), "Cancel")
                     }
                 },
                 actions = {

@@ -105,15 +105,15 @@ object Spacing {
 
 ### Where to Use Each
 
-| Spacing | Use Case |
-|---------|----------|
-| **4dp** | Icon-to-text gap, inline element spacing |
-| **8dp** | Between items in a group, vertical list spacing |
-| **12dp** | Between cards in a list (slightly more breathing room) |
+| Spacing  | Use Case                                                       |
+| -------- | -------------------------------------------------------------- |
+| **4dp**  | Icon-to-text gap, inline element spacing                       |
+| **8dp**  | Between items in a group, vertical list spacing                |
+| **12dp** | Between cards in a list (slightly more breathing room)         |
 | **16dp** | Screen edge padding, card internal padding, form field spacing |
-| **24dp** | Between distinct sections on a screen |
-| **32dp** | Before/after major content blocks |
-| **48dp** | Top/bottom padding on scrollable content |
+| **24dp** | Between distinct sections on a screen                          |
+| **32dp** | Before/after major content blocks                              |
+| **48dp** | Top/bottom padding on scrollable content                       |
 
 ### Card Padding Standard
 
@@ -196,13 +196,13 @@ val IconHero = 48.dp     // Empty states, error states
 
 ### Icon Style Rules
 
-- Use **Material Icons** exclusively (outlined style preferred for minimalism)
+- Use **custom PNG icons** only (no icon libraries)
 - Always provide `contentDescription` for accessibility
-- Use `tint` from theme, never hardcode icon colors
+- Use `tint` from theme when the icon is monochrome; do not hardcode colors
 
 ```kotlin
 Icon(
-    imageVector = Icons.Outlined.FavoriteBorder,
+    painter = painterResource(R.drawable.favorite),
     contentDescription = "Add to favorites",
     tint = MaterialTheme.colorScheme.onSurface,
     modifier = Modifier.size(24.dp)

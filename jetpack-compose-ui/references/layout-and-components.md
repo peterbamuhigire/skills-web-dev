@@ -39,7 +39,7 @@ Box(modifier = Modifier.fillMaxSize()) {
     FloatingActionButton(
         onClick = {},
         modifier = Modifier.align(Alignment.BottomEnd).padding(16.dp)
-    ) { Icon(Icons.Default.Add, "Add") }
+    ) { Icon(painterResource(R.drawable.add), "Add") }
 }
 ```
 
@@ -151,7 +151,7 @@ fun StandardTopBar(
         title = { Text(title) },
         navigationIcon = {
             IconButton(onClick = onBack) {
-                Icon(Icons.AutoMirrored.Filled.ArrowBack, "Back")
+                Icon(painterResource(R.drawable.back), "Back")
             }
         },
         actions = actions
@@ -170,7 +170,7 @@ fun LargeTopBar(
         title = { Text(title) },
         navigationIcon = {
             IconButton(onClick = onBack) {
-                Icon(Icons.AutoMirrored.Filled.ArrowBack, "Back")
+                Icon(painterResource(R.drawable.back), "Back")
             }
         },
         scrollBehavior = scrollBehavior
@@ -188,7 +188,7 @@ fun AppTextField(
     label: String,
     modifier: Modifier = Modifier,
     error: String? = null,
-    leadingIcon: ImageVector? = null,
+    leadingIconRes: Int? = null,
     keyboardType: KeyboardType = KeyboardType.Text,
     singleLine: Boolean = true
 ) {
@@ -198,7 +198,7 @@ fun AppTextField(
         label = { Text(label) },
         isError = error != null,
         supportingText = error?.let { { Text(it, color = MaterialTheme.colorScheme.error) } },
-        leadingIcon = leadingIcon?.let { { Icon(it, null) } },
+        leadingIcon = leadingIconRes?.let { { Icon(painterResource(it), null) } },
         modifier = modifier.fillMaxWidth(),
         singleLine = singleLine,
         keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
@@ -235,7 +235,7 @@ TextButton(onClick = onSkip) {
 
 // Icon action (toolbar, list items)
 IconButton(onClick = onMore) {
-    Icon(Icons.Default.MoreVert, "More options")
+    Icon(painterResource(R.drawable.more), "More options")
 }
 
 // FAB (floating primary action)
@@ -244,7 +244,7 @@ FloatingActionButton(
     shape = RoundedCornerShape(16.dp),
     containerColor = MaterialTheme.colorScheme.primaryContainer
 ) {
-    Icon(Icons.Default.Add, "Create")
+    Icon(painterResource(R.drawable.add), "Create")
 }
 ```
 
@@ -257,7 +257,7 @@ FilterChip(
     onClick = onToggle,
     label = { Text("Active") },
     leadingIcon = if (isSelected) {
-        { Icon(Icons.Default.Check, null, Modifier.size(16.dp)) }
+        { Icon(painterResource(R.drawable.check), null, Modifier.size(16.dp)) }
     } else null
 )
 
@@ -268,7 +268,7 @@ InputChip(
     label = { Text("Tag Name") },
     trailingIcon = {
         IconButton(onClick = onRemove, modifier = Modifier.size(16.dp)) {
-            Icon(Icons.Default.Close, "Remove")
+            Icon(painterResource(R.drawable.close), "Remove")
         }
     }
 )
@@ -293,7 +293,7 @@ fun OptionsBottomSheet(
                 ListItem(
                     headlineContent = { Text(option.title) },
                     supportingContent = option.subtitle?.let { { Text(it) } },
-                    leadingContent = { Icon(option.icon, null) },
+                    leadingContent = { Icon(painterResource(option.iconRes), null) },
                     modifier = Modifier.clickable { onOptionClick(option); onDismiss() }
                 )
             }

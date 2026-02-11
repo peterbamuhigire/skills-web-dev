@@ -13,6 +13,10 @@ Mobile reports require different design considerations than desktop reports due 
 
 Android 10+ required.
 
+**Icon Policy:** Use custom PNG icons only. Use `painterResource(R.drawable.<name>)` placeholders and update `PROJECT_ICONS.md` (see `android-custom-icons`).
+
+**Report Table Policy:** If a report can exceed 25 rows, it must use a table layout (see `android-report-tables`).
+
 ## Core Principles
 
 ### 1. Responsive Layout with Relative Positioning
@@ -47,7 +51,7 @@ Android 10+ required.
 
 - **Charts:** Use Vico only (Kotlin-first, Compose-friendly, and actively maintained)
 - **Tables:** Limit to 3-4 columns on phone, 5-6 on tablet
-- **Avoid nested tables** - use cards with grouped data instead
+- **Avoid nested tables** - use grouped sections or pagination instead
 - **Color coding:** Use color sparingly, ensure accessibility (not color-only indicators)
 
 ### 6. Performance Optimization
@@ -97,6 +101,66 @@ fun InventoryReportScreen(state: ReportState) {
 }
 ```
 
+### Pattern 1b: Table-First Paginated Report (25+ Rows)
+
+Use this when the report can exceed 25 rows. Table with sticky header and floating footer.
+
+```kotlin
+@Composable
+fun PaginatedReportScreen(allData: List<ReportItem>) {
+    val pageSize = 25
+    var currentPage by remember { mutableIntStateOf(1) }
+    val listState = rememberLazyListState()
+
+    val totalPages = maxOf(1, ceil(allData.size.toDouble() / pageSize).toInt())
+    val pagedItems = remember(currentPage, allData) {
+        val start = (currentPage - 1) * pageSize
+        val end = minOf(start + pageSize, allData.size)
+        allData.subList(start, end)
+    }
+
+    LaunchedEffect(currentPage) {
+        listState.animateScrollToItem(0)
+    }
+
+    Scaffold(
+        bottomBar = {
+            Column {
+                HorizontalDivider(
+                    thickness = 0.5.dp,
+                    color = MaterialTheme.colorScheme.outlineVariant
+                )
+                TablePaginationController(
+                    currentPage = currentPage,
+                    totalPages = totalPages,
+                    onPageChange = { currentPage = it }
+                )
+            }
+        }
+    ) { paddingValues ->
+        LazyColumn(
+            state = listState,
+            modifier = Modifier.padding(paddingValues).fillMaxSize()
+        ) {
+            stickyHeader {
+                ReportRow(
+                    data = listOf("ID", "Customer", "Amount"),
+                    isHeader = true,
+                    weights = listOf(0.2f, 0.5f, 0.3f)
+                )
+            }
+
+            items(pagedItems) { item ->
+                ReportRow(
+                    data = listOf(item.id, item.name, item.amount),
+                    weights = listOf(0.2f, 0.5f, 0.3f)
+                )
+            }
+        }
+    }
+}
+```
+
 ### Pattern 2: Tab-Based Multi-Report
 
 ```kotlin
@@ -139,7 +203,7 @@ fun FilterableReportScreen(viewModel: ReportViewModel) {
                 title = { Text("Sales Report") },
                 actions = {
                     IconButton(onClick = { showFilters = true }) {
-                        Icon(Icons.Default.FilterList, "Filters")
+                        Icon(painterResource(R.drawable.filter), "Filters")
                     }
                 }
             )
@@ -308,7 +372,7 @@ fun ExportMenu(
     var expanded by remember { mutableStateOf(false) }
 
     IconButton(onClick = { expanded = true }) {
-        Icon(Icons.Default.Share, "Export")
+        Icon(painterResource(R.drawable.share), "Export")
     }
 
     DropdownMenu(
@@ -317,7 +381,7 @@ fun ExportMenu(
     ) {
         DropdownMenuItem(
             text = { Text("Export as PDF") },
-            leadingIcon = { Icon(Icons.Default.PictureAsPdf, null) },
+            leadingIcon = { Icon(painterResource(R.drawable.pdf), null) },
             onClick = {
                 expanded = false
                 onExportPdf()
@@ -325,7 +389,7 @@ fun ExportMenu(
         )
         DropdownMenuItem(
             text = { Text("Export as CSV") },
-            leadingIcon = { Icon(Icons.Default.TableChart, null) },
+            leadingIcon = { Icon(painterResource(R.drawable.table), null) },
             onClick = {
                 expanded = false
                 onExportCsv()
@@ -333,7 +397,7 @@ fun ExportMenu(
         )
         DropdownMenuItem(
             text = { Text("Share Report") },
-            leadingIcon = { Icon(Icons.Default.Send, null) },
+            leadingIcon = { Icon(painterResource(R.drawable.send), null) },
             onClick = {
                 expanded = false
                 onShare()
@@ -426,7 +490,7 @@ fun ReportEmptyState(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Icon(
-            imageVector = Icons.Default.Assessment,
+            painter = painterResource(R.drawable.report),
             contentDescription = null,
             modifier = Modifier.size(80.dp),
             tint = MaterialTheme.colorScheme.outlineVariant

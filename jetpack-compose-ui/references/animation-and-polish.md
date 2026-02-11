@@ -289,7 +289,7 @@ fun SuccessAnimation(modifier: Modifier = Modifier) {
         contentAlignment = Alignment.Center
     ) {
         Icon(
-            Icons.Default.Check,
+            painterResource(R.drawable.check),
             contentDescription = "Success",
             tint = MaterialTheme.colorScheme.onPrimaryContainer,
             modifier = Modifier.size(32.dp)

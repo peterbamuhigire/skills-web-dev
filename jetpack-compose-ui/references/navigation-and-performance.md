@@ -117,9 +117,13 @@ fun MainScreen() {
                                 }
                             },
                             icon = {
+                                val iconRes = if (currentRoute == item.route) {
+                                    item.selectedIconRes
+                                } else {
+                                    item.unselectedIconRes
+                                }
                                 Icon(
-                                    if (currentRoute == item.route) item.selectedIcon
-                                    else item.unselectedIcon,
+                                    painterResource(iconRes),
                                     contentDescription = item.label
                                 )
                             },
@@ -137,9 +141,9 @@ fun MainScreen() {
 }
 
 val bottomNavItems = listOf(
-    BottomNavItem(Screen.Home.route, "Home", Icons.Filled.Home, Icons.Outlined.Home),
-    BottomNavItem(Screen.Search.route, "Search", Icons.Filled.Search, Icons.Outlined.Search),
-    BottomNavItem(Screen.Profile.route, "Profile", Icons.Filled.Person, Icons.Outlined.Person)
+    BottomNavItem(Screen.Home.route, "Home", R.drawable.home_filled, R.drawable.home),
+    BottomNavItem(Screen.Search.route, "Search", R.drawable.search_filled, R.drawable.search),
+    BottomNavItem(Screen.Profile.route, "Profile", R.drawable.profile_filled, R.drawable.profile)
 )
 ```
 
@@ -147,11 +151,11 @@ val bottomNavItems = listOf(
 
 Navigation components adapt based on `WindowSizeClass`. See `responsive-adaptive.md` for the full pattern.
 
-| Width Class | Component | Usage |
-|-------------|-----------|-------|
-| **Compact** | `NavigationBar` | Bottom bar (phones) |
-| **Medium** | `NavigationRail` | Side rail (tablets portrait, foldables) |
-| **Expanded** | `PermanentNavigationDrawer` | Permanent drawer (tablets landscape) |
+| Width Class  | Component                   | Usage                                   |
+| ------------ | --------------------------- | --------------------------------------- |
+| **Compact**  | `NavigationBar`             | Bottom bar (phones)                     |
+| **Medium**   | `NavigationRail`            | Side rail (tablets portrait, foldables) |
+| **Expanded** | `PermanentNavigationDrawer` | Permanent drawer (tablets landscape)    |
 
 ```kotlin
 @Composable
@@ -182,7 +186,7 @@ fun AdaptiveMainScreen(
                                 label = { Text(item.label) },
                                 selected = currentRoute == item.route,
                                 onClick = { onNavClick(item.route) },
-                                icon = { Icon(item.icon, item.label) },
+                                icon = { Icon(painterResource(item.iconRes), item.label) },
                                 modifier = Modifier.padding(horizontal = 12.dp)
                             )
                         }
@@ -332,7 +336,7 @@ fun SmartScrollContent(items: List<Item>) {
                     // Scroll to top
                 }
             ) {
-                Icon(Icons.Default.KeyboardArrowUp, "Scroll to top")
+                Icon(painterResource(R.drawable.arrow_up), "Scroll to top")
             }
         }
     }

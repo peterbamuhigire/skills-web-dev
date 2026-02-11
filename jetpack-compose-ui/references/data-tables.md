@@ -4,11 +4,11 @@ Standard pattern for displaying tabulated data in Jetpack Compose. Applies to an
 
 ## Design Principles
 
-1. **Responsive first** -- Table on tablet (>=600dp), cards on phone (<600dp)
-2. **Client-side pagination** -- Page through loaded items locally (15/page)
+1. **Table-first for reports** -- If a report can exceed 25 rows, always render as a table (phone + tablet)
+2. **Client-side pagination** -- Page through loaded items locally (25/page)
 3. **Server pagination bridge** -- Fetch more from API when reaching last page
 4. **Minimal rendering** -- Only render current page items, never the full list
-5. **No LazyColumn items()** -- Render the table/cards as a single `item {}` block inside `LazyColumn` to avoid nesting scrollable containers and prevent emulator crashes
+5. **No LazyColumn items()** -- Render the table as a single `item {}` block inside `LazyColumn` to avoid nesting scrollable containers and prevent emulator crashes
 
 ## Architecture Overview
 
@@ -17,8 +17,7 @@ LazyColumn {                          // Outer scrollable container
     item { FilterSection }            // Filters (dropdowns)
     item { SummaryCards }             // KPI summary row(s)
     item {                            // ONE item block for data
-        if (isTablet) DataTable(pageItems)
-        else DataCards(pageItems)
+        DataTable(pageItems)
     }
     item { TablePaginationBar }       // Pagination controls
     item { LoadingMoreIndicator }     // Conditional spinner
@@ -27,8 +26,8 @@ LazyColumn {                          // Outer scrollable container
 
 ## Screen Template
 
-```kotlin
-private const val ITEMS_PER_PAGE = 15
+````kotlin
+private const val ITEMS_PER_PAGE = 25
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -45,9 +44,6 @@ fun ReportScreen(
     var tablePage by remember { mutableIntStateOf(1) }
     val totalPages = maxOf(1, ceil(items.size.toDouble() / ITEMS_PER_PAGE).toInt())
     val pageItems = items.drop((tablePage - 1) * ITEMS_PER_PAGE).take(ITEMS_PER_PAGE)
-
-    // Responsive breakpoint
-    val isTablet = LocalConfiguration.current.screenWidthDp >= 600
 
     // Reset page when filter changes shrink the list
     val itemsSize = items.size
@@ -69,7 +65,7 @@ fun ReportScreen(
                 title = { Text("Report Title") },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, "Back")
+                        Icon(painterResource(R.drawable.back), "Back")
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -95,10 +91,7 @@ fun ReportScreen(
                 item { /* Summary cards go here */ }
 
                 if (items.isNotEmpty()) {
-                    item {
-                        if (isTablet) DataTable(pageItems)
-                        else DataCards(pageItems)
-                    }
+                    item { DataTable(pageItems) }
                     item {
                         TablePaginationBar(
                             currentPage = tablePage,
@@ -128,7 +121,112 @@ fun ReportScreen(
         }
     }
 }
+
+## Floating Footer Pagination (Recommended)
+
+Use a sticky header for the table head and a floating footer for page controls.
+This creates a dense, professional table with clear "mental anchors".
+
+```kotlin
+@Composable
+fun TablePaginationController(
+    currentPage: Int,
+    totalPages: Int,
+    onPageChange: (Int) -> Unit
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(12.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = "Page $currentPage of $totalPages",
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            OutlinedButton(
+                onClick = { onPageChange(currentPage - 1) },
+                enabled = currentPage > 1,
+                contentPadding = PaddingValues(horizontal = 12.dp, vertical = 4.dp),
+                shape = RoundedCornerShape(8.dp)
+            ) {
+                Text("Prev", fontSize = 12.sp)
+            }
+
+            Button(
+                onClick = { onPageChange(currentPage + 1) },
+                enabled = currentPage < totalPages,
+                contentPadding = PaddingValues(horizontal = 12.dp, vertical = 4.dp),
+                shape = RoundedCornerShape(8.dp)
+            ) {
+                Text("Next", fontSize = 12.sp)
+            }
+        }
+    }
+}
+````
+
+```kotlin
+@Composable
+fun PaginatedReportScreen(allData: List<ReportItem>) {
+    val pageSize = 25
+    var currentPage by remember { mutableIntStateOf(1) }
+    val listState = rememberLazyListState()
+
+    val totalPages = maxOf(1, ceil(allData.size.toDouble() / pageSize).toInt())
+    val pagedItems = remember(currentPage, allData) {
+        val start = (currentPage - 1) * pageSize
+        val end = minOf(start + pageSize, allData.size)
+        allData.subList(start, end)
+    }
+
+    LaunchedEffect(currentPage) {
+        listState.animateScrollToItem(0)
+    }
+
+    Scaffold(
+        bottomBar = {
+            Column {
+                HorizontalDivider(
+                    thickness = 0.5.dp,
+                    color = MaterialTheme.colorScheme.outlineVariant
+                )
+                TablePaginationController(
+                    currentPage = currentPage,
+                    totalPages = totalPages,
+                    onPageChange = { currentPage = it }
+                )
+            }
+        }
+    ) { paddingValues ->
+        LazyColumn(
+            state = listState,
+            modifier = Modifier.padding(paddingValues).fillMaxSize()
+        ) {
+            stickyHeader {
+                ReportRow(
+                    data = listOf("ID", "Customer", "Amount"),
+                    isHeader = true,
+                    weights = listOf(0.2f, 0.5f, 0.3f)
+                )
+            }
+
+            items(pagedItems) { item ->
+                ReportRow(
+                    data = listOf(item.id, item.name, item.amount),
+                    weights = listOf(0.2f, 0.5f, 0.3f)
+                )
+            }
+        }
+    }
+}
 ```
+
+````
 
 ## Table Layout (Tablet >= 600dp)
 
@@ -209,7 +307,7 @@ private fun DataTable(items: List<DataItem>) {
         }
     }
 }
-```
+````
 
 ### Header Cell
 
@@ -233,35 +331,35 @@ private fun HeaderCell(
 
 ### Column Weight Guidelines
 
-| Column Type | Weight | TextAlign | Example |
-|-------------|--------|-----------|---------|
-| Primary (name + subtitle) | 2.0-2.5f | Start | Item name + category |
-| Text (medium) | 1.2-1.5f | Start | Warehouse, supplier |
-| Numeric | 0.8-1.2f | End | Qty, cost, value |
-| Status badge | 0.8-1.0f | Center | In Stock, Pending |
-| Short text | 0.6-0.8f | Start/End | ID, date |
+| Column Type               | Weight   | TextAlign | Example              |
+| ------------------------- | -------- | --------- | -------------------- |
+| Primary (name + subtitle) | 2.0-2.5f | Start     | Item name + category |
+| Text (medium)             | 1.2-1.5f | Start     | Warehouse, supplier  |
+| Numeric                   | 0.8-1.2f | End       | Qty, cost, value     |
+| Status badge              | 0.8-1.0f | Center    | In Stock, Pending    |
+| Short text                | 0.6-0.8f | Start/End | ID, date             |
 
 ### Typography Standards
 
-| Element | Style | Weight | Color |
-|---------|-------|--------|-------|
-| Header cell | `labelSmall` | Bold | `onSurfaceVariant` |
-| Data cell (text) | `bodySmall` | Normal | default |
-| Data cell (primary) | `bodySmall` | Medium | default |
-| Data cell (emphasis) | `bodySmall` | SemiBold | default or `primary` |
-| Subtitle (in primary column) | `labelSmall` | Normal | `onSurfaceVariant` |
+| Element                      | Style        | Weight   | Color                |
+| ---------------------------- | ------------ | -------- | -------------------- |
+| Header cell                  | `labelSmall` | Bold     | `onSurfaceVariant`   |
+| Data cell (text)             | `bodySmall`  | Normal   | default              |
+| Data cell (primary)          | `bodySmall`  | Medium   | default              |
+| Data cell (emphasis)         | `bodySmall`  | SemiBold | default or `primary` |
+| Subtitle (in primary column) | `labelSmall` | Normal   | `onSurfaceVariant`   |
 
 ### Spacing Standards
 
-| Element | Value |
-|---------|-------|
-| Row horizontal padding | 12.dp |
-| Row vertical padding | 10.dp |
-| Card elevation | 1.dp |
-| Card container color | `MaterialTheme.colorScheme.surface` |
-| Header divider | `outlineVariant` (full opacity) |
-| Row divider | `outlineVariant.copy(alpha = 0.5f)` |
-| Row divider horizontal padding | 12.dp |
+| Element                        | Value                               |
+| ------------------------------ | ----------------------------------- |
+| Row horizontal padding         | 12.dp                               |
+| Row vertical padding           | 10.dp                               |
+| Card elevation                 | 1.dp                                |
+| Card container color           | `MaterialTheme.colorScheme.surface` |
+| Header divider                 | `outlineVariant` (full opacity)     |
+| Row divider                    | `outlineVariant.copy(alpha = 0.5f)` |
+| Row divider horizontal padding | 12.dp                               |
 
 ## Card Layout (Phone < 600dp)
 
@@ -388,14 +486,14 @@ private fun StatusBadge(status: Status, modifier: Modifier = Modifier) {
 
 ### Standard Color Palette
 
-| Semantic | Color | Hex |
-|----------|-------|-----|
-| Success / In Stock / Low Risk | Green | `0xFF4CAF50` |
-| Warning / Low Stock / Medium | Orange | `0xFFFF9800` |
-| Error / Out of Stock / Critical | Red | `0xFFF44336` |
-| High Risk | Deep Orange | `0xFFF57C00` |
-| Medium Risk / Caution | Amber | `0xFFFBC02D` |
-| Info / Neutral | Blue | `0xFF1976D2` |
+| Semantic                        | Color       | Hex          |
+| ------------------------------- | ----------- | ------------ |
+| Success / In Stock / Low Risk   | Green       | `0xFF4CAF50` |
+| Warning / Low Stock / Medium    | Orange      | `0xFFFF9800` |
+| Error / Out of Stock / Critical | Red         | `0xFFF44336` |
+| High Risk                       | Deep Orange | `0xFFF57C00` |
+| Medium Risk / Caution           | Amber       | `0xFFFBC02D` |
+| Info / Neutral                  | Blue        | `0xFF1976D2` |
 
 ## TablePaginationBar (Shared Component)
 
@@ -514,8 +612,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -523,6 +619,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -532,11 +629,11 @@ import kotlin.math.ceil
 
 ## Anti-Patterns (AVOID)
 
-| Anti-Pattern | Why | Do Instead |
-|---|---|---|
-| `LazyColumn { items(list) }` inside a `LazyColumn` | Nested scrollable crash | Render table as single `item {}` block with `forEachIndexed` |
-| `items(allItems)` with card-per-item | Crashes on large lists on some emulators | Client-side pagination (15/page) |
-| `GridCells.Adaptive` for data tables | Unpredictable column count | `Row` with `Modifier.weight()` columns |
-| Hardcoded dp widths for columns | Doesn't adapt to screen size | `Modifier.weight(Xf)` proportional |
-| `derivedStateOf` infinite scroll | Complex, hard to debug | Client pagination + `loadMore()` on last page |
-| Full dataset in single render | Memory + jank on large lists | Paginate to 15 items per page |
+| Anti-Pattern                                       | Why                                      | Do Instead                                                   |
+| -------------------------------------------------- | ---------------------------------------- | ------------------------------------------------------------ |
+| `LazyColumn { items(list) }` inside a `LazyColumn` | Nested scrollable crash                  | Render table as single `item {}` block with `forEachIndexed` |
+| `items(allItems)` with card-per-item               | Crashes on large lists on some emulators | Client-side pagination (15/page)                             |
+| `GridCells.Adaptive` for data tables               | Unpredictable column count               | `Row` with `Modifier.weight()` columns                       |
+| Hardcoded dp widths for columns                    | Doesn't adapt to screen size             | `Modifier.weight(Xf)` proportional                           |
+| `derivedStateOf` infinite scroll                   | Complex, hard to debug                   | Client pagination + `loadMore()` on last page                |
+| Full dataset in single render                      | Memory + jank on large lists             | Paginate to 15 items per page                                |

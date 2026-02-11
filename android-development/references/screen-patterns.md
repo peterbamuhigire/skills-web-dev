@@ -61,7 +61,7 @@ fun UserProfileScreen(
                 onNavigationClick = onNavigateBack,
                 actions = {
                     IconButton(onClick = onEditProfile) {
-                        Icon(Icons.Default.Edit, contentDescription = "Edit")
+                        Icon(painterResource(R.drawable.edit), contentDescription = "Edit")
                     }
                 }
             )
@@ -175,7 +175,7 @@ fun OrderListScreen(
         },
         floatingActionButton = {
             FloatingActionButton(onClick = { /* create new */ }) {
-                Icon(Icons.Default.Add, contentDescription = "New Order")
+                Icon(painterResource(R.drawable.add), contentDescription = "New Order")
             }
         }
     ) { paddingValues ->

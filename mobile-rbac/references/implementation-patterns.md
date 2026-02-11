@@ -207,7 +207,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.annotation.DrawableRes
 import androidx.compose.ui.unit.dp
 import com.example.app.data.local.prefs.PermissionManager
 
@@ -218,7 +218,7 @@ fun PermissionButton(
     onClick: () -> Unit,
     text: String,
     modifier: Modifier = Modifier,
-    icon: ImageVector? = null,
+    @DrawableRes iconRes: Int? = null,
     deniedMessage: String = "Restricted",
     colors: ButtonColors = ButtonDefaults.buttonColors()
 ) {
@@ -235,8 +235,8 @@ fun PermissionButton(
             )
         } else colors
     ) {
-        if (icon != null) {
-            Icon(icon, contentDescription = null, modifier = Modifier.size(18.dp))
+        if (iconRes != null) {
+            Icon(painterResource(iconRes), contentDescription = null, modifier = Modifier.size(18.dp))
             Spacer(Modifier.width(8.dp))
         }
         Text(if (hasPermission) text else deniedMessage)
@@ -250,14 +250,13 @@ fun PermissionButton(
 package com.example.app.presentation.common.components
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.painterResource
 
 @Composable
 fun PermissionDeniedScreen(
@@ -273,7 +272,7 @@ fun PermissionDeniedScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Icon(
-            Icons.Default.Lock,
+            painterResource(R.drawable.lock),
             contentDescription = null,
             modifier = Modifier.size(64.dp),
             tint = MaterialTheme.colorScheme.onSurfaceVariant

@@ -13,6 +13,10 @@ Android 10+ required.
 
 **Architecture:** Offline-first with API sync via Repository pattern.
 
+**Icon Policy:** If any UI code is included, use custom PNG icons and maintain `PROJECT_ICONS.md` (see `android-custom-icons`).
+
+**Report Table Policy:** If persistence examples include report UIs that can exceed 25 rows, use table layouts (see `android-report-tables`).
+
 ```
 UI (Compose) → ViewModel → Repository → Room (local) + API (remote)
 ```

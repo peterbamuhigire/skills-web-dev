@@ -84,12 +84,25 @@ com.company.app/
 - **Adaptive layouts mandatory** — use `WindowSizeClass` for phone/tablet/foldable
 - Material 3 adaptive library: `androidx.compose.material3.adaptive:adaptive`
 
+### Custom PNG Icons (Required)
+
+- Use custom PNG icons only; do not use icon libraries
+- Use `painterResource(R.drawable.<name>)` or `@drawable/<name>`
+- Maintain `PROJECT_ICONS.md` in the project root
+
+Follow the `android-custom-icons` skill for naming, directory rules, and tracking.
+
 ### Charting (Vico Standard)
 
 - Use Vico for all charting needs (line, bar, column, candle, etc.)
 - Prefer the Compose module for new screens; use Views only when required
 - Always follow the official guide for setup and current versions
 - Reference the Vico sample module for patterns and styling
+
+### Report Tables (25+ Rows)
+
+- Any report that can exceed 25 rows must render as a table, not cards
+- Follow the `android-report-tables` skill for table-first patterns
 
 ### Security
 

@@ -11,15 +11,19 @@ TDD is a development process where you write tests **before** feature code, foll
 
 **Core Principle:** No production code without a failing test first.
 
+**Icon Policy:** If UI code is generated as part of TDD, use custom PNG icons and maintain `PROJECT_ICONS.md` (see `android-custom-icons`).
+
+**Report Table Policy:** If UI tests cover reports that can exceed 25 rows, the UI must use table layouts (see `android-report-tables`).
+
 ## Quick Reference
 
-| Topic | Reference File | When to Use |
-|-------|---------------|-------------|
-| **TDD Workflow** | `references/tdd-workflow.md` | Step-by-step Red-Green-Refactor with examples |
-| **Testing by Layer** | `references/testing-by-layer.md` | Unit, integration, persistence, network, UI tests |
-| **Advanced Techniques** | `references/advanced-techniques.md` | Factories, behavior verification, LiveData/Flow |
-| **Tools & CI Setup** | `references/tools-and-ci.md` | Dependencies, CI pipelines, test configuration |
-| **Team Adoption** | `references/team-adoption.md` | Legacy code, team onboarding, troubleshooting |
+| Topic                   | Reference File                      | When to Use                                       |
+| ----------------------- | ----------------------------------- | ------------------------------------------------- |
+| **TDD Workflow**        | `references/tdd-workflow.md`        | Step-by-step Red-Green-Refactor with examples     |
+| **Testing by Layer**    | `references/testing-by-layer.md`    | Unit, integration, persistence, network, UI tests |
+| **Advanced Techniques** | `references/advanced-techniques.md` | Factories, behavior verification, LiveData/Flow   |
+| **Tools & CI Setup**    | `references/tools-and-ci.md`        | Dependencies, CI pipelines, test configuration    |
+| **Team Adoption**       | `references/team-adoption.md`       | Legacy code, team onboarding, troubleshooting     |
 
 ## The Red-Green-Refactor Cycle
 
@@ -31,6 +35,7 @@ TDD is a development process where you write tests **before** feature code, foll
 ```
 
 **Critical Rules:**
+
 - Never skip the Red phase (verify the test actually fails)
 - Never write more code than needed in Green phase
 - Never refactor with failing tests
@@ -48,11 +53,11 @@ TDD is a development process where you write tests **before** feature code, foll
   /==================\
 ```
 
-| Type | Speed | Scope | Location | Tools |
-|------|-------|-------|----------|-------|
-| **Unit** | <1ms each | Single class/method | `test/` | JUnit, Mockito |
-| **Integration** | ~100ms each | Component interactions | `test/` or `androidTest/` | JUnit, Robolectric |
-| **UI** | ~1s each | User flows | `androidTest/` | Espresso, Compose Testing |
+| Type            | Speed       | Scope                  | Location                  | Tools                     |
+| --------------- | ----------- | ---------------------- | ------------------------- | ------------------------- |
+| **Unit**        | <1ms each   | Single class/method    | `test/`                   | JUnit, Mockito            |
+| **Integration** | ~100ms each | Component interactions | `test/` or `androidTest/` | JUnit, Robolectric        |
+| **UI**          | ~1s each    | User flows             | `androidTest/`            | Espresso, Compose Testing |
 
 ## TDD Workflow for Android Features
 
@@ -60,7 +65,7 @@ TDD is a development process where you write tests **before** feature code, foll
 
 Start with a clear user story or acceptance criteria:
 
-> *As a user, I want to add items to my cart so I can purchase them later.*
+> _As a user, I want to add items to my cart so I can purchase them later._
 
 ### Step 2: Write the Failing Test (Red)
 
@@ -233,6 +238,7 @@ vibe-security-skill → Security review
 ```
 
 **Key Integrations:**
+
 - **android-development**: Follow MVVM + Clean Architecture for testable design
 - **feature-planning**: Use acceptance criteria as test scenarios
 - **ai-error-handling**: Validate AI output against test expectations
@@ -257,6 +263,7 @@ jobs:
 ```
 
 **CI Rules:**
+
 - All tests must pass before merge
 - Coverage reports generated on every PR
 - Unit tests and instrumented tests run in parallel

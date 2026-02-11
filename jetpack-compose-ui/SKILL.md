@@ -31,6 +31,10 @@ description: "Jetpack Compose UI standards for beautiful, sleek, minimalistic An
 | **Icon size**        | 24dp standard, 20dp in buttons, 48dp for empty states |
 | **Typography scale** | Use Material 3 type scale exclusively                 |
 
+**Icon Policy (Required):** Use custom PNG icons with `painterResource(R.drawable.<name>)`. Maintain `PROJECT_ICONS.md` per `android-custom-icons`.
+
+**Report Table Policy (Required):** Any report that can exceed 25 rows must render as a table (see `android-report-tables`).
+
 ## Quick Reference
 
 | Topic                     | Reference File                             | When to Use                                               |
@@ -83,7 +87,7 @@ fun SearchBar(
         onValueChange = onQueryChange,
         modifier = modifier.fillMaxWidth(),
         placeholder = { Text("Search...") },
-        leadingIcon = { Icon(Icons.Default.Search, null) },
+        leadingIcon = { Icon(painterResource(R.drawable.search), null) },
         singleLine = true,
         shape = RoundedCornerShape(12.dp)
     )
@@ -298,7 +302,7 @@ fun LoadingScreen(modifier: Modifier = Modifier) {
 // Empty: icon + title + subtitle + optional action
 @Composable
 fun EmptyScreen(
-    icon: ImageVector = Icons.Outlined.Inbox,
+    iconRes: Int = R.drawable.inbox,
     title: String,
     subtitle: String,
     modifier: Modifier = Modifier,

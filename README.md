@@ -39,8 +39,10 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 - ai-assisted-development
 - ai-error-handling
 - ai-error-prevention
+- android-custom-icons
 - android-data-persistence
 - android-development
+- android-report-tables
 - android-reports
 - android-saas-planning
 - android-tdd
@@ -210,7 +212,45 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ---
 
-### 1e. Google Play Store Review Readiness
+### 1e. Android Custom PNG Icons
+
+**Focus:** Enforce custom PNG icons (no icon libraries) with placeholder usage and `PROJECT_ICONS.md` tracking
+
+**When to use:**
+
+- Any Android UI generation (Compose or XML)
+- Whenever icons are needed in screens, components, or navigation
+- When you want a clear list of required PNGs to source
+
+**Key capabilities:**
+
+- Standard icon directory and naming rules
+- Compose and XML usage patterns with placeholders
+- Mandatory `PROJECT_ICONS.md` maintenance
+
+**Skill location:** `android-custom-icons/SKILL.md`
+
+---
+
+### 1f. Android Report Tables (25+ Rows)
+
+**Focus:** Require table layouts for any report that can exceed 25 rows
+
+**When to use:**
+
+- Any Android report or analytics list with potential for >25 rows
+- Inventory, finance, audit, and transactional reports
+
+**Key capabilities:**
+
+- Mandatory rule for table-first rendering
+- Pagination guidance and mobile column limits
+
+**Skill location:** `android-report-tables/SKILL.md`
+
+---
+
+### 1g. Google Play Store Review Readiness
 
 **Focus:** Play Store policy compliance and first-time approval readiness
 

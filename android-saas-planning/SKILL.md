@@ -194,23 +194,25 @@ After all documents are generated, verify:
 
 Use these unless the project context requires alternatives:
 
-| Layer         | Technology                                  | Version       |
-| ------------- | ------------------------------------------- | ------------- |
-| Language      | Kotlin                                      | 2.0+          |
-| UI            | Jetpack Compose + Material 3                | BOM 2024.06+  |
-| Architecture  | MVVM + Clean Architecture                   | —             |
-| DI            | Dagger Hilt                                 | 2.51+         |
-| Networking    | Retrofit + OkHttp + Moshi                   | 2.11+ / 4.12+ |
-| Local DB      | Room                                        | 2.6+          |
-| Async         | Coroutines + Flow                           | 1.8+          |
-| Background    | WorkManager                                 | 2.9+          |
-| Navigation    | Navigation Compose                          | 2.7+          |
-| Image Loading | Coil                                        | 2.6+          |
-| Charting      | Vico (Compose-first)                        | Use guide     |
-| Security      | EncryptedSharedPreferences, BiometricPrompt | AndroidX      |
-| Logging       | Timber                                      | 5.0+          |
-| Testing       | JUnit 5, MockK, Turbine, Compose UI Testing | —             |
-| CI/CD         | GitHub Actions                              | —             |
+| Layer         | Technology                                  | Version                             |
+| ------------- | ------------------------------------------- | ----------------------------------- |
+| Language      | Kotlin                                      | 2.0+                                |
+| UI            | Jetpack Compose + Material 3                | BOM 2024.06+                        |
+| Icons         | Custom PNGs (no icon libraries)             | Use placeholders + PROJECT_ICONS.md |
+| Reports       | Table-first for >25 rows                    | Use android-report-tables           |
+| Architecture  | MVVM + Clean Architecture                   | —                                   |
+| DI            | Dagger Hilt                                 | 2.51+                               |
+| Networking    | Retrofit + OkHttp + Moshi                   | 2.11+ / 4.12+                       |
+| Local DB      | Room                                        | 2.6+                                |
+| Async         | Coroutines + Flow                           | 1.8+                                |
+| Background    | WorkManager                                 | 2.9+                                |
+| Navigation    | Navigation Compose                          | 2.7+                                |
+| Image Loading | Coil                                        | 2.6+                                |
+| Charting      | Vico (Compose-first)                        | Use guide                           |
+| Security      | EncryptedSharedPreferences, BiometricPrompt | AndroidX                            |
+| Logging       | Timber                                      | 5.0+                                |
+| Testing       | JUnit 5, MockK, Turbine, Compose UI Testing | —                                   |
+| CI/CD         | GitHub Actions                              | —                                   |
 
 ## Document Content Requirements
 

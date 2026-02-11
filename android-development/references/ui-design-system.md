@@ -117,8 +117,8 @@ fun StandardButton(
     size: ButtonSize = ButtonSize.Medium,
     isLoading: Boolean = false,
     enabled: Boolean = true,
-    leadingIcon: ImageVector? = null,
-    trailingIcon: ImageVector? = null
+    @DrawableRes leadingIconRes: Int? = null,
+    @DrawableRes trailingIconRes: Int? = null
 ) {
     val buttonColors = when (variant) {
         ButtonVariant.Primary -> ButtonDefaults.buttonColors(
@@ -157,14 +157,14 @@ fun StandardButton(
                 color = LocalContentColor.current
             )
         } else {
-            leadingIcon?.let {
-                Icon(it, contentDescription = null, modifier = Modifier.size(18.dp))
+            leadingIconRes?.let {
+                Icon(painterResource(it), contentDescription = null, modifier = Modifier.size(18.dp))
                 Spacer(Modifier.width(DesignSystem.Spacing.xs))
             }
             Text(text)
-            trailingIcon?.let {
+            trailingIconRes?.let {
                 Spacer(Modifier.width(DesignSystem.Spacing.xs))
-                Icon(it, contentDescription = null, modifier = Modifier.size(18.dp))
+                Icon(painterResource(it), contentDescription = null, modifier = Modifier.size(18.dp))
             }
         }
     }
@@ -182,7 +182,7 @@ enum class ButtonSize { Small, Medium, Large }
 fun StandardTopBar(
     title: String,
     modifier: Modifier = Modifier,
-    navigationIcon: ImageVector? = Icons.AutoMirrored.Filled.ArrowBack,
+    @DrawableRes navigationIconRes: Int? = R.drawable.back,
     onNavigationClick: (() -> Unit)? = null,
     actions: @Composable RowScope.() -> Unit = {}
 ) {
@@ -190,9 +190,9 @@ fun StandardTopBar(
         title = { Text(title) },
         modifier = modifier,
         navigationIcon = {
-            if (navigationIcon != null && onNavigationClick != null) {
+            if (navigationIconRes != null && onNavigationClick != null) {
                 IconButton(onClick = onNavigationClick) {
-                    Icon(navigationIcon, contentDescription = "Navigate back")
+                    Icon(painterResource(navigationIconRes), contentDescription = "Navigate back")
                 }
             }
         },
@@ -226,7 +226,7 @@ fun ErrorMessage(
         verticalArrangement = Arrangement.Center
     ) {
         Icon(
-            Icons.Default.ErrorOutline,
+            painterResource(R.drawable.error),
             contentDescription = null,
             modifier = Modifier.size(48.dp),
             tint = DesignSystem.Colors.Error
@@ -254,7 +254,7 @@ fun EmptyState(
         verticalArrangement = Arrangement.Center
     ) {
         Icon(
-            Icons.Default.Inbox,
+            painterResource(R.drawable.inbox),
             contentDescription = null,
             modifier = Modifier.size(64.dp),
             tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f)

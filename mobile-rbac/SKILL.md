@@ -22,20 +22,20 @@ Login → Fetch Permissions → Cache in EncryptedSharedPreferences → UI Gates
 
 ## Quick Reference
 
-| Topic | Reference File | When to Use |
-|-------|---------------|-------------|
-| **Architecture & Caching** | This file | Permission flow, caching strategy, refresh triggers |
+| Topic                       | Reference File                          | When to Use                                                |
+| --------------------------- | --------------------------------------- | ---------------------------------------------------------- |
+| **Architecture & Caching**  | This file                               | Permission flow, caching strategy, refresh triggers        |
 | **Implementation Patterns** | `references/implementation-patterns.md` | Code templates for PermissionManager, PermissionGate, etc. |
-| **Permission Map** | `references/permission-map.md` | What permission controls what feature |
+| **Permission Map**          | `references/permission-map.md`          | What permission controls what feature                      |
 
 ## Core Principles
 
 ### 1. Two-Layer Gating
 
-| Layer | What It Controls | When Hidden/Disabled |
-|-------|-----------------|---------------------|
-| **Module Gate** | Bottom nav tabs | Franchise hasn't subscribed to module |
-| **Permission Gate** | Screens, buttons, actions | User's role lacks the permission |
+| Layer               | What It Controls          | When Hidden/Disabled                  |
+| ------------------- | ------------------------- | ------------------------------------- |
+| **Module Gate**     | Bottom nav tabs           | Franchise hasn't subscribed to module |
+| **Permission Gate** | Screens, buttons, actions | User's role lacks the permission      |
 
 **Rule:** Modules HIDE tabs entirely. Permissions DISABLE or HIDE individual actions.
 
@@ -68,13 +68,13 @@ Permissions are a flat set of ~20-50 string codes. Too lightweight for Room.
 
 ### 4. Refresh Strategy
 
-| Trigger | Action |
-|---------|--------|
-| After login | Fetch immediately |
-| App startup (cold) | Fetch if > 15 min stale |
-| App resume (warm) | Fetch if > 15 min stale |
-| 403 from backend | Fetch immediately, then retry |
-| Pull-to-refresh | Fetch immediately |
+| Trigger            | Action                        |
+| ------------------ | ----------------------------- |
+| After login        | Fetch immediately             |
+| App startup (cold) | Fetch if > 15 min stale       |
+| App resume (warm)  | Fetch if > 15 min stale       |
+| 403 from backend   | Fetch immediately, then retry |
+| Pull-to-refresh    | Fetch immediately             |
 
 ### 5. Offline Behavior
 
@@ -131,11 +131,15 @@ fun PermissionGate(
 **Use for:** FABs, action buttons, cards, sections that should be completely hidden
 if the user lacks permission.
 
+**Icon Policy:** Use custom PNG icons only; follow `android-custom-icons` and update `PROJECT_ICONS.md`.
+
+**Report Table Policy:** If permissioned screens include reports that can exceed 25 rows, use table layouts (see `android-report-tables`).
+
 ```kotlin
 // Hide "Create PO" FAB if user can't create POs
 PermissionGate(permissionManager, Permission.INVENTORY_PO_CREATE) {
     FloatingActionButton(onClick = onCreatePO) {
-        Icon(Icons.Default.Add, "Create PO")
+        Icon(painterResource(R.drawable.add), "Create PO")
     }
 }
 ```
@@ -221,15 +225,15 @@ fun PermissionDeniedScreen(
 
 ## UX Guidelines
 
-| Scenario | UX Pattern | Why |
-|----------|-----------|-----|
-| Tab the user can't access | **Hide tab** | Clean nav, no confusion |
-| Button the user can't use | **Disable + grey + message** | User knows feature exists |
-| Card/section user can't see | **Hide** | Clean layout |
-| Screen user navigates to via deep link | **PermissionDeniedScreen** | Graceful block |
-| 403 from server (stale cache) | Auto-refresh perms, show toast | Transparent recovery |
-| Offline with cached perms | Use cached perms normally | Seamless offline |
-| Offline with no cached perms | Deny all, show offline banner | Fail-secure |
+| Scenario                               | UX Pattern                     | Why                       |
+| -------------------------------------- | ------------------------------ | ------------------------- |
+| Tab the user can't access              | **Hide tab**                   | Clean nav, no confusion   |
+| Button the user can't use              | **Disable + grey + message**   | User knows feature exists |
+| Card/section user can't see            | **Hide**                       | Clean layout              |
+| Screen user navigates to via deep link | **PermissionDeniedScreen**     | Graceful block            |
+| 403 from server (stale cache)          | Auto-refresh perms, show toast | Transparent recovery      |
+| Offline with cached perms              | Use cached perms normally      | Seamless offline          |
+| Offline with no cached perms           | Deny all, show offline banner  | Fail-secure               |
 
 ## Backend Integration
 
@@ -256,16 +260,17 @@ fun PermissionDeniedScreen(
 
 ```json
 {
-    "success": false,
-    "message": "You do not have permission to perform this action",
-    "error": {
-        "code": "PERMISSION_DENIED",
-        "required_permission": "INVENTORY_PO_APPROVE"
-    }
+  "success": false,
+  "message": "You do not have permission to perform this action",
+  "error": {
+    "code": "PERMISSION_DENIED",
+    "required_permission": "INVENTORY_PO_APPROVE"
+  }
 }
 ```
 
 Client response:
+
 1. Parse `required_permission` from error
 2. Auto-refresh permissions via `/user/permissions`
 3. Show friendly message: "Your permissions have been updated"
@@ -305,13 +310,13 @@ android-development → Hilt DI, MVVM, Clean Architecture integration
 
 ## Anti-Patterns
 
-| Don't | Do Instead |
-|-------|-----------|
-| Resolve permissions locally from roles | Fetch resolved set from backend |
-| Store permissions in plain SharedPrefs | Use EncryptedSharedPreferences |
-| Check permissions only on client | Backend MUST enforce (defense in depth) |
-| Grant access when offline with no cache | Deny all (fail-secure) |
-| Hardcode role names (`if role == "ADMIN"`) | Check permission codes |
+| Don't                                       | Do Instead                               |
+| ------------------------------------------- | ---------------------------------------- |
+| Resolve permissions locally from roles      | Fetch resolved set from backend          |
+| Store permissions in plain SharedPrefs      | Use EncryptedSharedPreferences           |
+| Check permissions only on client            | Backend MUST enforce (defense in depth)  |
+| Grant access when offline with no cache     | Deny all (fail-secure)                   |
+| Hardcode role names (`if role == "ADMIN"`)  | Check permission codes                   |
 | Create separate permission check per screen | Use reusable `PermissionGate` composable |
-| Hide buttons without explanation | Show disabled state with message |
-| Skip permission refresh after 403 | Auto-refresh and re-evaluate |
+| Hide buttons without explanation            | Show disabled state with message         |
+| Skip permission refresh after 403           | Auto-refresh and re-evaluate             |

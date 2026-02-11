@@ -16,6 +16,7 @@ Implement comprehensive, standardized error response system for PHP REST APIs wi
 - Human-readable messages for SweetAlert2 display
 - Secure error handling (no stack traces in production)
 - Comprehensive logging with request IDs
+- **CRITICAL: Always show error messages to users in SweetAlert (never silent failures)**
 
 **Security Baseline (Required):** Always load and apply the **Vibe Security Skill** for PHP API work. Do not leak sensitive data in responses or logs.
 
@@ -236,6 +237,63 @@ if (reason) {
 
 // Helpers: showSuccess/Error/Warning/Info, showConfirm, showLoading, hideLoading
 ```
+
+## Critical Error Display Pattern
+
+**MANDATORY: Always show API errors to users in SweetAlert2**
+
+```javascript
+try {
+  const response = await $.ajax({
+    url: "./api/endpoint.php?action=verify",
+    method: "POST",
+    contentType: "application/json",
+    data: JSON.stringify({ id: 123 }),
+  });
+
+  // Check response.success BEFORE using data
+  if (!response.success) {
+    await Swal.fire({
+      icon: "error",
+      title: "Operation Failed",
+      text: response.message || "An error occurred",
+      confirmButtonText: "OK",
+    });
+    return; // Stop execution
+  }
+
+  // Success path
+  await Swal.fire({
+    icon: "success",
+    title: "Success!",
+    text: response.message || "Operation completed",
+  });
+
+} catch (error) {
+  // Extract error message from different formats
+  let errorMessage = "An unexpected error occurred";
+
+  if (error.responseJSON && error.responseJSON.message) {
+    errorMessage = error.responseJSON.message; // API error message
+  } else if (error.message) {
+    errorMessage = error.message; // JavaScript error
+  }
+
+  await Swal.fire({
+    icon: "error",
+    title: "Error",
+    text: errorMessage,
+    confirmButtonText: "OK",
+  });
+}
+```
+
+**Key Points:**
+- ✅ Always check `response.success` before proceeding
+- ✅ Show error message in SweetAlert (never silent failure)
+- ✅ Extract message from `response.message` or `error.responseJSON.message`
+- ✅ Close any open modals before showing error
+- ✅ Use `await` to ensure user sees error before code continues
 
 ## Debugging Data Shape Mismatches
 

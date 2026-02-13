@@ -19,6 +19,24 @@ description: "Jetpack Compose UI standards for beautiful, sleek, minimalistic An
 6. **Touch-friendly targets** - Minimum 48dp for all interactive elements
 7. **Adaptive by default** - Every screen MUST work on phones AND tablets
 
+### Enterprise Mobile UX Principles
+
+**Mobile is NOT a scaled-down desktop app.** Design from the ground up for mobile users, not as a replica:
+
+- **Task-oriented design** - Mobile users have specific goals and limited time. Minimize steps/taps to task completion. Focus on one primary action per screen.
+- **Value over features** - Include only functionality that delivers genuine user value. Eliminate features that require users to rework on desktop later or provide insufficient context for decisions.
+- **UX before UI aesthetics** - Prioritize (1) backend connectivity, (2) offline support, (3) performance, (4) reliability, then UI polish. Users tolerate degraded visuals if the app works and is responsive.
+- **Offline-first mentality** - Design flows that work without connectivity. Sync back when online. Users won't use an app that breaks without internet.
+
+### Task Completion Efficiency (Enterprise)
+
+For enterprise mobile apps, measure success by business impact, not UI novelty:
+
+- **Minimize interaction steps** - Every tap/swipe is friction. Test with actual users and eliminate unnecessary screens.
+- **Show decision-enabling data** - Always provide enough context (but not overload). E.g., for field agents: appointment count + status, not monthly analysis.
+- **Reduce cognitive load** - Make correct actions obvious. Use clear labels, consistent patterns, and logical groupings.
+- **Measure KPIs, not vanity metrics** - Define what success looks like (reduced wait times, faster task completion, fewer support requests). Avoid metrics like "time in app" or "login count."
+
 ### Visual Standards
 
 | Element              | Standard                                              |
@@ -410,6 +428,15 @@ Crossfade(targetState = currentTab, label = "tab") { tab ->
 - Nest scrollable containers (LazyColumn inside Column with scroll)
 - Hardcode `isTablet()` booleans — use `WindowSizeClass` breakpoints
 - Ship without verifying the UI on a tablet-sized screen
+
+### Enterprise Mobile Anti-Patterns
+
+- **Port desktop features as-is** - Mobile users don't need 100% feature parity. Identify their top tasks and optimize for those.
+- **Ignore offline capability** - Don't assume always-online. Design flows that work without connectivity and sync when available.
+- **Overload screens with data** - Show only decision-enabling information. Too much context is as bad as too little.
+- **Nest UI too deeply** - More than 2-3 screens to complete a task is friction. Redesign.
+- **Rely on network performance** - Assume slow/spotty networks. Cache aggressively, validate on device, provide offline fallbacks.
+- **Ship without real user testing** - Test with actual users doing their actual work, not with designers tapping screens.
 
 ## Integration with Other Skills
 

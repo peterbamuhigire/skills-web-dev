@@ -18,39 +18,148 @@ When a report can exceed **25 rows**, it must be rendered as a **table**, not ca
 - If a report **can** exceed 25 rows, use a **table layout**.
 - Cards are acceptable only when the dataset is **guaranteed <=25 rows**.
 
-## Compose Pattern (Table First)
+## Existing ReportTable Composable
 
-Use the `data-tables` reference from `jetpack-compose-ui` as the baseline.
+The project has a reusable `ReportTable<T>` at `core/ui/components/ReportTable.kt`:
 
 ```kotlin
+ReportTable(
+    columns = listOf(
+        TableColumn(header = "#", weight = 0.4f) { "#${it.rank}" },
+        TableColumn(header = "Name", weight = 1.5f) { it.fullName ?: "-" },
+        TableColumn(header = "Inv", weight = 0.4f) { it.totalInvoices.toString() },
+        TableColumn(header = "Amount", weight = 1.2f) { "$currency ${fmt.format(it.totalAmount)}" }
+    ),
+    rows = report.rows,
+    onRowClick = { /* optional */ },
+    pageSize = 25
+)
+```
+
+Features:
+- Generic `<T>` with `TableColumn<T>` definitions (header, weight, value lambda)
+- Built-in client-side pagination (25/page default)
+- Header row with `surfaceVariant` background
+- `Modifier.weight()` for proportional column sizing
+- Empty state with string resource
+
+## Portrait Responsiveness Standards
+
+### Column Priority (Phone Portrait)
+- **3-4 columns max** for portrait without horizontal scroll
+- Abbreviate headers: "#" not "Rank", "Inv" not "Invoices", "Amt" not "Amount", "Bal" not "Balance"
+- Use `weight` ratios: narrow columns (0.3-0.5f), name columns (1.3-1.5f), amount columns (1.0-1.2f)
+
+### Weight Guidelines
+| Column Type | Weight | Examples |
+|-------------|--------|----------|
+| Index/Rank | 0.3-0.5f | #, Rank |
+| Short text | 0.4-0.6f | Code, Qty, Inv |
+| Name/Description | 1.3-1.5f | Product, Distributor |
+| Currency amount | 1.0-1.2f | Amount, Balance, Due |
+| Date | 0.8-1.0f | Date |
+
+### Horizontal Scroll (5+ columns)
+When a table needs 5+ columns and cannot fit in portrait:
+```kotlin
+Column(Modifier.horizontalScroll(rememberScrollState())) {
+    ReportTable(columns = ..., rows = ...)
+}
+```
+
+### String Resources
+Always use `stringResource(R.string.report_col_*)` for table headers. Never hardcode header text.
+
+## Cards vs Tables Decision Matrix
+
+| Criteria | Use Cards | Use Table |
+|----------|-----------|-----------|
+| Max rows <= 25 guaranteed | Yes | Optional |
+| Max rows > 25 possible | No | **Required** |
+| DPCs (5-20 items) | Yes | Optional |
+| Daily summary (7 days) | Yes | Optional |
+| Distributor lists | No | **Required** |
+| Product lists | No | **Required** |
+| Invoice lists | No | **Required** |
+| Debtors lists | No | **Required** |
+| Top 100 rankings | No | **Required** |
+
+## Pagination Guidance
+
+- Default to **client-side pagination** for up to a few hundred rows (25 per page).
+- `ReportTable` handles pagination internally — no need for ViewModel pagination.
+- For larger datasets (1000+), use server pagination via API offset/limit params.
+
+## Pull-to-Refresh (Mandatory)
+
+**Every screen that displays reports, statistics, or data** MUST support pull-to-refresh. Users expect to swipe down to reload current data.
+
+### Implementation Pattern (PullToRefreshBox)
+```kotlin
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ReportTable(
-    rows: List<ReportRow>,
-    modifier: Modifier = Modifier
-) {
-    Column(modifier = modifier.fillMaxWidth()) {
-        TableHeader()
-        rows.forEach { row ->
-            TableRowItem(row)
+fun MyReportScreen(viewModel: MyViewModel = hiltViewModel()) {
+    val uiState by viewModel.uiState.collectAsState()
+    var isRefreshing by remember { mutableStateOf(false) }
+
+    LaunchedEffect(uiState.loading) {
+        if (!uiState.loading) isRefreshing = false
+    }
+
+    PullToRefreshBox(
+        isRefreshing = isRefreshing,
+        onRefresh = { isRefreshing = true; viewModel.reload() },
+        modifier = Modifier.fillMaxSize()
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
+                .padding(16.dp)
+        ) {
+            // Report content
         }
     }
 }
 ```
 
-## Pagination Guidance
+### Rules
+- ViewModel MUST expose a public `reload()` / `refresh()` function
+- Hub screens (Sales Hub, Network Hub, etc.) refresh their statistics/charts
+- Report screens refresh their data (re-fetch from API)
+- Dashboard refreshes KPI cards
+- Use `PullToRefreshBox` (simpler API than the older `PullToRefreshContainer`)
 
-- Default to **client-side pagination** for up to a few hundred rows (25 per page).
-- For larger datasets, use server pagination and a paging bar.
-- Prefer a **floating footer** with page controls and a sticky header for dense, professional tables.
+## Screen Structure Pattern
 
-## Mobile Adaptation
+Report screens with tables should use a scrollable `Column` (not `LazyColumn`), since `ReportTable` is not a lazy composable. Wrap in `PullToRefreshBox`:
 
-- Phone: limit to 3-4 columns, truncate text, use `Modifier.weight()` for columns.
-- Tablet: 5-6 columns, allow more whitespace and wider columns.
+```kotlin
+PullToRefreshBox(
+    isRefreshing = isRefreshing,
+    onRefresh = { isRefreshing = true; viewModel.reload() },
+    modifier = Modifier.fillMaxSize().padding(paddingValues)
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+            .padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
+        // Filters
+        // Summary cards
+        // ReportTable (handles its own pagination)
+    }
+}
+```
 
 ## Checklist
 
-- [ ] If report can exceed 25 rows, use table layout
-- [ ] Use pagination for large datasets
-- [ ] Avoid card lists for long reports
-- [ ] Match table style to `jetpack-compose-ui` data table patterns
+- [ ] If report can exceed 25 rows, use ReportTable composable
+- [ ] Limit to 3-4 columns for portrait, abbreviate headers
+- [ ] Use `Modifier.weight()` with appropriate ratios
+- [ ] Use `stringResource()` for all header text
+- [ ] Use `verticalScroll` Column wrapper (not LazyColumn)
+- [ ] Let ReportTable handle pagination (remove ViewModel pagination logic)
+- [ ] Pull-to-refresh on every screen with reports or statistics

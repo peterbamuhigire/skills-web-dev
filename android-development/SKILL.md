@@ -104,6 +104,29 @@ Follow the `android-custom-icons` skill for naming, directory rules, and trackin
 - Any report that can exceed 25 rows must render as a table, not cards
 - Follow the `android-report-tables` skill for table-first patterns
 
+### Three Build Variants (Mandatory)
+
+Every Android app MUST have exactly 3 build variants. This is non-negotiable.
+
+| Variant | Purpose | APK Name | Minified | Install Target |
+|---------|---------|----------|----------|----------------|
+| **debug** (dev) | Local development | `{AppName}-dev-{version}.apk` | No | Emulator (default) |
+| **staging** | QA / pre-production | `{AppName}-staging-{version}.apk` | Yes (R8) | Emulator (on request) |
+| **release** (prod) | Production / Play Store | `{AppName}-prod-{version}.apk` | Yes (R8) | Device (manual) |
+
+**Rules:**
+
+1. **User must provide** the staging and production API URLs for each project. Debug always points to the local dev server (`http://10.0.2.2/...` for emulator or the host LAN IP).
+2. **Every build command MUST build all 3 APKs**: `./gradlew assembleDebug assembleStaging assembleRelease`
+3. **After building, always install the dev APK** to the connected emulator: `./gradlew installDebug`
+4. If the user explicitly asks to test staging, install staging instead: `./gradlew installStaging`
+5. **APK naming** uses a consistent prefix per app (e.g., `DMS-dev-1.0.0.apk`, `DMS-staging-1.0.0.apk`, `DMS-prod-1.0.0.apk`). Configure via `applicationVariants.all` in `build.gradle.kts`.
+6. **Staging** inherits from release (R8 enabled, resource shrinking) but uses the debug signing config so it can be installed alongside dev on the same device.
+7. **ProGuard rules** must strip `Log.v`, `Log.d`, `Log.i`, and `println` from staging and release builds.
+8. **Never hardcode API URLs** — always use `BuildConfig.API_BASE_URL` (or similar) set per build type.
+
+See `references/build-configuration.md` for the complete Gradle setup.
+
 ### Security
 
 - `EncryptedSharedPreferences` for sensitive data

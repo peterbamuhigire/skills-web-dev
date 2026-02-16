@@ -129,11 +129,19 @@ object NetworkSecurityModule {
 
 ### Network Security Config
 
+**CRITICAL: The `<base-config>` section is MANDATORY.** Without it, staging/release builds on physical devices (especially Samsung devices with Knox security) may fail to make HTTPS connections — even though the same APK works fine on emulators. The `<base-config>` explicitly declares trust for system CA certificates. If you only have `<debug-overrides>` and `<domain-config>` without `<base-config>`, HTTPS to your staging/production servers will silently fail with "network error" on real devices.
+
+**Symptoms of missing `<base-config>`:**
+- App works on emulator (debug build uses cleartext HTTP to 10.0.2.2)
+- App shows "network error" on physical devices (staging/release builds use HTTPS)
+- Other apps on the same device work fine
+- Particularly affects Samsung devices (A05s, S24, etc.)
+
 ```xml
 <!-- res/xml/network_security_config.xml -->
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
-    <!-- Disallow cleartext (HTTP) traffic -->
+    <!-- MANDATORY: Trust system CAs for all HTTPS connections -->
     <base-config cleartextTrafficPermitted="false">
         <trust-anchors>
             <certificates src="system" />
@@ -143,18 +151,27 @@ object NetworkSecurityModule {
     <!-- Debug overrides (only in debug builds) -->
     <debug-overrides>
         <trust-anchors>
+            <certificates src="system" />
             <certificates src="user" />
         </trust-anchors>
     </debug-overrides>
 
-    <!-- Pin specific domains -->
+    <!-- Allow cleartext only for emulator localhost -->
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">10.0.2.2</domain>
+        <domain includeSubdomains="true">localhost</domain>
+    </domain-config>
+
+    <!-- Optional: Pin specific domains -->
+    <!--
     <domain-config>
         <domain includeSubdomains="true">api.company.com</domain>
-        <pin-set expiration="2025-12-31">
+        <pin-set expiration="2026-12-31">
             <pin digest="SHA-256">PRIMARY_PIN_HERE</pin>
             <pin digest="SHA-256">BACKUP_PIN_HERE</pin>
         </pin-set>
     </domain-config>
+    -->
 </network-security-config>
 ```
 

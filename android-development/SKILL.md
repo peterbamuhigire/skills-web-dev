@@ -8,8 +8,8 @@ description: "Android development standards for AI agent implementation. Kotlin-
 Production-grade Android development standards for AI-assisted implementation. Kotlin-first with Jetpack Compose, following modern Android best practices.
 
 **Core Stack:** Kotlin 100% | Jetpack Compose (default UI toolkit) | MVVM + Clean Architecture | Hilt DI
-**Min SDK:** 29 (Android 10) | **Target SDK:** 34
-**Compatibility:** Must run flawlessly on the latest stable Android release
+**Min SDK:** 29 (Android 10) | **Target SDK:** 35 (Android 15)
+**Compatibility:** Must run flawlessly on BOTH the minSdk (oldest supported) AND the latest stable Android release
 **Reference App:** [Now in Android](https://github.com/android/nowinandroid) - Google's official sample demonstrating these standards in a production-quality codebase
 
 ## When to Use
@@ -127,6 +127,32 @@ Every Android app MUST have exactly 3 build variants. This is non-negotiable.
 
 See `references/build-configuration.md` for the complete Gradle setup.
 
+### Device & Android Version Compatibility (CRITICAL)
+
+Our apps MUST work for the few people still holding older devices, but MUST ALSO WORK for those with newer/latest devices. Never test only on one Android version.
+
+**Mandatory rules:**
+
+1. **`enableEdgeToEdge()` is REQUIRED** — Call it in `MainActivity.onCreate()` before `super.onCreate()`. Android 15 (API 35) enforces edge-to-edge for apps targeting SDK 35. Without it, the app **crashes immediately** on Android 15 devices. This is non-negotiable.
+2. **Do NOT set `window.statusBarColor` directly** — It is deprecated and conflicts with edge-to-edge. Let `enableEdgeToEdge()` handle system bar colors. Only control light/dark icon appearance via `WindowCompat.getInsetsController().isAppearanceLightStatusBars`.
+3. **Test on at least two Android versions** — Always verify on both the minSdk emulator (Android 10) AND a recent Android (14/15) emulator or device before shipping.
+4. **Guard version-specific APIs** — When using APIs added after minSdk, wrap them in `if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.X)` checks.
+5. **Keep targetSdk current** — Target the latest stable SDK (currently 35). Do not lag behind — Google Play requires recent targetSdk and newer Android versions enforce stricter behavior for apps that target them.
+6. **Use `AppCompatActivity`** when locale switching is needed (`AppCompatDelegate.setApplicationLocales()`). Otherwise prefer `ComponentActivity` for pure Compose apps.
+
+**Correct MainActivity pattern:**
+
+```kotlin
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()  // Before super
+        enableEdgeToEdge()     // Before super — MANDATORY for targetSdk 35
+        super.onCreate(savedInstanceState)
+        setContent { ... }
+    }
+}
+```
+
 ### Security
 
 - `EncryptedSharedPreferences` for sensitive data
@@ -197,6 +223,9 @@ See `android-saas-planning` skill for the complete Phase 1 plan template.
 - Ignoring lifecycle (use `collectAsStateWithLifecycle`)
 - Building phone-only UIs — all screens must adapt to tablets/foldables
 - Using hardcoded `isTablet()` checks instead of `WindowSizeClass` breakpoints
+- **Missing `enableEdgeToEdge()`** — causes immediate crash on Android 15 devices
+- Setting `window.statusBarColor` directly — deprecated, conflicts with edge-to-edge
+- Testing only on one Android version — must verify on both old (minSdk) and new (latest) devices
 
 ## Integration with Other Skills
 

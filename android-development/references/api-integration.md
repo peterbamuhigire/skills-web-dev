@@ -262,3 +262,5 @@ suspend fun uploadAvatar(userId: String, imageUri: Uri): Result<String> =
 5. **File uploads** via `MultipartBody.Part`
 6. **No raw Retrofit calls in ViewModels** - always go through repository
 7. **Offline fallback** - cache API responses in Room when appropriate
+8. **Moshi codegen only** — NEVER use `KotlinJsonAdapterFactory()` (reflection). All DTOs must have `@JsonClass(generateAdapter = true)`. Reflection adapter crashes under R8 minification.
+9. **Image URLs from BuildConfig** — NEVER hardcode server URLs like `http://10.0.2.2/...`. Use `BuildConfig.API_BASE_URL` and strip `/api/` to get the web root. Create a shared `buildImageUrl()` utility.

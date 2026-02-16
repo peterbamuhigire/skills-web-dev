@@ -43,6 +43,29 @@ Features:
 - `Modifier.weight()` for proportional column sizing
 - Empty state with string resource
 
+## Date Display (Mandatory)
+
+**All dates in report tables MUST be human-readable.** Never display raw API dates like `2026-02-14`. Always format to short readable form: **`d MMM yyyy`** (e.g., `14 Feb 2026`).
+
+### Standard Date Formatter Pattern
+```kotlin
+val apiDateFmt = remember { SimpleDateFormat("yyyy-MM-dd", Locale.US) }
+val displayDateFmt = remember { SimpleDateFormat("d MMM yyyy", Locale.US) }
+val formatDate: (String) -> String = { raw ->
+    try { displayDateFmt.format(apiDateFmt.parse(raw)!!) } catch (_: Exception) { raw }
+}
+
+// Usage in TableColumn:
+TableColumn("Date", minWidth = 100.dp) { formatDate(it.date) }
+TableColumn("Oldest", minWidth = 100.dp) { it.oldestDate?.let { formatDate(it) } ?: "-" }
+```
+
+### Rules
+- API sends dates as `yyyy-MM-dd` — this is for transport only, never for display
+- Tables, cards, summaries, and any user-facing text must use `d MMM yyyy`
+- Chart axes may use shorter formats like `MMM d` (e.g., `Feb 14`) for space
+- Nullable dates: format if present, show `-` if null
+
 ## Portrait Responsiveness Standards
 
 ### Column Priority (Phone Portrait)

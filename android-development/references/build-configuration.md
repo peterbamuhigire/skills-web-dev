@@ -144,37 +144,72 @@ android {
 ```proguard
 # proguard-rules.pro
 
+# ── Retrofit ──
+-keepattributes Signature
+-keepattributes *Annotation*
+-keep class retrofit2.** { *; }
+-keepclasseswithmembers class * {
+    @retrofit2.http.* <methods>;
+}
+
+# ── Moshi (codegen only — NO reflection adapter) ──
+-keep class com.squareup.moshi.** { *; }
+-keep @com.squareup.moshi.JsonQualifier interface *
+-keepclassmembers @com.squareup.moshi.JsonClass class * extends java.lang.Enum {
+    <fields>;
+}
+-keepnames @com.squareup.moshi.JsonClass class *
+-if @com.squareup.moshi.JsonClass class *
+-keep class <1>JsonAdapter { <init>(...); }
+
+# ── OkHttp ──
+-dontwarn okhttp3.**
+-dontwarn okio.**
+-keep class okhttp3.** { *; }
+
+# ── Google Tink (EncryptedSharedPreferences) ──
+-dontwarn com.google.errorprone.annotations.**
+-dontwarn com.google.api.client.http.**
+-dontwarn com.google.api.client.http.javanet.**
+-dontwarn org.joda.time.Instant
+-keep class com.google.crypto.tink.** { *; }
+
+# ── Room ──
+-keep class * extends androidx.room.RoomDatabase
+-keep @androidx.room.Entity class *
+-keep @androidx.room.Dao class *
+
+# ── Kotlin coroutines ──
+-keepnames class kotlinx.coroutines.internal.MainDispatcherFactory {}
+-keepnames class kotlinx.coroutines.CoroutineExceptionHandler {}
+-keepclassmembers class kotlinx.coroutines.** {
+    volatile <fields>;
+}
+
+# ── Kotlin metadata ──
+-keepattributes RuntimeVisibleAnnotations
+
+# ── Hilt ──
+-keep class dagger.hilt.** { *; }
+-keep class * extends dagger.hilt.android.internal.managers.ViewComponentManager$FragmentContextWrapper { *; }
+
 # ── Strip debug logging from staging and release builds ──
 -assumenosideeffects class android.util.Log {
     public static int v(...);
     public static int d(...);
     public static int i(...);
 }
-
-# Strip Kotlin println (shouldn't be in production code)
 -assumenosideeffects class kotlin.io.ConsoleKt {
     public static void println(...);
 }
 
-# ── Keep Retrofit service interfaces ──
--keep,allowobfuscation interface * {
-    @retrofit2.http.* <methods>;
-}
-
-# ── Moshi ──
--keep class com.squareup.moshi.** { *; }
--keepclassmembers class * {
-    @com.squareup.moshi.* <methods>;
-    @com.squareup.moshi.* <fields>;
-}
-
-# ── Room ──
--keep class * extends androidx.room.RoomDatabase
--keep @androidx.room.Entity class *
-
 # ── Keep data classes used in API responses ──
 -keep class com.company.appname.**.dto.** { *; }
 ```
+
+### R8 Missing Classes
+
+When R8 reports missing classes, check `app/build/outputs/mapping/{variant}/missing_rules.txt` for the exact `-dontwarn` rules needed. Common culprits: Google Tink, errorprone annotations, Joda Time.
 
 ## Dependencies (Organized by Category)
 
@@ -218,8 +253,8 @@ dependencies {
     implementation(libs.okhttp)
     implementation(libs.okhttp.logging)
     implementation(libs.moshi)
-    implementation(libs.moshi.kotlin)
     ksp(libs.moshi.codegen)
+    // NEVER add moshi-kotlin (reflection adapter) — it crashes under R8
 
     // Room
     implementation(libs.room.runtime)
@@ -301,3 +336,36 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 10. **Strip debug logs** (Log.v/d/i + println) from staging and release via ProGuard rules
 11. **Use version catalog** for all projects (gradle/libs.versions.toml)
 12. **Pin dependency versions** — no dynamic versions (`+`)
+13. **Network security config MUST have `<base-config>`** — without it, staging/release HTTPS fails on physical devices (especially Samsung). See `security.md` → Network Security Config for details.
+
+## Critical R8 / Moshi Rules
+
+**NEVER use `moshi-kotlin` (reflection adapter) with R8-minified builds.** The `KotlinJsonAdapterFactory` relies on Kotlin reflection metadata that R8 strips, causing runtime crashes on staging/release APKs that work fine in debug. This is a silent killer — debug works, minified crashes.
+
+**Instead:** Use `moshi-codegen` (KSP) only. Every DTO data class MUST have `@JsonClass(generateAdapter = true)`. The Moshi builder should be:
+
+```kotlin
+Moshi.Builder().build()  // No KotlinJsonAdapterFactory()!
+```
+
+**NEVER:**
+```kotlin
+// This CRASHES under R8:
+Moshi.Builder()
+    .addLast(KotlinJsonAdapterFactory())
+    .build()
+```
+
+## Image URL Construction Rule
+
+**NEVER hardcode server URLs** (e.g., `http://10.0.2.2/DMS_web/`) in image loading or anywhere else. Always derive from `BuildConfig.API_BASE_URL`:
+
+```kotlin
+fun buildImageUrl(relativePath: String): String {
+    val baseUrl = BuildConfig.API_BASE_URL
+    val rootUrl = baseUrl.replace("/api/", "/")
+    return rootUrl + relativePath.trimStart('/')
+}
+```
+
+Place this utility in a shared location (e.g., `core/util/` or a shared UI components package) and import it wherever images are loaded. Hardcoded URLs will work in debug but break on staging/production.

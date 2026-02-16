@@ -218,6 +218,19 @@ See `references/responsive-adaptive.md` for complete patterns, adaptive navigati
 
 ## Theming (Consistent Across Apps)
 
+### Edge-to-Edge & Status Bar (MANDATORY)
+
+Apps targeting SDK 35+ MUST call `enableEdgeToEdge()` in `MainActivity.onCreate()`. Without it, the app **crashes on Android 15**. Do NOT set `window.statusBarColor` directly — it's deprecated and conflicts with edge-to-edge. Only control light/dark status bar icons:
+
+```kotlin
+// In Theme composable — CORRECT approach
+SideEffect {
+    val window = (view.context as Activity).window
+    WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !darkTheme
+}
+// Do NOT use: window.statusBarColor = color.toArgb()  ← DEPRECATED, causes issues
+```
+
 ### Color Strategy
 
 Use Material 3 dynamic color with brand fallbacks:

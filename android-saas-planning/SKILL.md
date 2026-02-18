@@ -34,7 +34,7 @@ Before generating ANY documents, the agent must have or discover:
 | Domain        | ERP, CRM, POS, Healthcare, Fintech, etc.          |
 | Target market | Region, language, currency, payment methods       |
 | Backend stack | PHP/MySQL, Node/PostgreSQL, Django, Laravel, etc. |
-| API base URL  | Per environment (dev, staging, production)        |
+| API base URL  | Per environment (see standard 3-env setup below)  |
 | Auth model    | JWT, OAuth2, session-based, API keys              |
 | Multi-tenancy | Tenant ID in JWT, subdomain, DB-per-tenant        |
 
@@ -66,6 +66,18 @@ The user may request a **subset** of modules. Respect their selection:
 - Biometric authentication (fingerprint, face)
 - Push notifications (FCM)
 - Local dev networking: emulator must connect to WAMP via the host machine's static LAN IP (not `localhost`)
+
+### 5. Standard Backend Environment Setup
+
+All SaaS companion apps target these three backend environments:
+
+| Environment | OS | Database | API Base URL Pattern |
+|---|---|---|---|
+| **Development** | Windows 11 (WAMP) | MySQL 8.4.7 | `http://{LAN_IP}:{port}/{project}/api/` |
+| **Staging** | Ubuntu VPS | MySQL 8.x | `https://staging.{domain}/api/` |
+| **Production** | Debian VPS | MySQL 8.x | `https://{domain}/api/` |
+
+Use Gradle build flavors to manage per-environment base URLs. All backends use `utf8mb4_general_ci` collation and MySQL 8.x. Always plan API contracts that work identically across all environments.
 
 ## Phase 1 Bootstrap Pattern (MANDATORY)
 

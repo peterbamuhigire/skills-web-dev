@@ -6,6 +6,8 @@ Build professional web UIs using commercial templates with established component
 
 **API-First Rule (Required):** Frontend must never access the database directly. All reads/writes go through backend services exposed via APIs so future clients (Android, iOS, etc.) reuse the same logic.
 
+**Cross-Platform:** Code deploys to Windows (dev), Ubuntu (staging), and Debian (production). Use forward slashes in PHP include paths. Match exact file/directory case (Linux is case-sensitive). Never hardcode Windows paths in application code.
+
 ## When to Use
 
 ✅ CRUD interfaces, admin panels, dashboards

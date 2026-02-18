@@ -21,6 +21,18 @@ Production-grade Android development standards for AI-assisted implementation. K
 - Implementing security, testing, or performance patterns
 - Integrating with REST APIs from Android clients
 
+## Backend Environments
+
+Android apps connect to a PHP/MySQL backend deployed across three environments:
+
+| Environment | Base URL Pattern | Database | Notes |
+|---|---|---|---|
+| **Development** | `http://{LAN_IP}:{port}/DMS_web/api/` | MySQL 8.4.7 (Windows WAMP) | Use host machine's LAN IP, not `localhost` |
+| **Staging** | `https://staging.{domain}/api/` | MySQL 8.x (Ubuntu VPS) | For QA and testing |
+| **Production** | `https://{domain}/api/` | MySQL 8.x (Debian VPS) | Live users |
+
+Configure base URLs using build flavors (`dev`, `staging`, `prod`) so the app targets the correct backend per build variant. All backends use `utf8mb4_general_ci` collation and MySQL 8.x.
+
 ## Quick Reference
 
 | Topic                       | Reference File                        | Covers                                          |

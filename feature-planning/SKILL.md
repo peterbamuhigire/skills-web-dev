@@ -22,6 +22,8 @@ Complete feature development planning from **specification** to **implementation
 **Plan directory index (required):** Update `docs/plans/AGENTS.md` whenever a plan or spec is added.
 **Plans status index (required):** Update `docs/plans/INDEX.md` whenever a plan is created, modified, implemented, or completed. Record status, urgency, last implementation date, and last modification date.
 
+**Deployment awareness:** All features deploy to Windows dev, Ubuntu staging, and Debian production. Plans must account for cross-platform compatibility (case-sensitive filesystems, `utf8mb4_general_ci` collation, forward-slash paths). Database migrations for production go in `database/migrations-production/` (non-destructive, idempotent).
+
 ## 📋 Two-Phase Planning Process
 
 ### Phase 1: Specification (Requirements)

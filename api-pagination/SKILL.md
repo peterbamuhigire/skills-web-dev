@@ -11,6 +11,8 @@ Standard offset-based pagination pattern used across the Maduuka platform. Appli
 
 **Pattern:** Backend returns `data.items[]` + `data.pagination{}`. Android appends items on scroll, tracks page/totalPages in ViewModel state.
 
+**Deployment:** Backend runs on Windows dev (MySQL 8.4.7), Ubuntu staging (MySQL 8.x), Debian production (MySQL 8.x). Pagination queries must use `utf8mb4_general_ci` collation and work identically on all platforms.
+
 ## PHP Backend Pattern
 
 ### Response Format (MANDATORY)

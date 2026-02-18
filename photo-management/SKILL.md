@@ -13,6 +13,8 @@ Standardize photo upload UX, storage, and deletion patterns for all modules (DPC
 
 Always load and apply the **Vibe Security Skill** for upload flows (XSS, CSRF, file validation, path traversal, and access control are mandatory).
 
+**Cross-Platform:** Upload code runs on Windows (dev) and Linux (staging/production). Use forward-slash paths in PHP. Check `is_dir()` before `mkdir()`. File permissions: use `0755` for directories, `0644` for files. Never hardcode Windows paths in upload logic.
+
 ## Entity Photo Rules (Mandatory)
 
 ### A) People / Individual Entities (1 photo max)

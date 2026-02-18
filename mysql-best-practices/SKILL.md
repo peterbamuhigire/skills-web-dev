@@ -13,6 +13,21 @@ Production-grade MySQL patterns for high-performance, secure, scalable SaaS appl
 
 **See subdirectories for:** `references/` (detailed examples), `examples/` (complete schemas)
 
+## Deployment Environments
+
+All database code must work across these environments:
+
+| Environment | OS | Database | Notes |
+|---|---|---|---|
+| **Development** | Windows 11 (WAMP) | MySQL 8.4.7 | User: `root`, no password |
+| **Staging** | Ubuntu VPS | MySQL 8.x | User: `peter`, password required |
+| **Production** | Debian VPS | MySQL 8.x | User: `peter`, password required |
+
+**Cross-platform rules:**
+- Always use `utf8mb4_general_ci` collation (never `utf8mb4_0900_ai_ci`)
+- Never use platform-specific SQL features; test on MySQL 8.x
+- Production migrations go in `database/migrations-production/` with `-production` suffix, must be idempotent and non-destructive
+
 ## When to Use
 
 ✅ Designing MySQL schemas for SaaS
@@ -32,7 +47,7 @@ Always use UTF-8 MB4:
 ```sql
 CREATE DATABASE saas_platform
   CHARACTER SET utf8mb4
-  COLLATE utf8mb4_unicode_ci;
+  COLLATE utf8mb4_general_ci;
 
 CREATE TABLE users (
   id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY

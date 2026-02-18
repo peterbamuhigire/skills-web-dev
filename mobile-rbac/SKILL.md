@@ -14,6 +14,8 @@ Mobile RBAC uses a **hybrid client+server** approach:
 3. **Fail-secure** - If permissions unknown, deny access (never grant)
 4. **Offline-capable** - Cached permissions work without network
 
+**Backend Environments:** Dev (Windows/MySQL 8.4.7), Staging (Ubuntu/MySQL 8.x), Production (Debian/MySQL 8.x). Permission APIs must behave identically across all environments. Use Gradle build flavors for environment-specific base URLs.
+
 ```
 Login → Fetch Permissions → Cache in EncryptedSharedPreferences → UI Gates
          ↕ (refresh)                                                ↕ (403 fallback)

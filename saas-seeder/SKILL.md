@@ -15,6 +15,18 @@ Always load and apply the **Vibe Security Skill** for any seeder work that touch
 
 All database schema setup, seeding, and migrations MUST follow **mysql-best-practices** skill patterns including character sets, indexing, foreign keys, and stored procedures.
 
+## Standard Deployment Environments
+
+All SaaS projects deploy across three environments:
+
+| Environment | OS | Database | Web Root |
+|---|---|---|---|
+| **Development** | Windows 11 (WAMP) | MySQL 8.x | `C:\wamp64\www\{project}\` |
+| **Staging** | Ubuntu VPS | MySQL 8.x | `/var/www/html/{project}/` |
+| **Production** | Debian VPS | MySQL 8.x | `/var/www/html/{project}/` |
+
+**Cross-platform rules:** Use `utf8mb4_general_ci` collation. Match file/directory case exactly (Linux is case-sensitive). Use forward slashes in PHP paths. Production migrations go in `database/migrations-production/` (non-destructive, idempotent).
+
 ## When to Use
 
 Use when the user says:

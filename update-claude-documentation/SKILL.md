@@ -9,6 +9,8 @@ Update project documentation systematically after significant changes. Keep all 
 
 **Core Principle:** Documentation tells one cohesive story. Each file serves a specific audience but must reflect the same reality.
 
+**Deployment Context:** Project runs across Windows dev, Ubuntu staging, and Debian production (all MySQL 8.x). Documentation must reflect this 3-environment setup. When updating CLAUDE.md or TECH_STACK.md, always include the deployment environment table and cross-platform rules.
+
 **Style Rule:** Be precise and concise. Do not add verbose or unnecessary text to any documentation file.
 
 **Documentation Standards (MANDATORY):** ALL markdown files (.md) must follow strict formatting rules:

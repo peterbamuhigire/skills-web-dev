@@ -11,6 +11,8 @@ Implement production-grade dual authentication combining session-based (stateful
 
 **Database Standards:** All database schema changes (adding auth tables, stored procedures, indexes) MUST follow **mysql-best-practices** skill migration checklist.
 
+**Deployment:** Runs on Windows dev (MySQL 8.4.7), Ubuntu staging (MySQL 8.x), Debian production (MySQL 8.x). Use `utf8mb4_general_ci` collation. Ensure file paths and require statements match exact case for Linux compatibility.
+
 **See references/ for:** `schema.sql` (complete database design with 9 tables)
 
 ## When to Use
@@ -412,6 +414,44 @@ APP_ENV=development  # or production
 - [ ] Invalid signatures rejected
 - [ ] CSRF works
 - [ ] Session timeout enforced
+
+## Critical Pitfalls
+
+### Token Format Consistency (LOGIN vs MIDDLEWARE)
+
+**NEVER mix token formats.** If the auth middleware (`ApiAuthMiddleware`) verifies tokens using a JWT library (e.g., `firebase/php-jwt`), the login endpoint MUST generate tokens with that same library.
+
+```
+❌ WRONG - Login generates base64 token, middleware expects JWT:
+   Login:      base64_encode(json_encode(['user_id' => $id, 'exp' => ...]))
+   Middleware:  JWT::decode($token, new Key($secret, 'HS256'))
+   Result:     Every API call returns 401
+
+✅ CORRECT - Login and middleware use the same JWT library:
+   Login:      MobileAuthHelper::generateMobileAccessToken(...)
+   Middleware:  MobileAuthHelper::verifyAccessToken(...)
+   Result:     Tokens work end-to-end
+```
+
+**Checklist:**
+- [ ] Login endpoint generates tokens using the SAME helper/library the middleware uses to verify
+- [ ] Refresh endpoint generates tokens the SAME way as login
+- [ ] All JWT claims required by middleware (sub, fid, ut, dc, type) are present in generated tokens
+- [ ] Test the full flow: login → get token → call API with Bearer token → verify 200 (not 401)
+
+### Distributor Code in JWT Claims
+
+When the JWT includes a `distributor_code` claim (`dc`), ensure the lookup happens BEFORE token generation:
+
+```
+❌ WRONG - Lookup after generation:
+   $token = generateToken(..., $distributorCode);  // $distributorCode is undefined!
+   $distributorCode = lookupDistributorCode();       // Too late
+
+✅ CORRECT - Lookup before generation:
+   $distributorCode = lookupDistributorCode();
+   $token = generateToken(..., $distributorCode);
+```
 
 ## Implementation Steps
 

@@ -38,6 +38,16 @@ final readonly class User
 
 **Rules:** Always `declare(strict_types=1)`, one class per file, namespace = directory, import all dependencies.
 
+### Cross-Platform File Naming (MANDATORY)
+
+Code runs on Windows (dev), Ubuntu (staging), and Debian (production). Linux is case-sensitive:
+
+- **Directories:** Use lowercase for config/utility dirs (`src/config/`, `src/lang/`). Use PascalCase for module dirs matching namespace (`src/HR/Services/`, `src/Auth/`).
+- **Class files:** PascalCase matching class name (`StaffService.php`, `EmailService.php`).
+- **require/include:** Must match EXACT case on disk. `../src/Config/database.php` will fail on Linux if dir is `config/`.
+- **Paths:** Use `/` (forward slash) in PHP code. Never hardcode `C:\...` in application logic. Use `DIRECTORY_SEPARATOR` or `/` which PHP handles cross-platform.
+- **Temp files:** Use `sys_get_temp_dir()`, not hardcoded paths.
+
 ## Type System
 
 ### Strict Typing (Required)

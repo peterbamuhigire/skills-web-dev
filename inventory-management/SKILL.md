@@ -10,6 +10,8 @@ Pair the existing Maduuka stock-tracking implementation (stock-ledgers, UnitConv
 
 **Database Standards:** All inventory database changes (tables, stored procedures, triggers) MUST follow **mysql-best-practices** skill migration checklist to ensure schema-code synchronization.
 
+**Cross-Platform:** Inventory code deploys to Windows dev (MySQL 8.4.7), Ubuntu staging, and Debian production (both MySQL 8.x). Use `utf8mb4_general_ci` collation. Production schema changes go in `database/migrations-production/` (non-destructive, idempotent).
+
 ## Quick Reference
 - **Product categories**: Recognize services (no stock), direct stock items, bundles, and manufactured assemblies before touching inventory code.
 - **Stock flows**: Follow the purchase → receiving → movement → sale path and keep logs for adjustments/transfers.

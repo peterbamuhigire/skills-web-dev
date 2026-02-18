@@ -11,6 +11,8 @@ Build a single, minimal HTML report that renders consistently in **mPDF** and **
 
 Always load and apply the **Vibe Security Skill** when reports touch user input, filters, file paths, or authentication. Treat output encoding and access control as mandatory.
 
+**Cross-Platform:** Reports deploy to Windows dev, Ubuntu staging, and Debian production. Use forward-slash paths (`/`) for file references. Use `sys_get_temp_dir()` for temporary PDF files. Ensure font paths work on both OS (use relative paths from project root).
+
 ## When to Use
 
 - Generating PDF reports with mPDF in PHP

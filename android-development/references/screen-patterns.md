@@ -32,28 +32,22 @@ fun UserProfileScreen(
     // Collect UI state (lifecycle-aware)
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    // Handle one-time side effects
-    val snackbarHostState = remember { SnackbarHostState() }
-
-    LaunchedEffect(Unit) {
-        viewModel.sideEffects.collect { effect ->
-            when (effect) {
-                is SideEffect.ShowMessage -> {
-                    snackbarHostState.showSnackbar(effect.message)
-                }
-                is SideEffect.NavigateTo -> {
-                    // Handle navigation
-                }
-            }
-        }
-    }
-
     // Initial data load
     LaunchedEffect(userId) {
         viewModel.loadUserProfile(userId)
     }
 
-    // Screen structure
+    // Error dialog — ALWAYS use AppDialog, NEVER Snackbar for errors/success
+    uiState.error?.let { errorMessage ->
+        AppDialog(
+            title = "Error",
+            message = errorMessage,
+            type = DialogType.ERROR,
+            onDismiss = viewModel::clearError
+        )
+    }
+
+    // Screen structure — no snackbarHost needed
     Scaffold(
         topBar = {
             StandardTopBar(
@@ -65,28 +59,12 @@ fun UserProfileScreen(
                     }
                 }
             )
-        },
-        snackbarHost = { SnackbarHost(snackbarHostState) }
+        }
     ) { paddingValues ->
         UserProfileContent(
             uiState = uiState,
             onRefresh = viewModel::refreshProfile,
             modifier = modifier.padding(paddingValues)
-        )
-    }
-
-    // Error dialog (separate from content)
-    uiState.error?.let { error ->
-        AlertDialog(
-            onDismissRequest = viewModel::clearError,
-            title = { Text("Error") },
-            text = { Text(error) },
-            confirmButton = {
-                TextButton(onClick = viewModel::retry) { Text("Retry") }
-            },
-            dismissButton = {
-                TextButton(onClick = viewModel::clearError) { Text("Dismiss") }
-            }
         )
     }
 }
@@ -443,7 +421,7 @@ fun AdaptiveItemListScreen(
 1. **Screen composable** owns Scaffold, receives navigation callbacks
 2. **Content composable** is private, receives uiState, handles display only
 3. **ViewModel** manages state and business logic, never UI elements
-4. **Side effects** via Channel for one-time events (snackbar, navigation)
+4. **Error/success feedback** via `AppDialog` (DialogType.ERROR/SUCCESS/WARNING/INFO) — NEVER Snackbar
 5. **Back handler** for unsaved changes in form screens
 6. **Pull-to-refresh** for data-display screens
 7. **Pagination** via `LaunchedEffect` at list bottom

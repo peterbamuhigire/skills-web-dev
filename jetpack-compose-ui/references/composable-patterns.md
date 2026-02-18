@@ -244,17 +244,17 @@ fun ItemDetailScreen(
     viewModel: ItemDetailViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    val snackbarHostState = remember { SnackbarHostState() }
 
     LaunchedEffect(itemId) { viewModel.loadItem(itemId) }
 
-    LaunchedEffect(Unit) {
-        viewModel.events.collect { event ->
-            when (event) {
-                is Event.ShowMessage -> snackbarHostState.showSnackbar(event.message)
-                is Event.NavigateBack -> onNavigateBack()
-            }
-        }
+    // Error dialog — NEVER use Snackbar
+    uiState.error?.let { errorMessage ->
+        AppDialog(
+            title = "Error",
+            message = errorMessage,
+            type = DialogType.ERROR,
+            onDismiss = viewModel::clearError
+        )
     }
 
     Scaffold(
@@ -275,8 +275,7 @@ fun ItemDetailScreen(
                     }
                 }
             )
-        },
-        snackbarHost = { SnackbarHost(snackbarHostState) }
+        }
     ) { padding ->
         when (val state = uiState) {
             is UiState.Loading -> LoadingScreen()
@@ -365,6 +364,75 @@ fun CreateItemScreen(
                 TextButton(onClick = { showDiscardDialog = false }) { Text("Keep editing") }
             }
         )
+    }
+}
+```
+
+## Error & Success Feedback: Dialogs over Snackbars
+
+**RULE: Always use `AppDialog` for error/success/warning messages. Never use Snackbars for user-facing feedback.**
+
+Snackbars are easily missed, auto-dismiss, and feel cheap. Dialogs (SweetAlert-style) are impossible to miss, force acknowledgment, and feel professional.
+
+### AppDialog Component (reusable across all screens)
+
+```kotlin
+// Available types: ERROR, SUCCESS, WARNING, INFO
+// Each has a distinct icon and color
+
+// Error dialog (login failed, API error, validation)
+uiState.error?.let { errorMessage ->
+    AppDialog(
+        title = "Login Failed",
+        message = errorMessage,
+        type = DialogType.ERROR,
+        onDismiss = viewModel::clearError
+    )
+}
+
+// Success dialog (created, saved, updated)
+if (uiState.saveSuccess) {
+    AppDialog(
+        title = "Success",
+        message = "Client created successfully",
+        type = DialogType.SUCCESS,
+        onDismiss = {
+            viewModel.clearSaveState()
+            onBack()
+        }
+    )
+}
+```
+
+### When to use what:
+| Scenario | Component |
+|---|---|
+| API errors, login failures | `AppDialog(type = ERROR)` |
+| Create/update/delete success | `AppDialog(type = SUCCESS)` |
+| Destructive action confirmation | `AppDialog(type = WARNING)` |
+| Full-screen load failure with retry | `ErrorState` composable |
+| **NEVER use for errors/success** | ~~Snackbar~~ |
+
+### Pattern: Dialog-driven error in screens
+
+```kotlin
+@Composable
+fun FeatureScreen(viewModel: FeatureViewModel = hiltViewModel()) {
+    val uiState by viewModel.uiState.collectAsState()
+
+    // Error dialog — replaces LaunchedEffect + snackbar pattern
+    uiState.error?.let { errorMessage ->
+        AppDialog(
+            title = "Error",
+            message = errorMessage,
+            type = DialogType.ERROR,
+            onDismiss = viewModel::clearError
+        )
+    }
+
+    Scaffold { padding ->
+        // No snackbarHost needed
+        Content(modifier = Modifier.padding(padding))
     }
 }
 ```

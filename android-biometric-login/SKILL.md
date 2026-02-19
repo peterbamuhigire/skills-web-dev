@@ -119,7 +119,7 @@ object BiometricHelper {
 
 ## Step 2: AuthManager Storage
 
-Store the biometric preference in EncryptedSharedPreferences alongside auth tokens. The key insight: **preserve biometric preference on logout**.
+Store the biometric preference in EncryptedSharedPreferences alongside auth tokens. The key insight: **preserve biometric preference on logout**. **IMPORTANT:** The EncryptedSharedPreferences init MUST be wrapped in try-catch with fallback to regular SharedPreferences — Samsung Knox throws `KeyStoreException` during `MasterKey` creation (see `android-development` security skill).
 
 ```kotlin
 // In AuthManager.kt

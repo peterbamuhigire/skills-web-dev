@@ -149,25 +149,32 @@ prefs.edit()
 
 ### EncryptedSharedPreferences (Sensitive Data)
 
+**CRITICAL: Samsung/Knox Crash Prevention** — Always wrap EncryptedSharedPreferences initialization in try-catch with fallback to regular SharedPreferences. Samsung devices with Knox can throw `KeyStoreException` during `MasterKey` creation, crashing the app before any UI renders (during Hilt DI init). Do NOT use the deprecated `MasterKeys.getOrCreate()` API — use `MasterKey.Builder()`.
+
 ```kotlin
 // Gradle
 implementation("androidx.security:security-crypto:1.1.0-alpha06")
 
-// Usage
-val masterKey = MasterKey.Builder(context)
-    .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
-    .build()
+// Usage — ALWAYS use try-catch with fallback
+val prefs: SharedPreferences = try {
+    val masterKey = MasterKey.Builder(context)
+        .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+        .build()
 
-val encryptedPrefs = EncryptedSharedPreferences.create(
-    context,
-    "secure_prefs",
-    masterKey,
-    EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-    EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-)
+    EncryptedSharedPreferences.create(
+        context,
+        "secure_prefs",
+        masterKey,
+        EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+        EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+    )
+} catch (e: Exception) {
+    Log.e("SecurePrefs", "EncryptedSharedPreferences init failed, falling back", e)
+    context.getSharedPreferences("secure_prefs", Context.MODE_PRIVATE)
+}
 
 // Same API as regular SharedPreferences
-encryptedPrefs.edit().putString("api_key", "secret123").apply()
+prefs.edit().putString("api_key", "secret123").apply()
 ```
 
 ## File Storage

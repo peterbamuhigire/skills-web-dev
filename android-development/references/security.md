@@ -9,16 +9,19 @@ Comprehensive security patterns for Android applications.
 
 ## Encrypted Storage
 
+**CRITICAL: Samsung/Knox Crash Prevention** — Always wrap EncryptedSharedPreferences initialization in try-catch with fallback to regular SharedPreferences. Samsung devices with Knox can throw `KeyStoreException` during `MasterKey` creation, crashing the app before any UI renders (during Hilt DI init). Do NOT use the deprecated `MasterKeys.getOrCreate()` API — use `MasterKey.Builder()`.
+
 ```kotlin
 @Singleton
 class SecurityManager @Inject constructor(
     @ApplicationContext private val context: Context
 ) {
-    private val masterKey = MasterKey.Builder(context)
-        .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
-        .build()
+    // MUST use try-catch — Samsung Knox throws KeyStoreException
+    private val encryptedPreferences: SharedPreferences = try {
+        val masterKey = MasterKey.Builder(context)
+            .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+            .build()
 
-    private val encryptedPreferences by lazy {
         EncryptedSharedPreferences.create(
             context,
             "secure_preferences",
@@ -26,6 +29,9 @@ class SecurityManager @Inject constructor(
             EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
             EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
         )
+    } catch (e: Exception) {
+        Log.e("SecurityManager", "EncryptedSharedPreferences init failed, falling back", e)
+        context.getSharedPreferences("secure_preferences", Context.MODE_PRIVATE)
     }
 
     fun saveSecure(key: String, value: String) {
@@ -48,11 +54,12 @@ class SecurityManager @Inject constructor(
 
 ### Storage Rules
 
-- **Always** use `EncryptedSharedPreferences` for tokens, keys, PII
-- **Never** store secrets in plain `SharedPreferences`
+- **Always** use `EncryptedSharedPreferences` for tokens, keys, PII (with try-catch fallback)
+- **Never** store secrets in plain `SharedPreferences` (unless as fallback for Keystore failure)
 - **Never** hardcode API keys, tokens, or passwords in source code
 - Use `BuildConfig` fields for environment-specific values
 - Clear sensitive data on logout
+- **Never** use deprecated `MasterKeys.getOrCreate()` — use `MasterKey.Builder()`
 
 ## Biometric Authentication
 

@@ -264,3 +264,63 @@ suspend fun uploadAvatar(userId: String, imageUri: Uri): Result<String> =
 7. **Offline fallback** - cache API responses in Room when appropriate
 8. **Moshi codegen only** — NEVER use `KotlinJsonAdapterFactory()` (reflection). All DTOs must have `@JsonClass(generateAdapter = true)`. Reflection adapter crashes under R8 minification.
 9. **Image URLs from BuildConfig** — NEVER hardcode server URLs like `http://10.0.2.2/...`. Use `BuildConfig.API_BASE_URL` and strip `/api/` to get the web root. Create a shared `buildImageUrl()` utility.
+10. **ProGuard signature preservation** — CRITICAL for release builds. Add to `proguard-rules.pro`:
+    ```
+    # Keep generic signatures (required for Moshi reflection on parameterized types)
+    -keepattributes Signature
+    -keepattributes InnerClasses
+    -keepattributes EnclosingMethod
+
+    # Keep all Moshi adapters and DTOs
+    -keep class **JsonAdapter { <init>(...); }
+    -keep @com.squareup.moshi.JsonClass class *
+    ```
+    **Why:** R8 minification strips `Signature` attribute by default, causing Moshi to lose generic type information (`Map<String, Double>` → `Map`). At runtime, Moshi reflection fails with `java.lang.Class cannot be cast to reflect.ParameterizedType`. This affects ALL release builds with generic DTOs.
+10. **🔴 CRITICAL: Moshi Generic Types** — NEVER use `Map<String, Any>` in DTOs (with @JsonClass). This causes `ClassCastException` or "reflect.parametized type" error at runtime. Moshi cannot deserialize generic `Any` type. **Use concrete types instead:**
+    - ❌ `Map<String, Any>?` → causes ClassCastException/parametized type error
+    - ✅ `Map<String, String>?` → safe, Moshi can deserialize
+    - ✅ `Map<String, Int>?` → safe for integer maps
+    - ✅ `Map<String, Double>?` → safe for numeric/float maps (for summary stats)
+    - ✅ Specific data class → best practice
+
+    **Real Examples Fixed (2026-02-19):**
+    ```kotlin
+    // ❌ WRONG - ApiErrorBody.details caused login to crash
+    data class ApiErrorBody(@Json(name = "details") val details: Map<String, Any>?)
+
+    // ✅ FIXED
+    data class ApiErrorBody(@Json(name = "details") val details: Map<String, String>?)
+
+    // ❌ WRONG - PaginatedData.summary caused "reflect.parametized" error on report endpoints
+    @JsonClass(generateAdapter = true)
+    data class PaginatedData<T>(
+        @Json(name = "items") val items: List<T>,
+        @Json(name = "pagination") val pagination: PaginationMeta,
+        @Json(name = "summary") val summary: Map<String, Any>?  // ❌ Generic Any fails
+    )
+
+    // ✅ FIXED - Use concrete type
+    @JsonClass(generateAdapter = true)
+    data class PaginatedData<T>(
+        @Json(name = "items") val items: List<T>,
+        @Json(name = "pagination") val pagination: PaginationMeta,
+        @Json(name = "summary") val summary: Map<String, Double>?  // ✅ Concrete type
+    )
+
+    // ❌ WRONG - Domain model with unsafe casts
+    data class ReportSummary(val data: Map<String, Any>) {
+        fun getDouble(key: String): Double = (data[key] as? Number)?.toDouble() ?: 0.0
+    }
+
+    // ✅ FIXED - Use concrete type for domain model
+    data class ReportSummary(val data: Map<String, Double>) {
+        fun getDouble(key: String): Double = data[key] ?: 0.0
+    }
+    ```
+
+    **Why this happens:** Kotlin generic type erasure means `Any` is erased at compile-time. Moshi needs a concrete type to generate a deserializer. At runtime, Moshi tries to cast the deserialized value to `Any`, which fails because the actual type info is lost. Error message varies: "ClassCastException" or "reflect.parametized type".
+
+    **When it surfaces:**
+    - Login/auth error responses (ApiErrorBody)
+    - Report endpoints with paginated responses that include summary stats (PaginatedData.summary)
+    - Any API call returning an error with nested fields or aggregates

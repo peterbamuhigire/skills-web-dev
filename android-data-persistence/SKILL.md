@@ -13,7 +13,7 @@ Android 10+ required.
 
 **Architecture:** Offline-first with API sync via Repository pattern.
 
-**Backend Environments:** APIs run on Windows dev (MySQL 8.4.7), Ubuntu staging (MySQL 8.x), Debian production (MySQL 8.x). Use Gradle build flavors for environment-specific base URLs. All backends use `utf8mb4_general_ci` collation.
+**Backend Environments:** APIs run on Windows dev (MySQL 8.4.7), Ubuntu staging (MySQL 8.x), Debian production (MySQL 8.x). Use Gradle build flavors for environment-specific base URLs. All backends use `utf8mb4_unicode_ci` collation.
 
 **Icon Policy:** If any UI code is included, use custom PNG icons and maintain `PROJECT_ICONS.md` (see `android-custom-icons`).
 

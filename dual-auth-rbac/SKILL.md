@@ -11,7 +11,7 @@ Implement production-grade dual authentication combining session-based (stateful
 
 **Database Standards:** All database schema changes (adding auth tables, stored procedures, indexes) MUST follow **mysql-best-practices** skill migration checklist.
 
-**Deployment:** Runs on Windows dev (MySQL 8.4.7), Ubuntu staging (MySQL 8.x), Debian production (MySQL 8.x). Use `utf8mb4_general_ci` collation. Ensure file paths and require statements match exact case for Linux compatibility.
+**Deployment:** Runs on Windows dev (MySQL 8.4.7), Ubuntu staging (MySQL 8.x), Debian production (MySQL 8.x). Use `utf8mb4_unicode_ci` collation. Ensure file paths and require statements match exact case for Linux compatibility.
 
 **See references/ for:** `schema.sql` (complete database design with 9 tables)
 

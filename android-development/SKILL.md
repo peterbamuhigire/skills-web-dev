@@ -31,7 +31,7 @@ Android apps connect to a PHP/MySQL backend deployed across three environments:
 | **Staging** | `https://staging.{domain}/api/` | MySQL 8.x (Ubuntu VPS) | For QA and testing |
 | **Production** | `https://{domain}/api/` | MySQL 8.x (Debian VPS) | Live users |
 
-Configure base URLs using build flavors (`dev`, `staging`, `prod`) so the app targets the correct backend per build variant. All backends use `utf8mb4_general_ci` collation and MySQL 8.x.
+Configure base URLs using build flavors (`dev`, `staging`, `prod`) so the app targets the correct backend per build variant. All backends use `utf8mb4_unicode_ci` collation and MySQL 8.x.
 
 ## Quick Reference
 

@@ -77,7 +77,7 @@ All SaaS companion apps target these three backend environments:
 | **Staging** | Ubuntu VPS | MySQL 8.x | `https://staging.{domain}/api/` |
 | **Production** | Debian VPS | MySQL 8.x | `https://{domain}/api/` |
 
-Use Gradle build flavors to manage per-environment base URLs. All backends use `utf8mb4_general_ci` collation and MySQL 8.x. Always plan API contracts that work identically across all environments.
+Use Gradle build flavors to manage per-environment base URLs. All backends use `utf8mb4_unicode_ci` collation and MySQL 8.x. Always plan API contracts that work identically across all environments.
 
 ## Phase 1 Bootstrap Pattern (MANDATORY)
 

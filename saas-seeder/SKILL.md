@@ -25,7 +25,7 @@ All SaaS projects deploy across three environments:
 | **Staging** | Ubuntu VPS | MySQL 8.x | `/var/www/html/{project}/` |
 | **Production** | Debian VPS | MySQL 8.x | `/var/www/html/{project}/` |
 
-**Cross-platform rules:** Use `utf8mb4_general_ci` collation. Match file/directory case exactly (Linux is case-sensitive). Use forward slashes in PHP paths. Production migrations go in `database/migrations-production/` (non-destructive, idempotent).
+**Cross-platform rules:** Use `utf8mb4_unicode_ci` collation. Match file/directory case exactly (Linux is case-sensitive). Use forward slashes in PHP paths. Production migrations go in `database/migrations-production/` (non-destructive, idempotent).
 
 ## When to Use
 

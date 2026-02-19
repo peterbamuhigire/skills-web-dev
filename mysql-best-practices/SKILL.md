@@ -24,7 +24,7 @@ All database code must work across these environments:
 | **Production** | Debian VPS | MySQL 8.x | User: `peter`, password required |
 
 **Cross-platform rules:**
-- Always use `utf8mb4_general_ci` collation (never `utf8mb4_0900_ai_ci`)
+- Always use `utf8mb4_unicode_ci` collation (never `utf8mb4_0900_ai_ci` or `utf8mb4_general_ci`)
 - Never use platform-specific SQL features; test on MySQL 8.x
 - Production migrations go in `database/migrations-production/` with `-production` suffix, must be idempotent and non-destructive
 
@@ -47,7 +47,7 @@ Always use UTF-8 MB4:
 ```sql
 CREATE DATABASE saas_platform
   CHARACTER SET utf8mb4
-  COLLATE utf8mb4_general_ci;
+  COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE users (
   id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY

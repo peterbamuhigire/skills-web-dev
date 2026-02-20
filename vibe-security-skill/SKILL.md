@@ -19,7 +19,7 @@ This skill provides comprehensive secure coding practices for web applications, 
 **Deployment Context:** Apps deploy across Windows (dev), Ubuntu (staging), and Debian (production). Security must work on all platforms:
 - File permissions differ: test upload dirs and temp paths on Linux
 - Case-sensitive filesystems on Linux can expose hidden files if not careful
-- Use `utf8mb4_general_ci` collation to prevent charset-based injection edge cases
+- Use `utf8mb4_unicode_ci` collation to prevent charset-based injection edge cases
 - Never hardcode Windows paths; use `DIRECTORY_SEPARATOR` or `/`
 
 **OWASP Top 10 2025:** A01 Broken Access Control • A02 Security Misconfiguration • A03 Supply Chain • A04 Cryptographic Failures • A05 Injection • A06 Insecure Design • A07 Authentication Failures • A08 Data Integrity Failures • A09 Logging Failures • A10 Exception Handling

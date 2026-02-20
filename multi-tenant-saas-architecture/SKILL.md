@@ -35,7 +35,7 @@ Multi-tenant apps must work identically across all environments:
 | **Staging** | Ubuntu VPS | MySQL 8.x | `/var/www/html/{project}/` |
 | **Production** | Debian VPS | MySQL 8.x | `/var/www/html/{project}/` |
 
-**Cross-platform rules:** Use `utf8mb4_general_ci` collation everywhere. Match file/directory case exactly (Linux is case-sensitive). Production migrations must be non-destructive and idempotent (`database/migrations-production/`).
+**Cross-platform rules:** Use `utf8mb4_unicode_ci` collation everywhere. Match file/directory case exactly (Linux is case-sensitive). Production migrations must be non-destructive and idempotent (`database/migrations-production/`).
 
 ## When to Use
 

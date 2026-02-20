@@ -20,7 +20,7 @@ Implement comprehensive, standardized error response system for PHP REST APIs wi
 
 **Security Baseline (Required):** Always load and apply the **Vibe Security Skill** for PHP API work. Do not leak sensitive data in responses or logs.
 
-**Cross-Platform:** APIs deploy to Windows (dev), Ubuntu (staging), Debian (production), all running MySQL 8.x. Use `utf8mb4_general_ci` collation. Match file/directory case exactly in require paths (Linux is case-sensitive). Use forward slashes in paths.
+**Cross-Platform:** APIs deploy to Windows (dev), Ubuntu (staging), Debian (production), all running MySQL 8.x. Use `utf8mb4_unicode_ci` collation. Match file/directory case exactly in require paths (Linux is case-sensitive). Use forward slashes in paths.
 
 **See subdirectories for:**
 

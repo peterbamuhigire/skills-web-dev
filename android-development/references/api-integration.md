@@ -253,6 +253,51 @@ suspend fun uploadAvatar(userId: String, imageUri: Uri): Result<String> =
     }
 ```
 
+## Handling Inconsistent API Types (Custom KSerializer)
+
+PHP/MySQL backends sometimes return inconsistent JSON types — e.g. a string field returns `{}` (empty object) when there's no data, or a number field returns `"0"` as a string. Use a custom `KSerializer` to absorb these quirks at the DTO layer.
+
+```kotlin
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.descriptors.PrimitiveKind
+import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
+import kotlinx.serialization.encoding.Decoder
+import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.JsonDecoder
+import kotlinx.serialization.json.JsonPrimitive
+
+/**
+ * Deserializes a JSON value that may be either a string or an object/array.
+ * Returns the string content if primitive, or "" if the API sent {} or [].
+ */
+object StringOrObjectSerializer : KSerializer<String> {
+    override val descriptor = PrimitiveSerialDescriptor("StringOrObject", PrimitiveKind.STRING)
+
+    override fun serialize(encoder: Encoder, value: String) {
+        encoder.encodeString(value)
+    }
+
+    override fun deserialize(decoder: Decoder): String {
+        val jsonDecoder = decoder as? JsonDecoder
+            ?: return decoder.decodeString()
+        return when (val element = jsonDecoder.decodeJsonElement()) {
+            is JsonPrimitive -> element.content
+            else -> ""  // {} or [] → empty string
+        }
+    }
+}
+
+// Usage in DTO:
+@Serializable
+data class StatisticsDto(
+    @SerialName("most_active_dpc")
+    @Serializable(with = StringOrObjectSerializer::class)
+    val mostActiveDpc: String = "",
+)
+```
+
+**When to use:** Any DTO field where the backend returns mixed types (e.g. `"John"` when data exists, `{}` when empty). Place the serializer in the same file as the DTO or in a shared `serializers/` package.
+
 ## API Integration Rules
 
 1. **DTOs separate from domain models** - always map at repository boundary
@@ -264,3 +309,4 @@ suspend fun uploadAvatar(userId: String, imageUri: Uri): Result<String> =
 7. **Offline fallback** - cache API responses in Room when appropriate
 8. **Moshi codegen only** — NEVER use `KotlinJsonAdapterFactory()` (reflection). All DTOs must have `@JsonClass(generateAdapter = true)`. Reflection adapter crashes under R8 minification.
 9. **Image URLs from BuildConfig** — NEVER hardcode server URLs like `http://10.0.2.2/...`. Use `BuildConfig.API_BASE_URL` and strip `/api/` to get the web root. Create a shared `buildImageUrl()` utility.
+10. **Handle inconsistent API types** — Use custom `KSerializer` (e.g. `StringOrObjectSerializer`) for fields where the backend returns mixed JSON types. Never let a DTO crash on unexpected `{}` or `[]`.

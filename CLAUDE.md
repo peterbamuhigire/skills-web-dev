@@ -120,6 +120,10 @@ skills/
 ├── vibe-security-skill/             # Secure coding for web apps
 ├── photo-management/                # Photo upload and gallery patterns
 ├── skill-writing/                   # Skill creator (meta-skill)
+├── sdlc-planning/                   # SDLC planning & management docs (Vision, SDP, SRS, etc.)
+├── sdlc-design/                     # SDLC design & development docs (SDD, Tech Spec, ICD, DB Design, API)
+├── sdlc-testing/                    # SDLC testing & quality docs (STP, Test Cases, V&V, Reports)
+├── sdlc-user-deploy/                # SDLC user & deployment docs (User Manual, Ops, Training, Release)
 ├── spec-architect/                  # Specification architecture skill
 ├── prompting-patterns-reference.md  # Prompting patterns for AI instructions
 ├── orchestration-patterns-reference.md # Orchestration strategies for multi-agent workflows
@@ -290,5 +294,5 @@ This guide ensures consistent, high-quality interaction with the skills reposito
 ---
 
 **Maintained by:** Peter Bamuhigire
-**Last Updated:** 2026-02-07
+**Last Updated:** 2026-02-20
 **Line Count:** ~250 lines (compliant with doc-standards.md)

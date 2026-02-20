@@ -70,6 +70,10 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 - project-requirements
 - report-print-pdf
 - saas-seeder
+- sdlc-design
+- sdlc-planning
+- sdlc-testing
+- sdlc-user-deploy
 - skill-safety-audit
 - skill-writing
 - spec-architect
@@ -1394,17 +1398,81 @@ skills/
 └── CLAUDE.md                     # Claude Code specific guide
 ```
 
+## SDLC Documentation Skills (New in v3.2)
+
+**Purpose:** Generate standardized SDLC documentation across all 4 phases. Each skill covers one SDLC category with detailed templates tailored to the tech stack (PHP 8+, MySQL 8.x, Kotlin/Compose, multi-tenant SaaS).
+
+### SDLC Planning
+
+**Focus:** Planning & Management documentation (7 document types)
+
+**When to use:** Starting a new project, establishing governance, creating the planning baseline before development.
+
+**Documents:** Project Vision & Scope, Software Development Plan (SDP), Configuration Management Plan (SCMP), Quality Assurance Plan, Risk Management Plan, Software Requirements Specification (SRS), Feasibility Study Report
+
+**Skill location:** `sdlc-planning/SKILL.md` + `templates/` (7 template files)
+
+---
+
+### SDLC Design
+
+**Focus:** Design & Development documentation (6 document types)
+
+**When to use:** Translating requirements into technical architecture, guiding development teams.
+
+**Documents:** System Design Document (SDD), Technical Specification, Interface Control Document (ICD), Database Design Document, Code Documentation Standards, API Documentation
+
+**Skill location:** `sdlc-design/SKILL.md` + `templates/` (6 template files)
+
+---
+
+### SDLC Testing
+
+**Focus:** Testing & Quality documentation (5 document types)
+
+**When to use:** Establishing testing strategy, creating test documentation, conducting quality validation.
+
+**Documents:** Software Test Plan (STP), Test Case Specifications, Validation & Verification Plan (SVVP), Validation Test Report (SVTR), Peer Review/Inspection Report
+
+**Skill location:** `sdlc-testing/SKILL.md` + `templates/` (5 template files)
+
+---
+
+### SDLC User & Deployment
+
+**Focus:** User & Deployment documentation (6 document types)
+
+**When to use:** Preparing software for end-users, system administrators, and operations teams.
+
+**Documents:** Software User Manual (SUM), Operations/Deployment Manual, Training Materials, Release Notes, Maintenance Manual, README File
+
+**Skill location:** `sdlc-user-deploy/SKILL.md` + `templates/` (6 template files)
+
+---
+
+### How SDLC Skills Work Together
+
+```
+sdlc-planning (Vision, SRS, SDP, QA Plan, Risk Plan, SCMP, Feasibility)
+    |
+    v  [Requirements approved]
+sdlc-design (SDD, Tech Spec, ICD, DB Design, API Docs, Code Docs)
+    |
+    v  [Architecture defined]
+sdlc-testing (Test Plan, Test Cases, V&V Plan, Test Report, Peer Reviews)
+    |
+    v  [Quality validated]
+sdlc-user-deploy (User Manual, Ops Manual, Training, Release Notes, Maintenance, README)
+```
+
+**Total:** 24 document templates across 4 skills, all tailored to the multi-tenant SaaS tech stack.
+
+---
+
 ## Roadmap
 
 ### Planned Skills
 
-- **API Design Patterns:** RESTful, GraphQL, and gRPC patterns
-- **Database Design:** Schema design, migrations, optimization
-- **Testing Strategies:** Unit, integration, E2E testing patterns
-- **DevOps & CI/CD:** Deployment pipelines and infrastructure
-- **Security Hardening:** OWASP, penetration testing, security audits
-- **Performance Optimization:** Profiling, caching, load balancing
-- **Mobile Development:** iOS, Android, React Native patterns
 - **Microservices:** Service mesh, event-driven architecture
 
 ### Version History

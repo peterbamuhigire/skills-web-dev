@@ -59,6 +59,7 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 - image-compression
 - implementation-status-auditor
 - plan-implementation
+- saas-accounting-system
 - inventory-management
 - jetpack-compose-ui
 - manual-guide
@@ -1526,6 +1527,35 @@ sdlc-user-deploy (User Manual, Ops Manual, Training, Release Notes, Maintenance,
 **Skill location:** `plan-implementation/SKILL.md`
 
 **Reference files:** `references/execution-loop-detail.md`, `references/error-recovery-patterns.md`, `references/progress-tracking.md`
+
+---
+
+### SaaS Accounting System
+
+**Focus:** Hidden double-entry accounting engine for any SaaS application
+
+**When to use:**
+
+- Building any ERP, POS, inventory, or financial system
+- Need proper accounting under the hood (debits = credits, always)
+- Users enter friendly transactions, system auto-posts journal entries
+- Need both user-friendly and accountant-grade financial reports
+- Implementing void/reversal mechanics for transaction corrections
+
+**Key capabilities:**
+
+- **Hidden accounting engine:** Users never see debits/credits — auto-posted from business transactions
+- **Chart of Accounts:** Seeded per tenant with standard account structure (Asset/Liability/Equity/Revenue/COGS/Expense)
+- **Auto-posting rules:** 12+ transaction types with exact DR/CR mappings (sales, payments, purchases, inventory, payroll, loans, depreciation)
+- **Void/reversal:** Never delete entries — create reversing entries with cascade dependency checks
+- **Dual reporting:** User-friendly (Simple P&L, Sales Summary) + Accountant-grade (Trial Balance, Balance Sheet, Income Statement, Cash Flow, General Ledger)
+- **10000% accuracy:** Database-enforced balance validation, CHECK constraints, stored procedure validation
+- **Multi-tenant:** franchise_id on every table, period management, year-end closing
+- **Complete schema:** 5 core tables with triggers, stored procedures, and materialized balances
+
+**Skill location:** `saas-accounting-system/SKILL.md`
+
+**Reference files:** `references/chart-of-accounts.md`, `references/journal-posting-rules.md`, `references/void-reversal-patterns.md`, `references/financial-statements.md`, `references/schema-design.md`
 
 ---
 

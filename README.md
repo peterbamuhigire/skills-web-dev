@@ -40,6 +40,8 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 - ai-error-handling
 - ai-error-prevention
 - android-custom-icons
+- android-biometric-login
+- android-pdf-export
 - android-data-persistence
 - android-development
 - android-report-tables
@@ -55,11 +57,13 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 - gis-mapping
 - google-play-store-review
 - image-compression
+- implementation-status-auditor
 - inventory-management
 - jetpack-compose-ui
 - manual-guide
 - markdown-lint-cleanup
 - modular-saas-architecture
+- mobile-rbac
 - multi-tenant-saas-architecture
 - mysql-best-practices
 - orchestration-best-practices
@@ -1466,6 +1470,33 @@ sdlc-user-deploy (User Manual, Ops Manual, Training, Release Notes, Maintenance,
 ```
 
 **Total:** 24 document templates across 4 skills, all tailored to the multi-tenant SaaS tech stack.
+
+---
+
+### Implementation Status Auditor
+
+**Focus:** Comprehensive project audit producing both status report and completion blueprint
+
+**When to use:**
+
+- Auditing a project to see what's been accomplished
+- Identifying gaps between plans and implementation
+- Generating a structured completion roadmap
+- Cross-referencing database schema against requirements
+- Validating cross-platform/API integration integrity
+
+**Key capabilities:**
+
+- **5 audit pillars:** Schema audit, Implementation gap analysis, Cross-platform integrity, Technical risk assessment, Completion blueprint
+- **Structured output:** 7+ files in `docs/implementation/review-{date}/` directory
+- **Feature classification:** Complete, Partial, Phantom (zero footprint), Undocumented
+- **Cross-skill integration:** Maps every gap to a specific skill for resolution
+- **Iterative drilling:** Deep dive into modules, API payloads, test coverage
+- **Re-audit comparison:** Track progress between audit runs
+
+**Skill location:** `implementation-status-auditor/SKILL.md`
+
+**Reference files:** `references/audit-checklist.md`, `references/gap-analysis-patterns.md`, `references/drill-down-templates.md`
 
 ---
 

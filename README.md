@@ -58,6 +58,7 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 - google-play-store-review
 - image-compression
 - implementation-status-auditor
+- plan-implementation
 - inventory-management
 - jetpack-compose-ui
 - manual-guide
@@ -1497,6 +1498,34 @@ sdlc-user-deploy (User Manual, Ops Manual, Training, Release Notes, Maintenance,
 **Skill location:** `implementation-status-auditor/SKILL.md`
 
 **Reference files:** `references/audit-checklist.md`, `references/gap-analysis-patterns.md`, `references/drill-down-templates.md`
+
+---
+
+### Plan Implementation — Autonomous Executor
+
+**Focus:** Execute feature plans autonomously from start to finish with TDD and validation
+
+**When to use:**
+
+- Implementing plans created by `feature-planning` skill
+- User says "implement the plan", "execute the plan", or "build this"
+- Autonomous end-to-end code generation with testing
+- Any multi-task implementation requiring structured execution
+
+**Key capabilities:**
+
+- **Autonomous execution:** No stopping, no permission-seeking, continuous implementation
+- **TDD enforcement:** RED (failing test) → GREEN (minimum code) → VALIDATE → REFACTOR → NEXT
+- **5-layer validation:** Syntax, Requirements, Tests, Security, Documentation on every task
+- **10 Commandments:** Enforces orchestration best practices on all execution
+- **Error recovery:** 3-attempt autonomous fix, escalation ladder, output truncation recovery
+- **Progress tracking:** Real-time logging, plan status updates, completion reports
+- **Cross-skill integration:** References 14 skills for domain-specific patterns
+- **Feedback loop:** Triggers `implementation-status-auditor` for post-execution verification
+
+**Skill location:** `plan-implementation/SKILL.md`
+
+**Reference files:** `references/execution-loop-detail.md`, `references/error-recovery-patterns.md`, `references/progress-tracking.md`
 
 ---
 

@@ -92,6 +92,7 @@ skills/
 ├── android-biometric-login/          # Biometric auth (fingerprint/face) for Android apps├── android-custom-icons/             # Custom PNG icons for Android (no icon libraries)├── android-pdf-export/               # Native PDF export using PdfDocument API├── android-report-tables/            # Table-first report UI for >25 rows
 ├── google-play-store-review/        # Play Store review readiness
 ├── implementation-status-auditor/   # Project audit + completion blueprint
+├── plan-implementation/             # Autonomous plan executor (TDD + 5-layer validation)
 ├── multi-tenant-saas-architecture/  # SaaS backend patterns
 ├── modular-saas-architecture/       # Pluggable SaaS modules
 ├── feature-planning/                # Complete feature planning (spec + implementation)

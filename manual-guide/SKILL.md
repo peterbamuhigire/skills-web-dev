@@ -3,6 +3,10 @@ name: manual-guide
 description: "Generate end-user manuals and reference guides for ERP modules. Use when the user asks to document a feature, write a user manual, or sync a reference guide. This skill is explicitly separate from doc-architect (which manages AI guidance docs like AGENTS.md)."
 ---
 
+## Required Plugins
+
+**Superpowers plugin:** MUST be active for all work using this skill. Use throughout the entire build pipeline — design decisions, code generation, debugging, quality checks, and any task where it offers enhanced capabilities. If superpowers provides a better way to accomplish something, prefer it over the default approach.
+
 # Manual Guide (End-User Documentation)
 
 Create **end-user manuals** and **reference guides**. This is **not** for AI instruction documents. Do **not** edit or generate AGENTS.md or other AI guidance files when this skill is used.

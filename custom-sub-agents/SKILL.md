@@ -3,6 +3,10 @@ name: custom-sub-agents
 description: "Guidance for creating and organizing custom sub-agents in local repos, including folder conventions, per-agent structure, and AGENTS.md indexing. Use when asked where to store sub-agents or how to document them."
 ---
 
+## Required Plugins
+
+**Superpowers plugin:** MUST be active for all work using this skill. Use throughout the entire build pipeline — design decisions, code generation, debugging, quality checks, and any task where it offers enhanced capabilities. If superpowers provides a better way to accomplish something, prefer it over the default approach.
+
 # Custom Sub-Agents Skill
 
 ## Overview

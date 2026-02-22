@@ -3,6 +3,10 @@ name: doc-architect
 description: "Generate Triple-Layer AGENTS.md documentation by scanning a project for its tech stack, data directory, and planning directory. Use when the user asks to standardize project documentation, generate agent files, or create AGENTS.md guides."
 ---
 
+## Required Plugins
+
+**Superpowers plugin:** MUST be active for all work using this skill. Use throughout the entire build pipeline — design decisions, code generation, debugging, quality checks, and any task where it offers enhanced capabilities. If superpowers provides a better way to accomplish something, prefer it over the default approach.
+
 # Doc Architect
 
 Design and generate a portable Triple-Layer AGENTS.md documentation set that reflects the project’s real structure and constraints.

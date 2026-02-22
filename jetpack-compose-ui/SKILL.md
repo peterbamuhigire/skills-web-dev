@@ -3,6 +3,10 @@ name: jetpack-compose-ui
 description: "Jetpack Compose UI standards for beautiful, sleek, minimalistic Android apps. Enforces Material 3 design, unidirectional data flow, state hoisting, consistent theming, smooth animations, and performance patterns. Use when building or reviewing Compose UI code to ensure modern, user-friendly, fast-loading interfaces that are standard across all apps."
 ---
 
+## Required Plugins
+
+**Superpowers plugin:** MUST be active for all work using this skill. Use throughout the entire build pipeline — design decisions, code generation, debugging, quality checks, and any task where it offers enhanced capabilities. If superpowers provides a better way to accomplish something, prefer it over the default approach.
+
 # Jetpack Compose UI Standards
 
 ## Design Philosophy

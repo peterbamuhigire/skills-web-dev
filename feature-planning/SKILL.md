@@ -3,6 +3,10 @@ name: feature-planning
 description: Complete feature planning from specification to implementation. Create structured specs with user stories and acceptance criteria, then generate detailed implementation plans with TDD workflow, exact file paths, and complete code examples.
 ---
 
+## Required Plugins
+
+**Superpowers plugin:** MUST be active for all work using this skill. Use throughout the entire build pipeline — design decisions, code generation, debugging, quality checks, and any task where it offers enhanced capabilities. If superpowers provides a better way to accomplish something, prefer it over the default approach.
+
 # Feature Planning
 
 Complete feature development planning from **specification** to **implementation**. This skill combines requirements engineering with detailed implementation planning to ensure features are both well-specified and properly implemented.

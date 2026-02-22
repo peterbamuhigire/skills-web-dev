@@ -3,6 +3,10 @@ name: orchestration-best-practices
 description: Master skill for orchestrating multi-step workflows. Use when generating code for complex processes, agent coordination, or system design. Ensures proper step definition, dependency tracking, error handling, and validation.
 ---
 
+## Required Plugins
+
+**Superpowers plugin:** MUST be active for all work using this skill. Use throughout the entire build pipeline — design decisions, code generation, debugging, quality checks, and any task where it offers enhanced capabilities. If superpowers provides a better way to accomplish something, prefer it over the default approach.
+
 # Orchestration Best Practices
 
 ## When to Use This Skill

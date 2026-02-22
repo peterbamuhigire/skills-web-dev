@@ -3,6 +3,10 @@ name: sdlc-user-deploy
 description: "Generate User & Deployment documentation for SDLC projects. Covers Software User Manual (SUM), Operations/Deployment Manual, Training Materials, Release Notes, Maintenance Manual, and README File. Use when preparing software for end-users, system administrators, and operations teams who will use, deploy, and maintain the software."
 ---
 
+## Required Plugins
+
+**Superpowers plugin:** MUST be active for all work using this skill. Use throughout the entire build pipeline — design decisions, code generation, debugging, quality checks, and any task where it offers enhanced capabilities. If superpowers provides a better way to accomplish something, prefer it over the default approach.
+
 # SDLC User & Deployment Skill
 
 Generate a complete **User & Deployment** documentation suite for software development projects. This skill produces 6 documents that guide end-users, system administrators, and operations teams through using, deploying, and maintaining the software.

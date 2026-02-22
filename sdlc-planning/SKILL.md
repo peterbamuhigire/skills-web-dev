@@ -3,6 +3,10 @@ name: sdlc-planning
 description: "Generate Planning & Management documentation for SDLC projects. Covers Project Vision & Scope, SDP, SCMP, QA Plan, Risk Plan, SRS, and Feasibility Study. Use when starting a new project, conducting project governance, or establishing the planning baseline before development begins."
 ---
 
+## Required Plugins
+
+**Superpowers plugin:** MUST be active for all work using this skill. Use throughout the entire build pipeline — design decisions, code generation, debugging, quality checks, and any task where it offers enhanced capabilities. If superpowers provides a better way to accomplish something, prefer it over the default approach.
+
 # SDLC Planning Skill
 
 Generate a complete **Planning & Management** documentation suite for software development projects. This skill produces 7 foundational documents that establish the project baseline before any code is written.

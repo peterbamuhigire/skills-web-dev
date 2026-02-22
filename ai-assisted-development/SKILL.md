@@ -3,6 +3,10 @@ name: ai-assisted-development
 description: Orchestrate AI agents (Claude Code, sub-agents, etc.) for software development workflows. Use when coordinating multiple AI assistants or planning AI-driven development processes.
 ---
 
+## Required Plugins
+
+**Superpowers plugin:** MUST be active for all work using this skill. Use throughout the entire build pipeline — design decisions, code generation, debugging, quality checks, and any task where it offers enhanced capabilities. If superpowers provides a better way to accomplish something, prefer it over the default approach.
+
 # AI-Assisted Development Orchestration
 
 ## Overview

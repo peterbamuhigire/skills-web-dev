@@ -3,6 +3,10 @@ name: ai-error-handling
 description: Validation and error handling for AI-generated code. Use when verifying AI output, building production code, or ensuring code correctness. Enforces automatic quality checks and validation loops.
 ---
 
+## Required Plugins
+
+**Superpowers plugin:** MUST be active for all work using this skill. Use throughout the entire build pipeline — design decisions, code generation, debugging, quality checks, and any task where it offers enhanced capabilities. If superpowers provides a better way to accomplish something, prefer it over the default approach.
+
 # AI Error Handling & Validation
 
 ## When to Use This Skill

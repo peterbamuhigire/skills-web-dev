@@ -3,6 +3,10 @@ name: ai-error-prevention
 description: Error prevention strategies for AI-assisted development. Use when working with Claude to minimize hallucinations, incomplete solutions, and wasted tokens. Enforces "trust but verify" workflow.
 ---
 
+## Required Plugins
+
+**Superpowers plugin:** MUST be active for all work using this skill. Use throughout the entire build pipeline — design decisions, code generation, debugging, quality checks, and any task where it offers enhanced capabilities. If superpowers provides a better way to accomplish something, prefer it over the default approach.
+
 # AI Error Prevention in Software Development
 
 ## Overview

@@ -3,6 +3,10 @@ name: implementation-status-auditor
 description: "Conduct a comprehensive implementation status audit of any software project. Produces structured documentation in docs/implementation/review-{date}/ with gap analysis, schema audit, integration status, completion blueprint, and prioritized action items. Use when the user wants to know exactly where a project stands and what remains to finish it."
 ---
 
+## Required Plugins
+
+**Superpowers plugin:** MUST be active for all work using this skill. Use throughout the entire build pipeline — design decisions, code generation, debugging, quality checks, and any task where it offers enhanced capabilities. If superpowers provides a better way to accomplish something, prefer it over the default approach.
+
 # Implementation Status Auditor
 
 ## Overview

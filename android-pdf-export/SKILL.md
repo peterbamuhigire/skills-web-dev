@@ -3,6 +3,10 @@ name: android-pdf-export
 description: "Native Android PDF export system using PdfDocument API (zero dependencies). Reusable Canvas-based generator with branded letterheads, data tables, summary cards, and share-via-Intent. Use when adding PDF export to any Android app screen — reports, invoices, detail views, or lists."
 ---
 
+## Required Plugins
+
+**Superpowers plugin:** MUST be active for all work using this skill. Use throughout the entire build pipeline — design decisions, code generation, debugging, quality checks, and any task where it offers enhanced capabilities. If superpowers provides a better way to accomplish something, prefer it over the default approach.
+
 # Android PDF Export (Native PdfDocument)
 
 Generate professional branded PDF documents from any Android screen using the built-in `android.graphics.pdf.PdfDocument` API. Zero external dependencies — pure Canvas drawing. Supports A4 portrait/landscape, multi-page pagination, letterheads, tables, summary cards, info sections, status badges, and charts.

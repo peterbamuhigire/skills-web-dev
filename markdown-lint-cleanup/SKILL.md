@@ -3,6 +3,10 @@ name: markdown-lint-cleanup
 description: Fix markdown lint warnings by enforcing headings, blank lines around lists, and language-tagged code fences for clean documentation.
 ---
 
+## Required Plugins
+
+**Superpowers plugin:** MUST be active for all work using this skill. Use throughout the entire build pipeline — design decisions, code generation, debugging, quality checks, and any task where it offers enhanced capabilities. If superpowers provides a better way to accomplish something, prefer it over the default approach.
+
 # Markdown Lint Cleanup
 
 ## Overview

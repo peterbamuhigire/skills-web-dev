@@ -3,6 +3,10 @@ name: update-claude-documentation
 description: "Update project documentation files (README.md, PROJECT_BRIEF.md, TECH_STACK.md, ARCHITECTURE.md, docs/API.md, docs/DATABASE.md, CLAUDE.md, docs/plans/NEXT_FEATURES.md) when significant changes occur. MANDATORY at end of each work session to update NEXT_FEATURES.md priority roadmap. Use for feature additions, architecture changes, dependency updates, API/database modifications. Ensures consistency across all docs."
 ---
 
+## Required Plugins
+
+**Superpowers plugin:** MUST be active for all work using this skill. Use throughout the entire build pipeline — design decisions, code generation, debugging, quality checks, and any task where it offers enhanced capabilities. If superpowers provides a better way to accomplish something, prefer it over the default approach.
+
 # Update Claude Documentation
 
 Update project documentation systematically after significant changes. Keep all files consistent and accurate.

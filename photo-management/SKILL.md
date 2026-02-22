@@ -3,6 +3,12 @@ name: photo-management
 description: Manage photo uploads, previews, storage, and deletion across the app. Use when building any photo upload UI or API, and always apply client-side compression via skills/image-compression before upload.
 ---
 
+## Required Plugins
+
+**Superpowers plugin:** MUST be active for all work using this skill. Use throughout the entire build pipeline — design decisions, code generation, debugging, quality checks, and any task where it offers enhanced capabilities. If superpowers provides a better way to accomplish something, prefer it over the default approach.
+
+**Frontend Design plugin (`webapp-gui-design`):** MUST be active for all visual output from this skill. Use for design system work, component styling, layout decisions, colour selection, typography, responsive design, and visual QA.
+
 # Photo Management
 
 ## Overview

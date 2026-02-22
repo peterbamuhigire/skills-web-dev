@@ -3,6 +3,10 @@ name: mobile-rbac
 description: "Role-Based Access Control for Android mobile apps integrating with a multi-tenant SaaS backend. Covers permission fetching, caching in EncryptedSharedPreferences, Jetpack Compose permission gates (PermissionGate, ModuleGate, PermissionButton), module-gated bottom navigation, navigation guards, offline-capable permission checks, and defense-in-depth patterns. Use when implementing permission-based UI gating, role-based feature access, or module-based tab visibility in Android apps."
 ---
 
+## Required Plugins
+
+**Superpowers plugin:** MUST be active for all work using this skill. Use throughout the entire build pipeline — design decisions, code generation, debugging, quality checks, and any task where it offers enhanced capabilities. If superpowers provides a better way to accomplish something, prefer it over the default approach.
+
 # Mobile RBAC - Android Permission System
 
 ## Architecture Overview

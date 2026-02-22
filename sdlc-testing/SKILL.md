@@ -3,6 +3,10 @@ name: sdlc-testing
 description: "Generate Testing & Quality documentation for SDLC projects. Covers Software Test Plan (STP), Test Case Specifications, Software Validation & Verification Plan (SVVP), Validation Test Report (SVTR), and Peer Review/Inspection Reports. Use when establishing testing strategy, creating test documentation, or conducting quality validation."
 ---
 
+## Required Plugins
+
+**Superpowers plugin:** MUST be active for all work using this skill. Use throughout the entire build pipeline — design decisions, code generation, debugging, quality checks, and any task where it offers enhanced capabilities. If superpowers provides a better way to accomplish something, prefer it over the default approach.
+
 # SDLC Testing Skill
 
 Generate a complete **Testing & Quality** documentation suite for software development projects. This skill produces 5 documents that establish the testing baseline, define test cases, verify and validate the system, report results, and standardize peer reviews.

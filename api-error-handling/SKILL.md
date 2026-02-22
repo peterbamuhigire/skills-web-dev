@@ -3,6 +3,10 @@ name: api-error-handling
 description: "Comprehensive, standardized error response system for PHP REST APIs with SweetAlert2 integration. Use when building REST APIs that need consistent error formatting, specific error message extraction from database exceptions, validation error handling, and seamless frontend integration. Includes PDOException parsing, business rule extraction, and complete SweetAlert2 error display patterns."
 ---
 
+## Required Plugins
+
+**Superpowers plugin:** MUST be active for all work using this skill. Use throughout the entire build pipeline — design decisions, code generation, debugging, quality checks, and any task where it offers enhanced capabilities. If superpowers provides a better way to accomplish something, prefer it over the default approach.
+
 # API Error Handling
 
 Implement comprehensive, standardized error response system for PHP REST APIs with consistent JSON envelopes, specific error message extraction, and SweetAlert2 integration.

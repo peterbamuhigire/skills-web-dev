@@ -3,6 +3,10 @@ name: google-play-store-review
 description: Google Play Store compliance and review readiness for Android apps. Use when preparing Play Console submissions, validating policies, data safety, permissions, ads, IAP, store listing accuracy, and reviewer notes.
 ---
 
+## Required Plugins
+
+**Superpowers plugin:** MUST be active for all work using this skill. Use throughout the entire build pipeline — design decisions, code generation, debugging, quality checks, and any task where it offers enhanced capabilities. If superpowers provides a better way to accomplish something, prefer it over the default approach.
+
 # Google Play Store Review Readiness
 
 ## Overview

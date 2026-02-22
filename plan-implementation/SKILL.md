@@ -3,6 +3,10 @@ name: plan-implementation
 description: "Autonomous plan executor that implements feature plans from start to finish using TDD, 5-layer validation, and the 10 Commandments of Orchestration. Reads plans created by feature-planning skill and executes every task without stopping, producing production-ready, fully tested code. Use when the user says 'implement the plan', 'execute the plan', 'build this', or wants autonomous end-to-end implementation."
 ---
 
+## Required Plugins
+
+**Superpowers plugin:** MUST be active for all work using this skill. Use throughout the entire build pipeline — design decisions, code generation, debugging, quality checks, and any task where it offers enhanced capabilities. If superpowers provides a better way to accomplish something, prefer it over the default approach.
+
 # Plan Implementation — Autonomous Executor
 
 ## Role

@@ -3,6 +3,10 @@ name: skill-safety-audit
 description: Scan new or updated skills for unsafe or malicious instructions (unknown tools, external installers, credential harvesting) before accepting them into the repository.
 ---
 
+## Required Plugins
+
+**Superpowers plugin:** MUST be active for all work using this skill. Use throughout the entire build pipeline — design decisions, code generation, debugging, quality checks, and any task where it offers enhanced capabilities. If superpowers provides a better way to accomplish something, prefer it over the default approach.
+
 # Skill Safety Audit
 
 ## Overview

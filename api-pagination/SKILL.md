@@ -3,6 +3,10 @@ name: api-pagination
 description: "Cursor/offset pagination pattern for PHP REST APIs and Android (Jetpack Compose + MVVM). Covers backend response format, Android DTOs, repository, use case, ViewModel state, and infinite-scroll LazyColumn. Use when adding pagination to any list endpoint."
 ---
 
+## Required Plugins
+
+**Superpowers plugin:** MUST be active for all work using this skill. Use throughout the entire build pipeline — design decisions, code generation, debugging, quality checks, and any task where it offers enhanced capabilities. If superpowers provides a better way to accomplish something, prefer it over the default approach.
+
 # API Pagination Skill
 
 ## Overview

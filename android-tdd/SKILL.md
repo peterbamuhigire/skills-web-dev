@@ -3,6 +3,10 @@ name: android-tdd
 description: "Android Test-Driven Development standards. Enforces Red-Green-Refactor cycle, test pyramid (70/20/10), layer-specific testing strategies, and CI integration. Use when building or reviewing Android apps with TDD methodology."
 ---
 
+## Required Plugins
+
+**Superpowers plugin:** MUST be active for all work using this skill. Use throughout the entire build pipeline — design decisions, code generation, debugging, quality checks, and any task where it offers enhanced capabilities. If superpowers provides a better way to accomplish something, prefer it over the default approach.
+
 # Android Test-Driven Development (TDD)
 
 ## Overview

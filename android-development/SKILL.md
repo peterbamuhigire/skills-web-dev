@@ -3,6 +3,10 @@ name: android-development
 description: "Android development standards for AI agent implementation. Kotlin-first, Jetpack Compose UI, MVVM + Clean Architecture, Hilt DI, comprehensive security, testing, and performance patterns. Use when building or reviewing Android applications, generating Kotlin code, or setting up Android project structure."
 ---
 
+## Required Plugins
+
+**Superpowers plugin:** MUST be active for all work using this skill. Use throughout the entire build pipeline — design decisions, code generation, debugging, quality checks, and any task where it offers enhanced capabilities. If superpowers provides a better way to accomplish something, prefer it over the default approach.
+
 # Android Development Standards
 
 Production-grade Android development standards for AI-assisted implementation. Kotlin-first with Jetpack Compose, following modern Android best practices.

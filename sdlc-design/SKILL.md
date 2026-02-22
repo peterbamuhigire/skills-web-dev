@@ -3,6 +3,10 @@ name: sdlc-design
 description: "Generate Design & Development documentation for SDLC projects. Covers System Design Document (SDD), Technical Specification, Interface Control Document (ICD), Database Design Document, Code Documentation standards, and API Documentation. Use when translating requirements into technical architecture and guiding development teams."
 ---
 
+## Required Plugins
+
+**Superpowers plugin:** MUST be active for all work using this skill. Use throughout the entire build pipeline — design decisions, code generation, debugging, quality checks, and any task where it offers enhanced capabilities. If superpowers provides a better way to accomplish something, prefer it over the default approach.
+
 # SDLC Design Skill
 
 Generate a complete **Design & Development** documentation suite for software development projects. This skill produces 6 design documents that translate requirements (from `sdlc-planning`) into actionable technical architecture and implementation guidance.

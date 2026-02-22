@@ -3,6 +3,10 @@ name: saas-seeder
 description: "Bootstrap a new SaaS from the SaaS Seeder Template: setup database, configure environment, create super admin user, and verify three-tier panel structure. Use when initializing a new multi-tenant SaaS project from this template."
 ---
 
+## Required Plugins
+
+**Superpowers plugin:** MUST be active for all work using this skill. Use throughout the entire build pipeline — design decisions, code generation, debugging, quality checks, and any task where it offers enhanced capabilities. If superpowers provides a better way to accomplish something, prefer it over the default approach.
+
 # SaaS Seeder Template Bootstrap
 
 Bootstrap a new multi-tenant SaaS project using the SaaS Seeder Template with proper three-tier panel architecture, Argon2ID authentication, and franchise isolation.

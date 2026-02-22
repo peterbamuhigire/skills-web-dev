@@ -3,6 +3,10 @@ name: project-requirements
 description: "Guided interview to create comprehensive project requirements documentation (requirements.md, business-rules.md, user-types.md, workflows.md) for a new SaaS project. Use before bootstrapping the SaaS Seeder Template."
 ---
 
+## Required Plugins
+
+**Superpowers plugin:** MUST be active for all work using this skill. Use throughout the entire build pipeline — design decisions, code generation, debugging, quality checks, and any task where it offers enhanced capabilities. If superpowers provides a better way to accomplish something, prefer it over the default approach.
+
 # Project Requirements Documentation Helper
 
 Create comprehensive requirements documentation for a new SaaS project through a guided AI-assisted interview process.

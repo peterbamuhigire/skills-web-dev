@@ -3,6 +3,10 @@ name: saas-accounting-system
 description: "Implement a complete double-entry accounting system inside any SaaS app. Users enter transactions naturally (sales, expenses, inventory) while the system auto-posts journal entries under the hood. Produces both user-friendly reports and technical financial statements (Trial Balance, Balance Sheet, Income Statement, Cash Flow). Enforces 10000% accuracy with balanced entries and seamless void/reversal mechanics. Use when building any financial, ERP, POS, or inventory system that needs proper accounting."
 ---
 
+## Required Plugins
+
+**Superpowers plugin:** MUST be active for all work using this skill. Use throughout the entire build pipeline — design decisions, code generation, debugging, quality checks, and any task where it offers enhanced capabilities. If superpowers provides a better way to accomplish something, prefer it over the default approach.
+
 # SaaS Accounting System
 
 ## Overview

@@ -118,20 +118,74 @@ class BiometricManager @Inject constructor(
 
 ### Certificate Pinning
 
-```kotlin
-@Module
-@InstallIn(SingletonComponent::class)
-object NetworkSecurityModule {
+**CRITICAL: Never use placeholder pins.** Placeholder pins (`AAA...=`, `BBB...=`) will cause `SSLPeerUnverifiedException` at runtime, silently breaking all HTTPS connections on staging/production builds. Extract real pins before enabling.
 
-    @Provides
-    @Singleton
-    fun provideCertificatePinner(): CertificatePinner {
-        return CertificatePinner.Builder()
-            .add("api.company.com", "sha256/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=")
-            .add("api.company.com", "sha256/BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB=")
-            .build()
-    }
+**Let's Encrypt Warning:** If the server uses Let's Encrypt (most VPS setups), leaf certificate pins rotate every 90 days on auto-renewal. **Always pin the intermediate CA** (stable) alongside the leaf pin. OkHttp accepts if ANY pin matches per host, so the intermediate CA pin survives renewals.
+
+#### How to Extract Real Certificate Pins
+
+Run from Git Bash (or any terminal with openssl):
+
+```bash
+# Leaf certificate pin (changes every 90 days with Let's Encrypt)
+echo | openssl s_client -connect YOUR_DOMAIN:443 -servername YOUR_DOMAIN 2>/dev/null \
+  | openssl x509 -pubkey -noout \
+  | openssl pkey -pubin -outform der \
+  | openssl dgst -sha256 -binary \
+  | openssl enc -base64
+
+# Intermediate CA pin (stable — recommended for pinning)
+echo | openssl s_client -connect YOUR_DOMAIN:443 -servername YOUR_DOMAIN -showcerts 2>/dev/null \
+  | awk '/BEGIN CERTIFICATE/,/END CERTIFICATE/{ if(/BEGIN/) n++; if(n==2) print }' \
+  | openssl x509 -pubkey -noout \
+  | openssl pkey -pubin -outform der \
+  | openssl dgst -sha256 -binary \
+  | openssl enc -base64
+```
+
+Verify with: `openssl s_client -connect YOUR_DOMAIN:443 2>/dev/null | openssl x509 -noout -issuer -dates`
+
+#### Implementation Pattern
+
+```kotlin
+@Provides
+@Singleton
+fun provideCertificatePinner(): CertificatePinner =
+    CertificatePinner.Builder().apply {
+        if (BuildConfig.ENABLE_CERT_PINNING) {
+            // Intermediate CA (stable across cert renewals)
+            add("staging.example.com", "sha256/<INTERMEDIATE_CA_PIN>")
+            add("app.example.com", "sha256/<INTERMEDIATE_CA_PIN>")
+            // Leaf certificate pins (change on renewal — backup only)
+            add("staging.example.com", "sha256/<STAGING_LEAF_PIN>")
+            add("app.example.com", "sha256/<PROD_LEAF_PIN>")
+        }
+    }.build()
+```
+
+#### Build Config Flags
+
+```kotlin
+// build.gradle.kts — product flavors
+create("dev") {
+    buildConfigField("Boolean", "ENABLE_CERT_PINNING", "false")  // No pinning for local dev
 }
+create("staging") {
+    buildConfigField("Boolean", "ENABLE_CERT_PINNING", "true")   // Pin staging server
+}
+create("prod") {
+    buildConfigField("Boolean", "ENABLE_CERT_PINNING", "true")   // Pin production server
+}
+```
+
+#### Pinning Checklist
+
+- [ ] Extract real pins from BOTH staging and production servers before enabling
+- [ ] Pin the intermediate CA (not just the leaf) for Let's Encrypt servers
+- [ ] Pin ALL server domains the app connects to (staging + production)
+- [ ] Use `ENABLE_CERT_PINNING` BuildConfig flag — disabled for dev, enabled for staging/prod
+- [ ] Write a test that asserts no placeholder pins remain in the codebase
+- [ ] Document pin extraction date and cert expiry in code comments
 ```
 
 ### Network Security Config
@@ -276,7 +330,7 @@ class TokenManager @Inject constructor(
 ## Security Checklist
 
 - Encrypted storage for all sensitive data
-- Certificate pinning for API domains
+- Certificate pinning for API domains (extract real pins — NEVER use placeholders)
 - No cleartext HTTP traffic
 - Biometric auth for sensitive operations
 - Token rotation and secure refresh

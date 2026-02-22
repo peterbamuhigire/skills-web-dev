@@ -82,3 +82,44 @@ If a project uses Laravel + MySQL with docs/plans and database/schema:
 - Root: AGENTS.md → PHP/Laravel, MySQL, deployment standards
 - Data: database/schema/AGENTS.md → referential integrity, no-delete rules
 - Plans: docs/plans/AGENTS.md → spec.md format and workflow steps
+
+## Cross-References to SDLC Skills
+
+When generating AGENTS.md files, be aware of the complete SDLC documentation ecosystem:
+
+### SDLC Documentation Skills
+
+| Skill | Phase | Documents Generated | When to Reference |
+|-------|-------|--------------------|--------------------|
+| `sdlc-planning` | Planning | Vision, SDP, SRS, SCMP, QA Plan, Risk Plan, Feasibility | When plans directory contains SDLC planning docs |
+| `sdlc-design` | Design | SDD, Tech Spec, ICD, Database Design, API Docs, Code Standards | When referencing architecture and design decisions |
+| `sdlc-testing` | Testing | Test Plan, Test Cases, V&V Plan, Test Report, Peer Reviews | When referencing testing and quality standards |
+| `sdlc-user-deploy` | Delivery | User Manual, Ops Guide, Training, Release Notes, Maintenance, README | When referencing deployment and user documentation |
+
+### Related Documentation Skills
+
+| Skill | Purpose | Relationship |
+|-------|---------|-------------|
+| `project-requirements` | Raw requirements interview | Input source for SDLC planning docs |
+| `feature-planning` | Feature-level specs + implementation plans | Stored in `docs/plans/` (planning directory) |
+| `manual-guide` | End-user manuals and guides | Stored in `/manuals/` (separate from AGENTS.md) |
+| `update-claude-documentation` | Keep project docs (README, CLAUDE.md) updated | Maintains project-level docs after changes |
+
+### SDLC Output Directory Structure
+
+When scanning for documentation, expect this structure in projects using SDLC skills:
+
+```
+docs/
+├── planning/        # sdlc-planning output (7 docs)
+├── design/          # sdlc-design output (6 docs)
+├── testing/         # sdlc-testing output (5 docs)
+├── user-deploy/     # sdlc-user-deploy output (6 docs)
+├── plans/           # feature-planning output
+│   ├── AGENTS.md    # Plans directory index (doc-architect manages this)
+│   ├── INDEX.md     # Plan status tracker
+│   └── specs/       # Feature specifications
+└── project-requirements/  # project-requirements output
+```
+
+**Integration Rule:** When generating the Planning AGENTS.md (`docs/plans/AGENTS.md`), include references to any SDLC documentation directories that exist alongside the plans directory.

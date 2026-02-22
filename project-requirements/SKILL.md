@@ -375,3 +375,32 @@ Ready to bootstrap? Use:
 - `saas-seeder` skill for bootstrapping after requirements
 - `../../CLAUDE.md` - Project-specific documentation after bootstrap
 - Multi-tenant patterns: All franchise-scoped data needs franchise_id
+
+## Cross-References to SDLC Skills
+
+### Downstream Skills (use AFTER this skill)
+
+| Skill | Relationship |
+|-------|-------------|
+| `sdlc-planning` | Takes this skill's output (requirements.md, business-rules.md, user-types.md, workflows.md) as input for Feasibility Study, Vision & Scope, SRS, and other planning documents. **This is the primary next step.** |
+| `sdlc-design` | Uses the SRS (produced via `sdlc-planning`) to generate System Design Document, Database Design, API Documentation, and Technical Specifications. |
+| `sdlc-testing` | Uses the SRS and SDD to create test plans, test cases, and V&V documentation. |
+| `sdlc-user-deploy` | Uses all prior SDLC outputs to create user manuals, deployment guides, training materials, and release notes. |
+| `feature-planning` | For individual feature specs and implementation plans after project-level requirements are established. |
+| `android-saas-planning` | For Android companion app planning (PRD, SDS, API Contract). Uses SRS as input. |
+| `saas-seeder` | Bootstrap the SaaS template using requirements from this skill's output. |
+
+### Complete SDLC Workflow
+
+```
+project-requirements (THIS SKILL)
+    ↓ requirements.md, business-rules.md, user-types.md, workflows.md
+sdlc-planning
+    ↓ SRS, Vision & Scope, SDP, Feasibility Study, QA Plan, Risk Plan, SCMP
+sdlc-design
+    ↓ SDD, Database Design, Tech Spec, API Docs, ICD, Code Standards
+sdlc-testing
+    ↓ Test Plan, Test Cases, V&V Plan, Test Report, Peer Reviews
+sdlc-user-deploy
+    ↓ User Manual, Ops Guide, Training, Release Notes, Maintenance, README
+```

@@ -24,7 +24,7 @@ Generate a complete **Testing & Quality** documentation suite for software devel
 - **Planning security testing only** -- use `vibe-security-skill` for security patterns
 - **Planning a single feature** -- use `feature-planning` skill (includes testing strategy)
 - **Creating project plans** -- use `sdlc-planning` skill (SDP, QA Plan, SRS)
-- **Designing architecture** -- use `sdlc-design` skill (future)
+- **Designing architecture** -- use `sdlc-design` skill
 
 ## Document Inventory
 
@@ -167,7 +167,7 @@ Step 5: Validation Test Report (before release)
 | Skill | Phase | Status |
 |-------|-------|--------|
 | `sdlc-planning` | Planning & Management | Available |
-| `sdlc-design` | Design & Architecture | Planned |
+| `sdlc-design` | Design & Architecture | Available |
 | `sdlc-testing` | Testing & Quality | **This Skill** |
 | `sdlc-user-deploy` | Delivery & Deployment | Available |
 

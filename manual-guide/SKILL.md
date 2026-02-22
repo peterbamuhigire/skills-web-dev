@@ -152,3 +152,35 @@ Organize manuals with a clear hierarchy:
 ## Output Formatting
 
 - Manuals should be created as PHP files in `/manuals/<section>/` and included dynamically by `user-manuals.php`
+
+## Cross-References to SDLC & Documentation Skills
+
+### Related Skills
+
+| Skill | Relationship |
+|-------|-------------|
+| `sdlc-user-deploy` | SDLC-standard user documentation (User Manual, Training Materials, Ops Guide). This skill produces **in-app PHP manuals**; `sdlc-user-deploy` produces **SDLC-standard markdown docs**. Use both for complete coverage. |
+| `sdlc-planning` | SRS defines features that need manuals. Use SRS feature list as manual scope checklist. |
+| `sdlc-design` | API docs and SDD inform technical reference sections in manuals. |
+| `sdlc-testing` | Test cases reveal edge cases that should be documented in manuals. |
+| `doc-architect` | Generates AI guidance docs (AGENTS.md). **NOT** end-user manuals — use this skill instead. |
+| `feature-planning` | Specs include Documentation Impact notes that define manual requirements. |
+| `spec-architect` | Specs are "manual-ready" — use their workflow descriptions for manual content. |
+| `project-requirements` | User workflows and business rules inform manual content. |
+| `report-print-pdf` | Report export patterns — reference in manual sections about report features. |
+
+### When to Use Which Documentation Skill
+
+| Need | Skill |
+|------|-------|
+| In-app PHP manual for ERP module | `manual-guide` (this skill) |
+| SDLC-standard user manual (markdown) | `sdlc-user-deploy` |
+| AI guidance docs (AGENTS.md) | `doc-architect` |
+| Project README and CLAUDE.md updates | `update-claude-documentation` |
+| Feature spec with documentation impact | `spec-architect` or `feature-planning` |
+
+---
+
+**Back to:** [Skills Repository](../CLAUDE.md)
+**Related:** [sdlc-user-deploy](../sdlc-user-deploy/SKILL.md) | [doc-architect](../doc-architect/SKILL.md) | [feature-planning](../feature-planning/SKILL.md)
+**Last Updated:** 2026-02-20

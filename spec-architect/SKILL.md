@@ -57,3 +57,46 @@ Specs must:
 - Include validation and rollback steps in **Acceptance Criteria** or **Execution Plan** when relevant.
 - Include a **Documentation Impact** note describing how the feature will be documented in manuals.
 - Do not include external URLs in the spec or questions.
+
+## Cross-References
+
+### Relationship to Feature Planning
+
+This skill generates **specifications only** (the "what"). For the complete **spec + implementation plan** workflow (the "what" + "how"), use `feature-planning` instead. Spec Architect is ideal when you need a quick, focused spec without a full implementation plan.
+
+| Need | Use This Skill |
+|------|---------------|
+| Quick feature spec only | `spec-architect` (this skill) |
+| Full spec + implementation plan + TDD | `feature-planning` |
+| Project-level requirements interview | `project-requirements` |
+| SDLC-standard SRS | `sdlc-planning` |
+
+### SDLC Skill Integration
+
+| Skill | Relationship |
+|-------|-------------|
+| `sdlc-planning` | For formal SRS documents. Specs from this skill can feed into the SRS. |
+| `sdlc-design` | Design docs (SDD, API, DB Design) implement what specs define. |
+| `sdlc-testing` | Test plans trace back to spec acceptance criteria. |
+| `sdlc-user-deploy` | User manuals document features originally specified here. |
+| `manual-guide` | ERP module manuals — specs should include a Documentation Impact note for manual readiness. |
+
+### Downstream Workflow
+
+```
+spec-architect (THIS SKILL) → Quick spec
+    ↓
+feature-planning → Full implementation plan with TDD
+    ↓
+Implementation → Build the feature
+    ↓
+sdlc-testing → Verify against spec acceptance criteria
+    ↓
+sdlc-user-deploy / manual-guide → Document for users
+```
+
+---
+
+**Back to:** [Skills Repository](../CLAUDE.md)
+**Related:** [feature-planning](../feature-planning/SKILL.md) | [sdlc-planning](../sdlc-planning/SKILL.md) | [manual-guide](../manual-guide/SKILL.md)
+**Last Updated:** 2026-02-20

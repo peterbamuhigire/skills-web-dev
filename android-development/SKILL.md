@@ -168,7 +168,10 @@ class MainActivity : AppCompatActivity() {
 ### Security
 
 - `EncryptedSharedPreferences` for sensitive data
-- Certificate pinning for API calls
+- Certificate pinning for API calls — **NEVER use placeholder pins** (they cause `SSLPeerUnverifiedException`). Extract real SHA-256 pins from servers using `openssl` before enabling. See `references/security.md` for the extraction command.
+- For **Let's Encrypt** servers: always pin the **intermediate CA** (stable) alongside the leaf pin. Leaf pins rotate every 90 days on auto-renewal; intermediate CA pins survive renewals.
+- Use `ENABLE_CERT_PINNING` BuildConfig flag: `false` for dev, `true` for staging/prod
+- Pin **ALL** server domains the app connects to (both staging AND production)
 - Biometric authentication for sensitive operations
 - No hardcoded secrets, use `BuildConfig` fields
 - ProGuard/R8 for release builds
@@ -201,6 +204,68 @@ class MainActivity : AppCompatActivity() {
 - Ensure Data Safety form matches SDKs and permissions.
 - Provide a public privacy policy and link it in-app.
 - Validate ads and IAP flows for transparency and user control.
+
+### Mandatory Theme Appearance Setting
+
+Every Android app MUST include a theme appearance selector in its Tools/Settings section. This is a **non-negotiable standard** — users must be able to control the app's visual theme.
+
+**Requirements:**
+1. **Three options:** System default (follows device setting), Light, Dark
+2. **Default:** System default — always respect the user's device-wide preference
+3. **Location:** Tools or Settings hub screen, under an "Appearance" section
+4. **Persistence:** Store in SharedPreferences (not encrypted — non-sensitive)
+5. **Reactivity:** Theme changes apply instantly without app restart (use StateFlow)
+
+**Implementation pattern:**
+
+```kotlin
+// 1. ThemePreferences.kt (data/local/prefs/)
+enum class ThemeMode(val key: String, val label: String) {
+    SYSTEM("system", "System default"),
+    LIGHT("light", "Light"),
+    DARK("dark", "Dark");
+    companion object {
+        fun fromKey(key: String): ThemeMode =
+            entries.firstOrNull { it.key == key } ?: SYSTEM
+    }
+}
+
+@Singleton
+class ThemePreferences @Inject constructor(
+    @ApplicationContext context: Context
+) {
+    private val prefs = context.getSharedPreferences("theme_prefs", Context.MODE_PRIVATE)
+    private val _themeMode = MutableStateFlow(loadThemeMode())
+    val themeMode: StateFlow<ThemeMode> = _themeMode.asStateFlow()
+
+    private fun loadThemeMode(): ThemeMode =
+        ThemeMode.fromKey(prefs.getString("theme_mode", "system") ?: "system")
+
+    fun setThemeMode(mode: ThemeMode) {
+        prefs.edit().putString("theme_mode", mode.key).apply()
+        _themeMode.value = mode
+    }
+}
+
+// 2. MainActivity.kt — resolve ThemeMode to darkTheme boolean
+val themeMode by themePreferences.themeMode.collectAsState()
+val darkTheme = when (themeMode) {
+    ThemeMode.SYSTEM -> isSystemInDarkTheme()
+    ThemeMode.LIGHT -> false
+    ThemeMode.DARK -> true
+}
+AppTheme(darkTheme = darkTheme) { /* content */ }
+
+// 3. Tools/Settings screen — FilterChip row for selection
+ThemeMode.entries.forEach { mode ->
+    FilterChip(
+        selected = selected == mode,
+        onClick = { viewModel.setThemeMode(mode) },
+        label = { Text(mode.label) },
+        leadingIcon = if (selected == mode) { { Icon(Icons.Default.Check, null) } } else null
+    )
+}
+```
 
 ## Phase 1 Bootstrap Pattern (SaaS Mobile Apps)
 

@@ -251,6 +251,26 @@ Every task execution MUST follow these. Reference: `orchestration-best-practices
   Trigger: implementation-status-auditor for verification
 ```
 
+## End-of-Phase Git Workflow
+
+After completing each phase (all tasks green, plan status updated):
+
+1. **Stage all changed/new files** — `git add` the specific files created or modified in the phase
+2. **Commit** — Use a descriptive commit message summarizing the phase work
+3. **Push** — `git push` to the remote repository
+
+```
+[PHASE COMPLETE] Phase 1.1 — Restaurant POS Tests
+  [GIT] Staging 8 new test files...
+  [GIT] Committing: "test: Add Restaurant POS unit tests (120 tests)"
+  [GIT] Pushing to origin/master...
+  [GIT] Push complete ✅
+```
+
+**Commit message format:** `test:`, `feat:`, `fix:`, `chore:` prefix + concise description of what the phase delivered. Include Co-Authored-By trailer.
+
+This is MANDATORY — never finish a phase without committing and pushing.
+
 ## Anti-Patterns
 
 | Don't | Do Instead |

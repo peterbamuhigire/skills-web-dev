@@ -423,52 +423,14 @@ Every time you generate orchestration code, verify:
 
 ## Anti-Patterns (What NOT to Do)
 
-### ❌ DON'T: Everything in one function
-```javascript
-function doEverything() {
-  // 200 lines of code
-  // No clear steps
-  // No error handling
-  // Good luck debugging!
-}
-```
+| Anti-Pattern | Why It Fails | Do This Instead |
+|-------------|-------------|-----------------|
+| Everything in one function | No clear steps, no error handling, impossible to debug | Break into numbered steps |
+| Silent failures (`catch {}`) | Errors disappear, bugs become invisible | Always log and return error details |
+| No input validation | Crashes on unexpected data, security vulnerabilities | Validate at every entry point |
+| Generic error messages ("Something went wrong") | Useless for debugging and user support | Include step name, specific error, recovery hint |
+| No logging | Can't trace what happened when things fail | Log start + completion of every step |
 
-### ❌ DON'T: Silent failures
-```javascript
-try {
-  await criticalOperation();
-} catch (error) {
-  // Swallow error - BAD!
-}
-```
-
-### ❌ DON'T: No validation
-```javascript
-function process(data) {
-  // Assume data is valid - BAD!
-  return data.field.subfield.value;
-}
-```
-
-### ❌ DON'T: Generic error messages
-```javascript
-catch (error) {
-  return { error: "Something went wrong" }; // Useless!
-}
-```
-
-### ❌ DON'T: No logging
-```javascript
-// Code runs silently
-// No idea what's happening
-// Can't debug when it fails
-```
-
----
-
-## Integration with Other Skills
-
-**Use this skill WITH:**
 - `feature-planning` - Implementation plans should follow these patterns
 - `ai-assisted-development` - AI agents should generate orchestrated code
 - `api-error-handling` - API endpoints need orchestration

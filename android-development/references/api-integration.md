@@ -264,7 +264,24 @@ suspend fun uploadAvatar(userId: String, imageUri: Uri): Result<String> =
 7. **Offline fallback** - cache API responses in Room when appropriate
 8. **Moshi codegen only** — NEVER use `KotlinJsonAdapterFactory()` (reflection). All DTOs must have `@JsonClass(generateAdapter = true)`. Reflection adapter crashes under R8 minification.
 9. **Image URLs from BuildConfig** — NEVER hardcode server URLs like `http://10.0.2.2/...`. Use `BuildConfig.API_BASE_URL` and strip `/api/` to get the web root. Create a shared `buildImageUrl()` utility.
-10. **ProGuard signature preservation** — CRITICAL for release builds. Add to `proguard-rules.pro`:
+10. **API Error Response Structure** — CRITICAL: Backend must return errors as simple string in `error` field, not nested object:
+    ```json
+    // ✅ CORRECT - error is a string
+    {
+      "success": false,
+      "error": "Invalid email or password",
+      "message": "Optional additional message"
+    }
+
+    // ❌ WRONG - error is an object (causes deserialization failure)
+    {
+      "success": false,
+      "error": { "code": "...", "type": "...", "details": {...} }
+    }
+    ```
+    **Why:** The Android DTO expects `error: String?`, not a complex object. Moshi will fail with `ClassCastException` when trying to deserialize a nested object into String type. Keep error responses simple.
+
+11. **ProGuard signature preservation** — CRITICAL for release builds. Add to `proguard-rules.pro`:
     ```
     # Keep generic signatures (required for Moshi reflection on parameterized types)
     -keepattributes Signature

@@ -272,6 +272,22 @@ fun EmptyState(
 }
 ```
 
+## Number Formatting Rules (MANDATORY)
+
+Monetary values use three formatting tiers depending on display context:
+
+| Context | Method | Example (32,450,000) | Example (500,000) |
+|---------|--------|---------------------|-------------------|
+| **KPI cards, summary tiles, stat chips** | `CurrencyFormatter.formatStat()` | `32.45M` | `500,000.00` |
+| **Table rows, list items, detail views** | `CurrencyFormatter.format()` | `32,450,000.00` | `500,000.00` |
+| **Chart axis labels** | `CurrencyFormatter.formatCompact()` | `32.5M` | `500.0K` |
+
+- `formatStat()`: >= 1,000,000 displays as "X.XXM" (2 decimals). Below 1M uses full format.
+- `format()`: Always full format with thousand separators and 2 decimals. No currency symbols.
+- `formatCompact()`: >= 1M as "X.XM", >= 1K as "X.XK", below 1K as integer.
+
+**Never display currency symbols** ($, €, £). Use `CurrencyFormatter` from `common/utils/`.
+
 ## Component Rules
 
 1. **Always accept `Modifier`** as a parameter

@@ -57,6 +57,8 @@ For enterprise mobile apps, measure success by business impact, not UI novelty:
 
 **Report Table Policy (Required):** Any report that can exceed 25 rows must render as a table (see `android-report-tables`).
 
+**Compact Number Formatting (Required):** KPI cards, summary tiles, and stat chips MUST use `CurrencyFormatter.formatStat()` for monetary values. Values >= 1,000,000 display as compact (e.g. "32.45M"). Values < 1,000,000 display as full format ("999,999.00"). Table rows and list items MUST use `CurrencyFormatter.format()` (always full format). Chart axis labels use `CurrencyFormatter.formatCompact()` (e.g. "1.2M", "12.3K").
+
 ## Quick Reference
 
 | Topic                     | Reference File                             | When to Use                                               |

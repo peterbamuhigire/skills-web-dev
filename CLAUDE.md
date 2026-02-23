@@ -90,12 +90,14 @@ skills/
 ├── android-reports/                 # Android report generation patterns
 ├── android-saas-planning/           # Android companion app planning for SaaS
 ├── android-biometric-login/          # Biometric auth (fingerprint/face) for Android apps├── android-custom-icons/             # Custom PNG icons for Android (no icon libraries)├── android-pdf-export/               # Native PDF export using PdfDocument API├── android-report-tables/            # Table-first report UI for >25 rows
+├── healthcare-ui-design/            # Clinical-grade UI for EMR/EHR, telemedicine, patient portals (web + Android)
 ├── google-play-store-review/        # Play Store review readiness
 ├── implementation-status-auditor/   # Project audit + completion blueprint
 ├── plan-implementation/             # Autonomous plan executor (TDD + 5-layer validation)
 ├── multi-tenant-saas-architecture/  # SaaS backend patterns
 ├── modular-saas-architecture/       # Pluggable SaaS modules
 ├── feature-planning/                # Complete feature planning (spec + implementation)
+├── form-ux-design/                  # Cross-platform form UX patterns (web + Android)
 ├── ai-assisted-development/         # AI agent orchestration for development workflows
 ├── ai-error-prevention/             # Error prevention for AI-assisted development (trust but verify)
 ├── orchestration-best-practices/    # The 10 commandments of orchestration

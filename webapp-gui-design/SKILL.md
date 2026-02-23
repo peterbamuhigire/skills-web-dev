@@ -24,3 +24,4 @@ This skill is split into sections to stay under the 500-line limit.
 7. [Responsive, Photo Cards, Flatpickr](./sections/07-responsive-photo-flatpickr.md)
 8. [Best Practices & Aesthetics](./sections/08-best-practices-aesthetics.md)
 9. [Interface Design](./sections/09-interface-design.md)
+10. [SaaS UX Principles](./sections/10-saas-ux-principles.md) — Onboarding, dashboards, empty states, navigation, multi-tenant UI, feedback, performance

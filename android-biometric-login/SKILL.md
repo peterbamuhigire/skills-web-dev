@@ -3,6 +3,10 @@ name: android-biometric-login
 description: "Optional biometric (fingerprint/face) gate on Android app launch using AndroidX Biometric API. Covers BiometricHelper utility, splash screen integration, settings toggle with verification, EncryptedSharedPreferences storage, and graceful fallback. Use when adding biometric authentication to any Android app."
 ---
 
+## Required Plugins
+
+**Superpowers plugin:** MUST be active for all work using this skill. Use throughout the entire build pipeline — design decisions, code generation, debugging, quality checks, and any task where it offers enhanced capabilities. If superpowers provides a better way to accomplish something, prefer it over the default approach.
+
 # Android Biometric Login
 
 Add optional fingerprint/face authentication as a gate on app launch. Uses the AndroidX Biometric library (`BIOMETRIC_STRONG` — Class 3 biometrics only). The feature is opt-in: users enable it in Settings, and it triggers on every app launch from the splash screen.

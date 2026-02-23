@@ -3,6 +3,10 @@ name: inventory-management
 description: Coordinate infrastructure for inventory, stock movement, BOMs, valuation, and multi-location controls while referencing the existing ERP implementation, inventory docs, and the small-business bookkeeping playbook.
 ---
 
+## Required Plugins
+
+**Superpowers plugin:** MUST be active for all work using this skill. Use throughout the entire build pipeline — design decisions, code generation, debugging, quality checks, and any task where it offers enhanced capabilities. If superpowers provides a better way to accomplish something, prefer it over the default approach.
+
 # Inventory Management Skill
 
 ## Overview

@@ -40,6 +40,8 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 - ai-error-handling
 - ai-error-prevention
 - android-custom-icons
+- android-biometric-login
+- android-pdf-export
 - android-data-persistence
 - android-development
 - android-report-tables
@@ -55,11 +57,15 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 - gis-mapping
 - google-play-store-review
 - image-compression
+- implementation-status-auditor
+- plan-implementation
+- saas-accounting-system
 - inventory-management
 - jetpack-compose-ui
 - manual-guide
 - markdown-lint-cleanup
 - modular-saas-architecture
+- mobile-rbac
 - multi-tenant-saas-architecture
 - mysql-best-practices
 - orchestration-best-practices
@@ -70,6 +76,10 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 - project-requirements
 - report-print-pdf
 - saas-seeder
+- sdlc-design
+- sdlc-planning
+- sdlc-testing
+- sdlc-user-deploy
 - skill-safety-audit
 - skill-writing
 - spec-architect
@@ -1394,17 +1404,165 @@ skills/
 └── CLAUDE.md                     # Claude Code specific guide
 ```
 
+## SDLC Documentation Skills (New in v3.2)
+
+**Purpose:** Generate standardized SDLC documentation across all 4 phases. Each skill covers one SDLC category with detailed templates tailored to the tech stack (PHP 8+, MySQL 8.x, Kotlin/Compose, multi-tenant SaaS).
+
+### SDLC Planning
+
+**Focus:** Planning & Management documentation (7 document types)
+
+**When to use:** Starting a new project, establishing governance, creating the planning baseline before development.
+
+**Documents:** Project Vision & Scope, Software Development Plan (SDP), Configuration Management Plan (SCMP), Quality Assurance Plan, Risk Management Plan, Software Requirements Specification (SRS), Feasibility Study Report
+
+**Skill location:** `sdlc-planning/SKILL.md` + `templates/` (7 template files)
+
+---
+
+### SDLC Design
+
+**Focus:** Design & Development documentation (6 document types)
+
+**When to use:** Translating requirements into technical architecture, guiding development teams.
+
+**Documents:** System Design Document (SDD), Technical Specification, Interface Control Document (ICD), Database Design Document, Code Documentation Standards, API Documentation
+
+**Skill location:** `sdlc-design/SKILL.md` + `templates/` (6 template files)
+
+---
+
+### SDLC Testing
+
+**Focus:** Testing & Quality documentation (5 document types)
+
+**When to use:** Establishing testing strategy, creating test documentation, conducting quality validation.
+
+**Documents:** Software Test Plan (STP), Test Case Specifications, Validation & Verification Plan (SVVP), Validation Test Report (SVTR), Peer Review/Inspection Report
+
+**Skill location:** `sdlc-testing/SKILL.md` + `templates/` (5 template files)
+
+---
+
+### SDLC User & Deployment
+
+**Focus:** User & Deployment documentation (6 document types)
+
+**When to use:** Preparing software for end-users, system administrators, and operations teams.
+
+**Documents:** Software User Manual (SUM), Operations/Deployment Manual, Training Materials, Release Notes, Maintenance Manual, README File
+
+**Skill location:** `sdlc-user-deploy/SKILL.md` + `templates/` (6 template files)
+
+---
+
+### How SDLC Skills Work Together
+
+```
+sdlc-planning (Vision, SRS, SDP, QA Plan, Risk Plan, SCMP, Feasibility)
+    |
+    v  [Requirements approved]
+sdlc-design (SDD, Tech Spec, ICD, DB Design, API Docs, Code Docs)
+    |
+    v  [Architecture defined]
+sdlc-testing (Test Plan, Test Cases, V&V Plan, Test Report, Peer Reviews)
+    |
+    v  [Quality validated]
+sdlc-user-deploy (User Manual, Ops Manual, Training, Release Notes, Maintenance, README)
+```
+
+**Total:** 24 document templates across 4 skills, all tailored to the multi-tenant SaaS tech stack.
+
+---
+
+### Implementation Status Auditor
+
+**Focus:** Comprehensive project audit producing both status report and completion blueprint
+
+**When to use:**
+
+- Auditing a project to see what's been accomplished
+- Identifying gaps between plans and implementation
+- Generating a structured completion roadmap
+- Cross-referencing database schema against requirements
+- Validating cross-platform/API integration integrity
+
+**Key capabilities:**
+
+- **5 audit pillars:** Schema audit, Implementation gap analysis, Cross-platform integrity, Technical risk assessment, Completion blueprint
+- **Structured output:** 7+ files in `docs/implementation/review-{date}/` directory
+- **Feature classification:** Complete, Partial, Phantom (zero footprint), Undocumented
+- **Cross-skill integration:** Maps every gap to a specific skill for resolution
+- **Iterative drilling:** Deep dive into modules, API payloads, test coverage
+- **Re-audit comparison:** Track progress between audit runs
+
+**Skill location:** `implementation-status-auditor/SKILL.md`
+
+**Reference files:** `references/audit-checklist.md`, `references/gap-analysis-patterns.md`, `references/drill-down-templates.md`
+
+---
+
+### Plan Implementation — Autonomous Executor
+
+**Focus:** Execute feature plans autonomously from start to finish with TDD and validation
+
+**When to use:**
+
+- Implementing plans created by `feature-planning` skill
+- User says "implement the plan", "execute the plan", or "build this"
+- Autonomous end-to-end code generation with testing
+- Any multi-task implementation requiring structured execution
+
+**Key capabilities:**
+
+- **Autonomous execution:** No stopping, no permission-seeking, continuous implementation
+- **TDD enforcement:** RED (failing test) → GREEN (minimum code) → VALIDATE → REFACTOR → NEXT
+- **5-layer validation:** Syntax, Requirements, Tests, Security, Documentation on every task
+- **10 Commandments:** Enforces orchestration best practices on all execution
+- **Error recovery:** 3-attempt autonomous fix, escalation ladder, output truncation recovery
+- **Progress tracking:** Real-time logging, plan status updates, completion reports
+- **Cross-skill integration:** References 14 skills for domain-specific patterns
+- **Feedback loop:** Triggers `implementation-status-auditor` for post-execution verification
+
+**Skill location:** `plan-implementation/SKILL.md`
+
+**Reference files:** `references/execution-loop-detail.md`, `references/error-recovery-patterns.md`, `references/progress-tracking.md`
+
+---
+
+### SaaS Accounting System
+
+**Focus:** Hidden double-entry accounting engine for any SaaS application
+
+**When to use:**
+
+- Building any ERP, POS, inventory, or financial system
+- Need proper accounting under the hood (debits = credits, always)
+- Users enter friendly transactions, system auto-posts journal entries
+- Need both user-friendly and accountant-grade financial reports
+- Implementing void/reversal mechanics for transaction corrections
+
+**Key capabilities:**
+
+- **Hidden accounting engine:** Users never see debits/credits — auto-posted from business transactions
+- **Chart of Accounts:** Seeded per tenant with standard account structure (Asset/Liability/Equity/Revenue/COGS/Expense)
+- **Auto-posting rules:** 12+ transaction types with exact DR/CR mappings (sales, payments, purchases, inventory, payroll, loans, depreciation)
+- **Void/reversal:** Never delete entries — create reversing entries with cascade dependency checks
+- **Dual reporting:** User-friendly (Simple P&L, Sales Summary) + Accountant-grade (Trial Balance, Balance Sheet, Income Statement, Cash Flow, General Ledger)
+- **10000% accuracy:** Database-enforced balance validation, CHECK constraints, stored procedure validation
+- **Multi-tenant:** franchise_id on every table, period management, year-end closing
+- **Complete schema:** 5 core tables with triggers, stored procedures, and materialized balances
+
+**Skill location:** `saas-accounting-system/SKILL.md`
+
+**Reference files:** `references/chart-of-accounts.md`, `references/journal-posting-rules.md`, `references/void-reversal-patterns.md`, `references/financial-statements.md`, `references/schema-design.md`
+
+---
+
 ## Roadmap
 
 ### Planned Skills
 
-- **API Design Patterns:** RESTful, GraphQL, and gRPC patterns
-- **Database Design:** Schema design, migrations, optimization
-- **Testing Strategies:** Unit, integration, E2E testing patterns
-- **DevOps & CI/CD:** Deployment pipelines and infrastructure
-- **Security Hardening:** OWASP, penetration testing, security audits
-- **Performance Optimization:** Profiling, caching, load balancing
-- **Mobile Development:** iOS, Android, React Native patterns
 - **Microservices:** Service mesh, event-driven architecture
 
 ### Version History

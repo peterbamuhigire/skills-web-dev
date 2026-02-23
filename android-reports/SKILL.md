@@ -7,6 +7,10 @@ description: Best practices for designing mobile-optimized reports in Android ap
 
 ---
 
+## Required Plugins
+
+**Superpowers plugin:** MUST be active for all work using this skill. Use throughout the entire build pipeline — design decisions, code generation, debugging, quality checks, and any task where it offers enhanced capabilities. If superpowers provides a better way to accomplish something, prefer it over the default approach.
+
 ## Overview
 
 Mobile reports require different design considerations than desktop reports due to screen size, touch interactions, and usage patterns. This skill provides proven patterns for creating effective, readable, and performant report experiences in Android apps using Jetpack Compose and Material 3.

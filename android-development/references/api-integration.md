@@ -253,6 +253,51 @@ suspend fun uploadAvatar(userId: String, imageUri: Uri): Result<String> =
     }
 ```
 
+## Handling Inconsistent API Types (Custom KSerializer)
+
+PHP/MySQL backends sometimes return inconsistent JSON types — e.g. a string field returns `{}` (empty object) when there's no data, or a number field returns `"0"` as a string. Use a custom `KSerializer` to absorb these quirks at the DTO layer.
+
+```kotlin
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.descriptors.PrimitiveKind
+import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
+import kotlinx.serialization.encoding.Decoder
+import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.JsonDecoder
+import kotlinx.serialization.json.JsonPrimitive
+
+/**
+ * Deserializes a JSON value that may be either a string or an object/array.
+ * Returns the string content if primitive, or "" if the API sent {} or [].
+ */
+object StringOrObjectSerializer : KSerializer<String> {
+    override val descriptor = PrimitiveSerialDescriptor("StringOrObject", PrimitiveKind.STRING)
+
+    override fun serialize(encoder: Encoder, value: String) {
+        encoder.encodeString(value)
+    }
+
+    override fun deserialize(decoder: Decoder): String {
+        val jsonDecoder = decoder as? JsonDecoder
+            ?: return decoder.decodeString()
+        return when (val element = jsonDecoder.decodeJsonElement()) {
+            is JsonPrimitive -> element.content
+            else -> ""  // {} or [] → empty string
+        }
+    }
+}
+
+// Usage in DTO:
+@Serializable
+data class StatisticsDto(
+    @SerialName("most_active_dpc")
+    @Serializable(with = StringOrObjectSerializer::class)
+    val mostActiveDpc: String = "",
+)
+```
+
+**When to use:** Any DTO field where the backend returns mixed types (e.g. `"John"` when data exists, `{}` when empty). Place the serializer in the same file as the DTO or in a shared `serializers/` package.
+
 ## API Integration Rules
 
 1. **DTOs separate from domain models** - always map at repository boundary
@@ -280,8 +325,8 @@ suspend fun uploadAvatar(userId: String, imageUri: Uri): Result<String> =
     }
     ```
     **Why:** The Android DTO expects `error: String?`, not a complex object. Moshi will fail with `ClassCastException` when trying to deserialize a nested object into String type. Keep error responses simple.
-
-11. **ProGuard signature preservation** — CRITICAL for release builds. Add to `proguard-rules.pro`:
+11. **Handle inconsistent API types** — Use custom `KSerializer` (e.g. `StringOrObjectSerializer`) for fields where the backend returns mixed JSON types. Never let a DTO crash on unexpected `{}` or `[]`.
+12. **ProGuard signature preservation** — CRITICAL for release builds. Add to `proguard-rules.pro`:
     ```
     # Keep generic signatures (required for Moshi reflection on parameterized types)
     -keepattributes Signature
@@ -293,43 +338,43 @@ suspend fun uploadAvatar(userId: String, imageUri: Uri): Result<String> =
     -keep @com.squareup.moshi.JsonClass class *
     ```
     **Why:** R8 minification strips `Signature` attribute by default, causing Moshi to lose generic type information (`Map<String, Double>` → `Map`). At runtime, Moshi reflection fails with `java.lang.Class cannot be cast to reflect.ParameterizedType`. This affects ALL release builds with generic DTOs.
-10. **🔴 CRITICAL: Moshi Generic Types** — NEVER use `Map<String, Any>` in DTOs (with @JsonClass). This causes `ClassCastException` or "reflect.parametized type" error at runtime. Moshi cannot deserialize generic `Any` type. **Use concrete types instead:**
-    - ❌ `Map<String, Any>?` → causes ClassCastException/parametized type error
-    - ✅ `Map<String, String>?` → safe, Moshi can deserialize
-    - ✅ `Map<String, Int>?` → safe for integer maps
-    - ✅ `Map<String, Double>?` → safe for numeric/float maps (for summary stats)
-    - ✅ Specific data class → best practice
+13. **CRITICAL: Moshi Generic Types** — NEVER use `Map<String, Any>` in DTOs (with @JsonClass). This causes `ClassCastException` or "reflect.parametized type" error at runtime. Moshi cannot deserialize generic `Any` type. **Use concrete types instead:**
+    - `Map<String, Any>?` → causes ClassCastException/parametized type error
+    - `Map<String, String>?` → safe, Moshi can deserialize
+    - `Map<String, Int>?` → safe for integer maps
+    - `Map<String, Double>?` → safe for numeric/float maps (for summary stats)
+    - Specific data class → best practice
 
     **Real Examples Fixed (2026-02-19):**
     ```kotlin
-    // ❌ WRONG - ApiErrorBody.details caused login to crash
+    // WRONG - ApiErrorBody.details caused login to crash
     data class ApiErrorBody(@Json(name = "details") val details: Map<String, Any>?)
 
-    // ✅ FIXED
+    // FIXED
     data class ApiErrorBody(@Json(name = "details") val details: Map<String, String>?)
 
-    // ❌ WRONG - PaginatedData.summary caused "reflect.parametized" error on report endpoints
+    // WRONG - PaginatedData.summary caused "reflect.parametized" error on report endpoints
     @JsonClass(generateAdapter = true)
     data class PaginatedData<T>(
         @Json(name = "items") val items: List<T>,
         @Json(name = "pagination") val pagination: PaginationMeta,
-        @Json(name = "summary") val summary: Map<String, Any>?  // ❌ Generic Any fails
+        @Json(name = "summary") val summary: Map<String, Any>?  // Generic Any fails
     )
 
-    // ✅ FIXED - Use concrete type
+    // FIXED - Use concrete type
     @JsonClass(generateAdapter = true)
     data class PaginatedData<T>(
         @Json(name = "items") val items: List<T>,
         @Json(name = "pagination") val pagination: PaginationMeta,
-        @Json(name = "summary") val summary: Map<String, Double>?  // ✅ Concrete type
+        @Json(name = "summary") val summary: Map<String, Double>?  // Concrete type
     )
 
-    // ❌ WRONG - Domain model with unsafe casts
+    // WRONG - Domain model with unsafe casts
     data class ReportSummary(val data: Map<String, Any>) {
         fun getDouble(key: String): Double = (data[key] as? Number)?.toDouble() ?: 0.0
     }
 
-    // ✅ FIXED - Use concrete type for domain model
+    // FIXED - Use concrete type for domain model
     data class ReportSummary(val data: Map<String, Double>) {
         fun getDouble(key: String): Double = data[key] ?: 0.0
     }

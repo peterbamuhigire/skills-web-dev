@@ -1,5 +1,9 @@
 # API Testing Verification
 
+## Required Plugins
+
+**Superpowers plugin:** MUST be active for all work using this skill. Use throughout the entire build pipeline — design decisions, code generation, debugging, quality checks, and any task where it offers enhanced capabilities. If superpowers provides a better way to accomplish something, prefer it over the default approach.
+
 ## Purpose
 
 Enforce thorough API endpoint testing before declaring any API-dependent feature complete. Prevent backend-frontend mismatches that only surface during manual testing.

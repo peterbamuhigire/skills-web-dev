@@ -337,6 +337,8 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 11. **Use version catalog** for all projects (gradle/libs.versions.toml)
 12. **Pin dependency versions** — no dynamic versions (`+`)
 13. **Network security config MUST have `<base-config>`** — without it, staging/release HTTPS fails on physical devices (especially Samsung). See `security.md` → Network Security Config for details.
+14. **Extract real certificate pins before enabling cert pinning** — NEVER use placeholder pins (`AAA...=`). They cause `SSLPeerUnverifiedException` and break all HTTPS connections. Use `ENABLE_CERT_PINNING` BuildConfig flag (`false` for dev, `true` for staging/prod). See `security.md` → Certificate Pinning for the `openssl` extraction commands.
+15. **Pin ALL server domains** — both staging AND production. Missing pins for a domain the app connects to will cause connection failures when cert pinning is active.
 
 ## Critical R8 / Moshi Rules
 

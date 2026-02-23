@@ -3,6 +3,10 @@ name: android-custom-icons
 description: "Use custom PNG icons in Android apps instead of library icons. Enforces placeholder usage, standard directory, and PROJECT_ICONS.md tracking. Applies to Jetpack Compose and XML layouts."
 ---
 
+## Required Plugins
+
+**Superpowers plugin:** MUST be active for all work using this skill. Use throughout the entire build pipeline — design decisions, code generation, debugging, quality checks, and any task where it offers enhanced capabilities. If superpowers provides a better way to accomplish something, prefer it over the default approach.
+
 # Android Custom PNG Icons
 
 Use **custom PNG icons** in Android apps instead of icon libraries. Whenever UI code includes an icon, the agent must use a PNG placeholder and update `PROJECT_ICONS.md` so the icon list is tracked for later upload.

@@ -3,6 +3,10 @@ name: Vibe Security Skill
 description: This skill helps Claude write secure web applications. Use when working on any web application to ensure security best practices are followed.
 ---
 
+## Required Plugins
+
+**Superpowers plugin:** MUST be active for all work using this skill. Use throughout the entire build pipeline — design decisions, code generation, debugging, quality checks, and any task where it offers enhanced capabilities. If superpowers provides a better way to accomplish something, prefer it over the default approach.
+
 # Secure Coding Guide for Web Applications
 
 ## Overview

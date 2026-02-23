@@ -3,6 +3,12 @@ name: gis-mapping
 description: "Use for web apps that need Leaflet-first GIS mapping, location selection, map-driven UIs, or geofencing validation. Covers Leaflet setup, optional tile providers, data storage, and backend validation patterns."
 ---
 
+## Required Plugins
+
+**Superpowers plugin:** MUST be active for all work using this skill. Use throughout the entire build pipeline — design decisions, code generation, debugging, quality checks, and any task where it offers enhanced capabilities. If superpowers provides a better way to accomplish something, prefer it over the default approach.
+
+**Frontend Design plugin (`webapp-gui-design`):** MUST be active for all visual output from this skill. Use for design system work, component styling, layout decisions, colour selection, typography, responsive design, and visual QA.
+
 # GIS Mapping (Leaflet-First)
 
 ## Quick Summary

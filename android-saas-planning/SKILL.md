@@ -3,6 +3,10 @@ name: android-saas-planning
 description: "Create comprehensive planning documentation for a native Android app that integrates with an existing web-based SaaS platform. Use when building a mobile companion app for any SaaS — ERP, CRM, POS, logistics, healthcare, fintech, etc. Generates 7 production-ready planning documents: PRD, SRS, SDS, API Contract, User Journeys, Testing Strategy, and Release Plan."
 ---
 
+## Required Plugins
+
+**Superpowers plugin:** MUST be active for all work using this skill. Use throughout the entire build pipeline — design decisions, code generation, debugging, quality checks, and any task where it offers enhanced capabilities. If superpowers provides a better way to accomplish something, prefer it over the default approach.
+
 # Android SaaS Planning Skill
 
 Generate a complete, implementation-ready documentation suite for a native Android app that serves as a mobile client for an existing web-based SaaS system.

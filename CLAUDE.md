@@ -89,7 +89,10 @@ skills/
 ├── android-data-persistence/        # Room, DataStore, API sync, offline-first
 ├── android-reports/                 # Android report generation patterns
 ├── android-saas-planning/           # Android companion app planning for SaaS
+├── android-biometric-login/          # Biometric auth (fingerprint/face) for Android apps├── android-custom-icons/             # Custom PNG icons for Android (no icon libraries)├── android-pdf-export/               # Native PDF export using PdfDocument API├── android-report-tables/            # Table-first report UI for >25 rows
 ├── google-play-store-review/        # Play Store review readiness
+├── implementation-status-auditor/   # Project audit + completion blueprint
+├── plan-implementation/             # Autonomous plan executor (TDD + 5-layer validation)
 ├── multi-tenant-saas-architecture/  # SaaS backend patterns
 ├── modular-saas-architecture/       # Pluggable SaaS modules
 ├── feature-planning/                # Complete feature planning (spec + implementation)
@@ -113,13 +116,20 @@ skills/
 ├── api-pagination/                 # Offset pagination (PHP + Android infinite scroll)
 ├── mysql-best-practices/            # MySQL 8.x best practices
 ├── php-modern-standards/            # PHP 8+ modern standards
+├── saas-accounting-system/           # Double-entry accounting engine for SaaS
 ├── saas-seeder/                     # SaaS bootstrap and seeding
 ├── skill-safety-audit/              # Skill safety audit workflow
 ├── gis-mapping/                     # OpenStreetMap GIS + geofencing
 ├── markdown-lint-cleanup/           # Markdown lint cleanup and formatting
 ├── vibe-security-skill/             # Secure coding for web apps
 ├── photo-management/                # Photo upload and gallery patterns
+├── mobile-rbac/                     # RBAC for Android mobile apps (PermissionGate, ModuleGate)
 ├── skill-writing/                   # Skill creator (meta-skill)
+├── sdlc-planning/                   # SDLC planning & management docs (Vision, SDP, SRS, etc.)
+├── sdlc-design/                     # SDLC design & development docs (SDD, Tech Spec, ICD, DB Design, API)
+├── sdlc-testing/                    # SDLC testing & quality docs (STP, Test Cases, V&V, Reports)
+├── sdlc-user-deploy/                # SDLC user & deployment docs (User Manual, Ops, Training, Release)
+├── sdlc-lifecycle.md                # SDLC master lifecycle overview (all 4 phases)
 ├── spec-architect/                  # Specification architecture skill
 ├── prompting-patterns-reference.md  # Prompting patterns for AI instructions
 ├── orchestration-patterns-reference.md # Orchestration strategies for multi-agent workflows
@@ -290,5 +300,5 @@ This guide ensures consistent, high-quality interaction with the skills reposito
 ---
 
 **Maintained by:** Peter Bamuhigire
-**Last Updated:** 2026-02-07
+**Last Updated:** 2026-02-20
 **Line Count:** ~250 lines (compliant with doc-standards.md)

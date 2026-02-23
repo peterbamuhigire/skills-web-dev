@@ -3,6 +3,10 @@ name: multi-tenant-saas-architecture
 description: "Production-grade multi-tenant SaaS platform architecture with three-panel separation, zero-trust security, strict tenant isolation, and comprehensive audit trails. Use for designing multi-tenant systems, implementing tenant-scoped permissions, ensuring data isolation, and building scalable SaaS platforms."
 ---
 
+## Required Plugins
+
+**Superpowers plugin:** MUST be active for all work using this skill. Use throughout the entire build pipeline — design decisions, code generation, debugging, quality checks, and any task where it offers enhanced capabilities. If superpowers provides a better way to accomplish something, prefer it over the default approach.
+
 # Multi-Tenant SaaS Platform Architecture
 
 ## Overview

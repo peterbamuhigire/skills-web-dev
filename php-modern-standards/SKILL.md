@@ -3,6 +3,10 @@ name: php-modern-standards
 description: "Modern PHP development standards for maintainable, testable, object-oriented code. Use when writing PHP 8+ applications, implementing OOP patterns, ensuring security, following PSR standards, optimizing performance, or building Laravel applications. Covers strict typing, modern features, SOLID principles, security patterns, testing, and 2026 international programming standards."
 ---
 
+## Required Plugins
+
+**Superpowers plugin:** MUST be active for all work using this skill. Use throughout the entire build pipeline — design decisions, code generation, debugging, quality checks, and any task where it offers enhanced capabilities. If superpowers provides a better way to accomplish something, prefer it over the default approach.
+
 # PHP Modern Standards
 
 Production-grade PHP patterns for maintainable, testable, secure, high-performance applications.

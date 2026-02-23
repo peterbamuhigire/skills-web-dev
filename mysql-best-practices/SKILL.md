@@ -3,6 +3,10 @@ name: mysql-best-practices
 description: "MySQL 8.x best practices for high-performance SaaS applications. Use when designing database schemas, optimizing queries, implementing multi-tenant isolation, ensuring data integrity, or building scalable African SaaS platforms. Covers character sets, indexing, normalization, stored procedures, triggers, concurrency, security, and performance."
 ---
 
+## Required Plugins
+
+**Superpowers plugin:** MUST be active for all work using this skill. Use throughout the entire build pipeline — design decisions, code generation, debugging, quality checks, and any task where it offers enhanced capabilities. If superpowers provides a better way to accomplish something, prefer it over the default approach.
+
 # MySQL Best Practices for SaaS
 
 Production-grade MySQL patterns for high-performance, secure, scalable SaaS applications.

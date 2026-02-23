@@ -309,8 +309,24 @@ data class StatisticsDto(
 7. **Offline fallback** - cache API responses in Room when appropriate
 8. **Moshi codegen only** — NEVER use `KotlinJsonAdapterFactory()` (reflection). All DTOs must have `@JsonClass(generateAdapter = true)`. Reflection adapter crashes under R8 minification.
 9. **Image URLs from BuildConfig** — NEVER hardcode server URLs like `http://10.0.2.2/...`. Use `BuildConfig.API_BASE_URL` and strip `/api/` to get the web root. Create a shared `buildImageUrl()` utility.
-10. **Handle inconsistent API types** — Use custom `KSerializer` (e.g. `StringOrObjectSerializer`) for fields where the backend returns mixed JSON types. Never let a DTO crash on unexpected `{}` or `[]`.
-11. **ProGuard signature preservation** — CRITICAL for release builds. Add to `proguard-rules.pro`:
+10. **API Error Response Structure** — CRITICAL: Backend must return errors as simple string in `error` field, not nested object:
+    ```json
+    // ✅ CORRECT - error is a string
+    {
+      "success": false,
+      "error": "Invalid email or password",
+      "message": "Optional additional message"
+    }
+
+    // ❌ WRONG - error is an object (causes deserialization failure)
+    {
+      "success": false,
+      "error": { "code": "...", "type": "...", "details": {...} }
+    }
+    ```
+    **Why:** The Android DTO expects `error: String?`, not a complex object. Moshi will fail with `ClassCastException` when trying to deserialize a nested object into String type. Keep error responses simple.
+11. **Handle inconsistent API types** — Use custom `KSerializer` (e.g. `StringOrObjectSerializer`) for fields where the backend returns mixed JSON types. Never let a DTO crash on unexpected `{}` or `[]`.
+12. **ProGuard signature preservation** — CRITICAL for release builds. Add to `proguard-rules.pro`:
     ```
     # Keep generic signatures (required for Moshi reflection on parameterized types)
     -keepattributes Signature
@@ -322,7 +338,7 @@ data class StatisticsDto(
     -keep @com.squareup.moshi.JsonClass class *
     ```
     **Why:** R8 minification strips `Signature` attribute by default, causing Moshi to lose generic type information (`Map<String, Double>` → `Map`). At runtime, Moshi reflection fails with `java.lang.Class cannot be cast to reflect.ParameterizedType`. This affects ALL release builds with generic DTOs.
-12. **CRITICAL: Moshi Generic Types** — NEVER use `Map<String, Any>` in DTOs (with @JsonClass). This causes `ClassCastException` or "reflect.parametized type" error at runtime. Moshi cannot deserialize generic `Any` type. **Use concrete types instead:**
+13. **CRITICAL: Moshi Generic Types** — NEVER use `Map<String, Any>` in DTOs (with @JsonClass). This causes `ClassCastException` or "reflect.parametized type" error at runtime. Moshi cannot deserialize generic `Any` type. **Use concrete types instead:**
     - `Map<String, Any>?` → causes ClassCastException/parametized type error
     - `Map<String, String>?` → safe, Moshi can deserialize
     - `Map<String, Int>?` → safe for integer maps

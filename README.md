@@ -549,23 +549,21 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 **Key capabilities:**
 
 - Strict typing and modern type system (union types, intersection types, readonly, never)
-- PSR standards compliance (PSR-1, PSR-2, PSR-12, PSR-4)
-- Modern PHP 8+ features (enums, attributes, match expressions, named arguments, nullsafe operator)
+- PSR standards compliance (PSR-1, PSR-4, PSR-12)
+- Modern PHP 8+ features (enums, attributes, match expressions, named arguments, nullsafe operator, Fibers)
 - Constructor property promotion and readonly classes
-- Object-oriented design patterns (SOLID principles, dependency injection, interfaces)
-- Comprehensive security patterns (SQL injection prevention, XSS protection, CSRF defense, secure password handling)
-- Input validation and sanitization best practices
-- Performance optimization (generators for large datasets, SPL data structures, memory management)
-- Laravel-specific patterns (Eloquent models, controllers, form requests, repositories, actions)
-- Testing patterns and TDD workflows
-- Session security and file upload handling
-- Command injection prevention and security headers
+- SOLID principles with final-by-default and composition over inheritance
+- Performance optimization (generators, built-in function rule, OPcache/JIT, SPL data structures)
+- Testing patterns (AAA, data providers, mocking, TDD with PestPHP/PHPUnit)
+- Code quality tooling (PHPStan level 8+, Laravel Pint, Rector, CI/CD)
+- Laravel conventions (Eloquent, controllers, form requests, Spatie guidelines)
+- Security essentials (delegates to `php-security` skill for comprehensive patterns)
 
 **Skill location:** `php-modern-standards/SKILL.md`
 
-**Reference files:** `references/security-patterns.md` (comprehensive security guide with examples)
+**Reference files:** `references/performance-efficiency.md` (generators, OPcache, JIT, Fibers, caching), `references/code-quality-tooling.md` (PHPStan, Pint, PestPHP, TDD, CI/CD, Rector), `references/security-patterns.md` (cross-reference to php-security skill)
 
-**Examples:** `examples/modern-php-patterns.php` (enums, value objects, repositories, generators), `examples/laravel-patterns.php` (Laravel best practices)
+**Examples:** `examples/modern-php-patterns.php`, `examples/laravel-patterns.php`
 
 ---
 
@@ -603,9 +601,7 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 **Skill location:** `mysql-best-practices/SKILL.md`
 
-**Reference files:** `references/stored-procedures.sql`, `references/triggers.sql`, `references/partitioning.sql`
-
-**Examples:** `examples/saas-schema.sql` (complete multi-tenant schema)
+**Reference files:** `references/indexing-deep-dive.md`, `references/query-performance.md`, `references/stored-procedures.sql`, `references/triggers.sql`, `references/transaction-locking.md`, `references/security-hardening.md`, `references/partitioning.sql`, `references/server-tuning-mycnf.md`, `references/backup-recovery.md`, `references/high-availability.md`, `references/advanced-sql-patterns.md`
 
 ---
 
@@ -826,7 +822,60 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ---
 
-### 21. GIS Mapping (Leaflet-First)
+### 21. PHP Security
+
+**Focus:** Comprehensive PHP security patterns and hardened implementations
+
+**When to use:**
+
+- Building or reviewing PHP web applications for security
+- Implementing session hardening, input validation, or output encoding
+- Preventing SQL injection, XSS, CSRF, or file upload vulnerabilities
+- Configuring php.ini for production security
+
+**Key capabilities:**
+
+- SecureSession class with strict mode, httponly, SameSite, regeneration
+- InputValidator with type-safe validation and sanitization
+- OutputEncoder for HTML, JS, URL, and CSS contexts
+- CsrfGuard with per-form tokens and HMAC validation
+- SecureUpload with MIME verification and safe storage
+- Password hashing (Argon2id) and Libsodium encryption patterns
+- php.ini security checklist and session hardening reference
+
+**Skill location:** `php-security/SKILL.md`
+
+**Reference files:** `references/security-code-patterns.md`, `references/php-ini-security-checklist.md`, `references/session-hardening.md`, `references/input-output-security.md`
+
+---
+
+### 22. Web Application Security Audit
+
+**Focus:** Systematic 8-layer security audit for PHP/JS/HTML web applications
+
+**When to use:**
+
+- Before deploying a web application to production
+- After implementing major features or modules
+- Periodic security reviews (quarterly recommended)
+- Onboarding a new project or inheriting a codebase
+
+**Key capabilities:**
+
+- **8 audit layers:** Configuration, Auth & Sessions, Authorization, Input Validation, Output & XSS, API Security, HTTP Headers, Dependencies
+- Severity classification: CRITICAL, HIGH, MEDIUM, LOW, INFO
+- PHP-specific vulnerability scanning (type juggling, object injection, command injection, file inclusion)
+- Cryptographic practice checks (Libsodium preference, RNG quality, key management)
+- Parallel subagent execution for independent scan layers
+- Structured report output with fix recommendations mapped to skills
+
+**Skill location:** `web-app-security-audit/SKILL.md`
+
+**Reference files:** `references/audit-checklist-detailed.md`, `references/security-headers-reference.md`, `references/report-template.md`
+
+---
+
+### 23. GIS Mapping
 
 **Focus:** Leaflet-first GIS mapping, location selection, and geofencing patterns
 
@@ -850,7 +899,7 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ---
 
-### 22. Markdown Lint Cleanup
+### 24. Markdown Lint Cleanup
 
 **Focus:** Remove markdown lint warnings and normalize documentation formatting
 
@@ -1393,14 +1442,19 @@ skills/
 │   └── examples/
 │       ├── InvoicesEndpoint.php
 │       └── ApiClient.js
-├── mysql-best-practices/         # MySQL best practices skill
+├── mysql-best-practices/         # MySQL 8.x best practices (11 reference files)
 │   ├── SKILL.md
-│   ├── references/
-│   │   ├── stored-procedures.sql
-│   │   ├── triggers.sql
-│   │   └── partitioning.sql
+│   └── references/               # Deep-dive guides
+├── php-modern-standards/         # PHP 8+ (strict typing, SOLID, generators, testing)
+│   ├── SKILL.md
+│   ├── references/               # performance, tooling, security cross-ref
 │   └── examples/
-│       └── saas-schema.sql
+├── php-security/                 # PHP security patterns (sessions, input, output, CSRF)
+│   ├── SKILL.md
+│   └── references/               # code patterns, php.ini, sessions, I/O
+├── web-app-security-audit/       # 8-layer web app security audit
+│   ├── SKILL.md
+│   └── references/               # checklist, headers, report template
 ├── PROJECT_BRIEF.md              # Quick project overview
 ├── README.md                     # This file
 └── CLAUDE.md                     # Claude Code specific guide
@@ -1597,5 +1651,5 @@ These skills are built from real-world project experience and industry best prac
 
 **Maintained by:** Peter Bamuhigire
 **Version:** 1.0.0
-**Last Updated:** January 2026
+**Last Updated:** March 2026
 **Status:** Active Development

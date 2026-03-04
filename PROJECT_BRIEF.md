@@ -9,6 +9,20 @@
 **Use Cases:** Any web app development, API work, authentication/authorization, file uploads, redirects, and third-party integrations
 **Key Features:** Access control validation, XSS/CSRF/SSRF/SQLi/XXE protection, secure headers, secrets handling, secure error handling
 
+### 16. PHP Security
+
+**Domain:** PHP Application Security
+**Purpose:** Comprehensive PHP security patterns with hardened class implementations
+**Use Cases:** Building secure PHP web applications, session hardening, input validation, output encoding, CSRF protection, file upload security, password hashing, encryption
+**Key Features:** SecureSession, InputValidator, OutputEncoder, CsrfGuard, SecureUpload classes, Argon2id passwords, Libsodium encryption, php.ini security checklist, session hardening reference
+
+### 17. Web Application Security Audit
+
+**Domain:** Security Auditing
+**Purpose:** Systematic 8-layer security audit for PHP/JS/HTML web applications
+**Use Cases:** Pre-deployment security reviews, periodic audits, codebase onboarding, post-feature security validation
+**Key Features:** 8 audit layers (config, auth, authz, input, XSS, API, headers, dependencies), severity classification (CRITICAL to INFO), PHP-specific vulnerability scanning, parallel subagent execution, structured report output
+
 A curated collection of reusable Claude Code skills designed to accelerate development across multiple projects. Each skill provides specialized expertise in specific domains, from web app GUI design to multi-tenant architecture.
 
 ## Purpose
@@ -46,6 +60,7 @@ Provide consistent, battle-tested patterns and workflows that can be seamlessly 
 - orchestration-best-practices
 - photo-management
 - php-modern-standards
+- php-security
 - pos-restaurant-ui-standard
 - pos-sales-ui-design
 - project-requirements
@@ -56,6 +71,7 @@ Provide consistent, battle-tested patterns and workflows that can be seamlessly 
 - spec-architect
 - update-claude-documentation
 - vibe-security-skill
+- web-app-security-audit
 - webapp-gui-design
 
 ### 1. Multi-Tenant SaaS Architecture
@@ -117,18 +133,16 @@ Provide consistent, battle-tested patterns and workflows that can be seamlessly 
 ### 9. PHP Modern Standards
 
 **Domain:** Backend Development (PHP)
-**Purpose:** Modern PHP development for maintainable, testable, object-oriented code following 2026 international standards
-**Use Cases:** PHP 8+ applications, OOP architecture, security implementation, Laravel development, performance optimization, TDD workflows
-**Key Features:** Strict typing + PSR compliance, modern PHP 8+ features (enums, attributes, match, readonly), SOLID principles, comprehensive security patterns (SQL injection, XSS, CSRF prevention), input validation, password security (Argon2id), generators for memory efficiency, SPL data structures, Laravel conventions (Spatie guidelines), session security, file upload handling
+**Purpose:** Modern PHP 8+ development standards for maintainable, testable, high-performance code
+**Use Cases:** PHP 8+ applications, OOP architecture, performance optimization, TDD workflows, Laravel development
+**Key Features:** Strict typing + PSR compliance, modern features (enums, attributes, match, readonly, Fibers), SOLID principles, generators + OPcache/JIT performance, testing (PestPHP, PHPUnit, AAA pattern), code quality tooling (PHPStan, Pint, Rector, CI/CD), Laravel conventions, security essentials (delegates to php-security for comprehensive patterns)
 
 ### 10. MySQL Best Practices
 
 **Domain:** Database Design & Optimization
-**Purpose:** MySQL 8.x best practices for high-performance SaaS applications
+**Purpose:** MySQL 8.x best practices for high-performance SaaS applications with 11 deep-dive reference files
 **Use Cases:** Schema design, query optimization, multi-tenant isolation, data integrity, high-concurrency systems
-**Key Features:** UTF8MB4 + InnoDB standards, ESR composite indexing, normalization strategies, stored procedures, triggers, concurrency patterns, security (TDE, SSL, SQL injection prevention), partitioning, backup/recovery, monitoring, connection pooling, multi-tenant isolation patterns
-├── vibe-security-skill/
-│ └── SKILL.md
+**Key Features:** UTF8MB4 + InnoDB standards, ESR composite indexing, normalization strategies, stored procedures, triggers, transaction locking, concurrency patterns, security hardening (TDE, SSL, SQL injection prevention), partitioning, server tuning (my.cnf), backup/recovery, high availability, advanced SQL patterns, multi-tenant isolation
 
 ### 11. Report Export (PDF + Print)
 

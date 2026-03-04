@@ -118,9 +118,15 @@ Auth flow:
   Account lockout mechanism             → MEDIUM if missing
   Session timeout enforcement           → HIGH if missing
   Complete session destruction on logout → MEDIUM if missing
+
+Cryptographic practices:
+  openssl_encrypt/decrypt usage           → MEDIUM: prefer Libsodium (sodium_*)
+  Custom encryption (XOR, base64 "encryption") → CRITICAL: not encryption
+  Hardcoded encryption keys in source     → CRITICAL: use env/vault
+  random_int/random_bytes for tokens      → Required (not rand/mt_rand)
 ```
 
-**Fix reference:** php-security > Session Security, dual-auth-rbac > Password Security
+**Fix reference:** php-security > Session Security, Cryptographic Best Practices, dual-auth-rbac > Password Security
 
 ## Layer 3: Authorization & Access Control
 
@@ -175,9 +181,19 @@ Type validation:
   Integer inputs not validated              → MEDIUM
   Email inputs not validated                → LOW
   Enum values not whitelisted               → MEDIUM
+
+PHP-specific vulnerabilities:
+  == instead of === (type juggling)         → HIGH: "0e123"=="0e456" is true
+  in_array() without strict 3rd param       → MEDIUM: type coercion
+  unserialize() on user/external data       → CRITICAL: object injection/RCE
+  eval() with any variable input            → CRITICAL: code execution
+  exec/system/shell_exec/passthru           → CRITICAL: command injection
+  preg_replace with /e modifier             → CRITICAL: code execution (PHP <7)
+  include/require with user-controlled path → CRITICAL: file inclusion
+  missing declare(strict_types=1)           → LOW: type safety gap
 ```
 
-**Fix reference:** php-security > Input Validation, SQL Injection Prevention, File Upload Security
+**Fix reference:** php-security > Input Validation, SQL Injection Prevention, File Upload Security, PHP-Specific Vulnerabilities
 
 ## Layer 5: Output Encoding & XSS
 

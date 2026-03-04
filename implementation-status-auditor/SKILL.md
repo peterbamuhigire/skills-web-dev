@@ -239,7 +239,8 @@ This auditor leverages other skills for both analysis and recommended actions:
 | Planning gaps | `sdlc-planning` | `sdlc-planning` |
 | UI issues | `webapp-gui-design` | `jetpack-compose-ui` |
 | Mobile integration | `android-development` | `android-saas-planning` |
-| Security concerns | `vibe-security-skill` | `vibe-security-skill` |
+| Security concerns | `vibe-security-skill` | `web-app-security-audit` |
+| Code quality tooling | `php-modern-standards` | `php-modern-standards` |
 | User docs missing | `manual-guide` | `sdlc-user-deploy` |
 | Module architecture | `modular-saas-architecture` | `modular-saas-architecture` |
 

@@ -255,7 +255,7 @@ skills/
 │   └── examples/
 │       ├── InvoicesEndpoint.php
 │       └── ApiClient.js
-├── mysql-best-practices/
+├── mysql-best-practices/            # MySQL 8.x (11 reference files)
 │   ├── SKILL.md
 │   ├── references/
 │   │   ├── stored-procedures.sql
@@ -263,13 +263,16 @@ skills/
 │   │   └── partitioning.sql
 │   └── examples/
 │       └── saas-schema.sql
-├── php-modern-standards/
+├── php-modern-standards/            # PHP 8+ (performance, testing, tooling)
 │   ├── SKILL.md
-│   ├── references/
-│   │   └── security-patterns.md
+│   ├── references/                  # performance, tooling, security cross-ref
 │   └── examples/
-│       ├── modern-php-patterns.php
-│       └── laravel-patterns.php
+├── php-security/                    # PHP security patterns
+│   ├── SKILL.md
+│   └── references/                  # code patterns, php.ini, sessions, I/O
+├── web-app-security-audit/          # 8-layer web app security audit
+│   ├── SKILL.md
+│   └── references/                  # checklist, headers, report template
 ├── skills/
 │   └── skill-writing/
 │       └── SKILL.md
@@ -341,5 +344,5 @@ skills/
 ## Version
 
 Current Version: 1.0.0
-Last Updated: January 2026
+Last Updated: March 2026
 Maintained By: Peter Bamuhigire

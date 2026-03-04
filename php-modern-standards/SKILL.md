@@ -331,6 +331,37 @@ final readonly class CsrfProtection
 }
 ```
 
+### Session Management
+
+```php
+// Secure session initialization
+function initSecureSession(): void
+{
+    ini_set('session.use_strict_mode', '1');
+    ini_set('session.cookie_httponly', '1');
+    ini_set('session.cookie_samesite', 'Strict');
+    ini_set('session.use_only_cookies', '1');
+    ini_set('session.use_trans_sid', '0');
+
+    $isHttps = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
+               || ($_SERVER['SERVER_PORT'] ?? 0) == 443;
+    ini_set('session.cookie_secure', $isHttps ? '1' : '0');
+
+    session_start();
+}
+
+// Regenerate on auth state change (login, privilege escalation)
+session_regenerate_id(true);
+
+// Idle timeout enforcement
+if (isset($_SESSION['last_activity']) && time() - $_SESSION['last_activity'] > 1800) {
+    session_destroy();
+}
+$_SESSION['last_activity'] = time();
+```
+
+**See php-security skill** for complete session hardening and php.ini configuration.
+
 ## Performance
 
 ### Generators
@@ -507,6 +538,8 @@ public function setName(string $name): void { }
 ✅ Argon2id passwords
 ✅ Generators for large data
 ✅ PSR-12 compliant
+✅ Session: strict mode + httponly + samesite
+✅ Error display off in production
 
 **References:**
 - PHP: https://www.php.net/manual/

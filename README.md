@@ -71,6 +71,7 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 - orchestration-best-practices
 - photo-management
 - php-modern-standards
+- php-security
 - pos-restaurant-ui-standard
 - pos-sales-ui-design
 - project-requirements
@@ -85,6 +86,7 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 - spec-architect
 - update-claude-documentation
 - vibe-security-skill
+- web-app-security-audit
 - webapp-gui-design
 
 ### 1. Android Development

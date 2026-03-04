@@ -124,6 +124,7 @@ Forms accept any input without validation. Search bars execute JavaScript. No SQ
 ✅ Parameterized SQL queries (NEVER string concatenation)
 ✅ Output encoding based on context (HTML, JS, URL, SQL)
 ✅ File upload validation: type, size, magic bytes
+✅ PHP: Use finfo magic bytes validation (not user-supplied Content-Type)
 ```
 
 ### 6. No Row-Level Security / Privacy Rules
@@ -283,6 +284,8 @@ curl -X POST https://api/search -d "q=<script>alert(1)</script>"
 
 📖 **See `references/authentication-security.md`**
 
+**PHP Session Security:** Use **php-security** skill for PHP-specific session hardening (php.ini directives, session fixation/hijacking prevention, secure cookie configuration).
+
 ### A08:2025 - Software or Data Integrity Failures
 
 **Vulnerabilities:**
@@ -424,6 +427,7 @@ When unsure, choose the more restrictive/secure option and document the security
 - **`references/file-upload-security.md`** - File validation, magic bytes, polyglot files, secure storage
 - **`references/authentication-security.md`** - Password hashing, MFA, session management, JWT, OAuth
 - **`references/owasp-mapping.md`** - Complete OWASP Top 10 2025 mapping with examples
+- **`../php-security/SKILL.md`** - PHP-specific security patterns: session hardening, input validation, type juggling, php.ini configuration
 
 ### Testing Tools
 

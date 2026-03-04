@@ -187,6 +187,16 @@ hasSession('user_id');             // Checks if exists
 - CSRF validation on mutations
 - Auto-detect HTTPS for secure cookie flag (allows localhost development)
 
+**Session Hardening (php.ini):**
+```ini
+session.use_strict_mode = 1      ; Reject uninitialized session IDs
+session.sid_length = 48           ; Longer IDs = harder to guess
+session.sid_bits_per_character = 6 ; Maximum entropy
+session.serialize_handler = php_serialize ; Safer serialization
+```
+
+**See php-security skill** for complete session hardening checklist and attack prevention patterns.
+
 **HTTPS Auto-Detection (Critical for Localhost Development):**
 ```php
 // Only set secure cookie if using HTTPS
@@ -320,6 +330,8 @@ if user.type != 'super_admin' and user.franchise_id != requestedFranchiseId:
 - [ ] 30 min timeout
 - [ ] Complete destruction
 - [ ] CSRF validation
+- [ ] Session strict mode enabled
+- [ ] Session ID length >= 48
 
 ### Account Protection
 - [ ] Lock after 5 failures

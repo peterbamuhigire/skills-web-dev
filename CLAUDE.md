@@ -118,12 +118,14 @@ skills/
 ├── api-pagination/                 # Offset pagination (PHP + Android infinite scroll)
 ├── mysql-best-practices/            # MySQL 8.x best practices
 ├── php-modern-standards/            # PHP 8+ modern standards
+├── php-security/                    # PHP security patterns (sessions, XSS, CSRF, file uploads, php.ini)
 ├── saas-accounting-system/           # Double-entry accounting engine for SaaS
 ├── saas-seeder/                     # SaaS bootstrap and seeding
 ├── skill-safety-audit/              # Skill safety audit workflow
 ├── gis-mapping/                     # OpenStreetMap GIS + geofencing
 ├── markdown-lint-cleanup/           # Markdown lint cleanup and formatting
 ├── vibe-security-skill/             # Secure coding for web apps
+├── web-app-security-audit/          # 8-layer security audit for PHP/JS/HTML web apps
 ├── photo-management/                # Photo upload and gallery patterns
 ├── mobile-rbac/                     # RBAC for Android mobile apps (PermissionGate, ModuleGate)
 ├── skill-writing/                   # Skill creator (meta-skill)

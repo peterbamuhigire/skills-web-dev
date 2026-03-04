@@ -116,7 +116,7 @@ skills/
 ├── project-requirements/            # SaaS project requirements discovery
 ├── api-error-handling/              # API error handling
 ├── api-pagination/                 # Offset pagination (PHP + Android infinite scroll)
-├── mysql-best-practices/            # MySQL 8.x best practices
+├── mysql-best-practices/            # MySQL 8.x (schema, indexing, queries, security, transactions, tuning, HA)
 ├── php-modern-standards/            # PHP 8+ modern standards
 ├── php-security/                    # PHP security patterns (sessions, XSS, CSRF, file uploads, php.ini)
 ├── saas-accounting-system/           # Double-entry accounting engine for SaaS

@@ -11,7 +11,7 @@ Production-grade PHP security patterns for web applications. Bridges gaps betwee
 
 **Cross-references:** Use alongside **vibe-security-skill** (OWASP mapping), **php-modern-standards** (code quality), **dual-auth-rbac** (auth system).
 
-**See references/ for:** `session-hardening.md`, `input-output-security.md`, `php-ini-security-checklist.md`
+**See references/ for:** `session-hardening.md`, `input-output-security.md`, `php-ini-security-checklist.md`, `security-code-patterns.md`
 
 ## When to Use
 
@@ -53,87 +53,18 @@ session.save_handler = files
 session.save_path = "/var/lib/php/sessions"
 ```
 
-### Session Fixation Prevention
+### Session Fixation & Hijacking Prevention
+
+📖 **See `references/security-code-patterns.md` for complete SecureSession, InputValidator, OutputEncoder, CsrfGuard, and SecureUpload class implementations.**
 
 ```php
-declare(strict_types=1);
-
-final class SecureSession
-{
-    public static function start(): void
-    {
-        if (session_status() === PHP_SESSION_ACTIVE) {
-            return;
-        }
-
-        ini_set('session.use_strict_mode', '1');
-        ini_set('session.cookie_httponly', '1');
-        ini_set('session.cookie_samesite', 'Strict');
-
-        $isHttps = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
-                   || ($_SERVER['SERVER_PORT'] ?? 0) == 443;
-        ini_set('session.cookie_secure', $isHttps ? '1' : '0');
-
-        session_start();
-    }
-
-    /** Call on login, privilege change, or role switch */
-    public static function regenerate(): void
-    {
-        session_regenerate_id(true); // true = delete old session file
-    }
-
-    /** Call on logout — complete destruction */
-    public static function destroy(): void
-    {
-        $_SESSION = [];
-
-        if (ini_get('session.use_cookies')) {
-            $params = session_get_cookie_params();
-            setcookie(
-                session_name(),
-                '',
-                time() - 42000,
-                $params['path'],
-                $params['domain'],
-                $params['secure'],
-                $params['httponly'],
-            );
-        }
-
-        session_destroy();
-    }
-
-    /** Enforce idle timeout */
-    public static function checkTimeout(int $maxIdleSeconds = 1800): bool
-    {
-        if (isset($_SESSION['last_activity'])) {
-            if (time() - $_SESSION['last_activity'] > $maxIdleSeconds) {
-                self::destroy();
-                return false;
-            }
-        }
-        $_SESSION['last_activity'] = time();
-        return true;
-    }
-}
-```
-
-### Session Hijacking Prevention
-
-```php
-// Bind session to user agent + IP subnet (not full IP — breaks mobile)
-function validateSessionFingerprint(): bool
-{
-    $fingerprint = hash('sha256', $_SERVER['HTTP_USER_AGENT'] ?? '');
-
-    if (!isset($_SESSION['fingerprint'])) {
-        $_SESSION['fingerprint'] = $fingerprint;
-        return true;
-    }
-
-    return hash_equals($_SESSION['fingerprint'], $fingerprint);
-}
+// Key patterns (full classes in references/security-code-patterns.md):
+SecureSession::start();                      // Secure session init
+SecureSession::regenerate();                 // On login/privilege change
+SecureSession::destroy();                    // On logout
+SecureSession::checkTimeout(1800);           // 30-min idle timeout
+session_regenerate_id(true);                 // Delete old session file
+validateSessionFingerprint();                // Bind to user agent
 ```
 
 ## Input Validation
@@ -141,59 +72,17 @@ function validateSessionFingerprint(): bool
 ### Server-Side Validation (Never Trust Client)
 
 ```php
-final readonly class InputValidator
-{
-    /** Validate and sanitize common input types */
-    public static function email(string $input): ?string
-    {
-        $email = filter_var(trim($input), FILTER_VALIDATE_EMAIL);
-        return $email !== false ? $email : null;
-    }
+// Full InputValidator class in references/security-code-patterns.md
+InputValidator::email($input);               // filter_var FILTER_VALIDATE_EMAIL
+InputValidator::integer($input, 0, 1000);    // filter_var FILTER_VALIDATE_INT with range
+InputValidator::url($input);                 // Validate URL + restrict to http/https
+InputValidator::string($input, 255);         // Trim + length limit
+InputValidator::oneOf($input, $allowed);     // Whitelist validation
 
-    public static function integer(mixed $input, int $min = 0, int $max = PHP_INT_MAX): ?int
-    {
-        $value = filter_var($input, FILTER_VALIDATE_INT, [
-            'options' => ['min_range' => $min, 'max_range' => $max],
-        ]);
-        return $value !== false ? $value : null;
-    }
-
-    public static function url(string $input): ?string
-    {
-        $url = filter_var(trim($input), FILTER_VALIDATE_URL);
-        if ($url === false) {
-            return null;
-        }
-        // Only allow http/https schemes
-        $scheme = parse_url($url, PHP_URL_SCHEME);
-        return in_array($scheme, ['http', 'https'], true) ? $url : null;
-    }
-
-    public static function string(string $input, int $maxLength = 255): string
-    {
-        return mb_substr(trim($input), 0, $maxLength, 'UTF-8');
-    }
-
-    /** Whitelist validation for enum-like values */
-    public static function oneOf(string $input, array $allowed): ?string
-    {
-        return in_array($input, $allowed, true) ? $input : null;
-    }
-}
-```
-
-### Regex Validation Patterns
-
-```php
-// Phone number (international format)
-$isValid = preg_match('/^\+?[1-9]\d{6,14}$/', $phone);
-
-// Date (YYYY-MM-DD)
-$isValid = preg_match('/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/', $date)
-           && strtotime($date) !== false;
-
-// Alphanumeric username
-$isValid = preg_match('/^[a-zA-Z0-9_]{3,30}$/', $username);
+// Regex patterns
+preg_match('/^\+?[1-9]\d{6,14}$/', $phone);                            // Phone
+preg_match('/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/', $date); // Date
+preg_match('/^[a-zA-Z0-9_]{3,30}$/', $username);                       // Username
 ```
 
 ## Output Encoding
@@ -201,38 +90,12 @@ $isValid = preg_match('/^[a-zA-Z0-9_]{3,30}$/', $username);
 ### Context-Specific Encoding
 
 ```php
-final readonly class OutputEncoder
-{
-    /** HTML body context */
-    public static function html(string $input): string
-    {
-        return htmlspecialchars($input, ENT_QUOTES | ENT_HTML5, 'UTF-8');
-    }
-
-    /** JavaScript context */
-    public static function js(string $input): string
-    {
-        return json_encode($input, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
-    }
-
-    /** URL parameter context */
-    public static function url(string $input): string
-    {
-        return rawurlencode($input);
-    }
-
-    /** HTML attribute context */
-    public static function attr(string $input): string
-    {
-        return htmlspecialchars($input, ENT_QUOTES | ENT_HTML5, 'UTF-8');
-    }
-
-    /** CSS context — only allow safe values */
-    public static function css(string $input): string
-    {
-        return preg_replace('/[^a-zA-Z0-9\s#.,%-]/', '', $input);
-    }
-}
+// Full OutputEncoder class in references/security-code-patterns.md
+OutputEncoder::html($input);   // htmlspecialchars(ENT_QUOTES | ENT_HTML5, 'UTF-8')
+OutputEncoder::js($input);     // json_encode(JSON_HEX_TAG | JSON_HEX_AMP | ...)
+OutputEncoder::url($input);    // rawurlencode()
+OutputEncoder::attr($input);   // htmlspecialchars() for attributes
+OutputEncoder::css($input);    // Strip unsafe chars
 ```
 
 **Rule:** Always encode output based on WHERE it appears, not WHAT the data is.
@@ -301,98 +164,26 @@ header("Content-Security-Policy: default-src 'self'; script-src 'self'; style-sr
 ## CSRF Protection
 
 ```php
-final readonly class CsrfGuard
-{
-    public static function generate(): string
-    {
-        $token = bin2hex(random_bytes(32));
-        $_SESSION['csrf_token'] = $token;
-        $_SESSION['csrf_token_time'] = time();
-        return $token;
-    }
+// Full CsrfGuard class in references/security-code-patterns.md
+CsrfGuard::generate();              // bin2hex(random_bytes(32)) → session
+CsrfGuard::validate($token, 7200);  // hash_equals + time check
+CsrfGuard::field();                 // Hidden input HTML
 
-    public static function validate(string $token, int $maxAge = 7200): bool
-    {
-        if (!isset($_SESSION['csrf_token'], $_SESSION['csrf_token_time'])) {
-            return false;
-        }
-        if (time() - $_SESSION['csrf_token_time'] > $maxAge) {
-            unset($_SESSION['csrf_token'], $_SESSION['csrf_token_time']);
-            return false;
-        }
-        return hash_equals($_SESSION['csrf_token'], $token);
-    }
-
-    public static function field(): string
-    {
-        $token = self::generate();
-        return '<input type="hidden" name="csrf_token" value="' . OutputEncoder::attr($token) . '">';
-    }
-}
+// In forms:
+echo CsrfGuard::field();
+// On submit:
+if (!CsrfGuard::validate($_POST['csrf_token'])) { die('CSRF validation failed'); }
 ```
 
 ## File Upload Security
 
 ```php
-final readonly class SecureUpload
-{
-    private const ALLOWED_TYPES = [
-        'image/jpeg' => ['jpg', 'jpeg'],
-        'image/png'  => ['png'],
-        'image/gif'  => ['gif'],
-        'application/pdf' => ['pdf'],
-    ];
-
-    private const MAX_SIZE = 5 * 1024 * 1024; // 5MB
-
-    public static function validate(array $file): array
-    {
-        $errors = [];
-
-        if ($file['error'] !== UPLOAD_ERR_OK) {
-            return ['Upload failed with error code: ' . $file['error']];
-        }
-
-        if ($file['size'] > self::MAX_SIZE) {
-            $errors[] = 'File exceeds maximum size of 5MB';
-        }
-
-        // Verify MIME type using magic bytes (not user-supplied type)
-        $finfo = new \finfo(FILEINFO_MIME_TYPE);
-        $detectedType = $finfo->file($file['tmp_name']);
-
-        if (!array_key_exists($detectedType, self::ALLOWED_TYPES)) {
-            $errors[] = "File type '{$detectedType}' not allowed";
-        }
-
-        // Verify extension matches detected type
-        $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
-        if (isset(self::ALLOWED_TYPES[$detectedType])
-            && !in_array($ext, self::ALLOWED_TYPES[$detectedType], true)) {
-            $errors[] = 'File extension does not match content type';
-        }
-
-        return $errors;
-    }
-
-    /** Store outside webroot with random filename */
-    public static function store(array $file, string $uploadDir): ?string
-    {
-        $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
-        $filename = bin2hex(random_bytes(16)) . '.' . $ext;
-        $destination = rtrim($uploadDir, '/') . '/' . $filename;
-
-        if (!move_uploaded_file($file['tmp_name'], $destination)) {
-            return null;
-        }
-
-        chmod($destination, 0644);
-        return $filename;
-    }
-}
+// Full SecureUpload class in references/security-code-patterns.md
+$errors = SecureUpload::validate($_FILES['upload']);  // Magic bytes + size + extension
+$filename = SecureUpload::store($_FILES['upload'], '/var/uploads/');  // Random filename
 ```
 
-**Rules:** Store files outside webroot. Serve via PHP script with auth checks. Never use original filename. Validate magic bytes, not just extension.
+**Rules:** Store files outside webroot. Serve via PHP script with auth checks. Never use original filename. Validate magic bytes (`finfo`), not just extension. Max 5MB default.
 
 ## PHP-Specific Vulnerabilities
 
@@ -456,65 +247,31 @@ expose_php = Off
 ### Custom Error Handler
 
 ```php
+// Full error/exception handlers in references/security-code-patterns.md
+// Key pattern: log details server-side, show generic message to users
 set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline): bool {
     error_log("[{$errno}] {$errstr} in {$errfile}:{$errline}");
-
     if ($errno === E_USER_ERROR) {
         http_response_code(500);
         echo json_encode(['success' => false, 'message' => 'Internal server error']);
         exit(1);
     }
-
     return true;
-});
-
-set_exception_handler(function (\Throwable $e): void {
-    error_log($e->getMessage() . ' in ' . $e->getFile() . ':' . $e->getLine());
-    http_response_code(500);
-    echo json_encode(['success' => false, 'message' => 'Internal server error']);
 });
 ```
 
 ## Cryptographic Best Practices
 
 ```php
-// Secure random generation
-$token = bin2hex(random_bytes(32));     // 64-char hex token
-$apiKey = base64_encode(random_bytes(32)); // Base64 API key
-
-// Password hashing — ALWAYS Argon2id
-$hash = password_hash($password, PASSWORD_ARGON2ID, [
-    'memory_cost' => 65536,
-    'time_cost' => 4,
-    'threads' => 3,
+// Full encrypt/decrypt functions in references/security-code-patterns.md
+$token = bin2hex(random_bytes(32));                       // 64-char hex token
+$hash = password_hash($pw, PASSWORD_ARGON2ID, [           // Argon2id (ALWAYS)
+    'memory_cost' => 65536, 'time_cost' => 4, 'threads' => 3,
 ]);
-
-// Symmetric encryption — AES-256-GCM
-function encrypt(string $plaintext, string $key): string
-{
-    $iv = random_bytes(12); // 96 bits for GCM
-    $tag = '';
-    $ciphertext = openssl_encrypt($plaintext, 'aes-256-gcm', $key, OPENSSL_RAW_DATA, $iv, $tag);
-    return base64_encode($iv . $tag . $ciphertext);
-}
-
-function decrypt(string $encoded, string $key): string|false
-{
-    $data = base64_decode($encoded, true);
-    if ($data === false || strlen($data) < 28) {
-        return false;
-    }
-    $iv = substr($data, 0, 12);
-    $tag = substr($data, 12, 16);
-    $ciphertext = substr($data, 28);
-    return openssl_decrypt($ciphertext, 'aes-256-gcm', $key, OPENSSL_RAW_DATA, $iv, $tag);
-}
-
-// HMAC for data integrity
-$signature = hash_hmac('sha256', $payload, $secret);
-if (!hash_equals($expectedSignature, $signature)) {
-    throw new SecurityException('Invalid signature');
-}
+$cipher = encrypt($plaintext, $key);                      // AES-256-GCM
+$plain = decrypt($cipher, $key);                          // AES-256-GCM
+$sig = hash_hmac('sha256', $payload, $secret);            // HMAC integrity
+hash_equals($expected, $sig);                             // Timing-safe compare
 ```
 
 ## Security Checklist

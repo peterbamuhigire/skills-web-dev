@@ -1,6 +1,6 @@
 ---
 name: mysql-best-practices
-description: "MySQL 8.x best practices for high-performance SaaS applications. Use when designing database schemas, optimizing queries, implementing multi-tenant isolation, ensuring data integrity, or building scalable African SaaS platforms. Covers character sets, indexing, normalization, stored procedures, triggers, concurrency, security, and performance."
+description: "MySQL 8.x best practices for high-performance, secure SaaS applications. Use when designing database schemas, writing queries, optimizing performance, implementing multi-tenant isolation, configuring servers, setting up replication, hardening security, or troubleshooting slow queries. Covers indexing, EXPLAIN analysis, transactions, locking, advanced SQL (CTEs, window functions), backup, and server tuning."
 ---
 
 ## Required Plugins
@@ -11,15 +11,15 @@ description: "MySQL 8.x best practices for high-performance SaaS applications. U
 
 Production-grade MySQL patterns for high-performance, secure, scalable SaaS applications.
 
-**Core Principle:** Design for performance, security, and multi-tenant isolation from day one.
+**Core Principle:** Performance is query response time. Optimize queries and indexes first, tune server second, scale hardware last.
 
-**Access Policy (Required):** Frontend clients must never access the database directly. All data access must flow through backend services exposed via APIs, so web, Android, and other clients reuse the same logic without duplication.
+**Access Policy (Required):** Frontend clients must never access the database directly. All data access must flow through backend services exposed via APIs.
 
-**See subdirectories for:** `references/` (detailed examples), `examples/` (complete schemas)
+**Deep References:** `references/query-performance.md`, `references/indexing-deep-dive.md`, `references/server-tuning-mycnf.md`, `references/security-hardening.md`, `references/high-availability.md`, `references/advanced-sql-patterns.md`, `references/backup-recovery.md`, `references/transaction-locking.md`
+
+**SQL References:** `references/stored-procedures.sql`, `references/triggers.sql`, `references/partitioning.sql`
 
 ## Deployment Environments
-
-All database code must work across these environments:
 
 | Environment | OS | Database | Notes |
 |---|---|---|---|
@@ -30,513 +30,449 @@ All database code must work across these environments:
 **Cross-platform rules:**
 - Always use `utf8mb4_unicode_ci` collation (never `utf8mb4_0900_ai_ci` or `utf8mb4_general_ci`)
 - Never use platform-specific SQL features; test on MySQL 8.x
-- Production migrations go in `database/migrations-production/` with `-production` suffix, must be idempotent and non-destructive
+- Production migrations go in `database/migrations-production/` with `-production` suffix
 
 ## When to Use
 
-✅ Designing MySQL schemas for SaaS
-✅ Optimizing slow queries and indexes
-✅ Implementing multi-tenant isolation
-✅ Building transactional systems
-✅ Ensuring data integrity
-✅ Scaling for high concurrency
+✅ Designing MySQL schemas ✅ Optimizing queries ✅ Multi-tenant isolation ✅ Transactional systems ✅ Security hardening ✅ Server tuning ✅ Replication setup ✅ Advanced SQL
 
-❌ NoSQL databases
-❌ OLAP/data warehouses
+❌ NoSQL databases ❌ OLAP/data warehouses ❌ Non-MySQL databases
 
-## Character Set
+---
 
-Always use UTF-8 MB4:
+## Schema Design
+
+### Database & Table Defaults
 
 ```sql
 CREATE DATABASE saas_platform
-  CHARACTER SET utf8mb4
-  COLLATE utf8mb4_unicode_ci;
+  CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE users (
-  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
-```
-
-Supports African languages, emojis, international characters.
-
-## Storage Engine
-
-Always specify InnoDB for ACID compliance, row-level locking, crash recovery.
-
-## Table Design
-
-### Primary Keys
-
-Use auto-increment surrogate keys (sequential, cache-friendly):
-
-```sql
-CREATE TABLE tenants (
   id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(255) NOT NULL,
-  UNIQUE KEY uk_name (name)
-) ENGINE=InnoDB;
+  tenant_id INT UNSIGNED NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  KEY idx_tenant (tenant_id),
+  UNIQUE KEY uk_tenant_email (tenant_id, email)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 ```
 
-### Data Types
+**Always:** `ENGINE=InnoDB` (ACID, row-level locking, crash recovery), `utf8mb4`, `ROW_FORMAT=DYNAMIC`.
+
+### Data Types — Choose Smallest Sufficient
 
 ```sql
-tenant_id INT UNSIGNED NOT NULL,           -- Most FKs
-amount DECIMAL(13, 2) NOT NULL,            -- Financial (never FLOAT)
-currency CHAR(3) NOT NULL DEFAULT 'UGX',   -- Fixed codes
-status ENUM('pending', 'completed') NOT NULL,
-created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+-- Integers (use smallest that fits)
+TINYINT UNSIGNED     -- 0-255 (status codes, booleans)
+SMALLINT UNSIGNED    -- 0-65,535 (categories, small counts)
+INT UNSIGNED         -- 0-4.2B (most FKs, tenant_id)
+BIGINT UNSIGNED      -- >4.2B (PKs, high-volume tables)
+
+-- Financial — NEVER use FLOAT/DOUBLE
+amount DECIMAL(13, 2) NOT NULL  -- Exact precision
+
+-- Fixed-length codes
+currency CHAR(3) NOT NULL DEFAULT 'UGX'
+country_code CHAR(2) NOT NULL
+
+-- Enums for fixed sets
+status ENUM('pending', 'active', 'suspended') NOT NULL
+
+-- Timestamps — store UTC, convert at app layer
+TIMESTAMP            -- 4 bytes, auto UTC conversion
+DATETIME             -- 8 bytes, no timezone handling
 ```
 
-**Rules:** `TINYINT` (0-255), `SMALLINT` (0-65K), `INT` (0-4B), `BIGINT` (>2B), `DECIMAL` for money, `CHAR` for fixed-length.
+**Less data = more performance.** Smaller types mean more rows per InnoDB page (16KB), better buffer pool utilization, faster I/O.
 
-**Timestamps:** Store in UTC, convert at application layer.
-
-## Normalization
-
-### 1NF: Atomic Values
+### Normalization (3NF Default)
 
 ```sql
--- ✗ WRONG: items VARCHAR(500) -- "item1,item2"
--- ✓ CORRECT: Separate order_items table
+-- 1NF: Atomic values (no CSV in columns)
+-- 2NF: Depend on entire key (not partial)
+-- 3NF: Depend only on PK (no transitive dependencies)
+
+-- Strategic denormalization ONLY for proven performance needs
+-- Keep denormalized data in sync via triggers
 ```
 
-### 2NF: Depend on Entire Key
+### Foreign Keys
 
 ```sql
--- ✗ WRONG: item_name depends on item_id, not whole PK
--- ✓ CORRECT: item_name in items table
+FOREIGN KEY fk_tenant (tenant_id) REFERENCES tenants(id)
+  ON DELETE RESTRICT ON UPDATE CASCADE
 ```
 
-### 3NF: Depend Only on PK
+**Strategies:** `RESTRICT` (prevent orphans), `CASCADE` (delete children), `SET NULL` (optional relationships).
 
-```sql
--- ✗ WRONG: department_name depends on department_id
--- ✓ CORRECT: Separate departments table
-```
-
-### Strategic Denormalization
-
-For performance when normalization is costly. Keep in sync via triggers.
+---
 
 ## Indexing
+
+**The #1 performance lever.** Every slow query starts here.
+
+📖 **See `references/indexing-deep-dive.md` for B-tree internals, ICP, covering indexes**
+
+### Leftmost Prefix Rule (CRITICAL)
+
+MySQL can only use an index starting from the leftmost column:
+
+```sql
+-- Index: KEY idx_abc (a, b, c)
+-- ✓ Uses index: WHERE a = ?
+-- ✓ Uses index: WHERE a = ? AND b = ?
+-- ✓ Uses index: WHERE a = ? AND b = ? AND c = ?
+-- ✗ Cannot use: WHERE b = ?        (skips leftmost)
+-- ✗ Cannot use: WHERE b = ? AND c = ?  (skips leftmost)
+```
+
+### ESR Rule (Equality, Sort, Range)
+
+Order composite index columns: equality first, sort next, range last.
+
+```sql
+-- Query: WHERE tenant_id = ? AND status = ? ORDER BY created_at DESC WHERE amount > ?
+KEY idx_esr (tenant_id, status, created_at DESC, amount)
+--           ^equality   ^equality  ^sort              ^range (last!)
+```
+
+Range conditions (`<`, `>`, `BETWEEN`, `LIKE 'prefix%'`) stop further index column use.
 
 ### Index Types
 
 ```sql
--- PRIMARY KEY - Clustered (contains row data)
+-- Primary key (clustered — table data stored IN this index)
 id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY
 
--- UNIQUE KEY - Uniqueness + fast lookup
-UNIQUE KEY uk_registration (registration_number)
+-- Unique (uniqueness enforcement + fast lookup)
+UNIQUE KEY uk_email (tenant_id, email)
 
--- Regular KEY - WHERE, JOIN, ORDER BY
-KEY idx_tenant_customer (tenant_id, customer_id)
+-- Regular (WHERE, JOIN, ORDER BY)
+KEY idx_tenant_status (tenant_id, status)
 
--- FULLTEXT - Text search
+-- Fulltext (text search)
 FULLTEXT INDEX ft_search (title, content)
+
+-- Descending (MySQL 8.0+ — for ORDER BY col DESC)
+KEY idx_created_desc (tenant_id, created_at DESC)
 ```
 
-### Composite Indexes (ESR)
-
-**Equality, Sort, Range:**
+### EXPLAIN — Always Verify
 
 ```sql
--- Query: WHERE tenant_id = ? AND status = ? ORDER BY order_date DESC
-KEY idx_esr (tenant_id, status, order_date DESC)
+EXPLAIN FORMAT=JSON SELECT * FROM orders WHERE tenant_id = 1 AND status = 'active';
+
+-- EXPLAIN ANALYZE (MySQL 8.0.18+) — measures actual execution time
+EXPLAIN ANALYZE SELECT * FROM orders WHERE tenant_id = 1 ORDER BY created_at DESC LIMIT 25;
 ```
 
-### Best Practices
+**Access types (best to worst):**
+
+| type | Meaning | Action |
+|------|---------|--------|
+| `const` | Unique index, 1 row | Ideal |
+| `eq_ref` | Unique index in JOIN | Ideal |
+| `ref` | Non-unique index | Good |
+| `range` | Index range scan | Good |
+| `index` | Full index scan | Review |
+| `ALL` | **Full TABLE scan** | **FIX IMMEDIATELY** |
+
+**Red flags:** `type: ALL` with `key: NULL` = no usable index. `select_full_join > 0` = unindexed join. Stop and fix.
+
+### Index Anti-Patterns
 
 ```sql
--- ✓ DO: Specific
-KEY idx_active (is_active, created_at DESC)
+-- ✗ Redundant indexes (KEY(a) is redundant if KEY(a,b) exists)
+-- ✗ Low-cardinality solo indexes (KEY(is_deleted) — only 2 values)
+-- ✗ Over-indexing (each index = write amplification)
+-- ✗ Missing join indexes (every JOIN column needs an index)
 
--- ✗ DON'T: Redundant
-KEY idx_tenant (tenant_id)
-KEY idx_tenant_dup (tenant_id) -- Redundant
-
--- Left-most prefix: KEY (a, b, c) works for a | a+b | a+b+c
-
--- ✗ DON'T: Low cardinality
-KEY idx_deleted (is_deleted) -- Only 2 values
-
--- Monitor unused
-SELECT object_name FROM performance_schema.table_io_waits_summary_by_index_usage
-WHERE count_read = 0 AND index_name != 'PRIMARY';
+-- Monitor unused indexes
+SELECT object_name, index_name FROM performance_schema.table_io_waits_summary_by_index_usage
+WHERE count_read = 0 AND index_name != 'PRIMARY' AND object_schema = 'your_db';
 ```
 
-## Foreign Keys
+---
+
+## Query Performance
+
+**Performance = query response time.** The only metric users experience.
+
+📖 **See `references/query-performance.md` for profiling workflow, 9 essential metrics, query load**
+
+### Optimization Workflow
+
+1. **Profile** — Enable slow query log or use Performance Schema to find slowest queries
+2. **EXPLAIN** — Analyze execution plan; look for `type: ALL`, missing indexes
+3. **Index** — Create/modify indexes following ESR rule
+4. **Verify** — Re-EXPLAIN, confirm improvement
+5. **Monitor** — Track response time continuously
+
+### Query Rules
 
 ```sql
-CREATE TABLE organizations (
-  id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-  tenant_id INT UNSIGNED NOT NULL,
-  FOREIGN KEY fk_tenant (tenant_id) REFERENCES tenants(id)
-    ON DELETE RESTRICT ON UPDATE CASCADE,
-  KEY idx_tenant_id (tenant_id)
-);
-```
+-- ✓ DO: Select only needed columns
+SELECT id, name, total FROM orders WHERE tenant_id = ? LIMIT 25;
 
-**Strategies:**
+-- ✗ DON'T: SELECT * (wastes I/O, prevents covering indexes)
+SELECT * FROM orders;
 
-- `RESTRICT` - Prevent deletion if children exist
-- `CASCADE` - Delete children when parent deleted
-- `SET NULL` - Set FK to NULL
-- `UPDATE CASCADE` - Update FK (rare with auto-increment)
+-- ✓ DO: Parameterized queries (security + plan reuse)
+PREPARE stmt FROM 'SELECT * FROM users WHERE tenant_id = ? AND id = ?';
+EXECUTE stmt USING @tenant_id, @user_id;
 
-## Stored Procedures
+-- ✓ DO: Keyset pagination (fast at any offset)
+SELECT id, name FROM items WHERE tenant_id = ? AND id < ? ORDER BY id DESC LIMIT 25;
 
-**See `references/stored-procedures.sql`**
+-- ✗ DON'T: Large OFFSET (scans and discards rows)
+SELECT * FROM items LIMIT 25 OFFSET 100000;
 
-```sql
-CREATE PROCEDURE sp_process(IN p_id BIGINT, OUT p_success BOOLEAN)
-BEGIN
-  DECLARE EXIT HANDLER FOR SQLEXCEPTION BEGIN ROLLBACK; SET p_success = FALSE; END;
-  START TRANSACTION;
-  SELECT id INTO @v FROM table WHERE id = p_id FOR UPDATE;
-  COMMIT;
-  SET p_success = TRUE;
-END;
-```
+-- ✓ DO: JOINs with indexed columns
+SELECT o.id, c.name FROM orders o JOIN customers c ON o.customer_id = c.id WHERE o.tenant_id = ?;
 
-## Triggers
-
-**See `references/triggers.sql`**
-
-```sql
--- Audit trail
-CREATE TRIGGER tr_audit AFTER UPDATE ON customers FOR EACH ROW
-BEGIN
-  INSERT INTO audit_log (table_name, record_id, old_values, new_values)
-  VALUES ('customers', NEW.id, JSON_OBJECT('email', OLD.email), JSON_OBJECT('email', NEW.email));
-END;
-
--- Data consistency
-CREATE TRIGGER tr_total AFTER INSERT ON order_items FOR EACH ROW
-BEGIN
-  UPDATE orders SET total = (SELECT SUM(qty * price) FROM order_items WHERE order_id = NEW.order_id)
-  WHERE id = NEW.order_id;
-END;
-```
-
-## Concurrency
-
-```sql
--- Isolation level
-SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED;
-
--- Row-level locking (consistent order prevents deadlocks)
-START TRANSACTION;
-SELECT * FROM accounts WHERE id = LEAST(100, 200) FOR UPDATE;
-SELECT * FROM accounts WHERE id = GREATEST(100, 200) FOR UPDATE;
-COMMIT;
-```
-
-## Security
-
-### User Privileges
-
-```sql
--- Application user (never root)
-CREATE USER 'saas_app'@'%' IDENTIFIED BY 'strong_password';
-GRANT SELECT, INSERT, UPDATE ON saas_platform.* TO 'saas_app'@'%';
-REVOKE FILE, PROCESS, SHUTDOWN ON *.* FROM 'saas_app'@'%';
-```
-
-### Encryption
-
-```sql
--- TDE (my.cnf): default-table-encryption = ON
--- SSL (my.cnf): require_secure_transport = ON
--- Application-level: phone_encrypted VARBINARY(255) -- AES-256 at app layer
-```
-
-### SQL Injection
-
-```sql
--- ✗ DON'T: SET @q = CONCAT('SELECT * FROM users WHERE id = ', p_id);
--- ✓ DO: Parameterized
-PREPARE stmt FROM 'SELECT * FROM users WHERE id = ? AND tenant_id = ?';
-EXECUTE stmt USING p_user_id, p_tenant_id;
-DEALLOCATE PREPARE stmt;
-```
-
-### Multi-Tenant Isolation
-
-Always include `tenant_id` in WHERE clauses. Never allow queries without tenant filter.
-
-## Performance
-
-### Pagination & Low-Latency Reads
-
-Always paginate large result sets and fetch only the columns you need. Preserve sort order in SQL and keep UI sorting disabled unless explicitly requested.
-
-```sql
--- LIMIT/OFFSET (simple)
-SELECT id, code, name, total
-FROM tbl_items
-WHERE franchise_id = ?
-ORDER BY id DESC
-LIMIT ? OFFSET ?;
-
--- Keyset pagination (faster at scale)
-SELECT id, code, name, total
-FROM tbl_items
-WHERE franchise_id = ?
-  AND id < ?
-ORDER BY id DESC
-LIMIT ?;
-```
-
-**Rules:**
-
-- Always filter with indexed columns (franchise_id, dates, status).
-- Avoid `SELECT *`.
-- Use covering indexes for list views.
-- Keep per-page size small (25 default for UI tables).
-
-### Query Optimization
-
-```sql
--- 1. EXPLAIN to analyze
-EXPLAIN FORMAT=JSON SELECT * FROM orders WHERE tenant_id = 1;
-
--- 2. Covering indexes (index-only queries)
-KEY idx_covering (tenant_id, status, created_at DESC)
-SELECT tenant_id, status, created_at FROM orders WHERE tenant_id = 1;
-
--- 3. Avoid SELECT *
--- 4. LIMIT with indexed ORDER BY
--- 5. JOIN instead of subqueries
-```
-
-### Statistics
-
-```sql
-ANALYZE TABLE customers, orders;
-SET GLOBAL innodb_stats_persistent = ON;
-SET GLOBAL innodb_stats_auto_recalc = ON;
+-- ✗ DON'T: Subqueries where JOINs work
+SELECT * FROM orders WHERE customer_id IN (SELECT id FROM customers WHERE name LIKE '%smith%');
 ```
 
 ### Slow Query Log
 
-```sql
--- my.cnf: slow_query_log = 1, long_query_time = 2, log_queries_not_using_indexes = 1
+```ini
+# my.cnf
+slow_query_log = 1
+long_query_time = 1              # Log queries > 1 second
+log_queries_not_using_indexes = 1 # Also log queries without indexes
+log_slow_extra = ON              # MySQL 8.0.14+ — extra metrics
 ```
 
-### Partitioning
+---
 
-**See `references/partitioning.sql`**
+## Security
 
-```sql
--- By tenant: PARTITION BY HASH(tenant_id) PARTITIONS 10;
--- By date: PARTITION BY RANGE(YEAR(created_at))
-```
+**Never use root for application connections.** Principle of least privilege.
 
-## Database Migrations
+📖 **See `references/security-hardening.md` for TDE, SSL/TLS, audit, firewall, RBAC**
 
-### CRITICAL: Schema-Code Synchronization
-
-**Never modify schema without updating ALL references in code.**
-
-### Pre-Migration Checklist (MANDATORY)
-
-Before running ANY migration:
-
-```bash
-# 1. Find all code references to tables/columns being changed
-grep -r "table_name" --include="*.php" --include="*.sql" .
-
-# 2. List all stored procedures that reference the table
-mysql -e "SELECT ROUTINE_NAME FROM INFORMATION_SCHEMA.ROUTINES
-  WHERE ROUTINE_TYPE='PROCEDURE' AND ROUTINE_DEFINITION LIKE '%table_name%'"
-
-# 3. Check for triggers and views
-mysql -e "SHOW TRIGGERS LIKE 'table_name%'"
-mysql -e "SHOW FULL TABLES WHERE TABLE_TYPE LIKE 'VIEW'"
-```
-
-### Migration Workflow
+### Application User
 
 ```sql
--- 1. Backup before migration
-mysqldump --single-transaction --routines --triggers maduuka > backup_pre_migration.sql
+-- Create dedicated application user with minimal privileges
+CREATE USER 'saas_app'@'%' IDENTIFIED BY 'strong_random_password_here';
+GRANT SELECT, INSERT, UPDATE, DELETE ON saas_platform.* TO 'saas_app'@'%';
+-- Never grant: FILE, PROCESS, SHUTDOWN, SUPER, CREATE USER, GRANT OPTION
 
--- 2. Run migration in transaction (if possible)
+-- Read-only user for reporting/replicas
+CREATE USER 'saas_readonly'@'%' IDENTIFIED BY 'another_strong_password';
+GRANT SELECT ON saas_platform.* TO 'saas_readonly'@'%';
+```
+
+### Encryption
+
+```ini
+# my.cnf — TDE (Transparent Data Encryption)
+early-plugin-load=keyring_file.so
+default-table-encryption = ON
+
+# SSL/TLS (encrypt in transit)
+require_secure_transport = ON
+ssl_ca=/path/to/ca-cert.pem
+ssl_cert=/path/to/server-cert.pem
+ssl_key=/path/to/server-key.pem
+```
+
+```sql
+-- Application-level encryption for sensitive columns
+phone_encrypted VARBINARY(255)  -- AES-256 at app layer via PHP openssl_encrypt()
+```
+
+### Multi-Tenant Isolation (CRITICAL)
+
+```sql
+-- EVERY query MUST include tenant filter
+SELECT * FROM orders WHERE tenant_id = ? AND id = ?;
+
+-- Never allow cross-tenant access
+-- Always verify tenant_id at application layer before query
+-- Use UUIDs for public-facing IDs (prevent enumeration)
+
+-- Stored procedures must enforce tenant_id
+CREATE PROCEDURE sp_get_order(IN p_tenant_id INT, IN p_order_id BIGINT)
+BEGIN
+  SELECT * FROM orders WHERE tenant_id = p_tenant_id AND id = p_order_id;
+END;
+```
+
+### SQL Injection Prevention
+
+```sql
+-- ✓ CORRECT: Parameterized queries
+PREPARE stmt FROM 'SELECT * FROM users WHERE email = ? AND tenant_id = ?';
+EXECUTE stmt USING @email, @tenant_id;
+
+-- ✗ WRONG: String concatenation (VULNERABLE!)
+SET @q = CONCAT('SELECT * FROM users WHERE email = "', @email, '"');
+```
+
+---
+
+## Transactions & Locking
+
+📖 **See `references/transaction-locking.md` for MVCC, gap locks, deadlock patterns**
+
+### Isolation Levels
+
+| Level | Gap Locks | Phantom Rows | Use Case |
+|-------|-----------|-------------|----------|
+| READ COMMITTED | No | Yes | **Recommended for most SaaS apps** — reduces locking contention |
+| REPEATABLE READ | Yes | No (InnoDB) | Default — more locking, stronger consistency |
+
+```sql
+-- Set per-session (recommended for SaaS)
+SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED;
+```
+
+### Deadlock Prevention
+
+```sql
+-- ✓ DO: Lock rows in consistent order
 START TRANSACTION;
-ALTER TABLE tbl_invoices DROP COLUMN old_column;
--- Test immediately
-SELECT * FROM tbl_invoices LIMIT 1;
+SELECT * FROM accounts WHERE id = LEAST(100, 200) FOR UPDATE;
+SELECT * FROM accounts WHERE id = GREATEST(100, 200) FOR UPDATE;
+-- ... update both ...
 COMMIT;
 
--- 3. Update stored procedures that reference changed schema
-DROP PROCEDURE IF EXISTS sp_insert_invoice;
-CREATE PROCEDURE sp_insert_invoice(...) BEGIN
-  -- Updated to match new schema
-END;
-
--- 4. Verify no orphaned references
--- Check error logs, run affected endpoints
+-- ✓ DO: Keep transactions short
+-- ✓ DO: Use IN() instead of BETWEEN (fewer gap locks)
+-- ✗ DON'T: Long-running transactions (block purging, grow undo log)
+-- ✗ DON'T: BEGIN without COMMIT/ROLLBACK (stalled transactions)
 ```
 
-### Post-Migration Verification (MANDATORY)
+### Transaction Best Practices
+
+```sql
+-- Always use explicit transactions for multi-statement operations
+START TRANSACTION;
+  INSERT INTO orders (...) VALUES (...);
+  INSERT INTO order_items (...) VALUES (...);
+  UPDATE inventory SET quantity = quantity - ? WHERE id = ? AND quantity >= ?;
+  -- Check affected rows — if 0, ROLLBACK (insufficient inventory)
+COMMIT;
+```
+
+---
+
+## Advanced SQL
+
+📖 **See `references/advanced-sql-patterns.md` for full patterns, recursive CTEs, pivots**
+
+### Key Patterns
+
+```sql
+-- CTE with window function
+WITH monthly AS (
+  SELECT DATE_FORMAT(created_at, '%Y-%m') AS month, SUM(total) AS revenue
+  FROM orders WHERE tenant_id = ? GROUP BY month
+)
+SELECT month, revenue, revenue - LAG(revenue) OVER (ORDER BY month) AS change
+FROM monthly;
+
+-- Ranking
+SELECT id, name, RANK() OVER (PARTITION BY category ORDER BY total DESC) AS rank
+FROM products WHERE tenant_id = ?;
+
+-- ROLLUP subtotals
+SELECT COALESCE(category, 'TOTAL') AS category, SUM(amount)
+FROM sales WHERE tenant_id = ? GROUP BY category WITH ROLLUP;
+
+-- Recursive CTE (hierarchy)
+WITH RECURSIVE tree AS (
+  SELECT id, name, 1 AS depth FROM employees WHERE supervisor_id IS NULL AND tenant_id = ?
+  UNION ALL
+  SELECT e.id, e.name, t.depth + 1 FROM employees e JOIN tree t ON e.supervisor_id = t.id
+)
+SELECT * FROM tree ORDER BY depth, name;
+```
+
+---
+
+## Server Tuning
+
+📖 **See `references/server-tuning-mycnf.md` for 70+ metrics, complete my.cnf template**
+
+### Critical Variables
+
+| Variable | Default | Recommendation |
+|----------|---------|----------------|
+| `innodb_buffer_pool_size` | 128MB | **70-80% of server RAM** (most important variable) |
+| `innodb_buffer_pool_instances` | 8 | 8-24 for high concurrency |
+| `innodb_redo_log_capacity` | 100MB | 1-4GB for write-heavy workloads (8.0.30+) |
+| `innodb_log_buffer_size` | 16MB | 48MB for heavy transactions |
+| `innodb_flush_log_at_trx_commit` | 1 | **Keep at 1** (ACID durability) |
+| `max_connections` | 151 | 500+ for production |
+| `innodb_dedicated_server` | OFF | ON for dedicated MySQL servers (8.0.14+) |
+
+**Do NOT randomly tune variables.** The buffer pool is the overwhelmingly most impactful setting. Optimize queries and indexes first.
+
+### Monitoring
+
+```sql
+-- Buffer pool hit rate (should be > 99%)
+SHOW GLOBAL STATUS LIKE 'Innodb_buffer_pool_read%';
+-- Hit rate = read_requests / (read_requests + reads) * 100
+
+-- Active threads (should be low single digits normally)
+SHOW GLOBAL STATUS LIKE 'Threads_running';
+
+-- Row lock contention (should be near zero)
+SHOW GLOBAL STATUS LIKE 'Innodb_row_lock%';
+
+-- Table maintenance
+ANALYZE TABLE customers, orders;  -- Update index statistics
+OPTIMIZE TABLE large_table;       -- Reclaim space (locks table — off-peak only)
+```
+
+---
+
+## Operations
+
+📖 **See `references/backup-recovery.md`** (mysqldump, XtraBackup, point-in-time recovery) | **`references/high-availability.md`** (GTID replication, InnoDB Cluster, failover)
 
 ```bash
-# 1. Verify column removed from all procedures
-mysql -e "SELECT ROUTINE_NAME FROM INFORMATION_SCHEMA.ROUTINES
-  WHERE ROUTINE_DEFINITION LIKE '%dropped_column%'"  # Should return 0 rows
-
-# 2. Check PHP code for removed columns
-grep -r "dropped_column" --include="*.php" .  # Should return 0 results
-
-# 3. Test affected endpoints
-curl http://localhost/api/endpoint
-tail -50 /var/log/php_error.log  # Check for schema errors
-
-# 4. Export updated schema
-mysqldump --no-data --routines --triggers maduuka > database/schema/current.sql
+# Essential backup command
+mysqldump --single-transaction --routines --triggers --all-databases > backup.sql
 ```
 
-### Migration Best Practices
+### Migrations
+
+```bash
+# Pre-migration checklist: 1) grep references, 2) check stored procs, 3) backup
+grep -r "table_name" --include="*.php" --include="*.sql" .
+mysqldump --single-transaction database_name > backup_pre_migration.sql
+```
 
 ```sql
--- ✓ DO: Add columns with defaults (non-breaking)
-ALTER TABLE orders ADD COLUMN tracking_number VARCHAR(50) DEFAULT NULL;
-
--- ✓ DO: Make columns nullable first, then migrate data
-ALTER TABLE orders MODIFY COLUMN legacy_id INT NULL;
-UPDATE orders SET legacy_id = NULL WHERE legacy_id = 0;
-ALTER TABLE orders DROP COLUMN legacy_id;
-
--- ✗ DON'T: Drop columns without grep-checking codebase
--- ALTER TABLE orders DROP COLUMN customer_id;  -- DANGER!
--- Must verify: grep -r "customer_id" . returns 0 results
-
--- ✗ DON'T: Rename columns without updating procedures
--- ALTER TABLE orders CHANGE old_name new_name VARCHAR(50);
--- Must update: ALL stored procedures, triggers, views, PHP code
+ALTER TABLE orders ADD COLUMN tracking VARCHAR(50) DEFAULT NULL;  -- Non-breaking
 ```
 
-### Common Migration Errors
-
-```
-Error: "Unknown column 'customer_id' in 'field list'"
-Cause: Stored procedure references dropped/non-existent column
-Fix: Update procedure to remove column reference
-
-Error: "Table 'tbl_franchise_role_overrides' doesn't exist"
-Cause: Migration dropped table but code still queries it
-Fix: Either restore table or update code to not reference it
-
-Error: "Data truncated for column"
-Cause: Changed column type without migrating existing data
-Fix: Migrate data before changing type, or make column larger
-```
-
-### Migration Rollback
-
-```sql
--- Always have rollback plan
--- 1. Keep backup before migration
--- 2. If migration fails, restore:
-mysql maduuka < backup_pre_migration.sql
-
--- 3. Document rollback steps in migration file
--- Rollback: ALTER TABLE orders ADD COLUMN customer_id BIGINT UNSIGNED;
-```
-
-## Backup
-
-```sql
--- Binary logging (my.cnf): log_bin = mysql-bin, binlog_format = ROW
--- Full: mysqldump --single-transaction --all-databases > backup.sql
--- Point-in-time: mysqlbinlog mysql-bin.000003 --stop-datetime="2024-01-15 12:00" | mysql
-```
-
-## Monitoring
-
-```sql
-SHOW STATUS LIKE 'Threads%';
-SELECT table_name, data_free FROM information_schema.tables WHERE data_free > 0;
-OPTIMIZE TABLE customers, orders; -- Low-traffic periods
-SHOW GLOBAL STATUS LIKE 'Innodb_buffer_pool_reads%';
-```
-
-## Connection Pooling
-
-```sql
-SET GLOBAL max_connections = 1000;
-SET GLOBAL wait_timeout = 28800;
--- Pool size: 30-50 per app server, 50-100 for high concurrency
-```
+---
 
 ## Checklist
 
-**Schema:**
+**Schema:** ✅ UTF8MB4 + InnoDB + ROW_FORMAT=DYNAMIC ✅ Smallest sufficient data types ✅ DECIMAL for money ✅ 3NF normalized ✅ Foreign keys with RESTRICT/CASCADE
 
-- [ ] UTF8MB4 + InnoDB + ROW_FORMAT=DYNAMIC
-- [ ] Auto-increment PKs, appropriate data types
-- [ ] 3NF normalized
+**Indexing:** ✅ ESR composite indexes ✅ Leftmost prefix satisfied ✅ No redundant indexes ✅ Join columns indexed ✅ EXPLAIN verified on critical queries ✅ No `type: ALL` in EXPLAIN
 
-**Indexes:**
+**Performance:** ✅ No SELECT * ✅ Keyset pagination for large offsets ✅ Covering indexes for hot queries ✅ Slow query log enabled ✅ Buffer pool sized to 70-80% RAM ✅ ANALYZE TABLE regular
 
-- [ ] ESR composite indexes
-- [ ] No redundant indexes
-- [ ] Regular ANALYZE TABLE
+**Security:** ✅ Application user (not root) ✅ Minimal privileges ✅ Parameterized queries only ✅ TDE + SSL encryption ✅ tenant_id in EVERY query ✅ UUIDs for public IDs
 
-**Integrity:**
+**Transactions:** ✅ READ COMMITTED isolation for SaaS ✅ Consistent lock ordering ✅ Short transactions ✅ IN() over BETWEEN for less locking ✅ No stalled transactions
 
-- [ ] Explicit foreign keys
-- [ ] Audit triggers
+**Operations:** ✅ Binary logging enabled ✅ Regular backups tested ✅ Monitoring active ✅ Migration checklist followed
 
-**Multi-Tenant:**
+---
 
-- [ ] tenant_id in all queries
-
-**Concurrency:**
-
-- [ ] Row-level locking, consistent ordering
-
-**Security:**
-
-- [ ] Application user (not root)
-- [ ] Minimal privileges
-- [ ] Parameterized queries
-- [ ] TDE + SSL encryption
-
-**Performance:**
-
-- [ ] Connection pooling
-- [ ] Slow query logging
-- [ ] EXPLAIN on critical queries
-
-**Operations:**
-
-- [ ] Binary logging
-- [ ] Backup testing
-- [ ] Monitoring
-
-**Migrations:**
-
-- [ ] Pre-migration: grep all table/column references
-- [ ] Pre-migration: check stored procedures, triggers, views
-- [ ] Pre-migration: backup database
-- [ ] Post-migration: verify no orphaned references in code
-- [ ] Post-migration: test affected endpoints
-- [ ] Post-migration: export updated schema
-- [ ] Document rollback procedure
-
-## Summary
-
-1. UTF8MB4 + InnoDB always
-2. Size data types appropriately
-3. Normalize to 3NF, denormalize strategically
-4. ESR composite indexes
-5. Tenant isolation everywhere
-6. Parameterized queries only
-7. Encrypt sensitive data
-8. Monitor continuously
-
-**Remember:** Design for multi-tenant isolation, security, and performance from day one.
+**Sources:** Efficient MySQL Performance (Nichter 2022), Mastering MySQL Administration (Kumar et al. 2024), Leveling Up with SQL (Simon 2023)
+**Last Updated:** 2026-03-04
+**Maintained by:** Peter Bamuhigire

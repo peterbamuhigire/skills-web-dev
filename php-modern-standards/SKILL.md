@@ -3,21 +3,19 @@ name: php-modern-standards
 description: "Modern PHP development standards for maintainable, testable, object-oriented code. Use when writing PHP 8+ applications, implementing OOP patterns, ensuring security, following PSR standards, optimizing performance, or building Laravel applications. Covers strict typing, modern features, SOLID principles, security patterns, testing, and 2026 international programming standards."
 ---
 
-## Required Plugins
-
-**Superpowers plugin:** MUST be active for all work using this skill. Use throughout the entire build pipeline — design decisions, code generation, debugging, quality checks, and any task where it offers enhanced capabilities. If superpowers provides a better way to accomplish something, prefer it over the default approach.
-
 # PHP Modern Standards
 
 Production-grade PHP patterns for maintainable, testable, secure, high-performance applications.
 
 **Core Principle:** Write type-safe, secure, performant PHP code following PSR standards with modern PHP 8+ features.
 
-**See subdirectories:** `references/security-patterns.md`, `examples/modern-php-patterns.php`, `examples/laravel-patterns.php`
+**References:** `references/performance-efficiency.md`, `references/code-quality-tooling.md`
+**Examples:** `examples/modern-php-patterns.php`, `examples/laravel-patterns.php`
+**Security:** Use **php-security** skill for comprehensive security patterns.
 
-## When to Use
+✅ PHP 8+ ✅ OOP ✅ Security ✅ Testing ✅ Performance ✅ Laravel | ❌ Legacy PHP (<7.4) ❌ WordPress
 
-✅ PHP 8+ applications ✅ OOP architecture ✅ Code security ✅ Testable systems ✅ Performance optimization ✅ Laravel conventions
+---
 
 ## File Structure
 
@@ -46,22 +44,25 @@ final readonly class User
 
 Code runs on Windows (dev), Ubuntu (staging), and Debian (production). Linux is case-sensitive:
 
-- **Directories:** Use lowercase for config/utility dirs (`src/config/`, `src/lang/`). Use PascalCase for module dirs matching namespace (`src/HR/Services/`, `src/Auth/`).
-- **Class files:** PascalCase matching class name (`StaffService.php`, `EmailService.php`).
-- **require/include:** Must match EXACT case on disk. `../src/Config/database.php` will fail on Linux if dir is `config/`.
-- **Paths:** Use `/` (forward slash) in PHP code. Never hardcode `C:\...` in application logic. Use `DIRECTORY_SEPARATOR` or `/` which PHP handles cross-platform.
-- **Temp files:** Use `sys_get_temp_dir()`, not hardcoded paths.
+- **Class files:** PascalCase matching class name (`StaffService.php`)
+- **Config dirs:** lowercase (`src/config/`, `src/lang/`)
+- **Module dirs:** PascalCase matching namespace (`src/HR/Services/`)
+- **require/include:** Must match EXACT case on disk
+- **Paths:** Use `/` (forward slash). Never hardcode `C:\`. Use `sys_get_temp_dir()` for temp files.
+
+---
 
 ## Type System
 
 ### Strict Typing (Required)
 
 ```php
-declare(strict_types=1); // Always
+declare(strict_types=1); // Always — every file
 
 function calculateTotal(int $quantity, float $price): float { }
-function getUser(int $id): ?User { } // Nullable
-function log(string $msg): void { } // Void
+function getUser(int $id): ?User { }        // Nullable
+function log(string $msg): void { }          // Void
+function terminate(): never { throw new RuntimeException(); }  // Never (8.1+)
 ```
 
 ### Modern Types
@@ -73,26 +74,18 @@ function process(int|float $value): string|int { }
 // Intersection types (PHP 8.1+)
 function handle(Countable&Traversable $collection): void { }
 
-// Never type (PHP 8.1+)
-function terminate(): never { throw new RuntimeException(); }
-
-// Short nullable (?Type not Type|null)
-function getName(): ?string // ✓ CORRECT
-```
-
-### Typed Properties (Required)
-
-```php
-final class User
+// Readonly classes (PHP 8.2+)
+final readonly class Money
 {
-    private int $id;
-    private string $email;
-    private ?string $nickname = null;
-    private array $roles = [];
+    public function __construct(
+        public float $amount,
+        public string $currency,
+    ) {
+    }
 }
 ```
 
-### Constructor Promotion
+### Constructor Promotion (Required for DTOs/Value Objects)
 
 ```php
 final readonly class User
@@ -106,18 +99,7 @@ final readonly class User
 }
 ```
 
-### Readonly (PHP 8.1+)
-
-```php
-final readonly class Money
-{
-    public function __construct(
-        public float $amount,
-        public string $currency,
-    ) {
-    }
-}
-```
+---
 
 ## Modern Features
 
@@ -149,26 +131,18 @@ $status = match ($code) {
 };
 ```
 
-### Named Arguments
+### Named Arguments + Nullsafe Operator
 
 ```php
-new User(
-    id: 1,
-    email: 'user@example.com',
-    name: 'John',
-);
-```
+new User(id: 1, email: 'user@example.com', name: 'John');
 
-### Nullsafe Operator
-
-```php
 $country = $user?->getAddress()?->getCountry();
 ```
 
-### Attributes
+### Attributes (PHP 8.0+)
 
 ```php
-#[\Attribute]
+#[\Attribute(\Attribute::TARGET_METHOD)]
 final readonly class Route
 {
     public function __construct(
@@ -179,34 +153,137 @@ final readonly class Route
 }
 ```
 
+### Fibers (PHP 8.1+) — Concurrency
+
+```php
+$fiber = new Fiber(function (): void {
+    $value = Fiber::suspend('paused');
+    echo "Resumed with: $value";
+});
+
+$result = $fiber->start();   // 'paused'
+$fiber->resume('hello');     // Resumed with: hello
+```
+
+**Decision rule:** Use **Generators** for iterative data processing. Use **Fibers** for concurrent task management (async I/O, multiple waiting tasks).
+
+---
+
+## Performance
+
+**The #1 performance lever is database queries, not PHP code.** If PHP is the bottleneck, you have other problems.
+
+📖 **See `references/performance-efficiency.md` for generators deep dive, OPcache, profiling, Fibers**
+
+### Generators (Memory-Efficient Iteration)
+
+```php
+// Process large files without loading into memory
+function readCsv(string $path): \Generator
+{
+    $fh = fopen($path, 'r');
+    while (($row = fgetcsv($fh, 1024)) !== false) {
+        yield $row;
+    }
+    fclose($fh);
+}
+
+foreach (readCsv('large.csv') as $row) {
+    processLine($row);  // Only 1 row in memory at a time
+}
+
+// Generator for database results — fetch one at a time
+function fetchAll(\PDO $pdo, string $sql): \Generator
+{
+    $stmt = $pdo->query($sql);
+    while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
+        yield $row;
+    }
+}
+```
+
+### Built-in Functions Rule (CRITICAL)
+
+**PHP's C-implemented built-in functions are ~100x faster than userland equivalents.**
+
+```php
+// ✓ DO: Use built-in sort() — 0.003ms for 10K elements
+sort($array);
+
+// ✗ DON'T: Implement your own — 0.306ms for 10K elements (100x slower)
+function userQuicksort(array &$list): void { /* ... */ }
+
+// ✓ DO: Use str_contains() (PHP 8.0+) not strpos
+str_contains($haystack, $needle);
+
+// ✓ DO: Use array_map/array_filter not foreach for transforms
+$names = array_map(fn (User $u) => $u->name, $users);
+```
+
+### OPcache (Required in Production)
+
+```ini
+; php.ini — production
+opcache.enable = 1
+opcache.memory_consumption = 256
+opcache.max_accelerated_files = 20000
+opcache.validate_timestamps = 0     ; Disable in production (deploy script should clear)
+opcache.jit = 1255                   ; JIT compilation (PHP 8.0+)
+opcache.jit_buffer_size = 128M
+```
+
+### SPL Data Structures
+
+```php
+$queue = new \SplQueue();         // FIFO
+$stack = new \SplStack();         // LIFO
+$heap = new \SplMinHeap();        // Priority queue
+$fixed = new \SplFixedArray(100); // Fixed-size (less memory than array)
+```
+
+---
+
 ## SOLID Principles
 
 ### Single Responsibility
 
 ```php
-final readonly class UserValidator { }
-final readonly class UserRepository { }
+final readonly class UserValidator { }  // Validation only
+final readonly class UserRepository { } // Data access only
 ```
 
-### Open/Closed
+### Open/Closed + Dependency Inversion
 
 ```php
-interface PaymentGateway { }
-final readonly class StripeGateway implements PaymentGateway { }
+interface PaymentGateway { public function charge(Money $amount): PaymentResult; }
+final readonly class StripeGateway implements PaymentGateway { /* ... */ }
+
+// Depend on interface, not concrete class
+public function __construct(private PaymentGateway $gateway) { }
 ```
 
-### Dependency Inversion
+### Class Design Rules
 
 ```php
-public function __construct(
-    private PaymentGateway $gateway, // Interface, not concrete
-) {
+final class Example
+{
+    // 1. Constants → 2. Properties → 3. Constructor → 4. Public → 5. Private
+    private const MAX = 3;
+    private string $name;
+
+    public function __construct(int $id) { }
+    public function getName(): string { }
+    private function helper(): void { }
 }
 ```
 
+**Use `final` by default.** Forces composition over inheritance. Only use `abstract` when explicitly designing for extension.
+
+---
+
 ## Control Flow
 
-### Happy Path Last
+### Early Returns (Happy Path Last)
 
 ```php
 public function process(Order $order): void
@@ -214,210 +291,127 @@ public function process(Order $order): void
     if (!$order->isValid()) {
         throw new InvalidOrderException();
     }
-
-    // Happy path
+    // Happy path continues...
     $this->fulfillment->process($order);
 }
 ```
 
-### Avoid `else`
+### Strict Comparison (Always)
 
 ```php
-if (!$user->isActive()) {
-    return null;
-}
-
-return $user->process();
+if ($status === 'active') { }                    // ✓ CORRECT
+if (in_array($role, $roles, true)) { }           // ✓ strict third param
+hash_equals($expected, $actual);                  // ✓ timing-safe for secrets
 ```
 
-### Strict Comparison
+---
+
+## Security (Essentials)
+
+**For comprehensive security patterns, use the `php-security` skill.** Key essentials:
 
 ```php
-if ($status === 'active') { } // ✓ CORRECT
-if ($count !== 0) { }
-if (in_array($role, $roles, true)) { }
-```
+// Input validation
+filter_var($email, FILTER_VALIDATE_EMAIL);
+filter_var($age, FILTER_VALIDATE_INT, ['options' => ['min_range' => 13, 'max_range' => 120]]);
 
-## Security
-
-**See `references/security-patterns.md` for complete guide.**
-
-### Input Validation
-
-```php
-final readonly class UserValidator
-{
-    public function validate(array $data): ValidationResult
-    {
-        $errors = [];
-
-        if (!filter_var($data['email'] ?? '', FILTER_VALIDATE_EMAIL)) {
-            $errors['email'] = 'Invalid email';
-        }
-
-        $age = filter_var($data['age'] ?? null, FILTER_VALIDATE_INT, [
-            'options' => ['min_range' => 13, 'max_range' => 120],
-        ]);
-        if ($age === false) {
-            $errors['age'] = 'Invalid age';
-        }
-
-        return new ValidationResult($errors);
-    }
-}
-```
-
-### SQL Injection Prevention
-
-```php
-// ✓ CORRECT
+// SQL injection prevention — ALWAYS prepared statements
 $stmt = $pdo->prepare('SELECT * FROM users WHERE email = ?');
 $stmt->execute([$email]);
 
-// ✗ WRONG
-$query = "SELECT * FROM users WHERE email = '$email'"; // VULNERABLE!
-```
-
-### XSS Protection
-
-```php
-echo htmlspecialchars($userInput, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+// XSS protection — encode output by context
+echo htmlspecialchars($input, ENT_QUOTES | ENT_HTML5, 'UTF-8');
 echo json_encode($data, JSON_HEX_TAG | JSON_HEX_AMP);
-```
 
-### Password Handling
-
-```php
-// Hash (Argon2id)
-$hash = password_hash($plainPassword, PASSWORD_ARGON2ID, [
-    'memory_cost' => 65536,
-    'time_cost' => 4,
-    'threads' => 3,
+// Password hashing — ALWAYS Argon2id
+$hash = password_hash($password, PASSWORD_ARGON2ID, [
+    'memory_cost' => 65536, 'time_cost' => 4, 'threads' => 3,
 ]);
 
-// Verify
-if (password_verify($plainPassword, $hash)) {
-    if (password_needs_rehash($hash, PASSWORD_ARGON2ID)) {
-        $newHash = password_hash($plainPassword, PASSWORD_ARGON2ID);
-    }
-}
+// Session — secure init
+ini_set('session.use_strict_mode', '1');
+ini_set('session.cookie_httponly', '1');
+ini_set('session.cookie_samesite', 'Strict');
+session_start();
+session_regenerate_id(true); // On auth state change
+
+// Cryptography — use Libsodium (PHP 7.2+ core), not OpenSSL
+sodium_crypto_secretbox($message, $nonce, $key);  // Symmetric
+sodium_crypto_box($message, $nonce, $keypair);     // Asymmetric
 ```
 
-### CSRF Protection
+---
+
+## Testing
+
+📖 **See `references/code-quality-tooling.md` for PHPStan, Pint config, CI/CD patterns**
+
+### AAA Pattern (Arrange-Act-Assert)
 
 ```php
-final readonly class CsrfProtection
+public function testCalculateSubtotal(): void
 {
-    public function generateToken(): string
-    {
-        $token = bin2hex(random_bytes(32));
-        $_SESSION['csrf_token'] = $token;
-        $_SESSION['csrf_token_time'] = time();
-        return $token;
-    }
+    // Arrange
+    $cart = new ShoppingCart();
+    $items = [['price' => 10, 'quantity' => 2], ['price' => 5, 'quantity' => 4]];
 
-    public function validateToken(string $token): bool
-    {
-        if (!isset($_SESSION['csrf_token'])) {
-            return false;
-        }
+    // Act
+    $subtotal = $cart->calculateSubtotal($items);
 
-        if (time() - ($_SESSION['csrf_token_time'] ?? 0) > 7200) {
-            return false;
-        }
-
-        return hash_equals($_SESSION['csrf_token'], $token);
-    }
+    // Assert
+    $this->assertEquals(40, $subtotal);
 }
 ```
 
-### Session Management
+### Data Providers
 
 ```php
-// Secure session initialization
-function initSecureSession(): void
+/** @dataProvider additionProvider */
+public function testAddition(int $a, int $b, int $expected): void
 {
-    ini_set('session.use_strict_mode', '1');
-    ini_set('session.cookie_httponly', '1');
-    ini_set('session.cookie_samesite', 'Strict');
-    ini_set('session.use_only_cookies', '1');
-    ini_set('session.use_trans_sid', '0');
-
-    $isHttps = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
-               || ($_SERVER['SERVER_PORT'] ?? 0) == 443;
-    ini_set('session.cookie_secure', $isHttps ? '1' : '0');
-
-    session_start();
+    $this->assertEquals($expected, add($a, $b));
 }
 
-// Regenerate on auth state change (login, privilege escalation)
-session_regenerate_id(true);
-
-// Idle timeout enforcement
-if (isset($_SESSION['last_activity']) && time() - $_SESSION['last_activity'] > 1800) {
-    session_destroy();
-}
-$_SESSION['last_activity'] = time();
-```
-
-**See php-security skill** for complete session hardening and php.ini configuration.
-
-## Performance
-
-### Generators
-
-```php
-function readLargeFile(string $path): \Generator
+public static function additionProvider(): array
 {
-    $handle = fopen($path, 'r');
-    while (($line = fgets($handle)) !== false) {
-        yield trim($line);
-    }
-    fclose($handle);
-}
-
-foreach (readLargeFile('large.csv') as $line) {
-    processLine($line);
+    return [[1, 2, 3], [0, 0, 0], [-1, 1, 0]];
 }
 ```
 
-### SPL Data Structures
+### Mocking Dependencies
 
 ```php
-$queue = new \SplQueue();
-$queue->enqueue('task');
-$task = $queue->dequeue();
-
-$pq = new \SplPriorityQueue();
-$pq->insert('low', 1);
-$pq->insert('high', 10);
+$mockDb = $this->createMock(Database::class);
+$mockDb->expects($this->once())
+    ->method('query')
+    ->willReturn($fakeData);
 ```
+
+### Exception Testing
+
+```php
+public function testDivideByZeroThrows(): void
+{
+    $this->expectException(DivisionByZeroError::class);
+    divide(10, 0);
+}
+```
+
+---
 
 ## Laravel Conventions
 
-### Routes
+### Routes + Controllers
 
 ```php
-// URLs: kebab-case, Names: camelCase, Params: camelCase
-Route::get('/open-source', [OpenSourceController::class, 'index'])
-    ->name('openSource');
-```
+// URLs: kebab-case, Names: camelCase
+Route::get('/open-source', [OpenSourceController::class, 'index'])->name('openSource');
 
-### Controllers
-
-```php
-// Plural for resources
+// Plural controllers, singular for single resources
 final class PostsController extends Controller
 {
     public function index(): Response { }
-    public function show(Post $post): Response { }
     public function store(StorePostRequest $request): Response { }
-}
-
-// Singular for single resources
-final class ProfileController extends Controller
-{
-    public function show(): Response { }
 }
 ```
 
@@ -431,117 +425,74 @@ final class User extends Model
 
     protected function casts(): array
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'is_active' => 'boolean',
-        ];
+        return ['email_verified_at' => 'datetime', 'is_active' => 'boolean'];
     }
 
-    public function posts(): HasMany
-    {
-        return $this->hasMany(Post::class);
+    public function posts(): HasMany { return $this->hasMany(Post::class); }
+}
+```
+
+---
+
+## Code Quality Tooling
+
+📖 **See `references/code-quality-tooling.md` for complete configs**
+
+```json
+{
+    "scripts": {
+        "stan": ["./vendor/bin/phpstan analyse --memory-limit=3g"],
+        "pint": ["./vendor/bin/pint"],
+        "test": ["./vendor/bin/pest --type-coverage"]
     }
 }
 ```
 
-## Class Design
+**Required tools:**
+- **PHPStan** level 8+ (level 9 for strict projects)
+- **Laravel Pint** or **PHP CS Fixer** (PSR-12 base + `final_class`, `strict_comparison`, `declare_strict_types`)
+- **PHPUnit** or **PestPHP** with type-coverage
 
-### Use `final` by Default
-
-```php
-final readonly class User { } // Default
-abstract class BaseController { } // Only when needed
-```
-
-### Class Structure Order
-
-```php
-final class Example
-{
-    // 1. Constants
-    private const MAX = 3;
-
-    // 2. Properties (public → protected → private)
-    public readonly int $id;
-    private string $name;
-
-    // 3. Constructor
-    public function __construct(int $id) { }
-
-    // 4. Public methods
-    public function getName(): string { }
-
-    // 5. Private methods
-    private function helper(): void { }
-}
-```
-
-### Traits (Sparingly)
-
-```php
-// One trait per line
-final class Article
-{
-    use Timestampable;
-    use Publishable;
-}
-```
-
-## Anti-Patterns (Avoid)
-
-```php
-// ✗ No types
-function process($data) { }
-
-// ✗ Loose comparison
-if ($value == 1) { }
-
-// ✗ Switch for values
-switch ($status) { }
-
-// ✗ Globals
-$GLOBALS['config'] = [];
-
-// ✗ Redundant docblocks
-/** @param string $name */
-public function setName(string $name): void { }
-```
+---
 
 ## PSR Standards
 
-- **PSR-1:** Basic coding
-- **PSR-12:** Style guide (follow this)
-- **PSR-4:** Autoloading
-- **PSR-7:** HTTP messages
-- **PSR-11:** Container
-- **PSR-15:** Request handlers
+| Standard | Purpose |
+|----------|---------|
+| PSR-1 | Basic coding |
+| PSR-4 | Autoloading |
+| PSR-7 | HTTP messages |
+| PSR-11 | Container |
+| PSR-12 | Code style |
+| PSR-15 | Request handlers |
 
-## Tooling
+---
 
-- **PHPStan:** Static analysis (level 8+)
-- **PHP CS Fixer:** PSR-12 formatting
-- **PHPUnit/Pest:** Testing
+## Anti-Patterns
+
+```php
+function process($data) { }              // ✗ No types
+if ($value == 1) { }                     // ✗ Loose comparison (use ===)
+switch ($status) { }                     // ✗ Use match instead
+$GLOBALS['config'] = [];                 // ✗ No globals
+$data = file('huge.csv');                // ✗ Use generators!
+/** @param string $name */               // ✗ Redundant docblock
+public function setName(string $name): void { }
+function myQuicksort(array &$list): void { }  // ✗ Use built-in sort()
+```
 
 ## Checklist
 
-✅ `declare(strict_types=1)`
-✅ Full type hints
-✅ Readonly for immutable
-✅ Final by default
-✅ Match over switch
-✅ Enums for fixed values
-✅ Early returns
-✅ Strict comparison (===)
-✅ Input validation
-✅ Prepared statements
-✅ Output escaping
-✅ Argon2id passwords
-✅ Generators for large data
-✅ PSR-12 compliant
-✅ Session: strict mode + httponly + samesite
-✅ Error display off in production
+**Code Quality:** ✅ `declare(strict_types=1)` ✅ Full type hints ✅ Readonly for immutable ✅ Final by default ✅ Match over switch ✅ Enums for fixed values ✅ Early returns ✅ Strict comparison ✅ PSR-12 compliant
 
-**References:**
-- PHP: https://www.php.net/manual/
-- PSR: https://www.php-fig.org/psr/
-- Modern PHP: https://phptherightway.com/
+**Performance:** ✅ Generators for large data ✅ Built-in functions (not userland) ✅ OPcache enabled ✅ SPL structures for specialized needs ✅ Fibers for concurrency
+
+**Security:** ✅ Input validation ✅ Prepared statements ✅ Output escaping ✅ Argon2id passwords ✅ Session: strict mode + httponly + samesite ✅ Libsodium for crypto ✅ Error display off in production
+
+**Tooling:** ✅ PHPStan level 8+ ✅ Pint/CS Fixer ✅ PHPUnit/PestPHP ✅ Composer scripts for CI
+
+---
+
+**Sources:** Generating Efficient PHP (php[architect] 2023), PHP: The Right Way
+**Last Updated:** 2026-03-04
+**Maintained by:** Peter Bamuhigire

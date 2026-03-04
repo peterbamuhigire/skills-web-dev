@@ -117,7 +117,7 @@ skills/
 ├── api-error-handling/              # API error handling
 ├── api-pagination/                 # Offset pagination (PHP + Android infinite scroll)
 ├── mysql-best-practices/            # MySQL 8.x (schema, indexing, queries, security, transactions, tuning, HA)
-├── php-modern-standards/            # PHP 8+ modern standards
+├── php-modern-standards/            # PHP 8+ (strict typing, SOLID, generators, OPcache, testing, Fibers, security)
 ├── php-security/                    # PHP security patterns (sessions, XSS, CSRF, file uploads, php.ini)
 ├── saas-accounting-system/           # Double-entry accounting engine for SaaS
 ├── saas-seeder/                     # SaaS bootstrap and seeding

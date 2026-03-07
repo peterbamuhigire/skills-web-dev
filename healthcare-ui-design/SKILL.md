@@ -68,3 +68,7 @@ For cognitive science-based evaluation of clinical UI designs -- particularly th
 - Missing confirmation dialogs on irreversible clinical actions.
 - Inadequate session timeout policies for shared clinical workstations.
 - Not designing for interruption recovery in clinical workflows.
+
+## Cognitive UX Evaluation
+
+For cognitive science-based evaluation of clinical UI designs — particularly the Attention Mind (reducing cognitive load in high-stress clinical environments), Language Mind (clear medical terminology and error messages), and Emotion Mind (trust signals for patient-facing interfaces) — reference `skills/cognitive-ux-framework/`.

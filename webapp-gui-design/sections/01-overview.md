@@ -36,3 +36,7 @@ Use this for dashboards, admin panels, SaaS apps, tools, settings pages, and dat
 - **Tables:** DataTables + Bootstrap 5
 - **Dates:** Flatpickr (auto-applied)
 - **Selects:** Select2
+
+## Cognitive UX Evaluation
+
+For cognitive science-based evaluation of UI designs (visual hierarchy, navigation, attention, memory, language, emotion), reference `skills/cognitive-ux-framework/`. Apply the Six Minds checklist during design reviews to validate designs against human cognitive patterns.

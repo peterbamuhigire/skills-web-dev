@@ -295,5 +295,9 @@ async submitPayment() {
 }
 ```
 
+## Cognitive UX Evaluation
+
+For cognitive science-based evaluation of POS UI designs -- particularly the Attention Mind (reducing cognitive load for high-speed transactions), Memory Mind (recognition over recall for product lookup), and Wayfinding Mind (intuitive navigation for all ages) -- reference `skills/cognitive-ux-framework/`.
+
 ## Reference Files
 - See references/universal-sales-ui-design.md for detailed component anatomy, design tokens, color palette, and layout examples.

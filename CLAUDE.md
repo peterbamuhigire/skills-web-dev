@@ -125,6 +125,7 @@ skills/
 ├── gis-mapping/                     # OpenStreetMap GIS + geofencing
 ├── markdown-lint-cleanup/           # Markdown lint cleanup and formatting
 ├── vibe-security-skill/             # Secure coding for web apps
+├── code-safety-scanner/             # 14-point safety scan (security, stability, payments)
 ├── web-app-security-audit/          # 8-layer security audit for PHP/JS/HTML web apps
 ├── photo-management/                # Photo upload and gallery patterns
 ├── mobile-rbac/                     # RBAC for Android mobile apps (PermissionGate, ModuleGate)

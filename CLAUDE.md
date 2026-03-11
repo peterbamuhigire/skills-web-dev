@@ -32,6 +32,30 @@ If a user mentions they want to use a skill from this collection:
 
 **Alias:** If a user says "seeder-script", treat it as the saas-seeder skill.
 
+### When Generating Blog Posts (MANDATORY)
+
+When asked to generate a blog post, article, or any written content piece:
+
+1. **Read these skills** from `C:\wamp64\www\website-skills\` before writing:
+   - `blog-idea-generator/SKILL.md` — ideation, topic framing, audience targeting
+   - `blog-writer/SKILL.md` — article pipeline, SEO, structure, human voice standards
+   - `content-writing/SKILL.md` — headlines, ledes, readability, persuasive structure
+   - `east-african-english/SKILL.md` — British English spelling, East African tone
+   - `language-standards/SKILL.md` — multi-language tone, grammar, cultural standards
+
+2. **Output:** Save each blog post as a **single `.md` file** in `blog-posts/` directory (this repository root).
+
+3. **Filename format:** `slug-of-the-title.md` (lowercase, hyphenated, descriptive).
+
+4. **Apply these standards from the skills:**
+   - British English spelling throughout (organisation, colour, programme, etc.)
+   - Formal, respectful East African professional tone
+   - Strong headline with clear benefit promise
+   - Short opening paragraph (inverted pyramid — most important first)
+   - Scannable structure with subheadings, bullets, and short paragraphs
+   - No AI-sounding vocabulary (no "delve", "leverage", "robust", "seamlessly")
+   - Clear call to action at the close
+
 ### Security Baseline (Required for Web Apps)
 
 For any web application work (frontend, backend, APIs), always load and apply the **Vibe Security Skill** alongside the primary skill. Security principles are non-optional.

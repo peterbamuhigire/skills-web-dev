@@ -185,16 +185,17 @@ Run after generating all documents:
 - [ ] All 6 documents generated (or justified why one was skipped)
 - [ ] Each document stays under 500 lines (split if needed)
 - [ ] SDD references the correct tech stack with version numbers
-- [ ] SDD includes ASCII architecture diagrams (system context, high-level, deployment)
+- [ ] SDD includes ASCII architecture diagrams (system context, high-level, deployment) — visual-aid locations marked with `[DIAGRAM-PROMPT: <description>]`
+- [ ] Every major design decision includes a `## Design Rationale` block: chosen approach, rejected alternatives, trade-off reasoning
+- [ ] Major architectural decisions captured as Architecture Decision Records (ADRs): Context → Decision → Alternatives Considered → Consequences
 - [ ] Database Design references `mysql-best-practices` skill, not duplicate it
 - [ ] All tenant-scoped tables include `franchise_id` column
 - [ ] API Documentation references `api-error-handling` and `api-pagination` skills
 - [ ] ICD covers all interface types (backend-mobile, backend-web, external)
-- [ ] Technical Spec includes real PHP/Kotlin/SQL code examples
+- [ ] Technical Spec includes real PHP/Kotlin/SQL code examples in fenced code blocks with language identifiers
 - [ ] Code Documentation Standards cover PHP, Kotlin, and SQL
 - [ ] Security architecture addresses dual auth, RBAC, encryption, audit trails
 - [ ] Deployment environments (Windows dev, Ubuntu staging, Debian prod) documented
-- [ ] Design decisions use ADR format (decision, context, alternatives, rationale)
 - [ ] All documents cross-reference each other and upstream SRS
 - [ ] No vague language -- all specifications are measurable and concrete
 - [ ] Examples are tailored to the project's actual tech stack and domain
@@ -205,7 +206,7 @@ Run after generating all documents:
 |-------------|-------------|-----------------|
 | Design without approved SRS | Architecture without requirements is guesswork | Complete `sdlc-planning` first |
 | One massive design doc | Exceeds 500-line limit, hard to maintain | Split into 6 focused documents |
-| No ASCII diagrams | Text-only architecture is hard to understand | Include system context, component, deployment diagrams |
+| No ASCII diagrams | Text-only architecture is hard to understand | Include system context, component, deployment diagrams — mark points needing visuals with `[DIAGRAM-PROMPT: <description>]` |
 | Copy MySQL standards into DB design | Duplicates `mysql-best-practices`, goes stale | Cross-reference the skill |
 | Skip tenant isolation design | Data leakage between tenants | Always document `franchise_id` strategy |
 | API docs without error codes | Consumers can't handle failures | Include complete error reference table |
@@ -213,6 +214,8 @@ Run after generating all documents:
 | God classes in component design | Violates SRP, untestable | Define clear component boundaries |
 | Design docs never updated | Docs become stale and misleading | Update at each phase gate |
 | Platform-generic examples | Developers can't apply them | Use your actual tech stack in examples |
+| Design decisions without rationale | Future maintainers cannot evaluate or change decisions | Add `## Design Rationale` to every key decision: state the chosen approach, rejected alternatives, and the trade-off reasoning |
+| No Architecture Decision Records | Architecture history lost; audits fail | Capture each major architectural decision in a structured ADR: Context → Decision → Alternatives → Consequences |
 
 ## Template Files
 
@@ -229,4 +232,4 @@ Each template provides the complete structure, section-by-section guidance, exam
 
 **Back to:** [Skills Repository](../CLAUDE.md)
 **Related:** [sdlc-planning](../sdlc-planning/SKILL.md) | [feature-planning](../feature-planning/SKILL.md) | [mysql-best-practices](../mysql-best-practices/SKILL.md) | [api-error-handling](../api-error-handling/SKILL.md)
-**Last Updated:** 2026-02-20
+**Last Updated:** 2026-03-15 (strengthened per Adjei 2023, Winston, Etter 2016)

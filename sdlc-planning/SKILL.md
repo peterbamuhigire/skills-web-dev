@@ -101,6 +101,10 @@ Before generating any documents, gather or confirm:
 | `multi-tenant-saas-architecture` | Backend architecture patterns. Uses SDP and SRS as input. |
 | `modular-saas-architecture` | Pluggable module architecture. Uses SRS module inventory. |
 | `saas-seeder` | Bootstrap the SaaS template. Uses requirements from SRS. |
+| `sdlc-design` | Design documentation phase. Uses approved SRS as primary input. |
+| `sdlc-testing` | Testing documentation. Uses SRS requirement IDs for test case traceability. |
+
+> **Future skills to add (identified from ISO/IEC 14764-2006):** Software Maintenance Plan (Corrective/Adaptive/Perfective/Preventive maintenance types) and Post-Deployment Evaluation Report are not yet implemented as skills but should be generated at project close.
 
 ### Available SDLC Skills
 
@@ -177,6 +181,10 @@ Run after generating all documents:
 - [ ] Each document stays under 500 lines (split if needed)
 - [ ] Vision & Scope has measurable success metrics with numeric targets
 - [ ] SRS has numbered requirement IDs (FR-MOD-001, NFR-PERF-001)
+- [ ] SRS Section 1.2 includes an explicit `## Out of Scope` subsection
+- [ ] Every NFR is SMART: Specific, Measurable, Achievable, Relevant, Time-bound — flag `[V&V-FAIL: SMART metric not defined]` for any that are not
+- [ ] Every SHALL requirement has an inline acceptance stub: `**Acceptance:** Given [state], When [action], Then [outcome]`
+- [ ] Requirements are prioritized using MoSCoW; time-sensitive features additionally scored with Cost of Delay
 - [ ] SDP references the correct tech stack with version numbers
 - [ ] SCMP describes the actual Git branching strategy being used
 - [ ] QA Plan references `vibe-security-skill` for security quality gates
@@ -201,6 +209,10 @@ Run after generating all documents:
 | No risk register | Risks become surprises | Pre-populate with common SaaS risks |
 | Skip configuration management | Deployment chaos, lost changes | Document branching, releases, migrations |
 | Write plans and never update them | Plans become stale and useless | Review and update at each phase gate |
+| Omit Out of Scope section from SRS | Scope creep is invisible | SRS Section 1.2 must include explicit `## Out of Scope` subsection |
+| Vague NFRs without SMART metrics | Cannot verify or test non-functional requirements | Each NFR must be Specific, Measurable, Achievable, Relevant, Time-bound |
+| No Given-When-Then acceptance stubs | Requirements written without verification linkage | Add inline `**Acceptance:** Given [state], When [action], Then [outcome]` to every SHALL requirement |
+| Prioritize only by gut feel | High-value work delayed; delivery misaligned with business | Use Cost of Delay (CoD) for time-sensitive requirements alongside MoSCoW |
 
 ## Template Files
 
@@ -218,4 +230,4 @@ Each template provides the complete structure, section-by-section guidance, exam
 
 **Back to:** [Skills Repository](../CLAUDE.md)
 **Related:** [project-requirements](../project-requirements/SKILL.md) | [feature-planning](../feature-planning/SKILL.md) | [android-saas-planning](../android-saas-planning/SKILL.md)
-**Last Updated:** 2026-02-20
+**Last Updated:** 2026-03-15 (strengthened per Adjei 2023, Winston, Etter 2016, Cone 2023)

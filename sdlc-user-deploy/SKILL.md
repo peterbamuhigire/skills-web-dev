@@ -123,11 +123,24 @@ Step 6: Release Notes (per-version communication — ongoing)
 
 ## Writing Style Guidelines
 
+### Audience Classification (Apply to Every Document)
+
+Tag every document with its primary audience: `End User`, `Administrator`, or `Developer`. This governs vocabulary, sentence complexity, assumed knowledge, and formatting choices.
+
+### Three-Emphasis Rule (Universal)
+
+Apply consistently across all documents:
+- `**Bold**` — UI element names and field labels: "Click **Save**."
+- `*Italic*` — critical warnings and normative emphasis: "*You must back up before running this command.*"
+- `` `Monospace` `` — file paths, terminal commands, environment variable names, code: run `./deploy.sh`.
+- Always use asterisks (`**bold**`, `*italic*`), never underscores.
+
 ### End-User Documents (User Manual, Training Materials)
 
 - **Plain language** -- no jargon, no acronyms without definition
 - **Active voice, present tense** -- "Click Save" not "The Save button should be clicked"
-- **Step-by-step** -- numbered instructions with one action per step
+- **Ordered lists mandatory for procedures** -- every sequential task must be a numbered list (`1.`, `2.`, `3.`), never prose paragraphs
+- **BFD Framework** — every user-facing document must answer in order: (1) What is this and who needs it? (2) How does it fit into the user's environment? (3) Where and how is it obtained/installed? (4) What does a minimal end-to-end task look like (quick start)? (5) Where is the full feature reference?
 - **Screenshot placeholders** -- format: `[Screenshot: {description} -- {screen-name}.png]`
 - **Bold for UI elements** -- **Save**, **Dashboard**, **Reports** tab
 - **Task-oriented** -- organize by what users want to do, not by features
@@ -135,9 +148,11 @@ Step 6: Release Notes (per-version communication — ongoing)
 ### Admin Documents (Operations Manual, Maintenance Manual)
 
 - **Technical but clear** -- assume Linux/server knowledge, explain project-specific details
-- **Command examples** -- copy-pasteable with expected output
+- **Command examples** -- every command in a fenced code block with language identifier (` ```bash `, ` ```yaml `, ` ```sql `); include expected output
+- **Ordered lists mandatory** -- deployment steps, installation steps, rollback procedures must all be numbered lists
 - **Troubleshooting trees** -- symptom to cause to solution
 - **Checklists** -- pre-deployment, post-deployment, routine maintenance
+- **Runbook-first for SaaS** -- internal operations runbooks are a prerequisite for production deployment; do not deploy without them
 
 ### Developer Documents (README, Release Notes)
 
@@ -145,6 +160,11 @@ Step 6: Release Notes (per-version communication — ongoing)
 - **Code-focused** -- commands, configuration snippets, architecture diagrams
 - **Architecture-aware** -- explain the "why" behind design decisions
 - **Copy-pasteable** -- every command should work when pasted
+- **Release notes: factual, never marketing** -- state what changed, what was added, what was removed, and what breaks backward compatibility. Never use "powerful," "seamless," "intuitive," or editorial language.
+
+### Documentation as Definition of Done
+
+A feature is not complete until its documentation is published. Documentation deliverables must be included in every sprint's acceptance criteria. Technical writers should participate from sprint planning, not after feature complete.
 
 ## Multi-Tenant Considerations
 
@@ -203,10 +223,14 @@ Each file must stay under 500 lines. Split into subdirectories as needed.
 
 - [ ] All 6 documents generated (or justified why one was skipped)
 - [ ] Each document stays under 500 lines (split if needed)
-- [ ] User Manual covers all modules listed in SRS with step-by-step workflows
+- [ ] User Manual answers the BFD five questions in order (What → How fits environment → Where obtained → Quick start → Full reference)
+- [ ] User Manual covers all modules listed in SRS with step-by-step workflows in ordered lists
+- [ ] Three-emphasis rule applied: bold for UI elements, italic for warnings, monospace for commands/paths
 - [ ] Operations Manual covers all 3 environments (Windows dev, Ubuntu staging, Debian prod)
+- [ ] All commands in admin docs use fenced code blocks with language identifiers
+- [ ] Operations runbooks complete before any production deployment (runbook-first for SaaS)
 - [ ] Training Materials include role-specific quick starts and hands-on exercises
-- [ ] Release Notes follow semantic versioning with audience-specific views
+- [ ] Release Notes follow semantic versioning; no marketing language; factual only
 - [ ] Maintenance Manual includes runbooks for top 10 operational tasks
 - [ ] README includes working installation steps and project structure
 - [ ] Screenshot placeholders use consistent format throughout user-facing docs
@@ -216,6 +240,7 @@ Each file must stay under 500 lines. Split into subdirectories as needed.
 - [ ] No jargon in end-user docs; no vague language in admin docs
 - [ ] All commands are copy-pasteable with expected output documented
 - [ ] Documents cross-reference each other and upstream SRS/SDD
+- [ ] Documentation deliverables included in sprint Definition of Done
 
 ## Anti-Patterns (What NOT to Do)
 
@@ -224,12 +249,15 @@ Each file must stay under 500 lines. Split into subdirectories as needed.
 | Skip user manual, ship anyway | Users flood support with basic questions | Write user manual before launch |
 | No deployment documentation | Only one person knows how to deploy | Document every deployment step |
 | Training = reading the manual | Adults learn by doing, not reading | Include hands-on exercises and labs |
-| Vague release notes ("various fixes") | Users do not know what changed or why | Describe each change with context |
+| Vague release notes ("various fixes") | Users do not know what changed or why | State exactly what changed, added, removed, and any migration steps |
+| Marketing language in release notes | Readers must parse sales pitch to find facts | Never use "powerful," "seamless," "intuitive" — write factually |
 | No maintenance runbooks | Tribal knowledge; outages last longer | Write step-by-step runbooks |
 | README with no setup instructions | New developers cannot get started | Include complete dev setup guide |
 | One-size-fits-all training | Admins and end-users have different needs | Role-specific training paths |
 | Outdated screenshots in manual | Users lose trust in documentation | Update screenshots with each release |
 | No rollback procedures | Failed deployments become crises | Document rollback for every deployment |
+| Docs written after feature complete | Documentation quality suffers; docs launch late | Include docs in sprint DoD; write alongside development |
+| Procedures not QA-tested | Steps may not actually work as written | Have a QA engineer or unfamiliar person execute each procedure from scratch before publishing |
 
 ## Template Files
 
@@ -246,4 +274,4 @@ Each template provides the complete structure, section-by-section guidance, exam
 
 **Back to:** [Skills Repository](../CLAUDE.md)
 **Related:** [sdlc-planning](../sdlc-planning/SKILL.md) | [sdlc-design](../sdlc-design/SKILL.md) | [sdlc-testing](../sdlc-testing/SKILL.md) | [manual-guide](../manual-guide/SKILL.md) | [google-play-store-review](../google-play-store-review/SKILL.md)
-**Last Updated:** 2026-02-20
+**Last Updated:** 2026-03-15 (strengthened per Etter 2016, Cone 2023, Splunk Product is Docs)

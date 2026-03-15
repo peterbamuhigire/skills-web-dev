@@ -1,6 +1,6 @@
 ---
 name: sdlc-testing
-description: "Generate Testing & Quality documentation for SDLC projects. Covers Software Test Plan (STP), Test Case Specifications, Software Validation & Verification Plan (SVVP), Validation Test Report (SVTR), and Peer Review/Inspection Reports. Use when establishing testing strategy, creating test documentation, or conducting quality validation."
+description: "Generate Testing & Quality documentation for SDLC projects. Compliant with BS ISO/IEC/IEEE 29119-3:2013 (supersedes IEEE 829:2008 and BS 7925-2:1998). Covers Software Test Plan, Test Case Specifications (with normative 29119-3 fields), V&V Plan, Validation Test Report, Incident Report, Test Completion Report, and Peer Review Reports. Use when establishing testing strategy, creating test documentation, or conducting quality validation."
 ---
 
 ## Required Plugins
@@ -34,11 +34,21 @@ Generate a complete **Testing & Quality** documentation suite for software devel
 
 | # | Document | File | Purpose | Audience | Phase |
 |---|----------|------|---------|----------|-------|
-| 1 | Software Test Plan | `templates/software-test-plan.md` | Testing strategy, tools, environments, schedule | QA leads, PMs, devs | After SRS + SDD |
-| 2 | Test Case Specifications | `templates/test-case-specifications.md` | Detailed test steps, inputs, expected results | Test engineers, devs | During development |
+| 1 | Software Test Plan | `templates/software-test-plan.md` | Testing strategy, tools, environments, schedule, completion criteria | QA leads, PMs, devs | After SRS + SDD |
+| 2 | Test Case Specifications | `templates/test-case-specifications.md` | Normative 29119-3 test cases: ID, objective, priority, traceability, preconditions, input, expected result | Test engineers, devs | During development |
 | 3 | Validation & Verification Plan | `templates/validation-verification-plan.md` | V&V approach (built right + right product) | QA mgrs, PMs, compliance | After SRS + SDD |
-| 4 | Validation Test Report | `templates/validation-test-report.md` | Test execution results and release decision | PMs, stakeholders, QA | Before release |
+| 4 | Validation Test Report | `templates/validation-test-report.md` | Test execution results and Go/No-Go release decision | PMs, stakeholders, QA | Before release |
 | 5 | Peer Review Report | `templates/peer-review-report.md` | Code, design, and document review findings | Dev team, tech leads | Throughout SDLC |
+| 6 | Incident Report | `templates/incident-report.md` | Anomaly record: ID, timing, context, description, impact, urgency, status | QA, dev leads | During execution |
+| 7 | Test Completion Report | `templates/test-completion-report.md` | Test summary, deviations, completion criteria met, residual risks, lessons learned | PMs, stakeholders, compliance | End of test phase |
+
+## Standards Basis
+
+This skill generates documentation compliant with **BS ISO/IEC/IEEE 29119-3:2013**, the current international standard for software test documentation. It supersedes IEEE 829:2008 and BS 7925-2:1998. Key structural difference: 29119-3 defines a strict document hierarchy — Organizational Test Strategy → Project Test Plan → Sub-process Test Plans → Test Design Specification → Test Case Specification → Incident Report → Test Completion Report. Annex T provides clause-level cross-walks from legacy standards for migration.
+
+**Normative Test Case Fields (BS 29119-3 §7.3):** Every test case must include: (1) Unique ID, (2) Objective/Purpose, (3) Priority (H/M/L), (4) Traceability to requirement ID, (5) Preconditions (exact system state), (6) Input (exact stimulus), (7) Expected Result (deterministic pass/fail — the test oracle), (8) Actual Result (populated during execution), (9) Test Result (Pass / Incident Report number).
+
+**Test Oracle Rule:** Every expected result must be specific enough to yield an unambiguous Pass or Fail without interpretation. If the expected result depends on judgment ("the response looks reasonable"), the requirement has not been adequately specified — flag `[VERIFIABILITY-FAIL]` and return to Skill 05 for clarification.
 
 ## Testing Philosophy
 
@@ -121,6 +131,23 @@ Step 5: Validation Test Report (before release)
 |----------|-----------|-------|
 | Android | Compose Testing + Espresso | Screen rendering, navigation, user flows |
 | Web | Browser testing (manual + automated) | CRUD workflows, form validation, responsive layout |
+
+### User Acceptance Testing (UAT)
+
+Distinguish Alpha and Beta testing explicitly in the Test Plan:
+
+| Stage | Location | Testers | Focus |
+|-------|----------|---------|-------|
+| **Alpha** | Controlled environment (internal/QA lab) | Internal testers, stakeholders | Functional correctness, defect discovery |
+| **Beta** | Real-world environment (staging/limited production) | Selected external users | Real-world usability, edge-case discovery, performance under real load |
+
+### Regression Testing
+
+Regression testing is a first-class test type and must be documented separately in the Test Plan. Define: the regression suite scope (which previously-passing test cases are re-run), the trigger conditions (every PR merge, every release candidate), and the acceptable pass rate before proceeding.
+
+### Test Data Management
+
+The Test Plan must include a `## Test Data Management` section covering: how test fixtures are created, how tenant isolation is maintained in test data (separate `franchise_id` values per test scenario), how sensitive data is anonymized in non-production environments, and who owns test data lifecycle.
 
 ### Security Testing
 
@@ -207,18 +234,26 @@ Step 5: Validation Test Report (before release)
 
 ## Quality Checklist
 
-- [ ] All 5 documents generated (or justified why one was skipped)
+- [ ] All 7 documents generated (or justified why one was skipped)
 - [ ] Each document stays under 500 lines
 - [ ] Test Plan references SRS requirement IDs for traceability
+- [ ] Test Plan includes: risk register, completion criteria, suspension/resumption criteria, communication plan, environment requirements, roles (per 29119-3 §6.2)
 - [ ] Test cases use naming convention TC-[MODULE]-[TYPE]-[###]
+- [ ] Every test case has the 9 normative 29119-3 fields (ID, objective, priority, traceability, preconditions, input, expected result, actual result, test result)
+- [ ] Every expected result is a deterministic test oracle — no judgment calls
+- [ ] Every SRS requirement ID (FR-xxx, NFR-xxx) is traced to at least one test case
 - [ ] V&V Plan covers both verification (built right) and validation (right product)
-- [ ] Test Report includes pass rates, coverage, and Go/No-Go recommendation
+- [ ] Test Plan distinguishes Alpha UAT (internal controlled) from Beta UAT (real-world users)
+- [ ] Regression testing section covers: suite scope, trigger conditions, pass rate threshold
+- [ ] Test Data Management section covers: fixture creation, tenant isolation, data anonymization
+- [ ] Test Report includes pass rates, coverage, defect resolution protocol, and Go/No-Go recommendation
+- [ ] Incident Report template populated for every detected anomaly
+- [ ] Test Completion Report produced at phase close: summary, deviations, residual risks, lessons learned
 - [ ] Peer Review Report includes tech-stack-specific checklists
 - [ ] Multi-tenant isolation addressed in test cases and V&V plan
 - [ ] Test environments match deployment environments (Windows/Ubuntu/Debian)
 - [ ] Security test cases reference `vibe-security-skill` OWASP mapping
 - [ ] Performance benchmarks have numeric targets (not vague language)
-- [ ] Test data strategy handles franchise_id isolation
 - [ ] Documents cross-reference each other and upstream SRS/SDD
 
 ## Anti-Patterns
@@ -226,14 +261,18 @@ Step 5: Validation Test Report (before release)
 | Anti-Pattern | Why It Fails | Do This Instead |
 |-------------|-------------|-----------------|
 | No formal test plan | Ad-hoc testing misses critical paths | Write STP before testing begins |
-| Test cases without expected results | Can't determine pass/fail | Every TC has explicit expected results |
+| Test cases without expected results | Can't determine pass/fail | Every TC has explicit expected results (test oracle) |
+| Vague expected results ("response looks OK") | Not a test oracle; tester must interpret | State exact output: value, format, timing, error code |
 | No traceability to requirements | Can't prove coverage | Map every TC to FR-xxx or NFR-xxx |
 | Testing only happy paths | Edge cases cause production failures | Include negative, boundary, and error cases |
-| No test data strategy | Inconsistent, flaky tests | Define fixtures, factories, seed data |
+| No test data strategy | Inconsistent, flaky tests | Define fixtures, factories, seed data with tenant isolation |
 | Skipping security testing | Vulnerabilities ship to production | Include security test suite in every release |
 | No peer review process | Bugs caught late, inconsistent code | Standardize reviews with checklists |
 | Rubber-stamp reviews | Reviews provide no value | Require findings documented, metrics tracked |
 | Testing in production only | Users find bugs, not testers | Test in staging first, smoke test prod |
+| No regression suite | Passing tests break silently between releases | Define regression suite, trigger on every RC |
+| No incident tracking | Anomalies lose context | Open an Incident Report for every anomaly during execution |
+| No Test Completion Report | Phase never formally closes | Produce TCR before passing to next lifecycle phase |
 
 ## Template Files
 
@@ -244,9 +283,11 @@ Each template provides the complete structure, section-by-section guidance, exam
 3. [Validation & Verification Plan](templates/validation-verification-plan.md)
 4. [Validation Test Report](templates/validation-test-report.md)
 5. [Peer Review / Inspection Report](templates/peer-review-report.md)
+6. [Incident Report](templates/incident-report.md)
+7. [Test Completion Report](templates/test-completion-report.md)
 
 ---
 
 **Back to:** [Skills Repository](../CLAUDE.md)
 **Related:** [sdlc-planning](../sdlc-planning/SKILL.md) | [android-tdd](../android-tdd/SKILL.md) | [vibe-security-skill](../vibe-security-skill/SKILL.md) | [ai-error-handling](../ai-error-handling/SKILL.md)
-**Last Updated:** 2026-02-20
+**Last Updated:** 2026-03-15 (upgraded to BS ISO/IEC/IEEE 29119-3:2013 per Winston, BS Standards; strengthened per Adjei 2023, Splunk Product is Docs)

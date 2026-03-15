@@ -141,6 +141,22 @@ Distinguish Alpha and Beta testing explicitly in the Test Plan:
 | **Alpha** | Controlled environment (internal/QA lab) | Internal testers, stakeholders | Functional correctness, defect discovery |
 | **Beta** | Real-world environment (staging/limited production) | Selected external users | Real-world usability, edge-case discovery, performance under real load |
 
+### Seven-Step Defect Resolution Protocol *(Rex Black, 2009)*
+
+Every bug report triggers this handoff sequence. The boundary between Step 3 and Step 4 is the critical management line — testers own isolation; developers own debugging.
+
+| Step | Owner | Action |
+|------|-------|--------|
+| 1 | Tester | **Reproduce** — determine exact minimal sequence; check for intermittence |
+| 2 | Tester | **Discriminate** — test bug or system bug? |
+| 3 | Tester | **Isolate** — identify external factors (config, data, workflows) affecting symptoms |
+| 4 | Developer | **Root cause** — find cause in code, hardware, network, or environment |
+| 5 | Developer | **Repair** — fix without introducing new problems |
+| 6 | Developer | **Verify fix** — confirm the fix is clean before handoff |
+| 7 | Tester | **Confirm + Regression** — does it pass the failing test? Does everything else still work? |
+
+If the fix fails Step 7: reopen the bug report. If it passes but breaks a different test: open a new bug report.
+
 ### Regression Testing
 
 Regression testing is a first-class test type and must be documented separately in the Test Plan. Define: the regression suite scope (which previously-passing test cases are re-run), the trigger conditions (every PR merge, every release candidate), and the acceptable pass rate before proceeding.

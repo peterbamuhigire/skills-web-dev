@@ -165,6 +165,25 @@ Regression testing is a first-class test type and must be documented separately 
 
 The Test Plan must include a `## Test Data Management` section covering: how test fixtures are created, how tenant isolation is maintained in test data (separate `franchise_id` values per test scenario), how sensitive data is anonymized in non-production environments, and who owns test data lifecycle.
 
+#### Test Data Readiness Report (B-08)
+
+Before test execution begins, confirm:
+- [ ] Test fixtures created for all scenarios (normal, boundary, error)
+- [ ] Tenant isolation verified — each test scenario uses a distinct `franchise_id` (or equivalent)
+- [ ] Sensitive production data anonymised in all non-production environments
+- [ ] Test data owner identified and data lifecycle documented
+- [ ] Rollback/reset procedure defined for test data after execution
+
+#### Test Environment Readiness Report (B-08)
+
+Before test execution begins, confirm:
+- [ ] All hardware/software components match production specifications
+- [ ] All software components under formal CM control with release notes
+- [ ] Test environment access provisioned for all testers
+- [ ] Monitoring and logging enabled in test environment
+- [ ] Smoke test completed successfully (entry criterion for system test phase)
+- [ ] Config ID documented (coded identifier for the exact environment composition)
+
 ### Security Testing
 
 | Area | Method | Reference |
@@ -262,6 +281,8 @@ The Test Plan must include a `## Test Data Management` section covering: how tes
 - [ ] Test Plan distinguishes Alpha UAT (internal controlled) from Beta UAT (real-world users)
 - [ ] Regression testing section covers: suite scope, trigger conditions, pass rate threshold
 - [ ] Test Data Management section covers: fixture creation, tenant isolation, data anonymization
+- [ ] Test Data Readiness Report completed before execution begins
+- [ ] Test Environment Readiness Report completed before execution begins
 - [ ] Test Report includes pass rates, coverage, defect resolution protocol, and Go/No-Go recommendation
 - [ ] Incident Report template populated for every detected anomaly
 - [ ] Test Completion Report produced at phase close: summary, deviations, residual risks, lessons learned

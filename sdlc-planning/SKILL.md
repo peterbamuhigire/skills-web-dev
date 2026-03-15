@@ -173,6 +173,21 @@ docs/planning/
 
 Each file must stay under 500 lines. Split into subdirectories as needed.
 
+## Phase Gate Exit Criteria
+
+Every project passes through six risk-based milestones (Disciplined Agile, 2020). Each milestone has mandatory exit criteria verified before proceeding. These map to the six DA milestones.
+
+| Gate | DA Milestone | Triggered By | Exit Criteria |
+|------|-------------|--------------|---------------|
+| **G1** | Stakeholder Vision | End of Skill 01–03 | Vision documented; stakeholder register complete; scope agreed with Out of Scope listed; domain confirmed |
+| **G2** | Proven Architecture | End of Skill 04 | Interface spec complete; architecture strategy selected; key risks identified; no unresolved [CONTEXT-GAP] tags |
+| **G3** | Requirements Complete | End of Skill 05 | All FRs have GWT stubs; all NFRs have SMART metrics; every FR traced to business goal; zero [V&V-FAIL] tags |
+| **G4** | Logic Validated | End of Skill 06–07 | All LaTeX formulas verified; attribute mapping complete; no conflicts in Section 3.4 |
+| **G5** | Audit Passed | End of Skill 08 | Zero [V&V-FAIL], [GLOSSARY-GAP], [TRACE-GAP], [SMART-FAIL] tags; SRS approved by consultant |
+| **G6** | Production Ready | Post-testing | Test plan complete; no open must-fix defects; Go/No-Go approved in phase exit meeting |
+
+**Anti-pattern:** Advancing to the next gate without resolving all tags from the current gate propagates defects downstream. One unresolved [V&V-FAIL] at G3 typically generates 5–10 downstream rework items.
+
 ## Quality Checklist
 
 Run after generating all documents:

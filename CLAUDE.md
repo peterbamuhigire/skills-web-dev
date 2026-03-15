@@ -158,6 +158,8 @@ skills/
 ├── sdlc-design/                     # SDLC design & development docs (SDD, Tech Spec, ICD, DB Design, API)
 ├── sdlc-testing/                    # SDLC testing & quality docs (STP, Test Cases, V&V, Reports)
 ├── sdlc-user-deploy/                # SDLC user & deployment docs (User Manual, Ops, Training, Release)
+├── sdlc-maintenance/                # SDLC maintenance docs (SMP, MR/PR workflow, ISO 14764)
+├── sdlc-post-deployment/            # Post-deployment evaluation report (PDER, operational metrics)
 ├── sdlc-lifecycle.md                # SDLC master lifecycle overview (all 4 phases)
 ├── spec-architect/                  # Specification architecture skill
 ├── prompting-patterns-reference.md  # Prompting patterns for AI instructions

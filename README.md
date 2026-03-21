@@ -36,58 +36,92 @@ Skills are specialized instruction sets that guide Claude Code in specific domai
 
 ### Full Skill Index
 
+**AI & Orchestration**
 - ai-assisted-development
 - ai-error-handling
 - ai-error-prevention
-- android-custom-icons
+- orchestration-best-practices
+
+**Android Development**
 - android-biometric-login
-- android-pdf-export
+- android-custom-icons
 - android-data-persistence
 - android-development
+- android-pdf-export
 - android-report-tables
 - android-reports
 - android-saas-planning
 - android-tdd
+- google-play-store-review
+- jetpack-compose-ui
+- mobile-rbac
+
+**API & Backend**
 - api-error-handling
 - api-pagination
-- custom-sub-agents
-- doc-architect
+- api-testing-verification
 - dual-auth-rbac
-- feature-planning
-- gis-mapping
-- google-play-store-review
-- image-compression
-- implementation-status-auditor
-- plan-implementation
-- saas-accounting-system
-- inventory-management
-- jetpack-compose-ui
-- manual-guide
-- markdown-lint-cleanup
-- modular-saas-architecture
-- mobile-rbac
-- multi-tenant-saas-architecture
 - mysql-best-practices
-- orchestration-best-practices
-- photo-management
 - php-modern-standards
 - php-security
+
+**Content & Blog Writing**
+- blog-idea-generator
+- blog-writer
+- content-writing
+- east-african-english
+- language-standards
+- manual-guide
+
+**Design & UX**
+- cognitive-ux-framework
+- form-ux-design
+- gis-mapping
+- healthcare-ui-design
+- image-compression
+- lean-ux-validation
+- photo-management
 - pos-restaurant-ui-standard
 - pos-sales-ui-design
-- project-requirements
-- report-print-pdf
-- saas-seeder
+- ux-for-ai
+- ux-psychology
+- webapp-gui-design
+
+**Documentation & SDLC**
+- doc-architect
+- implementation-status-auditor
+- markdown-lint-cleanup
 - sdlc-design
+- sdlc-maintenance
 - sdlc-planning
+- sdlc-post-deployment
 - sdlc-testing
 - sdlc-user-deploy
-- skill-safety-audit
-- skill-writing
-- spec-architect
 - update-claude-documentation
+
+**Planning & Features**
+- feature-planning
+- plan-implementation
+- project-requirements
+- saas-seeder
+- spec-architect
+
+**SaaS Architecture**
+- inventory-management
+- modular-saas-architecture
+- multi-tenant-saas-architecture
+- saas-accounting-system
+
+**Security**
+- code-safety-scanner
 - vibe-security-skill
 - web-app-security-audit
-- webapp-gui-design
+
+**Skills Management**
+- custom-sub-agents
+- report-print-pdf
+- skill-safety-audit
+- skill-writing
 
 ### 1. Android Development
 

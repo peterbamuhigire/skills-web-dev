@@ -162,6 +162,15 @@ skills/
 ├── sdlc-post-deployment/            # Post-deployment evaluation report (PDER, operational metrics)
 ├── sdlc-lifecycle.md                # SDLC master lifecycle overview (all 4 phases)
 ├── spec-architect/                  # Specification architecture skill
+├── blog-idea-generator/             # Generate 15-25 targeted blog ideas for client sites
+├── blog-writer/                     # SEO-optimised bilingual blog articles with photography
+├── content-writing/                 # Copywriting standards (headlines, ledes, readability)
+├── east-african-english/            # British English / East African tone standard
+├── language-standards/              # Multi-language tone, grammar & cultural standards
+├── api-testing-verification/        # API test verification patterns
+├── ux-psychology/                   # Cognitive science foundations (dual-process, memory, attention, biases, dark patterns)
+├── ux-for-ai/                       # AI interface design (trust, transparency, premium vs slop, human oversight)
+├── lean-ux-validation/              # Hypothesis-driven UX (validate before build, 5-user research, metrics)
 ├── prompting-patterns-reference.md  # Prompting patterns for AI instructions
 ├── orchestration-patterns-reference.md # Orchestration strategies for multi-agent workflows
 ├── doc-standards.md                 # Documentation formatting standards (MANDATORY)

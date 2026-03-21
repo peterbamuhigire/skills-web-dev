@@ -75,6 +75,55 @@ Always show where/when/who/what constraints:
 - Trigger on programmatic focus changes only (avoid constant animation on manual typing).
 - Keep effects subtle, accessible, and consistent with brand colors.
 
+## Customer Journey Stages for POS Design
+
+From Panzarella (2022) *UI/UX Web Design Simply Explained.* Understanding which journey stage the user is in determines the right design approach.
+
+**For POS operators, most users are permanently in the Decision phase — design accordingly.**
+
+### Exploration Phase
+User is browsing possibilities; curious but uncommitted.
+- Design for discovery: open categories, visual product tiles, easy browsing
+- Not applicable to standard POS checkout — relevant for product catalogue or kiosk modes
+
+### Evaluation Phase
+User is comparing options and needs objective/numeric data.
+- Show prices, specs, stock quantities, unit of measure side-by-side
+- Surface discounts, bundle prices, and alternate pack sizes clearly
+- In POS: displayed when cashier is selecting products or comparing variants
+
+### Decision Phase (PRIMARY POS STATE)
+Highest stress moment — user has item in cart and is confirming/paying.
+- **Maximum reassurance while still driving completion**
+- Show the running total prominently at all times (persistent header)
+- Make the primary action button dominant — it IS the business objective
+- Remove all competing CTAs from the payment screen
+- Provide one-tap confirmation path for common actions
+- Display cost breakdown (subtotal, tax, discount, total) clearly before payment
+- Design for speed: cashier should never need to think about where to click next
+
+### Post-Decision Phase
+User has completed payment.
+- **Celebrate the completion** — confirmation message, receipt prompt
+- Show: receipt number, items purchased, amount paid, change due
+- Provide undo/void option clearly (within policy timeframe)
+- Reduce buyer's anxiety: "Transaction complete. Receipt printed."
+- Never leave the cashier staring at a blank or ambiguous screen after payment
+
+---
+
+## POS Conversion Principles
+
+**One screen, one primary action.** The checkout button is the single business objective. Make it visually dominant — larger, higher contrast, closest to the cashier's typical hand position.
+
+**Predictability reduces perceived wait time.** Show what happens next at every step. "After clicking Pay, enter PIN on the terminal." Users who know what comes next feel faster.
+
+**"If you need to write 'Click here,' the design has failed."** Every POS action must be self-evidently interactive through shape, colour, and position. Never rely on text instructions in a high-speed POS environment.
+
+**Rhythm drives speed.** Consistent spacing and repeated layout patterns allow the cashier's brain to operate on autopilot. Any layout inconsistency breaks the flow and creates hesitation.
+
+---
+
 ## Standard POS UI Baseline (All POS Screens)
 
 These elements are mandatory across all POS screens (retail, pharmacy, restaurant):

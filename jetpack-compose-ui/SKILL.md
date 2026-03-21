@@ -22,6 +22,7 @@ description: "Jetpack Compose UI standards for beautiful, sleek, minimalistic An
 5. **Content-first hierarchy** - Important information is immediately visible
 6. **Touch-friendly targets** - Minimum 48dp for all interactive elements
 7. **Adaptive by default** - Every screen MUST work on phones AND tablets
+8. **Colour and first impressions** — Users form visual judgments in ~90 seconds; colour is the first impression. The brain processes images 60,000× faster than text — use visuals and colour to communicate primary meaning instantly.
 
 ### Enterprise Mobile UX Principles
 
@@ -53,6 +54,11 @@ For enterprise mobile apps, measure success by business impact, not UI novelty:
 | **Icon size**        | 24dp standard, 20dp in buttons, 48dp for empty states |
 | **Typography scale** | Use Material 3 type scale exclusively                 |
 
+**Colour rules (Paduraru):**
+- Never pure black for text: use `Color(0xFF1A1A1A)` or Material 3 `MaterialTheme.colorScheme.onBackground`
+- Never pure white on dark backgrounds: use `Color(0xFFF5F5F5)` or Material 3 `MaterialTheme.colorScheme.background`
+- Body text line height = font size × 1.6 (e.g., 16sp font → 26sp line height)
+
 **Icon Policy (Required):** Use custom PNG icons with `painterResource(R.drawable.<name>)`. Maintain `PROJECT_ICONS.md` per `android-custom-icons`.
 
 **Report Table Policy (Required):** Any report that can exceed 25 rows must render as a table (see `android-report-tables`).
@@ -70,6 +76,8 @@ For enterprise mobile apps, measure success by business impact, not UI novelty:
 | **Data Tables**           | `references/data-tables.md`                | Tables, pagination, responsive table/card layouts, badges |
 | **Animation & Polish**    | `references/animation-and-polish.md`       | Transitions, micro-interactions, loading                  |
 | **Navigation & Perf**     | `references/navigation-and-performance.md` | Nav setup, deep links, optimization                       |
+
+See [Mobile Design Rules](references/design-philosophy.md) for mobile-specific spacing, navigation, touch targets, typography, and image guidance (Paduraru 2024).
 
 ## Core Compose Principles
 
@@ -212,13 +220,7 @@ fun MyScreen(windowSizeClass: WindowSizeClass, ...) {
 }
 ```
 
-**Key rules:**
-
-- Compact (<600dp): single column, bottom nav
-- Medium (600-840dp): optional two-pane, navigation rail
-- Expanded (>840dp): two-pane, permanent nav drawer
-- Use `AnimatedContent` for smooth layout transitions between size classes
-- Use `rememberSaveable` for state that must survive configuration changes
+**Key rules:** Compact (<600dp): bottom nav | Medium (600-840dp): nav rail | Expanded (>840dp): nav drawer. Use `AnimatedContent` for smooth layout transitions and `rememberSaveable` for state surviving configuration changes.
 
 See `references/responsive-adaptive.md` for complete patterns, adaptive navigation, and list-detail templates.
 
@@ -367,41 +369,7 @@ Every screen that loads data from network or database **MUST** have pull-to-refr
 3. ViewModel must have a `refresh()` function that sets `isRefreshing = true`, reloads data, and clears the flag on success/error
 4. Static/one-time screens are exempt: login, menus, payment results, coming soon
 
-### Implementation Pattern
-
-```kotlin
-// In ViewModel state:
-data class FeatureState(
-    val listState: PaginatedListState<Item> = PaginatedListState(),
-    val isRefreshing: Boolean = false
-)
-
-// In ViewModel:
-fun refresh() {
-    _state.update { it.copy(isRefreshing = true, listState = PaginatedListState()) }
-    paginator.reset()
-    loadFirstPage()
-}
-
-// In paginator onSuccess/onError: always set isRefreshing = false
-
-// In Screen:
-PullRefreshBox(
-    isRefreshing = state.isRefreshing,
-    onRefresh = { viewModel.refresh() },
-    modifier = Modifier.fillMaxSize().padding(paddingValues)
-) {
-    Column(modifier = Modifier.fillMaxSize()) {
-        // Screen content (filters, lists, etc.)
-    }
-}
-```
-
-### Placement
-
-- Wrap the **outermost scrollable content** inside `Scaffold`'s content lambda
-- Place `PullRefreshBox` **outside** the `when` block so it covers loading/error/content states
-- For tabbed screens (e.g., Inventory), wrap the pager content, passing the current tab index to refresh
+See `references/composable-patterns.md` for the full implementation pattern and placement rules.
 
 ## Performance Essentials
 

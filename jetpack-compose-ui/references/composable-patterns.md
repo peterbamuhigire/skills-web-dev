@@ -460,3 +460,41 @@ data class Item(val id: String, val name: String, val description: String) {
     }
 }
 ```
+
+## Pull-to-Refresh: Implementation Pattern and Placement
+
+### Implementation Pattern
+
+```kotlin
+// In ViewModel state:
+data class FeatureState(
+    val listState: PaginatedListState<Item> = PaginatedListState(),
+    val isRefreshing: Boolean = false
+)
+
+// In ViewModel:
+fun refresh() {
+    _state.update { it.copy(isRefreshing = true, listState = PaginatedListState()) }
+    paginator.reset()
+    loadFirstPage()
+}
+
+// In paginator onSuccess/onError: always set isRefreshing = false
+
+// In Screen:
+PullRefreshBox(
+    isRefreshing = state.isRefreshing,
+    onRefresh = { viewModel.refresh() },
+    modifier = Modifier.fillMaxSize().padding(paddingValues)
+) {
+    Column(modifier = Modifier.fillMaxSize()) {
+        // Screen content (filters, lists, etc.)
+    }
+}
+```
+
+### Placement
+
+- Wrap the **outermost scrollable content** inside `Scaffold`'s content lambda
+- Place `PullRefreshBox` **outside** the `when` block so it covers loading/error/content states
+- For tabbed screens (e.g., Inventory), wrap the pager content, passing the current tab index to refresh

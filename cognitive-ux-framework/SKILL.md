@@ -95,6 +95,12 @@ The Attention Mind determines what users notice and how much mental effort they 
 - **Extraneous load:** Eliminate unnecessary visual noise, redundant labels, and decorative elements.
 - **Germane load:** Maximize learning through consistent patterns, meaningful icons, and clear feedback.
 
+**Dual-Process Model (Kahneman):**
+- **System 1** — Fast, automatic, effortless, intuitive. Handles routine decisions, conditioned responses, pattern recognition. Very efficient but deeply biased.
+- **System 2** — Slow, deliberate, resource-intensive. Handles complex calculations and effortful reasoning. Does not naturally override System 1.
+- Most users interact with your product on System 1. Design for intuitive, low-effort interaction. Do not require deliberate reasoning for routine tasks.
+- Satisficing: users stop reading at the point they believe they have enough information. Put critical content first in labels and instructions — never at the end.
+
 **Change Blindness and Inattentional Blindness:**
 - Animate or highlight changes so users notice them (e.g., flash a saved indicator).
 - Do not rely on a small icon change alone to communicate status updates.
@@ -123,6 +129,25 @@ The Memory Mind dictates how much users can hold in working memory and how they 
 - Respect established platform conventions (e.g., Ctrl+S to save, swipe to delete).
 - Do not reassign well-known shortcuts or gestures to different functions.
 - Repeated task flows build muscle memory; keep them stable across releases.
+
+**Working memory is fragile:** Every time a user switches context (tab, interruption, navigation), they lose what was held in working memory. Design for interruption recovery — save state aggressively and show clear "where were you?" cues on return.
+
+**Updated capacity research:** Current evidence suggests working memory holds ~3–4 chunks reliably, not 7±2 (Miller's original estimate). Design accordingly — 3–4 items per group is safer than 7.
+
+## 4b. Cognitive Biases Designers Must Know
+
+These biases affect you as a designer more than they affect users. They cause you to build the wrong thing confidently.
+
+| Bias | What it is | Design implication |
+|------|-----------|-------------------|
+| **Curse of knowledge** | You cannot unsee what you know; it seems obvious to you | Always test with users who have never seen your product |
+| **Egocentric bias** | You assume others experience the world as you do | You are never your user; research is non-optional |
+| **IKEA effect** | You overvalue things you helped build | You are a poor judge of your own product's quality |
+| **Hindsight bias** | Past outcomes seem more predictable than they were | Bad design decisions looked fine at the time — document your reasoning |
+| **Confirmation bias** | You seek data that confirms your existing beliefs | Actively look for disconfirming evidence in research |
+| **Status quo bias** | Users prefer inaction and existing defaults | Design defaults thoughtfully — they determine most outcomes |
+
+**"You are not your users."** — The cardinal rule of UX. No amount of empathy substitutes for observing real users with your product.
 
 ### 5. Language Mind
 
@@ -237,6 +262,27 @@ Other UI skills reference this framework by invoking specific sections:
 
 When referenced, apply only the relevant mind(s) to the calling skill's specific UI context.
 
+## Dark Patterns Checklist
+
+Dark patterns (Brignull): design that intentionally deceives users to extract value at their expense. These are anti-UX and must be avoided.
+
+**Never implement:**
+- [ ] Pre-checked subscriptions or opt-ins
+- [ ] Confirm-shaming ("No thanks, I don't want to save money")
+- [ ] Hidden costs revealed only at payment
+- [ ] Obscured or buried cancellation flows
+- [ ] Making the desired user action harder to find than the profit-maximising action
+
+**Grey-area patterns to avoid** (exploit cognitive biases at users' expense):
+- [ ] Loss aversion exploitation (expiring streaks, "you'll lose your progress")
+- [ ] Fabricated scarcity ("only 1 left!" when inventory is plentiful)
+- [ ] Opt-out defaults for subscriptions, data sharing, or auto-renewal
+- [ ] Bottomless scrolling (removing natural stopping points)
+- [ ] Push notifications without genuine user value
+
+**How to distinguish a nudge from a dark pattern:**
+A nudge changes behaviour for the long-term benefit of the user or society. A dark pattern changes behaviour for business benefit at the user's expense. The test: *whose interests are actually served?*
+
 ## References
 
 - `references/six-minds-checklist.md` — Per-mind evaluation checklist with pass/fail criteria.
@@ -251,3 +297,5 @@ When referenced, apply only the relevant mind(s) to the calling skill's specific
 - Miller, G.A. "The Magical Number Seven, Plus or Minus Two." Psychological Review, 1956.
 - Hick, W.E. "On the Rate of Gain of Information." Quarterly Journal of Experimental Psychology, 1952.
 - Fitts, P.M. "The Information Capacity of the Human Motor System." Journal of Experimental Psychology, 1954.
+- Hodent, C. (2022). *What UX Is Really About.* CRC Press.
+- Kahneman, D. (2011). *Thinking, Fast and Slow.* Farrar, Straus and Giroux.

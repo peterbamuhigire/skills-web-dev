@@ -28,9 +28,22 @@ Cross-cutting form design patterns for **web** (Bootstrap 5 / Tabler + PHP) and 
 
 Five rules that govern every form decision:
 
-### Rule 1 -- Labels Above Inputs
+**Three dimensions of every form** (most to least influential):
+1. **Words** — what you say and how you say it. Users can work around bad layout; they cannot work around bad wording.
+2. **Layout** — how things are visually presented
+3. **Flow** — how the user moves through the form
 
-Stacked labels always. Never placeholder-only. Labels remain visible on focus and when filled. Placeholder text is supplementary hint text, not a replacement for the label.
+**A form is a conversation.** Order, tone, appropriateness, and effort all matter to humans. Design accordingly.
+
+**"Start with nothing. Then only add what's needed to communicate with the user."** — Every pixel must serve a purpose. Be ruthless.
+
+**Collect only what you need.** Every additional question reduces completion rate and data quality. Never add questions "just in case."
+
+### Rule 1 — Labels Above Inputs (ALWAYS)
+
+Labels above inputs on ALL screen sizes. NEVER use placeholder text as the label — it disappears on focus, makes fields look pre-filled, is not reliably announced by screen readers, and corrupts data when left in the field. NEVER use float labels — they have all the same problems as placeholder-as-label plus broken animation on long labels.
+
+Mark **optional** fields with "(optional)" appended to the label. Do NOT mark required fields with red asterisks — they are abstract, visually noisy, inaccessible, and often labelled with jargon like "mandatory."
 
 ### Rule 2 -- Single Column by Default
 
@@ -43,6 +56,13 @@ Show only what is needed now. Reveal advanced fields conditionally (toggles, dep
 ### Rule 4 -- Instant Feedback
 
 Validate on blur (not on keystroke). Show errors inline below the field. Display success indicators (green border or checkmark) for completed fields that passed validation.
+
+**Error message must do three things** (Enders):
+1. Convey that an error has occurred
+2. State exactly what the error is and where
+3. Tell the user how to fix it — in plain, non-accusatory language
+
+Never use vague messages ("Invalid input"). Never use the word "error" alone — be specific. For long forms: provide an error summary at the top of the page with anchor links to each error. Pair all error colours with an icon — never rely on colour alone.
 
 ### Rule 5 -- Minimal Friction
 
@@ -249,6 +269,46 @@ fun WizardForm(viewModel: WizardViewModel = hiltViewModel()) {
 
 ---
 
+## 5b. Gateway Screen (Before Long Forms)
+
+Required for any form that takes more than 5 minutes. The gateway screen should:
+- Explain what and who the form is for
+- Warn users of information they will need (passport, account number, bill)
+- State average time to complete
+- State whether save-and-resume is available
+- Include privacy/terms summary with links
+- Have a prominent CTA button
+
+The gateway screen is NOT part of the progress indicator step count.
+
+## 5c. Confirmation Screen (After Submission)
+
+Must include:
+- Confirmation that the form was submitted
+- Reference/receipt number if applicable
+- Whether a confirmation email was sent
+- What happens next and when
+- Any further actions required from the user
+- A path to somewhere else (never a dead end)
+
+Thank the user. Make them feel the submission was a success.
+
+## 5d. Specific Field Rules (from Enders)
+
+**Name:** Single text box. Accept all characters including apostrophes, diacritics, hyphens, spaces, non-Latin characters. Avoid splitting into "first" and "last" — culturally limited.
+
+**Email:** Single text box. Use `type="email"` for mobile keyboard. Accept any string with one character before "@" and one after — do not over-validate format.
+
+**Phone:** Single text box. Accept hyphens, dashes, spaces, parentheses. Use `type="tel"` for mobile. Specify which type (home, mobile, work).
+
+**Date of birth:** Three separate text boxes (day, month, year) — fastest and most accurate. Use `type="date"` for mobile as optional input. Never three dropdowns.
+
+**Credit card:** Single text box per element (card number, expiry, CVC). Determine card type computationally from first digits — never ask user to choose. Show accepted payment methods before the payment step.
+
+**Sex/Gender:** Make optional. If sex: Female / Male / Another option / Prefer not to say (alphabetical). If gender identity: single free-text box — there is no universal list.
+
+---
+
 ## 6. Form Submission Workflow
 
 Standard sequence for both platforms:
@@ -366,16 +426,30 @@ fun submit() {
 
 ### DON'T
 
-- Don't use CAPTCHA unless absolutely necessary (prefer honeypot fields)
-- Don't reset the form on validation error
-- Don't disable the submit button until all fields are valid (let users click to discover errors)
-- Don't use a dropdown select for fewer than 5 options (use radio buttons instead)
-- Don't use multi-select dropdowns (use checkboxes instead)
-- Don't split phone numbers or dates into multiple input fields
-- Don't require users to match a format you could auto-format (phone, currency, card number)
-- Don't use red color for required field indicators (use asterisk `*`)
-- Don't put placeholder text that disappears as the only guidance for format
-- Don't use generic error messages ("Invalid input") -- be specific ("Email must include @")
+- **Don't use placeholder text as the label** — it disappears, looks pre-filled, corrupts data, not accessible
+- **Don't use float labels** — same problems as placeholder-as-label; space saved is illusory
+- **Don't mark required fields with red asterisks** — mark optional fields with "(optional)" instead
+- **Don't disable the submit button** until all fields are filled — leaves users confused about what is wrong
+- **Don't use inline validation that fires while the user is still typing** — interrupting, confusing
+- **Don't use colour alone to indicate errors** — always pair with an icon (4–10% of users are colour-blind)
+- **Don't hide help text behind tooltips or hover states** — it won't be seen, doesn't work on touch
+- **Don't use dropdowns for short lists** (fewer than 5 options) — use radio buttons instead
+- **Don't use dropdowns for long lists** (more than 20 options) — use text box + auto-suggest instead
+- **Don't use sliders for numeric input** — users cannot enter precise values; use a text box
+- **Don't use three dropdowns for date entry** — use three text boxes (day, month, year) instead
+- **Don't make date picker the only way to enter a date** — always allow text box entry as alternative
+- **Don't auto-move cursor between split fields** (e.g., split card number boxes) — jarring, causes errors
+- **Don't ask users to enter email or password twice** — users paste from the first field; use password reset instead
+- **Don't ask double/multi-concept questions** — one concept per question
+- **Don't ask questions that yield poor-quality data** (e.g., "How did you hear about us?" — recall is inaccurate)
+- **Don't use accordion layouts for multi-step forms** — known usability issues
+- **Don't use percentage-based progress indicators** — vague; use "Step X of Y" instead
+- **Don't include site navigation or fat footers inside forms** — distracts users, adds no value
+- **Don't give text fields a background colour** — makes them look like buttons
+- **Don't use a reset/clear button** — users accidentally clear their work; remove entirely
+- **Don't reset the form on validation error**
+- **Don't use CAPTCHA unless absolutely necessary** — prefer honeypot fields
+- **Don't split phone numbers or dates into multiple input fields**
 
 ---
 

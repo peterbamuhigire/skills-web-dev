@@ -72,3 +72,50 @@ For cognitive science-based evaluation of clinical UI designs -- particularly th
 ## Cognitive UX Evaluation
 
 For cognitive science-based evaluation of clinical UI designs — particularly the Attention Mind (reducing cognitive load in high-stress clinical environments), Language Mind (clear medical terminology and error messages), and Emotion Mind (trust signals for patient-facing interfaces) — reference `skills/cognitive-ux-framework/`.
+
+## Motivation & Engagement in Clinical UX
+
+From Hodent (2022) *What UX Is Really About* — Self-Determination Theory (SDT) applied to clinical software.
+
+Clinicians disengage from or work around clinical software when their fundamental motivational needs are violated. Design must satisfy all three SDT needs:
+
+### Competence (Feeling Skilled and In Control)
+- New staff need more scaffolding: wizards, contextual help, pre-populated suggestions
+- Experienced clinicians need shortcuts: keyboard shortcuts, quick-entry fields, saved templates
+- Never design a one-size-fits-all workflow — it makes experts feel clumsy and beginners feel lost
+- Show competence growth: highlight when a user masters a new workflow
+- Feedback timing: visual acknowledgment within 100ms; meaningful response within 1 second
+
+### Autonomy (Meaningful Choice, Not Forced Paths)
+- Rigid workflow sequences that cannot be adjusted cause resistance and workarounds
+- Provide clear, well-labelled escape hatches when the standard path does not fit the clinical situation
+- Allow users to customise common actions, shortcuts, and default values
+- Explain *why* a constraint exists (regulatory, safety-critical) — clinicians respect justified constraints; they resist arbitrary ones
+
+### Relatedness (Connection to Shared Purpose)
+- Connect individual data entry actions to visible patient outcomes where possible
+- Team context: show who else is viewing or editing a record
+- Surface alerts that connect a clinician's action to downstream team members
+- Avoid creating a feeling of "I'm just entering data into a machine"
+
+---
+
+## Cognitive Load in High-Stress Clinical Environments
+
+Clinical settings impose maximum intrinsic cognitive load. Every design decision must ruthlessly eliminate extraneous load.
+
+### Core Principles
+- **Recognition over recall is mandatory:** Clinicians under stress cannot remember; display everything needed for a decision on the current screen. Never require mental calculation or cross-screen navigation for critical decisions.
+- **Interruption recovery:** Save state aggressively. On return to a screen after interruption, show a clear "where were you?" banner: "You were entering vitals for [Patient Name]. Continue?"
+- **Error prevention over error recovery:** In clinical contexts, the cost of an error is severe. Force a deliberate pause before irreversible actions (medication orders, dosage changes, record deletions). Require explicit confirmation with specifics shown: "Administer 500mg Paracetamol to [Name]. Confirm?"
+
+### Critical Information Display
+- Allergies and contraindications must be visible before any prescribing action — not one click away
+- Drug interaction warnings must interrupt the workflow (not a passive banner) for severe interactions
+- Vital signs outside normal range must be visually distinct through colour, size, AND icon — never colour alone
+
+### Anxiety Reduction (Emotion Mind)
+- Preview outcomes before committing: "You are about to sign off [Document Type] for [Patient Name]"
+- Show costs, fees, and complete information before the final confirmation step in patient-facing billing
+- Allow easy exit from any flow without losing progress — autosave in the background
+- In patient-facing interfaces: use calm, reassuring language; avoid clinical jargon

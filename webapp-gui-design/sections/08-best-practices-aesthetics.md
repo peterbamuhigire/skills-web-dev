@@ -68,6 +68,99 @@ Interpret creatively, pick unexpected choices, and rotate through light/dark the
 
 **IMPORTANT:** Match the implementation complexity to the aesthetic vision. Maximalist concepts demand elaborate code (animations, layered effects); minimalist ideas require restraint, pixel-perfect spacing, and subtle refinements. Claude can deliver extraordinary creative work—commit fully to a distinctive vision.
 
+## Visual Design Fundamentals
+
+Grounded in Paduraru (2024) *Roots of UI/UX Design* and Panzarella (2022) *UI/UX Web Design Simply Explained.*
+
+### The 8pt Spacing System
+
+All element dimensions and spacing values must be multiples of 8: 8, 16, 24, 32, 40, 48px. Most screen sizes are divisible by 8. This creates inherent consistency and speeds up developer implementation.
+
+For text baseline grid: use 4px increments.
+
+### 60-30-10 Colour Rule
+
+Professional colour proportion for any interface:
+- **60%** — dominant neutral (background, surfaces)
+- **30%** — secondary colour (cards, sidebars, secondary actions)
+- **10%** — accent/primary (CTAs, highlights, primary actions)
+
+More than 10% accent colour on a page overwhelms the design and the accent loses its ability to direct attention.
+
+### Typography Rules
+
+- **Never pure black (#000000)** on white: causes eye strain and overstimulates the retina. Use `#1A1A1A` or `#333333`.
+- **Never pure white (#FFFFFF)** on pure black: causes "halation" — letters appear to bleed/glow, especially for users with astigmatism. Use `#F5F5F5` on `#1A1A1A`.
+- **Body text line height** = font-size × 1.6. At 16px: 26px line height.
+- **Sans-serif is the default** for UI. Serif for editorial/content contexts only.
+- **Maximum 3 font sizes per section** — more creates noise and destroys hierarchy.
+- **Sentence case throughout** — fastest to read in English. UPPERCASE is harder to read and reads as shouting.
+
+### Dual-Layer Shadows
+
+A single drop shadow is flat and artificial. Professional shadows use two layers:
+1. **Core shadow** — narrow, dark, close to the object (the contact shadow)
+2. **Cast shadow** — wider, lighter, behind the object (the ambient shadow)
+
+Shadow size is proportional to object size. In dark mode: NEVER use white shadows — they create stark, tiring contrast. Use a darker shade of the element's colour with a lighter tint from the background.
+
+### Button States (All 6 Required)
+
+Every button variant must have all six states designed:
+1. **Default** — interactive, enabled
+2. **Hover** — visual feedback on cursor entry
+3. **Active/Pressed** — visible confirmation of click
+4. **Progress** — action is processing (spinner/loading)
+5. **Focus** — keyboard navigation highlight
+6. **Disabled** — non-interactive, visually distinct (never just grey opacity)
+
+Designing only the default state is incomplete.
+
+### Hero Sections
+
+Always reveal a portion of the next section below the fold. Never cover the entire viewport with a hero. A full-bleed hero with no visible content below kills curiosity and scroll intent.
+
+---
+
+## Dominance, Rhythm, and Proximity
+
+### Dominance
+
+Every layout must have one clearly dominant element — the first thing the eye notices. Without it, users have no indication of where to start and get overwhelmed.
+
+Three tools to create dominance:
+- **Size** — larger elements are noticed first
+- **Contrast** — a small element with strong contrast dominates over larger low-contrast elements
+- **Negative space** — surrounding any element with generous whitespace places it centre-stage
+
+### Rhythm (Spacing Consistency)
+
+When the interval between elements is always the same, the brain learns the rule and moves through the page on autopilot. Consistent spacing between list items, cards, and grid elements creates an invisible reading metronome. Rhythm dramatically reduces reading fatigue.
+
+### Proximity as Grouping
+
+Elements close together are perceived as belonging together. Use proximity to:
+- Create card groupings without borders
+- Signal that a label belongs to its input field
+- Separate navigation levels (primary vs secondary)
+
+---
+
+## Mental Model Alignment
+
+**The implementation model vs the mental model (Cooper):**
+
+The most common design error is building interfaces that follow how the technology works rather than how the user thinks. The user has no interest in how the system works — they want to reach their goal in the simplest way possible.
+
+Always ask: "How would my user *think* about this?" Design the interface to match that mental model, not the database structure or API response shape.
+
+Examples:
+- Group event dates as "Today / This Week / This Weekend" — not by timestamp
+- Treat airport name and city name as interchangeable (JFK = New York)
+- Pre-select "round trip" and "economy" for flight searches — most users choose these
+
+---
+
 ## Common Mistakes
 
 ❌ `alert('Success!');` → ✅ `Swal.fire('Success!', '', 'success');`

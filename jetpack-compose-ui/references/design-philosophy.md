@@ -278,6 +278,41 @@ Box(
 }
 ```
 
+## Mobile-Specific Design Rules
+
+From Paduraru (2024) *Roots of UI/UX Design* — proven standards for Android mobile UI.
+
+### Spacing
+- **4px baseline grid** for text alignment
+- **Minimum gutter: 16dp** — below 16dp provides insufficient visual separation; 8dp is the absolute minimum in constrained layouts
+- **Margins:** typically 16–24dp; never less than 16dp
+
+### Navigation
+- **Bottom tabs: maximum 5** — beyond 5 tabs they become too small to tap accurately
+- **Forward actions always on the right; back/cancel on the left** — follows Western reading direction. Violating this causes user errors.
+- Touch target shading: shade the full tappable area around radio buttons and checkboxes so users understand the full interactive region
+
+### Affordance Through Animation
+On mobile there is no hover state. Use animation to signal interactivity:
+- Pulse or wiggle to indicate "this element can be interacted with"
+- The interaction point must be near where thumbs naturally rest on the device
+- Never rely on hover-only affordances — they are invisible on touch
+
+### Touch Targets
+- Minimum touch target: **44dp** (absolute floor per Apple HIG; 48dp is preferred per Material Design)
+- Checkboxes on mobile: interaction area must exceed 48dp
+- Minimum spacing between adjacent buttons: **8–10dp**
+
+### Typography on Mobile
+- Base font size for interactive elements: **16sp minimum**
+- Going below 16sp for buttons, labels, or form fields degrades usability
+- Use `lineHeight` property: for 16sp body text, set `lineHeight = 26.sp`
+
+### Images and Illustrations
+- If an image is challenging to interpret on a small screen, it is not the right choice
+- Test every image across multiple screen sizes before committing
+- Images of people inspire confidence; nature evokes calm; abstract images reduce authenticity in team/profile sections
+
 ## Checklist: Is This Screen Beautiful?
 
 - [ ] Uses only theme colors (no hardcoded hex values)

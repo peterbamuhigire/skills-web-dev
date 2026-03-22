@@ -193,6 +193,29 @@ The more an element stands out, the better it is noticed and remembered.
 
 ---
 
+---
+
+## 9. Tidwell's Behavioral Design Patterns (Cross-Reference)
+
+The `interaction-design-patterns` skill provides Tidwell's 12 behavioral patterns that complement the cognitive science above. Each Tidwell pattern has a direct cognitive foundation:
+
+| Tidwell Pattern | Cognitive Foundation |
+|----------------|---------------------|
+| **Satisficing** | System 1 + working memory limits — users satisfice because parsing is work |
+| **Habituation** | Procedural memory — habituated gestures bypass conscious thought |
+| **Spatial Memory** | Procedural + explicit memory — location is encoded as part of the learned pattern |
+| **Deferred Choices** | Cognitive load — unnecessary decisions increase extraneous load |
+| **Instant Gratification** | Motivation (SDT) — early competence feelings drive continued engagement |
+| **Safe Exploration** | Anxiety reduction (Emotion Mind) — fear of mistakes suppresses exploration |
+| **Incremental Construction** | Flow state (Csikszentmihalyi) — immediate feedback is prerequisite for flow |
+| **Streamlined Repetition** | Habituation + efficiency — reduce System 2 demand on routine tasks |
+| **Prospective Memory** | Prospective memory theory — externalising reminders offloads working memory |
+| **Social Proof** | Loss aversion + relatedness (SDT) — peer behaviour reduces decision uncertainty |
+
+**Load `interaction-design-patterns` alongside this skill for the full pattern library.**
+
+---
+
 ## Sources
 
 - Hodent, C. (2022). *What UX Is Really About.* CRC Press.
@@ -200,3 +223,4 @@ The more an element stands out, the better it is noticed and remembered.
 - Paduraru, E. (2024). *Roots of UI/UX Design.* Creative Tim.
 - Norman, D. (2013). *The Design of Everyday Things.* Basic Books.
 - Kahneman, D. (2011). *Thinking, Fast and Slow.* Farrar, Straus and Giroux.
+- Tidwell, J., Brewer, C., Valencia, A. (2020). *Designing Interfaces*, 3rd ed. O'Reilly.

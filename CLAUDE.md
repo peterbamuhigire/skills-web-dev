@@ -171,6 +171,7 @@ skills/
 ├── ux-psychology/                   # Cognitive science foundations (dual-process, memory, attention, biases, dark patterns)
 ├── ux-for-ai/                       # AI interface design (trust, transparency, premium vs slop, human oversight)
 ├── lean-ux-validation/              # Hypothesis-driven UX (validate before build, 5-user research, metrics)
+├── interaction-design-patterns/     # Tidwell's 45+ patterns: behavioral, navigation, layout, actions, data display
 ├── prompting-patterns-reference.md  # Prompting patterns for AI instructions
 ├── orchestration-patterns-reference.md # Orchestration strategies for multi-agent workflows
 ├── doc-standards.md                 # Documentation formatting standards (MANDATORY)

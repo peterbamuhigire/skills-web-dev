@@ -117,6 +117,10 @@ skills/
 ├── android-custom-icons/            # [Superseded by mobile-custom-icons] Android PNG icons
 ├── android-pdf-export/              # Native PDF export using PdfDocument API
 ├── android-report-tables/           # [Superseded by mobile-report-tables] Android report tables
+├── ios-development/                 # iOS dev standards (Swift, SwiftUI, MVVM, async/await, @Observable)
+├── ios-data-persistence/            # SwiftData, Keychain, offline-first, repository pattern for iOS
+├── ios-project-setup/               # Xcode setup, xcconfig schemes, code signing, TestFlight, App Store
+├── swiftui-design/                  # SwiftUI UI standards (NavigationStack, theming, animations, charts)
 ├── healthcare-ui-design/            # Clinical-grade UI for EMR/EHR, telemedicine, patient portals (web + Android)
 ├── google-play-store-review/        # Play Store review readiness
 ├── implementation-status-auditor/   # Project audit + completion blueprint
@@ -182,6 +186,7 @@ skills/
 ├── lean-ux-validation/              # Hypothesis-driven UX (validate before build, 5-user research, metrics)
 ├── interaction-design-patterns/     # Tidwell's 45+ patterns: behavioral, navigation, layout, actions, data display
 ├── web-usability-krug/              # Krug's 3 Laws, Billboard Design 101, navigation, goodwill reservoir, mobile, accessibility (Don't Make Me Think)
+├── swiftui-pro-patterns/            # Advanced SwiftUI: layout internals, identity, animation, custom layouts, environment/preferences, performance (Pro SwiftUI, Hudson)
 ├── prompting-patterns-reference.md  # Prompting patterns for AI instructions
 ├── orchestration-patterns-reference.md # Orchestration strategies for multi-agent workflows
 ├── doc-standards.md                 # Documentation formatting standards (MANDATORY)

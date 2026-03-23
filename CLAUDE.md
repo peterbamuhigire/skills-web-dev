@@ -118,11 +118,17 @@ skills/
 ├── android-pdf-export/              # Native PDF export using PdfDocument API
 ├── android-report-tables/           # [Superseded by mobile-report-tables] Android report tables
 ├── ios-development/                 # iOS dev standards (Swift, SwiftUI, MVVM, async/await, @Observable)
+├── ios-tdd/                         # iOS TDD (Red-Green-Refactor, Swift Testing, XCTest, protocol mocks)
 ├── ios-data-persistence/            # SwiftData, Keychain, offline-first, repository pattern for iOS
 ├── ios-project-setup/               # Xcode setup, xcconfig schemes, code signing, TestFlight, App Store
+├── ios-biometric-login/             # Face ID/Touch ID gate via LocalAuthentication + Keychain
+├── ios-pdf-export/                  # Native PDF export using UIGraphicsPDFRenderer + share sheet
+├── ios-rbac/                        # RBAC for iOS (PermissionGate ViewModifier, module-gated TabView)
+├── ios-bluetooth-printing/          # CoreBluetooth ESC/POS thermal printer communication
 ├── swiftui-design/                  # SwiftUI UI standards (NavigationStack, theming, animations, charts)
 ├── healthcare-ui-design/            # Clinical-grade UI for EMR/EHR, telemedicine, patient portals (web + Android)
 ├── google-play-store-review/        # Play Store review readiness
+├── app-store-review/                # Apple App Store compliance, privacy labels, TestFlight, review readiness
 ├── implementation-status-auditor/   # Project audit + completion blueprint
 ├── plan-implementation/             # Autonomous plan executor (TDD + 5-layer validation)
 ├── multi-tenant-saas-architecture/  # SaaS backend patterns

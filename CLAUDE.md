@@ -174,6 +174,7 @@ skills/
 ├── ux-for-ai/                       # AI interface design (trust, transparency, premium vs slop, human oversight)
 ├── lean-ux-validation/              # Hypothesis-driven UX (validate before build, 5-user research, metrics)
 ├── interaction-design-patterns/     # Tidwell's 45+ patterns: behavioral, navigation, layout, actions, data display
+├── web-usability-krug/              # Krug's 3 Laws, Billboard Design 101, navigation, goodwill reservoir, mobile, accessibility (Don't Make Me Think)
 ├── prompting-patterns-reference.md  # Prompting patterns for AI instructions
 ├── orchestration-patterns-reference.md # Orchestration strategies for multi-agent workflows
 ├── doc-standards.md                 # Documentation formatting standards (MANDATORY)

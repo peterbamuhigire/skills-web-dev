@@ -192,6 +192,9 @@ skills/
 ├── lean-ux-validation/              # Hypothesis-driven UX (validate before build, 5-user research, metrics)
 ├── interaction-design-patterns/     # Tidwell's 45+ patterns: behavioral, navigation, layout, actions, data display
 ├── web-usability-krug/              # Krug's 3 Laws, Billboard Design 101, navigation, goodwill reservoir, mobile, accessibility (Don't Make Me Think)
+├── practical-ui-design/             # Rules-based visual design: colour (HSB), typography (scales), layout (8pt grid), buttons, dark mode (Dannaway + Kuleszo)
+├── ux-principles-101/               # 101 UX principles: accessibility, forms, search, empty states, error recovery, copywriting, ethics (Grant + Maioli)
+├── data-visualization/              # Knaflic's 6-lesson framework: context, chart selection, decluttering, attention, design, storytelling (Storytelling with Data)
 ├── swiftui-pro-patterns/            # Advanced SwiftUI: layout internals, identity, animation, custom layouts, environment/preferences, performance (Pro SwiftUI, Hudson)
 ├── prompting-patterns-reference.md  # Prompting patterns for AI instructions
 ├── orchestration-patterns-reference.md # Orchestration strategies for multi-agent workflows

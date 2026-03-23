@@ -41,6 +41,17 @@ Three components — all matter for design:
 - *Explicit* — consciously retrievable facts/episodes; fallible; every retrieval is a reconstruction
 - *Procedural/muscle memory* — deeply encoded habits and patterns; very durable; violated conventions force users back to System 2
 
+**Miller's Law** — Working memory holds ~7 (±2) items; in practice, 3–5 is a safer design target.
+- Group interface elements into ≤7 chunks per region; aim for ≤5
+- Apply chunking: break phone numbers, IBANs, and codes into groups (555-867-5309, not 5558675309)
+
+**Serial Position Effect** — Users best remember the first (primacy) and last (recency) items in a list. Middle items are least memorable.
+- Place the most important navigation or menu items first or last — never in the middle
+- Order destructive or rarely used actions last
+
+**Zeigarnik Effect** — Incomplete tasks are remembered better than completed ones; open loops create cognitive pull.
+- Progress bars, step indicators, and "Your profile is 60% complete" prompts leverage this — open loops draw users back
+
 **Design rules:**
 - Never rely on users remembering instructions from a previous screen
 - Never rely on your own memory — document everything
@@ -64,6 +75,14 @@ Three components — all matter for design:
 | Extraneous | Complexity from poor design | Remove, simplify, group, hide |
 | Germane | Effort to build mental models | Reinforce with consistent patterns, meaningful defaults |
 
+**Selective Attention** — Users filter out information irrelevant to their current goal. Anything outside their task path is effectively invisible.
+- Never rely on users noticing elements placed outside their active task flow
+- Test where users actually look, not where you placed things
+
+**Paradox of the Active User** — Users never read manuals; they start using the product immediately and muddle through without reading instructions.
+- Embed onboarding in the product flow; documentation that requires reading first will be ignored
+- Design for learning-by-doing, not reading-before-doing
+
 **Design rules:**
 - Reduce extraneous cognitive load ruthlessly
 - New users face maximum intrinsic load — onboard progressively
@@ -78,9 +97,16 @@ Perception is a subjective construction — not a faithful recording. Context, c
 **Key Gestalt principles:**
 - **Proximity** — elements close together are perceived as grouped
 - **Similarity** — elements sharing attributes (colour, shape, size) are grouped
+- **Common Region** — elements inside a shared boundary (card, panel, divider) are grouped, even without other visual similarity
+- **Uniform Connectedness** — elements connected by a visible line are perceived as more strongly related than proximity alone
+- **Prägnanz (Law of Good Form)** — users perceive the simplest, most stable interpretation of any ambiguous visual; favour clean, unambiguous shapes
 - **Figure-Ground** — primary content must stand out from background; use whitespace deliberately
 - **Continuity** — aligned elements guide the eye along a path
 - **Closure** — users complete incomplete shapes mentally
+
+**Mental Model** — Users approach your product with expectations built from prior experience with other apps, physical analogies, and conventions.
+- Align with users' existing mental models; violation requires explicit explanation
+- Jakob's Law: users spend most of their time on other products — they expect yours to work the same way
 
 **F-Pattern and Z-Pattern:**
 - F-Pattern: text-heavy pages; users read top, then scan down the left side
@@ -113,6 +139,15 @@ All three levels are always active. Neglect any one of them and the experience i
 
 **Design rule:** Gamification (badges, points) only addresses extrinsic motivation. For genuine engagement, target competence, autonomy, and relatedness.
 
+**Flow (Csikszentmihalyi)** — Deep engagement emerges when challenge exactly matches skill level. Too easy = boredom; too hard = anxiety.
+- Match task difficulty to the user's current skill level; scaffold progressively as competence grows
+- Immediate, unambiguous feedback is a prerequisite for flow — latency or ambiguity breaks the state
+
+**Peak-End Rule (Kahneman)** — Users judge an experience primarily by its most intense moment (peak) and its ending — not duration or average quality.
+- Design exceptional moments at key milestones (first success, first real value delivered)
+- Ensure ending states (confirmation screens, completion flows) are delightful — not perfunctory
+- Mitigate pain peaks (errors, long loading, failed submissions) as a priority over general polish
+
 ---
 
 ## 6. Cognitive Biases Every Designer Must Know
@@ -131,6 +166,7 @@ All three levels are always active. Neglect any one of them and the experience i
 | **Framing effect** | Context and presentation change perceived value independently of objective quality | Premium pricing, professional context, and quality signals literally change the experienced pleasure |
 | **Anchoring effect** | The first piece of information seen sets a reference point; all subsequent judgements are relative to it | Show full price before discount; sequence options from expensive to cheap; first number anchors the comparison |
 | **Endowed Progress Effect** | People are more motivated to complete a goal if they feel they have already made progress toward it | Give new users a head-start on profiles, progress bars, or completion meters — 82% higher completion vs. starting at 0 |
+| **Social Proof & Authority** | People look to the behavior of others (especially similar others and authority figures) to guide their own decisions, particularly under uncertainty | User counts, expert endorsements, testimonials, and peer behavior signals reduce decision anxiety. Research base: Bandura's Social Learning Theory — people adopt behaviors they observe in relevant role models. Most effective when targeting users similar to the viewer, not just celebrities. |
 
 ---
 
@@ -182,6 +218,45 @@ The more an element stands out, the better it is noticed and remembered.
 - Identify the core 20% and make them prominent
 - Don't clutter the interface with rarely used features
 
+### Jakob's Law
+Users spend most of their time on other products. They expect yours to work the same way.
+- Follow established conventions for navigation, search, forms, and interactions
+- Innovation has a learning cost — deviate from convention only when the benefit clearly outweighs it
+
+### Aesthetic-Usability Effect
+Aesthetically pleasing designs are perceived as easier to use, even when they aren't.
+- Polish UI — users tolerate minor usability problems in beautiful interfaces
+- This effect fades with repeated exposure; function must ultimately deliver
+
+### Doherty Threshold
+When system response time drops below 400ms, users stay engaged; above 400ms attention breaks.
+- Target <100ms for perceived-instant feedback; <400ms for any interactive action
+- Use skeleton screens, optimistic UI, and progress indicators when performance cannot be guaranteed
+
+### Tesler's Law (Law of Conservation of Complexity)
+Every system has inherent complexity that cannot be eliminated — only moved.
+- Simplifying the UI shifts complexity to the backend or documentation
+- Decide consciously who bears the complexity: the product or the user
+
+### Occam's Razor
+Among competing designs, prefer the simplest one that adequately solves the problem.
+- Remove every element that does not serve a clear purpose; when in doubt, leave it out
+
+### Parkinson's Law
+Work expands to fill the time available — and users fill whatever input space they are given.
+- Set time constraints on tasks to create urgency; don't provide more input space than needed
+
+### Postel's Law (Robustness Principle)
+Be conservative in what you send; be liberal in what you accept.
+- Accept varied input formats (phone with/without dashes, dates in multiple formats)
+- Validate with helpful correction, not rejection: "We'll format that" not "Invalid input"
+- Return consistent, clean, predictable output regardless of input variation
+
+### Choice Overload
+Too many options reduces satisfaction and increases the likelihood of no decision at all.
+- Cap primary choices at ≤5; use categories and filtering for large option sets
+- Provide a recommended default — most users will take it; it eliminates unnecessary decisions
+
 ---
 
 ## 9. Key Mantras
@@ -197,9 +272,7 @@ The more an element stands out, the better it is noticed and remembered.
 
 ---
 
----
-
-## 9. Tidwell's Behavioral Design Patterns (Cross-Reference)
+## 10. Tidwell's Behavioral Design Patterns (Cross-Reference)
 
 The `interaction-design-patterns` skill provides Tidwell's 12 behavioral patterns that complement the cognitive science above. Each Tidwell pattern has a direct cognitive foundation:
 
@@ -220,6 +293,8 @@ The `interaction-design-patterns` skill provides Tidwell's 12 behavioral pattern
 
 **Load `habit-forming-products` when designing for repeat, unprompted engagement.** That skill operationalises the IKEA effect, goal-gradient, scarcity, framing, anchoring, and endowed progress into the Hook Model (Trigger → Action → Variable Reward → Investment).
 
+**Load `laws-of-ux` when you need to cite or look up any named UX law by name.** That skill is the complete named-law quick-reference for all 30 Yablonski Laws of UX with design rules, grouped by law family.
+
 ---
 
 ## Sources
@@ -230,4 +305,8 @@ The `interaction-design-patterns` skill provides Tidwell's 12 behavioral pattern
 - Norman, D. (2013). *The Design of Everyday Things.* Basic Books.
 - Kahneman, D. (2011). *Thinking, Fast and Slow.* Farrar, Straus and Giroux.
 - Tidwell, J., Brewer, C., Valencia, A. (2020). *Designing Interfaces*, 3rd ed. O'Reilly.
-- Eyal, N. & Hoover, R. (2014). *Hooked: How to Build Habit-Forming Products.* Portfolio/Penguin. (Scarcity, Framing, Anchoring, Endowed Progress effects)
+- Eyal, N. & Hoover, R. (2014). *Hooked: How to Build Habit-Forming Products.* Portfolio/Penguin. (Scarcity, Framing, Anchoring, Endowed Progress, Social Proof effects)
+- Bandura, A. (1977). *Social Learning Theory.* Prentice Hall. (Social Proof / observational learning)
+- Yablonski, J. (2024). *Laws of UX*, 2nd ed. O'Reilly. (lawsofux.com — all named laws)
+- Csikszentmihalyi, M. (1990). *Flow: The Psychology of Optimal Experience.* Harper & Row.
+- Miller, G. A. (1956). "The Magical Number Seven, Plus or Minus Two." *Psychological Review.*

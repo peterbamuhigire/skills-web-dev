@@ -42,6 +42,20 @@ Habit Zone = High Frequency × High Perceived Utility
 
 ---
 
+## Habit Discovery — Finding the Opportunity
+
+Before designing hooks, confirm a genuine habit-forming opportunity exists. Four sources:
+
+1. **Look in the Mirror** — The most reliable starting point (Paul Graham): identify a problem you experience yourself. Founders who solve their own pain point are the users they understand most deeply. Warning: the further you are from your past self, the lower your odds of success — you cannot manufacture empathy.
+
+2. **Nascent Behaviors** — Watch small, niche groups doing new things that could scale. Early adopters reveal mass-market needs before mass-market awareness exists. Things that looked like toys have become essential: cameras as "child's toys" (1900s), phones as "toys for the rich" (1870s), personal computers (1970s). Dismissed nascent behaviors are often the most valuable signals.
+
+3. **Enabling Technologies** — New infrastructure creates new Hook cycle possibilities. Follow the three-phase wave: infrastructure (networks, hardware) → enabling technologies (APIs, platforms) → high-penetration applications (consumer products). Identify where new infrastructure makes Hook cycles faster, more frequent, or higher-reward.
+
+4. **Interface Changes** — Major UI innovations unlock new habit surfaces. GUI replaced terminal. Mobile camera replaced standalone cameras. Infinite scroll replaced paginated feeds. Each shift created entirely new habit opportunities. Anticipate the next interface layer (wearables, ambient computing, spatial computing) and build for those interaction primitives.
+
+---
+
 ## The Hook Model
 
 Four phases, cycled repeatedly until the habit is formed:
@@ -139,6 +153,19 @@ Identify the user's scarcest resource at the moment of action and remove that fr
 - **Infinite scroll** — removes the pause-and-click barrier
 - **Progressive disclosure** — start with the simplest version; reveal complexity later
 
+### Persuasion Heuristics (Action-Phase Amplifiers)
+
+Four mental shortcuts that increase the probability of crossing the action line without increasing friction:
+
+| Heuristic | Mechanism | Application |
+|-----------|-----------|-------------|
+| **Scarcity Effect** | Perceived scarcity raises perceived value; abundance decreases it | "Only 14 left in stock", limited-time access, early-adopter pricing. Warning: false scarcity damages trust when discovered. |
+| **Framing Effect** | Context and presentation change perceived value independently of objective quality | Same product commands different response in premium vs. commodity framing. Research: identical wine tastes better — and registers higher brain activation — when priced higher. |
+| **Anchoring Effect** | The first number seen sets a reference point; all subsequent judgements are relative to it | Show full price before discount; sequence pricing tiers from highest to lowest; early numbers anchor the frame. |
+| **Social Proof & Authority** | Majority behavior signals safety; authority figures signal correctness | Testimonials, expert endorsements, "X users already joined", bestseller badges. Research base: Bandura's Social Learning Theory — people adopt behaviors they observe in others like themselves or in role models. |
+
+These heuristics operate at the System 1 level (see `ux-psychology`). They work because users are making decisions quickly, with incomplete information, under low attention. They do not replace good design — they amplify it.
+
 ---
 
 ## Phase 3: Variable Reward
@@ -160,8 +187,17 @@ Most powerful products use **two or three types simultaneously.**
 ### Reward Design Rules
 - **Satisfy the craving but leave wanting more** — the reward must feel complete yet open-ended
 - **Variability must feel fair** — random must not feel rigged; users must feel agency
-- **Finite variability fades** — predictable games lose players; infinite variability (feeds, social) sustains
 - **Autonomy preserves engagement** — users who feel controlled lose intrinsic motivation; give meaningful choices within the variable loop
+
+### Finite vs. Infinite Variability
+
+The distinction determines long-term sustainability of engagement:
+
+**Finite variability** — the reward pool is known or bounded. Users eventually map all outcomes. Dopamine response flattens. Engagement declines. Classic slot machines with disclosed RTP schedules, single-player games with fixed enemy patterns, and achievement systems with finite badge sets all exhibit this decay.
+
+**Infinite variability** — the outcome space cannot be exhausted. Social feeds (content from millions of humans), open-world games, search results, and user-generated content platforms all maintain unpredictability indefinitely because the source of variability is unbounded (other people, the real world, new content).
+
+**Design rule:** Where possible, source variability from humans and real-world events rather than from system-generated outcomes. The internet of other people is the most powerful variable reward engine ever built. Build interfaces that tap it.
 
 ---
 
@@ -169,11 +205,12 @@ Most powerful products use **two or three types simultaneously.**
 
 The user does a small "bit of work" that increases the value of the product for future use. Unlike action (which is for immediate reward), investment is for *future* benefit.
 
-**Three psychological mechanisms make investment sticky:**
+**Four psychological mechanisms make investment sticky:**
 
 1. **IKEA Effect** — People irrationally overvalue things they helped create. Users value a product more because they built part of it (playlists, profiles, annotations).
 2. **Consistency bias** — Past behaviour predicts future behaviour. A small first commitment leads to larger future commitments.
 3. **Cognitive dissonance avoidance** — Users rationalise that something they've invested in must be valuable.
+4. **Reciprocation** — Humans evolved to reciprocate value received, and this applies to non-human systems. Stanford research: participants who received help from a computer completed nearly 2× more work for it in a subsequent task than those who had not. Implication: deliver genuine value *before* asking for investment, not after. The product must earn the right to ask.
 
 ### What Users Invest (Stored Value)
 
@@ -248,11 +285,88 @@ Redesign onboarding and early flows to guide *all* new users down the Habit Path
 
 This is a continuous process — run it with every major product iteration.
 
+### Habit Testing Benchmarks
+
+Use these as diagnostic thresholds:
+
+| Signal | Threshold | Interpretation |
+|--------|-----------|----------------|
+| Habitual users in cohort | `< 5%` | Fundamental problem: wrong users or wrong Hook design |
+| App abandoned after single use | `26%` of installs (2010 baseline) | Normal attrition; watch for outliers above this |
+| Time to first check after waking | `79%` within 15 minutes | Benchmark for "owned trigger" strength on mobile |
+| Twitter retention tipping point | Following `≥ 30` accounts | Example of a concrete Habit Path threshold — find yours |
+
+When you find your product's equivalent of "following 30 accounts", that threshold becomes the target your onboarding must drive users toward.
+
+---
+
+## Workbook Application Framework
+
+The Supplemental Workbook (Eyal & Hoover, 2014) provides a structured 8-exercise sequence for applying the Hook Model to a real product. Work through these in order — they build on each other.
+
+**Exercise 1 — Foundation**
+1. Select the product or feature to make habit-forming.
+2. State why the business model requires a habit (retention, frequency, switching cost).
+3. Describe the problem users are solving with it today.
+4. Identify current solutions and why they are inadequate.
+5. Define the intended habitual behaviour.
+6. Specify expected engagement frequency — must be at least weekly or habit formation is very difficult.
+
+**Exercise 2 — Triggers**
+1. Name a single real target user (not a persona archetype — an actual person).
+2. Describe what that user is doing immediately before the behaviour.
+3. Apply the 5 Whys to find 3 internal trigger candidates.
+4. Identify the most frequent internal trigger from those 3.
+5. Write the trigger sentence: "Every time [user] feels [internal trigger], they [intended behaviour]."
+6. Identify the 3 best places/moments to fire an external trigger.
+7. Brainstorm 3 conventional external trigger methods + 3 unconventional ones.
+
+**Exercise 3 — Action**
+1. Count every step between internal trigger and completed action.
+2. Compare step count to the leading competitor.
+3. Identify which of the 6 simplicity elements (time, money, effort, brain cycles, social deviance, non-routine) is limiting the user most.
+4. Brainstorm 3 ways to remove that specific friction.
+5. Identify which persuasion heuristics (Scarcity, Framing, Anchoring, Social Proof) could increase action likelihood at each step.
+
+**Exercise 4 — Variable Reward**
+1. Interview at least 5 users about the most enjoyable or encouraging moment in the product.
+2. Identify the moments of delight and surprise they describe.
+3. Determine which outcome most directly alleviates the internal trigger identified in Exercise 2.
+4. Brainstorm reward enhancements for each of the 3 reward types (Tribe, Hunt, Self).
+
+**Exercise 5 — Investment**
+1. Identify the single "bit of work" most likely to increase the user's return probability.
+2. Brainstorm 3 investments that both load the next trigger AND store value (content, data, connections, reputation, or skill).
+3. Estimate the delay between the investment and when the loaded trigger fires.
+4. Identify how to reduce that delay.
+
+**Exercise 6 — Ethics**
+1. Do you personally use this product? (Yes/No)
+2. Does it materially improve users' lives? (Yes/No)
+3. Assign your quadrant (Facilitator / Peddler / Entertainer / Dealer).
+4. If not Facilitator: identify what must change before proceeding.
+
+**Exercise 7 — Habit Testing**
+1. State the frequency threshold that defines a habitual user (from Exercise 1, Q6).
+2. Calculate the % of users who meet that threshold in the last 60 days.
+3. Describe what is unique about habituated users vs. non-habituated users.
+4. Redesign the onboarding path so all users encounter the actions that habituated users took.
+
+**Exercise 8 — Observation**
+1. Spend one week logging products you use habitually.
+2. For each: what triggered you (external/internal)? How could it be easier? More frequent? More rewarding? How does it solicit investment?
+3. Note any product used in an unintended way — these nascent behaviors are signals.
+4. Observe target users of your own product for workarounds and adaptations they have invented.
+
 ---
 
 ## Habit Design Checklist
 
 Before shipping any feature intended to build repeat engagement:
+
+**Discovery**
+- [ ] Confirmed a genuine habit-forming opportunity exists (one of the 4 discovery methods)
+- [ ] Verified product belongs in the Habit Zone (weekly+ frequency, real pain)
 
 **Trigger**
 - [ ] Identified the specific internal trigger (emotional root via 5 Whys)
@@ -263,14 +377,17 @@ Before shipping any feature intended to build repeat engagement:
 - [ ] Counted steps from trigger to reward — fewer is always better
 - [ ] Identified the scarcest resource and removed that friction
 - [ ] Reduced choices to a single clear path (Hick-Hyman Law)
+- [ ] Identified which persuasion heuristics apply at this action step
 
 **Variable Reward**
 - [ ] Reward satisfies the craving but leaves the user wanting more
 - [ ] At least one of Tribe, Hunt, or Self reward types is in play
+- [ ] Variability is infinite or sourced from unpredictable human behavior
 - [ ] Variability feels fair and maintains user agency
 
 **Investment**
-- [ ] Investment is asked AFTER the reward
+- [ ] Value delivered BEFORE investment is requested (reciprocation principle)
+- [ ] Investment is asked AFTER the variable reward
 - [ ] Investment stores value (content, data, followers, reputation, or skill)
 - [ ] Investment loads a trigger for the next cycle
 

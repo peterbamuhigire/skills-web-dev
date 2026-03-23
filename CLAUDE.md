@@ -169,7 +169,8 @@ skills/
 ├── language-standards/              # Multi-language tone, grammar & cultural standards
 ├── api-testing-verification/        # API test verification patterns
 ├── habit-forming-products/          # Hook Model (Trigger→Action→Variable Reward→Investment), internal triggers, ethics, Habit Testing
-├── ux-psychology/                   # Cognitive science foundations (dual-process, memory, attention, biases, dark patterns)
+├── ux-psychology/                   # Cognitive science foundations (dual-process, memory, attention, biases, dark patterns, design laws)
+├── laws-of-ux/                      # Named-law quick reference: all 30 Yablonski Laws of UX (Fitts, Hick, Miller, Jakob, Tesler, Postel, Doherty, Zeigarnik, Peak-End, Gestalt)
 ├── ux-for-ai/                       # AI interface design (trust, transparency, premium vs slop, human oversight)
 ├── lean-ux-validation/              # Hypothesis-driven UX (validate before build, 5-user research, metrics)
 ├── interaction-design-patterns/     # Tidwell's 45+ patterns: behavioral, navigation, layout, actions, data display

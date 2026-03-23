@@ -168,6 +168,7 @@ skills/
 ├── east-african-english/            # British English / East African tone standard
 ├── language-standards/              # Multi-language tone, grammar & cultural standards
 ├── api-testing-verification/        # API test verification patterns
+├── habit-forming-products/          # Hook Model (Trigger→Action→Variable Reward→Investment), internal triggers, ethics, Habit Testing
 ├── ux-psychology/                   # Cognitive science foundations (dual-process, memory, attention, biases, dark patterns)
 ├── ux-for-ai/                       # AI interface design (trust, transparency, premium vs slop, human oversight)
 ├── lean-ux-validation/              # Hypothesis-driven UX (validate before build, 5-user research, metrics)

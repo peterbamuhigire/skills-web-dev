@@ -127,6 +127,10 @@ All three levels are always active. Neglect any one of them and the experience i
 | **Status quo bias** | Users prefer inaction and existing defaults | Design defaults thoughtfully — they determine most outcomes |
 | **Loss aversion** | Losing hurts more than equivalent gaining pleases | Sunk-cost thinking is predictable; don't exploit it at users' expense |
 | **Goal-gradient effect** | Motivation increases as users approach a goal | Show progress indicators; make users feel they are nearly done |
+| **Scarcity effect** | Items perceived as scarce are valued more; abundance *decreases* perceived value | "Only 3 left", limited availability, early-access — scarcity signals desirability |
+| **Framing effect** | Context and presentation change perceived value independently of objective quality | Premium pricing, professional context, and quality signals literally change the experienced pleasure |
+| **Anchoring effect** | The first piece of information seen sets a reference point; all subsequent judgements are relative to it | Show full price before discount; sequence options from expensive to cheap; first number anchors the comparison |
+| **Endowed Progress Effect** | People are more motivated to complete a goal if they feel they have already made progress toward it | Give new users a head-start on profiles, progress bars, or completion meters — 82% higher completion vs. starting at 0 |
 
 ---
 
@@ -214,6 +218,8 @@ The `interaction-design-patterns` skill provides Tidwell's 12 behavioral pattern
 
 **Load `interaction-design-patterns` alongside this skill for the full pattern library.**
 
+**Load `habit-forming-products` when designing for repeat, unprompted engagement.** That skill operationalises the IKEA effect, goal-gradient, scarcity, framing, anchoring, and endowed progress into the Hook Model (Trigger → Action → Variable Reward → Investment).
+
 ---
 
 ## Sources
@@ -224,3 +230,4 @@ The `interaction-design-patterns` skill provides Tidwell's 12 behavioral pattern
 - Norman, D. (2013). *The Design of Everyday Things.* Basic Books.
 - Kahneman, D. (2011). *Thinking, Fast and Slow.* Farrar, Straus and Giroux.
 - Tidwell, J., Brewer, C., Valencia, A. (2020). *Designing Interfaces*, 3rd ed. O'Reilly.
+- Eyal, N. & Hoover, R. (2014). *Hooked: How to Build Habit-Forming Products.* Portfolio/Penguin. (Scarcity, Framing, Anchoring, Endowed Progress effects)

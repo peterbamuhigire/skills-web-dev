@@ -1,6 +1,6 @@
 ---
 name: api-pagination
-description: "Cursor/offset pagination pattern for PHP REST APIs and Android (Jetpack Compose + MVVM). Covers backend response format, Android DTOs, repository, use case, ViewModel state, and infinite-scroll LazyColumn. Use when adding pagination to any list endpoint."
+description: "Offset pagination pattern for PHP REST APIs and mobile clients (Android Jetpack Compose + iOS SwiftUI). Covers backend response format, client DTOs, repository, ViewModel state, and infinite-scroll UI. Use when adding pagination to any list endpoint."
 ---
 
 ## Required Plugins
@@ -11,9 +11,9 @@ description: "Cursor/offset pagination pattern for PHP REST APIs and Android (Je
 
 ## Overview
 
-Standard offset-based pagination pattern used across the Maduuka platform. Applies to both the PHP backend (REST API) and the Android client (Kotlin + Compose).
+Standard offset-based pagination pattern used across the Maduuka platform. Applies to the PHP backend (REST API) and mobile clients (Android Kotlin + Compose, iOS SwiftUI).
 
-**Pattern:** Backend returns `data.items[]` + `data.pagination{}`. Android appends items on scroll, tracks page/totalPages in ViewModel state.
+**Pattern:** Backend returns `data.items[]` + `data.pagination{}`. Mobile clients append items on scroll, track page/totalPages in ViewModel state.
 
 **Deployment:** Backend runs on Windows dev (MySQL 8.4.7), Ubuntu staging (MySQL 8.x), Debian production (MySQL 8.x). Pagination queries must use `utf8mb4_unicode_ci` collation and work identically on all platforms.
 
@@ -340,6 +340,125 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.remember
 ```
 
+## iOS Client Pattern
+
+### 1. Model Layer (Codable)
+
+```swift
+struct PaginatedResponse<T: Codable>: Codable {
+    let success: Bool
+    let data: PaginatedData<T>?
+    let message: String?
+}
+
+struct PaginatedData<T: Codable>: Codable {
+    let items: [T]?
+    let pagination: PaginationInfo?
+}
+
+struct PaginationInfo: Codable {
+    let page: Int
+    let perPage: Int
+    let total: Int
+    let totalPages: Int
+
+    enum CodingKeys: String, CodingKey {
+        case page
+        case perPage = "per_page"
+        case total
+        case totalPages = "total_pages"
+    }
+}
+```
+
+### 2. Service + Repository
+
+```swift
+func getExamples(status: String? = nil, page: Int = 1) async throws -> (items: [ExampleModel], pagination: PaginationInfo) {
+    var components = URLComponents(string: "\(baseURL)/example/list")!
+    components.queryItems = [
+        URLQueryItem(name: "page", value: "\(page)"),
+        URLQueryItem(name: "per_page", value: "30")
+    ]
+    if let status { components.queryItems?.append(URLQueryItem(name: "status", value: status)) }
+
+    let (data, _) = try await session.data(from: components.url!)
+    let response = try decoder.decode(PaginatedResponse<ExampleDto>.self, from: data)
+    guard response.success, let body = response.data else { throw APIError.failed(response.message) }
+    return (body.items?.map { $0.toDomain() } ?? [], body.pagination ?? PaginationInfo(page: 1, perPage: 30, total: 0, totalPages: 1))
+}
+```
+
+### 3. ViewModel with loadMore()
+
+```swift
+@Observable
+class ExampleListViewModel {
+    private(set) var items: [ExampleModel] = []
+    private(set) var isLoading = false
+    private(set) var isLoadingMore = false
+    private(set) var currentPage = 1
+    private(set) var totalPages = 1
+
+    private let repository: ExampleRepository
+
+    func loadItems() async {
+        isLoading = true
+        currentPage = 1
+        do {
+            let result = try await repository.getExamples(page: 1)
+            items = result.items  // REPLACE on fresh load
+            totalPages = result.pagination.totalPages
+        } catch { /* handle error */ }
+        isLoading = false
+    }
+
+    func loadMore() async {
+        guard !isLoadingMore, !isLoading, currentPage < totalPages else { return }
+        isLoadingMore = true
+        let nextPage = currentPage + 1
+        do {
+            let result = try await repository.getExamples(page: nextPage)
+            items += result.items  // APPEND on load more
+            currentPage = result.pagination.page
+            totalPages = result.pagination.totalPages
+        } catch { /* handle error */ }
+        isLoadingMore = false
+    }
+}
+```
+
+### 4. SwiftUI Infinite Scroll
+
+```swift
+struct ExampleListView: View {
+    @State private var viewModel = ExampleListViewModel()
+
+    var body: some View {
+        List {
+            ForEach(viewModel.items) { item in
+                ItemRow(item: item)
+                    .onAppear {
+                        // Trigger loadMore within 3 items of end
+                        if item == viewModel.items.suffix(3).first {
+                            Task { await viewModel.loadMore() }
+                        }
+                    }
+            }
+            if viewModel.isLoadingMore {
+                HStack {
+                    Spacer()
+                    ProgressView()
+                    Spacer()
+                }
+            }
+        }
+        .refreshable { await viewModel.loadItems() }
+        .task { await viewModel.loadItems() }
+    }
+}
+```
+
 ## Important Rules
 
 1. **`loadItems()` REPLACES** the list (page 1). **`loadMore()` APPENDS** to the list (page 2+).
@@ -347,8 +466,8 @@ import androidx.compose.runtime.remember
 3. **Threshold = 3** — trigger load-more when user is within 3 items of the end. This gives time for the API call to complete before the user reaches the last item.
 4. **Filter changes reset pagination** — when a filter (status, search, warehouse) changes, call `loadItems()` which resets to page 1.
 5. **ON_RESUME refresh** calls `loadItems()` (page 1), not `loadMore()`.
-6. **`derivedStateOf`** is critical — without it, the LaunchedEffect would re-trigger on every scroll frame instead of only when the condition transitions.
-7. **Small spinner** for loading-more (24.dp, 2.dp stroke) vs full-page spinner for initial load.
+6. **`derivedStateOf` (Android)** is critical — without it, the LaunchedEffect re-triggers on every scroll frame. **`.onAppear` (iOS)** fires once per item appearance — use the suffix(3) check to trigger near the end.
+7. **Small spinner** for loading-more (24.dp / `ProgressView()`) vs full-page spinner for initial load.
 
 ## Existing Implementations
 
@@ -357,3 +476,5 @@ import androidx.compose.runtime.remember
 - **Stock Transfers:** `StockTransfersViewModel.kt` + `StockTransfersListScreen.kt`
 - **Stock Adjustments:** `StockAdjustmentsViewModel.kt` + `StockAdjustmentsListScreen.kt`
 - **PHP backends:** `purchase-orders/list.php`, `inventory/transfers/list.php`, `inventory/adjustments/list.php`
+
+iOS implementations follow the same patterns with Swift equivalents.

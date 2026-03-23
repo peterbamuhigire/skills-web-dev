@@ -3,6 +3,8 @@ name: android-report-tables
 description: "Report UI rule for Android: any report with potential for more than 25 rows must render as a table, not cards. Includes decision rules and Compose patterns."
 ---
 
+> **Superseded:** This skill has been generalized to `mobile-report-tables` which covers both Android and iOS. Use that skill instead.
+
 ## Required Plugins
 
 **Superpowers plugin:** MUST be active for all work using this skill. Use throughout the entire build pipeline — design decisions, code generation, debugging, quality checks, and any task where it offers enhanced capabilities. If superpowers provides a better way to accomplish something, prefer it over the default approach.

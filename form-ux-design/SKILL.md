@@ -1,6 +1,6 @@
 ---
 name: form-ux-design
-description: Cross-platform form UX/UI patterns for web (Bootstrap 5/Tabler) and Android (Jetpack Compose). Covers field anatomy, validation, error states, multi-step wizards, accessibility, touch-friendly inputs, and submission workflows. Use when building any form — registration, data entry, settings, checkout, search, filters, or clinical forms. Companion to webapp-gui-design, healthcare-ui-design, pos-sales-ui-design, and jetpack-compose-ui skills.
+description: Cross-platform form UX/UI patterns for web (Bootstrap 5/Tabler), Android (Jetpack Compose), and iOS (SwiftUI). Covers field anatomy, validation, error states, multi-step wizards, accessibility, touch-friendly inputs, and submission workflows. Use when building any form — registration, data entry, settings, checkout, search, filters, or clinical forms. Companion to webapp-gui-design, healthcare-ui-design, pos-sales-ui-design, and jetpack-compose-ui skills.
 ---
 
 ## Required Plugins
@@ -11,7 +11,7 @@ description: Cross-platform form UX/UI patterns for web (Bootstrap 5/Tabler) and
 
 # Form UX/UI Design
 
-Cross-cutting form design patterns for **web** (Bootstrap 5 / Tabler + PHP) and **Android** (Jetpack Compose + Material 3). Apply this skill whenever you build, review, or refactor any form.
+Cross-cutting form design patterns for **web** (Bootstrap 5 / Tabler + PHP), **Android** (Jetpack Compose + Material 3), and **iOS** (SwiftUI). Apply this skill whenever you build, review, or refactor any form.
 
 ## Quick Reference
 
@@ -19,8 +19,9 @@ Cross-cutting form design patterns for **web** (Bootstrap 5 / Tabler + PHP) and 
 |-------|---------------|-------|
 | Web form components | `references/web-form-components.md` | Bootstrap/Tabler inputs, selects, checkboxes, radios, switches, textareas, file uploads |
 | Android form components | `references/android-form-components.md` | Compose TextField, ExposedDropdownMenu, Checkbox, RadioButton, Switch, Slider |
-| Validation patterns | `references/form-validation.md` | Validation logic, error states, async validation, submission workflows (both platforms) |
-| Accessibility | `references/form-accessibility.md` | WCAG form requirements, ARIA, screen readers, keyboard nav, touch targets (both platforms) |
+| iOS form components | `references/ios-form-components.md` | SwiftUI TextField, Picker, Toggle, DatePicker, Stepper |
+| Validation patterns | `references/form-validation.md` | Validation logic, error states, async validation, submission workflows (all platforms) |
+| Accessibility | `references/form-accessibility.md` | WCAG form requirements, ARIA, screen readers, keyboard nav, touch targets (all platforms) |
 
 ---
 
@@ -72,7 +73,7 @@ Use smart defaults, autocomplete attributes, and auto-formatting (phone, currenc
 
 ## 2. Field Anatomy
 
-Universal structure across both platforms:
+Universal structure across all platforms:
 
 ```
 +---------------------------------+
@@ -474,6 +475,7 @@ form-ux-design (this skill)
     |
     +-- webapp-gui-design ---------> Web form components, Tabler template pages
     +-- jetpack-compose-ui --------> Android form composables, Material 3 theming
+    +-- swiftui-design -----------> iOS form views (when available)
     +-- pos-sales-ui-design -------> POS forms: customer entry, payment, invoice
     +-- api-error-handling --------> Server validation error mapping to form fields
     +-- vibe-security-skill -------> CSRF tokens, XSS prevention, input sanitization
@@ -482,9 +484,10 @@ form-ux-design (this skill)
     +-- mysql-best-practices ------> Backend storage for form data, safe queries
 ```
 
-**Usage pattern:** Load `form-ux-design` alongside the primary skill for your platform. For example:
-- Building a web admin panel? Load `webapp-gui-design` + `form-ux-design`
-- Building an Android data entry app? Load `jetpack-compose-ui` + `form-ux-design`
-- Building POS forms? Load `pos-sales-ui-design` + `form-ux-design`
+**Usage pattern:** Load `form-ux-design` alongside the primary skill for your platform:
+- Web admin panel? Load `webapp-gui-design` + `form-ux-design`
+- Android data entry app? Load `jetpack-compose-ui` + `form-ux-design`
+- iOS data entry app? Load `swiftui-design` (when available) + `form-ux-design`
+- POS forms? Load `pos-sales-ui-design` + `form-ux-design`
 
 The form skill provides the UX rules and patterns; the platform skill provides the component library and architecture.

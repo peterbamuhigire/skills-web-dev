@@ -1,11 +1,11 @@
+---
+name: android-reports
+description: "SUPERSEDED by mobile-reports. Android-only report patterns for Jetpack Compose. For new projects, use mobile-reports instead — it covers both Android and iOS."
+---
+
 # Android Mobile Reports
 
----
-
-name: android-reports
-description: Best practices for designing mobile-optimized reports in Android apps using Jetpack Compose. Use when implementing report screens, data visualization, export functionality, or any feature that displays aggregated data, analytics, financial summaries, inventory reports, or business intelligence to users on mobile devices. Covers layout patterns, data presentation, filtering, interactivity, and export options.
-
----
+> **SUPERSEDED:** This skill has been replaced by **`mobile-reports`**, which covers both Android (Jetpack Compose) and iOS (SwiftUI). Use `mobile-reports` for all new work. This file is retained for backward compatibility with existing projects.
 
 ## Required Plugins
 

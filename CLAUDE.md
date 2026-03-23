@@ -111,9 +111,12 @@ skills/
 ├── android-tdd/                     # Android TDD (Red-Green-Refactor, test pyramid, CI)
 ├── jetpack-compose-ui/              # Compose UI (beautiful, minimalistic, Material 3)
 ├── android-data-persistence/        # Room, DataStore, API sync, offline-first
-├── android-reports/                 # Android report generation patterns
-├── android-saas-planning/           # Android companion app planning for SaaS
-├── android-biometric-login/          # Biometric auth (fingerprint/face) for Android apps├── android-custom-icons/             # Custom PNG icons for Android (no icon libraries)├── android-pdf-export/               # Native PDF export using PdfDocument API├── android-report-tables/            # Table-first report UI for >25 rows
+├── android-reports/                 # [Superseded by mobile-reports] Android report patterns
+├── android-saas-planning/           # [Superseded by mobile-saas-planning] Android SaaS planning
+├── android-biometric-login/         # Biometric auth (fingerprint/face) for Android apps
+├── android-custom-icons/            # [Superseded by mobile-custom-icons] Android PNG icons
+├── android-pdf-export/              # Native PDF export using PdfDocument API
+├── android-report-tables/           # [Superseded by mobile-report-tables] Android report tables
 ├── healthcare-ui-design/            # Clinical-grade UI for EMR/EHR, telemedicine, patient portals (web + Android)
 ├── google-play-store-review/        # Play Store review readiness
 ├── implementation-status-auditor/   # Project audit + completion blueprint
@@ -121,7 +124,7 @@ skills/
 ├── multi-tenant-saas-architecture/  # SaaS backend patterns
 ├── modular-saas-architecture/       # Pluggable SaaS modules
 ├── feature-planning/                # Complete feature planning (spec + implementation)
-├── form-ux-design/                  # Cross-platform form UX patterns (web + Android)
+├── form-ux-design/                  # Cross-platform form UX patterns (web + Android + iOS)
 ├── ai-assisted-development/         # AI agent orchestration for development workflows
 ├── ai-error-prevention/             # Error prevention for AI-assisted development (trust but verify)
 ├── orchestration-best-practices/    # The 10 commandments of orchestration
@@ -139,7 +142,7 @@ skills/
 ├── report-print-pdf/                # Report export (PDF + print)
 ├── project-requirements/            # SaaS project requirements discovery
 ├── api-error-handling/              # API error handling
-├── api-pagination/                 # Offset pagination (PHP + Android infinite scroll)
+├── api-pagination/                 # Offset pagination (PHP + Android + iOS infinite scroll)
 ├── mysql-best-practices/            # MySQL 8.x (schema, indexing, queries, security, transactions, tuning, HA)
 ├── php-modern-standards/            # PHP 8+ (strict typing, SOLID, generators, OPcache, testing, Fibers, security)
 ├── php-security/                    # PHP security patterns (sessions, XSS, CSRF, file uploads, php.ini)
@@ -152,7 +155,11 @@ skills/
 ├── code-safety-scanner/             # 14-point safety scan (security, stability, payments)
 ├── web-app-security-audit/          # 8-layer security audit for PHP/JS/HTML web apps
 ├── photo-management/                # Photo upload and gallery patterns
+├── mobile-custom-icons/             # Cross-platform custom PNG icons (Android + iOS), placeholder tracking
 ├── mobile-rbac/                     # RBAC for Android mobile apps (PermissionGate, ModuleGate)
+├── mobile-report-tables/            # Cross-platform report tables (Android + iOS) for 25+ row datasets
+├── mobile-reports/                  # Cross-platform mobile report design (Android Compose + iOS SwiftUI)
+├── mobile-saas-planning/            # Cross-platform SaaS companion app planning (Android + iOS), 7 docs
 ├── skill-writing/                   # Skill creator (meta-skill)
 ├── sdlc-planning/                   # SDLC planning & management docs (Vision, SDP, SRS, etc.)
 ├── sdlc-design/                     # SDLC design & development docs (SDD, Tech Spec, ICD, DB Design, API)

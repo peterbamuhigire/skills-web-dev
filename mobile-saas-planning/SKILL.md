@@ -1,32 +1,30 @@
 ---
-name: android-saas-planning
-description: "Create comprehensive planning documentation for a native Android app that integrates with an existing web-based SaaS platform. Use when building a mobile companion app for any SaaS — ERP, CRM, POS, logistics, healthcare, fintech, etc. Generates 7 production-ready planning documents: PRD, SRS, SDS, API Contract, User Journeys, Testing Strategy, and Release Plan."
+name: mobile-saas-planning
+description: "Create comprehensive planning documentation for a native mobile app (Android or iOS) that integrates with an existing web-based SaaS platform. Use when building a mobile companion app for any SaaS — ERP, CRM, POS, logistics, healthcare, fintech, etc. Generates 7 production-ready planning documents: PRD, SRS, SDS, API Contract, User Journeys, Testing Strategy, and Release Plan."
 ---
-
-> **Superseded:** This skill has been generalized to `mobile-saas-planning` which covers both Android and iOS. Use that skill instead.
 
 ## Required Plugins
 
 **Superpowers plugin:** MUST be active for all work using this skill. Use throughout the entire build pipeline — design decisions, code generation, debugging, quality checks, and any task where it offers enhanced capabilities. If superpowers provides a better way to accomplish something, prefer it over the default approach.
 
-# Android SaaS Planning Skill
+# Mobile SaaS Planning Skill
 
-Generate a complete, implementation-ready documentation suite for a native Android app that serves as a mobile client for an existing web-based SaaS system.
+Generate a complete, implementation-ready documentation suite for a native mobile app (Android or iOS) that serves as a mobile client for an existing web-based SaaS system.
 
 ## When to Use
 
-- Building a new native Android app for an existing web SaaS
-- Porting a web application's functionality to Android
+- Building a new native mobile app (Android or iOS) for an existing web SaaS
+- Porting a web application's functionality to mobile
 - Planning a mobile-first or mobile-companion SaaS experience
 - Scoping MVP features for a mobile client
-- Creating a structured handoff document for Android developers
+- Creating a structured handoff document for mobile developers
 
 ## When NOT to Use
 
 - Building a standalone mobile app with no web backend
-- Cross-platform (Flutter/React Native) — this skill targets native Android (Kotlin + Jetpack Compose)
+- Cross-platform frameworks (Flutter/React Native/KMP) — this skill targets fully native apps
 - Adding a WebView wrapper — this skill targets fully native screens
-- Incremental feature additions to an existing Android app
+- Incremental feature additions to an existing mobile app
 
 ## Prerequisites — Context the Agent MUST Gather
 
@@ -43,6 +41,7 @@ Before generating ANY documents, the agent must have or discover:
 | API base URL  | Per environment (see standard 3-env setup below)  |
 | Auth model    | JWT, OAuth2, session-based, API keys              |
 | Multi-tenancy | Tenant ID in JWT, subdomain, DB-per-tenant        |
+| Target platform | Android, iOS, or both                           |
 
 ### 2. Module Inventory (Required)
 
@@ -64,14 +63,25 @@ The user may request a **subset** of modules. Respect their selection:
 
 ### 4. Technical Constraints (Discover or Ask)
 
+**Android constraints:**
+
 - Minimum Android API level (default: API 29 / Android 10)
 - Apps must be tested against the latest stable Android release
 - Max APK size (default: 50MB)
+
+**iOS constraints:**
+
+- Minimum iOS version (default: iOS 17)
+- Xcode 16+
+- Max IPA size (default: 200MB)
+
+**Shared constraints:**
+
 - Offline requirements (none / basic caching / full offline-first)
 - Hardware peripherals (Bluetooth printer, barcode scanner, NFC)
 - Biometric authentication (fingerprint, face)
-- Push notifications (FCM)
-- Local dev networking: emulator must connect to WAMP via the host machine's static LAN IP (not `localhost`)
+- Push notifications (FCM for Android, APNs for iOS)
+- Local dev networking: Android emulator must connect via the host machine's static LAN IP (not `localhost`); iOS Simulator can use `localhost` directly
 
 ### 5. Standard Backend Environment Setup
 
@@ -83,36 +93,43 @@ All SaaS companion apps target these three backend environments:
 | **Staging** | Ubuntu VPS | MySQL 8.x | `https://staging.{domain}/api/` |
 | **Production** | Debian VPS | MySQL 8.x | `https://{domain}/api/` |
 
-Use Gradle build flavors to manage per-environment base URLs. All backends use `utf8mb4_unicode_ci` collation and MySQL 8.x. Always plan API contracts that work identically across all environments.
+**Android:** Use Gradle build flavors to manage per-environment base URLs.
+**iOS:** Use Xcode build configurations and `.xcconfig` files to manage per-environment base URLs.
+
+All backends use `utf8mb4_unicode_ci` collation and MySQL 8.x. Always plan API contracts that work identically across all environments.
 
 ## Phase 1 Bootstrap Pattern (MANDATORY)
 
-**Every Android SaaS app MUST start with Phase 1: Login + Dashboard + Empty Tabs.**
+**Every mobile SaaS app MUST start with Phase 1: Login + Dashboard + Empty Tabs.**
 
 This is the proven foundation pattern. Before planning any business features, the first implementation phase always delivers:
 
 ### Phase 1 Scope (Non-Negotiable)
 
 1. **JWT Authentication** — Login/logout with the SaaS backend (access tokens + refresh token rotation + breach detection)
-2. **Dashboard** — Real KPI stats from the backend, offline-first with Room caching, pull-to-refresh
-3. **Bottom Navigation** — Maximum 5 major section tabs (e.g., Home, Sales, Network, Knowledge, Training). Non-dashboard tabs show "Coming Soon" placeholder screens
-4. **Core Infrastructure** — Hilt DI modules, Retrofit + OkHttp interceptor chain (auth + tenant + logging), encrypted token storage, network monitor, Room database, Material 3 theme
+2. **Dashboard** — Real KPI stats from the backend, offline-first with Room caching (Android) or SwiftData (iOS), pull-to-refresh
+3. **Bottom Navigation** — Maximum 5 major section tabs using BottomNavigation (Android) or TabView (iOS). Non-dashboard tabs show "Coming Soon" placeholder screens
+4. **Core Infrastructure**
+   - **Android:** Hilt DI modules, Retrofit + OkHttp interceptor chain (auth + tenant + logging), encrypted token storage, network monitor, Room database, Material 3 theme
+   - **iOS:** Swift Package Manager, URLSession + async/await, Keychain token storage, network monitor, SwiftData, @Observable, custom theme
 5. **Backend Endpoints** — Mobile login, token refresh, logout, and dashboard stats API endpoints with dual auth middleware (JWT for mobile + session for web backward compatibility)
-6. **Unit Tests** — Full test coverage for ViewModels, Use Cases, Repositories, Interceptors
+6. **Unit Tests**
+   - **Android:** Full test coverage with JUnit 5, MockK for ViewModels, Use Cases, Repositories, Interceptors
+   - **iOS:** Full test coverage with XCTest/Swift Testing for Views, Services, Repositories
 
 ### Phase 1 Deliverables
 
-| Component      | Android                                                                                 | Backend                                                                                      |
-| -------------- | --------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
-| Auth           | LoginScreen, LoginViewModel, AuthRepository, AuthApiService, TokenManager, interceptors | mobile-login.php, mobile-refresh.php, mobile-logout.php, MobileAuthHelper, ApiAuthMiddleware |
-| Dashboard      | DashboardScreen, DashboardViewModel, DashboardRepository, Room cache                    | dashboard-stats.php (dual auth)                                                              |
-| Navigation     | 5-tab BottomBar, NavGraph, PlaceholderScreen for future tabs                            | —                                                                                            |
-| Infrastructure | DI modules, theme, encrypted prefs, network monitor                                     | refresh_tokens table, .env loading                                                           |
-| Tests          | 40+ unit tests across all layers                                                        | curl/Postman endpoint verification                                                           |
+| Component | Android | iOS | Backend |
+|---|---|---|---|
+| Auth | LoginScreen, LoginViewModel, AuthRepository, AuthApiService, TokenManager, interceptors | LoginView, AuthService, TokenManager, KeychainHelper | mobile-login.php, mobile-refresh.php, mobile-logout.php, MobileAuthHelper, ApiAuthMiddleware |
+| Dashboard | DashboardScreen, DashboardViewModel, DashboardRepository, Room cache | DashboardView, DashboardService, SwiftData cache | dashboard-stats.php (dual auth) |
+| Navigation | 5-tab BottomBar, NavGraph, PlaceholderScreen for future tabs | 5-tab TabView, NavigationStack | — |
+| Infrastructure | DI modules, theme, encrypted prefs, network monitor | SPM packages, theme, Keychain | refresh_tokens table, .env loading |
+| Tests | 40+ unit tests (JUnit 5/MockK) | 40+ unit tests (XCTest/Swift Testing) | curl/Postman endpoint verification |
 
 ### Why Phase 1 First
 
-- Proves the entire vertical slice works (UI → ViewModel → UseCase → Repository → API → Backend → Database)
+- Proves the entire vertical slice works (UI -> ViewModel/Service -> UseCase -> Repository -> API -> Backend -> Database)
 - Establishes all infrastructure patterns that every future feature reuses
 - Gives the user a working app they can install and log into immediately
 - Uncovers backend integration issues early (auth, CORS, env loading, session handling)
@@ -135,7 +152,7 @@ If more than 5 sections exist, nest sub-sections within tabs or use drawer navig
 
 ### Phase 1 Implementation Plan Structure
 
-The Phase 1 plan MUST be structured as 11 sections (following the proven pattern):
+**Android** — The Phase 1 plan MUST be structured as 11 sections:
 
 ```
 docs/plans/phase-1-login-dashboard/
@@ -143,13 +160,30 @@ docs/plans/phase-1-login-dashboard/
 ├── 01-project-bootstrap.md       # Gradle, manifest, strings, packages
 ├── 02-backend-api.md             # PHP JWT endpoints + DB migration
 ├── 03-core-infrastructure.md     # DI, security, network, interceptors
-├── 04-authentication-feature.md  # Login vertical slice (DTO→Entity→Domain)
+├── 04-authentication-feature.md  # Login vertical slice (DTO->Entity->Domain)
 ├── 05-dashboard-feature.md       # Dashboard with offline-first Room caching
 ├── 06-navigation-tabs.md         # Bottom nav + placeholder screens
 ├── 07-room-database.md           # Database class, converters, module
 ├── 08-theme-ui-components.md     # Material 3 theme + reusable components
 ├── 09-testing.md                 # 40+ unit tests across all layers
 └── 10-verification.md            # Backend curl tests + Android manual checklist
+```
+
+**iOS** — The Phase 1 plan MUST be structured as 11 sections:
+
+```
+docs/plans/ios-phase-1-login-dashboard/
+├── 00-xcode-setup.md             # Build configs, .xcconfig, schemes
+├── 01-project-bootstrap.md       # SPM packages, Info.plist, project structure
+├── 02-backend-api.md             # PHP JWT endpoints + DB migration (shared with Android)
+├── 03-core-infrastructure.md     # Networking, security, Keychain, monitors
+├── 04-authentication-feature.md  # Login vertical slice (DTO->Model->Domain)
+├── 05-dashboard-feature.md       # Dashboard with offline-first SwiftData caching
+├── 06-navigation-tabs.md         # TabView + NavigationStack + placeholder screens
+├── 07-swiftdata-persistence.md   # SwiftData models, containers, queries
+├── 08-theme-ui-components.md     # Custom theme + reusable SwiftUI components
+├── 09-testing.md                 # 40+ unit tests across all layers
+└── 10-verification.md            # Backend curl tests + iOS manual checklist
 ```
 
 ### Phase 2+ Planning
@@ -191,7 +225,7 @@ Before writing any documents:
 After all documents are generated, verify:
 
 - [ ] All module requirements trace to API endpoints
-- [ ] Room entities match backend data models
+- [ ] Local entities (Room/SwiftData) match backend data models
 - [ ] Auth flow matches the web app's actual auth implementation
 - [ ] Offline sync strategy covers all P0 modules
 - [ ] No fabricated endpoints — every endpoint references real backend routes
@@ -200,7 +234,7 @@ After all documents are generated, verify:
 
 1. **500-line max** per markdown file — split into sub-files if exceeded
 2. **Numbered requirement IDs** — `FR-AUTH-001`, `NFR-PERF-003`, etc.
-3. **Real Kotlin code** — not pseudocode; include actual imports and versions
+3. **Real code** — not pseudocode; include actual imports and versions (Kotlin for Android, Swift for iOS)
 4. **JSON examples** — complete request/response bodies for every endpoint
 5. **ASCII diagrams** — flow charts, architecture layers, sync flows
 6. **Markdown tables** — for requirements, endpoints, metrics, comparisons
@@ -209,6 +243,8 @@ After all documents are generated, verify:
 9. **Navigation** — every index links to all its sub-files with descriptions
 
 ## Tech Stack Defaults
+
+### Android Tech Stack
 
 Use these unless the project context requires alternatives:
 
@@ -232,6 +268,31 @@ Use these unless the project context requires alternatives:
 | Testing       | JUnit 5, MockK, Turbine, Compose UI Testing | —                                   |
 | CI/CD         | GitHub Actions                              | —                                   |
 
+### iOS Tech Stack
+
+Use these unless the project context requires alternatives:
+
+| Layer         | Technology                              | Version            |
+| ------------- | --------------------------------------- | ------------------ |
+| Language      | Swift                                   | 6.0+               |
+| UI            | SwiftUI                                 | iOS 17+            |
+| Icons         | Custom PNGs (no SF Symbols)             | Asset Catalogs + PROJECT_ICONS.md |
+| Reports       | Table-first for >25 rows               | Use mobile-report-tables |
+| Architecture  | MVVM + Clean Architecture               | —                  |
+| DI            | Swift native / Factory pattern          | —                  |
+| Networking    | URLSession + async/await                | —                  |
+| JSON          | Codable                                 | —                  |
+| Local DB      | SwiftData                               | iOS 17+            |
+| Async         | Swift Concurrency (async/await)         | —                  |
+| Background    | BGTaskScheduler                         | —                  |
+| Navigation    | NavigationStack                         | —                  |
+| Image Loading | AsyncImage / Kingfisher                 | —                  |
+| Charting      | Swift Charts                            | iOS 16+            |
+| Security      | Keychain Services, LocalAuthentication  | —                  |
+| Logging       | os.Logger                               | —                  |
+| Testing       | XCTest, Swift Testing                   | —                  |
+| CI/CD         | GitHub Actions + Xcode Cloud            | —                  |
+
 ## Document Content Requirements
 
 Detailed templates for each document are in `references/document-templates.md`.
@@ -242,17 +303,17 @@ API integration patterns are in `references/api-integration-patterns.md`.
 
 **01_PRD** — Vision, personas (3-5), user stories (5+ per module), MVP scope with release phases, competitive analysis, success metrics, risk register, glossary
 
-**02_SRS** — Numbered functional requirements (10+ per core module), non-functional requirements (performance, security, offline, accessibility, localization), Room entity definitions, traceability matrix
+**02_SRS** — Numbered functional requirements (10+ per core module), non-functional requirements (performance, security, offline, accessibility, localization), local entity definitions (Room/SwiftData), traceability matrix
 
-**03_SDS** — Architecture layers, complete Gradle config, project structure, Hilt modules, security implementation (cert pinning, encrypted storage, biometrics, ProGuard), offline sync (Room DAOs, SyncWorker, conflict resolution, staleness budgets), networking (Retrofit services, interceptors, token refresh), CI/CD workflows
+**03_SDS** — Architecture layers, complete build config (Gradle for Android, Xcode for iOS), project structure, DI setup, security implementation (cert pinning, encrypted storage, biometrics, code obfuscation), offline sync (Room DAOs or SwiftData queries, SyncWorker/BGTaskScheduler, conflict resolution, staleness budgets), networking layer, CI/CD workflows
 
 **04_API_CONTRACT** — Base URLs, auth model, JWT structure, every endpoint with method + path + request JSON + response JSON + validation rules + error responses, pagination model, rate limits, error code reference
 
 **05_USER_JOURNEYS** — 8-12 journeys with ASCII flow diagrams, step-by-step breakdowns, error paths, offline behavior. Must include: first-time setup, login, primary transaction, offline transaction, search, dashboard, error recovery
 
-**06_TESTING_STRATEGY** — Test pyramid (60/25/10/5), unit test examples (ViewModel with Turbine, UseCase, Repository), UI test examples (Compose), integration tests (MockWebServer, Room), security tests, performance benchmarks, CI gates, test data fixtures
+**06_TESTING_STRATEGY** — Test pyramid (60/25/10/5), unit test examples (ViewModel/Service tests, UseCase, Repository), UI test examples (Compose/SwiftUI), integration tests, security tests, performance benchmarks, CI gates, test data fixtures
 
-**07_RELEASE_PLAN** — Play Store setup, signing strategy, release channels with staged rollout, versioning, privacy policy checklist, app store listing, in-app update strategy, release checklist, rollback procedure, post-launch monitoring
+**07_RELEASE_PLAN** — Store setup (Play Store and/or App Store), signing strategy, release channels with staged rollout, versioning, privacy policy checklist, app store listing, in-app update strategy, release checklist, rollback procedure, post-launch monitoring
 
 ## Adaptation Rules
 
@@ -265,18 +326,18 @@ When the user requests only specific modules:
 3. Dashboard adapts to show only KPIs relevant to selected modules
 4. API Contract only documents endpoints for selected modules
 5. User Journeys only cover flows for selected modules
-6. Room entities only include tables needed by selected modules
+6. Local entities only include tables needed by selected modules
 
 ### No Offline Requirement
 
 If the user says offline support is not needed:
 
-1. Remove `sds/04-offline-sync.md` entirely
+1. Remove offline sync section from SDS entirely
 2. Simplify Repository pattern (no local-first fallback)
-3. Remove SyncWorker and WorkManager sync setup
+3. Remove SyncWorker/BGTaskScheduler sync setup
 4. Remove offline-related NFRs from SRS
 5. Remove offline user journeys
-6. Keep Room for caching only (not as offline data store)
+6. Keep local DB for caching only (not as offline data store)
 
 ### Module-Gated vs All-Inclusive
 
@@ -305,9 +366,9 @@ Adapt to target market:
 
 - [ ] Every FR traces to at least one API endpoint
 - [ ] Every API endpoint has complete request/response JSON
-- [ ] Every Room entity maps to a backend data model
+- [ ] Every local entity maps to a backend data model
 - [ ] Auth flow matches the web app's actual implementation
-- [ ] All Kotlin code compiles conceptually (correct imports, types, annotations)
+- [ ] All code compiles conceptually (correct imports, types, annotations)
 - [ ] No file exceeds 500 lines
 - [ ] All sub-files have back-links to parent index
 - [ ] All indexes link to all sub-files
@@ -325,6 +386,8 @@ Load these skills alongside for deeper implementation guidance:
 - `android-tdd` — Test-driven development workflow
 - `android-data-persistence` — Room, DataStore, offline-first patterns
 - `jetpack-compose-ui` — Compose UI standards and Material 3
+- `ios-development` — Swift/iOS coding standards (when created)
+- `swiftui-design` — SwiftUI UI standards (when created)
 - `dual-auth-rbac` — Authentication and permission system
 - `api-error-handling` — API error response patterns
 - `modular-saas-architecture` — Module toggle and subscription gating

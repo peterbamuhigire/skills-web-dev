@@ -197,6 +197,12 @@ skills/
 ├── practical-ui-design/             # Rules-based visual design: colour (HSB), typography (scales), layout (8pt grid), buttons, dark mode (Dannaway + Kuleszo)
 ├── ux-principles-101/               # 101 UX principles: accessibility, forms, search, empty states, error recovery, copywriting, ethics (Grant + Maioli)
 ├── data-visualization/              # Knaflic's 6-lesson framework: context, chart selection, decluttering, attention, design, storytelling (Storytelling with Data)
+├── ai-slop-prevention/              # AI-generated UI anti-pattern detection and elimination (Impeccable, Bakaus 2025)
+├── motion-design/                   # Animation timing (100/300/500), easing curves, GPU-only, prefers-reduced-motion
+├── ux-writing/                      # Microcopy standards: buttons, errors, empty states, loading, voice/tone, i18n
+├── responsive-design/               # Mobile-first, container queries, pointer/hover detection, safe areas, srcset
+├── frontend-performance/            # Core Web Vitals (LCP, INP, CLS), image/JS/CSS/font optimisation, budgets
+├── design-audit/                    # 10-dimension UI quality audit with severity-rated findings and scoring
 ├── swiftui-pro-patterns/            # Advanced SwiftUI: layout internals, identity, animation, custom layouts, environment/preferences, performance (Pro SwiftUI, Hudson)
 ├── prompting-patterns-reference.md  # Prompting patterns for AI instructions
 ├── orchestration-patterns-reference.md # Orchestration strategies for multi-agent workflows

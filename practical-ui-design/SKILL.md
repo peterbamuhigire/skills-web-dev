@@ -16,6 +16,12 @@ description: "Rules-based visual UI design system covering colour (HSB palettes,
 | `pos-sales-ui-design` | Point-of-sale and retail entry screens |
 | `ux-psychology` | Cognitive science foundations behind these rules |
 | `laws-of-ux` | Named-law quick reference (Fitts, Hick, Miller, etc.) |
+| `ai-slop-prevention` | Quality gate to catch generic AI-generated UI patterns |
+| `motion-design` | Animation timing, easing, and micro-interaction standards |
+| `ux-writing` | Microcopy standards for buttons, errors, empty states |
+| `responsive-design` | Mobile-first, container queries, pointer detection |
+| `frontend-performance` | Core Web Vitals, image and rendering optimisation |
+| `design-audit` | Comprehensive UI quality audit with severity ratings |
 
 **Usage:** This skill provides the *visual system* (colour, type, spacing, components). Platform skills provide *implementation code*. Load both.
 
@@ -27,7 +33,11 @@ description: "Rules-based visual UI design system covering colour (HSB palettes,
 
 Use HSB (Hue 0-360, Saturation 0-100, Brightness 0-100) for all design decisions. HSB maps to how humans perceive colour: pick a hue, adjust richness with saturation, adjust lightness with brightness. Convert to HEX/RGB only at implementation time.
 
-### 1.2 Start with Black and White
+### 1.2 OKLCH Alternative
+
+For perceptually uniform colour manipulation, consider **OKLCH** (`oklch(L C H)`) instead of HSB. OKLCH ensures equal perceived brightness across hues (unlike HSB where blue looks darker than yellow at the same B value). Use OKLCH for generating palettes, ensuring consistent visual weight. Convert final values to HEX/RGB for implementation. **Tint all neutrals** — add 2-5% of brand hue to greys; never use pure grey.
+
+### 1.3 Start with Black and White
 
 Design the interface without colour first. Focus on spacing, size, layout, and contrast. Colour is added last, purposefully.
 

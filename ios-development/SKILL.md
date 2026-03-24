@@ -452,6 +452,14 @@ Follow the `mobile-custom-icons` skill for naming, directory rules, and tracking
 - Any report that can exceed 25 rows must render as a table, not cards
 - Follow the `mobile-report-tables` skill for table-first patterns
 
+## KMP Projects
+
+If this is a **Kotlin Multiplatform** project, this skill governs the
+`iosApp/` module (SwiftUI UI and platform integration). The `shared/` module
+is governed by the `kmp-development` skill. The shared framework is consumed
+as a regular iOS framework or via CocoaPods/SPM. Install SKIE for better
+Swift interop with sealed classes and Flows. Use `kmp-tdd` for shared tests.
+
 ## Anti-Patterns
 
 | Anti-Pattern | Correct Approach |

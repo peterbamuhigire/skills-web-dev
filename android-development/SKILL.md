@@ -292,6 +292,13 @@ When building a native Android app for an existing SaaS backend, **always implem
 
 See `android-saas-planning` skill for the complete Phase 1 plan template.
 
+## KMP Projects
+
+If this is a **Kotlin Multiplatform** project, this skill governs the
+`composeApp/` module (Android UI and platform integration). The `shared/`
+module is governed by the `kmp-development` skill. Use Hilt for DI in
+`composeApp/` and Koin in `shared/`. Use `kmp-tdd` for shared module tests.
+
 ## Anti-Patterns
 
 - Putting business logic in Composables

@@ -117,6 +117,8 @@ skills/
 ├── android-custom-icons/            # [Superseded by mobile-custom-icons] Android PNG icons
 ├── android-pdf-export/              # Native PDF export using PdfDocument API
 ├── android-report-tables/           # [Superseded by mobile-report-tables] Android report tables
+├── kmp-development/                 # KMP shared module (Ktor, SQLDelight, Koin, expect/actual, SKIE)
+├── kmp-tdd/                         # KMP TDD (commonTest, Mokkery, Turbine, Ktor MockEngine, Kover)
 ├── ios-development/                 # iOS dev standards (Swift, SwiftUI, MVVM, async/await, @Observable)
 ├── ios-tdd/                         # iOS TDD (Red-Green-Refactor, Swift Testing, XCTest, protocol mocks)
 ├── ios-data-persistence/            # SwiftData, Keychain, offline-first, repository pattern for iOS

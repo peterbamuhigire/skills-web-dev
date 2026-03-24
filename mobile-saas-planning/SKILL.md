@@ -22,7 +22,12 @@ Generate a complete, implementation-ready documentation suite for a native mobil
 ## When NOT to Use
 
 - Building a standalone mobile app with no web backend
-- Cross-platform frameworks (Flutter/React Native/KMP) — this skill targets fully native apps
+- Cross-platform frameworks (Flutter/React Native) — this skill targets native apps
+- **KMP projects**: Use this skill but select "KMP" as the project type below.
+  SDS will include the shared module architecture (Ktor, SQLDelight, Koin).
+  API Contract will account for shared networking layer in `commonMain`.
+  Testing Strategy will reference `kmp-tdd` for shared module tests alongside
+  `android-tdd` and `ios-tdd` for platform UI tests
 - Adding a WebView wrapper — this skill targets fully native screens
 - Incremental feature additions to an existing mobile app
 

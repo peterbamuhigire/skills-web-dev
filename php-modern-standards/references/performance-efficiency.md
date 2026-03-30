@@ -396,7 +396,27 @@ xdebug.profiler_output_name=cachegrind.out.%t.%p
 xdebug.start_with_request=trigger     ; Use XDEBUG_TRIGGER cookie/param
 ```
 
-Analyze with **KCacheGrind** (Linux), **QCacheGrind** (Windows/macOS), or **Webgrind** (browser). For production profiling, use **Blackfire.io** (`blackfire run php script.php` or `blackfire curl URL`).
+Analyze with **KCacheGrind** (Linux), **QCacheGrind** (Windows/macOS), or **Webgrind** (browser).
+
+### Production Profiling Tools
+
+| Tool | Type | Best For |
+|------|------|----------|
+| **Blackfire.io** | SaaS profiler | Call graphs, CI/CD integration (`blackfire run php script.php`) |
+| **Tideways** | APM + profiler | Transaction tracing, slow DB/HTTP detection, exception tracking |
+| **Xdebug** | Dev-only profiler | Local function-level profiling (NEVER in production) |
+
+### Apdex Score (Performance SLA Metric)
+
+`Apdex(T) = (Satisfied + Tolerated/2) / Total` where T = target response time.
+
+| Response Time | Classification | Example (T=500ms) |
+|---|---|---|
+| <= T | Satisfied | <= 500ms |
+| <= 4T | Tolerated | 500ms-2s |
+| > 4T | Frustrated | > 2s |
+
+**Target:** Apdex >= 0.95 for user-facing endpoints. Monitor per-endpoint, not globally.
 
 ---
 

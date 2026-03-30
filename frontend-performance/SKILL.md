@@ -245,6 +245,7 @@ button.addEventListener('click', async () => {
 
 - Combine small files (icon sprites, CSS bundles)
 - Use HTTP/2 or HTTP/3 (multiplexing eliminates bundling need for many small files)
+- **HTTP/3 (QUIC):** Runs over UDP, eliminates head-of-line blocking, handles connection migration (WiFi-to-cellular seamlessly). Beneficial for mobile users on unstable networks. Enable via CDN (Cloudflare, AWS CloudFront) or Nginx `quic` module.
 - Cache aggressively: `Cache-Control: public, max-age=31536000, immutable` for hashed assets
 
 ### Compression

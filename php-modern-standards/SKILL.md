@@ -9,7 +9,7 @@ Production-grade PHP patterns for maintainable, testable, secure, high-performan
 
 **Core Principle:** Write type-safe, secure, performant PHP code following PSR standards with modern PHP 8+ features.
 
-**References:** `references/performance-efficiency.md`, `references/code-quality-tooling.md`
+**References:** `references/performance-efficiency.md`, `references/code-quality-tooling.md`, `references/rate-limiting.md`, `references/message-queues.md`, `references/cache-invalidation.md`
 **Examples:** `examples/modern-php-patterns.php`, `examples/laravel-patterns.php`
 **Security:** Use **php-security** skill for comprehensive security patterns.
 

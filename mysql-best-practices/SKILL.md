@@ -15,7 +15,7 @@ Production-grade MySQL patterns for high-performance, secure, scalable SaaS appl
 
 **Access Policy (Required):** Frontend clients must never access the database directly. All data access must flow through backend services exposed via APIs.
 
-**Deep References:** `references/query-performance.md`, `references/indexing-deep-dive.md`, `references/server-tuning-mycnf.md`, `references/security-hardening.md`, `references/high-availability.md`, `references/advanced-sql-patterns.md`, `references/backup-recovery.md`, `references/transaction-locking.md`
+**Deep References:** `references/query-performance.md`, `references/indexing-deep-dive.md`, `references/server-tuning-mycnf.md`, `references/security-hardening.md`, `references/high-availability.md`, `references/advanced-sql-patterns.md`, `references/backup-recovery.md`, `references/transaction-locking.md`, `references/benchmarking-tools.md`
 
 **SQL References:** `references/stored-procedures.sql`, `references/triggers.sql`, `references/partitioning.sql`
 

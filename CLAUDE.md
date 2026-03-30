@@ -155,8 +155,8 @@ skills/
 ├── project-requirements/            # SaaS project requirements discovery
 ├── api-error-handling/              # API error handling
 ├── api-pagination/                 # Offset pagination (PHP + Android + iOS infinite scroll)
-├── mysql-best-practices/            # MySQL 8.x (schema, indexing, queries, security, transactions, tuning, HA)
-├── php-modern-standards/            # PHP 8+ (strict typing, SOLID, generators, OPcache, testing, Fibers, security)
+├── mysql-best-practices/            # MySQL 8.x (schema, indexing, queries, security, transactions, tuning, HA, benchmarking)
+├── php-modern-standards/            # PHP 8+ (strict typing, SOLID, generators, OPcache, testing, Fibers, security, rate limiting, queues, caching, resilience)
 ├── php-security/                    # PHP security patterns (sessions, XSS, CSRF, file uploads, php.ini)
 ├── saas-accounting-system/           # Double-entry accounting engine for SaaS
 ├── saas-seeder/                     # SaaS bootstrap and seeding
@@ -373,5 +373,5 @@ This guide ensures consistent, high-quality interaction with the skills reposito
 ---
 
 **Maintained by:** Peter Bamuhigire
-**Last Updated:** 2026-02-20
+**Last Updated:** 2026-03-30
 **Line Count:** ~250 lines (compliant with doc-standards.md)

@@ -17,7 +17,7 @@ Claude: Loads ios-development → follows MVVM + @Observable + async/await patte
 
 | Platform | Skills | Stack |
 |----------|--------|-------|
-| **Web Backend** | `php-modern-standards`, `php-security`, `mysql-best-practices` | PHP 8+, MySQL 8.x |
+| **Web Backend** | `php-modern-standards`, `php-security`, `mysql-best-practices` | PHP 8+, MySQL 8.x, Redis |
 | **Web Frontend** | `webapp-gui-design`, `form-ux-design`, `image-compression` | Bootstrap 5/Tabler, JS |
 | **Android** | `android-development`, `jetpack-compose-ui`, `android-data-persistence`, `android-tdd`, `android-biometric-login`, `android-pdf-export` | Kotlin, Compose, Room, Hilt |
 | **iOS** | `ios-development`, `swiftui-design`, `ios-data-persistence`, `ios-project-setup`, `ios-tdd`, `ios-biometric-login`, `ios-pdf-export`, `ios-bluetooth-printing` | Swift 6, SwiftUI, SwiftData |

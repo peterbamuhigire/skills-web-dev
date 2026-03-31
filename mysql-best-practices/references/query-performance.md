@@ -465,6 +465,41 @@ From best to worst access type:
 
 ---
 
+## Histogram Statistics (MySQL 8.0+)
+
+Histograms help the optimizer estimate row counts for columns with skewed data distribution — without adding indexes.
+
+```sql
+-- Create histogram on a skewed column (e.g., 95% 'completed', 5% 'pending')
+ANALYZE TABLE orders UPDATE HISTOGRAM ON status WITH 100 BUCKETS;
+
+-- View histogram metadata
+SELECT TABLE_NAME, COLUMN_NAME,
+       JSON_EXTRACT(HISTOGRAM, '$.\"histogram-type\"') AS type
+FROM information_schema.COLUMN_STATISTICS;
+
+-- Drop when no longer needed
+ANALYZE TABLE orders DROP HISTOGRAM ON status;
+```
+
+**When to use:** Columns in WHERE clauses with uneven distribution, not worth indexing but still causing bad EXPLAIN row estimates.
+
+---
+
+## EXPLAIN FOR CONNECTION (Live Query Inspection)
+
+Inspect the execution plan of a currently running query without stopping it.
+
+```sql
+-- Find the slow query's connection ID
+SHOW PROCESSLIST;
+-- Inspect its plan live
+EXPLAIN FOR CONNECTION 4558;
+EXPLAIN FORMAT=JSON FOR CONNECTION 4558;
+```
+
+---
+
 ## Summary Checklist
 
 - [ ] Slow query log or Performance Schema enabled and collecting data

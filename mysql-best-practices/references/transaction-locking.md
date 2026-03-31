@@ -426,5 +426,26 @@ Key fields in the TRANSACTIONS section:
 
 ---
 
-*Reference: "Efficient MySQL Performance" by Daniel Nichter, O'Reilly, 2022.*
+## Batch DELETE/INSERT Pattern (Prevent Lock-Out)
+
+A single `DELETE FROM table WHERE created_at < '2024-01-01'` deleting 500K rows locks the table for the entire duration. Split into chunks:
+
+```sql
+-- Run in a loop from application code until 0 rows affected:
+DELETE FROM audit_log
+WHERE created_at < '2024-01-01'
+ORDER BY id LIMIT 5000;
+-- Each batch holds lock ~100ms; other queries can interleave
+
+-- For production: use pt-archiver (Percona Toolkit)
+-- pt-archiver --source h=localhost,D=mydb,t=audit_log \
+--   --where "created_at < '2024-01-01'" \
+--   --limit 5000 --commit-each --purge
+```
+
+Same for large INSERTs: batch 1,000-5,000 rows per statement, not 500K in one shot.
+
+---
+
+*References: "Efficient MySQL Performance" (Nichter, 2022), "Advanced MySQL 8" (Vanier, 2019).*
 *Applicable to: MySQL 8.0+ with InnoDB storage engine.*

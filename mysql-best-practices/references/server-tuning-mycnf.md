@@ -369,6 +369,40 @@ CHECK TABLE your_table;            -- Verify table integrity
 
 ---
 
+## Resource Groups (Workload Isolation)
+
+Pin CPU-heavy queries (reports, ETL) to specific cores so they cannot starve OLTP traffic. MySQL 8.0+.
+
+```sql
+-- Create a low-priority group for reporting (pin to cores 4-5)
+CREATE RESOURCE GROUP reporting_low
+  TYPE = USER VCPU = 4-5 THREAD_PRIORITY = 19;
+
+-- Assign a running thread to it (get thread_id from SHOW PROCESSLIST)
+SET RESOURCE GROUP reporting_low FOR 4558;
+
+-- View all resource groups
+SELECT * FROM INFORMATION_SCHEMA.RESOURCE_GROUPS;
+```
+
+**Limitations:** Requires `CAP_SYS_NICE` on Linux. Not available on macOS. Not replicated.
+
+---
+
+## OS-Level Tuning (Linux)
+
+```bash
+# Prevent Linux from swapping buffer pool pages to disk
+# Default is 60 — far too aggressive for dedicated MySQL servers
+echo 'vm.swappiness = 1' >> /etc/sysctl.conf
+sysctl -p
+
+# Why: Even with buffer_pool correctly sized, Linux may swap MySQL
+# pages under memory pressure. This causes random 100x latency spikes.
+```
+
+---
+
 ## Do NOT Tune These (Common Mistakes)
 
 | Variable | Why Not |

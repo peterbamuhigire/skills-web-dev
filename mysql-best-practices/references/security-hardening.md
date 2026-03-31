@@ -459,6 +459,37 @@ iptables -A INPUT -p tcp --dport 33061 -j DROP
 
 ---
 
+## Dynamic Privileges (Replace SUPER)
+
+MySQL 8.0 decomposed the dangerous `SUPER` privilege into granular alternatives. Never grant SUPER — use these instead:
+
+```sql
+GRANT BACKUP_ADMIN ON *.* TO 'backup_user'@'localhost';
+GRANT CONNECTION_ADMIN ON *.* TO 'ops_user'@'%';
+GRANT REPLICATION_SLAVE_ADMIN ON *.* TO 'repl_admin'@'%';
+GRANT GROUP_REPLICATION_ADMIN ON *.* TO 'gr_admin'@'%';
+GRANT AUDIT_ADMIN ON *.* TO 'audit_admin'@'localhost';
+```
+
+## Group Replication Security
+
+```ini
+# my.cnf — restrict which IPs can join GR group communication
+group_replication_ip_allowlist = "10.0.1.0/24,10.0.2.0/24"
+
+# Encrypt GR inter-member traffic
+group_replication_ssl_mode = REQUIRED
+group_replication_recovery_use_ssl = 1
+group_replication_recovery_ssl_ca = /etc/mysql/ssl/ca-cert.pem
+group_replication_recovery_ssl_cert = /etc/mysql/ssl/client-cert.pem
+group_replication_recovery_ssl_key = /etc/mysql/ssl/client-key.pem
+
+# Enforce InnoDB only (prevents GR-incompatible tables)
+disabled_storage_engines = "MyISAM,BLACKHOLE,FEDERATED,ARCHIVE,MEMORY"
+```
+
+---
+
 ## Cross-References
 
 - **PHP application security:** See `../../php-modern-standards/SKILL.md`

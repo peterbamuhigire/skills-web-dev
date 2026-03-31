@@ -468,6 +468,61 @@ START REPLICA;
 
 ---
 
+## Delayed Replication (Disaster Recovery)
+
+A replica that intentionally lags behind by a configurable time window. Safety net for accidental `DROP TABLE` or bad `UPDATE`.
+
+```sql
+-- On the delayed replica: set 1-hour delay
+CHANGE REPLICATION SOURCE TO SOURCE_DELAY = 3600;
+START REPLICA;
+-- Verify: SHOW REPLICA STATUS\G → SQL_Delay = 3600
+```
+
+**Recovery:** If a developer runs `DELETE FROM orders` without proper WHERE, the delayed replica still has the data for up to 1 hour. Extract missing rows from it.
+
+---
+
+## Group Replication Monitoring (Performance Schema)
+
+```sql
+-- Membership and roles
+SELECT MEMBER_HOST, MEMBER_PORT, MEMBER_STATE, MEMBER_ROLE
+FROM performance_schema.replication_group_members;
+
+-- Conflict detection and queue depth
+SELECT MEMBER_ID, COUNT_TRANSACTIONS_IN_QUEUE,
+       COUNT_CONFLICTS_DETECTED, COUNT_TRANSACTIONS_LOCAL_ROLLBACK
+FROM performance_schema.replication_group_member_stats;
+```
+
+**Alerts:** `COUNT_TRANSACTIONS_IN_QUEUE` growing = member falling behind. `COUNT_CONFLICTS_DETECTED` rising = multi-primary write conflicts.
+
+### GR Flow Control
+
+```sql
+-- Prevent slow member from throttling entire cluster (increase thresholds):
+SET GLOBAL group_replication_flow_control_applier_threshold = 50000;
+SET GLOBAL group_replication_flow_control_certifier_threshold = 50000;
+```
+
+### GR Network Partition Recovery (Emergency)
+
+```sql
+-- When majority of members UNREACHABLE and writes blocked:
+-- CRITICAL: ensure unreachable members are actually DOWN first
+SET GLOBAL group_replication_force_members = "10.0.1.10:33061,10.0.1.11:33061";
+```
+
+### GR Member Weight (Primary Election)
+
+```sql
+-- Prefer stronger hardware as failover target (range 0-100, highest wins)
+SET GLOBAL group_replication_member_weight = 80;
+```
+
+---
+
 ## Quick Checklist
 
 - [ ] GTID mode ON for all new replication setups

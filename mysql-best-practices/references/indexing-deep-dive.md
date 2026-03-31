@@ -388,4 +388,29 @@ Optimize a SELECT?
 
 ---
 
-*Reference document for mysql-best-practices skill.*
+## SYS Schema Convenience Views
+
+Simpler alternative to raw `performance_schema` queries for index maintenance:
+
+```sql
+-- Unused indexes (wait 1 month before dropping to catch monthly reports)
+SELECT * FROM sys.schema_unused_indexes WHERE object_schema = 'saas_platform';
+
+-- Redundant/duplicate indexes
+SELECT * FROM sys.schema_redundant_indexes WHERE table_schema = 'saas_platform';
+
+-- Queries doing full table scans (potentially missing indexes)
+SELECT * FROM sys.statements_with_full_table_scans
+ORDER BY no_index_used_count DESC LIMIT 20;
+```
+
+## The 20% Rule
+
+If a query needs >20% of rows, a full table scan is faster than using an index. The optimizer knows this.
+
+**Anti-pattern:** `FORCE INDEX` / `USE INDEX` / `IGNORE INDEX` hints almost always mean your index strategy needs fixing. Fix the root cause instead of overriding the optimizer.
+
+---
+
+*References: "Efficient MySQL Performance" (Nichter, 2022), "Advanced MySQL 8" (Vanier, 2019).*
+

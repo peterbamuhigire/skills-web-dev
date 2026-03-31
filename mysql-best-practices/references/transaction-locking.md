@@ -418,6 +418,7 @@ Key fields in the TRANSACTIONS section:
 | Prefer IN() over BETWEEN | Fewer gap locks, less contention |
 | Monitor HLL | Catches stalled transactions before performance degrades |
 | Handle deadlocks in application | Retry with backoff (error 1213 / SQLSTATE 40001) |
+| Consider `innodb_deadlock_detect=OFF` | Only for extreme write concurrency (hundreds of threads); rely on `innodb_lock_wait_timeout` instead |
 | Use explicit transactions | Multi-statement ops need atomicity guarantees |
 | Use atomic UPDATE expressions | Prevents lost updates without pessimistic locking |
 | Batch large writes | Reduces lock duration and replication lag |

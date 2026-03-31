@@ -403,6 +403,16 @@ sysctl -p
 
 ---
 
+## Connection Tuning
+
+```ini
+# my.cnf — eliminate DNS lookup latency on every connection
+skip-name-resolve
+# Effect: all GRANT host values must use IPs or 'localhost', not DNS names
+```
+
+---
+
 ## Do NOT Tune These (Common Mistakes)
 
 | Variable | Why Not |

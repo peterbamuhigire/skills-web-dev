@@ -230,5 +230,13 @@ WHERE tenant_id = 5
 -- ✓ DO partition if:
 -- - Table has > 10 million rows
 -- - Queries filter by partition key (tenant_id, date range)
--- - Need to archive/delete old data efficiently
+-- - Need to archive/delete old data efficiently (DROP PARTITION is instant vs DELETE)
 -- - Multi-tenant isolation benefits performance
+--
+-- Additional rules (Vanier, 2019):
+-- - Max ~50 partitions per table (performance degrades beyond)
+-- - RANGE is the only generally useful partitioning mode
+-- - Partitioning should be the LAST optimisation step (after queries, indexes, config)
+-- - Always verify pruning: EXPLAIN should show specific partition names, not ALL
+-- - Pruning works with: col = const, col IN (...), col BETWEEN a AND b
+-- - Pruning does NOT work with: functions on partition column (e.g., YEAR(col))

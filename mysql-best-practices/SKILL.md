@@ -473,6 +473,6 @@ ALTER TABLE orders ADD COLUMN tracking VARCHAR(50) DEFAULT NULL;  -- Non-breakin
 
 ---
 
-**Sources:** Efficient MySQL Performance (Nichter 2022), Mastering MySQL Administration (Kumar et al. 2024), Leveling Up with SQL (Simon 2023)
-**Last Updated:** 2026-03-04
+**Sources:** Efficient MySQL Performance (Nichter 2022), Mastering MySQL Administration (Kumar et al. 2024), Leveling Up with SQL (Simon 2023), Advanced MySQL 8 (Vanier et al. 2019)
+**Last Updated:** 2026-03-31
 **Maintained by:** Peter Bamuhigire

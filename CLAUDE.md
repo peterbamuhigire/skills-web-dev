@@ -188,6 +188,14 @@ skills/
 ├── language-standards/              # Multi-language tone, grammar & cultural standards
 ├── api-testing-verification/        # API test verification patterns
 ├── habit-forming-products/          # Hook Model (Trigger→Action→Variable Reward→Investment), internal triggers, ethics, Habit Testing
+├── product-discovery/               # 4 product risks, opportunity assessment, customer discovery, prototype spectrum, testing (INSPIRED)
+├── product-strategy-vision/         # Product vision principles, strategy, OKRs, roadmap alternatives, product evangelism (INSPIRED + Mastering SPM)
+├── competitive-analysis-pm/         # Porter's Five Forces for PMs, win/loss analysis, competitor teardown, positioning map (Mastering SPM)
+├── saas-business-metrics/           # MRR/ARR/CAC/LTV/NRR/churn/NPS/Rule of 40/unit economics (SaaS Guide + Mastering SPM)
+├── software-pricing-strategy/       # Value-based pricing, 3 principles, pricing models, packaging, negotiation, expansion revenue (Mastering SPM)
+├── software-business-models/        # Products vs services vs hybrid, platforms, open source, licensing, startup survival (Business of Software)
+├── it-proposal-writing/             # BOD/USP, proposal lifecycle, 5-level failure model, persuasive prose, Proposal Evaluation Questionnaire (Coombs)
+├── technology-grant-writing/        # Grant landscape, winning framework, needs assessment, evaluation plan, budget justification (Winning at IT)
 ├── ux-psychology/                   # Cognitive science foundations (dual-process, memory, attention, biases, dark patterns, design laws)
 ├── laws-of-ux/                      # Named-law quick reference: all 30 Yablonski Laws of UX (Fitts, Hick, Miller, Jakob, Tesler, Postel, Doherty, Zeigarnik, Peak-End, Gestalt)
 ├── ux-for-ai/                       # AI interface design (trust, transparency, premium vs slop, human oversight)

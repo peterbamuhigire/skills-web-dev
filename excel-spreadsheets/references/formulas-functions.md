@@ -103,6 +103,22 @@ If forced to use VLOOKUP, always use `FALSE` (exact match) as the 4th argument. 
 =AVERAGEIFS(Data[Score], Data[Score], ">0")
 ```
 
+### MAXIFS / MINIFS (Excel 2019+)
+
+```excel
+=MAXIFS(max_range, criteria_range1, criteria1, ...)
+=MINIFS(min_range, criteria_range1, criteria1, ...)
+
+# Highest sale amount in the East region
+=MAXIFS(Sales[Amount], Sales[Region], "East")
+
+# Lowest score for students who passed
+=MINIFS(Scores[Score], Scores[Result], "Pass")
+
+# Max amount for East region in Q1
+=MAXIFS(Sales[Amount], Sales[Region], "East", Sales[Quarter], "Q1")
+```
+
 ### SUBTOTAL and AGGREGATE
 
 ```excel

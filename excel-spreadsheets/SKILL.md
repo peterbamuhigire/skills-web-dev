@@ -9,12 +9,15 @@ Excel done right looks like a financial analyst and a graphic designer collabora
 
 **Reference files (read when needed):**
 - `references/design-standards.md` — layout, colour palettes, typography, table structure, conditional formatting, print setup
-- `references/formulas-functions.md` — XLOOKUP, dynamic arrays, LET, LAMBDA, SUMIFS, essential formula patterns
+- `references/formulas-functions.md` — XLOOKUP, dynamic arrays, LET, LAMBDA, SUMIFS, MAXIFS/MINIFS, essential formula patterns
 - `references/programmatic-generation.md` — openpyxl, xlsxwriter, PhpSpreadsheet, pandas — code patterns for generating professional Excel from apps
 - `references/charts-pivot.md` — chart types, professional chart formatting, PivotTables, slicers, dashboards
+- `references/financial-modeling.md` — PMT, PV, FV, NPV, IRR; Goal Seek, Data Tables, Scenario Manager, Solver; modeling golden rules; formula debugging
+- `references/python-automation.md` — Excel–Python–Excel workflow, advanced read_excel(), 6-step export, pivot_table/merge/crosstab, email automation, =PY() function, xlwings
+- `references/vba-macros.md` — recording/running macros, VBA golden rules, common patterns, keyboard shortcuts reference
 - `references/quality-checklist.md` — pre-delivery checklist
 
-*Sources: Microsoft Excel 365 Bible (Walkenbach/Alexander); Microsoft Excel Bible 2026; Ultimate Excel Formula & Function Reference Guide; Excel 2025: All-in-One Step-by-Step Guide*
+*Sources: Microsoft Excel 365 Bible (Walkenbach/Alexander); Microsoft Excel Bible 2026; Ultimate Excel Formula & Function Reference Guide; Excel 2025 All-in-One; Excel 2019 Advanced Topics (George); Advanced Excel for Productivity (Urban); Automate Excel with Python (Wengler, 2026); Python in Excel Advanced (Van Der Post)*
 
 ---
 
@@ -241,6 +244,43 @@ df = df.dropna(subset=["ID"])  # drop rows with no ID
 
 ---
 
+## Financial Functions Quick Reference
+
+Read `references/financial-modeling.md` for full formulas, examples, and What-If tools.
+
+| Function | Use case | Key rule |
+|---|---|---|
+| `=PMT(rate, nper, pv)` | Monthly loan/mortgage payment | Rate and nper must match time unit (÷12 for monthly) |
+| `=PV(rate, nper, pmt)` | Present value of an annuity | Cash inflows = positive, outflows = negative |
+| `=FV(rate, nper, pmt)` | Future value of savings/investment | pmt is negative (cash going out) |
+| `=NPV(rate, cashflows)` | Net present value | Add period-0 investment separately outside NPV() |
+| `=IRR(cashflows)` | Internal rate of return | First value should be negative (initial outlay) |
+
+**What-If tools:**
+- **Goal Seek** — find the input that achieves a target output (Data → What-If Analysis → Goal Seek)
+- **Scenario Manager** — store and compare named sets of input values (Base/Optimistic/Pessimistic)
+- **Data Tables** — calculate output across a range of input values (1-variable or 2-variable)
+- **Solver** — optimise across multiple variables with constraints (requires Solver add-in)
+
+---
+
+## VBA Macros
+
+Read `references/vba-macros.md` for full VBA patterns and keyboard shortcuts.
+
+**Record a macro:** View → Macros → Record Macro (or status bar button bottom-left)
+**Run a macro:** `Alt+F8` or assigned shortcut key
+**Edit a macro:** `Alt+F11` opens the VBA editor
+
+**Critical shortcuts:**
+- `Ctrl+Arrow` — jump to end of data range
+- `F2` — edit mode with colour-coded cell references
+- `F4` — toggle `$A$1` → `A$1` → `$A1` → `A1` (absolute/relative)
+- `Ctrl+Shift+Enter` — legacy array formula (prefer dynamic arrays)
+- `Alt+H+O+I` — auto-fit column width
+
+---
+
 ## Customisation Quick Reference
 
 | What to change | Where |
@@ -249,4 +289,7 @@ df = df.dropna(subset=["ID"])  # drop rows with no ID
 | Formula patterns | `references/formulas-functions.md` |
 | openpyxl/xlsxwriter code | `references/programmatic-generation.md` |
 | Chart types and formatting | `references/charts-pivot.md` |
+| Financial functions & What-If | `references/financial-modeling.md` |
+| Python automation & =PY() | `references/python-automation.md` |
+| VBA macros & keyboard shortcuts | `references/vba-macros.md` |
 | Pre-delivery checks | `references/quality-checklist.md` |

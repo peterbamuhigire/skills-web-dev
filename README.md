@@ -88,6 +88,12 @@ Claude: Loads ios-development → follows MVVM + @Observable + async/await patte
 | Google Play | `google-play-store-review` |
 | Apple App Store | `app-store-review` |
 
+### Document Production
+
+| Skill | Purpose |
+|-------|---------|
+| `professional-word-output` | Pandoc + python-docx pipeline; heading flow rules, typography spec, table design, pre-delivery checklist |
+
 ### Content & Writing
 
 | Skill | Purpose |
@@ -188,7 +194,7 @@ All skills are under 500 lines. Heavy reference material goes in `references/` s
 
 ## Repository Stats
 
-- **60+ skills** across 10 categories
+- **61+ skills** across 11 categories
 - **~25,000 lines** of curated patterns and code examples
 - **20+ books** synthesised into actionable guidance
 - **3 platforms**: Web (PHP), Android (Kotlin), iOS (Swift)

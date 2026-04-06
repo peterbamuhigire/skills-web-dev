@@ -5,8 +5,6 @@ description: "Database reliability engineering: SLOs for databases, operational 
 
 # Database Reliability Engineering
 
-Source: *Database Reliability Engineering* — Laine Campbell & Charity Majors (O'Reilly, 2017)
-
 ## Core Philosophy
 
 Databases are not special snowflakes. Treat every node as cattle: replaceable, automated, and monitored. The DBRE role is engineering, not firefighting. Toil (manual, repetitive, automatable work that scales linearly with growth) is the enemy — eliminate it.

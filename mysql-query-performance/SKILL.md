@@ -7,8 +7,6 @@ description: "Expert MySQL 8 query performance tuning: EXPLAIN analysis, index d
 
 **Sources:** MySQL 8 Query Performance Tuning (Krogh, Apress 2020) + Efficient MySQL Performance (Nichter, O'Reilly 2022)
 
----
-
 ## 1. EXPLAIN ANALYZE vs EXPLAIN FORMAT=JSON
 
 `EXPLAIN ANALYZE` (MySQL 8.0.18+) **executes** the query and returns actual measured statistics alongside estimates. This is the single most important diagnostic upgrade over plain EXPLAIN.
@@ -349,9 +347,7 @@ The buffer pool caches data pages and index pages. It is the single most impactf
 -- Warm-up: innodb_buffer_pool_dump_at_shutdown=ON + innodb_buffer_pool_load_at_startup=ON
 ```
 
-**The warm-up problem:** After a restart, the buffer pool is empty. First-run queries are slow (disk I/O). With dump/load enabled, InnoDB saves the list of pages on shutdown and reloads them on startup — warm in seconds.
-
-**innodb_dedicated_server = ON** (MySQL 8.0.3+) — auto-configures pool size and redo log based on detected RAM. Use only on dedicated DB servers.
+**Warm-up:** After restart the pool is empty and first queries are slow. With dump/load enabled, InnoDB saves the page list on shutdown and reloads on startup — warm in seconds. `innodb_dedicated_server = ON` (MySQL 8.0.3+) auto-configures pool size and redo log from detected RAM (dedicated servers only).
 
 ---
 
@@ -470,20 +466,11 @@ COUNT(1)      -- equivalent to COUNT(*) — no difference in MySQL 8
 ```sql
 -- BAD: filesort entire result, then limit — O(N log N)
 SELECT * FROM orders ORDER BY total_amount DESC LIMIT 10;
-
--- GOOD: add index, or accept filesort and increase sort_buffer_size
+-- GOOD: index on total_amount lets MySQL read 10 rows directly, no sort
 ALTER TABLE orders ADD INDEX idx_total (total_amount);
--- Now MySQL reads 10 rows from index, no sort
 ```
 
-### DISTINCT vs GROUP BY
-
-```sql
--- These are equivalent in MySQL — prefer GROUP BY for clarity with aggregates
-SELECT DISTINCT customer_id FROM orders;
-SELECT customer_id FROM orders GROUP BY customer_id;
--- Both use the same index; DISTINCT does NOT guarantee a covering index advantage
-```
+**DISTINCT vs GROUP BY:** equivalent in MySQL — both use the same index. Prefer `GROUP BY` for clarity when aggregates are involved.
 
 ---
 

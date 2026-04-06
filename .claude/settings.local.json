@@ -3,7 +3,18 @@
     "allow": [
       "WebFetch(domain:www.behance.net)",
       "WebFetch(domain:design4users.com)",
-      "WebFetch(domain:ixdf.org)"
+      "WebFetch(domain:ixdf.org)",
+      "Bash(python3 -c \"import sys,json; data=sys.stdin.read\\(\\); print\\(data[-3000:]\\)\")",
+      "Bash(git add:*)",
+      "Bash(python3 -c ':*)",
+      "Bash(python3 -c \"import sys; data=sys.stdin.read\\(\\); print\\(data[:15000]\\)\")",
+      "Bash(python3 -c \"import sys; data=sys.stdin.read\\(\\); print\\(data[2000:16000]\\)\")",
+      "Bash(python3 -c \" import sys, glob sys.stdout.reconfigure\\(encoding='utf-8', errors='replace'\\) import pdfplumber files = glob.glob\\('C:/Users/Peter/Downloads/Documents/*Garcia*'\\) path = files[0] with pdfplumber.open\\(path\\) as pdf: print\\(f'GARCIA: {len\\(pdf.pages\\)} pages'\\) for i, page in enumerate\\(pdf.pages\\): try: text = page.extract_text\\(\\) if text and len\\(text.strip\\(\\)\\) > 80: print\\(f'=== P{i+1} ==='\\) print\\(text[:1600]\\) except: pass \")",
+      "Bash(python3 -c \" import sys, zipfile, re sys.stdout.reconfigure\\(encoding='utf-8', errors='replace'\\) epub = r'C:/Users/Peter/Downloads/PHP, 3 in 1- Essential Beginners Guide+ Tips and tricks+ Advanced Guide to Learn the Realms of PHP.epub' with zipfile.ZipFile\\(epub, 'r'\\) as z: names = sorted\\([n for n in z.namelist\\(\\) if any\\(n.endswith\\(e\\) for e in ['.html','.xhtml','.htm']\\)]\\) for name in names[10:]: content = z.read\\(name\\).decode\\('utf-8', errors='replace'\\) text = re.sub\\(r'<[^>]+>', ' ', content\\) text = re.sub\\(r'&[a-z]+;', ' ', text\\) text = re.sub\\(r'\\\\s+', ' ', text\\).strip\\(\\) if len\\(text\\) > 200: print\\(f'=== {name} ==='\\) print\\(text[:3000]\\) \")",
+      "Bash(python3 -c \" import sys data = sys.stdin.read\\(\\) print\\(data[20000:]\\) \")",
+      "Read(//c/tmp/**)",
+      "Bash(ls \"C:/Users/Peter/AppData/Local/Temp/\"*.txt)",
+      "Bash(python3:*)"
     ]
   }
 }

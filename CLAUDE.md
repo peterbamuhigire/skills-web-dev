@@ -166,6 +166,10 @@ skills/
 ├── database-reliability/            # Database SLOs, expand-contract migrations, backup verification, incident runbooks, monitoring pyramid, chaos engineering
 ├── php-modern-standards/            # PHP 8+ (strict typing, SOLID, generators, OPcache, testing, Fibers, security, rate limiting, queues, caching, resilience)
 ├── php-security/                    # PHP security patterns (sessions, XSS, CSRF, file uploads, php.ini)
+├── javascript-modern/               # ES6+ mastery: modules, async/await, Proxy, generators, WeakMap, AbortController, production fetch
+├── javascript-advanced/             # Closures, prototype chain, OOP (#private fields), functional patterns, event loop, memory management
+├── javascript-patterns/             # 10 design patterns: Module, Observer, Factory, Strategy, Command, Repository, Mediator, State Machine
+├── javascript-php-integration/      # JS-in-own-files architecture, data-* bridge, CSRF flow, $pageScript pattern (PHP+JS SaaS rule)
 ├── saas-accounting-system/           # Double-entry accounting engine for SaaS
 ├── saas-seeder/                     # SaaS bootstrap and seeding
 ├── skill-safety-audit/              # Skill safety audit workflow

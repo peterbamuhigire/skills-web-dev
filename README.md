@@ -19,6 +19,7 @@ Claude: Loads ios-development → follows MVVM + @Observable + async/await patte
 |----------|--------|-------|
 | **Web Backend** | `php-modern-standards`, `php-security`, `mysql-best-practices` | PHP 8+, MySQL 8.x, Redis |
 | **Web Frontend** | `webapp-gui-design`, `form-ux-design`, `image-compression` | Bootstrap 5/Tabler, JS |
+| **JavaScript** | `javascript-modern`, `javascript-advanced`, `javascript-patterns`, `javascript-php-integration` | ES6+, Modules, Design Patterns |
 | **Android** | `android-development`, `jetpack-compose-ui`, `android-data-persistence`, `android-tdd`, `android-biometric-login`, `android-pdf-export` | Kotlin, Compose, Room, Hilt |
 | **iOS** | `ios-development`, `ios-architecture-advanced`, `ios-at-scale`, `ios-production-patterns`, `ios-debugging-mastery`, `ios-ai-ml`, `ios-swift-design-patterns`, `ios-networking-advanced`, `ios-uikit-advanced`, `ios-monetization`, `ios-push-notifications`, `ios-swift-recipes`, `ios-stability-solutions`, `swiftui-design`, `swiftui-pro-patterns`, `ios-data-persistence`, `ios-tdd`, `ios-project-setup`, `ios-biometric-login`, `ios-pdf-export`, `ios-bluetooth-printing`, `ios-rbac` | Swift 6, SwiftUI, SwiftData, CoreML |
 | **Cross-Platform** | `mobile-saas-planning`, `mobile-custom-icons`, `mobile-reports`, `mobile-report-tables`, `api-pagination` | Shared patterns for Android + iOS |
@@ -47,6 +48,15 @@ Claude: Loads ios-development → follows MVVM + @Observable + async/await patte
 | `mysql-advanced-sql` | Window functions, recursive CTEs, JSON_TABLE, dynamic pivoting, stored procedures, triggers |
 | `database-internals` | B-tree, WAL/MVCC, buffer pool, lock types, LSM vs B-tree tradeoffs, CAP theorem applied |
 | `database-reliability` | SLOs, expand-contract migrations, backup verification, incident runbooks, chaos engineering |
+
+### JavaScript (4 Skills)
+
+| Skill | Purpose |
+|-------|---------|
+| `javascript-modern` | ES6+ mastery: modules, async/await, Proxy, generators, WeakMap, AbortController, production fetch wrapper |
+| `javascript-advanced` | Closures, prototype chain, OOP with #private fields, functional patterns, event loop, memory management |
+| `javascript-patterns` | 10 design patterns: Module, Observer, Factory, Strategy, Command, Repository, Mediator, State Machine |
+| `javascript-php-integration` | JS-in-own-files architecture rule, data-* bridge, CSRF flow, $pageScript per-page loading |
 
 ### UI/UX Design (21 Skills)
 
@@ -204,6 +214,12 @@ Skills are synthesised from authoritative sources, not improvised:
 | Advanced MySQL 8 | — | `mysql-best-practices` |
 | Database Internals | Petrov | `database-internals` |
 | Database Reliability Engineering | Campbell & Majors | `database-reliability` |
+| The Golden Book of JavaScript | — | `javascript-modern` |
+| JavaScript: The Advanced Concepts | Turner | `javascript-modern` |
+| JavaScript: Understanding the Weird Parts (Closures & Prototypes) | — | `javascript-advanced` |
+| JavaScript Unleashed | — | `javascript-advanced` |
+| JavaScript Design Patterns | Jones | `javascript-patterns` |
+| Mastering JavaScript Design Patterns | Shah | `javascript-patterns` |
 
 ## Skill Structure
 
@@ -227,10 +243,10 @@ All skills are under 500 lines. Heavy reference material goes in `references/` s
 
 ## Repository Stats
 
-- **80+ skills** across 12 categories
-- **~35,000 lines** of curated patterns and code examples
-- **30+ books** synthesised into actionable guidance
-- **3 platforms**: Web (PHP), Android (Kotlin), iOS (Swift)
+- **85+ skills** across 13 categories
+- **~37,000 lines** of curated patterns and code examples
+- **36+ books** synthesised into actionable guidance
+- **4 platforms**: Web (PHP+JS), Android (Kotlin), iOS (Swift), Cross-Platform
 - **Full SDLC coverage**: Planning through post-deployment evaluation
 
 ## Maintained By

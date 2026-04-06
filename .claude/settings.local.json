@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:www.behance.net)",
+      "WebFetch(domain:design4users.com)",
+      "WebFetch(domain:ixdf.org)"
+    ]
+  }
+}

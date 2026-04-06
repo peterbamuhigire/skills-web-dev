@@ -45,8 +45,7 @@ const InvoiceForm = (() => {
 })();
 ```
 
-**Rule:** Never leak private functions. Return only what callers need.
-**ES module variant:** Replace the IIFE with `export` when bundling with Vite/esbuild.
+**Rule:** Never leak private functions. Return only what callers need. Replace the IIFE with `export` when bundling.
 
 ---
 
@@ -82,15 +81,10 @@ EventBus.on('cart:updated', ({ total })        => updateOrderSummary(total));
 EventBus.emit('cart:updated', { items, total });
 ```
 
-**Memory leak prevention:** Store the unsubscribe function and call it on component teardown.
+**Memory leak prevention:** Store and call the returned unsubscribe function on teardown:
+`const unsub = EventBus.on('user:loggedOut', cleanup);  // later: unsub();`
 
-```javascript
-const unsub = EventBus.on('user:loggedOut', cleanup);
-// Later: unsub();
-```
-
-**Named event conventions for SaaS:**
-`entity:action` — `invoice:saved`, `customer:deleted`, `payment:failed`
+**Event naming convention:** `entity:action` — `invoice:saved`, `customer:deleted`, `payment:failed`
 
 ---
 
@@ -144,32 +138,26 @@ const validators = {
 
 class FormValidator {
     #rules = new Map();
-
-    addRule(field, ...strategies) {
-        this.#rules.set(field, strategies);
-        return this; // fluent
-    }
+    addRule(field, ...strategies) { this.#rules.set(field, strategies); return this; }
 
     validate(formData) {
         const errors = {};
-        for (const [field, strategies] of this.#rules) {
-            for (const strategy of strategies) {
-                const result = strategy(formData[field] ?? '');
-                if (result !== true) { errors[field] = result; break; }
+        for (const [field, strategies] of this.#rules)
+            for (const s of strategies) {
+                const r = s(formData[field] ?? '');
+                if (r !== true) { errors[field] = r; break; }
             }
-        }
-        return errors; // empty = valid
+        return errors; // {} = valid
     }
 }
 
-// Usage
 const validator = new FormValidator()
     .addRule('email',    validators.required, validators.email)
     .addRule('password', validators.required, validators.minLength(8))
     .addRule('amount',   validators.required, validators.numeric, validators.positive);
 
 const errors = validator.validate(Object.fromEntries(new FormData(form)));
-if (Object.keys(errors).length === 0) submitForm();
+if (!Object.keys(errors).length) submitForm();
 ```
 
 **Other SaaS uses:** export format strategies (CSV/PDF/JSON), sort strategies,
@@ -189,22 +177,14 @@ class CommandHistory {
     execute(command) {
         command.execute();
         this.#history.push(command);
-        this.#future = []; // clear redo stack on new action
+        this.#future = [];
         EventBus.emit('command:executed', { name: command.constructor.name });
     }
 
-    undo() {
-        const cmd = this.#history.pop();
-        if (cmd) { cmd.undo(); this.#future.push(cmd); }
-    }
-
-    redo() {
-        const cmd = this.#future.pop();
-        if (cmd) { cmd.execute(); this.#history.push(cmd); }
-    }
-
+    undo() { const c = this.#history.pop(); if (c) { c.undo(); this.#future.push(c); } }
+    redo() { const c = this.#future.pop();  if (c) { c.execute(); this.#history.push(c); } }
     get canUndo() { return this.#history.length > 0; }
-    get canRedo() { return this.#future.length > 0; }
+    get canRedo()  { return this.#future.length > 0; }
 }
 
 // A command implementation
@@ -214,10 +194,8 @@ class AddLineItemCommand {
     undo()    { this.invoice.removeLastItem(); }
 }
 
-// Usage
 const history = new CommandHistory();
 history.execute(new AddLineItemCommand(invoice, { sku: 'SVC-01', qty: 2, price: 500 }));
-// Ctrl+Z
 document.addEventListener('keydown', e => {
     if (e.ctrlKey && e.key === 'z') history.undo();
     if (e.ctrlKey && e.key === 'y') history.redo();
@@ -234,13 +212,10 @@ Separates data fetching from UI logic. AJAX calls are swappable and testable.
 // assets/js/repositories/customer-repository.js
 const CustomerRepository = (() => {
     const cache = new Map();
+    const csrf  = () => document.querySelector('meta[name=csrf-token]')?.content;
 
-    async function apiRequest(url, options = {}) {
-        const res = await fetch(url, {
-            headers: { 'Content-Type': 'application/json',
-                        'X-CSRF-Token': document.querySelector('meta[name=csrf-token]')?.content },
-            ...options
-        });
+    async function apiRequest(url, opts = {}) {
+        const res = await fetch(url, { headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrf() }, ...opts });
         if (!res.ok) throw new Error(`API ${res.status}: ${await res.text()}`);
         return res.json();
     }
@@ -266,9 +241,7 @@ const CustomerRepository = (() => {
             const method = customer.id ? 'PUT' : 'POST';
             const url    = customer.id ? `/api/customers/${customer.id}` : '/api/customers';
             const data   = await apiRequest(url, { method, body: JSON.stringify(customer) });
-            cache.clear(); // invalidate on mutation
-            EventBus.emit('customer:saved', data);
-            return data;
+            cache.clear(); EventBus.emit('customer:saved', data); return data;
         },
 
         async delete(id) {
@@ -291,14 +264,12 @@ const CustomerRepository = (() => {
 Central coordinator for complex component interactions. Prevents spaghetti event wiring.
 
 ```javascript
-// Page-level mediator — coordinates all components on a dashboard
+// Page-level mediator — coordinates all dashboard components
 const DashboardMediator = (() => {
     const components = {};
 
     return {
-        register(name, component) {
-            components[name] = component;
-        },
+        register(name, component) { components[name] = component; },
 
         notify(sender, event, data) {
             switch (`${sender}:${event}`) {
@@ -319,12 +290,8 @@ const DashboardMediator = (() => {
     };
 })();
 
-// Component usage
-DashboardMediator.register('dateFilter', DateFilterComponent);
-DashboardMediator.register('chart', ChartComponent);
-
-// Inside DateFilterComponent:
-// DashboardMediator.notify('dateFilter', 'changed', { range: { from, to } });
+// Wire up: DashboardMediator.register('dateFilter', DateFilterComponent);
+// Trigger: DashboardMediator.notify('dateFilter', 'changed', { range: { from, to } });
 ```
 
 **Rule:** Use Mediator when 3+ components need to react to one action.
@@ -363,26 +330,24 @@ class FormStateMachine {
     }
 
     #render() {
-        const is = s => this.#state === s;
-        submitBtn.disabled   = !is(FormStates.IDLE) && !is(FormStates.ERROR);
-        spinner.hidden       = !is(FormStates.SUBMITTING);
-        errorMsg.hidden      = !is(FormStates.ERROR);
-        successMsg.hidden    = !is(FormStates.SUCCESS);
+        const s = this.#state;
+        submitBtn.disabled = s !== FormStates.IDLE && s !== FormStates.ERROR;
+        spinner.hidden     = s !== FormStates.SUBMITTING;
+        errorMsg.hidden    = s !== FormStates.ERROR;
+        successMsg.hidden  = s !== FormStates.SUCCESS;
     }
 }
 
-// Usage
+// Wire up
 const fsm = new FormStateMachine();
 form.addEventListener('submit', async e => {
     e.preventDefault();
     fsm.transition('submit');
     const errors = validator.validate(Object.fromEntries(new FormData(form)));
-    if (Object.keys(errors).length) { fsm.transition('invalid'); return; }
+    if (Object.keys(errors).length) return fsm.transition('invalid');
     fsm.transition('valid');
-    try {
-        await CustomerRepository.save(formData);
-        fsm.transition('success');
-    } catch { fsm.transition('failure'); }
+    try { await CustomerRepository.save(formData); fsm.transition('success'); }
+    catch { fsm.transition('failure'); }
 });
 ```
 
@@ -397,24 +362,17 @@ class NotificationManager {
     static #instance = null;
     static getInstance() { return (this.#instance ??= new NotificationManager()); }
 
-    #queue = [];
-
     show(message, type = 'info', duration = 4000) {
-        const toast = this.#createToast(message, type);
-        document.body.appendChild(toast);
-        setTimeout(() => toast.remove(), duration);
-    }
-
-    #createToast(message, type) {
         const el = document.createElement('div');
         el.className = `toast toast--${type}`;
         el.textContent = message;
-        return el;
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), duration);
     }
 }
 
 const notifications = NotificationManager.getInstance();
-// Use across all modules: notifications.show('Saved!', 'success');
+// notifications.show('Invoice saved!', 'success');
 ```
 
 **Acceptable Singletons:** notification manager, app config, CSRF token provider.
@@ -424,23 +382,18 @@ const notifications = NotificationManager.getInstance();
 
 ## Pattern 10 — Decorator
 
-Extend behaviour without subclassing. Add logging, retry, caching to any function.
-Source: *Decoding* ch3 Decorator; *Mastering* ch8 metaprogramming.
+Extend behaviour without subclassing. Add logging, retry, or caching to any function.
 
 ```javascript
-// Add timing + logging to any async function
 function withLogging(fn, label) {
     return async function(...args) {
         console.time(label);
-        try {
-            return await fn.apply(this, args);
-        } finally {
-            console.timeEnd(label);
-        }
+        try { return await fn.apply(this, args); }
+        finally { console.timeEnd(label); }
     };
 }
 
-// Add automatic retry with exponential back-off
+// Retry with exponential back-off
 function withRetry(fn, maxAttempts = 3, baseDelay = 1000) {
     return async function(...args) {
         for (let attempt = 1; attempt <= maxAttempts; attempt++) {
@@ -453,7 +406,7 @@ function withRetry(fn, maxAttempts = 3, baseDelay = 1000) {
     };
 }
 
-// Add response caching to any repository method
+// TTL cache for any async function
 function withCache(fn, ttlMs = 30_000) {
     const cache = new Map();
     return async function(...args) {
@@ -466,55 +419,37 @@ function withCache(fn, ttlMs = 30_000) {
     };
 }
 
-// Compose decorators
-CustomerRepository.findAll = withLogging(
-    withRetry(
-        withCache(CustomerRepository.findAll.bind(CustomerRepository))
-    ),
-    'CustomerRepository.findAll'
-);
+// Compose: CustomerRepository.findAll = withLogging(withRetry(withCache(fn)), label);
 ```
 
 ---
 
 ## Pattern 11 — Async Performance Patterns
 
-Source: *Decoding* ch5 asynchronous performance design patterns.
-
 ```javascript
-// Debounce: fire once after user stops typing
+// Debounce: fire once after user stops (search boxes, autosave)
 function debounce(fn, delay = 300) {
     let timer;
-    return function(...args) {
-        clearTimeout(timer);
-        timer = setTimeout(() => fn.apply(this, args), delay);
-    };
+    return function(...args) { clearTimeout(timer); timer = setTimeout(() => fn.apply(this, args), delay); };
 }
 
-// Throttle: fire at most once per interval
+// Throttle: fire at most once per interval (scroll, resize)
 function throttle(fn, interval = 200) {
-    let lastCall = 0;
-    return function(...args) {
-        const now = Date.now();
-        if (now - lastCall >= interval) { lastCall = now; fn.apply(this, args); }
-    };
+    let last = 0;
+    return function(...args) { const now = Date.now(); if (now - last >= interval) { last = now; fn.apply(this, args); } };
 }
 
-// Batch parallel API calls (avoids sequential waterfall)
-async function batchFetch(ids, fetcher, batchSize = 5) {
-    const results = [];
-    for (let i = 0; i < ids.length; i += batchSize) {
-        const batch = await Promise.all(ids.slice(i, i + batchSize).map(fetcher));
-        results.push(...batch);
-    }
-    return results;
+// Batch: parallel fetches in chunks — avoids N sequential round trips
+async function batchFetch(ids, fetcher, size = 5) {
+    const out = [];
+    for (let i = 0; i < ids.length; i += size)
+        out.push(...await Promise.all(ids.slice(i, i + size).map(fetcher)));
+    return out;
 }
 
-// Usage
-const searchInput = document.getElementById('search');
-searchInput.addEventListener('input', debounce(async e => {
-    const results = await CustomerRepository.findAll({ q: e.target.value });
-    renderResults(results);
+// Example: debounced live search
+document.getElementById('search').addEventListener('input', debounce(async e => {
+    renderResults(await CustomerRepository.findAll({ q: e.target.value }));
 }, 350));
 ```
 
@@ -555,19 +490,11 @@ searchInput.addEventListener('input', debounce(async e => {
 
 ```
 assets/js/
-├── core/
-│   ├── event-bus.js        # EventBus singleton
-│   └── command-history.js  # CommandHistory
-├── modules/
-│   ├── invoice-form.js     # Module pattern per feature
-│   └── customer-list.js
-├── repositories/
-│   ├── customer-repository.js
-│   └── invoice-repository.js
-├── factories/
-│   └── modal-factory.js
-└── pages/
-    └── dashboard.js        # Page mediator + bootstrap
+├── core/           event-bus.js, command-history.js
+├── modules/        invoice-form.js, customer-list.js   (one per feature)
+├── repositories/   customer-repository.js, invoice-repository.js
+├── factories/      modal-factory.js
+└── pages/          dashboard.js  (mediator + bootstrap only)
 ```
 
-Each file is a self-contained module. Pages wire them together through the Mediator.
+Each file is a self-contained module. Page files wire everything through the Mediator.

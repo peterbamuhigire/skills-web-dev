@@ -9,7 +9,17 @@ Production-grade PHP patterns for maintainable, testable, secure, high-performan
 
 **Core Principle:** Write type-safe, secure, performant PHP code following PSR standards with modern PHP 8+ features.
 
-**References:** `references/performance-efficiency.md`, `references/code-quality-tooling.md`, `references/rate-limiting.md`, `references/message-queues.md`, `references/cache-invalidation.md`, `references/resilience-patterns.md`
+**References:**
+- `references/performance-efficiency.md` — generators, OPcache, profiling, Fibers deep dive
+- `references/code-quality-tooling.md` — PHPStan, Pint config, CI/CD patterns
+- `references/rate-limiting.md` — rate limiting patterns
+- `references/message-queues.md` — queue patterns
+- `references/cache-invalidation.md` — cache invalidation patterns
+- `references/resilience-patterns.md` — circuit breakers, retries
+- `references/restful-api-patterns.md` — cURL client, Attribute routing, JWT, API versioning, testing
+- `references/database-orm-patterns.md` — PDO, QueryBuilder, Active Record Model, soft delete, ORM concepts
+- `references/attack-prevention.md` — SQL injection, XSS, CSRF, CSP, brute force, least privilege
+
 **Examples:** `examples/modern-php-patterns.php`, `examples/laravel-patterns.php`
 **Security:** Use **php-security** skill for comprehensive security patterns.
 

@@ -20,7 +20,7 @@ Claude: Loads ios-development → follows MVVM + @Observable + async/await patte
 | **Web Backend** | `php-modern-standards`, `php-security`, `mysql-best-practices` | PHP 8+, MySQL 8.x, Redis |
 | **Web Frontend** | `webapp-gui-design`, `form-ux-design`, `image-compression` | Bootstrap 5/Tabler, JS |
 | **Android** | `android-development`, `jetpack-compose-ui`, `android-data-persistence`, `android-tdd`, `android-biometric-login`, `android-pdf-export` | Kotlin, Compose, Room, Hilt |
-| **iOS** | `ios-development`, `swiftui-design`, `ios-data-persistence`, `ios-project-setup`, `ios-tdd`, `ios-biometric-login`, `ios-pdf-export`, `ios-bluetooth-printing` | Swift 6, SwiftUI, SwiftData |
+| **iOS** | `ios-development`, `ios-architecture-advanced`, `ios-at-scale`, `ios-production-patterns`, `ios-debugging-mastery`, `ios-ai-ml`, `ios-swift-design-patterns`, `ios-networking-advanced`, `ios-uikit-advanced`, `ios-monetization`, `ios-push-notifications`, `ios-swift-recipes`, `ios-stability-solutions`, `swiftui-design`, `swiftui-pro-patterns`, `ios-data-persistence`, `ios-tdd`, `ios-project-setup`, `ios-biometric-login`, `ios-pdf-export`, `ios-bluetooth-printing`, `ios-rbac` | Swift 6, SwiftUI, SwiftData, CoreML |
 | **Cross-Platform** | `mobile-saas-planning`, `mobile-custom-icons`, `mobile-reports`, `mobile-report-tables`, `api-pagination` | Shared patterns for Android + iOS |
 
 ### Architecture & Backend
@@ -144,7 +144,12 @@ Skills are designed to work together. Common combinations:
 ```
 Web SaaS app:     webapp-gui-design + form-ux-design + practical-ui-design + vibe-security-skill
 Android app:      android-development + jetpack-compose-ui + android-data-persistence + android-tdd
-iOS app:          ios-development + swiftui-design + ios-data-persistence + ios-tdd
+iOS app (standard):     ios-development + swiftui-design + ios-data-persistence + ios-tdd
+iOS app (advanced):     ios-architecture-advanced + ios-production-patterns + ios-swift-design-patterns
+iOS app (commercial):   ios-monetization + ios-push-notifications + ios-networking-advanced
+iOS app (scale/teams):  ios-at-scale + ios-debugging-mastery
+iOS app (UIKit):        ios-uikit-advanced + ios-production-patterns
+iOS AI features:        ios-ai-ml + ios-development
 Mobile planning:  mobile-saas-planning + feature-planning + dual-auth-rbac
 Any UI work:      ux-psychology + practical-ui-design + interaction-design-patterns
 ```
@@ -166,9 +171,16 @@ Skills are synthesised from authoritative sources, not improvised:
 | 101 UX Principles | Grant | `ux-principles-101` |
 | Storytelling with Data | Knaflic | `data-visualization` |
 | Pro SwiftUI | Hudson | `swiftui-pro-patterns` |
-| iOS 26 Programming | Sahar | `ios-development`, `ios-project-setup`, `app-store-review` |
+| Advanced iOS App Architecture (4th Ed.) | Cacheaux & Berlin | `ios-architecture-advanced` |
+| iOS Development at Scale | Vennaro | `ios-at-scale` |
+| iOS 18 Programming for Beginners | Sahar | `ios-at-scale`, `ios-development` |
+| Advanced Apple Debugging & Reverse Engineering | Selander | `ios-debugging-mastery` |
+| Practical AI with Swift | Geldard & Manning | `ios-ai-ml` |
+| Swift Design Patterns | Hudson | `ios-swift-design-patterns` |
+| Learning Mobile App Development | Iversen & Eierman | `ios-production-patterns` |
+| Ultimate iOS App Development Guide | Chopada | `ios-production-patterns`, `ios-development` |
+| UI Design for iOS App Development | Cahill | `ios-production-patterns`, `swiftui-design` |
 | SwiftUI Cookbook 3rd Ed | Catalan | `swiftui-design`, `ios-data-persistence` |
-| UI Design for iOS | Cahill | `swiftui-design` |
 | Better UI Components 3.0 | Kuleszo | `practical-ui-design` |
 | UX for AI | Nudelman | `ux-for-ai` |
 
@@ -194,8 +206,8 @@ All skills are under 500 lines. Heavy reference material goes in `references/` s
 
 ## Repository Stats
 
-- **61+ skills** across 11 categories
-- **~25,000 lines** of curated patterns and code examples
+- **70+ skills** across 11 categories
+- **~30,000 lines** of curated patterns and code examples
 - **20+ books** synthesised into actionable guidance
 - **3 platforms**: Web (PHP), Android (Kotlin), iOS (Swift)
 - **Full SDLC coverage**: Planning through post-deployment evaluation

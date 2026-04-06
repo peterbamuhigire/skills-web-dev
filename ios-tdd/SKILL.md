@@ -30,6 +30,7 @@ TDD is a development process where you write tests **before** feature code, foll
 | **Network Mocking**     | [URLProtocol Mock](#urlprotocol-for-network-mocking) | URLProtocol subclass for API tests      |
 | **UI Tests**            | [XCUITest](#xcuitest-for-critical-flows) | End-to-end UI testing                             |
 | **CI Setup**            | [CI Pipeline](#ci-pipeline)              | Xcode Cloud, GitHub Actions                       |
+| **Advanced Patterns**   | [references/advanced-tdd-patterns.md](references/advanced-tdd-patterns.md) | Test doubles, hardware mocking, legacy code |
 
 ## The Red-Green-Refactor Cycle
 
@@ -497,3 +498,12 @@ Configure via **Product > Xcode Cloud > Create Workflow**: trigger on PR/push to
 - **Swift Testing**: developer.apple.com/documentation/testing/definingtests
 - **XCUITest**: developer.apple.com/documentation/xctest/user_interface_tests
 - **WWDC24 Swift Testing**: developer.apple.com/videos/play/wwdc2024/10179
+
+## Advanced Patterns
+
+For expert-level patterns see [references/advanced-tdd-patterns.md](references/advanced-tdd-patterns.md):
+- Precise test double hierarchy (Stub/Fake/Mock/Partial Mock/Spy)
+- Protocol injection for hardware frameworks (CMPedometer, CLLocationManager)
+- XCTestExpectation: inverted, ordered, filtered, predicate-based
+- Legacy code characterization tests + breaking circular dependencies
+- Sprouting methods pattern for untouchable legacy code

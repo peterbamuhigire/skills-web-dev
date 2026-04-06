@@ -121,12 +121,14 @@ skills/
 ├── kmp-tdd/                         # KMP TDD (commonTest, Mokkery, Turbine, Ktor MockEngine, Kover)
 ├── ios-development/                 # iOS dev standards (Swift, SwiftUI, MVVM, async/await, @Observable)
 ├── ios-tdd/                         # iOS TDD (Red-Green-Refactor, Swift Testing, XCTest, protocol mocks)
+├── ios-stability-solutions/         # Crash prevention, optional safety, DI, SOLID, TDD safety net, SDUI, UI crash surface
 ├── ios-data-persistence/            # SwiftData, Keychain, offline-first, repository pattern for iOS
 ├── ios-project-setup/               # Xcode setup, xcconfig schemes, code signing, TestFlight, App Store
 ├── ios-biometric-login/             # Face ID/Touch ID gate via LocalAuthentication + Keychain
 ├── ios-pdf-export/                  # Native PDF export using UIGraphicsPDFRenderer + share sheet
 ├── ios-rbac/                        # RBAC for iOS (PermissionGate ViewModifier, module-gated TabView)
 ├── ios-bluetooth-printing/          # CoreBluetooth ESC/POS thermal printer communication
+├── ios-swift-recipes/               # App Store production Swift recipes (data, JSON, UIKit, images, animation, SwiftUI)
 ├── swiftui-design/                  # SwiftUI UI standards (NavigationStack, theming, animations, charts)
 ├── healthcare-ui-design/            # Clinical-grade UI for EMR/EHR, telemedicine, patient portals (web + Android)
 ├── google-play-store-review/        # Play Store review readiness
@@ -212,6 +214,18 @@ skills/
 ├── frontend-performance/            # Core Web Vitals (LCP, INP, CLS), image/JS/CSS/font optimisation, budgets
 ├── design-audit/                    # 10-dimension UI quality audit with severity-rated findings and scoring
 ├── swiftui-pro-patterns/            # Advanced SwiftUI: layout internals, identity, animation, custom layouts, environment/preferences, performance (Pro SwiftUI, Hudson)
+├── ios-architecture-advanced/       # Scoped DI containers, MVVM/Redux/Elements architecture, use case patterns, model-driven navigation, Observer composition
+├── ios-at-scale/                    # Modular architecture (RIBLETS/ComponentKit), Buck/Bazel builds, trunk-based dev, CI/CD pipeline, feature flags, perf at scale
+├── ios-production-patterns/         # Production gotchas: VC lifecycle, delegate pattern, sensor mgmt, camera, keyboard, Core Data migration, SwiftUI↔UIKit
+├── ios-debugging-mastery/           # LLDB mastery, Python scripting for LLDB, watchpoints, DTrace, malloc stack logging, Mach-O analysis, anti-debugging bypass
+├── ios-ai-ml/                       # CoreML, Vision (face/barcode/saliency), NaturalLanguage, CreateML training, on-device model updates, privacy-preserving AI
+├── ios-swift-design-patterns/       # Swift-idiomatic patterns: Observable MVVM, POP composition, VC containment, delegation conventions, keypath adapter
+├── ios-networking-advanced/         # Actor-based NetworkClient, 401 refresh deduplication, exponential backoff, background URLSession, cert pinning, multipart upload
+├── ios-uikit-advanced/              # Diffable data sources, compositional layout, custom transitions, UIViewPropertyAnimator, context menus, bottom sheets
+├── ios-monetization/                # StoreKit 2: consumables, subscriptions, paywall UI, Transaction.updates loop, receipt JWS, sandbox testing
+├── ios-push-notifications/          # APNs: UNUserNotificationCenter, rich push, service extensions, silent push, notification categories, token lifecycle
+├── ios-swift-recipes/               # App Store production Swift recipes (data, JSON, UIKit, images, animation, SwiftUI)
+├── ios-stability-solutions/         # Crash prevention, optional safety, DI, SOLID, TDD safety net, SDUI, UI crash surface
 ├── prompting-patterns-reference.md  # Prompting patterns for AI instructions
 ├── orchestration-patterns-reference.md # Orchestration strategies for multi-agent workflows
 ├── doc-standards.md                 # Documentation formatting standards (MANDATORY)

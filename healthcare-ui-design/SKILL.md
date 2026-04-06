@@ -1,121 +1,320 @@
 ---
 name: healthcare-ui-design
-description: Design clinical and patient-facing healthcare web UIs that prioritize safety, clarity, and regulatory compliance while integrating all backend actions strictly through APIs.
+description: "Design world-class clinical and patient-facing healthcare UIs for web, mobile (Android/iOS), and tablet. Covers EMR/EHR dashboards, patient portals, telemedicine, medication management, wellness apps, and aging-care interfaces. Enforces HIPAA, WCAG 2.1 AA, FDA 21 CFR Part 11, patient safety, and role-specific design patterns. Use when building or reviewing any healthcare, clinical, wellness, or medical app UI."
 ---
 
-# Healthcare UI Design Skill
+## Required Plugins
+
+**Superpowers plugin:** MUST be active for all healthcare UI work.
+
+# Healthcare UI Design
 
 ## Overview
 
-Design healthcare user interfaces for clinical workflows, patient portals, and medical record systems. Prioritize patient safety, regulatory compliance (HIPAA, FDA 21 CFR Part 11), and clarity under high-stress conditions. Ensure all backend activity is API-driven.
+Healthcare UIs must do three things simultaneously: keep patients safe, keep clinicians efficient, and earn trust from both. Every pixel carries clinical weight — wrong colors, buried alerts, or confusing navigation can harm real people. Design for the worst moment a user will ever have in your app.
 
-## When to Use
+**References:** See `references/` for deep-dive guides on each topic.
 
-- Designing clinical dashboards, patient intake forms, or electronic health record (EHR) screens.
-- Creating patient-facing portals for appointment scheduling, lab results, or medication management.
-- Reviewing existing healthcare UIs for compliance, accessibility, and usability.
-- Defining API-first UI workflows for clinical data entry and retrieval.
+| Topic | Reference File |
+|-------|---------------|
+| Mobile patterns (iOS/Android) | [references/mobile-patterns.md](references/mobile-patterns.md) |
+| Tablet patterns | [references/tablet-patterns.md](references/tablet-patterns.md) |
+| Desktop / clinician workstation | [references/desktop-patterns.md](references/desktop-patterns.md) |
+| Color system & typography | [references/color-typography.md](references/color-typography.md) |
+| Component library | [references/components.md](references/components.md) |
 
-## Quick Reference
+## Platform Strategy
 
-| Attribute   | Value |
-|-------------|-------|
-| **Domain**  | Healthcare, clinical, patient-facing |
-| **Standards** | HIPAA, FDA 21 CFR Part 11, WCAG 2.1 AA, ISO 62366-1 (Usability Engineering) |
-| **Tone**    | Safety-critical, precise, compliant |
+### Which Platform, Which Role
 
-## Core Instructions
+| Platform | Primary Users | Primary Tasks |
+|----------|--------------|--------------|
+| **Mobile** | Patients, community health workers, field nurses | Appointments, meds, mood tracking, telehealth |
+| **Tablet** | Bedside nurses, ward doctors, physios, intake staff | Vitals entry, rounding, patient assessment, EHR review |
+| **Desktop** | Physicians, specialists, admin, billing, lab | Full EHR, ordering, reporting, complex scheduling |
 
-### 1) Patient Safety First
+Never design a single layout for all three. Each has distinct interaction model, ergonomic constraints, and cognitive load profile.
 
-- Display critical information (allergies, drug interactions, alerts) prominently and persistently.
-- Use color coding with redundant text/icon indicators (never color alone per WCAG 2.1).
-- Require explicit confirmation for high-risk actions (medication orders, dosage changes).
+## Mobile Design (Phones — < 768px)
 
-### 2) Regulatory Compliance
+### Core Principles
 
-- Implement audit trails for all data modifications (who, what, when).
-- Support electronic signatures per FDA 21 CFR Part 11 where applicable.
-- Enforce session timeouts and re-authentication for sensitive operations (HIPAA).
-- Display patient identifiers consistently (minimum two identifiers per ISO 62366-1).
+- **One-handed by default.** Primary actions sit in the thumb zone (bottom 40% of screen).
+- **Bottom navigation** (4–5 tabs max): Home, Messages, Appointments, Records, Profile.
+- **Single-column layout.** No side-by-side clinical data — patients read under stress.
+- **2–3 tap rule.** Any critical task reachable in ≤ 3 taps from home.
+- **Touch targets.** Minimum 48×48px for all interactive elements; 56px for aged or motor-impaired users.
 
-### 3) Clinical Workflow Efficiency
+### Mobile Navigation
 
-- Minimize clicks for high-frequency tasks (vitals entry, medication administration).
-- Support barcode scanning for patient wristbands and medication verification.
-- Provide keyboard shortcuts for power users in clinical settings.
-- Design for interruption recovery (clinicians are frequently interrupted mid-task).
+```
+Bottom Tab Bar (always visible):
+[Home] [Appointments] [Messages] [Records] [Profile]
 
-### 4) API-First Rule
+Avoid: hamburger menus as primary nav, deep nested stacks (>3 levels)
+Use: modal sheets for quick actions, FAB for single primary action
+```
 
-All backend activity must go through APIs. Never assume direct database access. Keep UI optimistic where safe and reconcile with API responses. Apply strict error handling for clinical data integrity.
+### Key Mobile Screens
 
-## Cognitive UX Evaluation
+**Patient Home Dashboard**
+- Greeting with patient name (trust signal)
+- Next appointment card (most important info first)
+- Medication reminders with time badges
+- Recent lab results with status indicators (no color alone — add text: "Normal", "High", "Low")
+- Quick actions: Book, Message Doctor, Refill
 
-For cognitive science-based evaluation of clinical UI designs -- particularly the Attention Mind (reducing cognitive load in high-stress clinical environments), Language Mind (clear medical terminology and error messages), and Emotion Mind (trust signals for patient-facing interfaces) -- reference `skills/cognitive-ux-framework/`.
+**Telehealth Entry**
+- One-tap "Start Consultation" button (minimum 56px height, full-width)
+- Pre-call checklist: camera, mic, internet check with visual pass/fail
+- No waiting in dark UI — show animated "Connecting…" with estimated wait
 
-## Accessibility
+**Medication Reminder**
+- Large pill illustration + medication name in 20px+ bold
+- Dose, timing, and instructions on one screen — no scrolling required
+- "Taken" / "Skip" / "Snooze" — clear three-state action
+- Red badge only for overdue doses — not for every reminder
 
-- WCAG 2.1 AA minimum; AAA for patient-facing interfaces.
-- Large touch targets (minimum 48x48px) for tablet-based clinical entry.
-- High contrast mode for bright clinical environments.
-- Screen reader compatibility for visually impaired patients.
+**Mood / Symptom Tracker**
+- Slider or large emoji-scale for quick entry (not typed input)
+- Maximum 3 questions per session — cognitive load is high for unwell users
+- Progress bar showing streak (gamification for chronic disease management)
 
-## Common Pitfalls
+### Mobile Typography
 
-- Displaying too much information simultaneously (cognitive overload in clinical settings).
-- Relying on color alone to indicate alert severity.
-- Missing confirmation dialogs on irreversible clinical actions.
-- Inadequate session timeout policies for shared clinical workstations.
-- Not designing for interruption recovery in clinical workflows.
+- Body text: minimum **18px** (older patients, low-light scenarios)
+- Headings: 26–32px
+- Labels / captions: 14px minimum
+- Line height: 1.6× font size
+- Font: System font (SF Pro / Roboto) — fastest load, OS-native feel
 
-## Cognitive UX Evaluation
+### Mobile Color
 
-For cognitive science-based evaluation of clinical UI designs — particularly the Attention Mind (reducing cognitive load in high-stress clinical environments), Language Mind (clear medical terminology and error messages), and Emotion Mind (trust signals for patient-facing interfaces) — reference `skills/cognitive-ux-framework/`.
-
-## Motivation & Engagement in Clinical UX
-
-From Hodent (2022) *What UX Is Really About* — Self-Determination Theory (SDT) applied to clinical software.
-
-Clinicians disengage from or work around clinical software when their fundamental motivational needs are violated. Design must satisfy all three SDT needs:
-
-### Competence (Feeling Skilled and In Control)
-- New staff need more scaffolding: wizards, contextual help, pre-populated suggestions
-- Experienced clinicians need shortcuts: keyboard shortcuts, quick-entry fields, saved templates
-- Never design a one-size-fits-all workflow — it makes experts feel clumsy and beginners feel lost
-- Show competence growth: highlight when a user masters a new workflow
-- Feedback timing: visual acknowledgment within 100ms; meaningful response within 1 second
-
-### Autonomy (Meaningful Choice, Not Forced Paths)
-- Rigid workflow sequences that cannot be adjusted cause resistance and workarounds
-- Provide clear, well-labelled escape hatches when the standard path does not fit the clinical situation
-- Allow users to customise common actions, shortcuts, and default values
-- Explain *why* a constraint exists (regulatory, safety-critical) — clinicians respect justified constraints; they resist arbitrary ones
-
-### Relatedness (Connection to Shared Purpose)
-- Connect individual data entry actions to visible patient outcomes where possible
-- Team context: show who else is viewing or editing a record
-- Surface alerts that connect a clinician's action to downstream team members
-- Avoid creating a feeling of "I'm just entering data into a machine"
+- Primary brand: **calm blue** (#3A7BD5 or equivalent) — do not use aggressive or saturated primaries
+- Success: green (#10B981) — with text label
+- Warning: amber (#F59E0B) — with text label
+- Danger/alert: red (#EF4444) — with text label, never color alone
+- Background: white or very light grey (#F9FAFB) — never dark backgrounds for patient-facing
 
 ---
 
-## Cognitive Load in High-Stress Clinical Environments
+## Tablet Design (768px – 1280px)
 
-Clinical settings impose maximum intrinsic cognitive load. Every design decision must ruthlessly eliminate extraneous load.
+### Who Uses Tablets in Healthcare
+
+- **Ward nurses** at patient bedside (portrait, one-handed while holding tablet)
+- **Rounding physicians** reviewing records on the move (landscape, two-handed)
+- **Intake staff** at reception (landscape, stationary, keyboard attached)
+- **Physiotherapists / Allied health** during sessions with patient
 
 ### Core Principles
-- **Recognition over recall is mandatory:** Clinicians under stress cannot remember; display everything needed for a decision on the current screen. Never require mental calculation or cross-screen navigation for critical decisions.
-- **Interruption recovery:** Save state aggressively. On return to a screen after interruption, show a clear "where were you?" banner: "You were entering vitals for [Patient Name]. Continue?"
-- **Error prevention over error recovery:** In clinical contexts, the cost of an error is severe. Force a deliberate pause before irreversible actions (medication orders, dosage changes, record deletions). Require explicit confirmation with specifics shown: "Administer 500mg Paracetamol to [Name]. Confirm?"
 
-### Critical Information Display
-- Allergies and contraindications must be visible before any prescribing action — not one click away
-- Drug interaction warnings must interrupt the workflow (not a passive banner) for severe interactions
-- Vital signs outside normal range must be visually distinct through colour, size, AND icon — never colour alone
+- **Both orientations must work.** Portrait for bedside use, landscape for data review.
+- **Glance-first layout.** Most important information visible without scrolling in portrait mode.
+- **Hybrid navigation.** Bottom tab bar in portrait; sidebar nav in landscape.
+- **Touch AND keyboard.** Tablet users frequently have Bluetooth keyboards; support Tab key and keyboard shortcuts.
 
-### Anxiety Reduction (Emotion Mind)
-- Preview outcomes before committing: "You are about to sign off [Document Type] for [Patient Name]"
-- Show costs, fees, and complete information before the final confirmation step in patient-facing billing
-- Allow easy exit from any flow without losing progress — autosave in the background
-- In patient-facing interfaces: use calm, reassuring language; avoid clinical jargon
+### Tablet Navigation
+
+```
+Portrait:  Bottom navigation (same as mobile)
+Landscape: Persistent left sidebar (200px) + content area
+           Sidebar collapses to icon-only (64px) when content needs more space
+```
+
+### Key Tablet Screens
+
+**Nurse Rounding Dashboard (Landscape)**
+- Patient list (left panel, 280px): name, room, acuity color strip, last vitals time
+- Patient detail (right panel): vitals chart, medications, notes, tasks
+- Quick vitals entry inline — no modal, no navigation away
+- "Next Patient" button bottom-right — supports fast ward rounds
+
+**Vitals Entry Form (Portrait)**
+- One metric per screen: BP → HR → SpO2 → Temp → Weight
+- Large numeric keypad input (no small text fields)
+- Previous reading shown for comparison
+- Auto-flagging out-of-range values before submission
+
+**Patient Assessment / Intake (Landscape)**
+- Two-column form layout: questions left, patient context right
+- Progress indicator: "Step 2 of 5"
+- Autosave every 30 seconds — interruptions are constant
+- "Interrupt & Resume Later" button — saves partial form with timestamp
+
+### Tablet Typography
+
+- Body: 16px minimum (larger than mobile not needed — viewing distance is closer)
+- Data tables: 14px with 1.4× line height for density
+- Touch targets: same 48×48px minimum
+- Consider: increase to 20px body for patient-facing tablet kiosks
+
+---
+
+## Desktop Design (Clinician Workstations — ≥ 1280px)
+
+### Core Principles
+
+- **Density over simplicity.** Clinicians need maximum information on screen — avoid mobile-style empty space.
+- **Left sidebar navigation** — persistent, labeled, with keyboard shortcuts shown.
+- **Power-user workflows.** Keyboard shortcuts for every critical action. Document them in a help overlay (? key).
+- **Multi-panel layouts.** Patient context (left) + current task (center) + reference/alerts (right).
+- **Mouse + keyboard.** Hover states, right-click menus, drag-and-drop are valid desktop-only patterns.
+
+### Desktop Navigation
+
+```
+┌─────────────┬────────────────────────────┬───────────────┐
+│  Left       │       Main Content         │  Right Panel  │
+│  Sidebar    │                            │  (Contextual) │
+│  200px      │       ~60% width           │  280px        │
+│  • Patients │                            │  • Alerts     │
+│  • Schedule │                            │  • Messages   │
+│  • Orders   │                            │  • Notes      │
+│  • Reports  │                            │               │
+└─────────────┴────────────────────────────┴───────────────┘
+```
+
+### Key Desktop Screens
+
+**EHR Patient Summary**
+- Persistent patient header (always visible): name, DOB, MRN, allergies banner, active alerts
+- Tabbed record sections: Summary | Medications | Labs | Imaging | Notes | History
+- Inline ordering — never navigate away from patient context to place an order
+- Timeline view option: chronological clinical events as a swimlane
+
+**Clinical Dashboard (Physician)**
+- My Patients panel: acuity-sorted, color-coded by status
+- Tasks panel: pending orders, results needing review, messages
+- Alerts panel: critical lab values, drug interactions, overdue actions
+- Calendar strip for today's appointments
+
+**Medication Ordering**
+- Search with smart autocomplete (generic + brand names)
+- Drug interaction warnings appear inline as user types — not after submission
+- Dosage calculator for weight-based medications
+- Two-step confirm: "Review" then "Sign" — separate from initial entry
+
+**Lab Results Review**
+- Reference ranges displayed next to every result
+- Trend sparkline for each metric (last 5 readings)
+- Critical values highlighted: bold + red + icon (three signals, not just color)
+- One-click to message patient or order follow-up
+
+### Desktop Typography
+
+- Body / data: 14px (dense clinical workflows benefit from tighter text)
+- Navigation labels: 13px
+- Patient name / primary headings: 18–22px
+- Data table rows: 14px, 1.4× line height, alternating row shading
+
+---
+
+## Color System (All Platforms)
+
+### Trusted Healthcare Palette
+
+| Role | Light Mode | Dark Mode | Usage |
+|------|-----------|-----------|-------|
+| Primary (trust) | #3A7BD5 | #5B9FE8 | Buttons, links, brand |
+| Success | #10B981 | #34D399 | Confirmations, stable |
+| Warning | #F59E0B | #FBBF24 | Moderate alerts |
+| Danger | #EF4444 | #F87171 | Critical alerts only |
+| Background | #F9FAFB | #111827 | Page background |
+| Surface | #FFFFFF | #1F2937 | Cards, panels |
+| Text primary | #111827 | #F9FAFB | Body text |
+| Text secondary | #6B7280 | #9CA3AF | Labels, captions |
+
+**Rules:**
+- Never use color as the only indicator — always add text label or icon
+- Red is reserved for true emergencies — overusing it creates alert fatigue
+- Soft blues and greens reduce patient anxiety; avoid harsh saturated primaries for patient-facing
+- Mental health / behavioral apps: consider soft lilac (#C4B5FD) as primary — reduces stigma
+
+### Specialty Palettes
+
+- **Aging care / accessibility apps:** Higher contrast ratios; avoid subtle grey-on-grey
+- **Emergency / ICU dashboards:** Darker backgrounds acceptable; high-contrast alert colors
+- **Wellness / fitness:** Vibrant greens (#10B981, #059669) and teals (#14B8A6) — suggest vitality
+
+---
+
+## Accessibility (Non-Negotiable)
+
+- **WCAG 2.1 AA minimum** for all healthcare UIs; AAA for patient-facing
+- Contrast ratio: 4.5:1 for body text; 3:1 for large text (≥18px)
+- All interactive elements keyboard-navigable; visible focus ring (3px outline, 2px offset)
+- Screen reader: semantic HTML, ARIA labels, `role="alert"` for dynamic clinical updates
+- Touch targets: 48×48px minimum on all touch interfaces
+- Never use only color, shape, or sound to convey critical information
+
+---
+
+## Patient Safety Rules (Always Enforced)
+
+1. **Allergies visible before any prescribing screen** — persistent banner, not one-click away
+2. **Drug interactions interrupt workflow** for severe interactions — modal, not passive banner
+3. **Confirmation dialogs for irreversible actions** — show specifics: "Administer 500mg Paracetamol to Jane Doe. Confirm?"
+4. **Two patient identifiers** on every clinical screen (name + DOB or MRN)
+5. **Out-of-range vitals** flagged with color + icon + text (three independent signals)
+6. **Autosave every 30 seconds** — clinicians are interrupted constantly; partial data must not be lost
+7. **Session timeout warning** 2 minutes before auto-logout on shared workstations
+
+---
+
+## Regulatory Compliance
+
+| Regulation | Requirement | UI Implementation |
+|-----------|-------------|-------------------|
+| HIPAA | Session timeout, access logging | Auto-logout after inactivity; audit log on every record access |
+| FDA 21 CFR Part 11 | Electronic signatures | Two-step sign: review screen → sign with credentials |
+| WCAG 2.1 AA | Accessibility | Contrast ratios, keyboard nav, screen reader support |
+| ISO 62366-1 | Usability engineering | Minimum 2 patient identifiers; usability testing documentation |
+| HL7 FHIR | Interoperability | API-first; no direct DB coupling in UI layer |
+
+---
+
+## App Type Quick-Start Guide
+
+| App Type | Primary Platform | Color Lead | Nav Pattern | Key Constraint |
+|----------|----------------|------------|------------|----------------|
+| Patient portal | Mobile-first | Calm blue | Bottom tabs | No medical jargon |
+| EMR/EHR | Desktop-first | Professional blue-grey | Left sidebar | Maximum data density |
+| Telehealth | Responsive all | Warm blue | Simple — one CTA | Technology must feel invisible |
+| Mental health | Mobile | Soft lilac/purple | Bottom tabs | Gentle language, no red |
+| Aging care | Mobile + tablet | High-contrast blue | Large bottom tabs | 18px+ body, 56px+ targets |
+| Medication mgmt | Mobile | Blue + green | Bottom tabs | No ambiguity in dose display |
+| ICU/Emergency | Desktop + tablet | Dark bg + high contrast | Left sidebar | Speed — every second counts |
+| Wellness/fitness | Mobile | Green/teal | Bottom tabs | Gamification + engagement |
+
+---
+
+## Anti-Patterns (Never Do)
+
+- Color alone to indicate severity — always add text/icon
+- Medical jargon in patient-facing interfaces without plain-language alternative
+- Hover-only controls on touch platforms
+- Modal dialogs for non-critical information (kills clinical flow)
+- Identical layouts for mobile and desktop (different cognitive contexts)
+- Alert fatigue through overuse of red / notification badges
+- Forgetting landscape orientation on tablet
+- Tiny touch targets (<44px) in a context where users may have gloves, tremors, or stress
+
+---
+
+## Pre-Delivery Checklist
+
+- [ ] Two patient identifiers on every clinical screen
+- [ ] Allergies banner visible before any prescribing action
+- [ ] Critical alerts use color + icon + text (three signals)
+- [ ] All touch targets ≥ 48×48px (≥56px for aging/accessibility)
+- [ ] WCAG 2.1 AA contrast ratios verified
+- [ ] Keyboard navigation tested (Tab, Enter, Arrow keys only)
+- [ ] Screen reader tested (VoiceOver / TalkBack)
+- [ ] Session timeout configured and warning shown
+- [ ] Audit trail implemented for all data writes
+- [ ] Confirmation dialogs on all irreversible actions
+- [ ] Interruption recovery: autosave + resume banner
+- [ ] Tablet: portrait AND landscape tested
+- [ ] Mobile: one-handed reach for all critical actions
+- [ ] Desktop: keyboard shortcuts documented in help overlay

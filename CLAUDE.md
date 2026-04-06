@@ -139,6 +139,8 @@ skills/
 ├── modular-saas-architecture/       # Pluggable SaaS modules
 ├── feature-planning/                # Complete feature planning (spec + implementation)
 ├── form-ux-design/                  # Cross-platform form UX patterns (web + Android + iOS)
+├── nextjs-app-router/               # Next.js App Router: RSC, routing, data fetching, auth, deployment (Jain + Krause)
+├── ai-web-apps/                     # AI-enhanced web apps: Vercel AI SDK, streaming, RAG, LangChain.js (Despoudis)
 ├── ai-assisted-development/         # AI agent orchestration for development workflows
 ├── ai-error-prevention/             # Error prevention for AI-assisted development (trust but verify)
 ├── orchestration-best-practices/    # The 10 commandments of orchestration
@@ -187,6 +189,7 @@ skills/
 ├── javascript-advanced/             # Closures, prototype chain, OOP (#private fields), functional patterns, event loop, memory management
 ├── javascript-patterns/             # 10 design patterns: Module, Observer, Factory, Strategy, Command, Repository, Mediator, State Machine
 ├── javascript-php-integration/      # JS-in-own-files architecture, data-* bridge, CSRF flow, $pageScript pattern (PHP+JS SaaS rule)
+├── typescript-mastery/              # Full TypeScript: types, generics, conditional/mapped/template-literal types, utility types, React, strict mode, tsconfig (Pocock + Wellman + Abella)
 ├── saas-accounting-system/           # Double-entry accounting engine for SaaS
 ├── saas-seeder/                     # SaaS bootstrap and seeding
 ├── skill-safety-audit/              # Skill safety audit workflow

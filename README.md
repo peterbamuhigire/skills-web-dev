@@ -20,6 +20,7 @@ Claude: Loads ios-development → follows MVVM + @Observable + async/await patte
 | **Web Backend** | `php-modern-standards`, `php-security`, `mysql-best-practices` | PHP 8+, MySQL 8.x, Redis |
 | **Web Frontend** | `webapp-gui-design`, `form-ux-design`, `image-compression` | Bootstrap 5/Tabler, JS |
 | **JavaScript** | `javascript-modern`, `javascript-advanced`, `javascript-patterns`, `javascript-php-integration` | ES6+, Modules, Design Patterns |
+| **TypeScript** | `typescript-mastery` | Full type system, generics, React, strict mode, tsconfig |
 | **Android** | `android-development`, `jetpack-compose-ui`, `android-data-persistence`, `android-tdd`, `android-biometric-login`, `android-pdf-export` | Kotlin, Compose, Room, Hilt |
 | **iOS** | `ios-development`, `ios-architecture-advanced`, `ios-at-scale`, `ios-production-patterns`, `ios-debugging-mastery`, `ios-ai-ml`, `ios-swift-design-patterns`, `ios-networking-advanced`, `ios-uikit-advanced`, `ios-monetization`, `ios-push-notifications`, `ios-swift-recipes`, `ios-stability-solutions`, `swiftui-design`, `swiftui-pro-patterns`, `ios-data-persistence`, `ios-tdd`, `ios-project-setup`, `ios-biometric-login`, `ios-pdf-export`, `ios-bluetooth-printing`, `ios-rbac` | Swift 6, SwiftUI, SwiftData, CoreML |
 | **Cross-Platform** | `mobile-saas-planning`, `mobile-custom-icons`, `mobile-reports`, `mobile-report-tables`, `api-pagination` | Shared patterns for Android + iOS |
@@ -57,6 +58,7 @@ Claude: Loads ios-development → follows MVVM + @Observable + async/await patte
 | `javascript-advanced` | Closures, prototype chain, OOP with #private fields, functional patterns, event loop, memory management |
 | `javascript-patterns` | 10 design patterns: Module, Observer, Factory, Strategy, Command, Repository, Mediator, State Machine |
 | `javascript-php-integration` | JS-in-own-files architecture rule, data-* bridge, CSRF flow, $pageScript per-page loading |
+| `typescript-mastery` | Full TypeScript: fundamentals, generics, conditional/mapped/template-literal types, utility types, React patterns, strict mode, production tsconfig (Pocock + Wellman + Abella) |
 
 ### UI/UX Design (21 Skills)
 

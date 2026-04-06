@@ -222,19 +222,7 @@ SELECT /*+ NO_INDEX_MERGE(@payment_block payment) */
   );
 ```
 
-**Key hints reference:**
-
-| Hint | Scope | Purpose |
-|------|-------|---------|
-| `JOIN_ORDER(t1,t2,t3)` | Query block | Force join sequence |
-| `JOIN_FIXED_ORDER` | Query block | Same as STRAIGHT_JOIN |
-| `NO_HASH_JOIN(t1,t2)` | Table | Prevent hash join |
-| `HASH_JOIN(t1,t2)` | Table | Force hash join |
-| `INDEX(t idx)` | Table | Force index |
-| `NO_INDEX_MERGE(t)` | Table | Disable index merge |
-| `BKA(t)` / `NO_BKA(t)` | Table | Batched Key Access |
-| `SET_VAR(var=val)` | Global | Per-query variable override |
-| `QB_NAME(name)` | Query block | Name a block for reference |
+**Key hints:** `JOIN_ORDER(t1,t2,t3)` — force join sequence | `JOIN_FIXED_ORDER` — same as STRAIGHT_JOIN | `NO_HASH_JOIN(t1,t2)` / `HASH_JOIN(t1,t2)` — toggle hash join | `INDEX(t idx)` — force index | `NO_INDEX_MERGE(t)` — disable index merge | `BKA(t)` / `NO_BKA(t)` — batched key access | `SET_VAR(var=val)` — per-query variable override | `QB_NAME(name)` — name a query block for cross-reference.
 
 ---
 
@@ -394,22 +382,9 @@ SELECT /*+ SET_VAR(sort_buffer_size=4194304) */
 **Hash Join** (MySQL 8.0.18+) — builds a hash table from the smaller table in memory, then probes it with rows from the larger table. Dramatically faster than BNL for large unindexed joins.
 
 ```sql
--- Hash join is used automatically when:
--- 1. No usable index on the join column
--- 2. Inner join (not outer join in older versions)
--- 3. join_buffer_size is large enough for the build table
-
 -- EXPLAIN shows: Extra: Using join buffer (hash join)
-
--- Force hash join
-SELECT /*+ HASH_JOIN(o, c) */ o.id, c.name
-FROM orders o JOIN customers c ON o.customer_id = c.id;
-
--- Prevent hash join (force nested loop)
-SELECT /*+ NO_HASH_JOIN(o, c) */ o.id, c.name
-FROM orders o JOIN customers c ON o.customer_id = c.id;
-
--- Configure join buffer (default 256KB — too small for large joins)
+-- Force/prevent: /*+ HASH_JOIN(o, c) */ or /*+ NO_HASH_JOIN(o, c) */
+-- Increase join buffer for large unindexed joins (default 256KB is too small):
 SET SESSION join_buffer_size = 8 * 1024 * 1024;
 ```
 

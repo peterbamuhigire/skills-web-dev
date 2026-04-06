@@ -65,7 +65,7 @@ FROM downtime_log WHERE week_start = CURDATE() - INTERVAL WEEKDAY(CURDATE()) DAY
 | Slow query log review | Automated digest to ticketing system |
 | Disk space warnings | Auto-purge old partitions or alert-to-expand |
 
-**Rule:** If you do it more than twice a month and it takes >15 minutes, automate it.
+**Rule:** Do it twice manually, then automate it.
 
 ---
 
@@ -258,7 +258,7 @@ ORDER BY size_mb DESC;
 | CPU consistently >70% | Profile queries first; scale if no low-hanging fruit |
 | Connections >80% `max_connections` | Add ProxySQL pooling first |
 
-**The boring database principle:** Prefer vertical scaling and query optimisation over architectural complexity. A well-tuned single primary + replica cluster handles most SaaS workloads under 10TB. Sharding is a last resort.
+**The boring database principle:** Prefer vertical scaling and query optimisation. A well-tuned single primary + replica cluster handles most SaaS workloads under 10TB. Sharding is a last resort.
 
 ---
 
@@ -453,7 +453,7 @@ GameDay exercises to test failure modes before they happen in production. Always
 | Slow query injection | `SELECT COUNT(*) FROM orders WHERE YEAR(created_at)=2023` | Slow query alert fires within SLO threshold |
 | Network partition | Block replication port between primary and replica | Replica behaviour, lag accumulation, alerting |
 
-**GameDay cadence:** Quarterly for primary failover. Monthly for connection saturation during low-traffic periods. Never during business-critical events or when error budget is <30% remaining.
+**Cadence:** Primary failover quarterly; connection saturation monthly (low-traffic). Never run GameDay during business-critical events or when error budget is <30% remaining.
 
 ---
 
@@ -482,25 +482,20 @@ SHOW GLOBAL STATUS LIKE 'Threads_connected';
 SHOW GLOBAL STATUS LIKE 'Slow_queries';
 SHOW SLAVE STATUS\G
 SHOW ENGINE INNODB STATUS\G
-
 -- Connection audit by user
 SELECT user, host, COUNT(*) AS n FROM information_schema.processlist
 GROUP BY user, host ORDER BY n DESC;
-
 -- Table sizes (top 20)
 SELECT table_schema, table_name,
   ROUND((data_length+index_length)/1024/1024,1) AS size_mb
 FROM information_schema.tables
 WHERE table_schema NOT IN ('mysql','information_schema','performance_schema')
 ORDER BY size_mb DESC LIMIT 20;
-
--- Unused indexes (candidates for removal)
+-- Unused indexes (count_star = 0 = candidate for removal)
 SELECT object_schema, object_name, index_name
 FROM performance_schema.table_io_waits_summary_by_index_usage
 WHERE index_name IS NOT NULL AND count_star = 0
   AND object_schema NOT IN ('mysql','performance_schema');
 ```
-
----
 
 *Source: Database Reliability Engineering, Campbell & Majors, O'Reilly 2017.*

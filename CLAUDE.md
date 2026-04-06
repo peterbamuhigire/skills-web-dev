@@ -143,6 +143,14 @@ skills/
 ├── ai-error-prevention/             # Error prevention for AI-assisted development (trust but verify)
 ├── orchestration-best-practices/    # The 10 commandments of orchestration
 ├── ai-error-handling/               # 5-layer validation stack for AI output
+├── ai-opportunity-canvas/           # Discover and rank AI use cases for any project (AI Opportunity Register)
+├── ai-feature-spec/                 # Design a single AI feature end-to-end (model, prompt, schema, fallback, UX)
+├── ai-cost-modeling/                # Token economics: cost/user, cost/tenant, provider comparison, margin modeling
+├── ai-architecture-patterns/        # AI Module Gate, Budget Guard, Token Ledger, provider abstraction (PHP/Android/iOS)
+├── ai-ux-patterns/                  # UX for AI: loading states, streaming, confidence, human-in-the-loop, usage display
+├── ai-security/                     # LLM security: prompt injection, PII scrubbing, output validation, DPPA compliance
+├── ai-metering-billing/             # Token ledger schema, metering middleware, per-tenant billing, pricing tiers
+├── ai-integration-section/          # Generate AI Integration section for SRS/PRD/HLD documents
 ├── update-claude-documentation/     # Documentation maintenance
 ├── doc-architect/                   # Triple-Layer AGENTS.md generator
 ├── manual-guide/                    # End-user manuals and guides

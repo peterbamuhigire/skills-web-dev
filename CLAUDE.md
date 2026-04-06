@@ -157,7 +157,13 @@ skills/
 ├── project-requirements/            # SaaS project requirements discovery
 ├── api-error-handling/              # API error handling
 ├── api-pagination/                 # Offset pagination (PHP + Android + iOS infinite scroll)
-├── mysql-best-practices/            # MySQL 8.x (schema, indexing, queries, security, transactions, tuning, HA, benchmarking)
+├── mysql-best-practices/            # MySQL 8.x (schema, indexing, queries, security, transactions, tuning, HA, benchmarking) + MySQL 8 exclusive features reference
+├── mysql-data-modeling/             # Universal entity patterns: Party model, product hierarchy, order/invoice lifecycle, double-entry accounting (Silverston)
+├── mysql-query-performance/         # EXPLAIN ANALYZE, index design, optimizer hints, histogram stats, Performance Schema, covering indexes, slow query diagnosis
+├── mysql-administration/            # GTID replication, InnoDB Cluster, least-privilege security, XtraBackup, PITR, ProxySQL, zero-downtime schema changes
+├── mysql-advanced-sql/              # Window functions, recursive CTEs, JSON_TABLE, dynamic pivoting, gaps/islands, stored procedures, triggers
+├── database-internals/              # B-tree mechanics, WAL/redo log, MVCC, buffer pool, lock types, LSM trees, distributed tradeoffs (CAP, read-your-writes)
+├── database-reliability/            # Database SLOs, expand-contract migrations, backup verification, incident runbooks, monitoring pyramid, chaos engineering
 ├── php-modern-standards/            # PHP 8+ (strict typing, SOLID, generators, OPcache, testing, Fibers, security, rate limiting, queues, caching, resilience)
 ├── php-security/                    # PHP security patterns (sessions, XSS, CSRF, file uploads, php.ini)
 ├── saas-accounting-system/           # Double-entry accounting engine for SaaS

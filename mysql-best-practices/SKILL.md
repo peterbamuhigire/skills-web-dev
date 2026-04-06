@@ -457,6 +457,23 @@ ALTER TABLE orders ADD COLUMN tracking VARCHAR(50) DEFAULT NULL;  -- Non-breakin
 
 ---
 
+## MySQL 8 Exclusive Features
+
+📖 **See `references/mysql8-features.md` for full patterns and examples**
+
+| Feature | Minimum Version | Summary |
+|---|---|---|
+| **CHECK Constraints** | 8.0.16 | `CONSTRAINT chk_price CHECK (price > 0)` — enforced at INSERT/UPDATE |
+| **Invisible Columns** | 8.0.23 | `col INT INVISIBLE` — excluded from `SELECT *`, add without breaking app code |
+| **Instant ADD COLUMN** | 8.0.12 | `ALTER TABLE t ADD COLUMN c INT, ALGORITHM=INSTANT` — no table rebuild |
+| **Lateral Derived Tables** | 8.0.14 | `JOIN LATERAL (SELECT … LIMIT 1) sub ON TRUE` — correlated subquery as a join |
+| **Clone Plugin** | 8.0.17 | `CLONE INSTANCE FROM …` — provision replicas from live donor, no dump required |
+| **Resource Groups** | 8.0.3 | Assign threads to CPU/priority groups to isolate OLTP from reporting workloads |
+| **Descending Indexes** | 8.0.0 | `KEY idx (a ASC, b DESC)` — native; eliminates filesort for mixed-direction ORDER BY |
+| **Roles** | 8.0.0 | `CREATE ROLE`, `GRANT role TO user` — see `references/security-hardening.md` |
+
+---
+
 ## Checklist
 
 **Schema:** ✅ UTF8MB4 + InnoDB + ROW_FORMAT=DYNAMIC ✅ Smallest sufficient data types ✅ DECIMAL for money ✅ 3NF normalized ✅ Foreign keys with RESTRICT/CASCADE

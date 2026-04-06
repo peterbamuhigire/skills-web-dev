@@ -36,6 +36,18 @@ Claude: Loads ios-development → follows MVVM + @Observable + async/await patte
 | `api-error-handling` | Standardised PHP REST API error responses |
 | `saas-seeder` | Bootstrap new SaaS projects from template |
 
+### Database (7 Skills)
+
+| Skill | Purpose |
+|-------|---------|
+| `mysql-best-practices` | MySQL 8.x production patterns: indexing, EXPLAIN, transactions, security, HA, benchmarking |
+| `mysql-data-modeling` | Universal entity patterns: Party model, product hierarchy, order/invoice lifecycle (Silverston) |
+| `mysql-query-performance` | EXPLAIN ANALYZE, covering indexes, optimizer hints, histogram stats, Performance Schema |
+| `mysql-administration` | GTID replication, InnoDB Cluster, XtraBackup, PITR, ProxySQL, zero-downtime schema changes |
+| `mysql-advanced-sql` | Window functions, recursive CTEs, JSON_TABLE, dynamic pivoting, stored procedures, triggers |
+| `database-internals` | B-tree, WAL/MVCC, buffer pool, lock types, LSM vs B-tree tradeoffs, CAP theorem applied |
+| `database-reliability` | SLOs, expand-contract migrations, backup verification, incident runbooks, chaos engineering |
+
 ### UI/UX Design (21 Skills)
 
 **Cognitive Foundations**
@@ -183,6 +195,15 @@ Skills are synthesised from authoritative sources, not improvised:
 | SwiftUI Cookbook 3rd Ed | Catalan | `swiftui-design`, `ios-data-persistence` |
 | Better UI Components 3.0 | Kuleszo | `practical-ui-design` |
 | UX for AI | Nudelman | `ux-for-ai` |
+| The Data Model Resource Book Vol 1 & 2 | Silverston | `mysql-data-modeling` |
+| MySQL 8 Query Performance Tuning | Krogh | `mysql-query-performance` |
+| Efficient MySQL Performance | Schoen | `mysql-query-performance` |
+| Mastering MySQL Administration | — | `mysql-administration` |
+| MySQL 8 Cookbook | Velos | `mysql-advanced-sql` |
+| Leveling Up with SQL | Simon | `mysql-advanced-sql` |
+| Advanced MySQL 8 | — | `mysql-best-practices` |
+| Database Internals | Petrov | `database-internals` |
+| Database Reliability Engineering | Campbell & Majors | `database-reliability` |
 
 ## Skill Structure
 
@@ -206,9 +227,9 @@ All skills are under 500 lines. Heavy reference material goes in `references/` s
 
 ## Repository Stats
 
-- **70+ skills** across 11 categories
-- **~30,000 lines** of curated patterns and code examples
-- **20+ books** synthesised into actionable guidance
+- **80+ skills** across 12 categories
+- **~35,000 lines** of curated patterns and code examples
+- **30+ books** synthesised into actionable guidance
 - **3 platforms**: Web (PHP), Android (Kotlin), iOS (Swift)
 - **Full SDLC coverage**: Planning through post-deployment evaluation
 

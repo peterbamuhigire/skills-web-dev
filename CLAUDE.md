@@ -140,6 +140,12 @@ skills/
 ├── feature-planning/                # Complete feature planning (spec + implementation)
 ├── form-ux-design/                  # Cross-platform form UX patterns (web + Android + iOS)
 ├── nextjs-app-router/               # Next.js App Router: RSC, routing, data fetching, auth, deployment (Jain + Krause)
+├── react-development/               # React hooks, state management, performance, testing, TypeScript, forms (Horton + Vice + Pro React)
+├── react-patterns/                  # Advanced React design patterns: HOC, Compound Components, Control Props, Render Props, State Reducer, Immer (Kumar + Santana Roldán)
+├── tailwind-css/                    # Tailwind CSS v3: utility-first, responsive, dark mode, customization, @apply, layout, components (Bhat)
+├── ai-llm-integration/              # LLM API integration: OpenAI, Anthropic Claude, DeepSeek, streaming, function calling, embeddings, PHP+JS+Python (multi-provider)
+├── openai-agents-sdk/               # OpenAI Agents SDK (Python): Agent, Runner, Tools, Handoff, Guardrails, multi-agent patterns (Habib 2025)
+├── deepseek-integration/            # DeepSeek V3 + R1 API, Ollama local deployment, cost comparison vs OpenAI, Python/JS/PHP (Aremu + Chakraborty 2025)
 ├── ai-app-architecture/             # AI-powered app stack: architecture styles, component design, module gating, token billing
 ├── ai-prompt-engineering/           # Production prompt engineering: templates, CoT, few-shot, versioning, defensive patterns
 ├── ai-rag-patterns/                 # RAG architecture: chunking, hybrid search, contextual retrieval, multi-tenant

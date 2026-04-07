@@ -156,6 +156,10 @@ skills/
 ├── microservices-resilience/        # Circuit breaker, /health endpoint, load balancing, retry, bulkhead, timeout, slowstart
 ├── microservices-communication/     # Sync vs async, service discovery, inter-service auth, data isolation, API contracts
 ├── microservices-ai-integration/    # AI as a microservice, AI gateway, async AI job pipeline, Kubeflow/Seldon Core, metering in distributed systems
+├── ai-analytics-strategy/           # Analytics maturity model, KDD, CRISP-DM, data quality, responsible AI, analytics ROI measurement
+├── ai-predictive-analytics/         # Predictive models via LLM API — risk scoring, demand forecasting, anomaly detection — domain prompt templates
+├── ai-nlp-analytics/                # Text analytics — sentiment, classification, entity extraction, multi-language (English/Luganda/Swahili)
+├── ai-analytics-dashboards/         # AI-powered dashboard design — KPI cards, trend charts, AI Insights panel, role-based variants, export
 ├── update-claude-documentation/     # Documentation maintenance
 ├── doc-architect/                   # Triple-Layer AGENTS.md generator
 ├── manual-guide/                    # End-user manuals and guides

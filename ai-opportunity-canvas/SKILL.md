@@ -146,7 +146,9 @@ Deliver the AI Opportunity Register as a markdown table (above template) followe
 ---
 
 **See also:**
+- `references/analytics-patterns.md` — Extended analytics opportunity patterns (A1–A10) with domain maps for school, healthcare, POS, farm, and ERP — use for analytics-heavy modules
 - `ai-feature-spec` — Design any opportunity from this register into a full feature blueprint
 - `ai-cost-modeling` — Token cost estimates per opportunity
 - `ai-metering-billing` — How to gate and charge for AI features
 - `ai-integration-section` — Add AI section to SRS/PRD/HLD documents
+- `ai-analytics-strategy` — Analytics maturity assessment before selecting opportunities

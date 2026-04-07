@@ -199,7 +199,9 @@ skills/
 ├── javascript-advanced/             # Closures, prototype chain, OOP (#private fields), functional patterns, event loop, memory management
 ├── javascript-patterns/             # 10 design patterns: Module, Observer, Factory, Strategy, Command, Repository, Mediator, State Machine
 ├── javascript-php-integration/      # JS-in-own-files architecture, data-* bridge, CSRF flow, $pageScript pattern (PHP+JS SaaS rule)
-├── typescript-mastery/              # Full TypeScript: types, generics, conditional/mapped/template-literal types, utility types, React, strict mode, tsconfig (Pocock + Wellman + Abella)
+├── typescript-mastery/              # Full TypeScript: types, generics, conditional/mapped types, variance, infer, branding, Option type, exception unions, React, tsconfig (Pocock + Wellman + Cherny)
+├── typescript-design-patterns/      # All 23 GoF patterns in TypeScript with code examples and when-to-use (Akintoye)
+├── php-vs-nextjs/                   # PHP vs Next.js decision framework — when to use each, hybrid architecture, migration strategy
 ├── saas-accounting-system/           # Double-entry accounting engine for SaaS
 ├── saas-seeder/                     # SaaS bootstrap and seeding
 ├── skill-safety-audit/              # Skill safety audit workflow

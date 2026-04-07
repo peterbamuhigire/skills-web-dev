@@ -1,12 +1,11 @@
 ---
 name: typescript-mastery
-description: "Comprehensive TypeScript skill covering the full type system: fundamentals, generics, conditional/mapped/template literal types, utility types, strict mode, React patterns, and production tsconfig. Synthesised from Total TypeScript (Pocock), Ultimate TypeScript Handbook (Wellman), and 250 Killer TypeScript One-Liners (Abella). Use when writing TypeScript at any level — from annotating functions to designing advanced generic utilities."
+description: "Comprehensive TypeScript skill covering the full type system: fundamentals, generics, conditional/mapped/template literal types, utility types, strict mode, React patterns, production tsconfig, and advanced patterns from Boris Cherny (variance, infer, type branding, Option type, companion object, exception unions, typesafe event emitters). Use when writing TypeScript at any level."
 ---
 
 # TypeScript Mastery
 
-Production-grade TypeScript. Synthesised from three authoritative books.
-Deep dives: see `references/` directory.
+Production-grade TypeScript. Synthesised from Total TypeScript (Pocock), Ultimate TypeScript Handbook (Wellman), 250 Killer TypeScript One-Liners (Abella), and Programming TypeScript (Cherny).
 
 ---
 
@@ -14,26 +13,16 @@ Deep dives: see `references/` directory.
 
 ### Basic Types and Inference
 ```typescript
-// Primitives
 let name: string = "Alice";
-let age: number = 30;
-let active: boolean = true;
 let id: string | number;     // union
 let val: unknown;            // safe unknown — must narrow before use
 let never_: never;           // unreachable / exhaustive check
 
-// Arrays — two syntaxes, identical
 const ids: string[] = [];
-const nums: Array<number> = [1, 2, 3];
-
-// Tuples — fixed-length, each position typed
-const entry: [string, number] = ["Alice", 30];
+const entry: [string, number] = ["Alice", 30]; // tuple
 const named: [name: string, age: number] = ["Alice", 30]; // named tuple
 
-// Always annotate function params — inference cannot guess them
 const greet = (name: string, age = 30): string => `Hello ${name}`;
-
-// Optional param = ? (cannot combine with default)
 const concat = (first: string, last?: string) => last ? `${first} ${last}` : first;
 ```
 
@@ -73,27 +62,21 @@ function assertNever(x: never): never { throw new Error("Unhandled: " + x) }
 
 ### Narrowing Guards
 ```typescript
-typeof val === "string"            // typeof guard
-err instanceof Error               // instanceof guard
-"roles" in user                    // in guard
-val != null                        // nullish guard
+typeof val === "string"           // typeof guard
+err instanceof Error              // instanceof guard
+"roles" in user                   // in guard
+val != null                       // nullish guard
 
-// Type predicate — caller's type is narrowed
 function isAdmin(u: User | AdminUser): u is AdminUser { return "roles" in u }
-
-// Assertion function — narrows without if block
 function assertAdmin(u: User | AdminUser): asserts u is AdminUser {
   if (!("roles" in u)) throw new Error("Not admin");
 }
-assertAdmin(user);
-user.roles; // now AdminUser — no if needed
 ```
 
 ---
 
 ## 3. Objects and Utility Types
 
-### Built-in Utility Types
 ```typescript
 type P  = Partial<User>;                     // all optional
 type R  = Required<User>;                    // all required
@@ -106,92 +89,37 @@ type X  = Extract<"a"|"b"|"c", "a"|"c">;    // "a" | "c"
 type Ex = Exclude<"a"|"b"|"c", "a"|"c">;    // "b"
 ```
 
-### Dynamic Keys
-```typescript
-// Index signature
-interface ScoreMap { [subject: string]: number }
-
-// Record (preferred — supports union keys)
-type Env = "development" | "production" | "staging";
-type Config = Record<Env, { apiBaseUrl: string; timeout: number }>;
-
-// PropertyKey — accepts string | number | symbol
-const hasKey = (obj: object, key: PropertyKey) => obj.hasOwnProperty(key);
-
-// Known + dynamic keys combined
-interface Scores { math: number; english: number; [subject: string]: number }
-```
-
 ---
 
 ## 4. Deriving Types (DRY Type Design)
 
 ```typescript
-// keyof — extract keys as union
-type AlbumKeys = keyof Album;  // "title" | "artist" | "year"
-
-// typeof — extract type from value
+type AlbumKeys = keyof Album;
 const cfg = { dev: "http://localhost", prod: "https://api.example.com" } as const;
-type Env     = keyof typeof cfg;        // "dev" | "prod"
-type EnvVals = typeof cfg[keyof typeof cfg]; // union of values
+type Env     = keyof typeof cfg;
+type EnvVals = typeof cfg[keyof typeof cfg];
 
-// Indexed access
-type ArtistName = Album["artist"]["name"]; // chain access
-type TitleOrYear = Album["title" | "year"]; // union access
-
-// Array values as union
 const ROLES = ["admin", "user", "guest"] as const;
 type Role = typeof ROLES[number]; // "admin" | "user" | "guest"
 
-// Derive from functions (great for third-party libs)
-type Params = Parameters<typeof fn>;      // tuple of params
-type Return = ReturnType<typeof fn>;      // return type
-type Res    = Awaited<ReturnType<typeof asyncFn>>; // unwrap Promise
+type Params  = Parameters<typeof fn>;
+type Return  = ReturnType<typeof fn>;
+type Res     = Awaited<ReturnType<typeof asyncFn>>;
 ```
 
 ---
 
 ## 5. Generics
 
-### Generic Types
 ```typescript
-// Generic with constraint + default
 type Result<T, E extends { message: string } = Error> =
   | { success: true;  data: T }
   | { success: false; error: E };
 
-// Usage
-const r = createUser(data);
-if (r.success) console.log(r.data.id);
-else console.error(r.error.message);
-
-// Generic resource pattern
-type ResourceStatus<TContent extends { id: number }, TMeta extends object = {}> =
-  | { status: "available"; content: TContent; metadata: TMeta }
-  | { status: "unavailable"; reason: string };
-```
-
-### Generic Functions
-```typescript
-// Type inferred from argument — no explicit annotation needed at call site
 function echo<T>(input: T): T { return input }
-
-// Constraint with extends
 function getProperty<T, K extends keyof T>(obj: T, key: K): T[K] { return obj[key] }
-
-// Default type argument
 function createMap<T = string>(): Map<string, T> { return new Map() }
 
-// Infer element type from array
-function unique<T>(arr: T[]): T[] { return [...new Set(arr)] }
-
-// Generic + constraint — error must have message
-const addCode = <TError extends { message: string }>(err: TError) =>
-  ({ ...err, code: (err as any).code ?? 8000 });
-```
-
-### Conditional and Mapped Types
-```typescript
 // Conditional
 type ToArray<T> = T extends any[] ? T : T[];
 
@@ -201,12 +129,11 @@ type DistributiveOmit<T, K extends PropertyKey> = T extends any ? Omit<T, K> : n
 // Mapped
 type Nullable<T> = { [K in keyof T]?: T[K] | null };
 
-// Key remapping with as + template literal
+// Key remapping + template literal
 type Getters<T> = { [K in keyof T as `get${Capitalize<string & K>}`]: () => T[K] };
 
-// Template literal types
+// Template literals
 type Route     = `/${string}`;
-type EventName = `on${Capitalize<string>}`;
 type Colors    = `${"red"|"blue"}-${100|200|300}`; // 6 combinations
 ```
 
@@ -215,58 +142,181 @@ type Colors    = `${"red"|"blue"}-${100|200|300}`; // 6 combinations
 ## 6. Annotations, Assertions, and satisfies
 
 ```typescript
-// satisfies — validates shape AND keeps narrower inferred type
-const routes = {
-  home: "/", about: "/about"
-} satisfies Record<string, `/${string}`>;
-routes.home; // type is "/" not string
+const routes = { home: "/", about: "/about" } satisfies Record<string, `/${string}`>;
+routes.home; // type is "/" not string — satisfies keeps narrow type
 
-// as assertion — escape hatch (use sparingly)
-const user = getUser() as AdminUser;
-
-// Non-null assertion — only when certain
-const btn = document.getElementById("btn")!;
-
-// @ts-expect-error — suppress one error (better than @ts-ignore)
-// @ts-expect-error intentionally wrong
-const bad: string = 42;
-
-// satisfies vs annotation vs as
-const obj  = {} as Record<string, number>;   // as: forces type
-const obj2: Record<string, number> = {};     // annotation: validates + widens
-const obj3 = { a: 1 } satisfies Record<string, number>; // validates + keeps narrow
+const user = getUser() as AdminUser;       // escape hatch (use sparingly)
+const btn = document.getElementById("btn")!; // non-null assertion
 ```
 
 ---
 
-## 7. Anti-Patterns
+## 7. Advanced Type System (Programming TypeScript — Cherny)
+
+### Variance
 
 ```typescript
-// BAD: any everywhere
-function fn(x: any) { return x.val }   // no safety
+// Covariant (producer — can use subtype where supertype expected)
+type Producer<T> = () => T;
+declare let catProducer: Producer<Cat>;
+declare let animalProducer: Producer<Animal>;
+animalProducer = catProducer; // OK — Cat is a subtype of Animal
 
-// GOOD: unknown + narrowing
-function fn(x: unknown) {
-  if (typeof x === "object" && x && "val" in x) return (x as { val: unknown }).val;
+// Contravariant (consumer — can use supertype where subtype expected)
+type Consumer<T> = (t: T) => void;
+declare let catConsumer: Consumer<Cat>;
+declare let animalConsumer: Consumer<Animal>;
+catConsumer = animalConsumer; // OK — Animal consumer handles Cat too
+
+// Function types: params are contravariant, return type is covariant
+// "Be liberal in what you accept, conservative in what you return"
+```
+
+### The `infer` Keyword
+
+```typescript
+// Extract wrapped type from any container
+type UnwrapPromise<T> = T extends Promise<infer U> ? U : T;
+type UnwrapArray<T>   = T extends Array<infer U>   ? U : T;
+
+// Custom ReturnType
+type MyReturnType<F extends (...args: any) => any> = F extends (...args: any) => infer R ? R : never;
+
+// Extract first and last tuple elements
+type Head<T extends any[]> = T extends [infer H, ...any[]] ? H : never;
+type Last<T extends any[]> = T extends [...any[], infer L] ? L : never;
+
+// Flatten nested arrays
+type Flatten<T> = T extends Array<infer U> ? Flatten<U> : T;
+```
+
+### Branded / Nominal Types
+
+```typescript
+// Prevent mixing structurally identical types (e.g., user ID vs order ID)
+type UserId  = string & { readonly __brand: unique symbol };
+type OrderId = string & { readonly __brand: unique symbol };
+
+const toUserId  = (id: string): UserId  => id as UserId;
+const toOrderId = (id: string): OrderId => id as OrderId;
+
+function getUser(id: UserId) { /* ... */ }
+const uid = toUserId('abc');
+const oid = toOrderId('abc');
+getUser(uid);  // OK
+getUser(oid);  // Error — OrderId is not UserId
+```
+
+### Option Type (Null-Safe Pattern)
+
+```typescript
+type Option<T> = { type: 'some'; value: T } | { type: 'none' };
+
+const some = <T>(value: T): Option<T> => ({ type: 'some', value });
+const none: Option<never> = { type: 'none' };
+
+function map<T, U>(opt: Option<T>, fn: (t: T) => U): Option<U> {
+  return opt.type === 'none' ? none : some(fn(opt.value));
+}
+function getOrElse<T>(opt: Option<T>, fallback: T): T {
+  return opt.type === 'none' ? fallback : opt.value;
 }
 
-// BAD: Omit on unions (collapses to shared properties only)
-type Result = Omit<A | B, "id">; // WRONG — loses unique properties
+// Usage — no null checks needed
+const name = getOrElse(map(getUser(id), u => u.name), 'Anonymous');
+```
 
-// GOOD: DistributiveOmit
-type Result = DistributiveOmit<A | B, "id">;
+### Returning Exceptions as Union Types
 
-// BAD: optional + default (TypeScript error)
-function fn(x?: string = "default") {} // ERROR
+```typescript
+// Model failure without throwing — callers must handle errors
+type DatabaseError = { type: 'DatabaseError'; message: string };
+type NotFoundError = { type: 'NotFoundError'; id: string };
 
-// GOOD: just the default
-function fn(x = "default") {}
+async function findUser(id: string): Promise<User | DatabaseError | NotFoundError> {
+  try {
+    const user = await db.findById(id);
+    if (!user) return { type: 'NotFoundError', id };
+    return user;
+  } catch (e) {
+    return { type: 'DatabaseError', message: String(e) };
+  }
+}
 
-// BAD: enum (nominal surprise + JS output)
-enum Status { Active = "active" }
-// GOOD: as const POJO (structural, zero runtime overhead)
-const Status = { Active: "active" } as const;
-type Status = typeof Status[keyof typeof Status];
+// Caller must handle all cases
+const result = await findUser('123');
+if ('type' in result) {
+  if (result.type === 'NotFoundError') console.log('Not found:', result.id);
+  else console.log('DB error:', result.message);
+} else {
+  console.log('User:', result.name); // guaranteed User
+}
+```
+
+### Companion Object Pattern
+
+```typescript
+// Pair an interface with a namespace of the same name
+interface Currency { unit: string; value: number }
+
+namespace Currency {
+  export const from = (value: number, unit: string): Currency => ({ value, unit });
+  export const add = (a: Currency, b: Currency): Currency => {
+    if (a.unit !== b.unit) throw new Error('Unit mismatch');
+    return { value: a.value + b.value, unit: a.unit };
+  };
+  export const format = (c: Currency) => `${c.value} ${c.unit}`;
+}
+
+const usd = Currency.from(100, 'USD');
+const total = Currency.add(usd, Currency.from(50, 'USD'));
+```
+
+### Typesafe Event Emitters
+
+```typescript
+// Map event names to their payload types
+type Events = {
+  'user:login':    { userId: string; timestamp: Date };
+  'user:logout':   { userId: string };
+  'order:created': { orderId: string; amount: number };
+};
+
+class TypedEventEmitter<T extends Record<string, unknown>> {
+  private handlers: { [K in keyof T]?: Array<(payload: T[K]) => void> } = {};
+
+  on<K extends keyof T>(event: K, handler: (payload: T[K]) => void) {
+    (this.handlers[event] ??= []).push(handler);
+  }
+
+  emit<K extends keyof T>(event: K, payload: T[K]) {
+    this.handlers[event]?.forEach(h => h(payload));
+  }
+}
+
+const emitter = new TypedEventEmitter<Events>();
+emitter.on('user:login', ({ userId, timestamp }) => console.log(userId, timestamp));
+emitter.emit('user:login', { userId: '123', timestamp: new Date() });
+// emitter.emit('user:login', { wrongField: true }); // Error!
+```
+
+### Declaration Merging
+
+```typescript
+// What can be merged:
+// interface + interface → merged properties
+// namespace + namespace → merged members
+// class + interface → interface adds instance members
+// namespace + function → adds static properties
+// namespace + enum → adds methods to enum
+
+interface User { name: string }
+interface User { age: number }  // merged: { name, age }
+
+// Augment a module's types
+declare module 'express' {
+  interface Request { userId?: string }
+}
 ```
 
 ---
@@ -284,20 +334,9 @@ const Button = ({ label, onClick, variant = "primary" }: ButtonProps) => (
   <button className={`btn-${variant}`} onClick={onClick}>{label}</button>
 );
 
-// Typed state, ref, events
 const [user, setUser] = useState<User | null>(null);
 const inputRef = useRef<HTMLInputElement>(null);
 const onChange  = (e: React.ChangeEvent<HTMLInputElement>) => setValue(e.target.value);
-const onSubmit  = (e: React.FormEvent<HTMLFormElement>) => { e.preventDefault(); };
-
-// Generic component
-function Select<T extends string>({ options, value, onChange }: {
-  options: T[]; value: T; onChange: (val: T) => void;
-}) {
-  return <select value={value} onChange={e => onChange(e.target.value as T)}>
-    {options.map(o => <option key={o}>{o}</option>)}
-  </select>;
-}
 ```
 
 ---
@@ -315,73 +354,57 @@ function Select<T extends string>({ options, value, onChange }: {
     "noImplicitOverride": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
-    "noEmit": true,
     "declaration": true,
-    "declarationMap": true,
     "sourceMap": true,
     "outDir": "dist"
   }
 }
 ```
 
-Key rules: `strict` covers noImplicitAny + strictNullChecks + strictFunctionTypes.
-`noUncheckedIndexedAccess` forces `arr[i]` → `T | undefined`.
-`isolatedModules` required for Babel/esbuild transpilation.
+`strict` covers: noImplicitAny + strictNullChecks + strictFunctionTypes.
+`noUncheckedIndexedAccess`: forces `arr[i]` → `T | undefined`.
 
 ---
 
-## 10. JS-to-TS Gotchas
-
-| JavaScript | TypeScript Behaviour |
-|------------|----------------------|
-| All function args optional | All required by default; use `?` or default |
-| `typeof null === "object"` | Still `"object"` — always check `!== null` |
-| Add object keys freely | Must declare; use index signatures or `Record` |
-| `arr[i]` always `T` | `T \| undefined` with `noUncheckedIndexedAccess` |
-| Excess properties ignored | Error on fresh object literals only |
-| `{}` = empty object | TypeScript: `{}` means "anything except null/undefined" |
+## 10. Top Type-Level Tricks
 
 ```typescript
-// Empty type gotcha
-function fn(x: {}) {}
-fn("hello");  // OK! {} means non-nullish
-fn(null);     // ERROR
-
-// Excess property check only on fresh literals
-const extra = { name: "Alice", extra: 123 };
-const u1: User = extra; // OK (stale object — no check)
-const u2: User = { name: "Alice", extra: 123 }; // ERROR (fresh literal)
-```
-
----
-
-## 11. Top 15 Type-Level Tricks
-
-```typescript
-type Values<T>           = T[keyof T];                         // all values as union
-type RequireKeys<T,K extends keyof T> = Required<Pick<T,K>> & Omit<T,K>;
-type OptionalKeys<T,K extends keyof T> = Omit<T,K> & Partial<Pick<T,K>>;
-type DeepReadonly<T>     = { readonly [K in keyof T]: DeepReadonly<T[K]> };
-type Merge<A,B>          = Omit<A, keyof B> & B;               // B wins on conflicts
-type Head<T extends any[]> = T extends [infer H, ...any[]] ? H : never;
-type Tail<T extends any[]> = T extends [any, ...infer R] ? R : never;
+type Values<T>            = T[keyof T];
+type DeepReadonly<T>      = { readonly [K in keyof T]: DeepReadonly<T[K]> };
+type Merge<A,B>           = Omit<A, keyof B> & B;
 type AsyncReturn<T extends (...args: any) => Promise<any>> = Awaited<ReturnType<T>>;
-type Getter<T extends string> = `get${Capitalize<T>}`;         // "getName" etc.
-// Branded types — prevent mixing User ID and Order ID
-type UserId  = string & { readonly __brand: "UserId" };
-type OrderId = string & { readonly __brand: "OrderId" };
-const toUserId = (id: string): UserId => id as UserId;
-// infer keyword inside conditional types
-type UnwrapPromise<T> = T extends Promise<infer U> ? U : T;
-type FirstParam<F extends (...args: any) => any> = Parameters<F>[0];
-// Distributive conditional — applies to each union member
-type IsString<T> = T extends string ? true : false;
-// Strict Omit — only allows keys that exist in T
+type Getter<T extends string> = `get${Capitalize<T>}`;
+// Strict Omit — only accepts keys that exist in T
 type StrictOmit<T, K extends keyof T> = Omit<T, K>;
+// Make specific keys required, keep rest as-is
+type RequireKeys<T, K extends keyof T> = Required<Pick<T,K>> & Omit<T,K>;
 ```
 
 ---
 
-*Sources: Total TypeScript — Matt Pocock (No Starch Press, 2026) · Ultimate TypeScript Handbook — Dan Wellman (Orange AVA, 2023) · 250 Killer TypeScript One-Liners — Hernando Abella*
+## 11. Anti-Patterns
+
+```typescript
+// BAD: any
+function fn(x: any) { return x.val }
+// GOOD: unknown + narrowing
+function fn(x: unknown) {
+  if (typeof x === "object" && x && "val" in x) return (x as { val: unknown }).val;
+}
+
+// BAD: Omit on unions (collapses to shared properties)
+type R = Omit<A | B, "id">; // WRONG — loses unique properties
+// GOOD: DistributiveOmit
+type R = DistributiveOmit<A | B, "id">;
+
+// BAD: enum (nominal surprise + JS output)
+enum Status { Active = "active" }
+// GOOD: as const POJO
+const Status = { Active: "active" } as const;
+type Status = typeof Status[keyof typeof Status];
+```
+
+---
+
+*Sources: Total TypeScript — Matt Pocock (No Starch Press, 2026); Ultimate TypeScript Handbook — Dan Wellman (2023); 250 Killer TypeScript One-Liners — Abella; Programming TypeScript — Boris Cherny (O'Reilly, 2019)*

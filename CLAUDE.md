@@ -151,6 +151,11 @@ skills/
 ├── ai-security/                     # LLM security: prompt injection, PII scrubbing, output validation, DPPA compliance
 ├── ai-metering-billing/             # Token ledger schema, metering middleware, per-tenant billing, pricing tiers
 ├── ai-integration-section/          # Generate AI Integration section for SRS/PRD/HLD documents
+├── microservices-fundamentals/      # Monolith vs microservices, decomposition patterns, 12-Factor App, bounded contexts, data isolation
+├── microservices-architecture-models/ # NGINX MRA three models (Proxy/Router Mesh/Fabric), API gateway, service discovery
+├── microservices-resilience/        # Circuit breaker, /health endpoint, load balancing, retry, bulkhead, timeout, slowstart
+├── microservices-communication/     # Sync vs async, service discovery, inter-service auth, data isolation, API contracts
+├── microservices-ai-integration/    # AI as a microservice, AI gateway, async AI job pipeline, Kubeflow/Seldon Core, metering in distributed systems
 ├── update-claude-documentation/     # Documentation maintenance
 ├── doc-architect/                   # Triple-Layer AGENTS.md generator
 ├── manual-guide/                    # End-user manuals and guides

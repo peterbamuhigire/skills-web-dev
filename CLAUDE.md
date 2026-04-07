@@ -140,6 +140,13 @@ skills/
 ├── feature-planning/                # Complete feature planning (spec + implementation)
 ├── form-ux-design/                  # Cross-platform form UX patterns (web + Android + iOS)
 ├── nextjs-app-router/               # Next.js App Router: RSC, routing, data fetching, auth, deployment (Jain + Krause)
+├── ai-app-architecture/             # AI-powered app stack: architecture styles, component design, module gating, token billing
+├── ai-prompt-engineering/           # Production prompt engineering: templates, CoT, few-shot, versioning, defensive patterns
+├── ai-rag-patterns/                 # RAG architecture: chunking, hybrid search, contextual retrieval, multi-tenant
+├── ai-agents-tools/                 # AI agents: ReAct loop, tool categories, human approval gates, multi-agent patterns
+├── llm-security/                    # LLM security: OWASP Top 10, trust boundaries, prompt injection defense, output validation
+├── ai-evaluation/                   # AI evaluation: golden test sets, AI-as-judge, production monitoring, drift detection
+├── ai-saas-billing/                 # AI SaaS billing: module gating (off by default), per-tenant/user token metering, quotas
 ├── ai-web-apps/                     # AI-enhanced web apps: Vercel AI SDK, streaming, RAG, LangChain.js (Despoudis)
 ├── ai-assisted-development/         # AI agent orchestration for development workflows
 ├── ai-error-prevention/             # Error prevention for AI-assisted development (trust but verify)

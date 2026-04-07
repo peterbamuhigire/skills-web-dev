@@ -169,6 +169,8 @@ skills/
 ├── ai-predictive-analytics/         # Predictive models via LLM API — risk scoring, demand forecasting, anomaly detection — domain prompt templates
 ├── ai-nlp-analytics/                # Text analytics — sentiment, classification, entity extraction, multi-language (English/Luganda/Swahili)
 ├── ai-analytics-dashboards/         # AI-powered dashboard design — KPI cards, trend charts, AI Insights panel, role-based variants, export
+├── ai-analytics-saas/               # AI analytics for SaaS: NL2SQL, embeddings, semantic search, anomaly detection, insight cache
+├── realtime-systems/                # WebSockets, SSE, live dashboards, multi-tenant channel isolation, reconnection strategies
 ├── update-claude-documentation/     # Documentation maintenance
 ├── doc-architect/                   # Triple-Layer AGENTS.md generator
 ├── manual-guide/                    # End-user manuals and guides
@@ -181,6 +183,7 @@ skills/
 ├── pos-restaurant-ui-standard/      # Restaurant POS UI standard
 ├── report-print-pdf/                # Report export (PDF + print)
 ├── project-requirements/            # SaaS project requirements discovery
+├── api-design-first/                # REST conventions, OpenAPI 3 spec-first, versioning, GraphQL decision guide, PHP controller pattern
 ├── api-error-handling/              # API error handling
 ├── api-pagination/                 # Offset pagination (PHP + Android + iOS infinite scroll)
 ├── mysql-best-practices/            # MySQL 8.x (schema, indexing, queries, security, transactions, tuning, HA, benchmarking) + MySQL 8 exclusive features reference

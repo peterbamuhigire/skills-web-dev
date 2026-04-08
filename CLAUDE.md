@@ -111,12 +111,8 @@ skills/
 ├── android-tdd/                     # Android TDD (Red-Green-Refactor, test pyramid, CI)
 ├── jetpack-compose-ui/              # Compose UI (beautiful, minimalistic, Material 3)
 ├── android-data-persistence/        # Room, DataStore, API sync, offline-first
-├── android-reports/                 # [Superseded by mobile-reports] Android report patterns
-├── android-saas-planning/           # [Superseded by mobile-saas-planning] Android SaaS planning
 ├── android-biometric-login/         # Biometric auth (fingerprint/face) for Android apps
-├── android-custom-icons/            # [Superseded by mobile-custom-icons] Android PNG icons
 ├── android-pdf-export/              # Native PDF export using PdfDocument API
-├── android-report-tables/           # [Superseded by mobile-report-tables] Android report tables
 ├── kmp-development/                 # KMP shared module (Ktor, SQLDelight, Koin, expect/actual, SKIE)
 ├── kmp-tdd/                         # KMP TDD (commonTest, Mokkery, Turbine, Ktor MockEngine, Kover)
 ├── kmp-compose-multiplatform/       # Compose Multiplatform: desktop/web/shared UI, wasmJs targets, CI/CD
@@ -141,6 +137,9 @@ skills/
 ├── feature-planning/                # Complete feature planning (spec + implementation)
 ├── form-ux-design/                  # Cross-platform form UX patterns (web + Android + iOS)
 ├── nextjs-app-router/               # Next.js App Router: RSC, routing, data fetching, auth, deployment (Jain + Krause)
+├── cicd-pipeline-design/            # CI/CD pipeline methodology: 14-stage sequence, DORA metrics, branching, build-once-deploy-many, artifact mgmt, blue-green/canary
+├── cicd-jenkins-debian/             # Jenkins on Debian/Ubuntu: install, Declarative Jenkinsfile, master/agent, Docker agents, plugins, RBAC, backup
+├── cicd-devsecops/                  # DevSecOps pipeline security: Vault, OWASP DC, SonarQube quality gates, Trivy image scanning, container hardening, UFW
 ├── nodejs-development/              # Node.js: async patterns, streams, design patterns, HTTP APIs, scaling, MongoDB (Casciaro + Gackenheimer + Murray)
 ├── react-development/               # React hooks, state management, performance, testing, TypeScript, forms (Horton + Vice + Pro React)
 ├── react-patterns/                  # Advanced React design patterns: HOC, Compound Components, Control Props, Render Props, State Reducer, Immer (Kumar + Santana Roldán)

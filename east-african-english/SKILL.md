@@ -1,6 +1,6 @@
 ---
 name: east-african-english
-description: Language and tone standard for all written content. Enforces authentic East African English as used in Uganda, Kenya, and Tanzania — formal, clear, respectful, British-influenced, and professionally courteous. Apply to every piece of text generated for the website.
+description: Language and tone standard for all written content. Enforces authentic East African English as used in Uganda, Kenya, and Tanzania — formal, clear, respectful, British-influenced, and professionally courteous. Apply to every piece of text...
 ---
 
 # East African English — Language & Tone Skill

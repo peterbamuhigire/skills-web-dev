@@ -1,6 +1,6 @@
 ---
 name: implementation-status-auditor
-description: "Conduct a comprehensive implementation status audit of any software project. Produces structured documentation in docs/implementation/review-{date}/ with gap analysis, schema audit, integration status, completion blueprint, and prioritized action items. Use when the user wants to know exactly where a project stands and what remains to finish it."
+description: Conduct a comprehensive implementation status audit of any software project. Produces structured documentation in docs/implementation/review-{date}/ with gap analysis, schema audit, integration status, completion blueprint, and prioritized action...
 ---
 
 ## Required Plugins

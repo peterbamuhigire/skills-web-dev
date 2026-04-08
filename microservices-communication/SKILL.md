@@ -1,6 +1,6 @@
 ---
 name: microservices-communication
-description: Inter-service communication patterns — synchronous (HTTP/REST, gRPC) vs asynchronous (events, message queues), service discovery (client-side, server-side, DNS-based), inter-service authentication, data isolation rules, and API contract design. Source: Stetson (NGINX MRA), Pandiya & Charankar (AI and Microservices).
+description: Inter-service communication patterns — synchronous (HTTP/REST, gRPC) vs asynchronous (events, message queues), service discovery (client-side, server-side, DNS-based), inter-service authentication, data isolation rules, and API contract design...
 ---
 
 # Microservices Communication

@@ -1,15 +1,6 @@
 ---
 name: ios-stability-solutions
-description: >
-  Crash-prevention and production stability patterns drawn from iOS Developer Solutions
-  Guide (Saini). Covers: force-unwrap elimination, optional safety hierarchy, runtime
-  error classes and how to prevent each, SOLID-based architecture for testability,
-  TDD Red-Green-Refactor safety net, dependency injection for testable code, tight vs
-  loose coupling and its effect on side-effect risk, MVVM for isolated unit-testable
-  business logic, UI approach selection to avoid merge-conflict crashes and dynamic-layout
-  crashes, framework access-level hardening, and backend-driven UI for zero-downtime
-  fixes. Use when hardening an existing app, designing a new feature for production
-  stability, or building a TDD safety net around critical business logic.
+description: Crash-prevention and production stability patterns for iOS. Use when hardening an app, designing features for stability, or building a TDD safety net around critical business logic.
 ---
 
 # iOS Stability Solutions Guide

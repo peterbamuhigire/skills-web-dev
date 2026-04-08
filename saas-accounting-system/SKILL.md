@@ -1,6 +1,6 @@
 ---
 name: saas-accounting-system
-description: "Implement a complete double-entry accounting system inside any SaaS app. Users enter transactions naturally (sales, expenses, inventory) while the system auto-posts journal entries under the hood. Produces both user-friendly reports and technical financial statements (Trial Balance, Balance Sheet, Income Statement, Cash Flow). Enforces 10000% accuracy with balanced entries and seamless void/reversal mechanics. Use when building any financial, ERP, POS, or inventory system that needs proper accounting."
+description: Implement a complete double-entry accounting system inside any SaaS app. Users enter transactions naturally (sales, expenses, inventory) while the system auto-posts journal entries under the hood. Produces both user-friendly reports and technical...
 ---
 
 ## Required Plugins

@@ -1,6 +1,6 @@
 ---
 name: ios-data-persistence
-description: "iOS data persistence standards with SwiftData as primary local storage and custom API backends for cloud sync. Covers UserDefaults, Keychain, SwiftData (models, queries, relationships, migrations), file storage, offline-first architecture, and repository pattern for API-backed sync. Use when implementing any data storage, caching, or sync feature in iOS apps."
+description: iOS data persistence standards with SwiftData as primary local storage and custom API backends for cloud sync. Covers UserDefaults, Keychain, SwiftData (models, queries, relationships, migrations), file storage, offline-first architecture, and...
 ---
 
 # iOS Data Persistence

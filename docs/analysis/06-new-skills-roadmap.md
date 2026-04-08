@@ -1,215 +1,170 @@
-# New Skills Roadmap — 34 Skills to Build
+# New Skills Roadmap — Revised Priority
 
-**Priority-ordered creation plan | April 2026**
+**Re-prioritised after AI, iOS, and web frontend enhancements | April 2026**
 
 ---
 
-## Phase 1 — Critical Frontier (Build in 2026 Q2–Q3)
+## What Has Been Built (No Longer Needed)
 
-These are blockers. Without them, you cannot build world-class products today.
+The following Phase 1 and Phase 2 skills from the original roadmap now exist:
 
-### 1. `ai-llm-integration`
-**What:** Production LLM integration — Claude, GPT, Gemini, DeepSeek
-**Covers:** SDK setup, streaming, tool use, prompt templates, caching, error handling, cost control
-**Source:** *AI Engineering* (Huyen 2024) + Anthropic docs + OpenAI Cookbook
-**Creates:** The foundation for every AI feature in every product
+| Original Priority | Skill | Status |
+|-------------------|-------|--------|
+| 1 | ai-llm-integration | ✅ Built (+ 27 more AI skills) |
+| 2 | react-nextjs | ✅ Built as react-development + react-patterns |
+| 3 | typescript-modern | ✅ Built as typescript-mastery + typescript-design-patterns |
+| 7 | realtime-systems | ✅ Built |
+| 8 | api-design-first | ✅ Built |
+| Bonus | microservices-* | ✅ 5 skills built |
 
-### 2. `react-nextjs`
-**What:** React 19 + Next.js 15 App Router patterns
-**Covers:** Server Components, streaming, layouts, error boundaries, data fetching, deployment
-**Source:** *Fluent React* (Kumar), Next.js official docs, TkDodo's React Query guide
-**Creates:** Full web frontend capability for SaaS
+---
 
-### 3. `typescript-modern`
-**What:** TypeScript strict mode patterns for frontend and backend
-**Covers:** Type narrowing, generics, utility types, branded types, Zod validation
-**Source:** *Learning TypeScript* (Goldberg), *Programming TypeScript* (Cherny)
-**Creates:** Type-safe development across the full stack
+## Phase 1 — Critical Infrastructure (Build in 2026 Q2–Q3)
 
-### 4. `cloud-architecture`
+### 1. `cloud-architecture`
 **What:** AWS/GCP core services for SaaS deployment
-**Covers:** Compute, storage, RDS, CDN, IAM, auto-scaling, cost optimisation
-**Source:** AWS Well-Architected Framework, *Docker Deep Dive* (Poulton)
-**Creates:** Ability to deploy and scale production SaaS
+**Covers:** Compute, storage, RDS, CDN, IAM, auto-scaling, Docker, cost optimisation
+**Source:** AWS Well-Architected Framework (free) + *Docker Deep Dive* (Poulton)
+**Creates:** Ability to deploy and scale production SaaS without DevOps help
 
-### 5. `stripe-payments`
-**What:** Stripe integration for SaaS billing
+### 2. `stripe-payments`
+**What:** Stripe integration for SaaS billing — the revenue layer
 **Covers:** Products, prices, subscriptions, webhooks, dunning, customer portal, tax
 **Source:** Stripe documentation (stripe.com/docs/billing)
-**Creates:** Revenue collection infrastructure
+**Creates:** Revenue collection infrastructure for every SaaS product
 
-### 6. `cicd-pipelines`
-**What:** GitHub Actions CI/CD for web + mobile
-**Covers:** Automated testing, build + deploy pipelines, secrets management, environments
-**Source:** *Continuous Delivery* (Humble & Farley), GitHub Actions docs
-**Creates:** Fast, safe software delivery
-
----
-
-## Phase 2 — High Value (Build in 2026 Q4)
-
-### 7. `realtime-systems`
-**What:** WebSockets, SSE, live data in web and mobile
-**Covers:** WebSocket server/client, SSE streaming, Supabase Realtime, Redis pub/sub
-**Source:** *Designing Data-Intensive Applications* (Kleppmann, Ch11), socket.io docs
-
-### 8. `api-design-first`
-**What:** OpenAPI 3.1 specification-first REST API design
-**Covers:** Schema design, versioning, authentication, rate limiting, documentation generation
-**Source:** *The Design of Web APIs* (Lauret), OpenAPI Initiative docs
-
-### 9. `ai-analytics-saas`
-**What:** AI-powered analytics features inside SaaS products
-**Covers:** Embedding user data, anomaly detection, churn signals, text-to-SQL, NL summaries
-**Source:** *AI Engineering* (Huyen), *Designing ML Systems* (Huyen)
-
-### 10. `postgresql-patterns`
-**What:** PostgreSQL for modern SaaS (especially AI-adjacent features)
-**Covers:** vs MySQL guide, JSONB, full-text search, window functions, migrations
+### 3. `postgresql-patterns`
+**What:** PostgreSQL core patterns — additive to MySQL, not a replacement
+**Covers:** Syntax differences from MySQL, JSONB, full-text search, migrations
 **Source:** *PostgreSQL: Up and Running* (Obe & Hsu)
+**Note:** You stay on MySQL for existing products. This skill unlocks Supabase,
+pgvector, and PostgreSQL-native client projects.
 
-### 11. `nodejs-typescript-backend`
-**What:** Node.js production patterns with TypeScript
-**Covers:** Fastify/Hono setup, Prisma ORM, BullMQ jobs, Redis caching, health checks
+### 4. `vector-databases`
+**What:** Embeddings, vector search, and RAG storage infrastructure
+**Covers:** pgvector for PostgreSQL, Pinecone/Qdrant/Weaviate, chunking, hybrid search
+**Source:** pgvector docs, Supabase Vector docs, *AI-Powered Search* (Grainger)
+**Creates:** The missing storage layer for RAG pipelines (ai-rag-patterns theory already exists)
+
+### 5. `cicd-pipelines`
+**What:** GitHub Actions CI/CD for web + mobile
+**Covers:** Automated testing, build/deploy pipelines, secrets, environments, Fastlane iOS
+**Source:** *Continuous Delivery* (Humble & Farley), GitHub Actions documentation
+**Creates:** Fast, repeatable, safe delivery on every commit
+
+### 6. `nodejs-typescript-backend`
+**What:** Node.js production server with TypeScript
+**Covers:** Fastify/Hono, Prisma ORM, BullMQ, Redis caching, health checks, Zod validation
 **Source:** *Node.js Design Patterns* (Casciaro & Mammino, 3rd ed)
-
-### 12. `vector-databases`
-**What:** Embeddings, vector search, RAG infrastructure
-**Covers:** pgvector, Pinecone/Qdrant, chunking, hybrid search, re-ranking
-**Source:** pgvector docs, *AI-Powered Search* (Grainger), Supabase Vector docs
+**Creates:** Modern server-side option alongside PHP
 
 ---
 
-## Phase 3 — Depth Expansion (Build in 2027 Q1–Q2)
+## Phase 2 — Platform Depth (Build in 2026 Q4)
 
-### 13. `graphql-patterns`
-**What:** GraphQL schema design and resolver patterns
-**Covers:** Schema-first design, Apollo Server, N+1 prevention, subscriptions, federation
-**Source:** *Learning GraphQL* (Porcello & Banks), Apollo docs
+### 7. `android-ai-ml`
+**What:** Android AI and ML integration
+**Covers:** ML Kit, TensorFlow Lite, MediaPipe, Gemini Nano (on-device), Compose streaming
+**Source:** Android ML Kit docs, TFLite Android guide
+**Creates:** Parity with ios-ai-ml for Android projects
 
-### 14. `observability-monitoring`
+### 8. `subscription-billing`
+**What:** Full subscription lifecycle management beyond basic Stripe setup
+**Covers:** Dunning, metered billing, upgrade/downgrade flows, multi-currency, revenue recognition
+**Source:** *Subscribed* (Tzuo), Stripe Billing deep docs
+**Creates:** Complete billing lifecycle for SaaS products
+
+### 9. `observability-monitoring`
 **What:** Production visibility for SaaS
-**Covers:** Structured logging, OpenTelemetry tracing, Sentry errors, Grafana dashboards
+**Covers:** Structured JSON logging, Sentry error tracking, OpenTelemetry, Grafana, SLOs
 **Source:** *Observability Engineering* (Majors, Fong-Jones, Miranda)
+**Creates:** Ability to diagnose and fix production issues fast
 
-### 15. `pwa-offline-first`
+### 10. `pwa-offline-first`
 **What:** Progressive Web Apps with offline capabilities
-**Covers:** Service Workers, IndexedDB, background sync, PWA manifest, install flows
-**Source:** *Building Progressive Web Apps* (Ater), Workbox docs
+**Covers:** Workbox, Service Workers, IndexedDB (Dexie.js), background sync, PWA manifest
+**Source:** Workbox docs, *Building Progressive Web Apps* (Ater)
+**Creates:** Web apps that work in East Africa's variable connectivity
 
-### 16. `android-ai-ml`
-**What:** Android AI/ML features
-**Covers:** ML Kit, TensorFlow Lite, MediaPipe, Gemini Nano (on-device), streaming AI in Compose
-**Source:** Android ML Kit docs, TFLite guide
+### 11. `e2e-testing`
+**What:** End-to-end testing with Playwright
+**Covers:** Page Object Model, network mocking, visual regression, CI integration
+**Source:** Playwright documentation, *Testing JavaScript Applications* (da Costa)
+**Creates:** Delivery confidence without slowing down
 
-### 17. `subscription-billing`
-**What:** Full subscription lifecycle management
-**Covers:** Dunning, metered billing, upgrade/downgrade flows, revenue recognition, multi-currency
-**Source:** *Subscribed* (Tzuo), Stripe Billing docs
+---
 
-### 18. `product-led-growth`
+## Phase 3 — Competitive Moats (Build in 2027 Q1–Q2)
+
+### 12. `product-led-growth`
 **What:** PLG tactics for SaaS products
 **Covers:** Freemium design, activation flows, in-app upgrade prompts, viral loops, NPS
-**Source:** *Product-Led Growth* (Wes Bush), *Escaping the Build Trap* (Perri, already in library)
+**Source:** *Product-Led Growth* (Wes Bush), *Escaping the Build Trap* (Perri — in library)
 
----
-
-## Phase 4 — Competitive Moats (Build in 2027 Q3–Q4)
-
-### 19. `event-driven-architecture`
-**What:** Event sourcing, CQRS, message queues for SaaS
+### 13. `event-driven-architecture`
+**What:** Event sourcing, CQRS, message queues for scaling SaaS
 **Covers:** Domain events, event store, projections, RabbitMQ/SQS, saga patterns
 **Source:** *Building Event-Driven Microservices* (Bellemare)
 
-### 20. `microservices-patterns`
-**What:** Service decomposition for growing SaaS
-**Covers:** Service boundaries, inter-service auth, distributed transactions, service mesh basics
-**Source:** *Building Microservices* (Sam Newman, 2nd ed)
+### 14. `graphql-patterns`
+**What:** GraphQL schema design and resolver patterns (graphql-security already exists)
+**Covers:** Schema-first design, Apollo Server, N+1 prevention, federation
+**Source:** *Learning GraphQL* (Porcello & Banks), Apollo docs
 
-### 21. `accessibility-wcag`
-**What:** WCAG 2.2 AA compliance implementation
-**Covers:** Semantic HTML, ARIA, keyboard navigation, screen readers, colour contrast, testing
-**Source:** WCAG 2.2 specification, *Accessibility for Everyone* (Laura Kalbag)
+### 15. `saas-growth-metrics`
+**What:** Instrument and act on product growth metrics
+**Covers:** Funnel analytics, cohort analysis, feature usage, A/B testing implementation
+**Source:** *Hacking Growth* (Ellis & Brown), PostHog docs
 
-### 22. `web-performance-advanced`
-**What:** Beyond Core Web Vitals — server-side performance
-**Covers:** TTFB reduction, edge caching, HTTP/3, resource hints, bundle splitting
-**Source:** *High Performance Web Sites* (Souders), web.dev performance guide
+---
 
-### 23. `mobile-payments`
-**What:** In-app purchases + payment methods on mobile
-**Covers:** StoreKit 2 (already in ios-monetization), Google Play Billing, Stripe mobile SDKs
-**Source:** Extends existing ios-monetization, Google Play Billing docs
+## Phase 4 — Stubs to Complete (Ongoing)
 
-### 24. `saas-growth-metrics`
-**What:** Instrument and act on SaaS growth metrics
-**Covers:** Funnel analytics, cohort analysis, feature usage tracking, A/B testing implementation
-**Source:** *Hacking Growth* (Ellis & Brown), Mixpanel/PostHog docs
+### 16. Complete `webapp-gui-design`
+Full React + Tailwind component architecture guide. Currently 27 lines.
+With react-development, nextjs-app-router, and tailwind-css existing, this should
+be a practical reference pointing at those skills plus adding SaaS-specific patterns.
+
+### 17. Complete `pos-restaurant-ui-standard`
+Complete restaurant POS UI patterns. Currently 39 lines.
+Needed for the restaurant POS vertical SaaS opportunity.
+
+### 18. Complete `inventory-management`
+Full inventory management patterns. Currently 40 lines.
+Needed for pharmacy, logistics, and warehouse verticals.
 
 ---
 
 ## Phase 5 — 2028–2030 Frontier
 
-### 25. `ai-agents-production`
-**What:** Autonomous AI agents in SaaS products
-**Covers:** Agent loops, tool orchestration, memory patterns, human-in-the-loop, safety
-**Source:** Anthropic agents docs, *AI Engineering* advanced chapters
+### 19. `multimodal-ai`
+Vision, audio, and document AI in products. Claude Vision, Whisper, document extraction.
 
-### 26. `edge-computing`
-**What:** Edge functions and distributed execution
-**Covers:** Cloudflare Workers, Vercel Edge, Deno Deploy, edge databases (D1, Turso)
-**Source:** Cloudflare Workers docs, *Edge Computing* patterns
+### 20. `edge-computing`
+Cloudflare Workers, Vercel Edge, D1 database, edge caching patterns.
 
-### 27. `multimodal-ai`
-**What:** Vision, audio, and document AI in products
-**Covers:** Image analysis (Claude Vision, GPT-4V), audio transcription, document extraction
-**Source:** Claude Vision docs, Whisper API docs
+### 21. `react-native-advanced`
+New Architecture (JSI/Fabric), Expo EAS, native modules, performance profiling.
 
-### 28. `react-native-advanced`
-**What:** React Native for production cross-platform apps
-**Covers:** New Architecture (JSI/Fabric), native modules, Expo EAS, performance profiling
-**Source:** *Fullstack React Native*, React Native New Architecture docs
+### 22. `accessibility-wcag`
+WCAG 2.2 AA compliance implementation. Semantic HTML, ARIA, keyboard, screen readers.
 
-### 29. `web3-basics` (optional, watch-and-wait)
-**What:** Blockchain integration for specific use cases
-**Covers:** Wallet connect, token gating, NFTs as certificates, smart contract reading
-**Note:** Only if clients request it — don't over-invest speculatively
-
-### 30. `ar-vr-interfaces` (2028+)
-**What:** Augmented/Virtual reality UI for mobile
-**Covers:** ARKit, ARCore, Apple Vision Pro, spatial UI patterns
-**Source:** ARKit docs, Apple Vision Pro Human Interface Guidelines
-
----
-
-## Phase 6 — Skills Library Maintenance
-
-### 31. Complete `webapp-gui-design`
-Full React + Tailwind design system guide. Currently 27 lines.
-
-### 32. Complete `pos-restaurant-ui-standard`
-Complete restaurant POS patterns. Currently 39 lines.
-
-### 33. Complete `inventory-management`
-Full inventory management patterns including barcode, batch operations. Currently 40 lines.
-
-### 34. Create `ai-prompt-engineering`
-Standalone prompt engineering skill extracted from ai-llm-integration depth.
+### 23. `ar-vr-interfaces`
+ARKit, ARCore, Apple Vision Pro, spatial UI patterns (2028+).
 
 ---
 
 ## Summary Timeline
 
-| Year | Skills to Create | Theme |
-|------|-----------------|-------|
-| 2026 Q2-Q3 | 1–6 | Close critical gaps |
-| 2026 Q4 | 7–12 | High-value additions |
-| 2027 Q1-Q2 | 13–18 | Depth + PLG |
-| 2027 Q3-Q4 | 19–24 | Competitive moats |
-| 2028–2030 | 25–30 | Frontier technologies |
-| Ongoing | 31–34 | Complete stubs + maintenance |
+| Period | Skills to Build | Theme |
+|--------|----------------|-------|
+| 2026 Q2–Q3 | 1–6 (cloud, payments, DB, CI/CD, Node) | Infrastructure |
+| 2026 Q4 | 7–11 (Android AI, billing, observability, PWA, E2E) | Platform depth |
+| 2027 Q1–Q2 | 12–15 (PLG, events, GraphQL, metrics) | Competitive moats |
+| Ongoing | 16–18 (3 stubs) | Library maintenance |
+| 2028–2030 | 19–23 (frontier) | Future-proofing |
 
-**Total: 34 new skills** — growing the library from 131 to 165 skills.
+**Total remaining: 23 skills** — growing from 174 to ~197 skills.
 
 ---
 

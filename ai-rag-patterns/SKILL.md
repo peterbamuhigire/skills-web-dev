@@ -1,6 +1,6 @@
 ---
 name: ai-rag-patterns
-description: Use when building features that answer questions from private data, documents, policies, or time-sensitive information — RAG architecture, chunking strategies, hybrid search, re-ranking, vector databases, evaluation, agentic RAG, multimodal RAG, and production deployment
+description: Use when building features that answer questions from private data, documents, policies, or time-sensitive information — RAG architecture, chunking strategies, hybrid search, re-ranking, vector databases, evaluation, agentic RAG, multimodal RAG...
 ---
 
 # RAG Patterns — Retrieval-Augmented Generation

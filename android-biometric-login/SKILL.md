@@ -1,6 +1,6 @@
 ---
 name: android-biometric-login
-description: "Optional biometric (fingerprint/face) gate on Android app launch using AndroidX Biometric API. Covers BiometricHelper utility, splash screen integration, settings toggle with verification, EncryptedSharedPreferences storage, and graceful fallback. Use when adding biometric authentication to any Android app."
+description: Optional biometric (fingerprint/face) gate on Android app launch using AndroidX Biometric API. Covers BiometricHelper utility, splash screen integration, settings toggle with verification, EncryptedSharedPreferences storage, and graceful...
 ---
 
 ## Required Plugins

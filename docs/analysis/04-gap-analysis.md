@@ -1,304 +1,338 @@
-# Gap Analysis — What Is Missing & How to Fill It
+# Gap Analysis — What Is Still Missing & How to Fill It
 
-**April 2026 | Each gap includes: severity, impact, and the best reading material to generate a skill.**
-
----
-
-## GAP 1: AI/LLM Integration (CRITICAL)
-
-**Severity:** Critical | **Business Impact:** Existential — every product needs this by 2026
-
-**What's missing:**
-- Using Claude/GPT/Gemini/DeepSeek APIs in web and mobile apps
-- RAG (Retrieval-Augmented Generation) architecture
-- Prompt engineering for production systems
-- Streaming responses in UI
-- Function calling / tool use
-- AI cost management and caching
-- Embeddings and semantic search
-- Guardrails and output validation
-- Multi-model routing (best model per task)
-- AI agent patterns in SaaS features
-
-**Best reading material to generate this skill:**
-- **Primary:** *AI Engineering* — Chip Huyen (2024) — the definitive 2024 book on LLM integration
-- **Primary:** Anthropic documentation (docs.anthropic.com) — Claude API, tool use, prompt caching
-- **Primary:** OpenAI Cookbook (github.com/openai/openai-cookbook) — production patterns
-- **Secondary:** *Building LLM-Powered Applications* — Valentina Alto
-- **Secondary:** *Prompt Engineering Guide* (promptingguide.ai)
-- **Reference:** Anthropic Claude SDK docs, LangChain docs, LlamaIndex docs
-
-**Skill to create:** `ai-llm-integration` + `ai-analytics-saas` + `ai-prompt-engineering`
+**April 2026 (Updated) | Gaps 1–3 from first audit now closed. New priority order below.**
 
 ---
 
-## GAP 2: React / Next.js / TypeScript Web Frontend (CRITICAL)
+## Gaps Closed Since First Audit ✅
 
-**Severity:** Critical | **Business Impact:** Cannot build modern web SaaS without this
-
-**What's missing:**
-- React 19 component patterns, hooks, Server Components
-- Next.js 15 App Router — layouts, loading states, error boundaries
-- TypeScript strict mode patterns for React
-- Tailwind CSS design system integration
-- State management (Zustand, Jotai, React Query)
-- Form handling (React Hook Form + Zod)
-- Client-side data fetching patterns
-- SSR/SSG/ISR tradeoffs for SaaS
-- React Testing Library + Vitest
-- Next.js deployment (Vercel, self-hosted)
-
-**Best reading material:**
-- **Primary:** *Fluent React* — Tejas Kumar (2023) — deep React internals and patterns
-- **Primary:** Next.js official docs (nextjs.org/docs) — App Router
-- **Primary:** *Learning TypeScript* — Josh Goldberg (2022)
-- **Secondary:** *React Design Patterns* — Carlos Santana Roldán
-- **Secondary:** *TypeScript Deep Dive* — Basarat Ali Syed (free online)
-- **Reference:** TkDodo's React Query blog series, Kent C. Dodds' EpicReact
-
-**Skills to create:** `react-nextjs`, `typescript-modern`, `react-state-management` (already exists as marketplace skill)
+| Gap | Was | Now |
+|-----|-----|-----|
+| AI/LLM Integration | Critical — zero skills | 28 skills, enterprise-grade |
+| React/Next.js/TypeScript | Critical — 27-line stub | 6 dedicated skills |
+| Real-time systems | High — nothing | realtime-systems skill added |
+| API Design | Partial | api-design-first added |
+| Microservices | None | 5 new skills |
 
 ---
 
-## GAP 3: Cloud Architecture & Deployment (CRITICAL)
+## THE POLYGLOT PERSISTENCE PATTERN (Read This First)
 
-**Severity:** Critical | **Business Impact:** Cannot deploy, scale, or charge for SaaS professionally
+> **AI-powered SaaS products use TWO databases simultaneously. This is normal and expected.**
+
+### Why Two Databases
+
+MySQL and vector databases solve different problems:
+
+| Concern | MySQL | Vector DB (pgvector / Pinecone) |
+|---------|-------|---------------------------------|
+| Users, orders, invoices | ✅ Perfect | ❌ Wrong tool |
+| Transactions, accounting | ✅ Perfect | ❌ Wrong tool |
+| RBAC, permissions | ✅ Perfect | ❌ Wrong tool |
+| "Find similar documents" | ❌ Cannot do this | ✅ Perfect |
+| Semantic search ("find records about X") | ❌ Keyword only | ✅ Meaning-aware |
+| RAG context retrieval | ❌ Cannot rank by relevance | ✅ Core use case |
+| Recommendation engine | ❌ Limited | ✅ Native |
+
+### The Architecture
+
+```
+┌─────────────────────────────────────────────────┐
+│               Your SaaS App                      │
+├──────────────────┬──────────────────────────────┤
+│   MySQL 8        │   Vector Store                │
+│   (Primary DB)   │   (AI-specific)               │
+│                  │                               │
+│ • Users          │ • Document embeddings         │
+│ • Tenants        │ • Product description vectors │
+│ • Orders         │ • Support ticket clusters     │
+│ • Accounting     │ • Knowledge base chunks       │
+│ • RBAC           │ • Semantic search index       │
+│ • Reports        │ • Recommendation vectors      │
+└──────────────────┴──────────────────────────────┘
+         ↑                      ↑
+    Same app, two connections. Normal.
+```
+
+### When to Use Which Vector Option
+
+| Option | When to Use | Cost | Complexity |
+|--------|-------------|------|------------|
+| **pgvector** (PostgreSQL extension) | You want one DB server for both | Low (self-host) | Medium |
+| **Supabase** | You want managed PostgreSQL + vector + auth | Low–Medium | Low |
+| **Pinecone** | MySQL stays, add vector as a service | Medium | Low |
+| **Qdrant** | Self-hosted, open source, no PostgreSQL | Low | Medium |
+| **Weaviate** | Multi-modal (text + images) | Medium | High |
+
+**Recommended starting point:** Pinecone (managed, simple API) or Qdrant (self-hosted, free).
+You keep MySQL. You add a vector service alongside it. No migration required.
+
+---
+
+## GAP 1: Cloud Architecture & Deployment (CRITICAL)
+
+**Severity:** Critical | **Impact:** Cannot deploy or scale SaaS without this
 
 **What's missing:**
-- AWS/GCP core services (EC2/Compute, S3/Storage, RDS, Lambda/Functions)
-- Docker containers and Docker Compose
-- CI/CD pipelines (GitHub Actions)
-- Environment management (staging/production)
-- SSL/TLS automation (Let's Encrypt)
-- CDN configuration (CloudFront, Cloudflare)
-- Auto-scaling and load balancing
-- Infrastructure as Code (Terraform basics)
-- Cost monitoring and optimisation
+- AWS/GCP core services (EC2, S3, RDS, Lambda, IAM)
+- Docker and Docker Compose
+- GitHub Actions CI/CD pipelines
+- Staging/production environment management
+- SSL/TLS automation, CDN, auto-scaling
 - Zero-downtime deployments
 
-**Best reading material:**
-- **Primary:** *AWS Certified Developer Study Guide* — Nick Garner + AWS Well-Architected Framework
-- **Primary:** *Docker Deep Dive* — Nigel Poulton (concise, practical)
-- **Primary:** *Continuous Delivery* — Jez Humble & David Farley
-- **Secondary:** *Accelerate* — Forsgren, Humble, Kim (metrics for delivery performance)
-- **Secondary:** *Cloud Native Patterns* — Cornelia Davis
-- **Reference:** GitHub Actions documentation, Terraform getting started guide
+**Books to buy / find:**
 
-**Skill to create:** `cloud-architecture`, `cicd-pipelines`, `docker-deployment`
+| Resource | Format | Why |
+|----------|--------|-----|
+| *Docker Deep Dive* — Nigel Poulton | Book (~$35) | Best concise Docker book, ~220 pages |
+| *Continuous Delivery* — Humble & Farley | Book (~$50) | Foundational CI/CD theory |
+| AWS Well-Architected Framework | Free PDF (aws.amazon.com) | Official AWS patterns |
+| *The DevOps Handbook* — Kim, Humble, Debois, Willis | Book (~$40) | Culture + practices |
+| *Kubernetes: Up and Running* — Burns, Beda, Hightower | Book (~$55) | If you need container orchestration |
 
----
+**Start with:** *Docker Deep Dive* + AWS Well-Architected Framework (free).
 
-## GAP 4: Real-Time Systems (HIGH)
-
-**Severity:** High | **Business Impact:** Live dashboards, collaboration, notifications — expected in 2026 SaaS
-
-**What's missing:**
-- WebSockets (server + client patterns)
-- Server-Sent Events for one-way streaming
-- Real-time database sync (Supabase Realtime, Firebase)
-- Live collaboration patterns (OT/CRDT basics)
-- Presence indicators, typing indicators
-- Real-time notifications architecture
-- Pub/sub patterns (Redis, Pusher)
-- Rate limiting real-time connections
-- Mobile WebSocket clients (iOS + Android)
-
-**Best reading material:**
-- **Primary:** *Designing Data-Intensive Applications* — Martin Kleppmann — Chapter 11 (streams)
-- **Primary:** *WebSocket* — Andrew Lombardi
-- **Secondary:** Supabase Realtime docs, Ably documentation
-- **Reference:** socket.io documentation, Pusher channels docs
-
-**Skill to create:** `realtime-systems`
+**Skills to create:** `cloud-architecture`, `cicd-pipelines`
 
 ---
 
-## GAP 5: Payment Systems & Subscription Billing (HIGH)
+## GAP 2: Payment Systems & Subscription Billing (CRITICAL)
 
-**Severity:** High | **Business Impact:** Direct revenue impact — no billing = no SaaS
+**Severity:** Critical | **Impact:** No billing = no SaaS
 
 **What's missing:**
-- Stripe integration (PHP + Node.js + mobile)
-- Subscription lifecycle management
+- Stripe integration (PHP + Node.js)
+- Subscription lifecycle: create, upgrade, downgrade, cancel, pause
 - Webhook handling and idempotency
 - Dunning management (failed payment recovery)
 - Metered billing and usage-based pricing
-- Multi-currency support
-- Tax handling (VAT, GST, sales tax)
-- Mobile in-app purchases linking to Stripe
-- Refunds and disputes
-- Revenue recognition accounting entries
+- Multi-currency and tax handling (VAT, GST)
 
-**Best reading material:**
-- **Primary:** Stripe documentation (stripe.com/docs) — Billing, Webhooks, Connect
-- **Primary:** *Subscribed* — Tien Tzuo (the subscription economy bible)
-- **Secondary:** Stripe developer blog, PaddleHQ documentation
-- **Reference:** *Mastering Software Product Management* (already in library) — pricing chapters
+**Books to buy / find:**
 
-**Skill to create:** `stripe-payments`, `subscription-billing`
+| Resource | Format | Why |
+|----------|--------|-----|
+| Stripe Documentation — stripe.com/docs | Free (online) | The authoritative source — read Billing + Webhooks |
+| *Subscribed* — Tien Tzuo | Book (~$25) | The subscription economy bible — WHY subscription matters |
+| Stripe Developer Blog — stripe.dev | Free (online) | Production patterns, edge cases |
+| *Mastering Software Product Management* | Already in library | Pricing strategy chapters |
 
----
+**Start with:** Stripe docs Billing section — it's excellent and free.
 
-## GAP 6: GraphQL & API-First Design (HIGH)
-
-**Severity:** High | **Business Impact:** Modern API clients and partner integrations require this
-
-**What's missing:**
-- GraphQL schema design and resolvers
-- Apollo Server / Hasura patterns
-- REST API versioning strategies
-- OpenAPI 3.1 specification-first design
-- API authentication (OAuth2, API keys, JWT scopes)
-- Rate limiting and throttling
-- API documentation generation
-- Webhook design and delivery guarantees
-- API monetisation patterns
-
-**Best reading material:**
-- **Primary:** *The Design of Web APIs* — Arnaud Lauret (2019)
-- **Primary:** *Learning GraphQL* — Eve Porcello & Alex Banks
-- **Secondary:** *REST API Design Rulebook* — Mark Masse
-- **Reference:** OpenAPI Initiative docs, Apollo GraphQL docs
-
-**Skill to create:** `api-design-first`, `graphql-patterns`
+**Skills to create:** `stripe-payments`, `subscription-billing`
 
 ---
 
-## GAP 7: PostgreSQL & Vector Databases (HIGH)
+## GAP 3: PostgreSQL & pgvector (HIGH — AI-enabling)
 
-**Severity:** High | **Business Impact:** AI features require vector search; many modern stacks use PostgreSQL
+**Severity:** High | **Impact:** Needed for pgvector RAG pipelines and Supabase projects
+
+**Important:** You do NOT migrate from MySQL. You add PostgreSQL knowledge for
+AI vector search and Supabase projects. MySQL remains your primary transactional DB.
 
 **What's missing:**
-- PostgreSQL vs MySQL decision guide
-- pgvector for AI similarity search
-- Full-text search (PostgreSQL tsvector)
-- JSONB patterns for flexible schemas
-- PostgreSQL-specific optimisations
-- Vector database options (Pinecone, Weaviate, Qdrant)
-- Embedding storage and retrieval patterns
-- Semantic search implementation
+- PostgreSQL syntax differences from MySQL (key gotchas)
+- JSONB — flexible schema for AI metadata storage
+- Full-text search (tsvector/tsquery) vs MySQL FULLTEXT
+- pgvector: storing/querying 1536-dimension embeddings
+- HNSW indexes for fast approximate nearest-neighbour search
+- Supabase: PostgreSQL + auth + realtime + vector in one service
+- Connection pooling with PgBouncer (important at scale)
 
-**Best reading material:**
-- **Primary:** *PostgreSQL: Up and Running* — Regina Obe & Leo Hsu
-- **Primary:** pgvector documentation + Supabase Vector docs
-- **Secondary:** *The Art of PostgreSQL* — Dimitri Fontaine
-- **Reference:** Neon.tech blog, Supabase blog on vector search
+**Books to buy / find:**
 
-**Skill to create:** `postgresql-patterns`, `vector-databases`
+| Resource | Format | Why |
+|----------|--------|-----|
+| *PostgreSQL: Up and Running* — Regina Obe & Leo Hsu (O'Reilly, 3rd ed) | Book (~$50) | Best practical intro — covers core + advanced in 250 pages |
+| *The Art of PostgreSQL* — Dimitri Fontaine | Book (~$40, leanpub.com) | Intermediate — SQL patterns, window functions, JSONB |
+| pgvector README — github.com/pgvector/pgvector | Free (GitHub) | The definitive pgvector reference — read the entire README |
+| Supabase Vector documentation — supabase.com/docs/guides/ai | Free (online) | Practical pgvector + Supabase patterns |
+| Neon.tech blog on vector search | Free (online) | Real production patterns with pgvector |
+
+**Start with:** *PostgreSQL: Up and Running* + pgvector README (free).
+
+**Skills to create:** `postgresql-patterns`, with pgvector as a dedicated section
 
 ---
 
-## GAP 8: Node.js / TypeScript Backend (MEDIUM-HIGH)
+## GAP 4: Vector Databases & Embeddings (HIGH — AI-enabling)
 
-**Severity:** Medium-High | **Business Impact:** Many AI/real-time features are easier in Node.js
+**Severity:** High | **Impact:** RAG pipelines need a retrieval layer — this is it
+
+**What this is:** You generate embeddings (numerical vectors representing meaning) from text
+using an API (OpenAI `text-embedding-3-small`, Cohere embed, etc.), then store and query
+them in a vector database to find semantically similar content.
+
+**The RAG pipeline (requires this gap filled):**
+```
+User query
+    → embed query (OpenAI API)
+    → search vector DB for similar chunks
+    → retrieve top-K chunks
+    → inject chunks into LLM prompt as context
+    → LLM generates answer grounded in your data
+```
 
 **What's missing:**
-- Node.js production patterns (Express, Fastify, Hono)
-- TypeScript backend with strict typing
-- Dependency injection in TypeScript (tsyringe, InversifyJS)
-- ORM patterns (Prisma, Drizzle)
-- Background jobs (BullMQ, Agenda)
-- Caching strategies (Redis, in-memory)
-- Health checks and observability
-- API middleware patterns
+- Generating embeddings (OpenAI, Cohere, open-source models)
+- Chunking strategies: fixed-size vs semantic vs hierarchical
+- Metadata filtering: filter by tenant_id, date, document_type
+- Hybrid search: combine vector similarity with keyword (BM25) search
+- Re-ranking: reorder results with a cross-encoder before LLM prompt
+- Vector DB options: Pinecone, Qdrant, Weaviate, Chroma (local dev)
+- Production patterns: index updates, staleness, cost management
 
-**Best reading material:**
-- **Primary:** *Node.js Design Patterns* — Mario Casciaro & Luciano Mammino (3rd ed)
-- **Primary:** *Programming TypeScript* — Boris Cherny
-- **Secondary:** Fastify docs, Hono docs (modern alternatives to Express)
-- **Reference:** Prisma docs, BullMQ docs
+**Books to buy / find:**
+
+| Resource | Format | Why |
+|----------|--------|-----|
+| *AI Engineering* — Chip Huyen (O'Reilly, 2025) | Book (~$60) | **The definitive book** — RAG chapter is the best available explanation. Buy this first. |
+| *Hands-On Large Language Models* — Jay Alammar & Maarten Grootendorst (O'Reilly, 2024) | Book (~$60) | Visual, accessible — embeddings and RAG explained with diagrams |
+| *AI-Powered Search* — Trey Grainger (Manning, 2024) | Book (~$55) | Hybrid search (vector + keyword) in depth |
+| Pinecone documentation — docs.pinecone.io | Free (online) | Best-in-class managed vector DB docs, with code examples |
+| Qdrant documentation — qdrant.tech/documentation | Free (online) | Best self-hosted option, excellent docs |
+| LlamaIndex documentation — docs.llamaindex.ai | Free (online) | Practical RAG framework; shows real chunking/retrieval patterns |
+
+**Start with:** *AI Engineering* (Chip Huyen) + Pinecone docs.
+*AI Engineering* is the single most important book for this entire domain.
+
+**Skills to create:** `vector-databases` (covers Pinecone, Qdrant, pgvector, chunking, hybrid search)
+
+---
+
+## GAP 5: AI RAG Patterns (Deep Implementation) (HIGH)
+
+**Severity:** High | **Impact:** Your ai-rag-patterns skill has the theory; it needs the implementation depth
+
+**Note:** The existing `ai-rag-patterns` skill covers RAG architecture at a conceptual level.
+This gap is about the *production implementation* — the code, the failure modes, the cost patterns.
+
+**What's still missing:**
+- Naive RAG → Advanced RAG → Modular RAG progression
+- Query transformation: HyDE (Hypothetical Document Embeddings), multi-query
+- Contextual compression: reduce token cost by summarising retrieved chunks
+- Self-RAG: LLM decides when to retrieve and whether result is relevant
+- Evaluation metrics: faithfulness, answer relevance, context relevance (RAGAS framework)
+- Multi-tenant RAG: isolate tenant embeddings, prevent cross-tenant retrieval
+- Cost management: embedding costs, retrieval latency, LLM context costs
+- Failure modes: empty retrieval, irrelevant retrieval, hallucination despite context
+
+**Books to buy / find:**
+
+| Resource | Format | Why |
+|----------|--------|-----|
+| *AI Engineering* — Chip Huyen (O'Reilly, 2025) | Book (~$60) | RAG chapter + evaluation — most complete treatment |
+| *Building LLM Apps* — Valentina Alto (Packt, 2023) | Book (~$40) | End-to-end implementation with LangChain |
+| RAGAS documentation — docs.ragas.io | Free (online) | RAG evaluation framework — measure your RAG quality |
+| LangChain RAG guide — python.langchain.com | Free (online) | Practical patterns: multi-query, compression, self-query |
+| Anthropic Cookbook — github.com/anthropics/anthropic-cookbook | Free (GitHub) | Claude-specific RAG patterns, contextual retrieval |
+
+**Start with:** *AI Engineering* then LangChain RAG guide for the code.
+
+**Action:** Extend existing `ai-rag-patterns` skill with implementation depth,
+or create `rag-implementation` as a companion skill.
+
+---
+
+## GAP 6: Node.js / TypeScript Backend (HIGH)
+
+**Severity:** High | **Impact:** AI streaming and real-time features are easier in Node.js
+
+**Books to buy / find:**
+
+| Resource | Format | Why |
+|----------|--------|-----|
+| *Node.js Design Patterns* — Casciaro & Mammino (3rd ed, Packt) | Book (~$45) | The definitive Node.js production book |
+| Fastify documentation — fastify.dev | Free (online) | Preferred over Express; better TypeScript support |
+| Prisma documentation — prisma.io/docs | Free (online) | Best TypeScript ORM |
+| BullMQ documentation — docs.bullmq.io | Free (online) | Background job queues |
 
 **Skill to create:** `nodejs-typescript-backend`
 
 ---
 
-## GAP 9: Testing at Scale (MEDIUM)
+## GAP 7: Android AI/ML (HIGH)
 
-**Severity:** Medium | **Business Impact:** Without this, speed of delivery degrades over time
+**What's missing:** ML Kit, TensorFlow Lite, MediaPipe, Gemini Nano, Compose streaming
 
-**What's missing:**
-- End-to-end testing (Playwright, Cypress)
-- API testing automation (Postman/Newman, REST-assured)
-- Visual regression testing (Percy, Chromatic)
-- Load testing (k6, Artillery)
-- Contract testing (Pact)
-- Test data factories and fixtures
-- CI-integrated test reporting
+**Materials:**
 
-**Best reading material:**
-- **Primary:** *Testing JavaScript Applications* — Lucas da Costa
-- **Primary:** Playwright documentation
-- **Secondary:** *The Art of Unit Testing* — Roy Osherove
-- **Reference:** k6 documentation, Pact documentation
+| Resource | Format | Why |
+|----------|--------|-----|
+| Android ML Kit Guide — developers.google.com/ml-kit | Free (online) | Official guide — text, face, barcode, language |
+| TensorFlow Lite Android — tensorflow.org/lite/android | Free (online) | Custom model inference |
+| MediaPipe documentation — developers.google.com/mediapipe | Free (online) | Real-time vision |
 
-**Skill to create:** `e2e-testing`, `load-testing`
+**Skill to create:** `android-ai-ml`
 
 ---
 
-## GAP 10: Observability & Monitoring (MEDIUM)
+## GAP 8: E2E Testing (MEDIUM)
 
-**Severity:** Medium | **Business Impact:** You cannot fix what you cannot see in production
+**Materials:**
 
-**What's missing:**
-- Structured logging patterns (JSON logs, log levels)
-- Distributed tracing (OpenTelemetry)
-- Error tracking (Sentry integration)
-- Performance monitoring (APM)
-- Uptime monitoring and alerting
-- SLO/SLA definition and measurement
-- Custom metrics and dashboards (Grafana, Datadog)
-- Log aggregation (CloudWatch, Loki)
+| Resource | Format | Why |
+|----------|--------|-----|
+| Playwright documentation — playwright.dev | Free (online) | The definitive E2E testing tool |
+| *Testing JavaScript Applications* — Lucas da Costa (Manning) | Book (~$50) | Complete JS testing stack |
 
-**Best reading material:**
-- **Primary:** *Observability Engineering* — Charity Majors, Liz Fong-Jones, George Miranda
-- **Primary:** OpenTelemetry documentation
-- **Secondary:** Sentry documentation, Grafana documentation
-- **Reference:** *Site Reliability Engineering* — Google (free online)
+**Skill to create:** `e2e-testing`
+
+---
+
+## GAP 9: Observability & Monitoring (MEDIUM)
+
+**Materials:**
+
+| Resource | Format | Why |
+|----------|--------|-----|
+| *Observability Engineering* — Majors, Fong-Jones, Miranda (O'Reilly) | Book (~$55) | The definitive book on this topic |
+| Sentry documentation — docs.sentry.io | Free (online) | Error tracking for web + mobile |
+| OpenTelemetry documentation — opentelemetry.io | Free (online) | Tracing standard |
 
 **Skill to create:** `observability-monitoring`
 
 ---
 
-## GAP 11: Offline-First & Progressive Web Apps (MEDIUM)
+## Priority Book Shopping List
 
-**Severity:** Medium | **Business Impact:** East Africa connectivity patterns require offline support
+If you were buying books today, in order of ROI:
 
-**What's missing:**
-- Service Worker patterns for web
-- IndexedDB patterns and libraries (Dexie.js)
-- Background sync strategies
-- Conflict resolution for offline data
-- PWA manifest, install prompts
-- Cache-first vs network-first strategies
-- Push notifications for PWA
+| Priority | Book | Price | Closes Which Gap |
+|----------|------|-------|-----------------|
+| 1 | *AI Engineering* — Chip Huyen (O'Reilly 2025) | ~$60 | RAG + Vector DB + AI systems (covers 3 gaps) |
+| 2 | *Hands-On Large Language Models* — Alammar & Grootendorst | ~$60 | Embeddings + RAG visually explained |
+| 3 | *PostgreSQL: Up and Running* — Obe & Hsu (O'Reilly) | ~$50 | PostgreSQL + pgvector foundation |
+| 4 | *Docker Deep Dive* — Nigel Poulton | ~$35 | Cloud + deployment |
+| 5 | *Subscribed* — Tien Tzuo | ~$25 | Subscription billing strategy |
+| 6 | *Node.js Design Patterns* — Casciaro & Mammino (3rd ed) | ~$45 | Modern Node.js backend |
+| 7 | *Observability Engineering* — Majors et al. | ~$55 | Production monitoring |
+| 8 | *AI-Powered Search* — Trey Grainger (Manning) | ~$55 | Hybrid vector + keyword search |
 
-**Best reading material:**
-- **Primary:** *Building Progressive Web Apps* — Tal Ater
-- **Secondary:** Workbox documentation (Google)
-- **Reference:** web.dev PWA guide
-
-**Skill to create:** `pwa-offline-first`
+**Free resources that replace books:**
+- Stripe docs (replaces any Stripe book)
+- pgvector README on GitHub (essential, free)
+- Pinecone or Qdrant docs (excellent, free)
+- Anthropic Cookbook on GitHub (Claude-specific RAG patterns)
+- LlamaIndex docs (practical RAG framework)
+- Supabase Vector docs (pgvector + managed PostgreSQL)
 
 ---
 
-## Summary: Skills to Create by Priority
+## Summary: Remaining Skills to Create by Priority
 
-| Priority | Skill | Gap It Fills |
+| Priority | Skill | Key Resource |
 |----------|-------|--------------|
-| 1 | `ai-llm-integration` | AI/LLM in every product |
-| 2 | `react-nextjs` | Modern web frontend |
-| 3 | `typescript-modern` | Type safety everywhere |
-| 4 | `cloud-architecture` | Deployable SaaS |
-| 5 | `stripe-payments` | Revenue collection |
-| 6 | `realtime-systems` | Live data features |
-| 7 | `api-design-first` | Professional APIs |
-| 8 | `cicd-pipelines` | Automated delivery |
-| 9 | `ai-analytics-saas` | AI-differentiated SaaS |
-| 10 | `postgresql-patterns` | AI-ready databases |
-| 11 | `nodejs-typescript-backend` | Modern backend option |
-| 12 | `graphql-patterns` | Flexible API design |
-| 13 | `vector-databases` | Semantic search |
-| 14 | `observability-monitoring` | Production health |
-| 15 | `pwa-offline-first` | East Africa resilience |
+| 1 | `cloud-architecture` | *Docker Deep Dive* + AWS Well-Architected |
+| 2 | `stripe-payments` | Stripe docs (free) |
+| 3 | `postgresql-patterns` | *PostgreSQL: Up and Running* + pgvector README |
+| 4 | `vector-databases` | *AI Engineering* + Pinecone/Qdrant docs |
+| 5 | `cicd-pipelines` | *Continuous Delivery* + GitHub Actions docs |
+| 6 | `nodejs-typescript-backend` | *Node.js Design Patterns* |
+| 7 | `android-ai-ml` | ML Kit docs (free) |
+| 8 | `e2e-testing` | Playwright docs (free) |
+| 9 | `observability-monitoring` | *Observability Engineering* |
+| 10 | `pwa-offline-first` | Workbox docs (free) |
 
 *Full roadmap: [06-new-skills-roadmap.md](06-new-skills-roadmap.md)*

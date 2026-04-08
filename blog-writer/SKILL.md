@@ -1,6 +1,6 @@
 ---
 name: blog-writer
-description: Generate SEO-optimised, bilingual blog articles with featured images, in-article photography, and distinctive per-article design. Articles are drafted and edited as markdown in docs/blogs/{slug}.md (EN) and docs/blogs/{slug}.fr.md (FR). On instruction, builds Astro blog pages from those markdown files. Works for any client website and any topic. Use when the user says "write a blog article", "create a blog post", "publish a blog", "write about [topic]", or wants to add content to the blog section.
+description: Generate SEO-optimised, bilingual blog articles with featured images, in-article photography, and distinctive per-article design. Articles are drafted and edited as markdown in docs/blogs/{slug}.md (EN) and docs/blogs/{slug}.fr.md (FR). On...
 ---
 
 # Blog Writer — Article Generation Skill

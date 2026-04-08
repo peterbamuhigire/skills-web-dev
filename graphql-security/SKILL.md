@@ -1,6 +1,6 @@
 ---
 name: graphql-security
-description: Use when building or auditing GraphQL APIs — comprehensive security hardening covering introspection exposure, DoS attacks (circular queries, alias overloading, batching), injection, authorization bypass, CSRF, SSRF, WebSocket hijacking, and the full hardening checklist. Based on Black Hat GraphQL (Aleks & Farhi).
+description: Use when building or auditing GraphQL APIs — comprehensive security hardening covering introspection exposure, DoS attacks (circular queries, alias overloading, batching), injection, authorization bypass, CSRF, SSRF, WebSocket hijacking, and the...
 ---
 
 # GraphQL Security Hardening

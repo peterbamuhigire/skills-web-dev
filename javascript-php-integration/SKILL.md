@@ -1,6 +1,6 @@
 ---
 name: javascript-php-integration
-description: "JavaScript integration patterns for PHP+JavaScript SaaS apps. Enforces JS-in-own-files architecture: data passing via data attributes/meta tags, AJAX to PHP API endpoints, CSRF protection, file organization, script loading strategy. Use when adding JavaScript to PHP pages, structuring JS file organization, passing PHP data to JavaScript, or implementing AJAX calls to PHP endpoints."
+description: JavaScript integration patterns for PHP+JavaScript SaaS apps. Enforces JS-in-own-files architecture: data passing via data attributes/meta tags, AJAX to PHP API endpoints, CSRF protection, file organization, script loading strategy. Use when...
 ---
 
 # JavaScript + PHP Integration

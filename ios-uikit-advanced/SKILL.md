@@ -1,6 +1,6 @@
 ---
 name: ios-uikit-advanced
-description: Advanced UIKit for production iOS apps — UICollectionViewDiffableDataSource with NSDiffableDataSourceSnapshot, UICollectionViewCompositionalLayout (sections with orthogonal scrolling, badges, headers), UIViewControllerTransitioningDelegate for custom transitions, UIViewPropertyAnimator for interruptible animations, UIContextMenuConfiguration for context menus, UISheetPresentationController for bottom sheets, NSFetchedResultsController with diffable sources, and prefetching with UITableViewDataSourcePrefetching. Use when building polished, premium UIKit interfaces: complex collection layouts, custom animated transitions, context menus, or smooth interactive animations.
+description: Advanced UIKit for production iOS apps — UICollectionViewDiffableDataSource with NSDiffableDataSourceSnapshot, UICollectionViewCompositionalLayout (sections with orthogonal scrolling, badges, headers), UIViewControllerTransitioningDelegate for...
 ---
 
 # iOS UIKit Advanced

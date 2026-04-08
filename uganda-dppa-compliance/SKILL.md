@@ -1,3 +1,8 @@
+---
+name: uganda-dppa-compliance
+description: Generate Uganda DPPA 2019 compliance annex for software collecting personal data. Use for any Uganda-based SaaS to produce SRS compliance sections and flag DPIA triggers.
+compatibility: Uganda-based systems. Pairs with dpia-generator.
+---
 # Skill: Uganda DPPA 2019 Compliance Requirements
 
 ## Purpose

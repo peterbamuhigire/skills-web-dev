@@ -1,6 +1,6 @@
 ---
 name: realtime-systems
-description: Use when building real-time features — live dashboards, notifications, chat, collaborative editing, order tracking, or any feature requiring push updates from server to client. Covers WebSockets, SSE, multi-tenant channel isolation, and reconnection strategies.
+description: Use when building real-time features — live dashboards, notifications, chat, collaborative editing, order tracking, or any feature requiring push updates from server to client. Covers WebSockets, SSE, multi-tenant channel isolation, and...
 ---
 
 # Real-Time Systems

@@ -1,6 +1,6 @@
 ---
 name: database-internals
-description: "Deep database internals: B-tree storage, WAL/REDO logging, MVCC, buffer pool mechanics, transaction isolation, and distributed database concepts. Use when making database design decisions that require understanding how MySQL works internally — index design, transaction isolation choice, lock behaviour, or evaluating distributed database tradeoffs."
+description: Deep database internals: B-tree storage, WAL/REDO logging, MVCC, buffer pool mechanics, transaction isolation, and distributed database concepts. Use when making database design decisions that require understanding how MySQL works internally —...
 ---
 
 # Database Internals

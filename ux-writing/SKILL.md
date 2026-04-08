@@ -1,6 +1,6 @@
 ---
 name: ux-writing
-description: "Microcopy and UX writing standards for buttons, error messages, empty states, loading states, form labels, confirmations, tooltips, and onboarding. Covers voice vs tone, accessibility in writing, translation readiness, and consistency rules. Cross-platform (web, Android, iOS). Based on Impeccable (Bakaus, 2025)."
+description: Microcopy and UX writing standards for buttons, error messages, empty states, loading states, form labels, confirmations, tooltips, and onboarding. Covers voice vs tone, accessibility in writing, translation readiness, and consistency rules...
 ---
 
 # UX Writing Skill

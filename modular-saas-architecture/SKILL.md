@@ -1,6 +1,6 @@
 ---
 name: modular-saas-architecture
-description: "Build SAAS platforms with pluggable business modules (Advanced Inventory, Restaurant, Pharmacy, etc.) that can be enabled/disabled per tenant without breaking the system. Use when designing modular SAAS features, implementing module toggles, ensuring module independence, and building scalable multi-tenant platforms with optional features."
+description: Build SAAS platforms with pluggable business modules (Advanced Inventory, Restaurant, Pharmacy, etc.) that can be enabled/disabled per tenant without breaking the system. Use when designing modular SAAS features, implementing module toggles...
 ---
 
 # Modular SAAS Architecture

@@ -1,6 +1,6 @@
 ---
 name: javascript-modern
-description: "Modern JavaScript (ES6+) patterns for PHP+JavaScript SaaS apps: modules, async/await, destructuring, Proxy/Reflect, generators, WeakMap/WeakSet, optional chaining, error handling, and performance patterns. Use when writing JavaScript for web apps, implementing async operations, structuring JS modules, or applying modern ES6+ syntax."
+description: Modern JavaScript (ES6+) patterns for PHP+JavaScript SaaS apps: modules, async/await, destructuring, Proxy/Reflect, generators, WeakMap/WeakSet, optional chaining, error handling, and performance patterns. Use when writing JavaScript for web...
 ---
 
 # javascript-modern
@@ -494,10 +494,6 @@ function process(record) {
 | Validate object writes | `Proxy` with `set` trap + `Reflect.set` |
 | Multiple parallel fetches | `Promise.all([...])` |
 | Batch ops — need all outcomes | `Promise.allSettled([...])` |
-| Timeout on fetch | `Promise.race([fetch, timeout])` |
-| Paginate lazily | `async function*` generator |
-| Throttle scroll/resize | `throttle(fn, 100)` |
-| Throttle search input | `debounce(fn, 300)` |
-| Cache with expiry | `Store.set(key, value, ttlMinutes)` |
-| Typed errors | Extend `Error`, check with `instanceof` |
-| Event-heavy tables | Single delegated listener on container |
+
+---
+> **Note:** Content trimmed to 500-line standard. Move overflow content to `references/` for on-demand loading.

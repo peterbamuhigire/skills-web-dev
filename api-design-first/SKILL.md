@@ -1,6 +1,6 @@
 ---
 name: api-design-first
-description: Use when designing or building APIs — REST conventions, OpenAPI 3 spec-first workflow, versioning, authentication, rate limiting, caching (ETags), security headers, CORS, HATEOAS, breaking changes, health checks, and GraphQL decision guide. Covers PHP backend patterns for multi-tenant SaaS.
+description: Use when designing or building APIs — REST conventions, OpenAPI 3 spec-first workflow, versioning, authentication, rate limiting, caching (ETags), security headers, CORS, HATEOAS, breaking changes, health checks, and GraphQL decision guide...
 ---
 
 # API Design First

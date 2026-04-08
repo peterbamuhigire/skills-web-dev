@@ -1,6 +1,6 @@
 ---
 name: technology-grant-writing
-description: Framework for writing winning technology grant applications. Covers grant landscape by sector (individuals, NGOs, libraries, health, education, universities), the winning proposal framework, needs assessment writing, project narrative structure, budget justification, evaluation criteria, and anti-patterns from failed applications. Use when applying for technology grants from corporate or government funders.
+description: Framework for writing winning technology grant applications. Covers grant landscape by sector (individuals, NGOs, libraries, health, education, universities), the winning proposal framework, needs assessment writing, project narrative structure...
 ---
 
 # Technology Grant Writing

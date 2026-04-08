@@ -1,6 +1,6 @@
 ---
 name: professional-word-output
-description: Generate world-class, professionally designed Microsoft Word (.docx) documents that look like a designer and communications specialist worked on them together — not AI output. Use when producing any .docx file: reports, proposals, manuals, specifications, letters, or any formal document. Covers Pandoc/python-docx generation, typography, layout, visual hierarchy, clear writing, Word styles, tables, headers/footers, TOC, cover pages, and final document polish. Produces documents that pass a professional design and editorial review.
+description: Generate world-class, professionally designed Microsoft Word (.docx) documents that look like a designer and communications specialist worked on them together — not AI output. Use when producing any .docx file: reports, proposals, manuals...
 ---
 
 # Professional Word Output

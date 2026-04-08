@@ -1,6 +1,6 @@
 ---
 name: typescript-mastery
-description: "Comprehensive TypeScript skill covering the full type system: fundamentals, generics, conditional/mapped/template literal types, utility types, strict mode, React patterns, production tsconfig, and advanced patterns from Boris Cherny (variance, infer, type branding, Option type, companion object, exception unions, typesafe event emitters). Use when writing TypeScript at any level."
+description: Comprehensive TypeScript skill covering the full type system: fundamentals, generics, conditional/mapped/template literal types, utility types, strict mode, React patterns, production tsconfig, and advanced patterns from Boris Cherny (variance...
 ---
 
 # TypeScript Mastery

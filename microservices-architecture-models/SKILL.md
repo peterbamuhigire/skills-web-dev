@@ -1,6 +1,6 @@
 ---
 name: microservices-architecture-models
-description: The three NGINX Microservices Reference Architecture networking models — Proxy, Router Mesh, and Fabric — with a model selection decision tree, API gateway design, and service discovery patterns. Invoke during HLD for any microservices-based system. Source: Stetson (NGINX MRA Ch. 1–4).
+description: The three NGINX Microservices Reference Architecture networking models — Proxy, Router Mesh, and Fabric — with a model selection decision tree, API gateway design, and service discovery patterns. Invoke during HLD for any microservices-based...
 ---
 
 # Microservices Architecture Models

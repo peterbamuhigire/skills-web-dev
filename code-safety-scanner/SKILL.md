@@ -1,6 +1,6 @@
 ---
 name: code-safety-scanner
-description: Scan any codebase for 14 critical safety issues across security vulnerabilities, server stability (500 errors), and payment misconfigurations. Use when auditing code before deployment, reviewing AI-generated code for production readiness, or checking any web application for hardcoded API keys, inverted auth logic, open admin endpoints, missing RLS, runtime exceptions, env var misconfig, infinite loops, memory leaks, race conditions, and duplicate payment charges. Works as automated scanner (structured report) or passive checklist during code reviews.
+description: Scan any codebase for 14 critical safety issues across security vulnerabilities, server stability (500 errors), and payment misconfigurations. Use when auditing code before deployment, reviewing AI-generated code for production readiness, or...
 ---
 
 # Code Safety Scanner

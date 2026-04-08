@@ -1,204 +1,206 @@
 # AI Integration Strategy
 
-**How to build AI into every layer of your product stack**
-**April 2026 | Based on current skills + frontier requirements**
+**How AI is now integrated across every layer of your product stack**
+**April 2026 (Updated) | 28 AI skills built — ecosystem is complete**
 
 ---
 
-## The Core Principle
+## The Core Achievement
 
-> Every product you build from 2026 onwards should have at least one AI-powered feature.
-> Not as a gimmick — as genuine value that users cannot get anywhere else.
+Since the first audit identified AI/LLM integration as the single biggest gap,
+**28 AI skills have been built** covering every layer from API integration to cost billing
+to safety to evaluation. The gap has been closed.
 
-Your current skills cover AI orchestration *for Claude Code development workflows*.
-What is completely absent is AI *inside your products* — features powered by LLMs that
-make your apps smarter, more personal, and worth more money.
+The next phase is **applying this ecosystem to products** — not building more foundational skills.
 
 ---
 
-## AI Layers in a SaaS Product
+## The Dual-Database Architecture for AI Apps
+
+Every AI-powered SaaS you build will use two data stores simultaneously. This is the
+standard production pattern — not a special case.
+
+```
+Your SaaS Product
+        │
+        ├──► MySQL 8 (Primary)
+        │       Users, tenants, orders, accounting,
+        │       RBAC, reports, all transactional data
+        │
+        └──► Vector Store (AI-specific)
+                Document embeddings, semantic search index,
+                knowledge base chunks, recommendation vectors
+                
+Options for vector store:
+  • pgvector on PostgreSQL — one server, SQL interface
+  • Pinecone — managed service, simple REST API
+  • Qdrant — self-hosted, open source, excellent performance
+  • Supabase — PostgreSQL + pgvector + auth + realtime managed
+```
+
+**No migration needed.** MySQL stays. You add a vector connection alongside it.
+A typical Node.js/PHP app has `$mysqlConnection` and `$pineconeClient` as separate objects.
+
+### The Embedding Pipeline (How Data Gets In)
+
+```
+New document saved to MySQL
+        │
+        ▼
+Chunk the text (500–1000 tokens per chunk)
+        │
+        ▼
+Send each chunk to embedding API
+(OpenAI text-embedding-3-small: $0.02 / 1M tokens)
+        │
+        ▼
+Store vector + metadata in vector DB
+{ vector: [0.12, -0.45, ...1536 dimensions],
+  metadata: { tenant_id, doc_id, chunk_index } }
+        │
+        ▼
+At query time: embed the query → search vector DB
+→ retrieve top-K chunks → inject into LLM prompt
+```
+
+---
+
+## AI Ecosystem Map (Current State)
 
 ```
 ┌─────────────────────────────────────────────┐
-│           USER-FACING AI FEATURES           │  ← What users see and pay for
-│  Smart search, auto-fill, explanations,     │
-│  recommendations, anomaly alerts            │
+│       USER-FACING AI FEATURES               │
+│  ai-ux-patterns, ai-slop-prevention         │
+│  ai-opportunity-canvas, ai-feature-spec     │
 ├─────────────────────────────────────────────┤
-│           AI ANALYTICS ENGINE               │  ← Insights from user data
-│  Embeddings, clustering, trend detection,   │
-│  churn prediction, revenue forecasting      │
+│       AI ANALYTICS ENGINE                   │
+│  ai-analytics-saas, ai-analytics-dashboards │
+│  ai-predictive-analytics, ai-nlp-analytics  │
+│  ai-analytics-strategy                      │
 ├─────────────────────────────────────────────┤
-│           RAG / KNOWLEDGE LAYER             │  ← Context injection
-│  Vector search, document Q&A,              │
-│  policy lookup, semantic search             │
+│       RAG / KNOWLEDGE LAYER                 │
+│  ai-rag-patterns, vector-databases (TODO)   │
+│  ai-web-apps                                │
 ├─────────────────────────────────────────────┤
-│           LLM INTEGRATION LAYER             │  ← API calls, prompts, tools
-│  Claude/GPT/Gemini/DeepSeek routing,       │
-│  prompt management, caching, fallbacks      │
+│       LLM INTEGRATION LAYER                 │
+│  ai-llm-integration, ai-prompt-engineering  │
+│  ai-agents-tools, openai-agents-sdk         │
+│  deepseek-integration                       │
 ├─────────────────────────────────────────────┤
-│           AI INFRASTRUCTURE                 │  ← Cost and reliability
-│  Model routing, prompt caching, rate limits,│
-│  token tracking, budget controls            │
+│       COST & SAFETY INFRASTRUCTURE          │
+│  ai-cost-modeling, ai-metering-billing      │
+│  ai-saas-billing, ai-security, llm-security │
+│  ai-error-handling, ai-error-prevention     │
+│  ai-evaluation                              │
 └─────────────────────────────────────────────┘
 ```
 
 ---
 
-## API Ecosystem You Must Master
+## API Ecosystem (Covered by Skills)
 
 ### Tier 1 — Primary Models
-| Provider | Best For | Key Differentiator |
-|----------|----------|-------------------|
-| **Anthropic Claude** | Complex reasoning, documents, code | Best context window, tool use |
-| **OpenAI GPT-4o** | Multimodal, established ecosystem | Widest third-party support |
-| **Google Gemini** | Long documents, Google Workspace | Native Google integrations |
-| **DeepSeek** | Cost-efficient coding/reasoning | Chinese market, low cost |
+| Provider | Skill | Best For |
+|----------|-------|----------|
+| Anthropic Claude | ai-llm-integration | Complex reasoning, documents, code |
+| OpenAI GPT-4o | ai-llm-integration, openai-agents-sdk | Multimodal, widest ecosystem |
+| DeepSeek V3/R1 | deepseek-integration | Cost-efficient coding, local deployment |
+| Google Gemini | ai-llm-integration | Long documents, Google Workspace |
 
-### Tier 2 — Specialised Models
-| Provider | Best For |
-|----------|----------|
-| **Whisper (OpenAI)** | Speech-to-text in mobile apps |
-| **ElevenLabs** | Text-to-speech for voice features |
-| **Stability AI** | Image generation |
-| **Cohere** | Embeddings, enterprise RAG |
-| **Mistral** | European privacy compliance |
+### Tier 2 — Specialised (Covered in ai-llm-integration)
+- Whisper (speech-to-text), ElevenLabs (TTS), Cohere (embeddings)
 
 ### Key Principle: Never Hard-Code a Single Provider
-Build a model router from day one. Route by: capability, cost, latency, and compliance region.
+`ai-architecture-patterns` defines the model router pattern. Route by:
+capability, cost, latency, and compliance region.
 
 ---
 
-## Skills You Need to Build
+## What Each AI Skill Does
 
-### 1. `ai-llm-integration` (Priority 1)
-**Core topics:**
-- Anthropic SDK (Python + TypeScript + PHP)
-- OpenAI SDK integration
-- Streaming responses to web and mobile UI
-- Tool use / function calling patterns
-- Prompt templates and versioning
-- Conversation history management
-- Output parsing and validation
-- Error handling (rate limits, context overflow, model errors)
-- Prompt caching (Anthropic 90% cost reduction)
-- Multi-provider fallback routing
+### Integration Foundation
+- **ai-llm-integration** — Direct API calls, streaming, tool use, caching, multi-provider
+- **ai-prompt-engineering** — Templates, CoT, versioning, defensive prompting
+- **ai-agents-tools** — ReAct loop, tool definitions, multi-agent orchestration
 
-**Source material:** *AI Engineering* (Chip Huyen 2024), Anthropic docs
+### Product & Analytics
+- **ai-opportunity-canvas** — Discover which AI features to build first
+- **ai-feature-spec** — Design one AI feature end-to-end
+- **ai-analytics-saas** — NL2SQL, embeddings, anomaly detection inside SaaS
+- **ai-analytics-dashboards** — KPI cards, AI Insights panel, role-based views
+- **ai-predictive-analytics** — LLM-based predictions without ML infrastructure
+- **ai-nlp-analytics** — Sentiment, classification, NER, multi-language
 
-### 2. `ai-analytics-saas` (Priority 9)
-**Core topics:**
-- Embedding user behaviour data
-- Semantic clustering of support tickets
-- Anomaly detection for financial data
-- Churn prediction signals
-- Natural language query of business data (Text-to-SQL)
-- Automated insight generation (weekly summaries)
-- Dashboard co-pilot patterns
-- Privacy-safe analytics (no PII in prompts)
+### Architecture & Cost
+- **ai-architecture-patterns** — Module gate, budget guard, provider abstraction
+- **ai-app-architecture** — AI-powered app stack design
+- **ai-cost-modeling** — Token economics, per-user/tenant cost calculator
+- **ai-metering-billing** — Token ledger schema, middleware, invoice generation
+- **ai-saas-billing** — Module gating (off by default), quota management
 
-**Source material:** *AI Engineering*, *Designing ML Systems* (Chip Huyen)
-
-### 3. `ai-prompt-engineering` (Priority 3 sub-skill)
-**Core topics:**
-- System prompt architecture
-- Few-shot examples for consistency
-- Chain-of-thought for complex tasks
-- Self-consistency and verification
-- Constitutional AI principles in prompts
-- Prompt injection prevention
-- A/B testing prompts in production
-- Prompt version control
-
-**Source material:** Anthropic prompt engineering guide, *Prompt Engineering Guide* (DAIR.AI)
-
-### 4. `vector-databases` (Priority 13)
-**Core topics:**
-- Embedding generation (text-embedding-3-small, Cohere embed)
-- pgvector for PostgreSQL
-- Pinecone / Qdrant / Weaviate patterns
-- Chunking strategies for documents
-- Metadata filtering
-- Hybrid search (vector + keyword)
-- RAG pipeline architecture
-- Re-ranking results
+### Safety & Quality
+- **ai-security** — Prompt injection, PII scrubbing, DPPA compliance
+- **llm-security** — OWASP LLM Top 10, trust boundaries
+- **ai-error-handling** — 5-layer validation stack, quality scoring
+- **ai-error-prevention** — Verify-first, TDD for AI output
+- **ai-evaluation** — Golden test sets, AI-as-judge, drift detection
 
 ---
 
 ## AI in Mobile Apps
 
-### iOS AI Features (Extend `ios-ai-ml`)
-Current: CoreML, Vision, NaturalLanguage, CreateML.
-**Add:**
-- On-device LLM inference (Apple Intelligence APIs, iOS 18+)
-- Streaming Claude/GPT responses in SwiftUI
-- AI-powered camera features (Vision + LLM description)
-- Voice interfaces (Whisper + ElevenLabs)
-- Offline AI with Core ML models
-- Privacy-preserving on-device processing
+### iOS — Already Well-Covered
+`ios-ai-ml` covers: CoreML, Vision, NaturalLanguage, CreateML.
+**Still needed:** On-device LLM inference via Apple Intelligence APIs (iOS 18+),
+streaming Claude/GPT responses in SwiftUI, privacy-preserving on-device processing.
+**Action:** Extend `ios-ai-ml` when Apple Intelligence APIs stabilise.
 
-### Android AI Features
-**Create `android-ai-ml`:**
-- ML Kit (Google's on-device ML)
-- TensorFlow Lite integration
-- MediaPipe for real-time vision
-- Gemini Nano (on-device, Android 14+)
-- Streaming AI responses in Compose UI
-- Voice interfaces
+### Android — Gap
+`android-ai-ml` skill does not exist yet.
+**Needs:** ML Kit, TensorFlow Lite, MediaPipe, Gemini Nano (on-device, Android 14+),
+streaming AI responses in Compose UI.
+**Action:** Create `android-ai-ml` — this is GAP 5 in the gap analysis.
 
 ---
 
-## AI Safety in Production
+## AI Safety — Non-Negotiable Requirements
 
-Every AI feature must have:
-1. **Output validation** — LLMs hallucinate. Validate structure, check facts where possible.
-2. **User transparency** — Mark AI-generated content clearly. Don't mislead users.
-3. **Graceful degradation** — If AI fails, the core feature still works.
-4. **Cost limits** — Set per-user, per-day token budgets. Prevent cost bombs.
-5. **PII guards** — Strip or mask personal data before sending to external APIs.
-6. **Audit logs** — Log all AI calls for debugging and compliance.
-7. **Human override** — Critical AI decisions must be reviewable/overridable.
+Every AI feature must implement (covered across `ai-security`, `ai-error-handling`):
+
+1. **Output validation** — validate structure, check for hallucinations where possible
+2. **User transparency** — mark AI-generated content clearly
+3. **Graceful degradation** — if AI fails, core feature still works
+4. **Cost limits** — per-user, per-day token budgets (ai-saas-billing)
+5. **PII guards** — strip/mask personal data before sending to external APIs
+6. **Audit logs** — log all AI calls for debugging and compliance
+7. **Human override** — critical AI decisions must be reviewable
 
 ---
 
 ## AI Features That Justify Premium Pricing
 
-These are features users will pay extra for:
+These justify higher tier pricing per `ai-saas-billing` module gating:
 
-| Feature | Monetisation Model | Implementation |
-|---------|-------------------|----------------|
-| Document Q&A | Per-query or premium tier | RAG + LLM |
-| Smart data entry | Included in paid plan | LLM extraction from documents |
-| Automated reports with narrative | Premium feature | LLM summarisation |
-| Anomaly alerts with explanation | Premium tier | ML + LLM explanation |
-| Natural language search | Premium or included | Embeddings + semantic search |
-| AI assistant / co-pilot | Highest tier | Full LLM integration |
-| Predictive analytics | Analytics tier | Embeddings + ML models |
-
----
-
-## Recommended Reading — AI Integration
-
-| Book / Resource | Priority | Why |
-|----------------|----------|-----|
-| *AI Engineering* — Chip Huyen (2024) | P1 | Best modern LLM integration book |
-| Anthropic Cookbook (github) | P1 | Production Claude patterns |
-| *Designing ML Systems* — Chip Huyen | P2 | Production ML at scale |
-| *Building LLM Apps* — Valentina Alto | P2 | End-to-end LLM app development |
-| *Prompt Engineering Guide* (DAIR.AI) | P2 | Prompting science and patterns |
-| *AI-Powered Search* — Trey Grainger | P3 | Semantic and hybrid search |
-| *The Deep Learning Book* — Goodfellow | P4 | Foundations (optional depth) |
+| Feature | Skill to Build With | Tier |
+|---------|---------------------|------|
+| Document Q&A | ai-rag-patterns + ai-llm-integration | Premium |
+| Smart data entry | ai-llm-integration | Paid |
+| Automated reports with narrative | ai-predictive-analytics | Premium |
+| Anomaly alerts with explanation | ai-analytics-saas | Premium |
+| Natural language search | ai-analytics-saas | Paid/Premium |
+| AI assistant / co-pilot | ai-agents-tools | Highest |
+| Predictive analytics dashboard | ai-analytics-dashboards | Premium |
 
 ---
 
-## Implementation Order
+## Next Actions — AI Is Now Feature Work, Not Skill Building
 
-1. **Build `ai-llm-integration` skill** — covers the API integration layer
-2. **Add AI feature to one existing product** — prove the pattern works
-3. **Build `ai-prompt-engineering` skill** — production prompt management
-4. **Build `vector-databases` skill** — unlock RAG and semantic search
-5. **Build `ai-analytics-saas` skill** — AI insights in every SaaS dashboard
-6. **Extend `ios-ai-ml`** — on-device + cloud AI for iOS
-7. **Create `android-ai-ml`** — parity for Android
+1. **Pick one SaaS product** and apply the ai-opportunity-canvas skill to identify AI features
+2. **Use ai-feature-spec** to design the first AI feature end-to-end
+3. **Build it with ai-llm-integration** — streaming response in the UI
+4. **Apply ai-cost-modeling** — price the feature into a tier
+5. **Create `vector-databases` skill** — the one remaining AI infrastructure gap
+6. **Create `android-ai-ml` skill** — close the mobile AI parity gap
 
 ---
 

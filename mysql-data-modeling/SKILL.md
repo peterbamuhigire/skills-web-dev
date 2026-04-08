@@ -1,6 +1,6 @@
 ---
 name: mysql-data-modeling
-description: "Universal SaaS data modeling patterns from Silverston's Data Model Resource Books. Use when designing database schemas for people/organisations, products, orders, invoicing, HR, or accounting. Covers party model, role-based relationships, product classification hierarchies, order lifecycle, and universal identifier patterns."
+description: Universal SaaS data modeling patterns from Silverston's Data Model Resource Books. Use when designing database schemas for people/organisations, products, orders, invoicing, HR, or accounting. Covers party model, role-based relationships, product...
 ---
 
 # Universal Data Modeling Patterns for SaaS (Silverston)

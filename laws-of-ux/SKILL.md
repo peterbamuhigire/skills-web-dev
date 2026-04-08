@@ -1,6 +1,6 @@
 ---
 name: laws-of-ux
-description: Comprehensive named-law quick reference for all 30 Laws of UX (Yablonski) plus classic design heuristics. Load when citing, applying, or evaluating any named UX law by name. Covers Fitts, Hick, Miller, Jakob, Tesler, Postel, Doherty, Zeigarnik, Peak-End, Gestalt, and all Yablonski laws.
+description: Comprehensive named-law quick reference for all 30 Laws of UX (Yablonski) plus classic design heuristics. Load when citing, applying, or evaluating any named UX law by name. Covers Fitts, Hick, Miller, Jakob, Tesler, Postel, Doherty, Zeigarnik...
 ---
 
 # Laws of UX — Complete Reference

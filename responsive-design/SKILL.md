@@ -1,6 +1,6 @@
 ---
 name: responsive-design
-description: "Mobile-first responsive design standards covering content-driven breakpoints, container queries, pointer/hover detection, safe areas, responsive images, layout adaptation patterns, and real-device testing. Cross-platform web skill. Based on Impeccable (Bakaus, 2025)."
+description: Mobile-first responsive design standards covering content-driven breakpoints, container queries, pointer/hover detection, safe areas, responsive images, layout adaptation patterns, and real-device testing. Cross-platform web skill. Based on...
 ---
 
 # Responsive Design Skill

@@ -1,6 +1,6 @@
 ---
 name: kmp-development
-description: Kotlin Multiplatform shared module development standards for sharing business logic across Android and iOS while keeping native UI. Covers project structure (shared/composeApp/iosApp), source sets, targets, expect/actual, DI (Koin), modularization, networking (Ktor), database (SQLDelight/Room KMP), storage (DataStore/Multiplatform Settings), native library integration (CocoaPods), and tooling (SKIE, KMMBridge, KDoctor). For composeApp/ follow android-development skill. For iosApp/ follow ios-development skill. Use when starting or working on KMP projects.
+description: Kotlin Multiplatform shared module development standards for sharing business logic across Android and iOS while keeping native UI. Covers project structure (shared/composeApp/iosApp), source sets, targets, expect/actual, DI (Koin)...
 ---
 
 # Kotlin Multiplatform Development Standards

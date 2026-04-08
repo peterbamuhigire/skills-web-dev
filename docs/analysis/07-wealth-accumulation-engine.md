@@ -1,14 +1,11 @@
 # Wealth Accumulation Engine
 ## How Your Skills Library Translates to Financial Independence
 
-**April 2026 | Based on: The Nomadic Developer, Business of Software, INSPIRED,
-Escaping the Build Trap, SaaS 100 Success Secrets, Mastering SPM**
+**April 2026 (Updated) | 174 skills | AI ecosystem complete | Infrastructure gaps remain**
 
 ---
 
 ## The Core Business Model Stack
-
-Your book collection reveals a clear multi-stream strategy:
 
 ```
 STREAM 1: Consulting (Nomadic Developer model)
@@ -28,192 +25,173 @@ STREAM 4: Licensing / White-labelling (Business of Software model)
 
 ## Stream 1: Technology Consulting
 
-**The Nomadic Developer model** — high-value, portable, location-independent.
+### What Your Skills Enable Now (Updated)
 
-### What Your Skills Enable
-Your current skills make you **immediately competitive** in:
-- iOS and Android app development (23 + 14 skills)
-- Healthcare IT systems (healthcare-ui-design)
-- Restaurant/POS systems (pos-sales-ui-design)
-- SaaS product development (multi-tenant, modular architecture)
-- Database design and performance (5 MySQL skills)
-- SDLC documentation (11 skills — rare differentiator)
-- Security audits (3 security skills)
+Your current 174 skills make you **immediately competitive** in:
+- iOS apps — 23 expert skills, architecture to monetisation
+- Android apps — 11 solid skills
+- AI-powered web and mobile features — 28 AI skills
+- React/Next.js web applications — 6 skills, full modern stack
+- Healthcare IT systems — healthcare-ui-design
+- Restaurant/POS systems — pos-sales-ui-design
+- SaaS product development — multi-tenant, modular, microservices
+- Database design and performance — 7 MySQL skills
+- SDLC documentation — 12 skills (rare differentiator)
+- Security audits — 9 skills
 
 ### What Will Command Premium Rates
-Add these to triple your consulting rate:
-- **AI integration** — every client wants AI; few developers can deliver it well
-- **React/Next.js** — the dominant web frontend stack
-- **Cloud architecture** — clients pay for deployment expertise
-- **Stripe integration** — revenue systems are high-stakes work
+- **AI integration** — you now have 28 AI skills; most developers have zero
+- **React/Next.js + TypeScript** — now covered; position actively
+- **Cloud architecture + Stripe** — still gaps; filling these by 2026 Q3 triples rate ceiling
+- **iOS + AI combination** — virtually nobody has `ios-ai-ml` depth + `ai-llm-integration` depth
 
 ### Consulting Positioning Strategy
-Do not position as a generalist. Position as:
-> *"I build AI-powered, world-class mobile and web SaaS products for East African
-> businesses and global clients — products that users love and recommend."*
+> *"I build AI-powered, world-class mobile and web SaaS products — products that users love,
+> recommend, and pay for — for East African businesses and global clients."*
 
-### Rate Strategy (from Software Pricing Strategy skill)
-- **Local East Africa market:** $3,000–15,000 per project
-- **Remote international market:** $80–200/hour or $15,000–80,000 per project
-- **Grant-funded projects:** $50,000–500,000 per grant project
-- Premium is justified by: AI features, design quality, security, documentation depth
+This positioning is now **credible**. You have the skills to back it.
+
+### Rate Strategy
+- **Local East Africa:** $5,000–20,000 per project (AI features justify 50% premium)
+- **Remote international:** $100–250/hour or $20,000–100,000 per project
+- **Grant-funded:** $50,000–500,000 per grant project
+- **AI-differentiated work** commands 30–60% premium over equivalent non-AI work
 
 ---
 
 ## Stream 2: SaaS Products
 
-**The INSPIRED model** — build what customers love, not what they ask for.
-**The Escaping Build Trap model** — measure outcomes, not features.
+### Your Updated SaaS Advantages
 
-### Your SaaS Advantages
-1. **Multi-tenant architecture skill** — can build for any industry
-2. **Modular architecture skill** — add industry modules without rebuilding
-3. **Double-entry accounting** — built-in financial correctness
-4. **RBAC** — multi-role, multi-tenant from day one
-5. **UI/UX depth** — 17 skills means your app *looks and feels* premium
+1. **AI-powered features from day 1** — 28 AI skills, no other solo developer has this
+2. **Multi-tenant architecture** — modular, scalable, multi-industry
+3. **Double-entry accounting** — financial correctness built in
+4. **Full RBAC** — multi-role, multi-tenant from day one
+5. **React/Next.js frontend** — premium UI that wins against legacy web apps
+6. **17+ UI/UX skills** — design quality that justifies premium pricing
 
-### Vertical SaaS Opportunities (East Africa Focus)
-Vertical SaaS commands 2–5x higher prices than horizontal SaaS.
+### Vertical SaaS Opportunities (Updated)
 
-| Vertical | Your Existing Skills | Gap to Fill |
-|----------|---------------------|-------------|
-| Healthcare SaaS | healthcare-ui-design, dual-auth-rbac | EMR integrations, HL7 |
-| Restaurant POS | pos-restaurant-ui-standard, accounting | Stripe/M-Pesa payments |
-| Pharmacy management | inventory-management (complete it), accounting | Regulatory reporting |
-| Logistics/Delivery | gis-mapping, mobile-reports | Real-time tracking |
-| Construction ERP | modular-saas-architecture, accounting | Project costing module |
-| School management | modular-saas-architecture, rbac | Government reporting |
+| Vertical | Your Skills | Remaining Gap |
+|----------|-------------|---------------|
+| Healthcare SaaS | healthcare-ui-design, ai-llm-integration, dual-auth-rbac | Cloud deploy + Stripe |
+| Restaurant POS | pos-sales-ui-design, saas-accounting-system | Complete stub, add Stripe |
+| Pharmacy management | saas-accounting-system, api-design-first | inventory-management stub |
+| Logistics/Delivery | gis-mapping, realtime-systems, mobile-reports | Cloud + Stripe |
+| Construction ERP | modular-saas-architecture, accounting | Cloud + Stripe |
+| School management | modular-saas-architecture, rbac, ai-analytics-saas | Cloud + Stripe |
+
+**The pattern is clear:** Every vertical is blocked by the same two gaps — cloud deployment
+and payment collection. Fill those two gaps in 2026 Q2–Q3 and all verticals unlock.
 
 ### SaaS Pricing Architecture
-From `software-pricing-strategy`:
 - **Freemium → Paid:** Free tier with real limits, paid removes them
-- **Usage-based:** AI features billed per call or per result
+- **AI features gated:** AI tier at 1.5–3x base price (ai-saas-billing module gating)
 - **Seat-based:** Enterprise contracts, predictable MRR
-- **Value-based:** Price to the outcome, not the feature count
+- **Value-based:** Price to the outcome, especially for AI-generated insights
 
-### Product-Led Growth Tactics (Gap — needs new skill)
-- Self-service onboarding (no sales call needed)
-- In-app upgrade prompts at the moment of value
-- Viral loops (share a report, invite a colleague)
-- Free tier as the best marketing channel
-
-### SaaS Metrics to Track (from `saas-business-metrics`)
-- **MRR** (Monthly Recurring Revenue) — primary health indicator
-- **NRR** (Net Revenue Retention) > 100% = growing without new customers
-- **LTV:CAC ratio** > 3:1 = sustainable acquisition
-- **Time-to-value** < 10 minutes = product-led growth possible
-- **Churn rate** < 2%/month = healthy retention
+### SaaS Metrics to Track
+- **MRR** — primary health indicator
+- **NRR** > 100% = growing without new customers
+- **LTV:CAC** > 3:1 = sustainable acquisition
+- **Time-to-value** < 10 minutes = PLG possible
+- **Churn** < 2%/month = healthy retention
 
 ---
 
 ## Stream 3: Technology Grants
 
-**From Winning at IT** — grants are 6–7 figure revenue opportunities.
+### Your Grant Advantages (Strengthened)
 
-### Your Grant Advantages
 - `technology-grant-writing` skill exists
-- Deep SDLC documentation skills (ISO-compliant — grant reviewers love this)
-- Healthcare UI expertise (health grants are large)
-- GIS/mapping expertise (infrastructure/agriculture grants)
+- `ai-integration-section` — can generate the AI section of any grant proposal
+- Deep SDLC documentation (ISO-compliant — grant reviewers require this)
+- Healthcare UI expertise (digital health grants are the largest category)
+- GIS/mapping (agriculture and infrastructure grants)
+- AI analytics (education, financial inclusion grants are AI-ready)
 
 ### Target Grant Categories (East Africa)
-- **Digital Health** (USAID, Gates Foundation, Wellcome Trust)
-- **Financial Inclusion** (AFI, UNCDF, World Bank IFC)
-- **Agriculture Technology** (AGRA, Alliance for a Green Revolution)
-- **Education Technology** (USAID, MasterCard Foundation)
-- **Government Digitisation** (World Bank, UNDP)
+- **Digital Health** — USAID, Gates Foundation, Wellcome Trust
+- **Financial Inclusion** — AFI, UNCDF, World Bank IFC
+- **Agriculture Technology** — AGRA, Alliance for a Green Revolution
+- **Education Technology** — USAID, MasterCard Foundation
+- **Government Digitisation** — World Bank, UNDP, African Development Bank
 
-### Grant Proposal Formula (from skill)
-1. Problem statement — quantified impact
-2. Technical solution — your architecture + methodology
-3. Team credentials — your skills library IS your credentials
-4. Evaluation plan — how you'll measure success
-5. Budget justification — cost per impact unit
-6. Sustainability plan — how it continues after grant ends
+**The AI angle is now your grant differentiator.** In 2026, grants that do not include an
+AI component are increasingly losing to proposals that do. Your 28 AI skills make this
+the strongest part of any proposal you write.
 
 ---
 
 ## Stream 4: Licensing & White-Labelling
 
-**The Business of Software model** — sell what you build once to many buyers.
-
 ### Products That License Well
-- **Restaurant POS system** — sell to restaurant chains, franchise operators
-- **Healthcare EMR** — sell per-hospital or per-clinic
-- **SaaS accounting module** — license the accounting engine to other developers
-- **RBAC engine** — white-label the auth/permission system
 
-### White-Label Strategy
+- **Healthcare EMR with AI** — sell per-hospital, premium with AI analytics tier
+- **Restaurant POS system** — sell to chains and franchise operators
+- **SaaS accounting module** — license the double-entry engine to other developers
+- **RBAC + Auth engine** — white-label the auth/permission system
+
+### White-Label Maths
 Build once with `modular-saas-architecture`, deploy for multiple clients:
 - Core engine: ~$50,000 build cost (amortised)
 - Per client customisation: $3,000–8,000
 - Per client licensing: $500–2,000/month
-
-At 20 clients: $10,000–40,000 MRR from one codebase.
+- At 20 clients: $10,000–40,000 MRR from one codebase
 
 ---
 
-## The 2040s Wealth Strategy
+## The Revised 2040s Strategy
 
-### Phase 1 (2026–2027): Build the Engine
-- Fill critical skill gaps (AI, React, Cloud, Stripe)
-- Launch 1–2 vertical SaaS products
-- Win 1–2 technology grants
-- Build consulting practice to $5,000–10,000/month
+### Phase 1 (2026): Close Infrastructure Gap
+- Fill cloud + payments gaps (Q2–Q3)
+- Launch 1–2 vertical SaaS products with AI features
+- Win 1 technology grant using AI integration section
+- Consulting to $7,000–15,000/month
 
-### Phase 2 (2028–2030): Scale the Products
-- AI-differentiated SaaS products with 100+ paying customers
-- MRR: $10,000–50,000/month
-- International consulting at $150–200/hour
+### Phase 2 (2027–2028): Scale the Products
+- AI-differentiated SaaS with 100+ paying customers
+- MRR: $15,000–60,000/month
+- International consulting at $150–250/hour
 - 2–3 grant projects per year
 
-### Phase 3 (2031–2035): License and Compound
-- White-label your proven SaaS products
+### Phase 3 (2029–2032): License and Compound
+- White-label proven SaaS products to 10–20 clients
 - Hire developers using your skills library as training material
-- Consulting practice becomes a micro-agency
 - MRR target: $50,000–200,000/month
 
-### Phase 4 (2036–2040): Platform and Exit Options
-- Your SaaS products become platforms with API ecosystems
+### Phase 4 (2033–2040): Platform and Exit Options
+- SaaS products become platforms with API ecosystems
 - Partner channel: other developers build on your platform
-- Exit options: acquisition, IPO (East Africa tech market), or hold
 - Target: $1M–10M ARR
 
 ---
 
 ## The Single Insight That Changes Everything
 
-> The difference between a developer who earns $30,000/year and one who earns $300,000/year
-> is rarely skill depth in one domain. It's the *combination* of:
-> 1. Business model thinking (your books cover this)
-> 2. AI-differentiated execution (your biggest gap)
-> 3. Distribution and positioning (your next investment)
-> 4. Recurring revenue, not project revenue (SaaS over consulting)
+> In the first audit, the gap was AI. You filled it — 28 skills, enterprise-grade ecosystem.
+> Now the gap is infrastructure: cloud + payments. This is a smaller, faster fill.
+>
+> You can build world-class AI-powered products. You cannot yet deploy them to paying
+> customers at scale. Fix that in the next 90 days.
 
-Your skills library already has the execution depth. The gaps are:
-- **AI integration** — the feature that justifies premium pricing in 2026
-- **Stripe + billing** — the infrastructure that converts value into money
-- **React/Next.js** — the presentation layer that wins users
-- **PLG tactics** — the distribution engine that replaces a sales team
-
-Fill those four gaps and your wealth accumulation engine is complete.
+Cloud deployment + Stripe + CI/CD = the three skills that convert your execution depth
+into recurring revenue. Everything else is already there.
 
 ---
 
 ## Recommended Reading (Business Layer)
 
-| Book | Why | Key Takeaway |
-|------|-----|-------------|
-| *The Nomadic Developer* (Erickson) | Consulting model | Build portable, premium positioning |
-| *INSPIRED* (Cagan) | Product thinking | Outcome > output; discover before building |
-| *Escaping the Build Trap* (Perri) | Avoid feature factory | Measure value delivered, not features shipped |
-| *The Business of Software* (Cusumano) | Business models | Software economics, licensing, competition |
-| *SaaS 100 Success Secrets* | SaaS tactics | 100 proven patterns for SaaS growth |
-| *Subscribed* (Tzuo) | Subscription economics | Why recurring > transactional |
-| *Product-Led Growth* (Bush) | PLG | Freemium done right |
-| *Mastering SPM* (in library) | Execution | Strategy → roadmap → delivery |
+| Book | Why | Status |
+|------|-----|--------|
+| *The Nomadic Developer* (Erickson) | Consulting model | Covered |
+| *INSPIRED* (Cagan) | Product thinking | Covered |
+| *Subscribed* (Tzuo) | Subscription economics | Read for stripe-payments skill |
+| *Product-Led Growth* (Bush) | PLG | Read for product-led-growth skill |
+| *AI Engineering* (Huyen 2024) | AI integration | Covered in ai-llm-integration |
+| *Docker Deep Dive* (Poulton) | Cloud deployment | Priority read — cloud-architecture skill |
 
 ---
 
-*This analysis was generated April 2026. Review and update quarterly.*
+*This analysis was revised April 2026. Review and update quarterly.*
 *Return to: [00-index.md](00-index.md)*

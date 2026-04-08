@@ -1,6 +1,6 @@
 ---
 name: ios-rbac
-description: "Role-Based Access Control for iOS apps integrating with a multi-tenant SaaS backend. Covers permission fetching, Keychain caching, SwiftUI permission gates (PermissionGate, ModuleGate), module-gated TabView, navigation guards, offline-capable permission checks, and defense-in-depth patterns. Use when implementing permission-based UI gating or role-based feature access in iOS apps."
+description: Role-Based Access Control for iOS apps integrating with a multi-tenant SaaS backend. Covers permission fetching, Keychain caching, SwiftUI permission gates (PermissionGate, ModuleGate), module-gated TabView, navigation guards, offline-capable...
 ---
 
 ## Required Plugins

@@ -1,6 +1,6 @@
 ---
 name: ux-psychology
-description: Foundational cognitive science for design. Covers dual-process thinking, memory limits, attention, Gestalt, motivation (SDT), cognitive biases, dark patterns, and design laws (Fitts, Hick-Hyman, Von Restorff). Referenced by all design skills. Load this skill whenever you need to make design decisions grounded in how humans actually think.
+description: Foundational cognitive science for design. Covers dual-process thinking, memory limits, attention, Gestalt, motivation (SDT), cognitive biases, dark patterns, and design laws (Fitts, Hick-Hyman, Von Restorff). Referenced by all design skills...
 ---
 
 # UX Psychology — Cognitive Science Foundations

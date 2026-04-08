@@ -1,6 +1,6 @@
 ---
 name: ai-opportunity-canvas
-description: Systematically discover and rank AI use cases for any software project or module. Produces a prioritised AI Opportunity Register with business impact, implementation effort, and cost estimates. Invoke after any project description or module design session.
+description: Systematically discover and rank AI use cases for any software project or module. Produces a prioritised AI Opportunity Register with business impact, implementation effort, and cost estimates. Invoke after any project description or module...
 ---
 
 # AI Opportunity Canvas

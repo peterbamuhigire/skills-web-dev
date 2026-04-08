@@ -1,6 +1,6 @@
 ---
 name: ai-analytics-strategy
-description: Business strategy for AI-powered analytics — analytics maturity model, KDD and CRISP-DM process frameworks, data quality requirements, responsible AI principles, analytics ROI measurement, and how to build analytics into SaaS modules from day one. Invoke when planning analytics capabilities for any project. Sources: Wilson (HBR AI Analytics), Garn (Data Analytics for Business), Tyagi (AI for Predictive Maintenance).
+description: Business strategy for AI-powered analytics — analytics maturity model, KDD and CRISP-DM process frameworks, data quality requirements, responsible AI principles, analytics ROI measurement, and how to build analytics into SaaS modules from day...
 ---
 
 # AI Analytics Strategy

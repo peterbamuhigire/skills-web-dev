@@ -1,6 +1,6 @@
 ---
 name: cognitive-ux-framework
-description: "Cognitive science-based UI/UX evaluation framework built on John Whalen's Six Minds model. Use as a standalone evaluation tool or as a cross-cutting reference from webapp-gui-design, pos-sales-ui-design, and healthcare-ui-design skills. Covers visual processing, wayfinding, attention, memory, language, and emotion."
+description: Cognitive science-based UI/UX evaluation framework built on John Whalen's Six Minds model. Use as a standalone evaluation tool or as a cross-cutting reference from webapp-gui-design, pos-sales-ui-design, and healthcare-ui-design skills. Covers...
 ---
 
 # Cognitive UX Framework

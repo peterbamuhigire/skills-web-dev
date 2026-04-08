@@ -1,6 +1,6 @@
 ---
 name: kmp-tdd
-description: Kotlin Multiplatform Test-Driven Development standards for shared module testing. Covers Red-Green-Refactor in commonTest, kotlin.test + Kotest + Turbine + Mokkery, test doubles (fakes/stubs/mocks), unit tests for use cases and ViewModels, integration tests with Ktor MockEngine and SQLDelight in-memory drivers, Koin test modules, Kover coverage, and cross-platform test execution. Use when testing KMP shared code.
+description: Kotlin Multiplatform Test-Driven Development standards for shared module testing. Covers Red-Green-Refactor in commonTest, kotlin.test + Kotest + Turbine + Mokkery, test doubles (fakes/stubs/mocks), unit tests for use cases and ViewModels...
 ---
 
 # KMP Test-Driven Development Standards

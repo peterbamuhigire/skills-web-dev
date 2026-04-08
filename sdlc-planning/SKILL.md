@@ -1,6 +1,6 @@
 ---
 name: sdlc-planning
-description: "Generate Planning & Management documentation for SDLC projects. Covers Project Vision & Scope, SDP, SCMP, QA Plan, Risk Plan, SRS, and Feasibility Study. Use when starting a new project, conducting project governance, or establishing the planning baseline before development begins."
+description: Generate Planning & Management documentation for SDLC projects. Covers Project Vision & Scope, SDP, SCMP, QA Plan, Risk Plan, SRS, and Feasibility Study. Use when starting a new project, conducting project governance, or establishing the planning...
 ---
 
 ## Required Plugins

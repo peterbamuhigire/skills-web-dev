@@ -1,6 +1,6 @@
 ---
 name: microservices-ai-integration
-description: Integrating AI into a microservices architecture — AI model server as a microservice, AI gateway pattern, async AI job pipeline, AI-enhanced orchestration (Kubeflow, Seldon Core), and wiring the AI metering/billing layer into a distributed system. Source: Pandiya & Charankar (AI and Microservices), Stetson (NGINX MRA).
+description: Integrating AI into a microservices architecture — AI model server as a microservice, AI gateway pattern, async AI job pipeline, AI-enhanced orchestration (Kubeflow, Seldon Core), and wiring the AI metering/billing layer into a distributed...
 ---
 
 # Microservices AI Integration

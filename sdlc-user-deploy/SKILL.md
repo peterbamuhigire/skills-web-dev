@@ -1,6 +1,6 @@
 ---
 name: sdlc-user-deploy
-description: "Generate User & Deployment documentation for SDLC projects. Covers Software User Manual (SUM), Operations/Deployment Manual, Training Materials, Release Notes, Maintenance Manual, and README File. Use when preparing software for end-users, system administrators, and operations teams who will use, deploy, and maintain the software."
+description: Generate User & Deployment documentation for SDLC projects. Covers Software User Manual (SUM), Operations/Deployment Manual, Training Materials, Release Notes, Maintenance Manual, and README File. Use when preparing software for end-users, system...
 ---
 
 ## Required Plugins

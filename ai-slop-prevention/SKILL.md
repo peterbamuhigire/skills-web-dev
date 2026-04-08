@@ -1,6 +1,6 @@
 ---
 name: ai-slop-prevention
-description: "Detect and eliminate AI-generated UI anti-patterns ('AI slop') across typography, colour, layout, visual effects, and motion. Cross-cutting quality gate — load alongside any frontend/UI skill to ensure distinctive, production-grade interfaces that don't look machine-generated. Based on Impeccable (Bakaus, 2025)."
+description: Detect and eliminate AI-generated UI anti-patterns ('AI slop') across typography, colour, layout, visual effects, and motion. Cross-cutting quality gate — load alongside any frontend/UI skill to ensure distinctive, production-grade interfaces...
 ---
 
 # AI Slop Prevention Skill

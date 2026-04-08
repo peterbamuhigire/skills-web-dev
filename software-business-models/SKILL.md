@@ -1,6 +1,6 @@
 ---
 name: software-business-models
-description: Business model frameworks for software companies. Covers products vs services vs hybrid models, platform business models, subscription vs perpetual licensing, open source strategies, the services-to-product transition, and startup survival patterns. Based on Cusumano's research across hundreds of software companies. Use when choosing a business model for a new venture, evaluating a pivot, or designing revenue strategy for a software company.
+description: Business model frameworks for software companies. Covers products vs services vs hybrid models, platform business models, subscription vs perpetual licensing, open source strategies, the services-to-product transition, and startup survival...
 ---
 
 # Software Business Models

@@ -1,6 +1,6 @@
 ---
 name: javascript-patterns
-description: "JavaScript design patterns for SaaS apps: Module, Observer, Factory, Strategy, Command, Mediator, Repository, and State patterns with practical web app examples. Use when structuring JavaScript code, implementing event-driven UI, decoupling components, managing application state, or applying SOLID principles to frontend code."
+description: JavaScript design patterns for SaaS apps: Module, Observer, Factory, Strategy, Command, Mediator, Repository, and State patterns with practical web app examples. Use when structuring JavaScript code, implementing event-driven UI, decoupling...
 ---
 
 # JavaScript Design Patterns for PHP+SaaS Frontend

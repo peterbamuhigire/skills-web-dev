@@ -1,6 +1,6 @@
 ---
 name: healthcare-ui-design
-description: "Design world-class clinical and patient-facing healthcare UIs for web, mobile (Android/iOS), and tablet. Covers EMR/EHR dashboards, patient portals, telemedicine, medication management, wellness apps, and aging-care interfaces. Enforces HIPAA, WCAG 2.1 AA, FDA 21 CFR Part 11, patient safety, and role-specific design patterns. Use when building or reviewing any healthcare, clinical, wellness, or medical app UI."
+description: Design world-class clinical and patient-facing healthcare UIs for web, mobile (Android/iOS), and tablet. Covers EMR/EHR dashboards, patient portals, telemedicine, medication management, wellness apps, and aging-care interfaces. Enforces HIPAA...
 ---
 
 ## Required Plugins

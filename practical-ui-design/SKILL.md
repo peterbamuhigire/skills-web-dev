@@ -1,6 +1,6 @@
 ---
 name: practical-ui-design
-description: "Rules-based visual UI design system covering colour (HSB palettes, light/dark mode), typography (type scales, line height), layout (spacing tokens, 12-column grid), copywriting, buttons, and forms. Load alongside any platform skill (webapp-gui-design, jetpack-compose-ui, swiftui-design) to produce polished, consistent interfaces. Based on Practical UI (Dannaway, 2022) with component patterns from Better UI Components (Kuleszo, 2024)."
+description: Rules-based visual UI design system covering colour (HSB palettes, light/dark mode), typography (type scales, line height), layout (spacing tokens, 12-column grid), copywriting, buttons, and forms. Load alongside any platform skill...
 ---
 
 # Practical UI Design Skill

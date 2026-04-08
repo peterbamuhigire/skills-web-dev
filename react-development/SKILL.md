@@ -1,6 +1,6 @@
 ---
 name: react-development
-description: "Comprehensive React patterns and best practices: functional components, all hooks (useState, useEffect, useCallback, useMemo, useRef, useContext, useReducer), custom hooks, state management (local/Context/external), performance optimisation, TypeScript patterns, forms, error boundaries, React 18/19 concurrent features, testing with React Testing Library. Use whenever building React applications, components, or solving React architecture problems."
+description: Comprehensive React patterns and best practices: functional components, all hooks (useState, useEffect, useCallback, useMemo, useRef, useContext, useReducer), custom hooks, state management (local/Context/external), performance optimisation...
 ---
 
 # react-development

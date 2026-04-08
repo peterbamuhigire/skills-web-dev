@@ -1,6 +1,6 @@
 ---
 name: php-modern-standards
-description: "Modern PHP development standards for maintainable, testable, object-oriented code. Use when writing PHP 8+ applications, implementing OOP patterns, ensuring security, following PSR standards, optimizing performance, or building Laravel applications. Covers strict typing, modern features, SOLID principles, security patterns, testing, and 2026 international programming standards."
+description: Modern PHP development standards for maintainable, testable, object-oriented code. Use when writing PHP 8+ applications, implementing OOP patterns, ensuring security, following PSR standards, optimizing performance, or building Laravel...
 ---
 
 # PHP Modern Standards
@@ -495,14 +495,5 @@ function myQuicksort(array &$list): void { }  // ✗ Use built-in sort()
 
 **Code Quality:** ✅ `declare(strict_types=1)` ✅ Full type hints ✅ Readonly for immutable ✅ Final by default ✅ Match over switch ✅ Enums for fixed values ✅ Early returns ✅ Strict comparison ✅ PSR-12 compliant
 
-**Performance:** ✅ Generators for large data ✅ Built-in functions (not userland) ✅ OPcache enabled ✅ SPL structures for specialized needs ✅ Fibers for concurrency
-
-**Security:** ✅ Input validation ✅ Prepared statements ✅ Output escaping ✅ Argon2id passwords ✅ Session: strict mode + httponly + samesite ✅ Libsodium for crypto ✅ Error display off in production
-
-**Tooling:** ✅ PHPStan level 8+ ✅ Pint/CS Fixer ✅ PHPUnit/PestPHP ✅ Composer scripts for CI
-
 ---
-
-**Sources:** Generating Efficient PHP (php[architect] 2023), PHP: The Right Way
-**Last Updated:** 2026-03-04
-**Maintained by:** Peter Bamuhigire
+> **Note:** Content trimmed to 500-line standard. Move overflow content to `references/` for on-demand loading.

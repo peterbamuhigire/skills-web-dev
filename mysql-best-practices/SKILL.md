@@ -1,6 +1,6 @@
 ---
 name: mysql-best-practices
-description: "MySQL 8.x best practices for high-performance, secure SaaS applications. Use when designing database schemas, writing queries, optimizing performance, implementing multi-tenant isolation, configuring servers, setting up replication, hardening security, or troubleshooting slow queries. Covers indexing, EXPLAIN analysis, transactions, locking, advanced SQL (CTEs, window functions), backup, and server tuning."
+description: MySQL 8.x best practices for high-performance, secure SaaS applications. Use when designing database schemas, writing queries, optimizing performance, implementing multi-tenant isolation, configuring servers, setting up replication, hardening...
 ---
 
 ## Required Plugins

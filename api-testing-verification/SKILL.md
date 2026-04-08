@@ -1,3 +1,7 @@
+---
+name: api-testing-verification
+description: Enforce thorough API endpoint testing before any API-dependent feature is complete. Use before merging features with API calls, DTOs, or new backend endpoints.
+---
 # API Testing Verification
 
 ## Required Plugins

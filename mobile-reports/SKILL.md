@@ -1,6 +1,6 @@
 ---
 name: mobile-reports
-description: "Best practices for designing mobile-optimized reports in Android (Jetpack Compose) and iOS (SwiftUI) apps. Use when implementing report screens, data visualization, export functionality, or any feature that displays aggregated data, analytics, or business intelligence on mobile devices."
+description: Best practices for designing mobile-optimized reports in Android (Jetpack Compose) and iOS (SwiftUI) apps. Use when implementing report screens, data visualization, export functionality, or any feature that displays aggregated data, analytics, or...
 ---
 
 # Mobile Reports

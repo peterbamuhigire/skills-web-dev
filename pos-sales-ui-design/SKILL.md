@@ -1,6 +1,6 @@
 ---
 name: pos-sales-ui-design
-description: Design POS, checkout, and sales entry web UIs that are simple, accessible, and fast for all ages while integrating all backend actions strictly through APIs. Use for creating or reviewing UI patterns, layouts, components, and workflows for web-based sales recording systems.
+description: Design POS, checkout, and sales entry web UIs that are simple, accessible, and fast for all ages while integrating all backend actions strictly through APIs. Use for creating or reviewing UI patterns, layouts, components, and workflows for...
 ---
 
 ## Required Plugins

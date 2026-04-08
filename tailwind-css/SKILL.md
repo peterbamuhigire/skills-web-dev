@@ -1,6 +1,6 @@
 ---
 name: tailwind-css
-description: Tailwind CSS v3 utility-first styling — setup, responsive design, dark mode, event/state modifiers, tailwind.config.js customization (colors, spacing, screens, plugins), @apply and @layer directives, flexbox/grid classes, and best practices. Use whenever building HTML/JSX UIs with Tailwind CSS or setting up a new Tailwind project. Source: Ultimate Tailwind CSS Handbook (Bhat, 2023).
+description: Tailwind CSS v3 utility-first styling — setup, responsive design, dark mode, event/state modifiers, tailwind.config.js customization (colors, spacing, screens, plugins), @apply and @layer directives, flexbox/grid classes, and best practices. Use...
 ---
 
 # Tailwind CSS

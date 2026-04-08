@@ -1,6 +1,6 @@
 ---
 name: ios-networking-advanced
-description: Production-grade iOS networking — URLSession async/await with typed errors, interceptor/middleware pattern (auth token injection + 401 refresh), exponential backoff retry, request deduplication, background URLSession for large downloads/uploads, certificate pinning, Combine publishers over URLSession, multipart form data uploads, network reachability, offline queue with retry-on-reconnect, and REST client architecture. Use when building networking layers beyond basic URLSession: auth flows, retry logic, background transfers, certificate pinning, or designing a reusable network client.
+description: Production-grade iOS networking — URLSession async/await with typed errors, interceptor/middleware pattern (auth token injection + 401 refresh), exponential backoff retry, request deduplication, background URLSession for large downloads/uploads...
 ---
 
 # iOS Networking — Advanced Production Patterns

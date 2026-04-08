@@ -1,6 +1,6 @@
 ---
 name: software-pricing-strategy
-description: Pricing strategy for software products and SaaS. Covers value-based pricing, the 3 pricing principles, B2B vs B2C differences, pricing models (per-seat, usage, freemium, tiered, flat-rate), packaging strategy, negotiation frameworks, discounting discipline, and expansion revenue design. Use when setting initial pricing, redesigning tiers, or preparing for a pricing change.
+description: Pricing strategy for software products and SaaS. Covers value-based pricing, the 3 pricing principles, B2B vs B2C differences, pricing models (per-seat, usage, freemium, tiered, flat-rate), packaging strategy, negotiation frameworks, discounting...
 ---
 
 # Software Pricing Strategy

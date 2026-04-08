@@ -1,6 +1,6 @@
 ---
 name: ios-project-setup
-description: "iOS project setup with Xcode: project structure, SPM dependencies, build schemes (Dev/Staging/Prod), xcconfig files, Info.plist configuration, code signing, provisioning profiles, and deployment preparation. Use when creating a new iOS project or configuring build environments."
+description: iOS project setup with Xcode: project structure, SPM dependencies, build schemes (Dev/Staging/Prod), xcconfig files, Info.plist configuration, code signing, provisioning profiles, and deployment preparation. Use when creating a new iOS project or...
 ---
 
 # iOS Project Setup

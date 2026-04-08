@@ -1,6 +1,6 @@
 ---
 name: microservices-fundamentals
-description: Core microservices concepts — monolith vs microservices trade-offs, decomposition patterns, the 12-Factor App adapted for microservices, bounded contexts, data isolation, and stateless design. Invoke before designing any microservices-based system or when advising a client on architecture migration. Source: Stetson (NGINX MRA), Pandiya & Charankar (AI and Microservices).
+description: Core microservices concepts — monolith vs microservices trade-offs, decomposition patterns, the 12-Factor App adapted for microservices, bounded contexts, data isolation, and stateless design. Invoke before designing any microservices-based...
 ---
 
 # Microservices Fundamentals

@@ -1,6 +1,6 @@
 ---
 name: ios-at-scale
-description: Production iOS engineering for large teams and apps — modular architecture (RIBLETS, ComponentKit), Buck/Bazel build systems, trunk-based development, CI/CD pipeline design with coverage-based test selection, feature flags as release infrastructure, Swift actor model, percentile-based performance analysis, MetricKit monitoring, and startup time optimization. Use when building apps for large teams, setting up CI/CD, optimizing build times, designing release pipelines, or architecting for scale.
+description: Production iOS engineering for large teams and apps — modular architecture (RIBLETS, ComponentKit), Buck/Bazel build systems, trunk-based development, CI/CD pipeline design with coverage-based test selection, feature flags as release...
 ---
 
 # iOS Development at Scale

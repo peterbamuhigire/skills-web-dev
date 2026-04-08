@@ -1,6 +1,6 @@
 ---
 name: javascript-advanced
-description: "Advanced JavaScript internals: closures, prototype chain, OOP with classes, functional programming patterns, memory management, event loop mechanics, and performance optimization. Use when implementing complex JavaScript features, debugging closure bugs, designing class hierarchies, applying functional patterns, or diagnosing performance issues."
+description: Advanced JavaScript internals: closures, prototype chain, OOP with classes, functional programming patterns, memory management, event loop mechanics, and performance optimization. Use when implementing complex JavaScript features, debugging...
 ---
 
 # JavaScript Advanced Internals

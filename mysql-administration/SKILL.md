@@ -1,6 +1,6 @@
 ---
 name: mysql-administration
-description: "Expert MySQL 8 administration: replication topology, InnoDB Cluster / Group Replication, security hardening, backup strategies with mysqldump/mydumper/xtrabackup, monitoring with Performance Schema, and production operations. Use when setting up MySQL replication, configuring high availability, hardening security, or operating production MySQL systems."
+description: Expert MySQL 8 administration: replication topology, InnoDB Cluster / Group Replication, security hardening, backup strategies with mysqldump/mydumper/xtrabackup, monitoring with Performance Schema, and production operations. Use when setting up...
 ---
 
 # MySQL Administration — Expert Reference

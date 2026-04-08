@@ -1,6 +1,6 @@
 ---
 name: frontend-performance
-description: "Frontend performance optimisation covering Core Web Vitals (LCP, INP, CLS), image optimisation, JavaScript bundling, CSS efficiency, font loading, rendering performance, network optimisation, and real-device measurement. Use when building or auditing any web frontend. Based on Impeccable (Bakaus, 2025)."
+description: Frontend performance optimisation covering Core Web Vitals (LCP, INP, CLS), image optimisation, JavaScript bundling, CSS efficiency, font loading, rendering performance, network optimisation, and real-device measurement. Use when building or...
 ---
 
 # Frontend Performance Skill

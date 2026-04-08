@@ -1,6 +1,6 @@
 ---
 name: ai-metering-billing
-description: Token metering and billing for multi-tenant AI SaaS — token ledger schema, metering middleware, per-user and per-tenant usage aggregation, budget cap enforcement, invoice line generation, admin dashboards, and pricing tier design. Invoke when designing the billing layer for any AI-enabled multi-tenant system.
+description: Token metering and billing for multi-tenant AI SaaS — token ledger schema, metering middleware, per-user and per-tenant usage aggregation, budget cap enforcement, invoice line generation, admin dashboards, and pricing tier design. Invoke when...
 ---
 
 # AI Metering and Billing

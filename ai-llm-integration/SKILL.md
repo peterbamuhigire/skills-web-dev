@@ -1,6 +1,6 @@
 ---
 name: ai-llm-integration
-description: Integrate LLMs into any application — OpenAI, Anthropic Claude, DeepSeek, and Gemini APIs directly (no framework required), streaming responses, function calling/tool use, embeddings and semantic search, multi-model routing, prompt caching, rate limiting, and cost management. Use when connecting to any LLM API in web, mobile, or backend apps. Covers PHP, Python, and JavaScript/TypeScript.
+description: Integrate LLMs into any application — OpenAI, Anthropic Claude, DeepSeek, and Gemini APIs directly (no framework required), streaming responses, function calling/tool use, embeddings and semantic search, multi-model routing, prompt caching, rate...
 ---
 
 # LLM API Integration

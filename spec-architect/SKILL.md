@@ -1,3 +1,7 @@
+---
+name: spec-architect
+description: Spec-driven development: write feature specs, plan modules, produce SRS sections before coding. Use when asked to plan a feature, write a spec, or design a new module.
+---
 # Skill: Spec Architect
 
 ## Required Plugins

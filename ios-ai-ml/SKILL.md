@@ -1,6 +1,6 @@
 ---
 name: ios-ai-ml
-description: On-device AI/ML for iOS using Apple's stack — CoreML model integration (generated wrappers, batch prediction, dynamic model loading), Vision framework (face detection, landmarks, barcode, saliency, image similarity, real-time camera classification), NaturalLanguage (language ID, NER, sentiment, POS tagging), CreateML training workflow, model quantization with CoreML Tools, on-device model updates with MLUpdateTask, and privacy-preserving AI patterns. Use when adding AI/ML features to iOS apps: image recognition, text analysis, real-time camera AI, or on-device model personalization.
+description: On-device AI/ML for iOS using Apple's stack — CoreML model integration (generated wrappers, batch prediction, dynamic model loading), Vision framework (face detection, landmarks, barcode, saliency, image similarity, real-time camera...
 ---
 
 # iOS AI/ML — On-Device Intelligence with Apple's Stack

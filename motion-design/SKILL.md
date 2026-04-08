@@ -1,6 +1,6 @@
 ---
 name: motion-design
-description: "Animation and micro-interaction standards for web, Android, and iOS. Covers timing rules (100/300/500), easing curves, GPU-accelerated animation, staggered entrances, state transitions, loading states, and mandatory prefers-reduced-motion support. Cross-platform motion system. Based on Impeccable (Bakaus, 2025)."
+description: Animation and micro-interaction standards for web, Android, and iOS. Covers timing rules (100/300/500), easing curves, GPU-accelerated animation, staggered entrances, state transitions, loading states, and mandatory prefers-reduced-motion...
 ---
 
 # Motion Design Skill

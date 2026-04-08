@@ -1,6 +1,6 @@
 ---
 name: language-standards
-description: Language and tone standards for all written content across 3 languages — English (British, East African), French (Francophone African), and Kiswahili (East African standard). Enforces authentic, culturally appropriate, professional communication in each language. Apply throughout all content generation steps.
+description: Language and tone standards for all written content across 3 languages — English (British, East African), French (Francophone African), and Kiswahili (East African standard). Enforces authentic, culturally appropriate, professional communication...
 ---
 
 # Language Standards — Multi-Language Tone & Grammar

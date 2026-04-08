@@ -1,6 +1,6 @@
 ---
 name: android-saas-planning
-description: "Create comprehensive planning documentation for a native Android app that integrates with an existing web-based SaaS platform. Use when building a mobile companion app for any SaaS — ERP, CRM, POS, logistics, healthcare, fintech, etc. Generates 7 production-ready planning documents: PRD, SRS, SDS, API Contract, User Journeys, Testing Strategy, and Release Plan."
+description: Create comprehensive planning documentation for a native Android app that integrates with an existing web-based SaaS platform. Use when building a mobile companion app for any SaaS — ERP, CRM, POS, logistics, healthcare, fintech, etc. Generates 7...
 ---
 
 > **Superseded:** This skill has been generalized to `mobile-saas-planning` which covers both Android and iOS. Use that skill instead.

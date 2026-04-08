@@ -1,6 +1,6 @@
 ---
 name: ios-production-patterns
-description: Production-grade iOS patterns that separate good apps from great apps — UIViewController lifecycle gotchas, sensor lifecycle management, delegate pattern implementation, keyboard dismissal, Core Data migration, UIImagePickerController dismissal, gesture state guards, weak delegate refs, HealthKit partial permissions, Core ML on background threads, SwiftData vs Core Data decision, programmatic UI constraints, SwiftUI/UIKit integration via UIHostingController, and App Store submission checklist. Use when building features that must be production-quality, handling permissions, integrating camera/location/HealthKit/CoreML, or submitting to App Store.
+description: Production-grade iOS patterns that separate good apps from great apps — UIViewController lifecycle gotchas, sensor lifecycle management, delegate pattern implementation, keyboard dismissal, Core Data migration, UIImagePickerController dismissal...
 ---
 
 # iOS Production Patterns

@@ -1,6 +1,6 @@
 ---
 name: mysql-advanced-sql
-description: "Advanced MySQL 8 SQL techniques: window functions, CTEs, recursive queries, pivoting, JSON operations, stored procedures, triggers, and complex aggregations. Use when writing analytical queries, transforming data, implementing reporting SQL, working with JSON columns, or building stored procedures and triggers."
+description: Advanced MySQL 8 SQL techniques: window functions, CTEs, recursive queries, pivoting, JSON operations, stored procedures, triggers, and complex aggregations. Use when writing analytical queries, transforming data, implementing reporting SQL...
 ---
 
 # MySQL Advanced SQL

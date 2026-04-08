@@ -1,6 +1,6 @@
 ---
 name: dual-auth-rbac
-description: "Dual authentication system (Session + JWT) with role-based access control (RBAC) for multi-tenant applications. Use when implementing secure authentication across web UI and API/mobile clients, with franchise/tenant-scoped permissions. Works across languages: PHP, Node.js, Python, Go, etc."
+description: Dual authentication system (Session + JWT) with role-based access control (RBAC) for multi-tenant applications. Use when implementing secure authentication across web UI and API/mobile clients, with franchise/tenant-scoped permissions. Works...
 ---
 
 ## Required Plugins

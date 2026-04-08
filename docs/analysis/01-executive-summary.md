@@ -1,18 +1,18 @@
-# Executive Summary — Skills Engine Audit
+# Executive Summary — Skills Engine Audit (Revised)
 
-**April 2026 | Skills Repository: C:\Users\Peter\.claude\skills**
+**April 2026 (Updated) | Skills Repository: C:\Users\Peter\.claude\skills**
 
 ---
 
-## Overall Verdict: Strong Foundation, Critical Frontier Gaps
+## Overall Verdict: AI-Differentiated Engine, Infrastructure Gaps Remain
 
-You have built one of the most disciplined, deep, and domain-coherent personal skills libraries
-I have reviewed. 131 skills, 97.7% within the 500-line standard, covering everything from SwiftUI
-internals to the Hook Model to ISO 14764 SDLC compliance.
+Since the first audit, the skills library has grown from 131 to **174 skills** — a 33% expansion —
+with the most significant upgrades in AI/LLM (5 → 28 skills), web frontend (stub → 14 skills),
+and microservices (0 → 5 skills). The over-limit compliance violations have all been resolved.
 
-**But the 2026–2040 software market will be won by AI-differentiated, cloud-native, product-led
-businesses.** Your skills library is optimised for 2022. To win through the 2040s, you need a
-deliberate frontier expansion — not a wholesale rebuild.
+**The 2026–2040 market will be won by AI-differentiated, cloud-native products.**
+You now have the AI differentiation layer. What remains: the cloud deployment and
+revenue collection infrastructure to take products from localhost to paying customers.
 
 ---
 
@@ -34,12 +34,6 @@ Based on your book collection, you are building:
 4. **A software business empire** (*The Business of Software*, *Mastering SPM*)
    - Long-term wealth through software products, licensing, and platforms
 
-**Wealth accumulation goal** means your skills engine must produce:
-- Products people pay for and recommend
-- Systems that scale without proportional cost increases
-- AI-differentiated experiences that justify premium pricing
-- Consulting deliverables that win engagements over larger firms
-
 ---
 
 ## Domain Scorecard
@@ -47,87 +41,88 @@ Based on your book collection, you are building:
 | Domain | Skills | Depth | 2026 Readiness | Gap Severity |
 |--------|--------|-------|----------------|--------------|
 | iOS Development | 23 | Expert | High | Low |
-| MySQL / Database | 5 | Expert | High | Low |
-| UI/UX Design | 17 | Expert | High | Medium |
-| SDLC Documentation | 11 | Expert | High | Low |
-| Android Development | 14 | Solid | Medium | Medium |
+| AI/LLM Ecosystem | 28 | Expert | High | Low |
+| MySQL / Database | 7 | Expert | High | Low |
+| SDLC Documentation | 12 | Expert | High | Low |
+| Web Frontend (React/Next.js/TS) | 14 | Strong | High | Low |
+| Security | 9 | Strong | High | Low |
+| Microservices | 5 | Solid | Medium | Medium |
+| UI/UX Design | 15+ | Expert | High | Low |
+| Android Development | 11 | Solid | Medium | Medium |
+| PHP Backend | 4 | Solid | Medium | Medium |
 | JavaScript | 4 | Solid | Medium | Medium |
-| PHP Backend | 3 | Solid | Medium | High |
-| Security | 4 | Solid | Medium | Medium |
 | KMP / Cross-platform | 3 | Solid | Medium | Medium |
 | Product Management | 5 | Solid | High | Low |
-| Business/Monetisation | 5 | Good | Medium | High |
-| Web Frontend | 3 complete + 1 stub | Weak | Low | **Critical** |
-| AI/ML Integration | 1 (iOS only) | Weak | Low | **Critical** |
+| Business/Monetisation | 5 | Good | Medium | Medium |
+| Real-time Systems | 1 | Foundational | Medium | Medium |
 | Cloud/Infrastructure | 0 | None | None | **Critical** |
-| Real-time Systems | 0 | None | None | **Critical** |
-| TypeScript | 0 | None | None | **Critical** |
 | Payment Systems | 0 | None | None | **Critical** |
-| API Design | Partial | Weak | Low | High |
+| PostgreSQL/Vector DB | 0 | None | None | **Critical** |
+| Node.js Backend | 0 | None | None | **Critical** |
+| CI/CD Pipelines | 0 | None | None | **Critical** |
 
 ---
 
 ## What You Can Build Today (Excellently)
 
-With current skills, you can build world-class:
-
-- **iOS apps** — architecture, UI, networking, monetisation, ML, push, BLE printing, PDF, RBAC
+- **iOS apps** — architecture, UI, networking, monetisation, on-device ML, push, BLE, PDF, RBAC
 - **Android apps** — Compose UI, data persistence, biometric, PDF, reports, RBAC
-- **MySQL-backed SaaS** — multi-tenant architecture, data modeling, query performance, replication
+- **React/Next.js web apps** — RSC, App Router, TypeScript, Tailwind, React Query
+- **AI-powered features** — LLM integration, RAG, streaming, analytics, agents, cost metering
+- **MySQL-backed SaaS** — multi-tenant, data modeling, query performance, replication
 - **PHP+JS web apps** — secure, paginated, with proper auth/RBAC and accounting
 - **Healthcare UIs** — clinical-grade, accessible, WCAG-compliant
 - **POS systems** — restaurant and retail UI patterns
+- **Microservice architectures** — decomposition, resilience, communication, AI integration
 - **Documentation** — full SDLC lifecycle, ISO-compliant, professional Word output
 - **Grant proposals** — technology grant writing framework
 
 ---
 
-## What You Cannot Build Yet (Excellently)
+## What You Still Cannot Build Yet (Excellently)
 
-- **AI-powered features** — no LLM integration, no RAG, no AI analytics
-- **Modern web apps** — no React, no Next.js, no TypeScript web patterns
-- **Cloud-native systems** — no AWS/GCP, no containers, no CI/CD pipelines
-- **Real-time applications** — no WebSockets, no live collaboration, no streaming
+- **Cloud-native deployments** — no AWS/GCP, no containers, no CI/CD pipelines
 - **Subscription billing** — no Stripe, no webhook handling, no dunning
-- **GraphQL APIs** — no schema-first API design
-- **Distributed systems** — no queues, no event-driven architecture at scale
+- **AI-adjacent databases** — no PostgreSQL patterns, no pgvector, no vector search infra
+- **Modern server-side TypeScript** — no Node.js/Fastify/Prisma/BullMQ patterns
+- **E2E automated testing** — no Playwright/Cypress framework coverage
+- **Production observability** — no structured logging, tracing, Sentry, Grafana
+- **Offline-first PWAs** — no Service Workers, IndexedDB, background sync
 
 ---
 
-## The 5-Year Transformation Plan
+## The Revised Transformation Plan
 
-### Phase 1 (2026) — Close Critical Gaps
-Build 12 new skills: AI/LLM, React/Next.js, TypeScript, Cloud, Payments, Real-time,
-API Design, GraphQL, CI/CD, WebSockets, AI Analytics, Edge Functions.
+### Phase 1 (2026 Q2–Q3): Close Infrastructure Gaps
+Build 6 new skills: cloud-architecture, stripe-payments, cicd-pipelines,
+postgresql-patterns, vector-databases, nodejs-typescript-backend.
 
-### Phase 2 (2027) — AI-First Products
-Every product in your portfolio has an AI layer. Skills for: embeddings, RAG pipelines,
-multi-modal AI, AI agents in production, AI cost management.
+### Phase 2 (2026 Q4): Complete Stubs + Observability
+Complete 3 stub skills (webapp-gui-design, pos-restaurant-ui-standard, inventory-management).
+Add observability-monitoring, android-ai-ml, pwa-offline-first.
 
-### Phase 3 (2028) — Platform Scale
-Skills for: multi-region deployment, database sharding, event sourcing, CQRS,
-distributed tracing, chaos engineering.
+### Phase 3 (2027 Q1–Q2): AI-First Product Depth
+Product-led growth tactics, subscription-billing depth, event-driven architecture,
+e2e-testing, saas-growth-metrics.
 
-### Phase 4 (2029–2030) — Emerging Frontiers
-Skills for: WebAssembly, edge computing, AR/VR integration, ambient computing,
-quantum-safe cryptography.
+### Phase 4 (2027 Q3–2028): Platform Scale
+Multimodal AI, edge computing, advanced microservices, accessibility WCAG 2.2,
+React Native advanced.
 
-### Phase 5 (2031–2040) — Thought Leadership
-You define the skills. Your products and consulting engagements become the reference.
+### Phase 5 (2029–2040): Thought Leadership
+Your products and consulting engagements become the reference.
 
 ---
 
 ## The Single Most Important Insight
 
-> The gap between your current skills and world-class is not in execution quality —
-> it's in technology frontier coverage. You build excellently what you know.
-> The risk is irrelevance, not incompetence.
+> The gap has shifted. You went from "cannot build AI features" to "cannot deploy them
+> to paying customers at scale." Execution depth is excellent. The missing layer is
+> infrastructure: cloud + payments + CI/CD.
 
-A client in 2026 asking "can you add AI analytics to our SaaS?" should never get a "no."
-A developer building a SaaS product in 2026 without Stripe integration is leaving money on the table.
-A web app without a proper React/Next.js frontend cannot compete for premium users.
-
-Close the frontier gaps. The execution depth is already there.
+A product you cannot deploy to production cannot generate revenue.
+A product that cannot collect payment cannot compound.
+Close the infrastructure gap in 2026 Q2–Q3 and everything else follows.
 
 ---
 

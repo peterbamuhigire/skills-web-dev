@@ -1,6 +1,6 @@
 ---
 name: manual-guide
-description: "Generate end-user manuals and reference guides for ERP modules. Use when the user asks to document a feature, write a user manual, or sync a reference guide. This skill is explicitly separate from doc-architect (which manages AI guidance docs like AGENTS.md)."
+description: Generate end-user manuals and reference guides for ERP modules. Use when the user asks to document a feature, write a user manual, or sync a reference guide. This skill is explicitly separate from doc-architect (which manages AI guidance docs...
 ---
 
 ## Required Plugins

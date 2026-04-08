@@ -1,6 +1,6 @@
 ---
 name: ux-for-ai
-description: AI interface design framework for building AI-powered features that feel premium, trustworthy, and world-class — not sloppy or robotic. Covers trust/transparency principles, avoiding AI slop, human oversight requirements, onboarding AI features, agentic UI patterns, and anti-patterns. Load when building any AI-powered feature, chatbot, copilot, or AI-assisted workflow.
+description: AI interface design framework for building AI-powered features that feel premium, trustworthy, and world-class — not sloppy or robotic. Covers trust/transparency principles, avoiding AI slop, human oversight requirements, onboarding AI features...
 ---
 
 # UX for AI — Design Framework

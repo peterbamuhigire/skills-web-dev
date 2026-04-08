@@ -1,6 +1,6 @@
 ---
 name: saas-business-metrics
-description: Complete SaaS metrics framework covering revenue (MRR/ARR/ARPU), growth (CAC/LTV/payback), retention (churn/NRR/GRR), engagement, customer satisfaction (NPS/CSAT/CES), unit economics, the Rule of 40, and SaaS finance basics. Use when measuring product health, diagnosing growth problems, preparing investor conversations, or setting OKR Key Results.
+description: Complete SaaS metrics framework covering revenue (MRR/ARR/ARPU), growth (CAC/LTV/payback), retention (churn/NRR/GRR), engagement, customer satisfaction (NPS/CSAT/CES), unit economics, the Rule of 40, and SaaS finance basics. Use when measuring...
 ---
 
 # SaaS Business Metrics

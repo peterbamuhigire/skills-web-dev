@@ -1,6 +1,6 @@
 ---
 name: php-vs-nextjs
-description: Decision framework for choosing PHP vs Next.js/Node.js for web projects. Covers when to use each, migration strategies, and the hybrid approach. Use when starting a new project, evaluating technology stack, or deciding whether to extend PHP systems vs build new Next.js frontends. Sources: Rambert, Kim, Jain, Krause.
+description: Decision framework for choosing PHP vs Next.js/Node.js for web projects. Covers when to use each, migration strategies, and the hybrid approach. Use when starting a new project, evaluating technology stack, or deciding whether to extend PHP...
 ---
 
 # PHP vs Next.js: Technology Decision Framework

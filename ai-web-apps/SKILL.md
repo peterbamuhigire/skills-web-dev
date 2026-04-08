@@ -1,6 +1,6 @@
 ---
 name: ai-web-apps
-description: Building AI-enhanced web apps — MCP servers/clients, multi-provider AI factory, streamUI with tool calling generators, composable middleware, per-user quotas, model fallback, multi-modal images, streaming, RAG, structured output, prompt engineering. Sources: Despoudis (Build AI-Enhanced Web Apps).
+description: Building AI-enhanced web apps — MCP servers/clients, multi-provider AI factory, streamUI with tool calling generators, composable middleware, per-user quotas, model fallback, multi-modal images, streaming, RAG, structured output, prompt...
 ---
 
 # AI-Enhanced Web Apps with Next.js + Vercel AI SDK

@@ -1,6 +1,6 @@
 ---
 name: product-strategy-vision
-description: Frameworks for defining a compelling product vision and a focused product strategy. Covers the 10 principles of product vision, product strategy principles, OKR technique for product teams, outcome-based roadmaps, product principles, and product evangelism. Use when setting or reviewing a product's strategic direction or when a team lacks a shared north star.
+description: Frameworks for defining a compelling product vision and a focused product strategy. Covers the 10 principles of product vision, product strategy principles, OKR technique for product teams, outcome-based roadmaps, product principles, and product...
 ---
 
 # Product Strategy & Vision

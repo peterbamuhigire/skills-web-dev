@@ -1,6 +1,6 @@
 ---
 name: ai-architecture-patterns
-description: Integration architecture for AI-powered features — AI Module Gate, Token Ledger schema, Budget Guard, provider abstraction, RAG, function calling, and streaming. Technology examples for PHP/Laravel, Android/Kotlin, and iOS/Swift. Invoke during HLD/LLD for any AI-enabled system.
+description: Integration architecture for AI-powered features — AI Module Gate, Token Ledger schema, Budget Guard, provider abstraction, RAG, function calling, and streaming. Technology examples for PHP/Laravel, Android/Kotlin, and iOS/Swift. Invoke during...
 ---
 
 # AI Architecture Patterns

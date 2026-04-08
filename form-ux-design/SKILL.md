@@ -1,6 +1,6 @@
 ---
 name: form-ux-design
-description: Cross-platform form UX/UI patterns for web (Bootstrap 5/Tabler), Android (Jetpack Compose), and iOS (SwiftUI). Covers field anatomy, validation, error states, multi-step wizards, accessibility, touch-friendly inputs, and submission workflows. Use when building any form — registration, data entry, settings, checkout, search, filters, or clinical forms. Companion to webapp-gui-design, healthcare-ui-design, pos-sales-ui-design, and jetpack-compose-ui skills.
+description: Cross-platform form UX/UI patterns for web (Bootstrap 5/Tabler), Android (Jetpack Compose), and iOS (SwiftUI). Covers field anatomy, validation, error states, multi-step wizards, accessibility, touch-friendly inputs, and submission workflows. Use...
 ---
 
 ## Required Plugins

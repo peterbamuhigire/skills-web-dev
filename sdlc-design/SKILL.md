@@ -1,6 +1,6 @@
 ---
 name: sdlc-design
-description: "Generate Design & Development documentation for SDLC projects. Covers System Design Document (SDD), Technical Specification, Interface Control Document (ICD), Database Design Document, Code Documentation standards, and API Documentation. Use when translating requirements into technical architecture and guiding development teams."
+description: Generate Design & Development documentation for SDLC projects. Covers System Design Document (SDD), Technical Specification, Interface Control Document (ICD), Database Design Document, Code Documentation standards, and API Documentation. Use when...
 ---
 
 ## Required Plugins

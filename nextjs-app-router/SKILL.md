@@ -1,6 +1,6 @@
 ---
 name: nextjs-app-router
-description: Next.js App Router patterns for production — server/client components, parallel routes, advanced middleware, RBAC three-tier, Redis caching, background jobs (BullMQ), data fetching, auth, deployment, CI/CD. Sources: Rambert (Advanced Next.js), Kim (Next.js Handbook), Jain (Modern Web Apps with Next.js), Krause (The Complete Developer).
+description: Next.js App Router patterns for production — server/client components, parallel routes, advanced middleware, RBAC three-tier, Redis caching, background jobs (BullMQ), data fetching, auth, deployment, CI/CD. Sources: Rambert (Advanced Next.js)...
 ---
 
 # Next.js App Router Patterns

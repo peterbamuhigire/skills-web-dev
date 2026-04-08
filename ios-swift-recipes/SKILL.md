@@ -1,6 +1,6 @@
 ---
 name: ios-swift-recipes
-description: Production Swift recipes from real App Store apps. Covers safe numeric conversion, Codable tricks, custom decoders, type-safe Dictionary extraction, ISO 8601 dates, UIKit navigation/alerts/maps, UIView effects (shadows, gradients, blur), keyboard handling, UITextField input formatting (phone, card, pin pad), UIImage processing (resize, crop, cache), animation (fade, parallax, hero, custom transitions), and SwiftUI (@State, @Binding, ViewModifier, Canvas, UIKit interop). Use when building data layers, polished forms, image features, or animated UIs.
+description: Production Swift recipes from real App Store apps. Covers safe numeric conversion, Codable tricks, custom decoders, type-safe Dictionary extraction, ISO 8601 dates, UIKit navigation/alerts/maps, UIView effects (shadows, gradients, blur), keyboard...
 ---
 
 # iOS Swift Recipes — App Store Production Patterns

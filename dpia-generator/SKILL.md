@@ -1,3 +1,8 @@
+---
+name: dpia-generator
+description: Generate Uganda DPPA 2019-compliant DPIA documents. Use when uganda-dppa-compliance flags [DPIA-REQUIRED] or when processing large-scale personal data.
+compatibility: Uganda-based systems requiring DPPA 2019 compliance
+---
 # Skill: DPIA Generator (Uganda DPPA 2019)
 
 ## Purpose

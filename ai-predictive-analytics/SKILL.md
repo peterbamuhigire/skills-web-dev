@@ -1,6 +1,6 @@
 ---
 name: ai-predictive-analytics
-description: Implement predictive analytics features using LLM APIs — classification (risk scoring, churn, anomaly), regression (demand forecasting, yield prediction), time series analysis, and prescriptive recommendations. Includes domain-specific prompt templates for school, healthcare, POS, farm, and ERP contexts. Sources: Tyagi (AI for Predictive Maintenance), Garn (Data Analytics for Business), Chaudhary (AI-Based Data Analytics).
+description: Implement predictive analytics features using LLM APIs — classification (risk scoring, churn, anomaly), regression (demand forecasting, yield prediction), time series analysis, and prescriptive recommendations. Includes domain-specific prompt...
 ---
 
 # AI Predictive Analytics

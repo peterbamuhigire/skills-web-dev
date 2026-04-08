@@ -1,6 +1,6 @@
 ---
 name: interaction-design-patterns
-description: Use when designing interfaces, building UX flows, choosing layouts, or making navigation decisions. Covers Tidwell's 45+ proven interaction patterns for behavior, navigation, layout, actions, and data display. Load alongside webapp-gui-design, jetpack-compose-ui, or any frontend skill to produce world-class, non-generic interfaces.
+description: Use when designing interfaces, building UX flows, choosing layouts, or making navigation decisions. Covers Tidwell's 45+ proven interaction patterns for behavior, navigation, layout, actions, and data display. Load alongside webapp-gui-design...
 ---
 
 # Interaction Design Patterns

@@ -1,6 +1,6 @@
 ---
 name: typescript-design-patterns
-description: All 23 GoF design patterns implemented in TypeScript — Creational (Singleton, Factory Method, Abstract Factory, Builder, Prototype, Object Pool), Structural (Adapter, Composite, Proxy, Flyweight, Bridge, Decorator, Facade), Behavioral (Strategy, Observer, Command, Iterator, State, Template Method, Memento, Chain of Responsibility, Mediator, Visitor). When to use each + TypeScript-specific implementation. Source: Akintoye (Mastering Design Patterns in TypeScript).
+description: All 23 GoF design patterns implemented in TypeScript — Creational (Singleton, Factory Method, Abstract Factory, Builder, Prototype, Object Pool), Structural (Adapter, Composite, Proxy, Flyweight, Bridge, Decorator, Facade), Behavioral (Strategy...
 ---
 
 # Design Patterns in TypeScript

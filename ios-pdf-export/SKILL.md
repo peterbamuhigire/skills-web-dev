@@ -1,6 +1,6 @@
 ---
 name: ios-pdf-export
-description: "Native iOS PDF export system using UIGraphicsPDFRenderer (zero dependencies). Reusable drawing-based generator with branded letterheads, data tables, summary cards, and share via UIActivityViewController. Use when adding PDF export to any iOS app screen — reports, invoices, detail views, or lists."
+description: Native iOS PDF export system using UIGraphicsPDFRenderer (zero dependencies). Reusable drawing-based generator with branded letterheads, data tables, summary cards, and share via UIActivityViewController. Use when adding PDF export to any iOS app...
 ---
 
 ## Required Plugins

@@ -1,6 +1,6 @@
 ---
 name: ai-analytics-saas
-description: Use when adding AI-powered analytics to a SaaS platform — semantic search over business data, natural language queries, trend detection, anomaly alerts, and AI-generated insights for dashboards. Covers embeddings, NL2SQL, and per-tenant analytics gating.
+description: Use when adding AI-powered analytics to a SaaS platform — semantic search over business data, natural language queries, trend detection, anomaly alerts, and AI-generated insights for dashboards. Covers embeddings, NL2SQL, and per-tenant analytics...
 ---
 
 # AI Analytics for SaaS

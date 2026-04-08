@@ -1,6 +1,6 @@
 ---
 name: ai-analytics-dashboards
-description: Design AI-powered analytics dashboards — what metrics to show, how to display AI predictions and confidence, drill-down patterns, KPI cards, trend visualisation, AI Insights panels, export design, and role-based dashboard variants. Invoke when designing any analytics or reporting module. Sources: Garn (Data Analytics for Business, Power BI), Chaudhary (AI-Based Data Analytics), Wilson (HBR AI Analytics).
+description: Design AI-powered analytics dashboards — what metrics to show, how to display AI predictions and confidence, drill-down patterns, KPI cards, trend visualisation, AI Insights panels, export design, and role-based dashboard variants. Invoke when...
 ---
 
 # AI Analytics Dashboards

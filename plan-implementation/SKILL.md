@@ -1,6 +1,6 @@
 ---
 name: plan-implementation
-description: "Autonomous plan executor that implements feature plans from start to finish using TDD, 5-layer validation, and the 10 Commandments of Orchestration. Reads plans created by feature-planning skill and executes every task without stopping, producing production-ready, fully tested code. Use when the user says 'implement the plan', 'execute the plan', 'build this', or wants autonomous end-to-end implementation."
+description: Autonomous plan executor that implements feature plans from start to finish using TDD, 5-layer validation, and the 10 Commandments of Orchestration. Reads plans created by feature-planning skill and executes every task without stopping, producing...
 ---
 
 ## Required Plugins

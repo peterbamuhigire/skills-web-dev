@@ -1,6 +1,6 @@
 ---
 name: sdlc-maintenance
-description: "Generate a Software Maintenance Plan (SMP) and supporting maintenance documentation for SDLC projects. Compliant with ISO/IEC/IEEE 14764:2022. Covers Maintenance Strategy, MR/PR handling workflow, CCB process, maintenance cost estimation, and all five maintenance types (Corrective, Adaptive, Perfective, Preventive, Additive). Use when transitioning a delivered system into the maintenance phase or planning maintenance for a live system."
+description: Generate a Software Maintenance Plan (SMP) and supporting maintenance documentation for SDLC projects. Compliant with ISO/IEC/IEEE 14764:2022. Covers Maintenance Strategy, MR/PR handling workflow, CCB process, maintenance cost estimation, and all...
 ---
 
 ## Required Plugins

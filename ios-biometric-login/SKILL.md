@@ -1,6 +1,6 @@
 ---
 name: ios-biometric-login
-description: "Optional biometric (Face ID/Touch ID) gate on iOS app launch using LocalAuthentication framework. Covers BiometricHelper utility, splash screen integration, settings toggle with verification, Keychain-backed preference storage, and graceful fallback. Use when adding biometric authentication to any iOS app."
+description: Optional biometric (Face ID/Touch ID) gate on iOS app launch using LocalAuthentication framework. Covers BiometricHelper utility, splash screen integration, settings toggle with verification, Keychain-backed preference storage, and graceful...
 ---
 
 ## Required Plugins

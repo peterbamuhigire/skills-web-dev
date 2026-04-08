@@ -1,6 +1,6 @@
 ---
 name: sdlc-post-deployment
-description: "Generate a Post-Deployment Evaluation Report (PDER) to assess software health after production deployment. Grounded in ISO/IEC/IEEE 14764:2022 Clause 6 mandatory outcomes and Grubb & Takang's operational metrics. Covers system availability, change request rate, MTTR, defect density, user satisfaction, and maintenance type mix. Use 30-90 days after a major release to determine if the system is operating as expected and to inform the Software Maintenance Plan."
+description: Generate a Post-Deployment Evaluation Report (PDER) to assess software health after production deployment. Grounded in ISO/IEC/IEEE 14764:2022 Clause 6 mandatory outcomes and Grubb & Takang's operational metrics. Covers system availability...
 ---
 
 ## Required Plugins

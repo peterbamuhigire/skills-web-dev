@@ -1,6 +1,6 @@
 ---
 name: openai-agents-sdk
-description: Build production AI agents with the OpenAI Agents SDK (Python) — 6 core primitives (Agent, Runner, Tools, Handoff, Guardrails, Tracing), multi-agent patterns (Centralized, Hierarchical, Decentralized, Swarm), dynamic/deterministic orchestration, memory management with SQLiteSession, MCP integration, and guardrail safety. Use when building single or multi-agent AI systems in Python with OpenAI or any OpenAI-compatible model. Source: Habib — Building Agents with OpenAI Agents SDK (2025).
+description: Build production AI agents with the OpenAI Agents SDK (Python) — 6 core primitives (Agent, Runner, Tools, Handoff, Guardrails, Tracing), multi-agent patterns (Centralized, Hierarchical, Decentralized, Swarm), dynamic/deterministic orchestration...
 ---
 
 # OpenAI Agents SDK

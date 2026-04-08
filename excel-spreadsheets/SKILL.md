@@ -1,6 +1,6 @@
 ---
 name: excel-spreadsheets
-description: Generate world-class, professionally designed Microsoft Excel spreadsheets and handle all Excel/spreadsheet workflows. Use when: generating .xlsx files from apps or scripts (openpyxl, xlsxwriter, PhpSpreadsheet, pandas), importing or parsing Excel data, exporting data to Excel, designing spreadsheet templates, building dashboards, writing formulas, creating charts or PivotTables, or advising on professional Excel structure and formatting. Covers programmatic generation, formula patterns, table design, charts, data validation, and professional finishing.
+description: Generate world-class, professionally designed Microsoft Excel spreadsheets and handle all Excel/spreadsheet workflows. Use when: generating .xlsx files from apps or scripts (openpyxl, xlsxwriter, PhpSpreadsheet, pandas), importing or parsing...
 ---
 
 # Excel Spreadsheets Skill

@@ -1,6 +1,6 @@
 ---
 name: habit-forming-products
-description: Use when designing products, features, or onboarding flows that need to build unprompted repeat engagement — daily/weekly return without ads or reminders. Covers the Hook Model (Trigger → Action → Variable Reward → Investment), internal trigger design, reward mechanics, stored value, the Manipulation Matrix, and Habit Testing.
+description: Use when designing products, features, or onboarding flows that need to build unprompted repeat engagement — daily/weekly return without ads or reminders. Covers the Hook Model (Trigger → Action → Variable Reward → Investment), internal trigger...
 ---
 
 # Habit-Forming Products — The Hook Model

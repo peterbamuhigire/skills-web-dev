@@ -1,6 +1,6 @@
 ---
 name: php-security
-description: "Use when building or reviewing PHP web applications for security vulnerabilities. Covers session hardening, input validation, output encoding, SQL injection prevention, XSS/CSRF protection, file upload security, php.ini hardening, PHP-specific vulnerabilities (type juggling, object injection), error handling, and cryptographic best practices."
+description: Use when building or reviewing PHP web applications for security vulnerabilities. Covers session hardening, input validation, output encoding, SQL injection prevention, XSS/CSRF protection, file upload security, php.ini hardening, PHP-specific...
 ---
 
 # PHP Security

@@ -1,6 +1,6 @@
 ---
 name: ios-architecture-advanced
-description: Expert iOS app architecture patterns — dependency injection containers with scoped lifetimes, MVVM navigation via state enums, Redux/unidirectional data flow, Elements architecture, use case factory protocols, and Observer composition. Use when architecting iOS apps beyond basic MVVM: multi-screen flows, sign-in/sign-out scoping, testable use cases, or choosing between MVVM/Redux/Elements.
+description: Expert iOS app architecture patterns — dependency injection containers with scoped lifetimes, MVVM navigation via state enums, Redux/unidirectional data flow, Elements architecture, use case factory protocols, and Observer composition. Use when...
 ---
 
 # iOS Architecture — Advanced

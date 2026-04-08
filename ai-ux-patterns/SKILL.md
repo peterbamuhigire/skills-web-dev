@@ -1,6 +1,6 @@
 ---
 name: ai-ux-patterns
-description: UX design patterns for AI-powered features — loading states, streaming display, confidence indicators, progressive disclosure, error recovery, human-in-the-loop controls, usage/budget display, and feedback collection. Invoke during UI design for any AI feature.
+description: UX design patterns for AI-powered features — loading states, streaming display, confidence indicators, progressive disclosure, error recovery, human-in-the-loop controls, usage/budget display, and feedback collection. Invoke during UI design for...
 ---
 
 # AI UX Patterns

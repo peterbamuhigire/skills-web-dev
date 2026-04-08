@@ -1,6 +1,6 @@
 ---
 name: ios-push-notifications
-description: "APNs push notifications, rich notifications, notification extensions, background push, and notification categories for iOS. Use when implementing remote push notifications, UNUserNotificationCenter, UNNotificationServiceExtension, UNNotificationContentExtension, or silent background pushes."
+description: APNs push notifications, rich notifications, notification extensions, background push, and notification categories for iOS. Use when implementing remote push notifications, UNUserNotificationCenter, UNNotificationServiceExtension...
 ---
 
 # iOS Push Notifications

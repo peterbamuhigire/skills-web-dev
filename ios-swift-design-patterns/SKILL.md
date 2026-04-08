@@ -1,6 +1,6 @@
 ---
 name: ios-swift-design-patterns
-description: Swift-idiomatic design patterns for iOS — VC containment to eliminate Massive ViewController, hand-rolled MVVM Observable binding without RxSwift, delegation naming conventions, associative storage for extension properties, constrained protocol extensions as composition, keypath-based adapter pattern, Swifty singleton with protocol hiding, responder chain traversal, copy-on-write flyweight, safe iterator with defer, and 10 Swift anti-patterns to avoid. Use when designing iOS app architecture, refactoring large view controllers, implementing communication patterns between objects, or choosing between inheritance vs protocol composition.
+description: Swift-idiomatic design patterns for iOS — VC containment to eliminate Massive ViewController, hand-rolled MVVM Observable binding without RxSwift, delegation naming conventions, associative storage for extension properties, constrained protocol...
 ---
 
 # iOS Swift Design Patterns

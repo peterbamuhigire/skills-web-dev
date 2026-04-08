@@ -1,6 +1,6 @@
 ---
 name: ios-bluetooth-printing
-description: "CoreBluetooth integration for ESC/POS thermal printer communication on iOS. Covers BLE discovery, pairing, characteristic writing, ESC/POS command translation from Android, and receipt formatting. Use when connecting iOS apps to Bluetooth thermal printers for receipt or label printing."
+description: CoreBluetooth integration for ESC/POS thermal printer communication on iOS. Covers BLE discovery, pairing, characteristic writing, ESC/POS command translation from Android, and receipt formatting. Use when connecting iOS apps to Bluetooth thermal...
 ---
 
 ## Required Plugins

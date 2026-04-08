@@ -1,6 +1,6 @@
 ---
 name: product-discovery
-description: Structured product discovery process before building. Covers the 4 product risks, opportunity assessment, customer discovery programs, prototype spectrum, demand/value/feasibility testing, and discovery sprints. Use when evaluating whether an opportunity is worth pursuing and how to de-risk it cheaply before committing engineering resources.
+description: Structured product discovery process before building. Covers the 4 product risks, opportunity assessment, customer discovery programs, prototype spectrum, demand/value/feasibility testing, and discovery sprints. Use when evaluating whether an...
 ---
 
 # Product Discovery

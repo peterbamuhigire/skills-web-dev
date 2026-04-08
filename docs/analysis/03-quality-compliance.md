@@ -1,106 +1,96 @@
 # Quality & Compliance Audit
 
-**April 2026 | Standards: doc-standards.md (500-line hard limit)**
+**April 2026 (Updated) | Standards: doc-standards.md (500-line hard limit)**
 
 ---
 
-## Over-Limit Files (Must Fix)
+## Over-Limit Files — Status: All Fixed ✅
 
-### 1. modular-saas-architecture — 1,003 lines (CRITICAL)
-**Problem:** More than double the 500-line limit. This is the worst offender.
-**Impact:** Degrades AI comprehension, wastes tokens, violates stated standards.
-**Fix:** Split into 3 files:
-- `modular-saas-architecture/SKILL.md` — Module anatomy, when to use (≤500 lines)
-- `modular-saas-architecture/references/module-patterns.md` — Deep patterns
-- `modular-saas-architecture/references/module-examples.md` — Full examples
+The three over-limit violations from the first audit have been resolved:
 
-### 2. multi-tenant-saas-architecture — 760 lines (HIGH)
-**Problem:** 52% over limit.
-**Fix:** Split into 2 files:
-- `multi-tenant-saas-architecture/SKILL.md` — Three-tier model, isolation patterns (≤500)
-- `multi-tenant-saas-architecture/references/deep-dive.md` — Advanced patterns
+| Skill | Before | After | Status |
+|-------|--------|-------|--------|
+| modular-saas-architecture | 1,003 lines | 293 lines | ✅ Fixed |
+| multi-tenant-saas-architecture | 760 lines | 268 lines | ✅ Fixed |
+| mysql-data-modeling | 600 lines | 359 lines | ✅ Fixed |
 
-### 3. mysql-data-modeling — 600 lines (MEDIUM)
-**Problem:** 20% over limit.
-**Fix:** Move deep entity examples to `references/party-model-deep-dive.md`
+No new over-limit files detected. Compliance rate: **100% within hard limit**.
 
 ---
 
 ## Stub Skills (Must Complete or Deprecate)
 
+These three stubs remain unchanged from the first audit. All are blocking business value.
+
 ### 1. webapp-gui-design — 27 lines (CRITICAL)
-**Status:** The web frontend skill is 27 lines. This is the most important gap in
-the entire repository given that web is the primary delivery platform for SaaS.
-**Action:** Complete with full React/Next.js + Tailwind design patterns.
-(Or supersede with a new `react-nextjs` skill and mark this as deprecated.)
+**Status:** Still 27 lines. React, Next.js, Tailwind, and TypeScript skills now exist,
+making this stub even more embarrassing by contrast.
+**Action:** Either write a comprehensive React + Tailwind + component architecture guide,
+or deprecate and point to `react-development`, `nextjs-app-router`, and `tailwind-css`.
 
 ### 2. pos-restaurant-ui-standard — 39 lines (HIGH)
-**Status:** Exists in CLAUDE.md directory listing as a complete skill but is almost empty.
-**Action:** Either write complete restaurant POS UI patterns or merge into `pos-sales-ui-design`.
+**Status:** Still 39 lines. Blocking the restaurant POS vertical SaaS opportunity.
+**Action:** Write complete patterns for: order entry, kitchen display, receipt printing,
+table management, modifier selection, split billing, and staff management flows.
 
 ### 3. inventory-management — 40 lines (HIGH)
-**Status:** References other skills but provides no actual inventory patterns.
-**Action:** Write complete inventory management patterns (warehouse, stock levels,
-reorder triggers, barcode scanning, batch operations) or deprecate.
+**Status:** Still 40 lines. Blocking pharmacy, logistics, and warehouse SaaS verticals.
+**Action:** Write complete patterns for: stock levels, reorder triggers, barcode scanning,
+batch operations, supplier management, stock-take, and FIFO/LIFO tracking.
 
 ---
 
-## Deprecated Skills (Should Be Marked Clearly)
+## Deprecated Skills (Not Yet Marked)
 
 | Skill | Status | Superseded By |
 |-------|--------|---------------|
-| android-reports | Marked superseded | mobile-reports |
-| android-saas-planning | Partially superseded | mobile-saas-planning |
-| android-report-tables | Partially superseded | mobile-report-tables |
-| android-custom-icons | Partially superseded | mobile-custom-icons |
+| android-reports | Unmarked | mobile-reports |
+| android-saas-planning | Unmarked | mobile-saas-planning |
+| android-report-tables | Unmarked | mobile-report-tables |
+| android-custom-icons | Unmarked | mobile-custom-icons |
 
-**Action:** Add `DEPRECATED: Use [skill-name] instead` as the first line of each deprecated skill.
+**Action:** Add `DEPRECATED: Use [skill-name] instead` as the first line of each.
 
 ---
 
-## Skill Overlaps (Consider Consolidating)
+## Skill Overlaps (Acceptable)
 
-### Auth/RBAC Overlap
-Three RBAC skills with significant overlap:
+### Auth/RBAC — 3 skills serve different stacks
 - `dual-auth-rbac` — Web/PHP sessions + JWT
-- `ios-rbac` — iOS-specific permission gating
-- `mobile-rbac` — Cross-platform (Android + iOS) permission gating
+- `ios-rbac` — iOS-specific (PermissionGate ViewModifier)
+- `mobile-rbac` — Cross-platform Android + iOS
 
-**Recommendation:** Keep all three — they serve genuinely different stacks.
-Add cross-references so Claude picks the right one automatically.
+Keep all three. Add cross-references in each.
 
-### Planning Overlaps
-- `mobile-saas-planning` — Planning a mobile-first SaaS
-- `android-saas-planning` — Android-specific planning
-- `feature-planning` — Individual feature planning
+### AI Billing/Metering — 3 skills serve different scopes
+- `ai-cost-modeling` — Strategy: token economics and margin modeling
+- `ai-metering-billing` — Implementation: ledger schema and metering middleware
+- `ai-saas-billing` — Product: module gating and tenant quota management
+
+Keep all three. They are genuinely different levels of abstraction.
+
+### Planning Skills — 4 skills at different scopes
+- `mobile-saas-planning` — App-level planning
+- `feature-planning` — Individual feature spec
 - `project-requirements` — Requirements gathering
+- `sdlc-planning` — Full SDLC phase
 
-**Recommendation:** Keep all. They operate at different scopes.
-Add a `planning-skill-guide.md` reference that explains when to use which.
-
-### Report/Table Overlaps
-- `mobile-reports` — Supersedes `android-reports`
-- `mobile-report-tables` — Cross-platform table UI
-- `android-report-tables` — Android-specific
-
-**Recommendation:** Deprecate `android-reports`. The others cover distinct concerns.
+Keep all four. Scopes do not overlap.
 
 ---
 
-## Quality Issues in Specific Skills
+## Thin Coverage Skills (< 200 lines)
 
-### Skills With Thin Coverage (< 200 lines)
-These exist but provide minimal guidance:
-| Skill | Lines | Issue |
-|-------|-------|-------|
-| android-custom-icons | 96 | Very thin — enforcement rules only, no examples |
-| google-play-store-review | 84 | Minimal guidance |
-| skill-safety-audit | 121 | Limited remediation guidance |
-| laws-of-ux | 124 | Quick reference only — no application guidance |
-| gis-mapping | 199 | Leaflet focus, missing advanced features |
-| image-compression | 109 | Thin on format selection guidance |
+These exist but provide minimal guidance. Acceptable as checklists/references.
 
-These are acceptable if they are truly just checklists/references, but should be noted.
+| Skill | Lines | Verdict |
+|-------|-------|---------|
+| google-play-store-review | ~84 | Acceptable as checklist |
+| android-custom-icons | ~96 | Acceptable as enforcement rules |
+| skill-safety-audit | ~121 | Acceptable as meta-skill |
+| laws-of-ux | ~124 | Acceptable as quick reference |
+| image-compression | ~109 | Consider expanding or merging |
+| gis-mapping | ~199 | Acceptable, Leaflet focus |
 
 ---
 
@@ -108,22 +98,21 @@ These are acceptable if they are truly just checklists/references, but should be
 
 | Category | Count | Percentage |
 |----------|-------|------------|
-| Fully compliant (< 500 lines) | 128 | 97.7% |
-| Over-limit (> 500 lines) | 3 | 2.3% |
-| Stub / incomplete | 3 | 2.3% |
-| Deprecated (not yet marked) | 4 | 3.1% |
-| Thin coverage (< 200 lines) | 6 | 4.6% |
+| Fully compliant (< 500 lines) | 174 | 100% |
+| Over-limit (> 500 lines) | 0 | 0% |
+| Stub / incomplete | 3 | 1.7% |
+| Deprecated (not yet marked) | 4 | 2.3% |
+| Thin coverage (< 200 lines) | 6 | 3.4% |
 
 ---
 
 ## Immediate Action Priority
 
-1. **Refactor modular-saas-architecture** (1,003 → ≤500 lines)
-2. **Refactor multi-tenant-saas-architecture** (760 → ≤500 lines)
-3. **Complete webapp-gui-design** or supersede with react-nextjs skill
-4. **Complete pos-restaurant-ui-standard** or merge into pos-sales-ui-design
-5. **Mark deprecated skills clearly** in their SKILL.md frontmatter
-6. **Refactor mysql-data-modeling** (600 → ≤500 lines)
+1. **Deprecate 4 android-\* skills** — add DEPRECATED line to each
+2. **Complete webapp-gui-design** or write deprecation pointing to React skills
+3. **Complete pos-restaurant-ui-standard** — POS vertical is blocked
+4. **Complete inventory-management** — pharmacy/logistics verticals are blocked
+5. **Review image-compression** — expand or merge into frontend-performance
 
 ---
 

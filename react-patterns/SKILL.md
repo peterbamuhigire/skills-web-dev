@@ -1,6 +1,6 @@
 ---
 name: react-patterns
-description: Advanced React design patterns for production apps — Container/Presentational, HOC with composition, Render Props, Control Props, Prop Collections/Getters, Compound Components (Context-based), State Reducer, and Immer. Use when designing reusable, flexible, or composable React components. Sources: Fluent React (Kumar, 2023), React 18 Design Patterns (Santana Roldán, 2024).
+description: Advanced React design patterns for production apps — Container/Presentational, HOC with composition, Render Props, Control Props, Prop Collections/Getters, Compound Components (Context-based), State Reducer, and Immer. Use when designing...
 ---
 
 # React Design Patterns

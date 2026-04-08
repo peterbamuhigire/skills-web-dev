@@ -1,6 +1,6 @@
 ---
 name: ai-security
-description: Security checklist for AI-powered application features — prompt injection defense, PII scrubbing before API calls, output validation, rate limiting, audit logging, adversarial inputs, and DPPA/GDPR compliance for AI data flows. Invoke during security review of any AI-enabled system.
+description: Security checklist for AI-powered application features — prompt injection defense, PII scrubbing before API calls, output validation, rate limiting, audit logging, adversarial inputs, and DPPA/GDPR compliance for AI data flows. Invoke during...
 ---
 
 # AI Security

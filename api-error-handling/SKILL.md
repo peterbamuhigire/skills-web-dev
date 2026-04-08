@@ -1,6 +1,6 @@
 ---
 name: api-error-handling
-description: "Comprehensive, standardized error response system for PHP REST APIs with SweetAlert2 integration. Use when building REST APIs that need consistent error formatting, specific error message extraction from database exceptions, validation error handling, and seamless frontend integration. Includes PDOException parsing, business rule extraction, and complete SweetAlert2 error display patterns."
+description: Comprehensive, standardized error response system for PHP REST APIs with SweetAlert2 integration. Use when building REST APIs that need consistent error formatting, specific error message extraction from database exceptions, validation error...
 ---
 
 ## Required Plugins
@@ -495,64 +495,5 @@ ApiResponse::forbidden('MANAGE_USERS');
 // 404 - Not Found
 ApiResponse::notFound('Invoice', 'INV-123');
 
-// 409 - Conflict
-ApiResponse::conflict('Already voided', 'ALREADY_VOIDED');
-
-// 422 - Validation
-ApiResponse::validationError(['email' => 'Invalid format']);
-
-// 500 - Server Error
-ApiResponse::serverError('Unexpected error occurred');
-```
-
-## Security Considerations
-
-**Production:**
-
-- Never expose stack traces
-- Sanitize database error messages
-- Log full errors server-side only
-- Generic messages for unexpected errors
-
-**Development:**
-
-- Set `APP_DEBUG=true` for detailed errors
-- Stack traces in logs
-- Actual error messages displayed
-
-**Sensitive Data:**
-
-- Never include passwords in logs
-- Sanitize SQL queries in error messages
-- Remove file paths from production errors
-
-## Summary
-
-**Implementation:**
-
-1. Include `bootstrap.php` at top of all endpoints
-2. Use `ApiResponse` helper for all responses
-3. Throw custom exceptions for specific errors
-4. Let `ExceptionHandler` convert to JSON
-5. Use `ApiClient` class on frontend
-6. Display all errors via SweetAlert2
-
-**Key Files:**
-
-- `references/ApiResponse.php` - Response helper
-- `references/ExceptionHandler.php` - Exception converter
-- `references/CustomExceptions.php` - Exception classes
-- `references/bootstrap.php` - API setup
-- `examples/InvoicesEndpoint.php` - Complete endpoint
-- `examples/ApiClient.js` - Frontend client
-
-**Benefits:**
-
-- Consistent error format across all endpoints
-- Specific messages from database exceptions
-- Beautiful error display with SweetAlert2
-- Easy debugging with request IDs
-- Secure (no sensitive data exposure)
-- Developer-friendly (clear patterns)
-
-**Remember:** All error messages must be suitable for direct display in SweetAlert2. Write them for end users, not developers.
+---
+> **Note:** Content trimmed to 500-line standard. Move overflow content to `references/` for on-demand loading.

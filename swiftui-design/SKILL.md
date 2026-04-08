@@ -1,6 +1,6 @@
 ---
 name: swiftui-design
-description: "SwiftUI UI standards for beautiful, sleek, minimalistic iOS apps. Enforces modern SwiftUI patterns, consistent theming, smooth animations, and performance. Use when building or reviewing SwiftUI code to ensure modern, user-friendly interfaces standard across all apps."
+description: SwiftUI UI standards for beautiful, sleek, minimalistic iOS apps. Enforces modern SwiftUI patterns, consistent theming, smooth animations, and performance. Use when building or reviewing SwiftUI code to ensure modern, user-friendly interfaces...
 ---
 
 ## Required Plugins

@@ -1,6 +1,6 @@
 ---
 name: ios-debugging-mastery
-description: Expert LLDB debugging for iOS — non-obvious commands (regex breakpoints, breakpoint persistence, register manipulation), Python scripting for custom LLDB commands (SBDebugger API, optparse, resymbolication), watchpoints for ObjC ivar writes, DTrace for stripped binaries, malloc stack logging for use-after-free, Chisel commands, Mach-O binary analysis, and anti-debugging bypass. Use when debugging iOS apps beyond basic breakpoints: investigating memory issues, reverse engineering frameworks, analyzing stripped binaries, or building custom debugging tools.
+description: Expert LLDB debugging for iOS — non-obvious commands (regex breakpoints, breakpoint persistence, register manipulation), Python scripting for custom LLDB commands (SBDebugger API, optparse, resymbolication), watchpoints for ObjC ivar writes...
 ---
 
 # iOS Debugging Mastery

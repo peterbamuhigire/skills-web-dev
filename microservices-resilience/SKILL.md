@@ -1,6 +1,6 @@
 ---
 name: microservices-resilience
-description: Resilience patterns for microservices — circuit breaker (full implementation), health check endpoint design, load balancing algorithms, retry with backoff, bulkhead, timeout, graceful degradation, slowstart recovery, and stale cache fallback. Source: Stetson (NGINX MRA Ch. 6), Pandiya & Charankar (AI and Microservices).
+description: Resilience patterns for microservices — circuit breaker (full implementation), health check endpoint design, load balancing algorithms, retry with backoff, bulkhead, timeout, graceful degradation, slowstart recovery, and stale cache fallback...
 ---
 
 # Microservices Resilience

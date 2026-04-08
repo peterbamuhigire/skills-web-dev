@@ -1,6 +1,6 @@
 ---
 name: web-usability-krug
-description: Steve Krug's web and mobile usability principles from Don't Make Me Think (3rd ed.). Load when designing web or mobile interfaces, navigation, home pages, forms, or planning usability testing. Covers Krug's 3 Laws, scanning behaviour, Billboard Design 101, navigation, goodwill reservoir, mobile tradeoffs, accessibility essentials, and DIY testing.
+description: Steve Krug's web and mobile usability principles from Don't Make Me Think (3rd ed.). Load when designing web or mobile interfaces, navigation, home pages, forms, or planning usability testing. Covers Krug's 3 Laws, scanning behaviour, Billboard...
 ---
 
 # Web Usability — Krug's Principles

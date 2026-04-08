@@ -1,6 +1,6 @@
 ---
 name: design-audit
-description: "Comprehensive UI/UX quality audit covering visual hierarchy, accessibility, AI slop detection, typography, colour, layout, interaction states, responsive behaviour, performance, and microcopy. Produces severity-rated findings with actionable fixes. Use when evaluating any interface before shipping. Based on Impeccable (Bakaus, 2025)."
+description: Comprehensive UI/UX quality audit covering visual hierarchy, accessibility, AI slop detection, typography, colour, layout, interaction states, responsive behaviour, performance, and microcopy. Produces severity-rated findings with actionable...
 ---
 
 # Design Audit Skill

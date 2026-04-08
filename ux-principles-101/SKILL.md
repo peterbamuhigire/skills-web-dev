@@ -1,6 +1,6 @@
 ---
 name: ux-principles-101
-description: "101 actionable UX principles covering accessibility (WCAG), controls, forms, navigation, search, empty states, onboarding, error recovery, progress indicators, copywriting, user journeys, and ethical design. Cross-cutting skill — load alongside any platform or domain skill to ensure UX quality. Based on 101 UX Principles (Grant, 2018) enriched with patterns from Fixing Bad UX (Maioli, 2018)."
+description: 101 actionable UX principles covering accessibility (WCAG), controls, forms, navigation, search, empty states, onboarding, error recovery, progress indicators, copywriting, user journeys, and ethical design. Cross-cutting skill — load alongside...
 ---
 
 # UX Principles 101

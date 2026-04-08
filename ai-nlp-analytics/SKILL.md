@@ -1,6 +1,6 @@
 ---
 name: ai-nlp-analytics
-description: Text analytics using LLM APIs — sentiment analysis, customer feedback classification, document entity extraction, multi-language support (English/Luganda/Swahili), feedback aggregation, and NLP feature implementation for PHP/Android/iOS. Sources: Chaudhary (AI-Based Data Analytics), Mastering AI (Krishna), HBR AI Analytics (Wilson).
+description: Text analytics using LLM APIs — sentiment analysis, customer feedback classification, document entity extraction, multi-language support (English/Luganda/Swahili), feedback aggregation, and NLP feature implementation for PHP/Android/iOS. Sources...
 ---
 
 # AI NLP Analytics

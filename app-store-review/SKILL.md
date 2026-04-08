@@ -1,6 +1,6 @@
 ---
 name: app-store-review
-description: "Apple App Store compliance and review readiness for iOS apps. Use when preparing App Store Connect submissions, validating App Review Guidelines, privacy labels, permissions, In-App Purchases, store listing accuracy, TestFlight testing, and reviewer notes."
+description: Apple App Store compliance and review readiness for iOS apps. Use when preparing App Store Connect submissions, validating App Review Guidelines, privacy labels, permissions, In-App Purchases, store listing accuracy, TestFlight testing, and...
 ---
 
 ## Required Plugins

@@ -1,6 +1,6 @@
 ---
 name: deepseek-integration
-description: Integrate DeepSeek AI models into apps — DeepSeek V3 (general), R1 (reasoning/CoT), API setup (OpenAI-compatible), local deployment with Ollama, distilled model selection, cost vs OpenAI comparison, and Python/JavaScript code patterns. Use when integrating DeepSeek as an LLM provider in any application. Sources: DeepSeek books (Aremu, Chakraborty, Kits For Life, 2025).
+description: Integrate DeepSeek AI models into apps — DeepSeek V3 (general), R1 (reasoning/CoT), API setup (OpenAI-compatible), local deployment with Ollama, distilled model selection, cost vs OpenAI comparison, and Python/JavaScript code patterns. Use when...
 ---
 
 # DeepSeek Integration

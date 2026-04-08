@@ -1,6 +1,6 @@
 ---
 name: competitive-analysis-pm
-description: Competitive analysis toolkit for product managers. Covers Porter's Five Forces applied to software product decisions, win/loss analysis, competitor teardown template, market positioning map, Jobs-to-be-Done competitive lens, and Red Ocean vs Blue Ocean framing. Use when entering a new market, planning a roadmap, or responding to a competitor move.
+description: Competitive analysis toolkit for product managers. Covers Porter's Five Forces applied to software product decisions, win/loss analysis, competitor teardown template, market positioning map, Jobs-to-be-Done competitive lens, and Red Ocean vs Blue...
 ---
 
 # Competitive Analysis for Product Managers

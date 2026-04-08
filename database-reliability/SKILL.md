@@ -1,6 +1,6 @@
 ---
 name: database-reliability
-description: "Database reliability engineering: SLOs for databases, operational runbooks, change management, capacity planning, backup verification, incident response, and monitoring strategies for production MySQL. Use when setting up production database operations, defining database SLOs, planning maintenance windows, or responding to database incidents."
+description: Database reliability engineering: SLOs for databases, operational runbooks, change management, capacity planning, backup verification, incident response, and monitoring strategies for production MySQL. Use when setting up production database...
 ---
 
 # Database Reliability Engineering

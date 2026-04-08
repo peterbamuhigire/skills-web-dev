@@ -1,6 +1,6 @@
 ---
 name: android-data-persistence
-description: "Android data persistence standards with Room as primary local storage and custom API backends for cloud sync. Covers SharedPreferences, DataStore, Room (entities, DAOs, relations, migrations), file storage, offline-first architecture, and repository pattern for API-backed sync. Use when implementing any data storage, caching, or sync feature in Android apps."
+description: Android data persistence standards with Room as primary local storage and custom API backends for cloud sync. Covers SharedPreferences, DataStore, Room (entities, DAOs, relations, migrations), file storage, offline-first architecture, and...
 ---
 
 ## Required Plugins

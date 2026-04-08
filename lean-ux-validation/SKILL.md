@@ -1,6 +1,6 @@
 ---
 name: lean-ux-validation
-description: Hypothesis-driven UX validation process from Laura Klein's UX for Lean Startups. Use BEFORE building any feature to validate it is worth building. Covers problem/market/product validation, 5-user research, fake button testing, interview techniques, metrics design, iterative process, and feature prioritisation. Prevents building the wrong thing.
+description: Hypothesis-driven UX validation process from Laura Klein's UX for Lean Startups. Use BEFORE building any feature to validate it is worth building. Covers problem/market/product validation, 5-user research, fake button testing, interview...
 ---
 
 # Lean UX Validation

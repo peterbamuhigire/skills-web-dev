@@ -1,6 +1,6 @@
 ---
 name: ai-integration-section
-description: Generate a complete "AI Integration" section for any SRS, PRD, HLD, LLD, or design document. Covers AI opportunities, gate/billing design, cost model, architecture pattern, UX approach, and security posture for the module being documented. Invoke after generating any major document section for an AI-enabled system.
+description: Generate a complete "AI Integration" section for any SRS, PRD, HLD, LLD, or design document. Covers AI opportunities, gate/billing design, cost model, architecture pattern, UX approach, and security posture for the module being documented. Invoke...
 ---
 
 # AI Integration Section

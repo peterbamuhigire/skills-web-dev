@@ -1,6 +1,6 @@
 ---
 name: it-proposal-writing
-description: Framework for writing persuasive IT project proposals that win work. Covers Basis of Decision (BOD), Unique Selling Points (USP), proposal strategy, document structure, persuasive prose techniques, the 5-level destruction model, grammar rules, and the Proposal Evaluation Questionnaire. Use when writing commercial proposals, responding to tenders, or preparing internal investment cases for IT projects.
+description: Framework for writing persuasive IT project proposals that win work. Covers Basis of Decision (BOD), Unique Selling Points (USP), proposal strategy, document structure, persuasive prose techniques, the 5-level destruction model, grammar rules...
 ---
 
 # IT Proposal Writing

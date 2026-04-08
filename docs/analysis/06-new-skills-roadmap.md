@@ -16,6 +16,9 @@ The following Phase 1 and Phase 2 skills from the original roadmap now exist:
 | 7 | realtime-systems | ✅ Built |
 | 8 | api-design-first | ✅ Built |
 | Bonus | microservices-* | ✅ 5 skills built |
+| Bonus | postgresql-patterns | ✅ Built as 6 postgresql-* skills incl. pgvector |
+| Bonus | vector-databases | ✅ Covered by postgresql-ai-platform (pgvector RAG) |
+| Bonus | nodejs-typescript-backend | ✅ Built as nodejs-development (Fastify + Prisma + BullMQ) |
 
 ---
 
@@ -33,30 +36,21 @@ The following Phase 1 and Phase 2 skills from the original roadmap now exist:
 **Source:** Stripe documentation (stripe.com/docs/billing)
 **Creates:** Revenue collection infrastructure for every SaaS product
 
-### 3. `postgresql-patterns`
-**What:** PostgreSQL core patterns — additive to MySQL, not a replacement
-**Covers:** Syntax differences from MySQL, JSONB, full-text search, migrations
-**Source:** *PostgreSQL: Up and Running* (Obe & Hsu)
-**Note:** You stay on MySQL for existing products. This skill unlocks Supabase,
-pgvector, and PostgreSQL-native client projects.
+### ~~3. `postgresql-patterns`~~ ✅ DONE
+Built as 6 dedicated skills: postgresql-fundamentals through postgresql-ai-platform (pgvector).
 
-### 4. `vector-databases`
-**What:** Embeddings, vector search, and RAG storage infrastructure
-**Covers:** pgvector for PostgreSQL, Pinecone/Qdrant/Weaviate, chunking, hybrid search
-**Source:** pgvector docs, Supabase Vector docs, *AI-Powered Search* (Grainger)
-**Creates:** The missing storage layer for RAG pipelines (ai-rag-patterns theory already exists)
+### ~~4. `vector-databases`~~ ✅ DONE
+Covered by postgresql-ai-platform: pgvector, embeddings, RAG pipeline, HNSW indexes.
 
-### 5. `cicd-pipelines`
+### 3. `cicd-pipelines`
 **What:** GitHub Actions CI/CD for web + mobile
 **Covers:** Automated testing, build/deploy pipelines, secrets, environments, Fastlane iOS
 **Source:** *Continuous Delivery* (Humble & Farley), GitHub Actions documentation
 **Creates:** Fast, repeatable, safe delivery on every commit
 
-### 6. `nodejs-typescript-backend`
-**What:** Node.js production server with TypeScript
-**Covers:** Fastify/Hono, Prisma ORM, BullMQ, Redis caching, health checks, Zod validation
-**Source:** *Node.js Design Patterns* (Casciaro & Mammino, 3rd ed)
-**Creates:** Modern server-side option alongside PHP
+### ~~4. `nodejs-typescript-backend`~~ ✅ DONE
+Built as `nodejs-development` — covers Fastify, Prisma, BullMQ, plus 10 reference files
+(async patterns, streams, design patterns, scaling, realtime, testing, MongoDB).
 
 ---
 
@@ -158,13 +152,14 @@ ARKit, ARCore, Apple Vision Pro, spatial UI patterns (2028+).
 
 | Period | Skills to Build | Theme |
 |--------|----------------|-------|
-| 2026 Q2–Q3 | 1–6 (cloud, payments, DB, CI/CD, Node) | Infrastructure |
-| 2026 Q4 | 7–11 (Android AI, billing, observability, PWA, E2E) | Platform depth |
-| 2027 Q1–Q2 | 12–15 (PLG, events, GraphQL, metrics) | Competitive moats |
-| Ongoing | 16–18 (3 stubs) | Library maintenance |
-| 2028–2030 | 19–23 (frontier) | Future-proofing |
+| 2026 Q2–Q3 | cloud-architecture, stripe-payments, cicd-pipelines | Infrastructure (3 remain) |
+| 2026 Q4 | android-ai-ml, subscription-billing, observability-monitoring, pwa-offline-first, e2e-testing | Platform depth |
+| 2027 Q1–Q2 | product-led-growth, event-driven-architecture, graphql-patterns, saas-growth-metrics | Competitive moats |
+| Ongoing | webapp-gui-design, pos-restaurant-ui-standard, inventory-management (3 stubs) | Library maintenance |
+| 2028–2030 | multimodal-ai, edge-computing, react-native-advanced, accessibility-wcag, ar-vr-interfaces | Future-proofing |
 
-**Total remaining: 23 skills** — growing from 174 to ~197 skills.
+**Total remaining: 20 skills** — current library: 176 skills.
+*3 critical gaps closed this session: Node.js Backend, PostgreSQL/Vector DB, deprecated skill cleanup.*
 
 ---
 

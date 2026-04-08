@@ -91,7 +91,10 @@
       "WebFetch(domain:dev.to)",
       "Bash(grep:*)",
       "WebFetch(domain:docs.bullmq.io)",
-      "WebFetch(domain:github.com)"
+      "WebFetch(domain:github.com)",
+      "Bash(mkdir -p \"/c/Users/Peter/.claude/skills/cicd-pipeline-design/references\")",
+      "Bash(mkdir -p \"/c/Users/Peter/.claude/skills/cicd-jenkins-debian/references\")",
+      "Bash(mkdir -p \"/c/Users/Peter/.claude/skills/cicd-devsecops/references\")"
     ]
   }
 }

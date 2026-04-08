@@ -57,7 +57,7 @@ Based on your book collection, you are building:
 | Real-time Systems | 1 | Foundational | Medium | Medium |
 | Cloud/Infrastructure | 0 | None | None | **Critical** |
 | Payment Systems | 0 | None | None | **Critical** |
-| PostgreSQL/Vector DB | 0 | None | None | **Critical** |
+| PostgreSQL/Vector DB | 6 | Expert | High | Low |
 | Node.js Backend | 1 | Strong | High | Low |
 | CI/CD Pipelines | 0 | None | None | **Critical** |
 
@@ -83,7 +83,7 @@ Based on your book collection, you are building:
 
 - **Cloud-native deployments** — no AWS/GCP, no containers, no CI/CD pipelines
 - **Subscription billing** — no Stripe, no webhook handling, no dunning
-- **AI-adjacent databases** — no PostgreSQL patterns, no pgvector, no vector search infra
+- **AI-adjacent databases** — covered (6 PostgreSQL skills incl. pgvector + RAG pipelines)
 - **Modern server-side TypeScript** — covered (Fastify, Prisma, BullMQ, async patterns, design patterns)
 - **E2E automated testing** — no Playwright/Cypress framework coverage
 - **Production observability** — no structured logging, tracing, Sentry, Grafana

@@ -1,6 +1,6 @@
 # Current Skills Map — Complete Inventory
 
-**174 skills across 17 domains | April 2026 (Updated)**
+**176 skills across 18 domains | April 2026 (Updated)**
 
 ---
 
@@ -33,7 +33,7 @@
 | app-store-review | 450 | App Store compliance, privacy labels, review readiness |
 
 **Assessment:** Exceptional. One of the most complete iOS skill sets achievable.
-Only gaps: Objective-C interop, VoIP/CallKit, on-device LLM fine-tuning.
+Remaining gaps: Objective-C interop, VoIP/CallKit, on-device LLM fine-tuning.
 
 ---
 
@@ -70,12 +70,12 @@ Only gaps: Objective-C interop, VoIP/CallKit, on-device LLM fine-tuning.
 | openai-agents-sdk | OpenAI Agents SDK: Agent, Runner, Tools, Handoff, Guardrails |
 | deepseek-integration | DeepSeek V3/R1, Ollama local, cost comparison, Python/JS/PHP |
 
-**Assessment:** Enterprise-grade AI ecosystem. Covers integration → analytics → products →
-cost control → safety → evaluation. Most significant growth area since first audit.
+**Assessment:** Enterprise-grade. Covers integration → analytics → products →
+cost control → safety → evaluation.
 
 ---
 
-## Web Frontend — 14 Skills (Strong, Post-Enhancement)
+## Web Frontend — 14 Skills (Strong)
 
 | Skill | Coverage |
 |-------|----------|
@@ -94,8 +94,31 @@ cost control → safety → evaluation. Most significant growth area since first
 | frontend-performance | Core Web Vitals, LCP/INP/CLS, image/JS/font optimisation |
 | webapp-gui-design | **STUB — 27 lines, provides no actual guidance** |
 
-**Assessment:** Now covers the modern web stack (React, Next.js, TypeScript, Tailwind).
-Critical remaining issue: webapp-gui-design is still 27 lines. Complete it or deprecate.
+**Assessment:** Modern web stack fully covered. Critical issue: webapp-gui-design is a stub.
+
+---
+
+## Node.js Backend — 1 Skill (Strong)
+
+| Skill | Coverage |
+|-------|----------|
+| nodejs-development | Reactor pattern, ESM/CJS, async/await, EventEmitter, streams, HTTP |
+
+**References (10 deep-dive files):**
+- `async-patterns.md` — callbacks, Promises, TaskQueue, producer-consumer
+- `streams.md` — backpressure, Transform, merge, fork, mux/demux
+- `design-patterns.md` — Factory, Builder, Proxy, Middleware, Decorator, DI
+- `scaling.md` — cluster, worker_threads, AMQP, Redis Streams
+- `fastify.md` — server setup, plugins (fp()), hooks, JWT, TypeBox, Swagger, testing
+- `prisma.md` — schema, migrations, CRUD, relations, transactions, TS types, seeding
+- `bullmq.md` — queues, workers, retries, cron, FlowProducer, Bull Board, Redis
+- `mongodb-mongoose.md` — schema design, validation, relationships
+- `realtime.md` — WebSockets, SSE, Socket.IO, multi-tenant isolation
+- `testing.md` — Mocha/Chai, Sinon, Supertest, c8 coverage
+
+**Sources:** *Node.js Design Patterns* (Casciaro & Mammino), *Accelerating Server-Side Development
+with Fastify* (Spigolon), *Node.js Recipes* (Gackenheimer), *Fullstack Node.js* (Murray),
+*Next.js 13 + Prisma* (Lim), BullMQ docs/guides.
 
 ---
 
@@ -112,12 +135,26 @@ Critical remaining issue: webapp-gui-design is still 27 lines. Complete it or de
 | database-reliability | SLOs, expand-contract migrations, backup verification, chaos engineering |
 
 **Assessment:** Expert-level. A genuine competitive differentiator.
-Gap: No PostgreSQL patterns (critical for vector search / pgvector).
-MySQL remains the primary stack — PostgreSQL is an additive skill, not a replacement.
 
 ---
 
-## Android Development — 11 Skills
+## PostgreSQL / Vector DB — 6 Skills (Expert)
+
+| Skill | Coverage |
+|-------|----------|
+| postgresql-fundamentals | Tools, roles, data types, object model, server config, extensions |
+| postgresql-advanced-sql | CTEs, recursive, window functions, JSONB, arrays, full-text search |
+| postgresql-server-programming | PL/pgSQL, functions, procedures, triggers, event triggers, extensions |
+| postgresql-performance | EXPLAIN ANALYZE, B-tree/GIN/GiST/BRIN/partial indexes, MVCC, VACUUM |
+| postgresql-administration | pg_dump, WAL/PITR, streaming/logical replication, monitoring, cloud PaaS |
+| postgresql-ai-platform | pgvector, embeddings, RAG pipeline, AI fault lines, sovereign data platform |
+
+**Assessment:** Complete PostgreSQL stack from fundamentals through pgvector RAG.
+Enables Supabase projects, vector search, and PostgreSQL-native client work.
+
+---
+
+## Android Development — 7 Skills (Solid)
 
 | Skill | Coverage |
 |-------|----------|
@@ -128,12 +165,13 @@ MySQL remains the primary stack — PostgreSQL is an additive skill, not a repla
 | android-biometric-login | AndroidX Biometric, CryptoObject |
 | android-tdd | Red-Green-Refactor, JUnit, Espresso, Mockk |
 | mobile-rbac | Permission gating, EncryptedSharedPreferences, JWT |
-| mobile-reports | Cross-platform report design (Android Compose + iOS SwiftUI) |
-| mobile-report-tables | Cross-platform tables for 25+ row datasets |
-| mobile-saas-planning | Planning for native Android/iOS + web backend |
-| mobile-custom-icons | Cross-platform icon management |
+
+**Cross-platform (shared with iOS):** mobile-reports, mobile-report-tables,
+mobile-saas-planning, mobile-custom-icons.
 
 **Assessment:** Solid. Gap: Android AI/ML (TensorFlow Lite, ML Kit, Gemini Nano).
+*Note: android-reports, android-saas-planning, android-report-tables, android-custom-icons deleted —
+superseded by mobile-* equivalents.*
 
 ---
 
@@ -148,7 +186,7 @@ MySQL remains the primary stack — PostgreSQL is an additive skill, not a repla
 
 ---
 
-## Microservices — 5 Skills (New Domain)
+## Microservices — 5 Skills
 
 | Skill | Coverage |
 |-------|----------|
@@ -167,7 +205,7 @@ code-safety-scanner, skill-safety-audit, graphql-security, llm-security, ai-secu
 
 ---
 
-## UI/UX Design — 15+ Skills
+## UI/UX Design — 19 Skills
 
 practical-ui-design, form-ux-design, cognitive-ux-framework, design-audit, laws-of-ux,
 lean-ux-validation, ux-principles-101, ux-psychology, ux-writing, healthcare-ui-design,
@@ -191,10 +229,23 @@ it-proposal-writing, saas-business-metrics.
 
 ---
 
+## KMP / Cross-platform — 3 Skills
+
+kmp-development, kmp-tdd, kmp-compose-multiplatform.
+
+---
+
 ## API & Real-Time — 5 Skills
 
 api-design-first, api-error-handling, api-pagination, api-testing-verification,
 realtime-systems.
+
+---
+
+## Product Management — 5 Skills
+
+product-discovery, product-strategy-vision, competitive-analysis-pm,
+feature-planning, project-requirements.
 
 ---
 

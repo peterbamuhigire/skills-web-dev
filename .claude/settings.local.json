@@ -81,7 +81,17 @@
       "Bash(unzip -p /c/Users/Peter/Downloads/Documents/_OceanofPDF.com_Kotlin_Multiplatform_by_Tutorials_Second_Ed_-_Kevin_D_Moore.epub toc.ncx)",
       "Bash(unzip -l '/c/Users/Peter/Downloads/Documents/Building a Data and AI Platform with PostgreSQL \\(for . .\\).epub')",
       "Bash(unzip -l /c/Users/Peter/Downloads/Documents/_OceanofPDF.com_Kotlin_Multiplatform_by_Tutorials_Second_Ed_-_Kevin_D_Moore.epub)",
-      "Bash(wc:*)"
+      "Bash(wc:*)",
+      "Bash(mkdir -p nodejs-ext)",
+      "Bash(unzip -q \"C:/Users/Peter/Downloads/NextJS 13 and React Crash Course Build a Full Stack NextJS 13 App with React, Tailwind and Prisma backend \\(Lim, Greg\\) \\(z-library.sk, 1lib.sk, z-lib.sk\\).epub\" -d nodejs-ext/nextjs-prisma)",
+      "Bash(unzip -q \"C:/Users/Peter/Downloads/_OceanofPDF.com_Accelerating_Server-Side_Development_-_Manuel_Spigolon.epub\" -d nodejs-ext/fastify)",
+      "Bash(grep -v '^[[:space:]]*$')",
+      "WebFetch(domain:www.dragonflydb.io)",
+      "WebFetch(domain:medium.com)",
+      "WebFetch(domain:dev.to)",
+      "Bash(grep:*)",
+      "WebFetch(domain:docs.bullmq.io)",
+      "WebFetch(domain:github.com)"
     ]
   }
 }

@@ -258,7 +258,8 @@ or create `rag-implementation` as a companion skill.
 | Prisma documentation — prisma.io/docs | Free (online) | Best TypeScript ORM for Node.js |
 | BullMQ documentation — docs.bullmq.io | Free (online) | Background job queues |
 
-**Action:** Extend `nodejs-development` with a `references/fastify-prisma.md` once Fastify/Prisma docs are read.
+**Action:** ✅ Gap fully closed. Three reference files added to `nodejs-development`:
+`references/fastify.md`, `references/prisma.md`, `references/bullmq.md`
 
 ---
 

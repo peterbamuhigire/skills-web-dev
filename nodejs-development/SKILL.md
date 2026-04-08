@@ -381,6 +381,9 @@ pm2 start src/server.js --instances max --name myapp
 - `references/mongodb-mongoose.md` — schema design, validation, relationships, populate
 - `references/realtime.md` — WebSockets, SSE, Socket.IO
 - `references/testing.md` — Mocha/Chai, mocking, integration testing
+- `references/fastify.md` — Fastify server, plugins, hooks, JWT, TypeBox, Swagger, testing
+- `references/prisma.md` — schema, migrations, CRUD, relations, transactions, TypeScript types
+- `references/bullmq.md` — queues, workers, retries, cron, FlowProducer, Bull Board, Redis
 
 ---
 
@@ -390,3 +393,5 @@ pm2 start src/server.js --instances max --name myapp
 - *Node.js Recipes* — Cory Gackenheimer (Apress, 2013)
 - *Fullstack Node.js* — Nate Murray (Leanpub, 2019)
 - *Node.js Fundamentals* — Machine Learning
+- *Accelerating Server-Side Development with Fastify* — Manuel Spigolon (Packt)
+- *Next.js 13 + Prisma* — Greg Lim

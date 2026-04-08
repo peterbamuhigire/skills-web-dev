@@ -58,8 +58,6 @@ class ContactsViewController: UIViewController {
 }
 ```
 
-**`reconfigureItems` vs `reloadItems`**: Use `reconfigureItems` (iOS 15+) when only cell content changes — calls `cellForItemAt` on existing cells without recreating them, preserving animations and avoiding flicker. Use `reloadItems` only when the cell type itself must change.
-
 **Multi-section snapshots:**
 
 ```swift
@@ -309,8 +307,6 @@ class AnimatedViewController: UIViewController {
 }
 ```
 
-**Key rules**: Create the animator once in `.began`. Scrub with `fractionComplete` in `.changed`. Call `continueAnimation` in `.ended` — never `startAnimation`. For spring animations, use `UISpringTimingParameters` with `initialVelocity` derived from the gesture velocity vector.
-
 ---
 
 ## SECTION 5: Context Menus
@@ -359,8 +355,6 @@ func collectionView(_ collectionView: UICollectionView,
 }
 ```
 
-**Menu hierarchy**: Nest `UIMenu` inside `UIMenu.children` to create submenus. Mark destructive actions with `.destructive` attribute — they render in red. Use `.displayInline` on a `UIMenu` to flatten its children into the parent without a submenu chevron.
-
 ---
 
 ## SECTION 6: Bottom Sheets with UISheetPresentationController
@@ -395,8 +389,6 @@ func expandSheet(_ sheet: UIViewController) {
     }
 }
 ```
-
-**`largestUndimmedDetentIdentifier`**: Set to `.medium` so the presenting view remains interactive when the sheet is at half height — essential for map + sheet layouts.
 
 ---
 
@@ -442,8 +434,6 @@ class CoreDataViewController: UIViewController, NSFetchedResultsControllerDelega
 }
 ```
 
-**Why `NSManagedObjectID` as the item identifier**: Object IDs are stable, unique, and `Hashable`. Avoid using the managed object itself — equality semantics are context-dependent and can cause incorrect diffs.
-
 ---
 
 ## SECTION 8: Prefetching for Smooth Scrolling
@@ -472,10 +462,7 @@ private let imageCache: NSCache<NSURL, UIImage> = {
     cache.totalCostLimit = 50 * 1024 * 1024  // 50 MB
     return cache
 }()
-// NSCache auto-evicts under memory pressure — never use a plain Dictionary for image caches
 ```
-
-**`UICollectionViewDataSourcePrefetching`** mirrors the same pattern — set `collectionView.prefetchDataSource` and implement `prefetchItemsAt` / `cancelPrefetchingForItemsAt`.
 
 ---
 
@@ -483,26 +470,31 @@ private let imageCache: NSCache<NSURL, UIImage> = {
 
 | Anti-Pattern | Consequence | Fix |
 |---|---|---|
-| `beginUpdates/endUpdates` with concurrent data changes | Index-out-of-bounds crash | Diffable data source |
-| Hard-coded column count in compositional layout | Broken layout on iPad / large screens | `environment.container.effectiveContentSize` |
-| `transitioningDelegate` set inline without retention | Silent fallback to default transition | Store as strong property on presenter |
-| `reloadItems` for content-only updates (iOS 15+) | Flicker + unwanted height animation | `reconfigureItems` |
-| Creating new `UIViewPropertyAnimator` on each `.changed` event | Broken interactive scrubbing | Create once in `.began`, scrub in `.changed` |
-| Skipping `previewProvider` on context menus | Generic screenshot preview (less premium) | Always provide a custom `previewProvider` |
-| `UITableView` for complex multi-section + carousel layouts | Unmanageable layout code | `UICollectionViewCompositionalLayout` with list config |
-| Using managed objects directly as diffable identifiers | Unstable diffs, incorrect animations | Use `NSManagedObjectID` as identifier |
-| Not cancelling prefetch requests | Wasted bandwidth, unnecessary decoding | Always implement `cancelPrefetchingForRowsAt` |
+| `beginUpdates/endUpdates` with concurrent changes | Index-out-of-bounds crash | Diffable data source |
+| Hard-coded column count in compositional layout | Broken on iPad / large screens | `environment.container.effectiveContentSize` |
+| `transitioningDelegate` set inline without retention | Silent fallback to default | Store as strong property on presenter |
+| `reloadItems` for content-only updates (iOS 15+) | Flicker + height animation | `reconfigureItems` |
+| New `UIViewPropertyAnimator` on each `.changed` | Broken scrubbing | Create once in `.began` |
+| Managed objects as diffable identifiers | Unstable diffs | `NSManagedObjectID` as identifier |
+
+---
+
+## SECTION 10: Advanced Interactions Reference
+
+See [references/advanced-interactions.md](references/advanced-interactions.md) for:
+
+- **Touch prediction & coalescing** — sub-frame stroke accuracy and latency compensation for drawing apps (Apple Pencil support)
+- **UIKit Dynamics** — physics simulation: `UIGravityBehavior`, `UICollisionBehavior`, `UISnapBehavior`, `UIPushBehavior`, elasticity/friction
+- **iPad size class transitions** — `willTransition(to:with:)` + `viewWillTransition(to:with:)` for Split View and Stage Manager
+- **Adaptive multitasking layouts** — deactivating/activating constraint sets on trait changes, compositional layout column adaptation
 
 ---
 
 ## Quick-Reference Checklist
 
-- [ ] Model types used as diffable items conform to `Hashable` via a stable `id` field
-- [ ] `reconfigureItems` used (not `reloadItems`) for content-only cell updates on iOS 15+
-- [ ] Compositional layout columns derived from `environment.container.effectiveContentSize`
+- [ ] Diffable item types conform to `Hashable` via a stable `id` field
+- [ ] `reconfigureItems` (not `reloadItems`) for content-only updates on iOS 15+
+- [ ] Compositional layout columns from `environment.container.effectiveContentSize`
 - [ ] `transitioningDelegate` retained as a strong stored property
 - [ ] `UIViewPropertyAnimator` created once in gesture `.began`, not `.changed`
-- [ ] Context menu `previewProvider` implemented for every item-level menu
 - [ ] `NSManagedObjectID` used as the diffable identifier for Core Data items
-- [ ] `cancelPrefetchingForRowsAt` implemented alongside `prefetchRowsAt`
-- [ ] Bottom sheet `largestUndimmedDetentIdentifier` set when presenting over interactive content

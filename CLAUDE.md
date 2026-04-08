@@ -119,10 +119,10 @@ skills/
 ├── android-report-tables/           # [Superseded by mobile-report-tables] Android report tables
 ├── kmp-development/                 # KMP shared module (Ktor, SQLDelight, Koin, expect/actual, SKIE)
 ├── kmp-tdd/                         # KMP TDD (commonTest, Mokkery, Turbine, Ktor MockEngine, Kover)
-├── ios-development/                 # iOS dev standards (Swift, SwiftUI, MVVM, async/await, @Observable)
-├── ios-tdd/                         # iOS TDD (Red-Green-Refactor, Swift Testing, XCTest, protocol mocks)
+├── ios-development/                 # iOS dev standards (Swift, SwiftUI, MVVM, async/await, @Observable) + accessibility
+├── ios-tdd/                         # iOS TDD (Red-Green-Refactor, Swift Testing, XCTest, protocol mocks, Observer/UseCase testing)
 ├── ios-stability-solutions/         # Crash prevention, optional safety, DI, SOLID, TDD safety net, SDUI, UI crash surface
-├── ios-data-persistence/            # SwiftData, Keychain, offline-first, repository pattern for iOS
+├── ios-data-persistence/            # SwiftData, Keychain, offline-first, repository pattern, iCloud sync options
 ├── ios-project-setup/               # Xcode setup, xcconfig schemes, code signing, TestFlight, App Store
 ├── ios-biometric-login/             # Face ID/Touch ID gate via LocalAuthentication + Keychain
 ├── ios-pdf-export/                  # Native PDF export using UIGraphicsPDFRenderer + share sheet
@@ -268,8 +268,8 @@ skills/
 ├── ios-debugging-mastery/           # LLDB mastery, Python scripting for LLDB, watchpoints, DTrace, malloc stack logging, Mach-O analysis, anti-debugging bypass
 ├── ios-ai-ml/                       # CoreML, Vision (face/barcode/saliency), NaturalLanguage, CreateML training, on-device model updates, privacy-preserving AI
 ├── ios-swift-design-patterns/       # Swift-idiomatic patterns: Observable MVVM, POP composition, VC containment, delegation conventions, keypath adapter
-├── ios-networking-advanced/         # Actor-based NetworkClient, 401 refresh deduplication, exponential backoff, background URLSession, cert pinning, multipart upload
-├── ios-uikit-advanced/              # Diffable data sources, compositional layout, custom transitions, UIViewPropertyAnimator, context menus, bottom sheets
+├── ios-networking-advanced/         # Actor-based NetworkClient, 401 refresh deduplication, exponential backoff, background URLSession, cert pinning, multipart upload, structured concurrency (async-let, TaskGroup)
+├── ios-uikit-advanced/              # Diffable data sources, compositional layout, custom transitions, UIViewPropertyAnimator, context menus, bottom sheets, touch prediction/coalescing, UIKit Dynamics, iPad multitasking
 ├── ios-monetization/                # StoreKit 2: consumables, subscriptions, paywall UI, Transaction.updates loop, receipt JWS, sandbox testing
 ├── ios-push-notifications/          # APNs: UNUserNotificationCenter, rich push, service extensions, silent push, notification categories, token lifecycle
 ├── ios-swift-recipes/               # App Store production Swift recipes (data, JSON, UIKit, images, animation, SwiftUI)

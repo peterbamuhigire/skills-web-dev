@@ -16,15 +16,6 @@ Production-grade iOS development standards for AI-assisted implementation. Swift
 **Compatibility:** Must run flawlessly on both the minimum deployment target AND the latest iOS release
 **Reference App:** Apple's sample code gallery and WWDC sessions — canonical examples of modern SwiftUI patterns
 
-## When to Use
-
-- Building new iOS applications or features
-- Reviewing iOS/Swift code for quality and standards compliance
-- Generating Swift/SwiftUI code via AI agents
-- Setting up Xcode project structure
-- Implementing security, testing, or performance patterns
-- Integrating with REST APIs from iOS clients
-
 ## Backend Environments
 
 iOS apps connect to a PHP/MySQL backend deployed across three environments:
@@ -425,19 +416,9 @@ struct ContentView: View {
 | **Persistence** | SwiftData (Core Data only for migration) |
 | **Observation** | `@Observable` macro (not `ObservableObject`) |
 
-## Phase 1 Bootstrap Pattern (SaaS Mobile Apps)
+## Phase 1 Bootstrap (SaaS Apps)
 
-When building a native iOS app for an existing SaaS backend, **always implement Phase 1 first**: Login + Dashboard + Empty Tabs.
-
-### Phase 1 Delivers
-
-1. **JWT Auth** — Login/logout, token refresh, Keychain-backed storage
-2. **Dashboard** — Real KPI stats, pull-to-refresh, loading states
-3. **Tab Navigation** — `TabView` with max 5 tabs, placeholder views for future features
-4. **Full Infrastructure** — APIClient actor, Keychain helper, SwiftData, theme tokens, environment config
-5. **30+ Unit Tests** — ViewModels, Services, Repositories tested with Swift Testing
-
-Phase 1 proves the entire vertical slice (SwiftUI -> ViewModel -> Repository -> APIClient -> PHP -> MySQL), establishes reusable patterns, and uncovers integration issues early. See `mobile-saas-planning` skill for the complete plan template.
+Always start: JWT Auth + Dashboard + Empty Tabs. Proves the full vertical slice (SwiftUI → ViewModel → Repository → APIClient → PHP → MySQL), establishes reusable patterns, uncovers integration issues early. Delivers 30+ unit tests. See `mobile-saas-planning` for the full plan template.
 
 ## Custom PNG Icons (Required)
 
@@ -468,31 +449,46 @@ Swift interop with sealed classes and Flows. Use `kmp-tdd` for shared tests.
 | `NavigationView` | `NavigationStack` |
 | Combine for networking | `async/await` |
 | Tokens in `UserDefaults` | Keychain Services |
-| `Alert()` struct | `.alert` ViewBuilder modifier |
-| Force unwrapping (`!`) in production | `guard let`, `if let`, nil coalescing |
 | Blocking main thread with sync I/O | `async/await` on background |
 | `.onAppear` for data loading | `.task {}` modifier |
 | `@StateObject` / `@ObservedObject` | `@State` with `@Observable` |
 | `@EnvironmentObject` | `@Environment(Type.self)` |
-| Combine `sink` / `assign` | `for await` on `AsyncSequence` |
 | Hardcoded colours/sizes | Design tokens in `AppTheme` |
-| God ViewModels | Split by feature, one ViewModel per screen |
 | Business logic in Views | Move to ViewModel or UseCase |
+
+## Accessibility (App Store Requirement)
+
+All iOS apps submitted to the App Store must support VoiceOver and Dynamic Type.
+
+**Dynamic Type** — use text styles, never hardcoded sizes:
+```swift
+// SwiftUI — always use named styles
+Text("Invoice Total").font(.headline)
+Text("Amount").font(.custom("Georgia", size: 17, relativeTo: .body))
+
+// UIKit — always set adjustsFontForContentSizeCategory
+label.font = UIFont.preferredFont(forTextStyle: .body)
+label.adjustsFontForContentSizeCategory = true
+label.numberOfLines = 0   // allow wrapping at large text sizes
+```
+
+**VoiceOver labels** — every meaningful image and icon-only button needs one:
+```swift
+Image("invoice_icon").accessibilityLabel("Invoice")
+Image("bg_texture").accessibilityHidden(true)       // decorative
+Button { share() } label: { Image(systemName: "square.and.arrow.up") }
+    .accessibilityLabel("Share invoice")
+    .accessibilityHint("Opens share sheet")
+VStack { Text("Order #1042"); Text("UGX 85,000") }
+    .accessibilityElement(children: .combine)       // reads as one element
+```
+
+See [references/accessibility.md](references/accessibility.md) for full patterns, UIKit equivalents, and the App Store approval checklist.
 
 ## Integration with Other Skills
 
-```
-feature-planning -> spec + implementation strategy
-  -> ios-development -> Swift/SwiftUI implementation
-    -> swiftui-cookbook-patterns -> recipes (navigation, forms, charts)
-    -> swiftui-pro-patterns -> advanced layout, identity, animation
-    -> api-error-handling -> backend API error patterns
-    -> vibe-security-skill -> security review (ALWAYS apply)
-```
-
 | Skill | When to Use |
 |---|---|
-| `swiftui-cookbook-patterns` | Navigation, state, persistence, charts, forms recipes |
 | `swiftui-pro-patterns` | Layout mechanics, identity, animation, performance |
 | `mobile-saas-planning` | Planning documentation for SaaS companion apps |
 | `mobile-custom-icons` | PNG icon standards (no SF Symbols) |

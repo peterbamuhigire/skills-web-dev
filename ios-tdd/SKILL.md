@@ -30,8 +30,6 @@ TDD is a development process where you write tests **before** feature code, foll
 | **Network Mocking**     | [URLProtocol Mock](#urlprotocol-for-network-mocking) | URLProtocol subclass for API tests      |
 | **UI Tests**            | [XCUITest](#xcuitest-for-critical-flows) | End-to-end UI testing                             |
 | **CI Setup**            | [CI Pipeline](#ci-pipeline)              | Xcode Cloud, GitHub Actions                       |
-| **Advanced Patterns**   | [references/advanced-tdd-patterns.md](references/advanced-tdd-patterns.md) | Test doubles, hardware mocking, legacy code |
-
 ## The Red-Green-Refactor Cycle
 
 ```
@@ -470,12 +468,7 @@ jobs:
 
 Configure via **Product > Xcode Cloud > Create Workflow**: trigger on PR/push to main, run all tests, notify on failure.
 
-**CI Rules:**
-
-- All tests must pass before merge
-- Coverage reports generated on every PR
-- Minimum coverage: 70% for ViewModels, 50% overall
-- Unit tests and UI tests run as separate schemes for parallelism
+**CI Rules:** All tests pass before merge. 70% coverage for ViewModels, 50% overall. Unit and UI tests run as separate schemes for parallelism.
 
 ## TDD Checklist
 
@@ -494,9 +487,7 @@ Configure via **Product > Xcode Cloud > Create Workflow**: trigger on PR/push to
 
 ## References
 
-- **Apple Testing Docs**: developer.apple.com/documentation/testing
 - **Swift Testing**: developer.apple.com/documentation/testing/definingtests
-- **XCUITest**: developer.apple.com/documentation/xctest/user_interface_tests
 - **WWDC24 Swift Testing**: developer.apple.com/videos/play/wwdc2024/10179
 
 ## Advanced Patterns

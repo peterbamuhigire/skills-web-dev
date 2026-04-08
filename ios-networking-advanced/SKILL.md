@@ -16,10 +16,11 @@ description: Production-grade iOS networking — URLSession async/await with typ
 | Background URLSession (downloads/uploads) | Section 5 |
 | Certificate pinning | Section 6 |
 | Multipart form data upload | Section 7 |
-| Network reachability + offline queue | Section 8 |
+| Network reachability + offline queue | Section 8 (→ references) |
 | Request deduplication | Section 9 |
-| Combine + URLSession | Section 10 |
-| Production anti-patterns | Section 11 |
+| Combine + URLSession (legacy) | Section 10 (→ references) |
+| Structured concurrency (async-let, Task groups) | Section 11 |
+| Production anti-patterns | Section 12 |
 
 ---
 
@@ -387,65 +388,7 @@ request.httpBody = body
 
 ## Section 8: Network Reachability + Offline Queue
 
-```swift
-import Network
-
-@MainActor
-final class NetworkMonitor: ObservableObject {
-    static let shared = NetworkMonitor()
-    private let monitor = NWPathMonitor()
-    private let queue = DispatchQueue(label: "com.app.network-monitor")
-
-    @Published private(set) var isConnected = true
-    @Published private(set) var isExpensive = false   // cellular vs Wi-Fi
-
-    private init() {
-        monitor.pathUpdateHandler = { [weak self] path in
-            Task { @MainActor [weak self] in
-                self?.isConnected = path.status == .satisfied
-                self?.isExpensive = path.isExpensive
-            }
-        }
-        monitor.start(queue: queue)
-    }
-}
-
-// Offline queue — persists failed mutations for retry on reconnect
-actor OfflineQueue {
-    private var pending: [QueuedRequest] = []
-    private var cancellable: AnyCancellable?
-
-    struct QueuedRequest: Codable {
-        let endpoint: Endpoint
-        let enqueuedAt: Date
-    }
-
-    func enqueue(_ endpoint: Endpoint) {
-        pending.append(QueuedRequest(endpoint: endpoint, enqueuedAt: Date()))
-    }
-
-    func observeConnectivity(client: AuthenticatedClient) {
-        cancellable = NetworkMonitor.shared.$isConnected
-            .filter { $0 }
-            .dropFirst()   // ignore initial value
-            .sink { _ in
-                Task { await self.drain(using: client) }
-            }
-    }
-
-    private func drain(using client: AuthenticatedClient) async {
-        let requests = pending
-        pending.removeAll()
-        for queued in requests {
-            do {
-                let _: EmptyResponse = try await client.request(queued.endpoint)
-            } catch {
-                pending.append(queued)   // re-enqueue on failure
-            }
-        }
-    }
-}
-```
+See [references/offline-queue.md](references/offline-queue.md) — `NWPathMonitor` `@Observable` wrapper, actor-based offline queue, drain-on-reconnect pattern, and `isExpensive` (cellular) detection.
 
 ---
 
@@ -481,54 +424,42 @@ let avatarData = try await deduplicator.fetch(key: "avatar-\(userId)") {
 
 ---
 
-## Section 10: Combine + URLSession
+## Section 10: Combine + URLSession (Legacy)
 
-```swift
-// When Combine publishers are required (e.g., chaining with other publishers)
-extension URLSession {
-    func publisher<T: Decodable>(for endpoint: Endpoint,
-                                  token: String?,
-                                  decoder: JSONDecoder = .init()) -> AnyPublisher<T, NetworkError> {
-        guard let request = try? endpoint.urlRequest(token: token) else {
-            return Fail(error: NetworkError.invalidURL).eraseToAnyPublisher()
-        }
-        return dataTaskPublisher(for: request)
-            .tryMap { output -> Data in
-                guard let http = output.response as? HTTPURLResponse else { throw NetworkError.noData }
-                switch http.statusCode {
-                case 200...299: return output.data
-                case 401:       throw NetworkError.unauthorized
-                case 403:       throw NetworkError.forbidden
-                default:        throw NetworkError.httpError(statusCode: http.statusCode, data: output.data)
-                }
-            }
-            .decode(type: T.self, decoder: decoder)
-            .mapError { error -> NetworkError in
-                switch error {
-                case let ne as NetworkError: return ne
-                case is DecodingError:       return NetworkError.decodingFailed(error)
-                default:                     return NetworkError.httpError(statusCode: 0, data: nil)
-                }
-            }
-            .receive(on: DispatchQueue.main)
-            .eraseToAnyPublisher()
-    }
-}
-
-// Retry with Combine
-session.publisher(for: endpoint, token: token)
-    .retry(2)
-    .catch { error -> AnyPublisher<UserProfile, NetworkError> in
-        guard case .unauthorized = error else { return Fail(error: error).eraseToAnyPublisher() }
-        return refreshAndRetry(endpoint: endpoint)
-    }
-    .sink(receiveCompletion: { _ in }, receiveValue: { profile in ... })
-    .store(in: &cancellables)
-```
+See [references/combine-networking.md](references/combine-networking.md). Use `async/await` for all new networking. Combine is only relevant when chaining with other Combine publishers (e.g. debounced search, timer-based polling).
 
 ---
 
-## Section 11: Production Anti-Patterns
+## Section 11: Structured Concurrency
+
+Use `async-let` for parallel independent requests; `withThrowingTaskGroup` for dynamic fan-out.
+
+```swift
+// async-let — parallel, compile-time fixed set of requests
+async let user    = client.request(.user(id: userId)) as UserProfile
+async let orders  = client.request(.orders(userId: userId)) as [Order]
+async let stats   = client.request(.stats(userId: userId)) as DashboardStats
+let (profile, orderList, dashboard) = try await (user, orders, stats)
+// Total time: max(t1, t2, t3) — not t1 + t2 + t3
+
+// Task group — dynamic fan-out (N items, N concurrent requests)
+func fetchAll(ids: [String]) async throws -> [UserProfile] {
+    try await withThrowingTaskGroup(of: UserProfile.self) { group in
+        for id in ids { group.addTask { try await self.client.request(.user(id: id)) } }
+        var results: [UserProfile] = []
+        for try await profile in group { results.append(profile) }
+        return results
+    }
+}
+```
+
+**Data race rule**: Never mutate shared state from inside `addTask` closures. Return values; collect via `for await` sequentially outside the group.
+
+See [references/structured-concurrency.md](references/structured-concurrency.md) for bounded concurrency, cancellation propagation, Task priorities, and detached tasks.
+
+---
+
+## Section 12: Production Anti-Patterns
 
 | Anti-Pattern | Consequence | Fix |
 |---|---|---|

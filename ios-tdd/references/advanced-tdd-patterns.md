@@ -428,5 +428,6 @@ XCTAssertEqual(body.id, testReport.id)
 
 ---
 
+See [architecture-testing.md](architecture-testing.md) for Observer element isolation and Use Case testing patterns.
+
 *Source: iOS TDD by Tutorials — RayWenderlich*
-*Line count: ~260 lines*

@@ -457,35 +457,44 @@ enum FileStorage {
 
 ---
 
-## 9. URLCache / NSCache (Temporary Caching)
+## 9. iCloud Sync Options
+
+See [references/icloud-sync.md](references/icloud-sync.md) for full patterns. Quick decision:
+
+| Need | Solution |
+|---|---|
+| Sync preferences across devices (< 1 MB) | `NSUbiquitousKeyValueStore` |
+| User documents (iCloud Drive, conflict resolution) | `UIDocument` subclass |
+| Shared structured/relational data between users | CloudKit (`CKRecord`, `CKDatabase`) |
+
+Enable iCloud capabilities: Xcode → Signing & Capabilities → iCloud.
+
+---
+
+## 10. URLCache / NSCache (Temporary Caching)
 
 Configure `URLCache.shared` at launch: `URLCache(memoryCapacity: 50_000_000, diskCapacity: 200_000_000)`. For in-memory object caching, wrap `NSCache` with typed accessors and set `countLimit` / `totalCostLimit`.
 
 ---
 
-## 10. Cross-Skill References
+## 11. Cross-Skill References
 
 | Skill | Relevance |
 |---|---|
 | `dual-auth-rbac` | Token storage lifecycle, refresh flow |
 | `api-pagination` | Offset pagination with local caching |
-| `api-error-handling` | Repository-layer error classification |
 | `vibe-security-skill` | TLS pinning, secure storage audits |
-| `image-compression` | Compress before writing to FileManager |
 
 ---
 
-## 11. Anti-Patterns
+## 12. Anti-Patterns
 
 | Anti-Pattern | Correct Approach |
 |---|---|
-| Storing tokens in UserDefaults | Use Keychain Services |
-| Using Core Data when targeting iOS 17+ | Use SwiftData |
+| Storing tokens in UserDefaults | Keychain Services |
 | Skipping CodingKeys for snake_case APIs | Define CodingKeys explicitly |
-| Ignoring offline state in repository | Implement fallback to cache |
-| Heavy queries on MainActor | Use ModelActor for background work |
-| Unbounded UserDefaults arrays | Use SwiftData for growing collections |
-| Missing idempotency keys on retries | Always generate UUID per pending op |
-| No migration plan between schema versions | Use VersionedSchema + MigrationPlan |
+| Ignoring offline state in repository | Fallback to cache on network error |
+| Heavy queries on MainActor | `ModelActor` for background work |
+| Missing idempotency keys on retries | UUID per pending op |
+| No migration plan between schema versions | `VersionedSchema` + `MigrationPlan` |
 | Storing file paths as absolute strings | Store relative paths; reconstruct at runtime |
-| Ignoring Keychain error codes | Handle OSStatus and surface meaningful errors |

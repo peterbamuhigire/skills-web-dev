@@ -119,6 +119,7 @@ skills/
 ├── android-report-tables/           # [Superseded by mobile-report-tables] Android report tables
 ├── kmp-development/                 # KMP shared module (Ktor, SQLDelight, Koin, expect/actual, SKIE)
 ├── kmp-tdd/                         # KMP TDD (commonTest, Mokkery, Turbine, Ktor MockEngine, Kover)
+├── kmp-compose-multiplatform/       # Compose Multiplatform: desktop/web/shared UI, wasmJs targets, CI/CD
 ├── ios-development/                 # iOS dev standards (Swift, SwiftUI, MVVM, async/await, @Observable) + accessibility
 ├── ios-tdd/                         # iOS TDD (Red-Green-Refactor, Swift Testing, XCTest, protocol mocks, Observer/UseCase testing)
 ├── ios-stability-solutions/         # Crash prevention, optional safety, DI, SOLID, TDD safety net, SDUI, UI crash surface
@@ -140,6 +141,7 @@ skills/
 ├── feature-planning/                # Complete feature planning (spec + implementation)
 ├── form-ux-design/                  # Cross-platform form UX patterns (web + Android + iOS)
 ├── nextjs-app-router/               # Next.js App Router: RSC, routing, data fetching, auth, deployment (Jain + Krause)
+├── nodejs-development/              # Node.js: async patterns, streams, design patterns, HTTP APIs, scaling, MongoDB (Casciaro + Gackenheimer + Murray)
 ├── react-development/               # React hooks, state management, performance, testing, TypeScript, forms (Horton + Vice + Pro React)
 ├── react-patterns/                  # Advanced React design patterns: HOC, Compound Components, Control Props, Render Props, State Reducer, Immer (Kumar + Santana Roldán)
 ├── tailwind-css/                    # Tailwind CSS v3: utility-first, responsive, dark mode, customization, @apply, layout, components (Bhat)
@@ -193,6 +195,12 @@ skills/
 ├── api-error-handling/              # API error handling
 ├── api-pagination/                 # Offset pagination (PHP + Android + iOS infinite scroll)
 ├── mysql-best-practices/            # MySQL 8.x (schema, indexing, queries, security, transactions, tuning, HA, benchmarking) + MySQL 8 exclusive features reference
+├── postgresql-fundamentals/         # PG core: tools, roles, data types, object model, server config, extensions
+├── postgresql-advanced-sql/         # Modern SQL: CTEs, recursive, window functions, JSONB, arrays, full-text search
+├── postgresql-server-programming/   # PL/pgSQL, functions, procedures, triggers, event triggers, extensions
+├── postgresql-performance/          # EXPLAIN ANALYZE, indexes (B-tree/GIN/GiST/BRIN/partial), MVCC, VACUUM
+├── postgresql-administration/       # pg_dump, WAL/PITR, streaming/logical replication, monitoring, cloud PaaS
+├── postgresql-ai-platform/          # pgvector, embeddings, RAG pipeline, AI fault lines, sovereign data platform
 ├── mysql-data-modeling/             # Universal entity patterns: Party model, product hierarchy, order/invoice lifecycle, double-entry accounting (Silverston)
 ├── mysql-query-performance/         # EXPLAIN ANALYZE, index design, optimizer hints, histogram stats, Performance Schema, covering indexes, slow query diagnosis
 ├── mysql-administration/            # GTID replication, InnoDB Cluster, least-privilege security, XtraBackup, PITR, ProxySQL, zero-downtime schema changes

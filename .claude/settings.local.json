@@ -75,7 +75,13 @@
       "Bash(pdftotext \"_OceanofPDF.com_The_Nextjs_Handbook_-_Brandon_Kim.pdf\" kim_nextjs.txt)",
       "Bash(pdftotext \"_OceanofPDF.com_Modern_Web_Applications_with_NextJS_-_Shubham_Jain.pdf\" jain_nextjs.txt)",
       "Bash(mkdir -p \"C:\\\\Users\\\\Peter\\\\.claude\\\\skills\\\\typescript-design-patterns\")",
-      "Bash(mkdir -p \"C:\\\\Users\\\\Peter\\\\.claude\\\\skills\\\\php-vs-nextjs\")"
+      "Bash(mkdir -p \"C:\\\\Users\\\\Peter\\\\.claude\\\\skills\\\\php-vs-nextjs\")",
+      "Bash(unzip -p /c/Users/Peter/Downloads/Documents/e293c8afa13d4387c85eb855951a149e.epub toc.ncx)",
+      "Bash(grep -v \"^[0-9,]*$\")",
+      "Bash(unzip -p /c/Users/Peter/Downloads/Documents/_OceanofPDF.com_Kotlin_Multiplatform_by_Tutorials_Second_Ed_-_Kevin_D_Moore.epub toc.ncx)",
+      "Bash(unzip -l '/c/Users/Peter/Downloads/Documents/Building a Data and AI Platform with PostgreSQL \\(for . .\\).epub')",
+      "Bash(unzip -l /c/Users/Peter/Downloads/Documents/_OceanofPDF.com_Kotlin_Multiplatform_by_Tutorials_Second_Ed_-_Kevin_D_Moore.epub)",
+      "Bash(wc:*)"
     ]
   }
 }

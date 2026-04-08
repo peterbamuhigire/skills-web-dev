@@ -235,20 +235,30 @@ or create `rag-implementation` as a companion skill.
 
 ---
 
-## GAP 6: Node.js / TypeScript Backend (HIGH)
+## GAP 6: Node.js / TypeScript Backend (PARTIALLY CLOSED ✅)
 
-**Severity:** High | **Impact:** AI streaming and real-time features are easier in Node.js
+**Severity:** ~~High~~ → **Medium** | **Closed:** 2026-04-09
 
-**Books to buy / find:**
+**What's now covered** by `nodejs-development` skill (built from 4 books):
+- Module system (CJS vs ESM), event loop, reactor pattern
+- Async patterns: callbacks, Promises, async/await, EventEmitter
+- Streams: pipeline(), Transform, backpressure, mux/demux
+- Design patterns: Factory, Builder, Proxy, Middleware, Strategy, Decorator, DI
+- HTTP server/client, static file serving, Express middleware
+- Error handling, cluster scaling, worker_threads, WebSockets, SSE
+- Security: path traversal, AES-256-GCM, bcrypt, env validation
+- Testing: Mocha/Chai, Sinon, Supertest, c8 coverage
+- Deployment: pm2, cluster, Nginx, Docker, health checks
+
+**Still missing (needs additional resources):**
 
 | Resource | Format | Why |
 |----------|--------|-----|
-| *Node.js Design Patterns* — Casciaro & Mammino (3rd ed, Packt) | Book (~$45) | The definitive Node.js production book |
 | Fastify documentation — fastify.dev | Free (online) | Preferred over Express; better TypeScript support |
-| Prisma documentation — prisma.io/docs | Free (online) | Best TypeScript ORM |
+| Prisma documentation — prisma.io/docs | Free (online) | Best TypeScript ORM for Node.js |
 | BullMQ documentation — docs.bullmq.io | Free (online) | Background job queues |
 
-**Skill to create:** `nodejs-typescript-backend`
+**Action:** Extend `nodejs-development` with a `references/fastify-prisma.md` once Fastify/Prisma docs are read.
 
 ---
 

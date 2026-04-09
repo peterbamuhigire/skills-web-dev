@@ -55,11 +55,15 @@ Based on your book collection, you are building:
 | Product Management | 5 | Solid | High | Low |
 | Business/Monetisation | 5 | Good | Medium | Medium |
 | Real-time Systems | 1 | Foundational | Medium | Medium |
+| DevOps / CI/CD (Jenkins, DevSecOps) | 3 | Foundational | Medium | High |
 | Cloud/Infrastructure | 0 | None | None | **Critical** |
+| Kubernetes & Container Platforms | 0 | None | None | **Critical** |
+| Infrastructure as Code | 0 | None | None | **Critical** |
 | Payment Systems | 0 | None | None | **Critical** |
 | PostgreSQL/Vector DB | 6 | Expert | High | Low |
 | Node.js Backend | 1 | Strong | High | Low |
-| CI/CD Pipelines | 0 | None | None | **Critical** |
+| CI/CD Pipelines (GitHub Actions) | 0 | None | None | **Critical** |
+| Observability & Monitoring | 0 | None | None | **High** |
 
 ---
 
@@ -81,12 +85,15 @@ Based on your book collection, you are building:
 
 ## What You Still Cannot Build Yet (Excellently)
 
-- **Cloud-native deployments** — no AWS/GCP, no containers, no CI/CD pipelines
+- **Production Kubernetes environments** — no K8s skill (cluster mgmt, Helm, RBAC, pod security)
+- **Infrastructure as Code** — no Terraform/Ansible/GitOps skill (no repeatable, auditable infra)
+- **Cloud-native deployments** — no AWS/GCP architecture skill, no GitHub Actions CI/CD
+- **Full secrets lifecycle** — cicd-devsecops has basics; Vault deep-dive, PKI, key rotation absent
+- **Compliance-ready infrastructure** — no ISO 27001 or PCI-DSS controls mapping
+- **Network security architecture** — firewall design, WAF, zero-trust, VPN patterns absent
+- **Production observability** — no SigNoz/Prometheus/Grafana/OpenTelemetry stack, no SLO tracking
 - **Subscription billing** — no Stripe, no webhook handling, no dunning
-- **AI-adjacent databases** — covered (6 PostgreSQL skills incl. pgvector + RAG pipelines)
-- **Modern server-side TypeScript** — covered (Fastify, Prisma, BullMQ, async patterns, design patterns)
 - **E2E automated testing** — no Playwright/Cypress framework coverage
-- **Production observability** — no structured logging, tracing, Sentry, Grafana
 - **Offline-first PWAs** — no Service Workers, IndexedDB, background sync
 
 ---

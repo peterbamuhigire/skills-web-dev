@@ -93,7 +93,7 @@ You keep MySQL. You add a vector service alongside it. No migration required.
 
 **Start with:** *Docker Deep Dive* + AWS Well-Architected Framework (free).
 
-**Skills to create:** `cloud-architecture`, `cicd-pipelines`
+**Skills to create:** `cloud-architecture`, `cicd-pipelines`, `kubernetes-platform`, `infrastructure-as-code`
 
 ---
 
@@ -292,17 +292,80 @@ or create `rag-implementation` as a companion skill.
 
 ---
 
-## GAP 9: Observability & Monitoring (MEDIUM)
+## GAP 9: Observability & Monitoring (MEDIUM → HIGH for platform role)
+
+**What's missing:**
+- Structured logging (JSON logs, log levels, log correlation)
+- Metrics collection and storage (Prometheus, VictoriaMetrics)
+- Dashboards and alerting (Grafana, alert rules, PagerDuty/OpsGenie integration)
+- Distributed tracing (OpenTelemetry, Jaeger)
+- SigNoz — open-source all-in-one (preferred per NSANO JD: self-hosted, avoids vendor lock-in)
+- SLO/SLI/SLA design and error budget tracking
+- Sentry for application error monitoring (web + mobile)
 
 **Materials:**
 
 | Resource | Format | Why |
 |----------|--------|-----|
 | *Observability Engineering* — Majors, Fong-Jones, Miranda (O'Reilly) | Book (~$55) | The definitive book on this topic |
+| SigNoz documentation — signoz.io/docs | Free (online) | Self-hosted Prometheus + Jaeger + dashboards in one |
+| OpenTelemetry documentation — opentelemetry.io | Free (online) | Vendor-neutral instrumentation standard |
 | Sentry documentation — docs.sentry.io | Free (online) | Error tracking for web + mobile |
-| OpenTelemetry documentation — opentelemetry.io | Free (online) | Tracing standard |
+| *Site Reliability Engineering* — Google | Free (sre.google/books) | SLO/SLI/error budget design |
 
-**Skill to create:** `observability-monitoring`
+**Skill to create:** `observability-platform`
+**Stack alignment:** SigNoz as primary (self-hosted, open-source); PHP + Node.js + Android + iOS instrumentation examples.
+
+---
+
+---
+
+## GAP 10: Infrastructure & Platform Engineering Depth (HIGH)
+
+**Context:** Mapped against the Head of Infrastructure & Platform Engineering role at NSANO.
+These are not new skill directories — they are targeted enhancements to existing skills.
+The rule: enhance first, create new only when the domain is genuinely absent.
+
+### Skills to Enhance (add sections, not create new directories)
+
+| Enhancement | Target Skill | Section to Add |
+|---|---|---|
+| Secrets lifecycle — Vault deep-dive, PKI, key rotation, encryption-at-rest | `cicd-devsecops` | Full Vault operations section |
+| Compliance — ISO 27001 controls, PCI-DSS requirements, audit evidence checklists | `cicd-devsecops` | Compliance mapping section |
+| Container runtime security — Falco, OPA, admission controllers | `cicd-devsecops` | Runtime threat detection & policy |
+| Network security — firewall rules, WAF, zero-trust, VPN design | `web-app-security-audit` | Network-layer security section |
+| Reverse proxy ops — Nginx/HAProxy config, reload, rate limiting | `microservices-architecture-models` | Ops runbook section |
+| API gateway ops — Kong/Traefik routing, plugins, auth | `microservices-architecture-models` | Gateway ops section |
+| Workflow automation engines — n8n, Temporal, Airflow async patterns | `microservices-communication` | Async orchestration section |
+| SRE practices — SLO/SLI/error budgets, blameless postmortems, escalation | `database-reliability` | Platform SRE section |
+| FinOps / cost governance — resource quotas, utilisation targets, budgets | `cicd-pipeline-design` | Cost governance section |
+| Linux hardening & performance tuning — sysctl, cgroups, auditd, network stack | `cicd-jenkins-debian` | Linux systems hardening section |
+
+### New Skills to Create (genuinely absent domains)
+
+| New Skill | Why New (Not Enhancement) | Key Books |
+|---|---|---|
+| `kubernetes-platform` | Zero K8s coverage — cluster management, Helm, RBAC, resource governance, pod security | *Kubernetes in Action* (Luksa); *Production Kubernetes* (Rosso et al.) |
+| `infrastructure-as-code` | Zero IaC coverage — Terraform, Ansible, state mgmt, modules, GitOps (ArgoCD/Flux) | *Terraform: Up & Running* (Brikman); *Infrastructure as Code* (Morris) |
+
+**Note:** `observability-platform` (GAP 9 above) covers the third new skill for this domain.
+
+### Stack Alignment for All Three New Skills
+
+- **K8s skill:** Target self-managed clusters on Debian/Ubuntu VPS first (NSANO VPS-first model), cloud-managed second
+- **IaC skill:** Terraform for infrastructure, Ansible for server config (Debian/Ubuntu); GitOps via ArgoCD
+- **Observability skill:** SigNoz as primary (self-hosted, open-source); PHP + Node.js + Android + iOS instrumentation
+
+### Books to Get (Infrastructure Domain)
+
+| Priority | Book | Covers |
+|----------|------|--------|
+| 1 | *Kubernetes in Action* — Marko Luksa | K8s core, cluster ops |
+| 2 | *Production Kubernetes* — Rosso, Lander, Brand, Harris | Ops-grade K8s, security |
+| 3 | *Terraform: Up & Running* — Brikman (3rd ed.) | IaC fundamentals, modules |
+| 4 | *Infrastructure as Code* — Kief Morris (O'Reilly, 2nd ed.) | IaC patterns, GitOps |
+| 5 | *The Practice of Cloud System Administration* — Limoncelli et al. | SRE + Linux ops |
+| 6 | *Linux System Administration Handbook* — Nemeth et al. | Linux hardening |
 
 ---
 
@@ -336,14 +399,26 @@ If you were buying books today, in order of ROI:
 | Priority | Skill | Key Resource |
 |----------|-------|--------------|
 | 1 | `cloud-architecture` | *Docker Deep Dive* + AWS Well-Architected |
-| 2 | `stripe-payments` | Stripe docs (free) |
-| 3 | `postgresql-patterns` | *PostgreSQL: Up and Running* + pgvector README |
-| 4 | `vector-databases` | *AI Engineering* + Pinecone/Qdrant docs |
+| 2 | `kubernetes-platform` | *Kubernetes in Action* + *Production Kubernetes* |
+| 3 | `infrastructure-as-code` | *Terraform: Up & Running* + *Infrastructure as Code* |
+| 4 | `stripe-payments` | Stripe docs (free) |
 | 5 | `cicd-pipelines` | *Continuous Delivery* + GitHub Actions docs |
-| 6 | `nodejs-typescript-backend` | *Node.js Design Patterns* |
+| 6 | `observability-platform` | *Observability Engineering* + SigNoz docs |
 | 7 | `android-ai-ml` | ML Kit docs (free) |
 | 8 | `e2e-testing` | Playwright docs (free) |
-| 9 | `observability-monitoring` | *Observability Engineering* |
+| 9 | `subscription-billing` | *Subscribed* + Stripe Billing docs |
 | 10 | `pwa-offline-first` | Workbox docs (free) |
+
+## Summary: Existing Skills to Enhance (No New Directory)
+
+| Skill | What to Add |
+|-------|-------------|
+| `cicd-devsecops` | Vault lifecycle, ISO 27001, PCI-DSS controls, container runtime security |
+| `database-reliability` | Platform SRE section — SLO/SLI, error budgets, postmortems |
+| `microservices-architecture-models` | Reverse proxy ops, API gateway ops (Kong/Traefik) |
+| `web-app-security-audit` | Network security layer (firewall, WAF, zero-trust, VPN) |
+| `cicd-pipeline-design` | FinOps / cost governance section |
+| `cicd-jenkins-debian` | Linux hardening & performance tuning (sysctl, cgroups, auditd) |
+| `microservices-communication` | Workflow automation engines (n8n, Temporal, Airflow) |
 
 *Full roadmap: [06-new-skills-roadmap.md](06-new-skills-roadmap.md)*

@@ -139,7 +139,7 @@ skills/
 ├── nextjs-app-router/               # Next.js App Router: RSC, routing, data fetching, auth, deployment (Jain + Krause)
 ├── cicd-pipeline-design/            # CI/CD pipeline methodology: 14-stage sequence, DORA metrics, branching, build-once-deploy-many, artifact mgmt, blue-green/canary
 ├── cicd-jenkins-debian/             # Jenkins on Debian/Ubuntu: install, Declarative Jenkinsfile, master/agent, Docker agents, plugins, RBAC, backup
-├── cicd-devsecops/                  # DevSecOps pipeline security: Vault, OWASP DC, SonarQube quality gates, Trivy image scanning, container hardening, UFW
+├── cicd-devsecops/                  # DevSecOps pipeline security: Vault (full lifecycle), Ansible security automation, ISO 27001 / PCI-DSS / SOC 2 compliance mapping, OWASP DC, SonarQube quality gates, Trivy image scanning, container hardening, UFW
 ├── nodejs-development/              # Node.js: async patterns, streams, design patterns, HTTP APIs, scaling, MongoDB (Casciaro + Gackenheimer + Murray)
 ├── react-development/               # React hooks, state management, performance, testing, TypeScript, forms (Horton + Vice + Pro React)
 ├── react-patterns/                  # Advanced React design patterns: HOC, Compound Components, Control Props, Render Props, State Reducer, Immer (Kumar + Santana Roldán)
@@ -220,9 +220,12 @@ skills/
 ├── skill-safety-audit/              # Skill safety audit workflow
 ├── gis-mapping/                     # OpenStreetMap GIS + geofencing
 ├── markdown-lint-cleanup/           # Markdown lint cleanup and formatting
-├── vibe-security-skill/             # Secure coding for web apps
+├── vibe-security-skill/             # Secure coding for web apps (+ 97-Things principles, Grokking fundamentals)
 ├── code-safety-scanner/             # 14-point safety scan (security, stability, payments)
-├── web-app-security-audit/          # 8-layer security audit for PHP/JS/HTML web apps
+├── web-app-security-audit/          # 8-layer security audit for PHP/JS/HTML (+ WAHH attack patterns, auth/session flaws, access control, input validation, business logic flaws)
+├── network-security/                # Network-layer defence: firewalls (nftables/UFW), WAF (ModSecurity+CRS), TLS/PKI, VPN (WireGuard/OpenVPN/IPsec), SSH/bastion, IDS/IPS (Suricata), DDoS, DNS, zero-trust, crypto fundamentals, segmentation, 50-point audit, 5 incident runbooks
+├── linux-security-hardening/        # Debian/Ubuntu OS hardening: users/sudo, perms/ACLs, PAM+MFA, AppArmor, auditd, kernel sysctls, AIDE file integrity, rkhunter, unattended-upgrades, LUKS/Secure Boot, CIS benchmark checklist
+├── ios-app-security/                # iOS app security: Keychain + Secure Enclave, Data Protection classes, ATS + SPKI cert pinning, jailbreak/tamper detection, binary protection, code signing & entitlements, privacy manifest (iOS 17+)
 ├── photo-management/                # Photo upload and gallery patterns
 ├── mobile-custom-icons/             # Cross-platform custom PNG icons (Android + iOS), placeholder tracking
 ├── mobile-rbac/                     # RBAC for Android mobile apps (PermissionGate, ModuleGate)

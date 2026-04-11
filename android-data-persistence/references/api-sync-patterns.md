@@ -18,7 +18,7 @@ server push. The UI never blocks on network state.
 
 ## Section 2: Core Sync Entities
 
-### SyncCursorEntity — tracks last server timestamp per entity type
+### SyncCursorDao + SyncDao — atomic batch commit
 
 ```kotlin
 @Entity(tableName = "sync_cursors")
@@ -32,6 +32,22 @@ data class SyncCursorEntity(
 interface SyncCursorDao {
     @Query("SELECT * FROM sync_cursors WHERE entityType = :type")
     suspend fun getCursor(type: String): SyncCursorEntity?
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun setCursor(cursor: SyncCursorEntity)
+}
+
+// @Transaction ensures cursor and data write are atomic — no partial state on crash
+@Dao
+interface SyncDao {
+    @Transaction
+    suspend fun commitSyncBatch(entities: List<ProductEntity>, cursor: SyncCursorEntity) {
+        upsertProducts(entities)
+        setCursor(cursor)
+    }
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun upsertProducts(entities: List<ProductEntity>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun setCursor(cursor: SyncCursorEntity)
@@ -55,10 +71,11 @@ data class PendingActionEntity(
 
 @Dao
 interface PendingActionDao {
-    @Query("SELECT * FROM pending_actions ORDER BY createdAt ASC")
+    // Dead-letter actions (retryCount >= 5) are never re-attempted. Surface to user or purge.
+    @Query("SELECT * FROM pending_actions WHERE retryCount < 5 ORDER BY createdAt ASC")
     suspend fun getAll(): List<PendingActionEntity>
 
-    @Query("SELECT * FROM pending_actions WHERE entityType = :type ORDER BY createdAt ASC")
+    @Query("SELECT * FROM pending_actions WHERE entityType = :type AND retryCount < 5 ORDER BY createdAt ASC")
     suspend fun getByType(type: String): List<PendingActionEntity>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)   // IGNORE = idempotent re-enqueue
@@ -76,6 +93,13 @@ interface PendingActionDao {
 
     @Query("SELECT COUNT(*) FROM pending_actions")
     fun observeCount(): Flow<Int>
+
+    // Dead-letter: actions that exhausted all retries — surface to user or purge
+    @Query("SELECT * FROM pending_actions WHERE retryCount >= 5")
+    fun observeDeadLetters(): Flow<List<PendingActionEntity>>
+
+    @Query("DELETE FROM pending_actions WHERE retryCount >= 5")
+    suspend fun purgeDeadLetters()
 }
 ```
 
@@ -88,7 +112,9 @@ class ProductRepository @Inject constructor(
     private val productDao: ProductDao,
     private val pendingActionDao: PendingActionDao,
     private val syncCursorDao: SyncCursorDao,
-    private val apiService: ProductApiService
+    private val syncDao: SyncDao,
+    private val apiService: ProductApiService,
+    @ApplicationContext private val context: Context
 ) {
     // Reads ALWAYS from Room
     fun observeProducts(): Flow<List<Product>> =
@@ -131,6 +157,8 @@ class ProductRepository @Inject constructor(
             )
         )
     }
+
+    fun triggerSync() { SyncWorker.triggerNow(context) }
 }
 ```
 
@@ -143,6 +171,7 @@ Key invariants:
 - `do-while` loop paginates until `response.hasMore == false` — no missing records
 - `upsertAll()` uses `OnConflictStrategy.REPLACE` — no duplicates
 - Cursor advances ONLY after successful batch write — no gaps on partial failure
+- `commitSyncBatch()` is `@Transaction` — cursor and data write are atomic
 
 ```kotlin
 suspend fun syncFromServer(): Result<Unit> = runCatching {
@@ -156,17 +185,17 @@ suspend fun syncFromServer(): Result<Unit> = runCatching {
             page = page,
             pageSize = 100
         )
-        if (response.data.isEmpty()) break
-
-        val entities = response.data.map { it.toEntity() }
-        productDao.upsertAll(entities)                // REPLACE — no duplicates
-
-        latestTimestamp = maxOf(latestTimestamp, entities.maxOf { it.serverUpdatedAt })
+        if (response.data.isNotEmpty()) {
+            val entities = response.data.map { it.toEntity() }
+            // @Transaction ensures cursor and data write are atomic — no partial state on crash
+            syncDao.commitSyncBatch(
+                entities,
+                SyncCursorEntity("products", maxOf(latestTimestamp, entities.maxOf { it.serverUpdatedAt }))
+            )
+            latestTimestamp = entities.maxOf { it.serverUpdatedAt }
+        }
         page++
     } while (response.hasMore)
-
-    // Advance cursor ONLY after successful write — no gaps on retry
-    syncCursorDao.setCursor(SyncCursorEntity("products", latestTimestamp))
 }
 ```
 
@@ -179,7 +208,7 @@ Key invariants:
 - HTTP 409 → server wins, replace local with server version, remove action
 - HTTP 404 → already gone server-side, remove action
 - `IOException` → leave in queue, increment retry, throw (WorkManager retries)
-- `tempId` replaced with real server ID on CREATE success
+- `tempId` replaced with real server ID on CREATE success — wrapped in `@Transaction`
 
 ```kotlin
 suspend fun syncToServer(): Result<Unit> = runCatching {
@@ -193,8 +222,8 @@ suspend fun syncToServer(): Result<Unit> = runCatching {
                         dto,
                         idempotencyKey = action.idempotencyKey
                     )
-                    productDao.deleteById(action.entityId)
-                    productDao.upsert(response.data.toEntity())
+                    // @Transaction prevents data loss if process is killed between delete and insert
+                    productDao.replaceLocalWithServer(action.entityId, response.data.toEntity())
                 }
                 "UPDATE" -> {
                     val dto = Json.decodeFromString<UpdateProductDto>(action.payload)
@@ -223,6 +252,17 @@ suspend fun syncToServer(): Result<Unit> = runCatching {
             throw e
         }
     }
+}
+```
+
+### ProductDao — atomic tempId swap
+
+```kotlin
+// In ProductDao:
+@Transaction
+suspend fun replaceLocalWithServer(tempId: String, serverEntity: ProductEntity) {
+    deleteById(tempId)
+    upsert(serverEntity)
 }
 ```
 
@@ -308,9 +348,10 @@ class ConnectivityObserver @Inject constructor(
             .addCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED)
             .build()
         manager.registerNetworkCallback(request, callback)
-        val isConnected = manager.activeNetwork
-            ?.let { manager.getNetworkCapabilities(it) }
-            ?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
+        // Check both INTERNET and VALIDATED — captive portals have INTERNET but not VALIDATED
+        val caps = manager.activeNetwork?.let { manager.getNetworkCapabilities(it) }
+        val isConnected = caps?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
+            && caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED)
         trySend(isConnected)
         awaitClose { manager.unregisterNetworkCallback(callback) }
     }.distinctUntilChanged()
@@ -326,8 +367,7 @@ class ConnectivityObserver @Inject constructor(
 class ProductListViewModel @Inject constructor(
     private val repository: ProductRepository,
     private val connectivity: ConnectivityObserver,
-    private val pendingActionDao: PendingActionDao,
-    @ApplicationContext private val context: Context
+    private val pendingActionDao: PendingActionDao
 ) : ViewModel() {
 
     val products = repository.observeProducts()
@@ -340,7 +380,10 @@ class ProductListViewModel @Inject constructor(
     val pendingCount = pendingActionDao.observeCount()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), 0)
 
-    fun refresh() { SyncWorker.triggerNow(context) }
+    // Trigger via repository — keeps WorkManager out of ViewModel
+    fun refresh() {
+        viewModelScope.launch { repository.triggerSync() }
+    }
 }
 ```
 
@@ -362,7 +405,7 @@ class ProductListViewModel @Inject constructor(
 | Rule | Implementation |
 |------|----------------|
 | Full page drain | Paginate until `response.hasMore == false` |
-| Atomic cursor advance | Cursor updates only after `upsertAll()` succeeds |
+| Atomic cursor advance | Cursor + batch in same `@Transaction` via `commitSyncBatch()` |
 | Network errors stay queued | Actions removed only on server confirmation |
 | Server deduplication | Must accept `Idempotency-Key` header on POST/PUT |
 
@@ -373,13 +416,14 @@ class ProductListViewModel @Inject constructor(
 | HTTP 409 → server wins | Fetch server version, discard local pending action |
 | Optimistic locking | `version` column on entities |
 | Retry cap | Max 5 WorkManager retries, then `Result.failure()` |
+| Dead-letter queue | `retryCount >= 5` actions excluded from sync; surface or purge |
 
 ### Atomicity
 
 | Rule | Implementation |
 |------|----------------|
-| Batch write | `upsertAll()` wrapped in `@Transaction` |
-| Cursor + batch atomic | Cursor update in same `@Transaction` as batch write |
+| Batch write + cursor | `commitSyncBatch()` — single `@Transaction` |
+| tempId swap on CREATE | `replaceLocalWithServer()` — `@Transaction` in `ProductDao` |
 
 ---
 
@@ -394,10 +438,13 @@ data class ProductDto(
     val name: String,
     val price: BigDecimal,
     val categoryId: String,
-    val updatedAt: Long
+    val updatedAt: Long,
+    val version: Int = 1
 )
 data class CreateProductDto(val name: String, val price: BigDecimal, val categoryId: String)
 data class UpdateProductDto(val name: String?, val price: BigDecimal?, val categoryId: String?)
+// Note: nullable fields = PATCH semantics (only non-null fields are updated server-side).
+// Server must ignore null values. Ensure your API uses PATCH not PUT for updates.
 data class ApiResponse<T>(
     val success: Boolean,
     val data: T,
@@ -423,8 +470,14 @@ data class Product(val id: String, val name: String, val price: BigDecimal, val 
 
 // Mappers
 fun ProductDto.toEntity() =
-    ProductEntity(id, name, price, categoryId, true, 1, updatedAt, System.currentTimeMillis())
+    ProductEntity(id, name, price, categoryId, true, version, updatedAt, System.currentTimeMillis())
 fun ProductEntity.toDomain() = Product(productId, name, price, categoryId)
 fun Product.toCreateDto() = CreateProductDto(name, price, categoryId)
 fun Product.toUpdateDto() = UpdateProductDto(name, price, categoryId)
+
+// IMPORTANT: BigDecimal requires a TypeConverter in AppDatabase.
+// See android-room skill Converters class:
+// @TypeConverter fun fromBigDecimal(v: BigDecimal?): String? = v?.toPlainString()
+// @TypeConverter fun toBigDecimal(v: String?): BigDecimal? = v?.let { BigDecimal(it) }
+// Alternatively use Long (cents) for monetary amounts: price stored as 99900 = $999.00
 ```

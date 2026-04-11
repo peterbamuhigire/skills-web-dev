@@ -9,6 +9,7 @@ description: iOS data persistence standards with SwiftData as primary local stor
 
 | Skill | When to Apply |
 |---|---|
+| `ios-swiftdata` | Deep SwiftData API — @Attribute, @Relationship, ModelActor, migrations, 10 anti-patterns |
 | `dual-auth-rbac` | JWT/refresh-token storage and rotation |
 | `api-pagination` | Paginated data fetching with local caching |
 | `vibe-security-skill` | Security baseline for all web/API calls |
@@ -481,6 +482,7 @@ Configure `URLCache.shared` at launch: `URLCache(memoryCapacity: 50_000_000, dis
 
 | Skill | Relevance |
 |---|---|
+| `ios-swiftdata` | Full SwiftData API reference — @Attribute, @Relationship, ModelActor, migrations |
 | `dual-auth-rbac` | Token storage lifecycle, refresh flow |
 | `api-pagination` | Offset pagination with local caching |
 | `vibe-security-skill` | TLS pinning, secure storage audits |

@@ -120,6 +120,7 @@ skills/
 ├── ios-development/                 # iOS dev standards (Swift, SwiftUI, MVVM, async/await, @Observable) + accessibility
 ├── ios-tdd/                         # iOS TDD (Red-Green-Refactor, Swift Testing, XCTest, protocol mocks, Observer/UseCase testing)
 ├── ios-stability-solutions/         # Crash prevention, optional safety, DI, SOLID, TDD safety net, SDUI, UI crash surface
+├── ios-swiftdata/                   # Comprehensive SwiftData reference (iOS 17+): @Model, @Attribute, @Relationship, ModelContainer, ModelContext, FetchDescriptor, @Query, migrations, ModelActor, CloudKit, testing, 10 anti-patterns (Moeykens 2024)
 ├── ios-data-persistence/            # SwiftData, Keychain, offline-first, repository pattern, iCloud sync options
 ├── ios-project-setup/               # Xcode setup, xcconfig schemes, code signing, TestFlight, App Store
 ├── ios-biometric-login/             # Face ID/Touch ID gate via LocalAuthentication + Keychain

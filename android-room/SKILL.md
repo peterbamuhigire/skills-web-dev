@@ -58,7 +58,7 @@ data class ProductEntity(
     val price: BigDecimal,
     val categoryId: String,
     @ColumnInfo(name = "is_active", defaultValue = "1") val isActive: Boolean = true,
-    val version: Int = 0,                                         // optimistic locking
+    val version: Int = 1,                                         // optimistic locking
     @ColumnInfo(name = "server_updated_at") val serverUpdatedAt: Long = 0L,  // delta sync cursor
     @ColumnInfo(name = "last_synced_at") val lastSyncedAt: Long = 0L
 )
@@ -164,15 +164,15 @@ data class CategoryStats(val categoryId: String, val total: Int, val totalValue:
 ```kotlin
 @Database(
     entities = [
-        ProductEntity::class, OrderEntity::class, CategoryEntity::class,
-        PendingActionEntity::class, SyncCursorEntity::class
+        ProductEntity::class,
+        CategoryEntity::class,
+        OrderEntity::class
+        // PendingActionEntity, SyncCursorEntity: see android-data-persistence
+        // references/api-sync-patterns.md for offline sync entities
     ],
-    version = 3,
+    version = 1,
     exportSchema = true,
-    autoMigrations = [
-        AutoMigration(from = 1, to = 2),
-        AutoMigration(from = 2, to = 3, spec = Migration2To3::class)
-    ]
+    autoMigrations = []
 )
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {

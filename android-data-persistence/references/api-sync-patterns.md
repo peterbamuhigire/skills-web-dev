@@ -326,7 +326,8 @@ class ConnectivityObserver @Inject constructor(
 class ProductListViewModel @Inject constructor(
     private val repository: ProductRepository,
     private val connectivity: ConnectivityObserver,
-    private val pendingActionDao: PendingActionDao
+    private val pendingActionDao: PendingActionDao,
+    @ApplicationContext private val context: Context
 ) : ViewModel() {
 
     val products = repository.observeProducts()
@@ -339,7 +340,7 @@ class ProductListViewModel @Inject constructor(
     val pendingCount = pendingActionDao.observeCount()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), 0)
 
-    fun refresh() { SyncWorker.triggerNow(getApplication()) }
+    fun refresh() { SyncWorker.triggerNow(context) }
 }
 ```
 

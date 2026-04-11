@@ -1,387 +1,429 @@
-# API Sync Patterns: Offline-First with Custom Backends
+# API Sync Patterns: Idempotent Offline-First Sync Engine
 
-## Architecture Overview
-
-Our apps use custom REST API backends (not Firebase). The data flow:
+## Section 1: Architecture Overview
 
 ```
-API Backend ←→ Repository ←→ Room (local cache) ←→ ViewModel ←→ UI
-                    ↑
-            Single source of truth
+UI → ViewModel → Repository → Room (always — never direct API reads)
+                     ↓
+              PendingActionDao    (offline write queue)
+              SyncCursorDao       (last-synced position per table)
+              ConnectivityObserver (network state as Flow)
+              SyncWorker           (WorkManager — push then pull on network)
 ```
 
-**Principle:** Room is the single source of truth. The UI always reads from Room. The Repository syncs Room with the API.
+**Core invariant:** Room is always the read source. Writes go to Room first, then queue for
+server push. The UI never blocks on network state.
 
-## Repository Pattern
+---
 
-### Standard Repository
+## Section 2: Core Sync Entities
+
+### SyncCursorEntity — tracks last server timestamp per entity type
 
 ```kotlin
-class ProductRepository @Inject constructor(
-    private val productDao: ProductDao,
-    private val apiService: ProductApiService,
-    private val settingsRepository: SettingsRepository
-) {
-    // UI always observes local data
-    fun getProducts(): Flow<List<Product>> =
-        productDao.getAllProducts().map { entities ->
-            entities.map { it.toDomain() }
-        }
-
-    fun getProductById(id: String): Flow<Product?> =
-        productDao.getProductById(id).map { it?.toDomain() }
-
-    // Sync: API → Room
-    suspend fun refreshProducts(): Result<Unit> {
-        return try {
-            val response = apiService.getProducts()
-            val entities = response.data.map { it.toEntity() }
-            productDao.deleteAll()
-            productDao.insertAll(entities)
-            settingsRepository.updateLastSync()
-            Result.success(Unit)
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
-    }
-
-    // Create: API first, then cache locally
-    suspend fun createProduct(product: Product): Result<Product> {
-        return try {
-            val dto = product.toCreateDto()
-            val response = apiService.createProduct(dto)
-            val entity = response.data.toEntity()
-            productDao.insertAll(listOf(entity))
-            Result.success(entity.toDomain())
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
-    }
-
-    // Update: API first, then update local cache
-    suspend fun updateProduct(product: Product): Result<Product> {
-        return try {
-            val dto = product.toUpdateDto()
-            val response = apiService.updateProduct(product.id, dto)
-            val entity = response.data.toEntity()
-            productDao.update(entity)
-            Result.success(entity.toDomain())
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
-    }
-
-    // Delete: API first, then remove from cache
-    suspend fun deleteProduct(id: String): Result<Unit> {
-        return try {
-            apiService.deleteProduct(id)
-            productDao.deleteById(id)
-            Result.success(Unit)
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
-    }
-}
-```
-
-## Sync Strategies
-
-### Strategy 1: Cache-First (Read Heavy)
-
-Best for data that changes infrequently (product catalogs, categories).
-
-```kotlin
-class CatalogRepository @Inject constructor(
-    private val dao: CatalogDao,
-    private val api: CatalogApiService
-) {
-    fun getCategories(): Flow<List<Category>> =
-        dao.getAll().map { it.map { e -> e.toDomain() } }
-
-    suspend fun sync(): Result<Unit> {
-        return try {
-            val remote = api.getCategories()
-            dao.replaceAll(remote.data.map { it.toEntity() })
-            Result.success(Unit)
-        } catch (e: Exception) {
-            // Return cached data silently on network error
-            Result.failure(e)
-        }
-    }
-}
+@Entity(tableName = "sync_cursors")
+data class SyncCursorEntity(
+    @PrimaryKey val entityType: String,
+    val lastSyncedAt: Long = 0L,
+    val updatedAt: Long = System.currentTimeMillis()
+)
 
 @Dao
-interface CatalogDao {
-    @Query("SELECT * FROM categories ORDER BY name")
-    fun getAll(): Flow<List<CategoryEntity>>
-
-    @Transaction
-    suspend fun replaceAll(categories: List<CategoryEntity>) {
-        deleteAll()
-        insertAll(categories)
-    }
+interface SyncCursorDao {
+    @Query("SELECT * FROM sync_cursors WHERE entityType = :type")
+    suspend fun getCursor(type: String): SyncCursorEntity?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(categories: List<CategoryEntity>)
-
-    @Query("DELETE FROM categories")
-    suspend fun deleteAll()
+    suspend fun setCursor(cursor: SyncCursorEntity)
 }
 ```
 
-### Strategy 2: Network-First (Write Heavy)
-
-Best for transactional data (orders, payments). Always try API first.
+### PendingActionEntity — all offline mutations queue here first
 
 ```kotlin
-class OrderRepository @Inject constructor(
-    private val dao: OrderDao,
-    private val api: OrderApiService
-) {
-    suspend fun createOrder(order: CreateOrderDto): Result<Order> {
-        return try {
-            // API first - server is source of truth for orders
-            val response = api.createOrder(order)
-            val entity = response.data.toEntity()
-            dao.insert(entity)
-            Result.success(entity.toDomain())
-        } catch (e: Exception) {
-            Result.failure(e) // Don't cache failed orders
-        }
-    }
-
-    fun getOrders(): Flow<List<Order>> =
-        dao.getAllOrders().map { it.map { e -> e.toDomain() } }
-
-    suspend fun refreshOrders(): Result<Unit> {
-        return try {
-            val response = api.getOrders()
-            dao.replaceAll(response.data.map { it.toEntity() })
-            Result.success(Unit)
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
-    }
-}
-```
-
-### Strategy 3: Offline Queue (Offline-First Writes)
-
-Best when users must be able to create data without connectivity.
-
-```kotlin
-// Pending action entity
 @Entity(tableName = "pending_actions")
 data class PendingActionEntity(
-    @PrimaryKey(autoGenerate = true) val id: Long = 0,
-    val actionType: String,         // "CREATE_ORDER", "UPDATE_PRODUCT"
-    val payload: String,            // JSON serialized data
+    @PrimaryKey val idempotencyKey: String = UUID.randomUUID().toString(),
+    val entityType: String,
+    val actionType: String,       // "CREATE", "UPDATE", "DELETE"
+    val entityId: String,
+    val payload: String,          // JSON of the DTO
     val createdAt: Long = System.currentTimeMillis(),
-    val retryCount: Int = 0
+    val retryCount: Int = 0,
+    val lastError: String? = null
 )
 
 @Dao
 interface PendingActionDao {
     @Query("SELECT * FROM pending_actions ORDER BY createdAt ASC")
-    suspend fun getPendingActions(): List<PendingActionEntity>
+    suspend fun getAll(): List<PendingActionEntity>
 
-    @Insert
-    suspend fun insert(action: PendingActionEntity)
+    @Query("SELECT * FROM pending_actions WHERE entityType = :type ORDER BY createdAt ASC")
+    suspend fun getByType(type: String): List<PendingActionEntity>
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)   // IGNORE = idempotent re-enqueue
+    suspend fun enqueue(action: PendingActionEntity)
 
     @Delete
-    suspend fun delete(action: PendingActionEntity)
+    suspend fun remove(action: PendingActionEntity)
 
-    @Query("UPDATE pending_actions SET retryCount = retryCount + 1 WHERE id = :id")
-    suspend fun incrementRetry(id: Long)
+    @Query("""
+        UPDATE pending_actions
+        SET retryCount = retryCount + 1, lastError = :error
+        WHERE idempotencyKey = :key
+    """)
+    suspend fun recordFailure(key: String, error: String)
+
+    @Query("SELECT COUNT(*) FROM pending_actions")
+    fun observeCount(): Flow<Int>
 }
+```
 
-// Sync worker
+---
+
+## Section 3: Offline-Safe Repository Pattern
+
+```kotlin
+class ProductRepository @Inject constructor(
+    private val productDao: ProductDao,
+    private val pendingActionDao: PendingActionDao,
+    private val syncCursorDao: SyncCursorDao,
+    private val apiService: ProductApiService
+) {
+    // Reads ALWAYS from Room
+    fun observeProducts(): Flow<List<Product>> =
+        productDao.observeAll().map { it.map(ProductEntity::toDomain) }
+
+    // Write to Room first + enqueue — instant UI, no network block
+    suspend fun createProduct(product: Product): Result<Unit> = runCatching {
+        val tempId = "local_${UUID.randomUUID()}"
+        productDao.upsert(product.toEntity().copy(productId = tempId))
+        pendingActionDao.enqueue(
+            PendingActionEntity(
+                entityType = "products",
+                actionType = "CREATE",
+                entityId = tempId,
+                payload = Json.encodeToString(product.toCreateDto())
+            )
+        )
+    }
+
+    suspend fun updateProduct(product: Product): Result<Unit> = runCatching {
+        productDao.upsert(product.toEntity())
+        pendingActionDao.enqueue(
+            PendingActionEntity(
+                entityType = "products",
+                actionType = "UPDATE",
+                entityId = product.id,
+                payload = Json.encodeToString(product.toUpdateDto())
+            )
+        )
+    }
+
+    suspend fun deleteProduct(id: String): Result<Unit> = runCatching {
+        productDao.deleteById(id)
+        pendingActionDao.enqueue(
+            PendingActionEntity(
+                entityType = "products",
+                actionType = "DELETE",
+                entityId = id,
+                payload = "{}"
+            )
+        )
+    }
+}
+```
+
+---
+
+## Section 4: syncFromServer() — Delta Sync, No Duplicates, No Missing Records
+
+Key invariants:
+- Cursor `updated_at > last_cursor` — never full delete+replace
+- `do-while` loop paginates until `response.hasMore == false` — no missing records
+- `upsertAll()` uses `OnConflictStrategy.REPLACE` — no duplicates
+- Cursor advances ONLY after successful batch write — no gaps on partial failure
+
+```kotlin
+suspend fun syncFromServer(): Result<Unit> = runCatching {
+    val cursor = syncCursorDao.getCursor("products")?.lastSyncedAt ?: 0L
+    var page = 0
+    var latestTimestamp = cursor
+
+    do {
+        val response = apiService.getProductsSince(
+            updatedAfter = cursor,
+            page = page,
+            pageSize = 100
+        )
+        if (response.data.isEmpty()) break
+
+        val entities = response.data.map { it.toEntity() }
+        productDao.upsertAll(entities)                // REPLACE — no duplicates
+
+        latestTimestamp = maxOf(latestTimestamp, entities.maxOf { it.serverUpdatedAt })
+        page++
+    } while (response.hasMore)
+
+    // Advance cursor ONLY after successful write — no gaps on retry
+    syncCursorDao.setCursor(SyncCursorEntity("products", latestTimestamp))
+}
+```
+
+---
+
+## Section 5: syncToServer() — Push Pending Actions
+
+Key invariants:
+- Idempotency key sent as HTTP header — server deduplicates retries
+- HTTP 409 → server wins, replace local with server version, remove action
+- HTTP 404 → already gone server-side, remove action
+- `IOException` → leave in queue, increment retry, throw (WorkManager retries)
+- `tempId` replaced with real server ID on CREATE success
+
+```kotlin
+suspend fun syncToServer(): Result<Unit> = runCatching {
+    val actions = pendingActionDao.getByType("products")
+    for (action in actions) {
+        try {
+            when (action.actionType) {
+                "CREATE" -> {
+                    val dto = Json.decodeFromString<CreateProductDto>(action.payload)
+                    val response = apiService.createProduct(
+                        dto,
+                        idempotencyKey = action.idempotencyKey
+                    )
+                    productDao.deleteById(action.entityId)
+                    productDao.upsert(response.data.toEntity())
+                }
+                "UPDATE" -> {
+                    val dto = Json.decodeFromString<UpdateProductDto>(action.payload)
+                    val response = apiService.updateProduct(
+                        action.entityId,
+                        dto,
+                        idempotencyKey = action.idempotencyKey
+                    )
+                    productDao.upsert(response.data.toEntity())
+                }
+                "DELETE" -> apiService.deleteProduct(action.entityId)
+            }
+            pendingActionDao.remove(action)
+        } catch (e: HttpException) {
+            when (e.code()) {
+                409 -> {
+                    val serverEntity = apiService.getProduct(action.entityId).data.toEntity()
+                    productDao.upsert(serverEntity)
+                    pendingActionDao.remove(action)
+                }
+                404 -> pendingActionDao.remove(action)
+                else -> pendingActionDao.recordFailure(action.idempotencyKey, e.message())
+            }
+        } catch (e: IOException) {
+            pendingActionDao.recordFailure(action.idempotencyKey, e.message ?: "network")
+            throw e
+        }
+    }
+}
+```
+
+---
+
+## Section 6: SyncWorker (WorkManager)
+
+Push first (syncToServer), then pull (syncFromServer).
+
+```kotlin
+@HiltWorker
 class SyncWorker @AssistedInject constructor(
     @Assisted context: Context,
     @Assisted params: WorkerParameters,
-    private val pendingActionDao: PendingActionDao,
-    private val apiService: ApiService,
-    private val gson: Gson
+    private val productRepository: ProductRepository
 ) : CoroutineWorker(context, params) {
 
     override suspend fun doWork(): Result {
-        val actions = pendingActionDao.getPendingActions()
-
-        for (action in actions) {
-            if (action.retryCount >= 5) {
-                pendingActionDao.delete(action) // Give up after 5 retries
-                continue
-            }
-            try {
-                processAction(action)
-                pendingActionDao.delete(action) // Success
-            } catch (e: Exception) {
-                pendingActionDao.incrementRetry(action.id) // Retry later
-            }
-        }
-
-        return Result.success()
-    }
-
-    private suspend fun processAction(action: PendingActionEntity) {
-        when (action.actionType) {
-            "CREATE_ORDER" -> {
-                val dto = gson.fromJson(action.payload, CreateOrderDto::class.java)
-                apiService.createOrder(dto)
-            }
-            // ... other action types
+        return try {
+            productRepository.syncToServer().getOrThrow()
+            productRepository.syncFromServer().getOrThrow()
+            Result.success()
+        } catch (e: IOException) {
+            if (runAttemptCount < 5) Result.retry() else Result.failure()
+        } catch (e: Exception) {
+            Result.failure()
         }
     }
-}
 
-// Schedule sync with WorkManager
-fun scheduleSyncWorker(context: Context) {
-    val constraints = Constraints.Builder()
-        .setRequiredNetworkType(NetworkType.CONNECTED)
-        .build()
+    companion object {
+        private const val WORK_NAME = "sync_worker"
 
-    val syncRequest = PeriodicWorkRequestBuilder<SyncWorker>(15, TimeUnit.MINUTES)
-        .setConstraints(constraints)
-        .setBackoffCriteria(BackoffPolicy.EXPONENTIAL, 30, TimeUnit.SECONDS)
-        .build()
+        fun schedule(context: Context) {
+            val constraints = Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .build()
+            val request = PeriodicWorkRequestBuilder<SyncWorker>(15, TimeUnit.MINUTES)
+                .setConstraints(constraints)
+                .setBackoffCriteria(BackoffPolicy.EXPONENTIAL, 30, TimeUnit.SECONDS)
+                .build()
+            WorkManager.getInstance(context).enqueueUniquePeriodicWork(
+                WORK_NAME, ExistingPeriodicWorkPolicy.KEEP, request
+            )
+        }
 
-    WorkManager.getInstance(context)
-        .enqueueUniquePeriodicWork("sync", ExistingPeriodicWorkPolicy.KEEP, syncRequest)
-}
-```
-
-## ViewModel Patterns for Sync
-
-### Pull-to-Refresh
-
-```kotlin
-@HiltViewModel
-class ProductListViewModel @Inject constructor(
-    private val repository: ProductRepository
-) : ViewModel() {
-
-    val products = repository.getProducts()
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
-
-    private val _isRefreshing = MutableStateFlow(false)
-    val isRefreshing = _isRefreshing.asStateFlow()
-
-    private val _error = MutableStateFlow<String?>(null)
-    val error = _error.asStateFlow()
-
-    init { refresh() }
-
-    fun refresh() {
-        viewModelScope.launch {
-            _isRefreshing.value = true
-            _error.value = null
-            repository.refreshProducts()
-                .onFailure { _error.value = it.message }
-            _isRefreshing.value = false
+        fun triggerNow(context: Context) {
+            val request = OneTimeWorkRequestBuilder<SyncWorker>()
+                .setConstraints(
+                    Constraints.Builder()
+                        .setRequiredNetworkType(NetworkType.CONNECTED)
+                        .build()
+                )
+                .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
+                .build()
+            WorkManager.getInstance(context).enqueueUniqueWork(
+                "${WORK_NAME}_now", ExistingWorkPolicy.REPLACE, request
+            )
         }
     }
 }
 ```
 
-### Create with Optimistic UI
+---
+
+## Section 7: ConnectivityObserver — Auto-Trigger on Network Restore
 
 ```kotlin
-suspend fun createProduct(product: Product): Result<Product> {
-    // Optimistic: save locally first for instant UI feedback
-    val tempEntity = product.toEntity().copy(productId = "temp_${System.currentTimeMillis()}")
-    productDao.insertAll(listOf(tempEntity))
-
-    return try {
-        val response = apiService.createProduct(product.toCreateDto())
-        val realEntity = response.data.toEntity()
-        // Replace temp with real
-        productDao.deleteById(tempEntity.productId)
-        productDao.insertAll(listOf(realEntity))
-        Result.success(realEntity.toDomain())
-    } catch (e: Exception) {
-        // Rollback optimistic insert
-        productDao.deleteById(tempEntity.productId)
-        Result.failure(e)
-    }
-}
-```
-
-## Data Layer Mapping (Complete)
-
-```kotlin
-// --- API Layer ---
-data class ProductDto(
-    val id: String,
-    val name: String,
-    val price: Double,
-    val category_id: String,
-    val is_active: Boolean
-)
-
-data class CreateProductDto(val name: String, val price: Double, val category_id: String)
-data class UpdateProductDto(val name: String?, val price: Double?, val category_id: String?)
-
-data class ApiResponse<T>(val success: Boolean, val data: T, val message: String?)
-
-// --- Database Layer ---
-@Entity(tableName = "products")
-data class ProductEntity(
-    @PrimaryKey @ColumnInfo(name = "product_id") val productId: String,
-    val name: String,
-    val price: Double,
-    @ColumnInfo(name = "category_id") val categoryId: String,
-    @ColumnInfo(name = "is_active") val isActive: Boolean,
-    @ColumnInfo(name = "last_synced") val lastSynced: Long = System.currentTimeMillis()
-)
-
-// --- Domain Layer ---
-data class Product(
-    val id: String,
-    val name: String,
-    val price: Double,
-    val categoryId: String,
-    val isActive: Boolean
-)
-
-// --- Mappers ---
-fun ProductDto.toEntity() = ProductEntity(id, name, price, category_id, is_active)
-fun ProductEntity.toDomain() = Product(productId, name, price, categoryId, isActive)
-fun Product.toCreateDto() = CreateProductDto(name, price, categoryId)
-fun Product.toUpdateDto() = UpdateProductDto(name, price, categoryId)
-```
-
-## Network Connectivity Awareness
-
-```kotlin
+@Singleton
 class ConnectivityObserver @Inject constructor(
     @ApplicationContext private val context: Context
 ) {
     val isOnline: Flow<Boolean> = callbackFlow {
         val manager = context.getSystemService(ConnectivityManager::class.java)
         val callback = object : ConnectivityManager.NetworkCallback() {
-            override fun onAvailable(network: Network) { trySend(true) }
+            override fun onAvailable(network: Network) {
+                trySend(true)
+                SyncWorker.triggerNow(context)    // Auto-sync on network restore
+            }
             override fun onLost(network: Network) { trySend(false) }
         }
         val request = NetworkRequest.Builder()
             .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+            .addCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED)
             .build()
         manager.registerNetworkCallback(request, callback)
-        // Initial state
-        trySend(manager.activeNetwork != null)
+        val isConnected = manager.activeNetwork
+            ?.let { manager.getNetworkCapabilities(it) }
+            ?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
+        trySend(isConnected)
         awaitClose { manager.unregisterNetworkCallback(callback) }
     }.distinctUntilChanged()
 }
 ```
 
-## Checklist: Data Layer Setup
+---
 
-- [ ] Room entities defined for all persistent data
-- [ ] DAOs use `Flow` for reactive reads, `suspend` for writes
-- [ ] Repository mediates between DAOs and API service
-- [ ] Data mapping: DTO -> Entity -> Domain (three separate models)
-- [ ] Migrations tested for every schema change
-- [ ] DataStore used for preferences (not SharedPreferences)
-- [ ] API errors handled gracefully (cached data shown on failure)
-- [ ] Indexes on frequently queried columns
-- [ ] Hilt modules provide Database, DAOs, and Repositories
-- [ ] Offline queue for critical write operations (if needed)
+## Section 8: ViewModel Integration
+
+```kotlin
+@HiltViewModel
+class ProductListViewModel @Inject constructor(
+    private val repository: ProductRepository,
+    private val connectivity: ConnectivityObserver,
+    private val pendingActionDao: PendingActionDao
+) : ViewModel() {
+
+    val products = repository.observeProducts()
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+
+    val isOnline = connectivity.isOnline
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), true)
+
+    // "3 changes pending sync" badge
+    val pendingCount = pendingActionDao.observeCount()
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), 0)
+
+    fun refresh() { SyncWorker.triggerNow(getApplication()) }
+}
+```
+
+---
+
+## Section 9: Sync Guarantees Checklist
+
+### No Duplicates
+
+| Rule | Implementation |
+|------|----------------|
+| Stable String UUIDs as `@PrimaryKey` | Never `autoGenerate = true` for synced entities |
+| All sync upserts use `REPLACE` | `OnConflictStrategy.REPLACE` in `upsertAll()` |
+| Delta sync (cursor-based) | Never full delete + replace |
+| Re-enqueue is idempotent | `PendingActions` uses `OnConflictStrategy.IGNORE` |
+
+### No Missing Transactions
+
+| Rule | Implementation |
+|------|----------------|
+| Full page drain | Paginate until `response.hasMore == false` |
+| Atomic cursor advance | Cursor updates only after `upsertAll()` succeeds |
+| Network errors stay queued | Actions removed only on server confirmation |
+| Server deduplication | Must accept `Idempotency-Key` header on POST/PUT |
+
+### Conflict Resolution
+
+| Rule | Implementation |
+|------|----------------|
+| HTTP 409 → server wins | Fetch server version, discard local pending action |
+| Optimistic locking | `version` column on entities |
+| Retry cap | Max 5 WorkManager retries, then `Result.failure()` |
+
+### Atomicity
+
+| Rule | Implementation |
+|------|----------------|
+| Batch write | `upsertAll()` wrapped in `@Transaction` |
+| Cursor + batch atomic | Cursor update in same `@Transaction` as batch write |
+
+---
+
+## Section 10: Data Layer Mapping
+
+```kotlin
+// Three distinct layers — never mix them
+
+// API DTOs
+data class ProductDto(
+    val id: String,
+    val name: String,
+    val price: BigDecimal,
+    val categoryId: String,
+    val updatedAt: Long
+)
+data class CreateProductDto(val name: String, val price: BigDecimal, val categoryId: String)
+data class UpdateProductDto(val name: String?, val price: BigDecimal?, val categoryId: String?)
+data class ApiResponse<T>(
+    val success: Boolean,
+    val data: T,
+    val message: String?,
+    val hasMore: Boolean = false
+)
+
+// Room entity
+@Entity(tableName = "products")
+data class ProductEntity(
+    @PrimaryKey @ColumnInfo(name = "product_id") val productId: String,
+    val name: String,
+    val price: BigDecimal,
+    @ColumnInfo(name = "category_id") val categoryId: String,
+    @ColumnInfo(name = "is_active", defaultValue = "1") val isActive: Boolean = true,
+    val version: Int = 1,
+    @ColumnInfo(name = "server_updated_at") val serverUpdatedAt: Long = 0L,
+    @ColumnInfo(name = "last_synced_at") val lastSyncedAt: Long = 0L
+)
+
+// Domain model
+data class Product(val id: String, val name: String, val price: BigDecimal, val categoryId: String)
+
+// Mappers
+fun ProductDto.toEntity() =
+    ProductEntity(id, name, price, categoryId, true, 1, updatedAt, System.currentTimeMillis())
+fun ProductEntity.toDomain() = Product(productId, name, price, categoryId)
+fun Product.toCreateDto() = CreateProductDto(name, price, categoryId)
+fun Product.toUpdateDto() = UpdateProductDto(name, price, categoryId)
+```

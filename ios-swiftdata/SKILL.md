@@ -2,7 +2,7 @@
 name: ios-swiftdata
 description: Comprehensive SwiftData API reference (iOS 17+) — @Model, @Attribute, @Relationship,
   ModelContainer, ModelContext, FetchDescriptor, @Query, schema migrations, ModelActor for background
-  work, CloudKit requirements, testing, and 17 anti-patterns. Use alongside ios-data-persistence
+  work, CloudKit requirements, testing, and 10 anti-patterns. Use alongside ios-data-persistence
   for offline-first sync engine.
 ---
 
@@ -112,7 +112,7 @@ extension Order {
 }
 @Model class Vehicle {
     var make: String
-    var manufacturer: Manufacturer?
+    var manufacturer: Manufacturer?  // init omitted for brevity — see Section 2 rules
 }
 ```
 
@@ -122,7 +122,7 @@ extension Order {
     @Relationship(inverse: \Invoice.order)  // set inverse on ONE side only
     var invoice: Invoice?
 }
-@Model class Invoice { var total: Double; var order: Order? }
+@Model class Invoice { var total: Double; var order: Order?  /* init omitted — see Section 2 */ }
 ```
 
 **Many-to-many:**
@@ -131,7 +131,7 @@ extension Order {
     @Relationship(inverse: \Course.students)
     var courses: [Course] = []
 }
-@Model class Course { var students: [Student] = [] }
+@Model class Course { var students: [Student] = []  /* init omitted — see Section 2 */ }
 ```
 
 **Delete rules:**
@@ -291,9 +291,9 @@ struct ProductListView: View {
     @Query var products: [Product]
 
     init(search: String, ascending: Bool) {
-        let pred = #Predicate<Product> {
-            search.isEmpty ? true : $0.itemName.localizedStandardContains(search)
-        }
+        let pred = search.isEmpty
+            ? nil
+            : #Predicate<Product> { $0.itemName.localizedStandardContains(search) }
         _products = Query(filter: pred,
                           sort: \Product.itemName,
                           order: ascending ? .forward : .reverse)
@@ -366,8 +366,8 @@ renaming with `@Attribute(originalName:)`, adding `.externalStorage`, changing d
 
 **Custom migration (data transformation):**
 ```swift
-static var mapping: [String: String] = [:]
-
+// Declare inside ProductMigrationPlan enum:
+private static var mapping: [String: String] = [:]
 static let migrateV2toV3 = MigrationStage.custom(
     fromVersion: ProductSchemaV2.self, toVersion: ProductSchemaV3.self
 ) { context in                    // willMigrate — old context

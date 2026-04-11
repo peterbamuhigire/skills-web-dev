@@ -180,6 +180,10 @@ class ProductRepository @Inject constructor(
             entities.map { it.toDomain() }
         }
 
+    // SIMPLIFIED EXAMPLE — for production offline-first repository with PendingActionDao,
+    // SyncCursorDao, and no-duplicate/no-missing-transaction guarantees, see:
+    // references/api-sync-patterns.md Section 3 (ProductRepository)
+
     // Sync: fetch from API, save to Room
     suspend fun refreshProducts(): Result<Unit> {
         return try {
@@ -264,12 +268,10 @@ class Converters {
     @TypeConverter
     fun dateToTimestamp(date: Date?): Long? = date?.time
 
-    @TypeConverter
-    fun fromStringList(value: String?): List<String> =
-        value?.split(",") ?: emptyList()
-
-    @TypeConverter
-    fun toStringList(list: List<String>): String = list.joinToString(",")
+    @TypeConverter fun fromStringList(value: String?): List<String> =
+        if (value.isNullOrBlank()) emptyList() else value.split("\u001F")
+    @TypeConverter fun toStringList(list: List<String>): String = list.joinToString("\u001F")
+    // Using \u001F (unit separator) — commas in values corrupt comma-delimited lists
 }
 ```
 

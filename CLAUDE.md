@@ -110,6 +110,7 @@ skills/
 ├── android-development/             # Android dev standards (Kotlin, Compose, MVVM, Hilt)
 ├── android-tdd/                     # Android TDD (Red-Green-Refactor, test pyramid, CI)
 ├── jetpack-compose-ui/              # Compose UI (beautiful, minimalistic, Material 3)
+├── android-room/                    # Comprehensive Room reference (entities, DAOs, relations, migrations, FTS4, views, paging, SQLCipher, testing — Mark Murphy's "Elements of Android Room")
 ├── android-data-persistence/        # Room, DataStore, API sync, offline-first
 ├── android-biometric-login/         # Biometric auth (fingerprint/face) for Android apps
 ├── android-pdf-export/              # Native PDF export using PdfDocument API

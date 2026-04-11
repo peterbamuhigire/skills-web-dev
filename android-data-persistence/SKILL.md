@@ -17,6 +17,14 @@ Android 10+ required.
 
 **Architecture:** Offline-first with API sync via Repository pattern.
 
+**Offline-First is MANDATORY.** Every app we build MUST work fully offline. Users in areas
+with poor or intermittent network must never be blocked. Sync happens automatically when
+connectivity returns — the user must never know or notice. See `references/api-sync-patterns.md`
+for the complete sync engine with guaranteed no-duplicates, no-missing-transactions.
+
+**Room Deep Reference:** For full Room API (FTS4, views, migrations, encryption, paging,
+conflict resolution, testing), use the `android-room` skill alongside this one.
+
 **Backend Environments:** APIs run on Windows dev (MySQL 8.4.7), Ubuntu staging (MySQL 8.x), Debian production (MySQL 8.x). Use Gradle build flavors for environment-specific base URLs. All backends use `utf8mb4_unicode_ci` collation.
 
 **Icon Policy:** If any UI code is included, use custom PNG icons and maintain `PROJECT_ICONS.md` (see `android-custom-icons`).
@@ -56,7 +64,8 @@ UI (Compose) → ViewModel → Repository → Room (local) + API (remote)
 | **Room Essentials**   | `references/room-essentials.md`   | Entities, DAOs, Database setup, TypeConverters |
 | **Room Advanced**     | `references/room-advanced.md`     | Relations, migrations, testing, performance    |
 | **Local Storage**     | `references/local-storage.md`     | DataStore, SharedPreferences, file I/O         |
-| **API Sync Patterns** | `references/api-sync-patterns.md` | Offline-first, Repository, cache strategies    |
+| **API Sync Patterns**   | `references/api-sync-patterns.md` | Idempotent sync, no duplicates, no missing transactions, WorkManager |
+| **Room Deep Reference** | `android-room` skill               | FTS4, views, paging, SQLCipher, migrations, conflict resolution      |
 
 ## Room: The Primary Local Database
 
@@ -335,20 +344,19 @@ fun Product.toDto() = ProductDto(id, name, price)
 ## Integration with Other Skills
 
 ```
-android-development → Architecture (MVVM, Clean, Hilt DI)
-      |
-android-data-persistence → Storage, Room, API sync (THIS SKILL)
-      |
-jetpack-compose-ui → Display data in beautiful UI
-      |
-android-tdd → Test DAOs, Repositories, ViewModels
+android-room → Deep Room API (entities, FTS4, views, migrations, SQLCipher, paging)
+      ↓
+android-data-persistence → Offline sync engine (THIS SKILL)
+      ↓
+android-development → Clean Architecture, Hilt DI, MVVM
+      ↓
+android-tdd → DAO tests, migration tests, SyncWorker tests
 ```
 
 **Key integrations:**
-
-- **android-development**: Follows Clean Architecture layers
-- **android-tdd**: Room in-memory DB testing, MockWebServer for API tests
-- **api-error-handling**: Error patterns for API sync failures
+- **android-room**: All Room patterns — always load with this skill for full coverage
+- **android-tdd**: Test DAOs with in-memory DB, SyncWorker with TestWorkerFactory
+- **api-error-handling**: Error patterns for sync failures and HTTP 409 conflicts
 
 ## References
 

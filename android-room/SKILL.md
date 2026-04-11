@@ -29,6 +29,7 @@ implementation("androidx.room:room-ktx:$roomVersion")
 ksp("androidx.room:room-compiler:$roomVersion")           // KSP, NOT kapt
 implementation("androidx.room:room-paging:$roomVersion")  // optional, Paging 3
 testImplementation("androidx.room:room-testing:$roomVersion")
+testImplementation("app.cash.turbine:turbine:1.1.0")      // Flow testing
 // Plugin: id("com.google.devtools.ksp") version "2.0.0-1.0.21"
 // Schema: ksp { arg("room.schemaLocation", "$projectDir/schemas") }
 ```
@@ -57,9 +58,9 @@ data class ProductEntity(
     val price: BigDecimal,
     val categoryId: String,
     @ColumnInfo(name = "is_active", defaultValue = "1") val isActive: Boolean = true,
-    val version: Int = 0,                    // optimistic locking
-    val serverUpdatedAt: Long = 0L,          // delta sync cursor
-    val lastSyncedAt: Long? = null
+    val version: Int = 0,                                         // optimistic locking
+    @ColumnInfo(name = "server_updated_at") val serverUpdatedAt: Long = 0L,  // delta sync cursor
+    @ColumnInfo(name = "last_synced_at") val lastSyncedAt: Long = 0L
 )
 ```
 
@@ -93,12 +94,16 @@ class Converters {
     @TypeConverter fun fromTimestamp(value: Long?): Date? = value?.let { Date(it) }
     @TypeConverter fun dateToTimestamp(date: Date?): Long? = date?.time
 
-    @TypeConverter fun fromStringList(value: List<String>): String = value.joinToString(",")
-    @TypeConverter fun toStringList(value: String): List<String> =
-        if (value.isBlank()) emptyList() else value.split(",")
+    // Use unit separator (\u001F) to avoid corruption if list values contain commas
+    @TypeConverter fun fromStringList(value: List<String>): String = value.joinToString("\u001F")
+    @TypeConverter fun toStringList(value: String?): List<String> =
+        if (value.isNullOrBlank()) emptyList() else value.split("\u001F")
 
     @TypeConverter fun fromEnum(value: OrderStatus): String = value.name
     @TypeConverter fun toEnum(value: String): OrderStatus = OrderStatus.valueOf(value)
+
+    @TypeConverter fun fromBigDecimal(value: BigDecimal?): String? = value?.toPlainString()
+    @TypeConverter fun toBigDecimal(value: String?): BigDecimal? = value?.let { BigDecimal(it) }
 }
 // Register at @Database level: @TypeConverters(Converters::class)
 ```
@@ -126,7 +131,6 @@ interface ProductDao {
     @Query("SELECT MAX(server_updated_at) FROM products")
     suspend fun getLatestSyncCursor(): Long?
 
-    // Aggregate projection
     @Query("SELECT category_id, COUNT(*) as total, SUM(price) as totalValue FROM products GROUP BY category_id")
     fun observeCategoryStats(): Flow<List<CategoryStats>>
 
@@ -163,9 +167,12 @@ data class CategoryStats(val categoryId: String, val total: Int, val totalValue:
         ProductEntity::class, OrderEntity::class, CategoryEntity::class,
         PendingActionEntity::class, SyncCursorEntity::class
     ],
-    version = 1,
+    version = 3,
     exportSchema = true,
-    autoMigrations = []
+    autoMigrations = [
+        AutoMigration(from = 1, to = 2),
+        AutoMigration(from = 2, to = 3, spec = Migration2To3::class)
+    ]
 )
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
@@ -182,10 +189,13 @@ object DatabaseModule {
     @Provides @Singleton
     fun provideDatabase(@ApplicationContext ctx: Context): AppDatabase =
         Room.databaseBuilder(ctx, AppDatabase::class.java, "app.db")
+            .addMigrations(MIGRATION_1_2, MIGRATION_2_3)   // Register all manual migrations here
             .build()
 
     @Provides fun provideProductDao(db: AppDatabase): ProductDao = db.productDao()
     @Provides fun provideOrderDao(db: AppDatabase): OrderDao = db.orderDao()
+    // DAOs are intentionally unscoped — they are lightweight wrappers around the
+    // Singleton database. Hilt creates a new instance per injection point, which is fine.
 }
 ```
 
@@ -227,16 +237,20 @@ data class OrderWithProducts(
 ### Nested Relations
 
 ```kotlin
-data class OrderItemWithProduct(
-    @Embedded val item: OrderItemEntity,
-    @Relation(parentColumn = "product_id", entityColumn = "product_id")
-    val product: ProductEntity?
-)
+// @Relation only works with @Entity types. For nested relations, load separately and join in Repository.
+
+// Step 1: Load order items
 data class OrderWithItems(
     @Embedded val order: OrderEntity,
-    @Relation(parentColumn = "order_id", entityColumn = "order_id")
-    val items: List<OrderItemWithProduct>
+    @Relation(
+        parentColumn = "orderId",
+        entityColumn = "order_id"
+    )
+    val items: List<OrderItemEntity>    // @Relation works on @Entity types only
 )
+
+// Step 2: Manually join with products in Repository
+// val products = productDao.getByIds(items.map { it.productId })
 ```
 
 ## 8. Transactions
@@ -286,12 +300,11 @@ val MIGRATION_1_2 = object : Migration(1, 2) {
 ### AutoMigration
 
 ```kotlin
-@AutoMigration(from = 2, to = 3, spec = Migration2To3::class)
+// Correct: @AutoMigration belongs in @Database autoMigrations array (see Section 6)
+// The spec class only carries the operation annotation, not @AutoMigration
 @DeleteTable.Entries(DeleteTable(tableName = "legacy_table"))
 class Migration2To3 : AutoMigrationSpec
-
-// In @Database:
-autoMigrations = [AutoMigration(from = 1, to = 2)]
+// Other spec annotations: @RenameColumn, @DeleteColumn, @RenameTable
 ```
 
 **Never use `fallbackToDestructiveMigration()` in production** — silent data loss.
@@ -308,6 +321,9 @@ autoMigrations = [AutoMigration(from = 1, to = 2)]
 @Dao interface SearchDao {
     @Query("SELECT * FROM products WHERE rowid IN (SELECT rowid FROM products_fts WHERE products_fts MATCH :query)")
     fun search(query: String): Flow<List<ProductEntity>>
+    // IMPORTANT: Sanitize user input before passing to MATCH — raw strings with
+    // quotes or operators (OR, AND, NOT) cause SQLiteException at runtime.
+    // Sanitize in Repository: val safe = query.trim().replace(Regex("[^a-zA-Z0-9 ]"), "") + "*"
 
     @Query("SELECT snippet(products_fts) FROM products_fts WHERE products_fts MATCH :query")
     suspend fun getSnippets(query: String): List<String>
@@ -366,27 +382,39 @@ Room.databaseBuilder(ctx, AppDatabase::class.java, "app.db")
 ```kotlin
 class PassphraseRepository(private val ctx: Context) {
     private val keyAlias = "room_passphrase_key"
+    private val file = File(ctx.filesDir, "db.key")
+    private val masterKey = MasterKey.Builder(ctx, keyAlias)
+        .setKeyScheme(MasterKey.KeyScheme.AES256_GCM).build()
+    private val encryptedFile = EncryptedFile.Builder(
+        ctx, file, masterKey, EncryptedFile.FileEncryptionScheme.AES256_GCM_HKDF_4KB
+    ).build()
 
-    fun getOrCreate(): ByteArray {
-        val file = File(ctx.filesDir, "db.key")
-        val masterKey = MasterKey.Builder(ctx, keyAlias)
-            .setKeyScheme(MasterKey.KeyScheme.AES256_GCM).build()
-        val encryptedFile = EncryptedFile.Builder(
-            ctx, file, masterKey, EncryptedFile.FileEncryptionScheme.AES256_GCM_HKDF_4KB
-        ).build()
-        return if (file.exists()) encryptedFile.openFileInput().use { it.readBytes() }
-        else generatePassphrase().also { encryptedFile.openFileOutput().use { out -> out.write(it) } }
+    fun getOrCreatePassphrase(): ByteArray {
+        return try {
+            if (file.exists()) {
+                encryptedFile.openFileInput().use { it.readBytes() }
+                    .takeIf { it.size == 32 } ?: generateAndSave()
+            } else generateAndSave()
+        } catch (e: Exception) {
+            generateAndSave()   // Re-generate if file is corrupt or unreadable
+        }
+    }
+
+    private fun generateAndSave(): ByteArray = generatePassphrase().also { passphrase ->
+        encryptedFile.openFileOutput().use { it.write(passphrase) }
     }
 
     private fun generatePassphrase(): ByteArray {
         val bytes = ByteArray(32)
-        do { SecureRandom().nextBytes(bytes) } while (bytes.contains(0))
+        SecureRandom().nextBytes(bytes)
         return bytes
+        // Note: null-byte filtering is NOT needed for ByteArray passphrases in Kotlin/JVM.
+        // SQLCipher accepts null bytes in ByteArray passphrases.
     }
 }
 
 // In builder:
-val passphrase = passphraseRepo.getOrCreate()
+val passphrase = passphraseRepo.getOrCreatePassphrase()
 val factory = SupportFactory(passphrase)
 Room.databaseBuilder(ctx, AppDatabase::class.java, "app.db")
     .openHelperFactory(factory).build()
@@ -423,12 +451,12 @@ class ProductDaoTest {
     }
 
     @Test fun observeAll_emitsOnChange() = runTest {
-        val emissions = mutableListOf<List<ProductSummary>>()
-        val job = launch { dao.observeAll().take(2).collect { emissions.add(it) } }
-        dao.upsert(ProductEntity(productId = "p1", name = "A", price = BigDecimal.ONE, categoryId = "c1"))
-        job.join()
-        assertThat(emissions).hasSize(2)
-        assertThat(emissions[1]).hasSize(1)
+        dao.observeAll().test {       // Requires app.cash.turbine:turbine dependency
+            assertTrue(awaitItem().isEmpty())
+            dao.upsert(ProductEntity("p1", "Phone", BigDecimal("999.00"), "elec", true, 1, 0L, 0L))
+            assertEquals(1, awaitItem().size)
+            cancel()
+        }
     }
 }
 
@@ -452,7 +480,7 @@ class MigrationTest {
 - **Batch inserts** in chunks of 500: `entities.chunked(500).forEach { dao.upsertAll(it) }`
 - **@Transaction** for all multi-table writes — prevents partial state
 - **Export schema** (`exportSchema = true`) and commit `schemas/` directory to git
-- Run `PRAGMA wal_mode=WAL` via callback for write-heavy workloads
+- **WAL mode** — add callback to `databaseBuilder`: `db.execSQL("PRAGMA journal_mode=WAL")` in `onCreate`
 
 ## 18. Integration
 

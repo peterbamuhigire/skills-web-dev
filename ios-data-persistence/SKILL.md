@@ -117,6 +117,8 @@ actor TokenManager {
 
 ## 4. SwiftData (Primary Local Storage — iOS 17+)
 
+> **Deep Reference:** See the **`ios-swiftdata`** skill for full API coverage.
+
 ### 4.1 Model Definition
 
 ```swift
@@ -124,7 +126,7 @@ import SwiftData
 
 @Model
 class Product {
-    #Unique([\.stockItemId])
+    #Unique([\.stockItemId])          // iOS 18+; for iOS 17 use @Attribute(.unique)
     var stockItemId: Int
     var itemCode: String
     var itemName: String
@@ -482,7 +484,6 @@ Configure `URLCache.shared` at launch: `URLCache(memoryCapacity: 50_000_000, dis
 
 | Skill | Relevance |
 |---|---|
-| `ios-swiftdata` | Full SwiftData API reference — @Attribute, @Relationship, ModelActor, migrations |
 | `dual-auth-rbac` | Token storage lifecycle, refresh flow |
 | `api-pagination` | Offset pagination with local caching |
 | `vibe-security-skill` | TLS pinning, secure storage audits |

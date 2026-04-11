@@ -44,9 +44,9 @@ func processAll(_ items: [Item]) async {
 
 ```swift
 // Entire class on main actor
-@MainActor class ProductViewModel: ObservableObject {
-    @Published var products: [Product] = []
-    func load() async { products = try! await service.fetchAll() }
+@MainActor @Observable class ProductViewModel {
+    var products: [Product] = []
+    func load() async { products = (try? await service.fetchAll()) ?? [] }
 }
 
 // Single function on main actor

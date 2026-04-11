@@ -306,11 +306,7 @@ autoMigrations = [AutoMigration(from = 1, to = 2)]
 
 // Both entities in @Database entities array
 @Dao interface SearchDao {
-    @Query("""
-        SELECT p.* FROM products p
-        INNER JOIN products_fts ON p.rowid = products_fts.rowid
-        WHERE products_fts MATCH :query
-    """)
+    @Query("SELECT * FROM products WHERE rowid IN (SELECT rowid FROM products_fts WHERE products_fts MATCH :query)")
     fun search(query: String): Flow<List<ProductEntity>>
 
     @Query("SELECT snippet(products_fts) FROM products_fts WHERE products_fts MATCH :query")

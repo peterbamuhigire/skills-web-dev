@@ -497,3 +497,4 @@ See [references/accessibility.md](references/accessibility.md) for full patterns
 | `api-pagination` | Infinite scroll patterns |
 | `dual-auth-rbac` | JWT authentication and RBAC |
 | `form-ux-design` | Cross-platform form UX patterns |
+| `references/concurrency.md` | async/await, actors, TaskGroup, Sendable, Swift 6.1/6.2 isolation model |

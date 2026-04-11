@@ -188,11 +188,9 @@ suspend fun syncFromServer(): Result<Unit> = runCatching {
         if (response.data.isNotEmpty()) {
             val entities = response.data.map { it.toEntity() }
             // @Transaction ensures cursor and data write are atomic — no partial state on crash
-            syncDao.commitSyncBatch(
-                entities,
-                SyncCursorEntity("products", maxOf(latestTimestamp, entities.maxOf { it.serverUpdatedAt }))
-            )
-            latestTimestamp = entities.maxOf { it.serverUpdatedAt }
+            val pageMax = entities.maxOf { it.serverUpdatedAt }
+            latestTimestamp = maxOf(latestTimestamp, pageMax)
+            syncDao.commitSyncBatch(entities, SyncCursorEntity("products", latestTimestamp))
         }
         page++
     } while (response.hasMore)

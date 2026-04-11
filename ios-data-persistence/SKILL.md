@@ -494,9 +494,6 @@ Configure `URLCache.shared` at launch: `URLCache(memoryCapacity: 50_000_000, dis
 | Anti-Pattern | Correct Approach |
 |---|---|
 | Storing tokens in UserDefaults | Keychain Services |
-| Skipping CodingKeys for snake_case APIs | Define CodingKeys explicitly |
 | Ignoring offline state in repository | Fallback to cache on network error |
 | Heavy queries on MainActor | `ModelActor` for background work |
 | Missing idempotency keys on retries | UUID per pending op |
-| No migration plan between schema versions | `VersionedSchema` + `MigrationPlan` |
-| Storing file paths as absolute strings | Store relative paths; reconstruct at runtime |

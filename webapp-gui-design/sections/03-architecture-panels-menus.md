@@ -49,97 +49,141 @@ seeder-page.php      → Template (ALWAYS clone)
 - Each menu can have at most **5 submenus**.
 - Each submenu can have at most **6 items**.
 - If more items are required, add **one** extra submenu level (no deeper than that).
-- Use Bootstrap Icons on **all** menu headings and entries (`bi-*`).
+- **Use PNG images — NOT Bootstrap Icons — on all menu headings and entries.** See PNG Icon Standard below.
 - Prefer fewer pages: group related functions on one page with tabs/cards/sections and apply permissions per component.
+
+## PNG Icon Standard for Menus (Mandatory)
+
+**All menu items MUST use `<img>` tags pointing to PNG files. Bootstrap Icon (`<i class="bi bi-...">`) tags are FORBIDDEN in menus.**
+
+### HTML Pattern
+
+Top-level nav icon (24×24):
+```html
+<span class="nav-link-icon d-md-none d-lg-inline-block">
+    <img src="./dist/img/icons/finance.png" width="24" alt="Finance">
+</span>
+```
+
+Submenu dropdown toggle (28×28):
+```html
+<a class="dropdown-item dropdown-toggle" href="#" data-bs-toggle="dropdown">
+    <img src="./dist/img/icons/billing.png" width="28">
+    Billing
+</a>
+```
+
+Leaf menu item (16×16):
+```html
+<a href="./invoices.php" class="dropdown-item">
+    <img src="./dist/img/icons/invoice.png" width="16">Invoices
+</a>
+```
+
+### Standard Icons Folder
+
+PNGs live in `./dist/img/icons/` (relative to the web root). The designer provides them; the developer references them by name. PNG files are square, transparent background, suitable for both light and dark themes.
+
+### After Any Menu Update — PNG Audit (MANDATORY)
+
+After adding or modifying any menu items, you MUST:
+
+1. **Scan all menu files** for `<img src="./dist/img/icons/` tags to collect every PNG filename referenced.
+2. **Check which files exist** in `./dist/img/icons/`.
+3. **Report every missing PNG** to the developer in a clear list before considering the task done.
+
+Output format (present this table whenever any PNGs are missing):
+
+```
+## PNG Icons Required — Please Design and Add to ./dist/img/icons/
+
+| Filename           | Used for            | Size hint |
+|--------------------|---------------------|-----------|
+| billing.png        | Billing submenu     | 28×28     |
+| invoice.png        | Invoices leaf item  | 16×16     |
+| cash-flow.png      | Cash Flow report    | 16×16     |
+```
+
+Do NOT leave the task in a state where menu items point to non-existent PNG files. Always surface the missing list so the designer can action it immediately.
+
+### PNG Naming Convention
+
+Use lowercase, hyphen-separated names that describe the concept, not the icon shape:
+- `billing.png` not `receipt-icon.png`
+- `staff.png` not `person-filled.png`
+- `day-close.png` not `close-door.png`
 
 ### Menu Structure Examples (Use as a guide)
 
-**Finance** `bi-cash-stack`
+Note: `bi-*` codes shown below are **concept hints only** for the designer — they are NOT used in the actual HTML. Each entry maps to a PNG file by the slug shown.
 
-- Overview `bi-speedometer2`
-  - Summary `bi-clipboard-data`
-  - KPIs `bi-graph-up`
-  - Cash Position `bi-wallet2`
-- Billing `bi-receipt`
-  - Invoices `bi-file-earmark-text`
-  - Credit Notes `bi-file-minus`
-  - Payments `bi-credit-card`
-- Accounts `bi-journal-text`
-  - AR `bi-person-check`
-  - AP `bi-person-x`
-  - Journals `bi-journal`
-  - Charts of Accounts `bi-diagram-3`
-- Treasury `bi-bank`
-  - Bank Reconciliation `bi-check2-circle`
-  - Transfers `bi-arrow-left-right`
-  - Cashbook `bi-book`
-- Reports `bi-file-bar-graph`
-  - P&L `bi-graph-down`
-  - Balance Sheet `bi-columns-gap`
-  - Cash Flow `bi-water`
-  - Taxes `bi-percent`
-  - More Reports `bi-folder2`
-    - Aging `bi-clock-history`
-    - Audit Trail `bi-shield-check`
+**Finance** → `finance.png`
 
-**HR & Payroll** `bi-people`
+- Overview → `overview.png`
+  - Summary → `summary.png`
+  - KPIs → `kpi.png`
+  - Cash Position → `cash-position.png`
+- Billing → `billing.png`
+  - Invoices → `invoice.png`
+  - Credit Notes → `credit-note.png`
+  - Payments → `payment-method.png`
+- Accounts → `accounts.png`
+  - AR → `ar.png`
+  - AP → `ap.png`
+  - Journals → `journal.png`
+  - Charts of Accounts → `chart-of-accounts.png`
+- Treasury → `treasury.png`
+  - Bank Reconciliation → `reconciliation.png`
+  - Transfers → `transfer.png`
+  - Cashbook → `cashbook.png`
+- Reports → `reports.png`
+  - P&L → `pnl.png`
+  - Balance Sheet → `balance-sheet.png`
+  - Cash Flow → `cash-flow.png`
+  - Taxes → `taxes.png`
 
-- People `bi-person-badge`
-  - Directory `bi-people`
-  - Profiles `bi-person-lines-fill`
-  - Documents `bi-folder2-open`
-- Attendance `bi-calendar-check`
-  - Clocking `bi-alarm`
-  - Shifts `bi-calendar-week`
-  - Leave `bi-calendar-minus`
-- Payroll `bi-cash-coin`
-  - Pay Runs `bi-calculator`
-  - Deductions `bi-dash-circle`
-  - Benefits `bi-gift`
-  - Payslips `bi-receipt-cutoff`
-- Compliance `bi-clipboard-check`
-  - Taxes `bi-percent`
-  - Pension `bi-shield`
-  - Contracts `bi-file-earmark-text`
+**HR & Payroll** → `hr.png`
 
-**Stores & Inventory** `bi-box-seam`
+- People → `staff.png`
+  - Directory → `staff-list.png`
+  - Profiles → `profile.png`
+  - Documents → `documents.png`
+- Attendance → `attendance.png`
+  - Clocking → `clocking.png`
+  - Shifts → `shifts.png`
+  - Leave → `staff-leave.png`
+- Payroll → `payroll.png`
+  - Pay Runs → `salary-calendar.png`
+  - Deductions → `deductions.png`
+  - Benefits → `benefits.png`
+  - Payslips → `salary-voucher.png`
 
-- Catalog `bi-boxes`
-  - Items `bi-box`
-  - Categories `bi-tags`
-  - Units `bi-rulers`
-- Stock `bi-stack`
-  - On Hand `bi-box2`
-  - Adjustments `bi-sliders`
-  - Transfers `bi-arrow-left-right`
-- Purchasing `bi-bag`
-  - Requisitions `bi-clipboard-plus`
-  - Purchase Orders `bi-file-earmark-plus`
-  - GRN `bi-inbox-arrow-down`
-- Warehousing `bi-house-gear`
-  - Locations `bi-geo`
-  - Bin Cards `bi-card-list`
-  - Pick/Pack `bi-box2-heart`
-- Reports `bi-file-bar-graph`
-  - Valuation `bi-currency-exchange`
-  - Slow Movers `bi-hourglass`
-  - Stock Ledger `bi-journal-text`
+**Stores & Inventory** → `inventory.png`
 
-**System Settings** `bi-gear`
+- Catalog → `catalog.png`
+  - Items → `product.png`
+  - Categories → `category.png`
+  - Units → `units.png`
+- Stock → `stock.png`
+  - On Hand → `stock-on-hand.png`
+  - Adjustments → `adjustments.png`
+  - Transfers → `transfer.png`
+- Purchasing → `purchasing.png`
+  - Requisitions → `requisition.png`
+  - Purchase Orders → `purchase-order.png`
+  - GRN → `grn.png`
 
-- Access Control `bi-shield-lock`
-  - Roles `bi-person-gear`
-  - Permissions `bi-key`
-  - Users `bi-person`
-- Organization `bi-building`
-  - Company Profile `bi-building-gear`
-  - Branches `bi-diagram-2`
-  - Departments `bi-diagram-3`
-- Integrations `bi-plug`
-  - Email/SMS `bi-envelope`
-  - Payments `bi-credit-card`
-  - API Keys `bi-key-fill`
-- System `bi-sliders`
-  - Preferences `bi-toggles`
-  - Audit Logs `bi-clipboard-data`
-  - Backups `bi-hdd`
+**System Settings** → `settings.png`
+
+- Access Control → `access-control.png`
+  - Roles → `roles.png`
+  - Permissions → `permissions.png`
+  - Users → `users.png`
+- Organization → `franchise.png`
+  - Company Profile → `setup.png`
+  - Branches → `dpcs.png`
+  - Departments → `departments.png`
+- Integrations → `integrations.png`
+  - Email/SMS → `communication.png`
+  - Payments → `payment-method.png`
+  - API Keys → `api-keys.png`

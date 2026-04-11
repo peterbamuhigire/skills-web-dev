@@ -94,7 +94,9 @@
       "WebFetch(domain:github.com)",
       "Bash(mkdir -p \"/c/Users/Peter/.claude/skills/cicd-pipeline-design/references\")",
       "Bash(mkdir -p \"/c/Users/Peter/.claude/skills/cicd-jenkins-debian/references\")",
-      "Bash(mkdir -p \"/c/Users/Peter/.claude/skills/cicd-devsecops/references\")"
+      "Bash(mkdir -p \"/c/Users/Peter/.claude/skills/cicd-devsecops/references\")",
+      "Bash(mkdir -p /c/Users/Peter/.claude/skills/ios-development/references)",
+      "Read(//c/Users/Peter/.claude/skills/ios-development/references//**)"
     ]
   }
 }

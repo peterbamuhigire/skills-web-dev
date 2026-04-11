@@ -17,6 +17,17 @@ This reference mirrors the approved Restaurant POS redesign plan. Use it to impl
 - Implementation Tasks: docs/plans/restaurant-pos/10-implementation-tasks.md
 - Testing, Rollout, KPIs: docs/plans/restaurant-pos/11-testing-rollout-kpis-appendix.md
 
+## PNG Icon Standard (Mandatory — Applies to All Menus)
+
+**All navigation menu items MUST use `<img>` PNG tags. Bootstrap Icon (`<i class="bi bi-...">`) tags are FORBIDDEN in menus.**
+
+See the full PNG Icon Standard in `webapp-gui-design` skill, section 03 (Architecture, Panels, Menus).
+
+**After any menu change:**
+1. Scan all menu include files for `<img src="...icons/` references
+2. Check which PNG files exist in the icons folder
+3. Report every missing PNG to the developer before finishing — present the table of required filenames, use-context, and size
+
 ## Standard Layout Summary
 
 - Three-column desktop: context, menu, cart

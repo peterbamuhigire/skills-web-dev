@@ -25,6 +25,9 @@ The repository is being shaped around five goals:
 - `database-design-engineering` - schema design, tenancy, migrations, indexing, retention strategy
 - `saas-erp-system-design` - ERP-grade workflow modeling, controls, approvals, and auditability
 - `git-collaboration-workflow` - Git delivery discipline for branches, review, conflicts, and release
+- `observability-monitoring` - logs, metrics, traces, alerts, SLOs, dashboards, and audit telemetry
+- `advanced-testing-strategy` - risk-based testing depth and release evidence across systems
+- `deployment-release-engineering` - rollout strategy, rollback design, migration-safe shipping, and post-deploy verification
 
 ## Core Workflow
 
@@ -33,7 +36,7 @@ Default loading order for complex engineering work:
 1. `world-class-engineering`
 2. `system-architecture-design`, `database-design-engineering`, or `saas-erp-system-design` as needed
 3. platform or framework skills
-4. security, performance, UX, and validation companion skills
+4. security, performance, UX, observability, testing, and release companion skills
 
 ## High-Value Existing Skills
 

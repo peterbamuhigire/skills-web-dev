@@ -54,6 +54,9 @@ Typical baseline choices:
 | `database-design-engineering` | Cross-engine data architecture, tenancy, indexing, migration safety, retention |
 | `saas-erp-system-design` | Configurable SaaS and ERP workflow design, controls, auditability, extensions |
 | `git-collaboration-workflow` | Branch, commit, PR, merge, conflict, and release discipline |
+| `observability-monitoring` | Logs, metrics, traces, alerts, SLOs, and diagnosis-first production telemetry |
+| `advanced-testing-strategy` | Risk-based testing across unit, integration, contract, E2E, and release evidence |
+| `deployment-release-engineering` | Rollout, rollback, migration-safe releases, and post-deploy verification |
 
 ### Architecture And Backend
 
@@ -127,6 +130,7 @@ Typical baseline choices:
 - SaaS or ERP platform: `world-class-engineering` + `saas-erp-system-design` + `modular-saas-architecture` + `multi-tenant-saas-architecture` + `database-design-engineering`
 - Mobile-backed product: `world-class-engineering` + `system-architecture-design` + `android-development` or `ios-development` + security and persistence skills
 - AI-enabled application: `world-class-engineering` + `system-architecture-design` + `ai-web-apps` + `ai-security` + `frontend-performance`
+- Production release workflow: `world-class-engineering` + `advanced-testing-strategy` + `observability-monitoring` + `deployment-release-engineering`
 
 ## How To Use
 

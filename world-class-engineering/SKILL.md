@@ -131,6 +131,9 @@ Use these prompts while working:
 - Load `database-design-engineering` for schemas, queries, migrations, and data lifecycle choices.
 - Load `git-collaboration-workflow` for branch, review, and release discipline.
 - Load `saas-erp-system-design` for configurable business systems, auditability, and domain boundaries.
+- Load `observability-monitoring` for telemetry, SLOs, alerts, and diagnosis-first dashboards.
+- Load `advanced-testing-strategy` for risk-based validation and release evidence.
+- Load `deployment-release-engineering` for rollout, rollback, migration-safe shipping, and post-deploy verification.
 - Load platform and security skills relevant to the stack after this baseline is established.
 
 ## References

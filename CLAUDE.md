@@ -25,7 +25,7 @@ For substantial implementation, architecture, or repository-upgrade work, load s
 1. `world-class-engineering`
 2. `system-architecture-design`, `database-design-engineering`, `saas-erp-system-design`, or `git-collaboration-workflow` as appropriate
 3. platform or framework skill
-4. security, UX, performance, and validation companion skills
+4. security, UX, performance, observability, testing, and release companion skills
 
 This prevents stack-specific work from skipping architecture, quality gates, or delivery discipline.
 
@@ -75,6 +75,9 @@ If improving a skill:
 - `database-design-engineering` - schema shape, tenancy, indexing, migrations, retention
 - `saas-erp-system-design` - configurable workflow systems, approvals, controls, auditability
 - `git-collaboration-workflow` - branch, review, conflict, merge, and release discipline
+- `observability-monitoring` - logs, metrics, traces, alerts, SLOs, and diagnosis-first telemetry
+- `advanced-testing-strategy` - risk-based test depth and release evidence
+- `deployment-release-engineering` - rollout, rollback, migration-safe deployment, post-deploy verification
 
 ## Repository Structure
 
@@ -87,6 +90,9 @@ skills/
 |-- database-design-engineering/
 |-- saas-erp-system-design/
 |-- git-collaboration-workflow/
+|-- observability-monitoring/
+|-- advanced-testing-strategy/
+|-- deployment-release-engineering/
 |-- android-development/
 |-- ios-development/
 |-- api-design-first/

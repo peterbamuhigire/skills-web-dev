@@ -5,6 +5,13 @@ description: Build SAAS platforms with pluggable business modules (Advanced Inve
 
 # Modular SAAS Architecture
 
+## Load Alongside
+
+- `world-class-engineering` for release gates and output standards.
+- `saas-erp-system-design` when modules encode significant business workflows.
+- `database-design-engineering` for schema ownership, tenancy, and migration safety.
+- `vibe-security-skill` for security review.
+
 ## Overview
 
 Architecture pattern for building SaaS platforms where business modules (Advanced Inventory, Restaurant, Pharmacy, Retail, etc.) can be independently enabled, disabled, or added without affecting other parts of the system.
@@ -270,6 +277,7 @@ UPDATE tbl_franchise_modules SET is_enabled = 0, disabled_at = NOW() WHERE franc
 - Use `hasModuleAccess()` for optional dependencies
 - Keep data when module is disabled (soft disable only)
 - Use nullable FKs for cross-module references
+- Define audit events for enable, disable, pricing, and role-sensitive actions
 
 **DON'T:**
 - Hard-code module dependencies (check at runtime)
@@ -277,6 +285,7 @@ UPDATE tbl_franchise_modules SET is_enabled = 0, disabled_at = NOW() WHERE franc
 - Share tables between modules
 - Use hard FK constraints for optional modules
 - Show disabled module navigation to users
+- Fork module behavior per tenant in code when configuration or policy can express it
 
 ## Implementation Checklist
 

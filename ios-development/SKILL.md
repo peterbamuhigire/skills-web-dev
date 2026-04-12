@@ -9,6 +9,13 @@ description: iOS development standards for AI agent implementation. Swift-first,
 
 # iOS Development Standards
 
+## Load Order
+
+1. Load `world-class-engineering` for shared production gates.
+2. Load `system-architecture-design` when the app participates in broader service or module architecture.
+3. Load this skill for iOS implementation details.
+4. Load `ios-app-security`, `ios-networking-advanced`, or other focused skills as needed.
+
 Production-grade iOS development standards for AI-assisted implementation. Swift-first with SwiftUI, following modern Apple platform best practices.
 
 **Core Stack:** Swift 6.0+ | SwiftUI (default UI) | MVVM + Clean Architecture | Swift Concurrency
@@ -376,6 +383,16 @@ func dashboardHandlesError() async {
 - **`.drawingGroup()`** for complex animated views (offloads to Metal)
 - **Stable `id` in `ForEach`** — use model identity, never array index
 - **Profile with Instruments** — Time Profiler, Allocations, SwiftUI view body evaluation
+
+## Release Gate
+
+Before calling an iOS feature production-ready:
+
+- Verify the main journey on the minimum deployment target and the latest iOS release.
+- Verify degraded states: offline, slow network, expired session, denied permission, and partial data.
+- Verify accessibility, Dynamic Type, and VoiceOver on the actual flow.
+- Verify crash diagnostics, analytics, and audit-sensitive actions are instrumented appropriately.
+- Verify secrets, tokens, and sensitive data are protected in transit, at rest, and in logs.
 
 ## Navigation (iOS 17+)
 

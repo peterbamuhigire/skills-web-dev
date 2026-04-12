@@ -5,11 +5,27 @@ description: Use when designing or building APIs — REST conventions, OpenAPI 3
 
 # API Design First
 
+## Load Alongside
+
+- `world-class-engineering` for shared release gates.
+- `system-architecture-design` when the API defines service or module boundaries.
+- `database-design-engineering` when resource design drives schema choices.
+- `vibe-security-skill` for endpoint security review.
+
 ## Overview
 
 Design-first means writing the OpenAPI spec BEFORE writing code. The spec is the contract — it drives client SDKs, documentation, and server validation simultaneously.
 
 **Core principle:** The spec is the source of truth. Code implements the spec, never the other way around.
+
+## Design Workflow
+
+1. Define consumers, latency expectations, and trust boundaries.
+2. Model resources and actions around business concepts, not controller names.
+3. Write the OpenAPI contract, including auth, validation, errors, and pagination.
+4. Prove tenancy, authorization, and idempotency rules before implementation.
+5. Design observability: request IDs, audit events, deprecation path, and rate-limit telemetry.
+6. Validate that the API can evolve without breaking current consumers.
 
 ---
 
@@ -363,6 +379,12 @@ Apply in this sequence for every request:
 Logging → Panic Recovery → CORS → Request ID → Auth → Authorisation → Rate Limit → Handler
 ```
 
+Add observability inside the handler path for critical writes:
+
+```text
+... → Validation → Business Logic → Audit/Event Emit → Response
+```
+
 ---
 
 ## Health Check Endpoint
@@ -426,6 +448,7 @@ match ([$method, $id !== null]) {
 ## Implementation Checklist
 
 - [ ] OpenAPI spec written before code
+- [ ] Consumers, latency budget, and trust boundaries defined
 - [ ] URL: plural nouns, versioned (`/api/v1/`), no verbs
 - [ ] Response envelope: `{success, data, meta}` / `{success, error{code,message,documentation_url}}`
 - [ ] Tenant isolation: `franchise_id` from auth token, never from request
@@ -442,3 +465,5 @@ match ([$method, $id !== null]) {
 - [ ] Breaking change? Bump major version — never modify existing version
 - [ ] `/health` endpoint for load balancer / Kubernetes probes
 - [ ] Middleware order: Logging → Recovery → CORS → Auth → Rate Limit → Handler
+- [ ] Idempotency strategy defined for retries on critical POST endpoints
+- [ ] Audit events emitted for security-sensitive or financially material actions

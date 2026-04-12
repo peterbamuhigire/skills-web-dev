@@ -5,6 +5,42 @@ description: Building AI-enhanced web apps — MCP servers/clients, multi-provid
 
 # AI-Enhanced Web Apps with Next.js + Vercel AI SDK
 
+## Load Alongside
+
+- `world-class-engineering` for release gates and production-quality expectations.
+- `frontend-performance` for Core Web Vitals and budgets.
+- `vibe-security-skill` and `ai-security` for threat modeling, abuse controls, and secure defaults.
+- `api-design-first` when the AI app exposes or depends on external contracts.
+
+## Production Workflow
+
+### 1. Define the AI Interaction Contract
+
+Specify before coding:
+
+- User job to be done
+- Input shape and validation limits
+- Output shape and failure fallback
+- Allowed tools and authority boundaries
+- Latency and cost budget per request
+
+### 2. Isolate the Expensive Parts
+
+- Keep model selection, prompting, tool wiring, caching, and billing in dedicated server-side modules.
+- Stream results for UX, but keep writes and side effects behind explicit validation gates.
+- Put long-running or multi-step AI work on queues when it can exceed request budgets.
+
+### 3. Design for Failure and Abuse
+
+- Treat timeouts, provider outages, malformed tool outputs, quota exhaustion, and prompt injection as normal cases.
+- Require schema validation for structured output before it reaches business logic.
+- Add audit logs for model, prompt version, tool use, cost, and user/tenant attribution.
+
+### 4. Ship with Budgets
+
+- Set budgets for initial bundle size, server latency, AI latency, token spend, and cache hit rate.
+- Do not add an AI feature that breaks the critical path for non-AI users.
+
 ## Architecture
 
 ```
@@ -370,6 +406,9 @@ if (!parsed.success) return Response.json({ error: 'Invalid request' }, { status
 - Rate-limit per IP AND per user (quota + sliding window)
 - Never `dangerouslySetInnerHTML` AI output — use ReactMarkdown
 - Log all AI calls for audit and billing
+- Keep tool permissions narrower than the chat UI appears to allow
+- Sanitize and validate tool outputs before using them in writes or privileged actions
+- Separate retrieval corpora by tenant and access policy
 
 ## UX Patterns
 

@@ -29,6 +29,11 @@ Claude: Loads ios-development → follows MVVM + @Observable + async/await patte
 
 | Skill | Purpose |
 |-------|---------|
+| `world-class-engineering` | Shared production-grade engineering bar: architecture, security, performance, UX, operability |
+| `system-architecture-design` | Bounded contexts, module decomposition, ADRs, failure design, scaling tradeoffs |
+| `database-design-engineering` | Cross-engine data architecture, tenancy, indexing, migration safety, retention |
+| `saas-erp-system-design` | Configurable SaaS/ERP domain modeling, workflow controls, auditability, extensions |
+| `git-collaboration-workflow` | Branch, commit, PR, merge, and release discipline |
 | `multi-tenant-saas-architecture` | Three-panel separation, tenant isolation, audit trails |
 | `modular-saas-architecture` | Pluggable business modules (enable/disable per tenant) |
 | `dual-auth-rbac` | Session + JWT authentication with role-based access |
@@ -148,6 +153,15 @@ Skills are loaded automatically when referenced in conversation or invoked expli
 ```
 > Use the android-development skill to review this code
 > /ios-development  (slash command invocation)
+```
+
+For high-stakes engineering work, load in this order:
+
+```text
+world-class-engineering
+→ system-architecture-design / database-design-engineering / saas-erp-system-design / git-collaboration-workflow
+→ platform or framework skill
+→ security/performance/UX companion skills
 ```
 
 ### In Your Project

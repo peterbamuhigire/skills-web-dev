@@ -9,6 +9,13 @@ description: Android development standards for AI agent implementation. Kotlin-f
 
 # Android Development Standards
 
+## Load Order
+
+1. Load `world-class-engineering` for shared production gates.
+2. Load `system-architecture-design` when the Android app is part of a larger backend or multi-module system.
+3. Load this skill for Android implementation details.
+4. Load `vibe-security-skill` and feature-specific skills as needed.
+
 Production-grade Android development standards for AI-assisted implementation. Kotlin-first with Jetpack Compose, following modern Android best practices.
 
 **Core Stack:** Kotlin 100% | Jetpack Compose (default UI toolkit) | MVVM + Clean Architecture | Hilt DI
@@ -194,6 +201,16 @@ class MainActivity : AppCompatActivity() {
 - `derivedStateOf` for expensive calculations
 - Image loading via Coil with caching
 - ProGuard + resource shrinking in release
+
+### Release Gate
+
+Before calling an Android feature production-ready:
+
+- Verify the main user journey on minSdk and latest Android.
+- Verify offline, slow-network, and denied-permission behavior.
+- Verify startup, scrolling, and list interactions against performance expectations.
+- Verify crash reporting, analytics, and audit-sensitive actions are instrumented.
+- Verify sensitive data never lands in logs, screenshots, or unsecured storage.
 
 ### Local Development Networking (WAMP)
 

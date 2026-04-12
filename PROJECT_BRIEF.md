@@ -31,6 +31,14 @@ Provide consistent, battle-tested patterns and workflows that can be seamlessly 
 
 ## Current Skills
 
+### New Core System Skills
+
+- `world-class-engineering` - Shared release gates and engineering standards distilled into reusable workflows.
+- `system-architecture-design` - Architecture decomposition, ADRs, service-boundary decisions, and failure design.
+- `database-design-engineering` - Domain-driven schema design, tenancy, migrations, indexing, and retention strategy.
+- `saas-erp-system-design` - ERP-grade workflow modeling, controls, approvals, and auditability for configurable platforms.
+- `git-collaboration-workflow` - Git delivery discipline for branches, commits, review, conflict resolution, and release.
+
 ### Full Skill Index
 
 - ai-assisted-development

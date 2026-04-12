@@ -1,0 +1,127 @@
+---
+name: reliability-engineering
+description: Use when designing or reviewing production reliability for APIs, SaaS platforms, background jobs, distributed workflows, mobile backends, or AI-enabled systems. Covers timeout and retry policy, degradation, queue safety, incident readiness, and recovery-aware design.
+---
+
+# Reliability Engineering
+
+Use this skill when correctness under ideal conditions is not enough. The goal is to keep important workflows safe, available enough, diagnosable, and recoverable under load, dependency failure, stale state, and operator error.
+
+## Load Order
+
+1. Load `world-class-engineering`.
+2. Load this skill when the system has external dependencies, background processing, scale risk, or meaningful uptime expectations.
+3. Pair it with `observability-monitoring`, `deployment-release-engineering`, and `distributed-systems-patterns` when services or queues are involved.
+
+## Reliability Workflow
+
+### 1. Classify Criticality
+
+For each important workflow, define:
+
+- user and business impact if it fails
+- maximum acceptable downtime or degradation
+- data-loss tolerance
+- financial, compliance, or trust consequences
+- recovery time expectation
+
+Not every path needs the same reliability level.
+
+### 2. Map Failure Modes
+
+Explicitly list:
+
+- dependency timeout or outage
+- partial write or partial side effect
+- duplicate delivery or replay
+- stale reads or cache inconsistency
+- concurrency conflict
+- operator or configuration error
+
+If a failure mode is plausible and unhandled, the design is incomplete.
+
+### 3. Design Protection Mechanisms
+
+Choose deliberate policies for:
+
+- timeout budgets
+- retries and backoff
+- idempotency and deduplication
+- circuit breaking or load shedding
+- queues, dead-letter handling, and replay
+- graceful degradation or fallback behavior
+
+### 4. Design Recovery
+
+For every critical flow, define:
+
+- how to detect failure
+- who owns the first response
+- whether to retry, compensate, reconcile, or roll back
+- what can be replayed safely
+- what manual tooling or runbook is needed
+
+### 5. Verify Reliability
+
+Before production claims, produce evidence for:
+
+- timeout and retry behavior
+- degraded-state behavior
+- queue recovery or replay
+- duplicate-request safety
+- alert and runbook usefulness
+
+## Reliability Standards
+
+### Retries and Timeouts
+
+- Retries without idempotency are usually a bug.
+- Timeouts must be shorter than user patience and upstream collapse thresholds.
+- Use bounded retries with jitter for transient failures.
+- Do not retry validation failures, authorization failures, or deterministic business rejections.
+
+### Queues and Jobs
+
+- Every job needs an idempotency strategy or deduplication key.
+- Poison messages need dead-letter or quarantine behavior.
+- Replay must be safe, observable, and permissioned.
+- Long-running jobs need progress or heartbeat signals.
+
+### Degradation
+
+- Define what the user sees when a dependency is slow or unavailable.
+- Prefer reduced capability over total failure where business risk allows.
+- Fail closed for privileged or security-sensitive paths.
+- Fail open only with deliberate justification and bounded blast radius.
+
+### Incident Readiness
+
+- Alerts need an owner and a first action.
+- Correlate incidents to release version, tenant, actor, and dependency.
+- Keep recovery tools safe for operators under stress.
+- Write runbooks for high-cost incidents before the incident happens.
+
+## Deliverables
+
+For meaningful reliability work, produce:
+
+- criticality table
+- failure-mode table
+- timeout and retry policy
+- degradation and fallback notes
+- queue and replay strategy
+- incident ownership and recovery outline
+
+## Review Checklist
+
+- [ ] Critical workflows have explicit reliability targets or expectations.
+- [ ] Retries, timeouts, and idempotency rules are coherent.
+- [ ] Duplicate, replay, and partial-failure cases are handled safely.
+- [ ] Degradation behavior is defined for dependency failures.
+- [ ] Recovery paths and owners are explicit.
+- [ ] Reliability claims are backed by tests, simulations, or staged evidence.
+
+## References
+
+- [references/reliability-patterns.md](references/reliability-patterns.md): Design rules for timeouts, retries, queues, and degradation.
+- [references/incident-readiness.md](references/incident-readiness.md): Incident preparation and recovery prompts.

@@ -2,7 +2,7 @@
 
 ## Overview
 
-A curated collection of reusable Claude Code skills designed to accelerate development across multiple projects. The repository now includes a shared engineering baseline so skills work together as a system for building production-grade web apps, mobile apps, SaaS platforms, ERP systems, APIs, and data architectures.
+A curated collection of reusable Claude Code skills designed to accelerate development across multiple projects. The repository now includes a shared engineering and management baseline so skills work together as a system for building production-grade web apps, mobile apps, SaaS platforms, ERP systems, APIs, data architectures, and the delivery workflows around them.
 
 ## Purpose
 
@@ -10,9 +10,10 @@ Provide consistent, battle-tested patterns and workflows that can be integrated 
 
 ## Strategic Direction
 
-The repository is being shaped around five goals:
+The repository is being shaped around six goals:
 
 - define a shared world-class engineering bar instead of isolated skill-specific advice
+- define world-class software development and management, not just implementation detail
 - make architecture, data design, security, UX, and delivery workflow reusable across stacks
 - convert book knowledge into operational workflows and decision rules
 - upgrade skills from reference material into production-grade execution guides
@@ -26,8 +27,11 @@ The repository is being shaped around five goals:
 - `saas-erp-system-design` - ERP-grade workflow modeling, controls, approvals, and auditability
 - `git-collaboration-workflow` - Git delivery discipline for branches, review, conflicts, and release
 - `observability-monitoring` - logs, metrics, traces, alerts, SLOs, dashboards, and audit telemetry
+- `reliability-engineering` - retries, timeouts, degradation, incident readiness, and recovery-aware design
 - `advanced-testing-strategy` - risk-based testing depth and release evidence across systems
 - `deployment-release-engineering` - rollout strategy, rollback design, migration-safe shipping, and post-deploy verification
+- `distributed-systems-patterns` - consistency, messaging, outbox, saga, idempotency, and cross-service boundaries
+- `engineering-management-system` - prioritization, delegation, communication, coaching, and team operating rhythm
 
 ## Core Workflow
 
@@ -37,6 +41,7 @@ Default loading order for complex engineering work:
 2. `system-architecture-design`, `database-design-engineering`, or `saas-erp-system-design` as needed
 3. platform or framework skills
 4. security, performance, UX, observability, testing, and release companion skills
+5. reliability, distributed-systems, and management skills when system complexity or team scale requires them
 
 ## High-Value Existing Skills
 
@@ -114,6 +119,6 @@ Examples:
 
 ## Version
 
-- Current version: 1.1.0
+- Current version: 1.2.0
 - Last updated: April 2026
 - Maintained by: Peter Bamuhigire

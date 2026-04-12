@@ -62,6 +62,7 @@ Avoid messages that only describe mechanics.
 - PRs should explain impact, risk, and verification.
 - Reviewers should focus on bugs, regressions, migration risk, and missing tests.
 - Releases should include rollback awareness and post-deploy verification.
+- Keep branch strategy coupled to CI quality and release safety, not personal preference.
 
 ## Decision Heuristics
 
@@ -80,6 +81,12 @@ Use revert before reset when:
 - The bad change is already shared.
 - You need an auditable undo in team history.
 
+Require extra release notes when:
+
+- schema or migration changes are present
+- permissions, billing, or critical workflows changed
+- rollout needs feature flags, canaries, or manual checks
+
 ## Conflict Resolution Checklist
 
 - Identify which side changed behavior and why.
@@ -87,6 +94,13 @@ Use revert before reset when:
 - Re-run tests around the conflicting area.
 - Re-check generated files, lock files, schema changes, and config files.
 - Confirm no logic was silently dropped during resolution.
+
+## Branch and Release Standards
+
+- Keep `main` releasable or one step from releasable.
+- Pair risky changes with migration notes, verification notes, and rollback notes in the PR.
+- Do not merge changes that require tribal knowledge to deploy safely.
+- If CI is red for the branch strategy, the workflow is broken no matter how clean the history looks.
 
 See [references/review-and-release.md](references/review-and-release.md) for PR and release checklists.
 
@@ -97,6 +111,7 @@ See [references/review-and-release.md](references/review-and-release.md) for PR 
 - Force pushes without team awareness on shared branches.
 - Destructive recovery without first inspecting reflog-friendly options.
 - PRs that ship without migration, rollback, or verification notes when needed.
+- Treating Git workflow as separate from release engineering and CI health.
 
 ## References
 

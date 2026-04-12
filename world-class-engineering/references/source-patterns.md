@@ -156,6 +156,126 @@ This file transforms the supplied PDFs into reusable workflows and decision fram
 - Recorded design rationale.
 - Reliability-oriented design checks.
 
+## Master Software Architecture
+
+### Workflow: Architecture Evolution Loop
+
+1. Understand the business domain before arguing about services or frameworks.
+2. Identify bounded contexts, responsibilities, and integration pressure.
+3. Choose deployment and release strategy together with architecture, not later.
+4. Design testing, security, and operability as part of the architecture shape.
+5. Start simple, then evolve only when load, team topology, or workflow complexity justify it.
+6. Reassess architecture after major changes in scale, domain complexity, or release cadence.
+
+### Reusable Patterns
+
+- Context maps before service decomposition.
+- Trunk-friendly releases with feature flags.
+- Outbox and inbox patterns when asynchronous reliability matters.
+- Architecture evolution by evidence, not anticipation.
+
+## Fundamentals of Software Architecture
+
+### Workflow: Tradeoff-Centered Architecture
+
+1. Rank architectural characteristics for the specific system.
+2. Compare options against those characteristics rather than abstract preference.
+3. Record why the chosen option wins and what it makes harder.
+4. Revisit the choice if business, scale, team, or compliance assumptions change.
+
+### Decision Framework
+
+- If you cannot name the tradeoff, you are not ready to decide.
+- If a design choice improves one characteristic while silently harming another, document that cost explicitly.
+- If simplicity and reversibility are available, prefer them.
+
+### Reusable Patterns
+
+- Architectural characteristics ranking.
+- ADRs with explicit tradeoffs and consequences.
+- Modularity review through cohesion and coupling.
+
+## Software Development Pearls
+
+### Workflow: Shared-Understanding Requirements Loop
+
+1. Capture the user goal, business outcome, and usage context.
+2. Turn ambiguous requirements into examples, edge cases, and constraints.
+3. Review requirements as communication artifacts, not just scope lists.
+4. Iterate at the highest useful level of abstraction before heavy implementation.
+5. Make the product easy to use correctly and hard to use incorrectly.
+
+### Reusable Patterns
+
+- Usage-centric requirement framing.
+- Scope boundaries with unresolved-question tracking.
+- Design iteration before expensive build-out.
+
+## The Effective Engineer
+
+### Workflow: High-Leverage Execution
+
+1. Prioritize the work with the biggest impact on users, revenue, risk, or team speed.
+2. Increase iteration speed with faster tests, smaller changes, and low-friction tooling.
+3. Validate ideas early with prototypes, experiments, or partial rollouts.
+4. Measure the result and adjust based on evidence.
+5. Reduce recurring operational burden with targeted automation.
+
+### Reusable Patterns
+
+- High-leverage prioritization.
+- Validation-before-scale.
+- Mechanics automation before decision automation.
+- Idempotent recurring jobs.
+
+## Modern Software Engineering
+
+### Workflow: Throughput and Stability Balance
+
+1. Treat software development as a product delivery system, not only a coding activity.
+2. Measure both speed and stability.
+3. Improve the bottleneck with the greatest impact on delivery quality.
+4. Prefer evidence over process theater.
+5. Keep the system adaptable as tools, teams, and markets change.
+
+### Reusable Patterns
+
+- Stability plus throughput scorecard.
+- Delivery-system bottleneck analysis.
+- Evidence-based process changes.
+
+## Software Engineering at Google
+
+### Workflow: Sustainable Engineering Organization
+
+1. Make knowledge sharing normal through code review, docs, and visible work.
+2. Treat readability and maintainability as velocity multipliers, not bureaucracy.
+3. Build psychological safety so engineers surface problems early.
+4. Scale quality through standards, review culture, automation, and shared ownership.
+5. Reduce heroics by making knowledge and systems broadly accessible.
+
+### Reusable Patterns
+
+- Review culture focused on learning and maintainability.
+- Knowledge-sharing over hidden work.
+- Team-scale quality through standards and tooling.
+
+## Become an Effective Software Engineering Manager
+
+### Workflow: Team Operating Rhythm
+
+1. Create clarity in priorities, roles, and decision ownership.
+2. Use one-to-ones, delegation, and coaching to grow engineers rather than just direct them.
+3. Balance stability and change so the team can learn without constant chaos.
+4. Share information by default unless there is a real reason not to.
+5. Build conditions for meaningful work, trust, and continuous improvement.
+
+### Reusable Patterns
+
+- Delegation by ownership.
+- Coaching-first problem solving.
+- Transparent management communication.
+
 ## Analyzing Websites
 
 ### Workflow: Website Analysis

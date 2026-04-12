@@ -24,6 +24,7 @@ Capture:
 - External systems and integration points.
 - Read/write paths, async flows, and operational jobs.
 - Non-functional constraints: latency, availability, compliance, team size, release cadence.
+- The business events, policies, and failure consequences that make the system expensive to get wrong.
 
 ### 2. Decompose by Capability
 
@@ -54,6 +55,12 @@ For each critical flow, define:
 - Side effects and idempotency strategy.
 - Failure and retry behavior.
 - Audit and observability events.
+
+Also define:
+
+- consistency requirement: immediate, eventual, or compensating
+- ownership of downstream effects
+- rollback or reconciliation path when dependencies disagree
 
 ### 5. Record Decisions
 
@@ -93,6 +100,12 @@ Use the template in [references/adr-template.md](references/adr-template.md).
 - Every background processor needs dead-letter or replay strategy.
 - Every external dependency needs timeout, retry, and degradation rules.
 
+### Team and Dependency Boundaries
+
+- Align service or module boundaries with ownership where possible.
+- Prefer interfaces that allow teams to move independently without hidden schema coupling.
+- Do not extract services just to mirror org charts if operational cost outweighs benefit.
+
 ## Decision Heuristics
 
 Choose a modular monolith when:
@@ -118,6 +131,12 @@ Choose asynchronous communication when:
 - Temporary unavailability must not block the user flow.
 - The operation is naturally eventually consistent.
 
+Split a service or module when:
+
+- its change cadence, scaling profile, or compliance boundary is materially different
+- ownership confusion is causing delivery friction
+- failure isolation or release independence produces clear operational value
+
 ## Architecture Review Checklist
 
 - [ ] Capabilities are separated by business meaning.
@@ -127,6 +146,8 @@ Choose asynchronous communication when:
 - [ ] Contracts are explicit and evolution-safe.
 - [ ] Background work is idempotent and retry-safe.
 - [ ] Security and tenant boundaries align with module boundaries.
+- [ ] Consistency model and compensation strategy are explicit where workflows cross boundaries.
+- [ ] Architecture deliverables include context map, critical-flow table, and dependency view.
 
 ## References
 

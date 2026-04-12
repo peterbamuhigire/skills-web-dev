@@ -63,12 +63,14 @@ Every ERP-grade workflow needs explicit controls for:
 - Posting and locking periods
 - Reconciliation and correction
 - Audit log and reason capture
+- Policy evaluation points and rule override governance
 
 ### 5. Design for Extensions
 
 - Use module boundaries and extension points around optional verticals.
 - Keep core concepts stable: party, product, location, document, ledger, user, role, workflow.
 - Add industry-specific detail in modules without corrupting the core language.
+- Prefer workflow composition and policy engines over tenant-specific code paths.
 
 ## Modeling Rules
 
@@ -90,6 +92,12 @@ Every ERP-grade workflow needs explicit controls for:
 - Operational reports can read transactional tables only while scale permits.
 - Build projections or aggregates once reporting complexity or volume grows.
 - Distinguish regulatory, finance, and operational reporting needs.
+
+### Cross-Module Workflows
+
+- Define how documents, approvals, entitlements, accounting, and notifications interact.
+- Ensure every cross-module workflow can be reconstructed from source events and audit history.
+- Make downstream posting and reversal rules explicit before implementation.
 
 ## Decision Heuristics
 
@@ -119,6 +127,7 @@ For major SaaS or ERP design tasks, produce:
 - Entitlement and pricing model.
 - Audit and reporting strategy.
 - Integration map for external systems and async jobs.
+- Cross-module workflow map and policy boundaries.
 
 ## References
 

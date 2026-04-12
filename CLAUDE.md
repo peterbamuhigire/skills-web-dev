@@ -26,6 +26,7 @@ For substantial implementation, architecture, or repository-upgrade work, load s
 2. `system-architecture-design`, `database-design-engineering`, `saas-erp-system-design`, or `git-collaboration-workflow` as appropriate
 3. platform or framework skill
 4. security, UX, performance, observability, testing, and release companion skills
+5. reliability, distributed-systems, and management skills when the problem includes scale, multi-service coordination, or team execution risk
 
 This prevents stack-specific work from skipping architecture, quality gates, or delivery discipline.
 
@@ -76,8 +77,11 @@ If improving a skill:
 - `saas-erp-system-design` - configurable workflow systems, approvals, controls, auditability
 - `git-collaboration-workflow` - branch, review, conflict, merge, and release discipline
 - `observability-monitoring` - logs, metrics, traces, alerts, SLOs, and diagnosis-first telemetry
+- `reliability-engineering` - retries, timeouts, degradation, incident readiness, and recovery-aware design
 - `advanced-testing-strategy` - risk-based test depth and release evidence
 - `deployment-release-engineering` - rollout, rollback, migration-safe deployment, post-deploy verification
+- `distributed-systems-patterns` - consistency, messaging, idempotency, sagas, and cross-service tradeoffs
+- `engineering-management-system` - prioritization, delegation, operating rhythm, coaching, and team scaling
 
 ## Repository Structure
 
@@ -91,8 +95,11 @@ skills/
 |-- saas-erp-system-design/
 |-- git-collaboration-workflow/
 |-- observability-monitoring/
+|-- reliability-engineering/
 |-- advanced-testing-strategy/
 |-- deployment-release-engineering/
+|-- distributed-systems-patterns/
+|-- engineering-management-system/
 |-- android-development/
 |-- ios-development/
 |-- api-design-first/
@@ -113,6 +120,8 @@ When the request involves architecture, production implementation, or repository
 - start from `world-class-engineering`
 - add the relevant architecture, data, workflow, or business-system baseline skill
 - then add stack-specific skills
+- add `reliability-engineering` or `distributed-systems-patterns` when cross-service or async consistency risks appear
+- add `engineering-management-system` when the request includes delivery process, team scaling, prioritization, or management behavior
 
 Do not jump straight to framework-level implementation when architecture or data-shape decisions are still open.
 

@@ -4,6 +4,8 @@ Production-grade skills library for Claude Code covering software architecture, 
 
 The repository is designed to help Claude Code produce systems that are secure, scalable, maintainable, performance-conscious, and user-centered. It is not just a bag of examples. It is a layered engineering system.
 
+The baseline is now aimed at world-class software development, engineering, and management: software that solves expensive real problems, feels excellent to use, operates reliably, evolves safely, and becomes more valuable as the team scales.
+
 ## What Skills Are
 
 Skills are markdown instruction packages that encode reusable engineering judgment:
@@ -23,7 +25,7 @@ For serious implementation work, start with the repository baseline before loadi
 - `saas-erp-system-design`
 - `git-collaboration-workflow`
 
-These skills establish the shared bar for architecture, data modeling, workflow design, release discipline, security, performance, UX, testing, and operability.
+These skills establish the shared bar for architecture, data modeling, workflow design, release discipline, security, performance, UX, testing, operability, and engineering management.
 
 ## Recommended Load Order
 
@@ -34,6 +36,7 @@ world-class-engineering
 -> architecture or data baseline skill
 -> platform or framework skill
 -> security, UX, performance, and validation companion skills
+-> reliability, distributed-systems, and management skills when complexity justifies them
 ```
 
 Typical baseline choices:
@@ -55,8 +58,11 @@ Typical baseline choices:
 | `saas-erp-system-design` | Configurable SaaS and ERP workflow design, controls, auditability, extensions |
 | `git-collaboration-workflow` | Branch, commit, PR, merge, conflict, and release discipline |
 | `observability-monitoring` | Logs, metrics, traces, alerts, SLOs, and diagnosis-first production telemetry |
+| `reliability-engineering` | Fault-tolerant workflow design, degradation, incident readiness, and recovery discipline |
 | `advanced-testing-strategy` | Risk-based testing across unit, integration, contract, E2E, and release evidence |
 | `deployment-release-engineering` | Rollout, rollback, migration-safe releases, and post-deploy verification |
+| `distributed-systems-patterns` | Consistency, messaging, idempotency, sagas, and service-boundary tradeoffs |
+| `engineering-management-system` | Team operating rhythm, prioritization, delegation, coaching, and delivery-system health |
 
 ### Architecture And Backend
 
@@ -131,6 +137,8 @@ Typical baseline choices:
 - Mobile-backed product: `world-class-engineering` + `system-architecture-design` + `android-development` or `ios-development` + security and persistence skills
 - AI-enabled application: `world-class-engineering` + `system-architecture-design` + `ai-web-apps` + `ai-security` + `frontend-performance`
 - Production release workflow: `world-class-engineering` + `advanced-testing-strategy` + `observability-monitoring` + `deployment-release-engineering`
+- Distributed workflow or service platform: `world-class-engineering` + `system-architecture-design` + `distributed-systems-patterns` + `reliability-engineering`
+- Engineering leadership and delivery improvement: `world-class-engineering` + `engineering-management-system` + `git-collaboration-workflow`
 
 ## How To Use
 
@@ -183,7 +191,7 @@ Then include:
 
 ## Repository Stats
 
-- 85+ skills across architecture, web, mobile, AI, security, UX, data, and SDLC
+- 88+ skills across architecture, web, mobile, AI, security, UX, data, and SDLC
 - full-stack coverage for web apps, mobile apps, SaaS, ERP, APIs, and data systems
 - layered baseline for architecture, data design, delivery workflow, and production quality
 

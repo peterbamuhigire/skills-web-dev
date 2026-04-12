@@ -57,6 +57,7 @@ Do not use schemaless storage as a substitute for undecided modeling.
 - Keep writes idempotent where retries are possible.
 - Plan archival, purging, and partitioning before large-volume tables arrive.
 - Use expand-contract migrations for live systems.
+- Separate transactional truth from projections, integrations, and analytical read models.
 
 ## Core Standards
 
@@ -87,6 +88,13 @@ Do not use schemaless storage as a substitute for undecided modeling.
 - Prefer additive changes, backfills, then cutovers, then cleanup.
 - Keep application code compatible across deployment overlap where possible.
 - Rehearse destructive or high-volume changes before production.
+
+### Scale, Replication, and Change Data
+
+- Know which queries must read current truth and which can tolerate replica lag.
+- Design outbox, CDC, or projection pipelines so integration needs do not corrupt the transactional model.
+- Budget storage, index, and retention cost for hot tables before volume becomes painful.
+- Validate the hottest access paths with execution plans, cardinality assumptions, and realistic filters.
 
 ## Decision Heuristics
 
@@ -119,6 +127,7 @@ For substantive database work, produce:
 - Migration strategy.
 - Data retention and audit plan.
 - Top 5 critical queries or access patterns.
+- Projection, outbox, or replication notes where external reads or integrations exist.
 
 ## Review Checklist
 
@@ -129,6 +138,7 @@ For substantive database work, produce:
 - [ ] Migrations support live deployment safety.
 - [ ] Audit, retention, and archival rules are documented.
 - [ ] Reporting needs do not distort the transactional model without justification.
+- [ ] Replica lag, projections, or CDC assumptions are explicit where they matter.
 
 ## References
 

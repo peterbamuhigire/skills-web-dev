@@ -2,6 +2,14 @@
 
 Use these gates before describing any output as production-ready.
 
+## Product-Value Gate
+
+- [ ] The problem, user, buyer, or operator value is explicit.
+- [ ] The solution improves a meaningful workflow, cost center, risk area, or revenue path.
+- [ ] Success metrics are defined for product and engineering outcomes.
+- [ ] The core experience is easier to trust and use than the status quo.
+- [ ] The work is scoped to a high-leverage slice rather than an unfocused feature pile.
+
 ## Architecture Gate
 
 - [ ] Core user journeys and failure-sensitive flows are defined.
@@ -25,6 +33,14 @@ Use these gates before describing any output as production-ready.
 - [ ] Database access, network calls, and rendering hot spots are profiled or reasoned about.
 - [ ] Third-party dependencies are justified by user or business value.
 - [ ] Representative-device or representative-load verification exists.
+
+## Reliability Gate
+
+- [ ] Timeouts, retries, concurrency, and partial failures are explicitly designed.
+- [ ] Duplicate processing and replay behavior are safe for critical workflows.
+- [ ] Degradation or fallback behavior exists for important dependency failures.
+- [ ] Incident signals, ownership, and first recovery actions are defined.
+- [ ] Data consistency expectations are explicit where distributed workflows exist.
 
 ## UX Gate
 

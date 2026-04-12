@@ -1,272 +1,190 @@
 # Claude Code Skills Collection
 
-Production-grade skills library for [Claude Code](https://claude.com/claude-code) — 60+ skills covering full-stack SaaS development, cross-platform mobile, UI/UX design, security, and SDLC documentation. Distilled from 20+ authoritative books and real-world project experience.
+Production-grade skills library for Claude Code covering software architecture, web apps, mobile apps, SaaS, ERP, AI systems, security, UX, databases, and SDLC documentation.
 
-## What Are Skills?
+The repository is designed to help Claude Code produce systems that are secure, scalable, maintainable, performance-conscious, and user-centered. It is not just a bag of examples. It is a layered engineering system.
 
-Skills are markdown instruction files that give Claude Code deep expertise in specific domains. Load a skill and Claude follows its patterns, code standards, and architectural decisions — producing consistent, production-quality output across projects.
+## What Skills Are
 
-```
-User: "Use the ios-development skill to build a login screen"
-Claude: Loads ios-development → follows MVVM + @Observable + async/await patterns → generates Swift code
-```
+Skills are markdown instruction packages that encode reusable engineering judgment:
 
-## Skill Categories
+- when to use a pattern
+- how to execute it
+- what to avoid
+- what quality gates must be met before calling the result production-ready
 
-### Platform Development
+## Core Baseline
 
-| Platform | Skills | Stack |
-|----------|--------|-------|
-| **Web Backend** | `php-modern-standards`, `php-security`, `mysql-best-practices` | PHP 8+, MySQL 8.x, Redis |
-| **Web Frontend** | `webapp-gui-design`, `form-ux-design`, `image-compression` | Bootstrap 5/Tabler, JS |
-| **JavaScript** | `javascript-modern`, `javascript-advanced`, `javascript-patterns`, `javascript-php-integration` | ES6+, Modules, Design Patterns |
-| **TypeScript** | `typescript-mastery` | Full type system, generics, React, strict mode, tsconfig |
-| **Android** | `android-development`, `jetpack-compose-ui`, `android-data-persistence`, `android-tdd`, `android-biometric-login`, `android-pdf-export` | Kotlin, Compose, Room, Hilt |
-| **iOS** | `ios-development`, `ios-architecture-advanced`, `ios-at-scale`, `ios-production-patterns`, `ios-debugging-mastery`, `ios-ai-ml`, `ios-swift-design-patterns`, `ios-networking-advanced`, `ios-uikit-advanced`, `ios-monetization`, `ios-push-notifications`, `ios-swift-recipes`, `ios-stability-solutions`, `swiftui-design`, `swiftui-pro-patterns`, `ios-data-persistence`, `ios-tdd`, `ios-project-setup`, `ios-biometric-login`, `ios-pdf-export`, `ios-bluetooth-printing`, `ios-rbac` | Swift 6, SwiftUI, SwiftData, CoreML |
-| **Cross-Platform** | `mobile-saas-planning`, `mobile-custom-icons`, `mobile-reports`, `mobile-report-tables`, `api-pagination` | Shared patterns for Android + iOS |
+For serious implementation work, start with the repository baseline before loading stack-specific skills:
 
-### Architecture & Backend
+- `world-class-engineering`
+- `system-architecture-design`
+- `database-design-engineering`
+- `saas-erp-system-design`
+- `git-collaboration-workflow`
 
-| Skill | Purpose |
-|-------|---------|
-| `world-class-engineering` | Shared production-grade engineering bar: architecture, security, performance, UX, operability |
-| `system-architecture-design` | Bounded contexts, module decomposition, ADRs, failure design, scaling tradeoffs |
-| `database-design-engineering` | Cross-engine data architecture, tenancy, indexing, migration safety, retention |
-| `saas-erp-system-design` | Configurable SaaS/ERP domain modeling, workflow controls, auditability, extensions |
-| `git-collaboration-workflow` | Branch, commit, PR, merge, and release discipline |
-| `multi-tenant-saas-architecture` | Three-panel separation, tenant isolation, audit trails |
-| `modular-saas-architecture` | Pluggable business modules (enable/disable per tenant) |
-| `dual-auth-rbac` | Session + JWT authentication with role-based access |
-| `mobile-rbac` / `ios-rbac` | Permission gates for mobile UI (Android + iOS) |
-| `saas-accounting-system` | Double-entry accounting engine for SaaS apps |
-| `inventory-management` | Stock movement, BOMs, valuation, multi-location |
-| `api-error-handling` | Standardised PHP REST API error responses |
-| `saas-seeder` | Bootstrap new SaaS projects from template |
+These skills establish the shared bar for architecture, data modeling, workflow design, release discipline, security, performance, UX, testing, and operability.
 
-### Database (7 Skills)
-
-| Skill | Purpose |
-|-------|---------|
-| `mysql-best-practices` | MySQL 8.x production patterns: indexing, EXPLAIN, transactions, security, HA, benchmarking |
-| `mysql-data-modeling` | Universal entity patterns: Party model, product hierarchy, order/invoice lifecycle (Silverston) |
-| `mysql-query-performance` | EXPLAIN ANALYZE, covering indexes, optimizer hints, histogram stats, Performance Schema |
-| `mysql-administration` | GTID replication, InnoDB Cluster, XtraBackup, PITR, ProxySQL, zero-downtime schema changes |
-| `mysql-advanced-sql` | Window functions, recursive CTEs, JSON_TABLE, dynamic pivoting, stored procedures, triggers |
-| `database-internals` | B-tree, WAL/MVCC, buffer pool, lock types, LSM vs B-tree tradeoffs, CAP theorem applied |
-| `database-reliability` | SLOs, expand-contract migrations, backup verification, incident runbooks, chaos engineering |
-
-### JavaScript (4 Skills)
-
-| Skill | Purpose |
-|-------|---------|
-| `javascript-modern` | ES6+ mastery: modules, async/await, Proxy, generators, WeakMap, AbortController, production fetch wrapper |
-| `javascript-advanced` | Closures, prototype chain, OOP with #private fields, functional patterns, event loop, memory management |
-| `javascript-patterns` | 10 design patterns: Module, Observer, Factory, Strategy, Command, Repository, Mediator, State Machine |
-| `javascript-php-integration` | JS-in-own-files architecture rule, data-* bridge, CSRF flow, $pageScript per-page loading |
-| `typescript-mastery` | Full TypeScript: fundamentals, generics, conditional/mapped/template-literal types, utility types, React patterns, strict mode, production tsconfig (Pocock + Wellman + Abella) |
-
-### UI/UX Design (21 Skills)
-
-**Cognitive Foundations**
-- `ux-psychology` — Dual-process thinking, memory, attention, Gestalt, biases (Hodent, Kahneman)
-- `laws-of-ux` — All 30 Yablonski Laws (Fitts, Hick, Miller, Jakob, Tesler, Doherty)
-- `cognitive-ux-framework` — Six Minds model (Whalen)
-
-**Design Craft**
-- `practical-ui-design` — Colour (HSB palettes), typography (type scales), layout (8pt grid), dark mode (Dannaway)
-- `ux-principles-101` — 101 actionable principles: accessibility, forms, search, empty states, error recovery (Grant)
-- `data-visualization` — Chart selection, decluttering, storytelling with data (Knaflic)
-- `interaction-design-patterns` — 45+ proven patterns (Tidwell)
-
-**Methodology**
-- `web-usability-krug` — Krug's 3 Laws, Billboard Design 101, DIY testing
-- `lean-ux-validation` — Hypothesis-driven validation before building (Klein)
-- `habit-forming-products` — Hook Model for engagement (Eyal)
-- `ux-for-ai` — AI interface design: trust, transparency, premium feel
-
-**Domain-Specific**
-- `healthcare-ui-design` — Clinical-grade UI (HIPAA, FDA compliance)
-- `pos-sales-ui-design` / `pos-restaurant-ui-standard` — POS and checkout interfaces
-- `form-ux-design` — Cross-platform form patterns (web + Android + iOS)
-
-### Security
-
-| Skill | Scope |
-|-------|-------|
-| `vibe-security-skill` | Secure coding baseline for web apps |
-| `php-security` | PHP-specific (sessions, XSS, CSRF, file uploads) |
-| `code-safety-scanner` | 14-point safety audit (security, stability, payments) |
-| `web-app-security-audit` | 8-layer security audit for PHP/JS/HTML apps |
-| `skill-safety-audit` | Scan skills for unsafe instructions |
-
-### SDLC Documentation (ISO-Compliant)
-
-| Phase | Skill | Documents Generated |
-|-------|-------|-------------------|
-| Planning | `sdlc-planning` | Vision, SDP, SRS, QA Plan, Risk Plan |
-| Design | `sdlc-design` | SDD, Tech Spec, ICD, DB Design, API Docs |
-| Testing | `sdlc-testing` | Test Plan, Test Cases, V&V (ISO 29119-3) |
-| Deployment | `sdlc-user-deploy` | User Manual, Ops Manual, Release Notes |
-| Maintenance | `sdlc-maintenance` | SMP, MR/PR workflow (ISO 14764:2022) |
-| Evaluation | `sdlc-post-deployment` | PDER, operational metrics |
-
-### Store Submission
-
-| Store | Skill |
-|-------|-------|
-| Google Play | `google-play-store-review` |
-| Apple App Store | `app-store-review` |
-
-### Document Production
-
-| Skill | Purpose |
-|-------|---------|
-| `professional-word-output` | Pandoc + python-docx pipeline; heading flow rules, typography spec, table design, pre-delivery checklist |
-
-### Content & Writing
-
-| Skill | Purpose |
-|-------|---------|
-| `blog-idea-generator` | Generate 15-25 targeted blog ideas |
-| `blog-writer` | SEO-optimised bilingual articles with photography |
-| `content-writing` | Headlines, ledes, readability, persuasive structure |
-| `east-african-english` | British English, East African professional tone |
-| `language-standards` | Multi-language: English, French, Kiswahili |
-
-### AI & Orchestration
-
-| Skill | Purpose |
-|-------|---------|
-| `ai-assisted-development` | Orchestrate multiple AI agents |
-| `ai-error-handling` | 5-layer validation for AI output |
-| `ai-error-prevention` | "Trust but verify" workflow |
-| `orchestration-best-practices` | Multi-step workflow coordination |
-| `feature-planning` | Spec + implementation plan generation |
-| `plan-implementation` | Autonomous TDD plan executor |
-
-## How to Use
-
-### In Claude Code
-
-Skills are loaded automatically when referenced in conversation or invoked explicitly:
-
-```
-> Use the android-development skill to review this code
-> /ios-development  (slash command invocation)
-```
+## Recommended Load Order
 
 For high-stakes engineering work, load in this order:
 
 ```text
 world-class-engineering
-→ system-architecture-design / database-design-engineering / saas-erp-system-design / git-collaboration-workflow
-→ platform or framework skill
-→ security/performance/UX companion skills
+-> architecture or data baseline skill
+-> platform or framework skill
+-> security, UX, performance, and validation companion skills
 ```
 
-### In Your Project
+Typical baseline choices:
 
-Reference skills from any project by adding to your project's `CLAUDE.md`:
+- `system-architecture-design` for module boundaries, contracts, ADRs, failure design
+- `database-design-engineering` for schema shape, tenancy, indexing, retention, migration safety
+- `saas-erp-system-design` for configurable business workflows, approvals, controls, auditability
+- `git-collaboration-workflow` for branch, review, merge, and release discipline
+
+## Skill Categories
+
+### Core System Skills
+
+| Skill | Purpose |
+|-------|---------|
+| `world-class-engineering` | Shared production-grade engineering bar and release gates |
+| `system-architecture-design` | Decomposition, contracts, ADRs, failure design, scaling tradeoffs |
+| `database-design-engineering` | Cross-engine data architecture, tenancy, indexing, migration safety, retention |
+| `saas-erp-system-design` | Configurable SaaS and ERP workflow design, controls, auditability, extensions |
+| `git-collaboration-workflow` | Branch, commit, PR, merge, conflict, and release discipline |
+
+### Architecture And Backend
+
+| Skill | Purpose |
+|-------|---------|
+| `multi-tenant-saas-architecture` | Tenant isolation, audit trails, SaaS backend patterns |
+| `modular-saas-architecture` | Pluggable business modules and per-tenant enablement |
+| `dual-auth-rbac` | Session and JWT authentication with role-based access control |
+| `api-design-first` | OpenAPI-first REST design, versioning, auth, caching, rate limiting |
+| `api-error-handling` | Standardized API errors and response formatting |
+| `saas-accounting-system` | Double-entry accounting engine patterns |
+| `inventory-management` | Inventory, stock movement, valuation, and multi-location patterns |
+
+### Database
+
+| Skill | Purpose |
+|-------|---------|
+| `mysql-best-practices` | MySQL production patterns for schema, performance, security, HA |
+| `mysql-data-modeling` | Universal entity patterns and business data models |
+| `mysql-query-performance` | Query tuning, plans, indexes, and diagnosis |
+| `mysql-administration` | Replication, backup, recovery, and operational safety |
+| `database-internals` | Storage engine tradeoffs and core internals |
+| `database-reliability` | SLOs, migrations, backup verification, incident runbooks |
+
+### Web, Mobile, And Frontend
+
+| Area | Key Skills |
+|------|------------|
+| Web frontend | `webapp-gui-design`, `form-ux-design`, `responsive-design`, `frontend-performance` |
+| Web backend | `php-modern-standards`, `php-security`, `nodejs-development`, `nextjs-app-router` |
+| Android | `android-development`, `android-data-persistence`, `android-tdd`, `jetpack-compose-ui` |
+| iOS | `ios-development`, `ios-data-persistence`, `ios-tdd`, `swiftui-design` |
+| Cross-platform planning | `mobile-saas-planning`, `mobile-reports`, `mobile-report-tables`, `mobile-rbac` |
+
+### Security
+
+| Skill | Scope |
+|-------|-------|
+| `vibe-security-skill` | Secure coding baseline for web-connected systems |
+| `web-app-security-audit` | Structured security review for web apps |
+| `php-security` | PHP-specific security patterns |
+| `ai-security` | LLM and AI integration security controls |
+| `llm-security` | Prompt injection, trust boundaries, output validation |
+| `skill-safety-audit` | Safety checks for skills themselves |
+
+### UX, Product Writing, And Design
+
+| Skill | Purpose |
+|-------|---------|
+| `laws-of-ux` | Named UX laws and design implications |
+| `ux-writing` | Microcopy, empty states, errors, loading, confirmations |
+| `ux-psychology` | Cognitive foundations for product design |
+| `practical-ui-design` | Visual design systems, layout, typography, color |
+| `interaction-design-patterns` | Reusable interaction patterns |
+| `design-audit` | Structured UI quality review |
+
+### AI And Orchestration
+
+| Skill | Purpose |
+|-------|---------|
+| `ai-web-apps` | AI-enabled web app patterns, budgets, streaming, tool use |
+| `ai-assisted-development` | Multi-agent development workflows |
+| `ai-error-handling` | Validation stacks for AI output |
+| `ai-error-prevention` | Trust-but-verify workflows |
+| `orchestration-best-practices` | Multi-step AI workflow coordination |
+| `ai-rag-patterns` | Retrieval-augmented generation patterns |
+
+## Recommended Skill Stacks
+
+- Web application: `world-class-engineering` + `system-architecture-design` + `api-design-first` + `database-design-engineering` + `vibe-security-skill`
+- SaaS or ERP platform: `world-class-engineering` + `saas-erp-system-design` + `modular-saas-architecture` + `multi-tenant-saas-architecture` + `database-design-engineering`
+- Mobile-backed product: `world-class-engineering` + `system-architecture-design` + `android-development` or `ios-development` + security and persistence skills
+- AI-enabled application: `world-class-engineering` + `system-architecture-design` + `ai-web-apps` + `ai-security` + `frontend-performance`
+
+## How To Use
+
+### In Claude Code
+
+Reference skills directly in the prompt:
+
+```text
+Use the android-development skill to review this feature.
+Use world-class-engineering and system-architecture-design before proposing the backend design.
+```
+
+### In Other Projects
+
+Reference the skills from your project-level `CLAUDE.md`:
 
 ```markdown
-Load these skills from ~/.claude/skills/:
-- android-development
-- api-pagination
-- practical-ui-design
+Load these skills from ~/.claude/skills:
+- world-class-engineering
+- system-architecture-design
+- database-design-engineering
+- api-design-first
 ```
-
-### Combining Skills
-
-Skills are designed to work together. Common combinations:
-
-```
-Web SaaS app:     webapp-gui-design + form-ux-design + practical-ui-design + vibe-security-skill
-Android app:      android-development + jetpack-compose-ui + android-data-persistence + android-tdd
-iOS app (standard):     ios-development + swiftui-design + ios-data-persistence + ios-tdd
-iOS app (advanced):     ios-architecture-advanced + ios-production-patterns + ios-swift-design-patterns
-iOS app (commercial):   ios-monetization + ios-push-notifications + ios-networking-advanced
-iOS app (scale/teams):  ios-at-scale + ios-debugging-mastery
-iOS app (UIKit):        ios-uikit-advanced + ios-production-patterns
-iOS AI features:        ios-ai-ml + ios-development
-Mobile planning:  mobile-saas-planning + feature-planning + dual-auth-rbac
-Any UI work:      ux-psychology + practical-ui-design + interaction-design-patterns
-```
-
-## Book Sources
-
-Skills are synthesised from authoritative sources, not improvised:
-
-| Book | Author | Skills Informed |
-|------|--------|----------------|
-| Don't Make Me Think | Krug | `web-usability-krug` |
-| Laws of UX | Yablonski | `laws-of-ux` |
-| Hooked | Eyal | `habit-forming-products` |
-| UX for Lean Startups | Klein | `lean-ux-validation` |
-| Designing with the Mind in Mind | Hodent | `ux-psychology` |
-| Design for How People Think | Whalen | `cognitive-ux-framework` |
-| Designing Interfaces | Tidwell et al. | `interaction-design-patterns` |
-| Practical UI | Dannaway | `practical-ui-design` |
-| 101 UX Principles | Grant | `ux-principles-101` |
-| Storytelling with Data | Knaflic | `data-visualization` |
-| Pro SwiftUI | Hudson | `swiftui-pro-patterns` |
-| Advanced iOS App Architecture (4th Ed.) | Cacheaux & Berlin | `ios-architecture-advanced` |
-| iOS Development at Scale | Vennaro | `ios-at-scale` |
-| iOS 18 Programming for Beginners | Sahar | `ios-at-scale`, `ios-development` |
-| Advanced Apple Debugging & Reverse Engineering | Selander | `ios-debugging-mastery` |
-| Practical AI with Swift | Geldard & Manning | `ios-ai-ml` |
-| Swift Design Patterns | Hudson | `ios-swift-design-patterns` |
-| Learning Mobile App Development | Iversen & Eierman | `ios-production-patterns` |
-| Ultimate iOS App Development Guide | Chopada | `ios-production-patterns`, `ios-development` |
-| UI Design for iOS App Development | Cahill | `ios-production-patterns`, `swiftui-design` |
-| SwiftUI Cookbook 3rd Ed | Catalan | `swiftui-design`, `ios-data-persistence` |
-| Better UI Components 3.0 | Kuleszo | `practical-ui-design` |
-| UX for AI | Nudelman | `ux-for-ai` |
-| The Data Model Resource Book Vol 1 & 2 | Silverston | `mysql-data-modeling` |
-| MySQL 8 Query Performance Tuning | Krogh | `mysql-query-performance` |
-| Efficient MySQL Performance | Schoen | `mysql-query-performance` |
-| Mastering MySQL Administration | — | `mysql-administration` |
-| MySQL 8 Cookbook | Velos | `mysql-advanced-sql` |
-| Leveling Up with SQL | Simon | `mysql-advanced-sql` |
-| Advanced MySQL 8 | — | `mysql-best-practices` |
-| Database Internals | Petrov | `database-internals` |
-| Database Reliability Engineering | Campbell & Majors | `database-reliability` |
-| The Golden Book of JavaScript | — | `javascript-modern` |
-| JavaScript: The Advanced Concepts | Turner | `javascript-modern` |
-| JavaScript: Understanding the Weird Parts (Closures & Prototypes) | — | `javascript-advanced` |
-| JavaScript Unleashed | — | `javascript-advanced` |
-| JavaScript Design Patterns | Jones | `javascript-patterns` |
-| Mastering JavaScript Design Patterns | Shah | `javascript-patterns` |
 
 ## Skill Structure
 
-Each skill follows this format:
+Each skill should follow this shape:
 
 ```yaml
 ---
 name: skill-name
-description: "When to use this skill (triggers, symptoms, contexts)"
+description: Use when ...
 ---
-
-# Skill Content
-## Overview — core principle in 1-2 sentences
-## When to Use / When NOT to Use
-## Patterns with code examples
-## Anti-patterns to avoid
-## Checklist
 ```
 
-All skills are under 500 lines. Heavy reference material goes in `references/` subdirectories.
+Then include:
+
+- scope and activation clues
+- workflow or decision rules
+- standards and anti-patterns
+- references to deeper files in `references/`
+
+## Repository Standards
+
+- Every markdown file must remain under 500 lines.
+- `SKILL.md` should contain execution logic, not textbook-length explanation.
+- Deep detail belongs in `references/`.
+- Engineering skills should align with `world-class-engineering`.
+- New skills should update the top-level repository docs when they materially change the system.
 
 ## Repository Stats
 
-- **85+ skills** across 13 categories
-- **~37,000 lines** of curated patterns and code examples
-- **36+ books** synthesised into actionable guidance
-- **4 platforms**: Web (PHP+JS), Android (Kotlin), iOS (Swift), Cross-Platform
-- **Full SDLC coverage**: Planning through post-deployment evaluation
+- 85+ skills across architecture, web, mobile, AI, security, UX, data, and SDLC
+- full-stack coverage for web apps, mobile apps, SaaS, ERP, APIs, and data systems
+- layered baseline for architecture, data design, delivery workflow, and production quality
 
 ## Maintained By
 
-**Peter Bamuhigire** — [BIRDC](https://github.com/BIRDC)
+Peter Bamuhigire
 
-Built with Claude Code for use with Claude Code.
+Built with Claude Code for Claude Code.

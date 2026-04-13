@@ -1,8 +1,8 @@
-# Claude Code Skills Collection
+# Claude Code + Codex Skills Collection
 
-Production-grade skills library for Claude Code covering software architecture, web apps, mobile apps, SaaS, ERP, AI systems, security, UX, databases, and SDLC documentation.
+Production-grade skills library for Claude Code and Codex covering software architecture, web apps, mobile apps, SaaS, ERP, AI systems, security, UX, databases, and SDLC documentation.
 
-The repository is designed to help Claude Code produce systems that are secure, scalable, maintainable, performance-conscious, and user-centered. It is not just a bag of examples. It is a layered engineering system.
+The repository is designed to help Claude Code and Codex produce systems that are secure, scalable, maintainable, performance-conscious, and user-centered. It is not just a bag of examples. It is a layered engineering system.
 
 The baseline is now aimed at world-class software development, engineering, and management: software that solves expensive real problems, feels excellent to use, operates reliably, evolves safely, and becomes more valuable as the team scales.
 
@@ -153,7 +153,7 @@ Use world-class-engineering and system-architecture-design before proposing the 
 
 ### In Other Projects
 
-Reference the skills from your project-level `CLAUDE.md`:
+Reference the skills from your project-level `CLAUDE.md` or `AGENTS.md`:
 
 ```markdown
 Load these skills from ~/.claude/skills:
@@ -180,6 +180,14 @@ Then include:
 - workflow or decision rules
 - standards and anti-patterns
 - references to deeper files in `references/`
+- the portable execution contract used by both Claude Code and Codex
+
+## Dual Compatibility
+
+- Claude Code can continue using the repository through `CLAUDE.md` and direct skill invocation.
+- Codex can use the same skill folders through root `AGENTS.md` routing plus each skill's `SKILL.md`.
+- No `skills/` subfolder is required for compatibility; the flat repository layout is intentional.
+- Optional plugin notes may remain in skills, but they must not block execution in Codex.
 
 ## Repository Standards
 
@@ -199,4 +207,4 @@ Then include:
 
 Peter Bamuhigire
 
-Built with Claude Code for Claude Code.
+Built for Claude Code and Codex.

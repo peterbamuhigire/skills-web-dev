@@ -1,10 +1,60 @@
 ---
 name: ai-saas-billing
-description: Use when implementing AI features in multi-tenant SaaS — AI module gating (off by default), per-tenant and per-user token metering, budget enforcement, billing aggregation, and quota management for franchise-style SaaS apps
+description: Use when implementing AI features in multi-tenant SaaS — AI module gating
+  (off by default), per-tenant and per-user token metering, budget enforcement, billing
+  aggregation, and quota management for franchise-style SaaS apps
+metadata:
+  portable: true
+  compatible_with:
+  - claude-code
+  - codex
 ---
 
 # AI SaaS Billing — Token Metering and Module Gating
 
+<!-- dual-compat-start -->
+## Use When
+
+- Use when implementing AI features in multi-tenant SaaS — AI module gating (off by default), per-tenant and per-user token metering, budget enforcement, billing aggregation, and quota management for franchise-style SaaS apps
+- The task needs reusable judgment, domain constraints, or a proven workflow rather than ad hoc advice.
+
+## Do Not Use When
+
+- The task is unrelated to `ai-saas-billing` or would be better handled by a more specific companion skill.
+- The request only needs a trivial answer and none of this skill's constraints or references materially help.
+
+## Required Inputs
+
+- Gather relevant project context, constraints, and the concrete problem to solve.
+- Confirm the desired deliverable: design, code, review, migration plan, audit, or documentation.
+
+## Workflow
+
+- Read this `SKILL.md` first, then load only the referenced deep-dive files that are necessary for the task.
+- Apply the ordered guidance, checklists, and decision rules in this skill instead of cherry-picking isolated snippets.
+- Produce the deliverable with assumptions, risks, and follow-up work made explicit when they matter.
+
+## Quality Standards
+
+- Keep outputs execution-oriented, concise, and aligned with the repository's baseline engineering standards.
+- Preserve compatibility with existing project conventions unless the skill explicitly requires a stronger standard.
+- Prefer deterministic, reviewable steps over vague advice or tool-specific magic.
+
+## Anti-Patterns
+
+- Treating examples as copy-paste truth without checking fit, constraints, or failure modes.
+- Loading every reference file by default instead of using progressive disclosure.
+
+## Outputs
+
+- A concrete result that fits the task: implementation guidance, review findings, architecture decisions, templates, or generated artifacts.
+- Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
+- References used, companion skills, or follow-up actions when they materially improve execution.
+
+## References
+
+- Use the links and companion skills already referenced in this file when deeper context is needed.
+<!-- dual-compat-end -->
 ## Overview
 
 AI features cost real money per token. In a multi-tenant SaaS, clients must opt in and pay for AI features. Every token must be tracked for invoicing, cost control, and abuse prevention.

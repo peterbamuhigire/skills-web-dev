@@ -1,14 +1,66 @@
 ---
 name: inventory-management
-description: Coordinate infrastructure for inventory, stock movement, BOMs, valuation, and multi-location controls while referencing the existing ERP implementation, inventory docs, and the small-business bookkeeping playbook.
+description: Coordinate infrastructure for inventory, stock movement, BOMs, valuation,
+  and multi-location controls while referencing the existing ERP implementation, inventory
+  docs, and the small-business bookkeeping playbook.
+metadata:
+  portable: true
+  compatible_with:
+  - claude-code
+  - codex
 ---
 
-## Required Plugins
 
-**Superpowers plugin:** MUST be active for all work using this skill. Use throughout the entire build pipeline — design decisions, code generation, debugging, quality checks, and any task where it offers enhanced capabilities. If superpowers provides a better way to accomplish something, prefer it over the default approach.
+## Platform Notes
+
+- Claude Code: use Superpowers or similar helpers when they are available and materially useful.
+- Codex: apply this skill normally; do not treat optional plugins as a prerequisite.
 
 # Inventory Management Skill
 
+<!-- dual-compat-start -->
+## Use When
+
+- Coordinate infrastructure for inventory, stock movement, BOMs, valuation, and multi-location controls while referencing the existing ERP implementation, inventory docs, and the small-business bookkeeping playbook.
+- The task needs reusable judgment, domain constraints, or a proven workflow rather than ad hoc advice.
+
+## Do Not Use When
+
+- The task is unrelated to `inventory-management` or would be better handled by a more specific companion skill.
+- The request only needs a trivial answer and none of this skill's constraints or references materially help.
+
+## Required Inputs
+
+- Gather relevant project context, constraints, and the concrete problem to solve; load `references` only as needed.
+- Confirm the desired deliverable: design, code, review, migration plan, audit, or documentation.
+
+## Workflow
+
+- Read this `SKILL.md` first, then load only the referenced deep-dive files that are necessary for the task.
+- Apply the ordered guidance, checklists, and decision rules in this skill instead of cherry-picking isolated snippets.
+- Produce the deliverable with assumptions, risks, and follow-up work made explicit when they matter.
+
+## Quality Standards
+
+- Keep outputs execution-oriented, concise, and aligned with the repository's baseline engineering standards.
+- Preserve compatibility with existing project conventions unless the skill explicitly requires a stronger standard.
+- Prefer deterministic, reviewable steps over vague advice or tool-specific magic.
+
+## Anti-Patterns
+
+- Treating examples as copy-paste truth without checking fit, constraints, or failure modes.
+- Loading every reference file by default instead of using progressive disclosure.
+
+## Outputs
+
+- A concrete result that fits the task: implementation guidance, review findings, architecture decisions, templates, or generated artifacts.
+- Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
+- References used, companion skills, or follow-up actions when they materially improve execution.
+
+## References
+
+- Use the `references/` directory for deep detail after reading the core workflow below.
+<!-- dual-compat-end -->
 ## Overview
 Pair the existing Maduuka stock-tracking implementation (stock-ledgers, UnitConversionService, stock movements, purchase/sales flows, asset-level constraints) with general bookkeeping principles such as multi-location control, valuation methods, auditing, and SKU types. Use this skill whenever a change touches stock items, transfers, inventory valuation, assembly/BOM flows, stock adjustments, or reporting so Claude can recommend consistent behavior.
 

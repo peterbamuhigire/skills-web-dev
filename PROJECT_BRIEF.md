@@ -2,11 +2,13 @@
 
 ## Overview
 
-A curated collection of reusable Claude Code skills designed to accelerate development across multiple projects. The repository now includes a shared engineering and management baseline so skills work together as a system for building production-grade web apps, mobile apps, SaaS platforms, ERP systems, APIs, data architectures, and the delivery workflows around them.
+A curated collection of reusable Claude Code and Codex skills designed to accelerate development across multiple projects. The repository now includes a shared engineering and management baseline so skills work together as a system for building production-grade web apps, mobile apps, SaaS platforms, ERP systems, APIs, data architectures, and the delivery workflows around them.
 
 ## Purpose
 
 Provide consistent, battle-tested patterns and workflows that can be integrated into any Claude Code project, reducing repeated architectural decisions and raising the quality bar across implementation, review, and planning work.
+
+The same repository is now also structured to work as a Codex skills and instruction system without duplicating the skills or relocating them into a different directory layout.
 
 ## Strategic Direction
 
@@ -90,6 +92,8 @@ Default loading order for complex engineering work:
 ## Repository Shape
 
 The repository is organized as a flat collection of skill folders, each with a `SKILL.md` file and optional `references/`, `scripts/`, or `assets/` directories.
+
+This flat layout is intentional and is the compatibility shape for both Claude Code and Codex.
 
 Examples:
 

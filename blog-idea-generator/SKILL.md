@@ -1,10 +1,61 @@
 ---
 name: blog-idea-generator
-description: Generate 15-25 targeted blog post ideas with 200-word summaries for any client website. Reads website content, assesses available information, adaptively selects from 20 ideation methods, and conducts a guided interview. Each idea includes a...
+description: Generate 15-25 targeted blog post ideas with 200-word summaries for any
+  client website. Reads website content, assesses available information, adaptively
+  selects from 20 ideation methods, and conducts a guided interview. Each idea includes
+  a...
+metadata:
+  portable: true
+  compatible_with:
+  - claude-code
+  - codex
 ---
 
 # Blog Idea Generator
 
+<!-- dual-compat-start -->
+## Use When
+
+- Generate 15-25 targeted blog post ideas with 200-word summaries for any client website. Reads website content, assesses available information, adaptively selects from 20 ideation methods, and conducts a guided interview. Each idea includes a...
+- The task needs reusable judgment, domain constraints, or a proven workflow rather than ad hoc advice.
+
+## Do Not Use When
+
+- The task is unrelated to `blog-idea-generator` or would be better handled by a more specific companion skill.
+- The request only needs a trivial answer and none of this skill's constraints or references materially help.
+
+## Required Inputs
+
+- Gather relevant project context, constraints, and the concrete problem to solve; load `references` only as needed.
+- Confirm the desired deliverable: design, code, review, migration plan, audit, or documentation.
+
+## Workflow
+
+- Read this `SKILL.md` first, then load only the referenced deep-dive files that are necessary for the task.
+- Apply the ordered guidance, checklists, and decision rules in this skill instead of cherry-picking isolated snippets.
+- Produce the deliverable with assumptions, risks, and follow-up work made explicit when they matter.
+
+## Quality Standards
+
+- Keep outputs execution-oriented, concise, and aligned with the repository's baseline engineering standards.
+- Preserve compatibility with existing project conventions unless the skill explicitly requires a stronger standard.
+- Prefer deterministic, reviewable steps over vague advice or tool-specific magic.
+
+## Anti-Patterns
+
+- Treating examples as copy-paste truth without checking fit, constraints, or failure modes.
+- Loading every reference file by default instead of using progressive disclosure.
+
+## Outputs
+
+- A concrete result that fits the task: implementation guidance, review findings, architecture decisions, templates, or generated artifacts.
+- Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
+- References used, companion skills, or follow-up actions when they materially improve execution.
+
+## References
+
+- Use the `references/` directory for deep detail after reading the core workflow below.
+<!-- dual-compat-end -->
 Generate 15-25 targeted blog post ideas, each presented as a 200-word hybrid summary with narrative brief + structured specs. The system adapts its ideation methods to the specific client and available information.
 
 **Read `references/ideation-frameworks.md`** for the full 20-method library and selection logic.

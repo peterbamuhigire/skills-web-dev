@@ -1,10 +1,61 @@
 ---
 name: ai-opportunity-canvas
-description: Systematically discover and rank AI use cases for any software project or module. Produces a prioritised AI Opportunity Register with business impact, implementation effort, and cost estimates. Invoke after any project description or module...
+description: Systematically discover and rank AI use cases for any software project
+  or module. Produces a prioritised AI Opportunity Register with business impact,
+  implementation effort, and cost estimates. Invoke after any project description
+  or module...
+metadata:
+  portable: true
+  compatible_with:
+  - claude-code
+  - codex
 ---
 
 # AI Opportunity Canvas
 
+<!-- dual-compat-start -->
+## Use When
+
+- Systematically discover and rank AI use cases for any software project or module. Produces a prioritised AI Opportunity Register with business impact, implementation effort, and cost estimates. Invoke after any project description or module...
+- The task needs reusable judgment, domain constraints, or a proven workflow rather than ad hoc advice.
+
+## Do Not Use When
+
+- The task is unrelated to `ai-opportunity-canvas` or would be better handled by a more specific companion skill.
+- The request only needs a trivial answer and none of this skill's constraints or references materially help.
+
+## Required Inputs
+
+- Gather relevant project context, constraints, and the concrete problem to solve; load `references` only as needed.
+- Confirm the desired deliverable: design, code, review, migration plan, audit, or documentation.
+
+## Workflow
+
+- Read this `SKILL.md` first, then load only the referenced deep-dive files that are necessary for the task.
+- Apply the ordered guidance, checklists, and decision rules in this skill instead of cherry-picking isolated snippets.
+- Produce the deliverable with assumptions, risks, and follow-up work made explicit when they matter.
+
+## Quality Standards
+
+- Keep outputs execution-oriented, concise, and aligned with the repository's baseline engineering standards.
+- Preserve compatibility with existing project conventions unless the skill explicitly requires a stronger standard.
+- Prefer deterministic, reviewable steps over vague advice or tool-specific magic.
+
+## Anti-Patterns
+
+- Treating examples as copy-paste truth without checking fit, constraints, or failure modes.
+- Loading every reference file by default instead of using progressive disclosure.
+
+## Outputs
+
+- A concrete result that fits the task: implementation guidance, review findings, architecture decisions, templates, or generated artifacts.
+- Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
+- References used, companion skills, or follow-up actions when they materially improve execution.
+
+## References
+
+- Use the `references/` directory for deep detail after reading the core workflow below.
+<!-- dual-compat-end -->
 ## Purpose
 
 Identify every realistic place AI adds measurable value to a client's system. Output is an **AI Opportunity Register** — a ranked list of AI features with business case, effort estimate, and cost tier, ready for client presentation.

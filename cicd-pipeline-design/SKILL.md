@@ -1,10 +1,63 @@
 ---
 name: cicd-pipeline-design
-description: Design and implement production CI/CD pipelines — canonical stage sequence, DORA metrics, branching strategy, build-once-deploy-many, artifact management, and deployment strategies (blue-green, rolling, canary). Synthesised from DevOps Design Patterns (Chintale), CI/CD Unleashed (Clark 2025), CI/CD Pipeline with Docker and Jenkins (Rawat). Use when designing or reviewing a pipeline for any language or platform.
+description: Design and implement production CI/CD pipelines — canonical stage sequence,
+  DORA metrics, branching strategy, build-once-deploy-many, artifact management, and
+  deployment strategies (blue-green, rolling, canary). Synthesised from DevOps Design
+  Patterns (Chintale), CI/CD Unleashed (Clark 2025), CI/CD Pipeline with Docker and
+  Jenkins (Rawat). Use when designing or reviewing a pipeline for any language or
+  platform.
+metadata:
+  portable: true
+  compatible_with:
+  - claude-code
+  - codex
 ---
 
 # CI/CD Pipeline Design
 
+<!-- dual-compat-start -->
+## Use When
+
+- Design and implement production CI/CD pipelines — canonical stage sequence, DORA metrics, branching strategy, build-once-deploy-many, artifact management, and deployment strategies (blue-green, rolling, canary). Synthesised from DevOps Design Patterns (Chintale), CI/CD Unleashed (Clark 2025), CI/CD Pipeline with Docker and Jenkins (Rawat). Use when designing or reviewing a pipeline for any language or platform.
+- The task needs reusable judgment, domain constraints, or a proven workflow rather than ad hoc advice.
+
+## Do Not Use When
+
+- The task is unrelated to `cicd-pipeline-design` or would be better handled by a more specific companion skill.
+- The request only needs a trivial answer and none of this skill's constraints or references materially help.
+
+## Required Inputs
+
+- Gather relevant project context, constraints, and the concrete problem to solve.
+- Confirm the desired deliverable: design, code, review, migration plan, audit, or documentation.
+
+## Workflow
+
+- Read this `SKILL.md` first, then load only the referenced deep-dive files that are necessary for the task.
+- Apply the ordered guidance, checklists, and decision rules in this skill instead of cherry-picking isolated snippets.
+- Produce the deliverable with assumptions, risks, and follow-up work made explicit when they matter.
+
+## Quality Standards
+
+- Keep outputs execution-oriented, concise, and aligned with the repository's baseline engineering standards.
+- Preserve compatibility with existing project conventions unless the skill explicitly requires a stronger standard.
+- Prefer deterministic, reviewable steps over vague advice or tool-specific magic.
+
+## Anti-Patterns
+
+- Treating examples as copy-paste truth without checking fit, constraints, or failure modes.
+- Loading every reference file by default instead of using progressive disclosure.
+
+## Outputs
+
+- A concrete result that fits the task: implementation guidance, review findings, architecture decisions, templates, or generated artifacts.
+- Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
+- References used, companion skills, or follow-up actions when they materially improve execution.
+
+## References
+
+- Use the links and companion skills already referenced in this file when deeper context is needed.
+<!-- dual-compat-end -->
 **Target environment:** Self-managed Linux servers (Debian/Ubuntu). No cloud dependency required.
 
 ---

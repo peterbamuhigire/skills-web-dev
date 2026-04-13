@@ -7,6 +7,7 @@ Quick reference hub for working in this repository.
 - Purpose: shared Claude Code skills library
 - Type: reference and execution-logic repository
 - Usage pattern: skills are authored here and loaded into Claude Code sessions in other projects
+- Dual-compatibility note: the same skill directories are also consumable by Codex through root `AGENTS.md`
 
 ## Mandatory Documentation Rules
 
@@ -55,7 +56,8 @@ If asked to create a new skill:
 2. avoid duplication unless the new skill clearly raises the quality bar
 3. use validator-safe frontmatter and repository conventions
 4. update `README.md` and `PROJECT_BRIEF.md` if the new skill materially changes repository capability
-5. align new engineering skills with `world-class-engineering` unless there is a clear reason not to
+5. preserve Codex compatibility by keeping the skill portable through `SKILL.md` frontmatter and the portable execution sections
+6. align new engineering skills with `world-class-engineering` unless there is a clear reason not to
 
 See `skill-writing/SKILL.md` and `claude-guides/skill-creation-workflow.md`.
 
@@ -134,6 +136,7 @@ All database-related work should reference the relevant database skills and foll
 Every skill should:
 
 - have a clear scope
+- expose the portable sections used by both Claude Code and Codex
 - contain concrete decision rules
 - define anti-patterns or failure risks
 - stay concise in `SKILL.md`

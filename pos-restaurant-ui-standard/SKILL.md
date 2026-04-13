@@ -13,8 +13,7 @@ metadata:
 
 ## Platform Notes
 
-- Claude Code: use Superpowers or similar helpers when they are available and materially useful.
-- Codex: apply this skill normally; do not treat optional plugins as a prerequisite.
+- Optional helper plugins may help in some environments, but they must not be treated as required for this skill.
 
 # Restaurant POS UI Standard
 
@@ -82,7 +81,7 @@ Use this skill for any restaurant POS screen. It enforces the approved UI layout
 ## Canonical Source
 
 The canonical layout and component specs live in:
-- [docs/plans/restaurant-pos/2026-02-03-restaurant-pos-ui-redesign.md](../../docs/plans/restaurant-pos/2026-02-03-restaurant-pos-ui-redesign.md)
+- `docs/plans/restaurant-pos/2026-02-03-restaurant-pos-ui-redesign.md` (project-local design reference when present)
 
 ## References
 

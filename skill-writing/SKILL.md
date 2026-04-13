@@ -60,7 +60,7 @@ Use this skill for repository-native skill authoring. The goal is not to create 
 
 ## Repository Rules
 
-- Keep `SKILL.md` and every `.md` reference file under 500 lines.
+- Keep `SKILL.md` under 500 lines. Keep deeper markdown references lean and split them when they become hard to load or maintain.
 - Use only validator-approved frontmatter keys: `name`, `description`, `license`, `allowed-tools`, `metadata`.
 - Make `description` the trigger: what the skill does and when to use it.
 - Put deep detail in `references/`; keep `SKILL.md` focused on execution logic.

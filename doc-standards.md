@@ -1,14 +1,14 @@
 # Documentation Standards (MANDATORY)
 
-**CRITICAL:** These standards apply to ALL markdown files in the project: CLAUDE.md, SKILL.md files, plan documents, specifications, manuals, guides, and any other .md files.
+**CRITICAL:** These standards apply first to repository entrypoints: `SKILL.md`, `README.md`, `AGENTS.md`, `CLAUDE.md`, and other top-level guidance files. Deep reference docs should follow the same structure where practical and should be split when they are actively refreshed.
 
 ## Core Rules (Non-Negotiable)
 
 ### Rule 1: 500-Line Hard Limit
 
-**Every .md file MUST NOT exceed 500 lines.**
+**Every `SKILL.md` and top-level guidance `.md` file MUST NOT exceed 500 lines.**
 
-This is a **hard limit**, not a suggestion. Files that exceed 500 lines **MUST** be broken down.
+This is the enforced limit for skill entrypoints and top-level guidance. Deep reference docs should be broken down as they are refreshed or when they become hard to load.
 
 **Why 500 lines?**
 - Faster AI parsing and context loading
@@ -19,7 +19,7 @@ This is a **hard limit**, not a suggestion. Files that exceed 500 lines **MUST**
 
 **Enforcement:**
 - Check line count before committing: `wc -l file.md`
-- If >500 lines, immediately refactor into smaller files
+- If a `SKILL.md` or top-level guidance file exceeds 500 lines, refactor it immediately
 - No exceptions
 
 ### Rule 2: Two-Tier Documentation Structure
@@ -256,7 +256,7 @@ docs/plans/
 
 ## Skill Documents Specific Rules
 
-**SKILL.md files MUST NOT exceed 500 lines.**
+**`SKILL.md` files MUST NOT exceed 500 lines.**
 
 **Structure:**
 ```
@@ -299,14 +299,14 @@ skills/skill-name/
 5. Update parent TOC with links
 
 **During Code Review:**
-- Flag any .md file >500 lines
+- Flag any `SKILL.md` or top-level guidance file >500 lines
 - Require refactoring before merge
 - Verify TOC structure exists
 - Check subdirectory organization
 
 **Monthly Audit:**
 - Run: `find . -name "*.md" -exec wc -l {} + | sort -rn`
-- Identify files >500 lines
+- Identify oversized `SKILL.md` and top-level guidance files first
 - Schedule refactoring sprints
 - Update TOC documents
 
@@ -418,7 +418,7 @@ See `prompting-patterns-reference.md` for complete guide and examples.
 ## Summary
 
 **Remember:**
-1. **500 lines maximum** - No exceptions
+1. **500 lines maximum for skill entrypoints and top-level guidance**
 2. **Two-tier structure** - TOC + deep dives
 3. **Smart grouping** - Logical subdirectories
 4. **Regular grooming** - Keep docs fresh
@@ -435,124 +435,12 @@ See `prompting-patterns-reference.md` for complete guide and examples.
 - All guides
 
 **Non-compliance:**
-- Files >500 lines will be rejected in code review
+- Oversized `SKILL.md` and top-level guidance files will be rejected in code review
 - Must refactor before merge
 - No exceptions for "special cases"
 
 ---
 
-## Markdown Formatting Conventions (Portability Rules)
+## Additional Reference
 
-These rules ensure SKILL.md files render identically on GitHub and when processed by Pandoc into `.docx`. Violations can silently corrupt output documents. *(Source: The Markdown Guide, Matt Cone, 2023)*
-
-### Rule 4: Heading Spacing
-
-Always put a **blank line before and after every heading**, and a **space between `#` and the heading text**. Without the blank line, Pandoc may attach the heading to the preceding paragraph.
-
-```markdown
-<!-- CORRECT -->
-
-## Section Name
-
-Content starts here.
-
-<!-- WRONG — may corrupt Pandoc output -->
-## Section Name
-Content starts here.
-```
-
-### Rule 5: List Delimiter — Always Use `-`
-
-Use `-` (dash) for all unordered lists. Do **not** mix `-`, `*`, and `+` within the same document. Do **not** use emoji characters (✅, ❌) as list markers — they are not valid Markdown list elements and will render as plain text in Pandoc output.
-
-```markdown
-<!-- CORRECT -->
-- Item one
-- Item two
-
-<!-- WRONG -->
-* Item one
-✅ Item two
-```
-
-### Rule 6: Inline Styles — Three-Way Convention
-
-Use the three-way inline style convention consistently throughout all documentation:
-
-| Purpose | Style | Syntax | Example |
-|---------|-------|--------|---------|
-| UI elements, field names, button labels | **Bold** | `**...**` | Click **Save** |
-| First use of a term, emphasis | *Italic* | `*...*` | *Shall* means mandatory |
-| File paths, commands, code, identifiers | `Monospace` | `` `...` `` | Run `build-doc.sh` |
-
-Never use underscores for bold or italic (`__bold__`, `_italic_`) — underscores inside technical terms (e.g., `_context_`) cause parse ambiguity.
-
-### Rule 7: Code Block Language Tags
-
-Always specify the language on fenced code blocks:
-
-```markdown
-<!-- CORRECT -->
-```bash
-mkdir -p projects/MyProject/_context
-```
-
-```yaml
-name: my-skill
-version: 1.0.0
-```
-
-<!-- WRONG — renders as unstyled monospace, loses syntax context for AI -->
-```
-mkdir -p projects/MyProject/_context
-```
-```
-
-Supported language tags: `bash`, `python`, `yaml`, `json`, `markdown`, `mermaid`, `sql`, `php`, `javascript`.
-
-### Rule 8: Horizontal Rule Blank Lines
-
-Always put a blank line **before and after** a `---` horizontal rule. Without the preceding blank line, Pandoc interprets the text above as a setext-style heading:
-
-```markdown
-<!-- CORRECT -->
-
----
-
-## Next Section
-
-<!-- WRONG — "Previous content" becomes a heading -->
-Previous content
----
-## Next Section
-```
-
-### Rule 9: Blockquotes for Guardrails and Standards Citations
-
-Use `>` blockquotes for: anti-hallucination guards, critical warnings, IEEE/ISO citations that must stand out from instruction text. Use plain bold text only for in-line emphasis within prose.
-
-```markdown
-<!-- CORRECT — critical guardrail stands out, is parseable by AI -->
-> **CRITICAL:** Do not fabricate requirements. Flag all gaps with `[CONTEXT-GAP]`.
-
-<!-- WRONG — buried in prose, easy to miss -->
-**CRITICAL:** Do not fabricate requirements. Flag all gaps with `[CONTEXT-GAP]`.
-```
-
-### Rule 10: Verification Checklists — Use Task List Syntax
-
-Use `- [ ]` / `- [x]` task list syntax for all verification checklists so they render as interactive checkboxes on GitHub and Pandoc outputs:
-
-```markdown
-<!-- CORRECT -->
-- [ ] All `_context/` files are populated (no bare `TODO` placeholders)
-- [ ] Output file exists in the correct directory
-- [x] Manifest.md updated
-
-<!-- WRONG — renders as plain bullets, not checkboxes -->
-- All `_context/` files are populated
-- Output file exists
-```
-
-**Last Updated:** 2026-03-15
-**Status:** MANDATORY - Strictly Enforced
+Markdown portability and Pandoc-focused formatting rules were moved to [docs/markdown-portability-reference.md](docs/markdown-portability-reference.md) to keep this repository entrypoint concise.

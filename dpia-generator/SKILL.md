@@ -239,4 +239,4 @@ Before marking this skill complete:
 - Data Protection and Privacy Regulations 2021 — Regulation 12 (DPIA), Regulation 33 (breach notification)
 - `domains/uganda/references/regulations.md`
 - `domains/uganda/references/dppa-pii-classification.md`
-- `skills/uganda-dppa-compliance/SKILL.md` — prerequisite skill
+- `uganda-dppa-compliance/SKILL.md` — prerequisite skill

@@ -14,8 +14,7 @@ metadata:
 
 ## Platform Notes
 
-- Claude Code: use Superpowers or similar helpers when they are available and materially useful.
-- Codex: apply this skill normally; do not treat optional plugins as a prerequisite.
+- Optional helper plugins may help in some environments, but they must not be treated as required for this skill.
 
 # SDLC Planning Skill
 
@@ -78,7 +77,7 @@ Generate a complete **Planning & Management** documentation suite for software d
 
 - **Gathering raw requirements via interview** -- use `project-requirements` skill instead
 - **Planning a single feature** (spec + implementation) -- use `feature-planning` skill
-- **Planning an Android companion app** (PRD, SDS, API Contract) -- use `android-saas-planning` skill
+- **Planning an Android companion app** (PRD, SDS, API Contract) -- use `mobile-saas-planning` skill
 - **Writing design documents** (SDD, architecture, database design) -- use `sdlc-design` skill
 - **Writing test plans with test cases** -- use `sdlc-testing` skill
 - **Writing deployment or user documentation** -- use `sdlc-user-deploy` skill
@@ -150,7 +149,7 @@ Before generating any documents, gather or confirm:
 
 | Skill | Relationship |
 |-------|-------------|
-| `android-saas-planning` | For Android companion app planning (PRD, SDS, API Contract). Uses this skill's SRS as input. |
+| `mobile-saas-planning` | For Android companion app planning (PRD, SDS, API Contract). Uses this skill's SRS as input. |
 | `multi-tenant-saas-architecture` | Backend architecture patterns. Uses SDP and SRS as input. |
 | `modular-saas-architecture` | Pluggable module architecture. Uses SRS module inventory. |
 | `saas-seeder` | Bootstrap the SaaS template. Uses requirements from SRS. |
@@ -297,5 +296,5 @@ Each template provides the complete structure, section-by-section guidance, exam
 ---
 
 **Back to:** [Skills Repository](../CLAUDE.md)
-**Related:** [project-requirements](../project-requirements/SKILL.md) | [feature-planning](../feature-planning/SKILL.md) | [android-saas-planning](../android-saas-planning/SKILL.md)
+**Related:** [project-requirements](../project-requirements/SKILL.md) | [feature-planning](../feature-planning/SKILL.md) | [mobile-saas-planning](../mobile-saas-planning/SKILL.md)
 **Last Updated:** 2026-03-15 (strengthened per Adjei 2023, Winston, Etter 2016, Cone 2023)

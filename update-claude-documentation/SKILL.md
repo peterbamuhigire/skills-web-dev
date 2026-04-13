@@ -13,8 +13,7 @@ metadata:
 
 ## Platform Notes
 
-- Claude Code: use Superpowers or similar helpers when they are available and materially useful.
-- Codex: apply this skill normally; do not treat optional plugins as a prerequisite.
+- Optional helper plugins may help in some environments, but they must not be treated as required for this skill.
 
 # Update Claude Documentation
 
@@ -73,7 +72,7 @@ Update project documentation systematically after significant changes. Keep all 
 - **500-line hard limit** - no exceptions
 - **Two-tier structure**: High-level TOC docs + Deep dive topic docs
 - **Smart subdirectory grouping** for related documentation
-- **See `skills/doc-standards.md` for complete requirements**
+- **See `doc-standards.md` for complete requirements**
 
 **Modularize Instructions (Token Economy):** Avoid packing everything into a single CLAUDE.md. Prefer multiple focused docs (e.g., docs/setup.md, docs/api.md, docs/workflows.md) and reference them only when needed to reduce context bloat.
 
@@ -81,7 +80,7 @@ Update project documentation systematically after significant changes. Keep all 
 
 **Docs Organization Rule (Required):** All documentation markdown now lives under `docs/` plus a semantic subdirectory (overview, architecture, pharmacy, localization, etc.). Do not add new files directly to the repo root—move existing root markdown into the appropriate `docs/<module>` folder before editing, then update `docs/agents/AGENTS.md` and always update `docs/plans/AGENTS.md` when plans are added or their status changes. The canonical landing doc is now `docs/overview/README.md`, and the root `README.md` should only point people into `docs/`.
 
-**Claude-Ready Module Headers (Required):** Updating documentation now includes refreshing `CLAUDE.md` and the hero portion of each touched skill (`skills/*/SKILL.md`). Claude relies on the YAML `name`/`description` pair and the opening markdown (hero title, quick summary, when-to-use bullets) for each skill, so keep that block aligned with the module-header template in `references/module-header-template.md`. The template spells out the claude-friendly structure with a checklist for ensuring the front-matter description triggers the right use cases and the leading sections stay concise yet informative.
+**Claude-Ready Module Headers (Required):** Updating documentation now includes refreshing `CLAUDE.md` and the hero portion of each touched skill (`*/SKILL.md`). Claude relies on the YAML `name`/`description` pair and the opening markdown (hero title, quick summary, when-to-use bullets) for each skill, so keep that block aligned with the module-header template in `references/module-header-template.md`. The template spells out the claude-friendly structure with a checklist for ensuring the front-matter description triggers the right use cases and the leading sections stay concise yet informative.
 
 ## When to Use
 
@@ -165,7 +164,7 @@ Update project documentation systematically after significant changes. Keep all 
 - **docs/plans/NEXT_FEATURES.md (MANDATORY - mark as completed, update priorities)**
 - docs/plans/INDEX.md (update status)
 - MEMORY.md (capture key learnings)
-- Each affected `skills/*/SKILL.md` front-matter and hero section should follow the module-header template above so Claude sees the change immediately and can re-trigger the skill with the new context.
+- Each affected `*/SKILL.md` front-matter and hero section should follow the module-header template above so Claude sees the change immediately and can re-trigger the skill with the new context.
 
 **Tech Stack Change:**
 
@@ -216,7 +215,7 @@ Read all affected files in parallel.
 
 ### 3.a. Review Module Headers (1-2 min)
 
-Open every impacted `skills/*/SKILL.md` and verify the hero `name`/`description` plus the opening sections line up with the Claude-friendly template. Capture the new feature/behavior in the quick summary and `## When to Use` bullets before editing the downstream docs.
+Open every impacted `*/SKILL.md` and verify the hero `name`/`description` plus the opening sections line up with the Claude-friendly template. Capture the new feature/behavior in the quick summary and `## When to Use` bullets before editing the downstream docs.
 
 ### 4. Update Systematically (10-20 min)
 

@@ -13,8 +13,7 @@ metadata:
 
 ## Platform Notes
 
-- Claude Code: use Superpowers or similar helpers when they are available and materially useful.
-- Codex: apply this skill normally; do not treat optional plugins as a prerequisite.
+- Optional helper plugins may help in some environments, but they must not be treated as required for this skill.
 
 # GIS Mapping (Leaflet-First)
 
@@ -72,7 +71,7 @@ metadata:
 ## Capability Index (Leaflet-First)
 
 Use this index to load only the section you need. Details live in
-[skills/gis-mapping/references/leaflet-capabilities.md](skills/gis-mapping/references/leaflet-capabilities.md).
+[references/leaflet-capabilities.md](references/leaflet-capabilities.md).
 
 1. **Basic Mapping & Visualization** (core Leaflet)
 2. **Spatial Queries** (Turf.js)
@@ -108,7 +107,7 @@ Use this index to load only the section you need. Details live in
 
 - Use a shared Leaflet configuration for tile URLs, attribution, and defaults.
 - Prefer a shared loader or include pattern so Leaflet CSS/JS is consistent across pages.
-- Use [public/farmer-profile.php](public/farmer-profile.php) as the canonical Leaflet UI reference.
+- Use the project's canonical Leaflet profile page as the UI reference for layering, interactions, and map controls.
 
 ## Stack Choices (Frontend)
 

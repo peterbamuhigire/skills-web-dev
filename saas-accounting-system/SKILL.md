@@ -14,8 +14,7 @@ metadata:
 
 ## Platform Notes
 
-- Claude Code: use Superpowers or similar helpers when they are available and materially useful.
-- Codex: apply this skill normally; do not treat optional plugins as a prerequisite.
+- Optional helper plugins may help in some environments, but they must not be treated as required for this skill.
 
 # SaaS Accounting System
 

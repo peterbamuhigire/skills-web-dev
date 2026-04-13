@@ -2,7 +2,7 @@
 name: photo-management
 description: Manage photo uploads, previews, storage, and deletion across the app.
   Use when building any photo upload UI or API, and always apply client-side compression
-  via skills/image-compression before upload.
+  via image-compression before upload.
 metadata:
   portable: true
   compatible_with:
@@ -13,15 +13,14 @@ metadata:
 
 ## Platform Notes
 
-- Claude Code: use Superpowers or similar helpers when they are available and materially useful.
-- Codex: apply this skill normally; do not treat optional plugins as a prerequisite.
+- Optional helper plugins may help in some environments, but they must not be treated as required for this skill.
 
 # Photo Management
 
 <!-- dual-compat-start -->
 ## Use When
 
-- Manage photo uploads, previews, storage, and deletion across the app. Use when building any photo upload UI or API, and always apply client-side compression via skills/image-compression before upload.
+- Manage photo uploads, previews, storage, and deletion across the app. Use when building any photo upload UI or API, and always apply client-side compression via image-compression before upload.
 - The task needs reusable judgment, domain constraints, or a proven workflow rather than ad hoc advice.
 
 ## Do Not Use When
@@ -106,7 +105,7 @@ Always load and apply the **Vibe Security Skill** for upload flows (XSS, CSRF, f
 ## Core Instructions
 
 1. **Always apply compression**
-   - Load and use `skills/image-compression` rules.
+   - Load and use `image-compression` rules.
    - Use `window.prepareImageUpload()` for client-side compression.
 2. **Validate on server**
    - Enforce file type and size limits.
@@ -204,7 +203,7 @@ Keep payloads lean: return only `id`, `file_name`, `file_path`, `created_at`.
 
 ## Reference Files
 
-- Use `skills/image-compression/SKILL.md` for compression defaults and rules.
+- Use `image-compression/SKILL.md` for compression defaults and rules.
 
 ## Common Pitfalls
 

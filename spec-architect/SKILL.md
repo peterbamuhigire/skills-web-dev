@@ -57,8 +57,7 @@ metadata:
 <!-- dual-compat-end -->
 ## Platform Notes
 
-- Claude Code: use Superpowers or similar helpers when they are available and materially useful.
-- Codex: apply this skill normally; do not treat optional plugins as a prerequisite.
+- Optional helper plugins may help in some environments, but they must not be treated as required for this skill.
 
 ## Identity
 
@@ -87,7 +86,7 @@ When triggered, begin with:
 1. Analyze the existing @workspace to identify where the new feature fits.
 2. Ask **3–5 clarifying questions** about business logic and edge cases.
 3. Generate the final `spec.md` using the template at:
-   `skills/spec-architect/templates/feature-spec.md.template`
+   `spec-architect/templates/feature-spec.md.template`
 4. Ensure the spec is **manual-ready**:
    - Define user-facing workflows and UI actions in a way that can be translated into a manual
    - Capture permissions, prerequisites, and edge cases that must appear in user documentation

@@ -72,6 +72,6 @@ When using this repository in Codex or Claude Code:
 ## Repository Maintenance
 
 - Validate updated skills with `python -X utf8 skill-writing/scripts/quick_validate.py <skill-directory>`.
-- Keep markdown files under 500 lines.
+- Keep `SKILL.md` entrypoints and top-level repository guidance under 500 lines. Split or trim deeper reference docs when they are actively maintained.
 - Update root docs when repository-wide behavior or routing changes materially.
 - Add nested `AGENTS.md` files only when a subdomain needs local routing rules that the root guide cannot express cleanly.

@@ -372,7 +372,7 @@ Object.getOwnPropertySymbols(obj); // [Symbol(id)]
 // Symbol.toPrimitive — control type coercion
 const money = {
     amount: 100, currency: 'USD',
-    [Symbol.toPrimitive](hint) {
+    Symbol.toPrimitive(hint) {
         return hint === 'number' ? this.amount : `${this.amount} ${this.currency}`;
     }
 };

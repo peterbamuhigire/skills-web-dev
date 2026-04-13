@@ -13,8 +13,7 @@ metadata:
 
 ## Platform Notes
 
-- Claude Code: use Superpowers or similar helpers when they are available and materially useful.
-- Codex: apply this skill normally; do not treat optional plugins as a prerequisite.
+- Optional helper plugins may help in some environments, but they must not be treated as required for this skill.
 
 # Doc Architect
 
@@ -71,7 +70,7 @@ Design and generate a portable Triple-Layer AGENTS.md documentation set that ref
 - **500-line hard limit** - no exceptions for any .md file
 - **Two-tier structure**: High-level TOC (Tier 1) + Deep dive docs (Tier 2)
 - **Smart subdirectory grouping** for related documentation
-- **See `skills/doc-standards.md` for complete requirements**
+- **See `doc-standards.md` for complete requirements**
 
 ## Core Outcome
 

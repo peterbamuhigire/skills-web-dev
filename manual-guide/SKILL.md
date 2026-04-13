@@ -14,8 +14,7 @@ metadata:
 
 ## Platform Notes
 
-- Claude Code: use Superpowers or similar helpers when they are available and materially useful.
-- Codex: apply this skill normally; do not treat optional plugins as a prerequisite.
+- Optional helper plugins may help in some environments, but they must not be treated as required for this skill.
 
 # Manual Guide (End-User Documentation)
 
@@ -76,7 +75,7 @@ End-user manuals and system guides are **required** deliverables for any SaaS ap
 - **500-line hard limit** per manual page - no exceptions
 - **Two-tier structure**: Manual index/TOC + Individual topic pages (max 500 lines each)
 - **Smart subdirectory grouping** in `/manuals/` by module
-- **See `skills/doc-standards.md` for complete requirements**
+- **See `doc-standards.md` for complete requirements**
 
 ## Trigger Phrases
 

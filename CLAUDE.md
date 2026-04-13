@@ -13,7 +13,7 @@ Quick reference hub for working in this repository.
 
 All markdown files in this repository must follow these rules:
 
-- maximum 500 lines per file
+- keep `SKILL.md` entrypoints and top-level repository guidance under 500 lines; split deep references when they are refreshed
 - use a high-level document plus focused deep-dive references when needed
 - keep related content grouped logically
 
@@ -90,7 +90,6 @@ If improving a skill:
 Representative layout:
 
 ```text
-skills/
 |-- world-class-engineering/
 |-- system-architecture-design/
 |-- database-design-engineering/

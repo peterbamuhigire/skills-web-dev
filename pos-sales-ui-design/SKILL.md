@@ -13,8 +13,7 @@ metadata:
 
 ## Platform Notes
 
-- Claude Code: use Superpowers or similar helpers when they are available and materially useful.
-- Codex: apply this skill normally; do not treat optional plugins as a prerequisite.
+- Optional helper plugins may help in some environments, but they must not be treated as required for this skill.
 
 # POS & Sales Entry UI Design Skill
 
@@ -396,7 +395,7 @@ async submitPayment() {
 
 ## Cognitive UX Evaluation
 
-For cognitive science-based evaluation of POS UI designs -- particularly the Attention Mind (reducing cognitive load for high-speed transactions), Memory Mind (recognition over recall for product lookup), and Wayfinding Mind (intuitive navigation for all ages) -- reference `skills/cognitive-ux-framework/`.
+For cognitive science-based evaluation of POS UI designs -- particularly the Attention Mind (reducing cognitive load for high-speed transactions), Memory Mind (recognition over recall for product lookup), and Wayfinding Mind (intuitive navigation for all ages) -- reference `cognitive-ux-framework/`.
 
 ## Reference Files
 - See references/universal-sales-ui-design.md for detailed component anatomy, design tokens, color palette, and layout examples.

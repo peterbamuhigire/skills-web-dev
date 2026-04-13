@@ -191,7 +191,7 @@ Then include:
 
 ## Repository Standards
 
-- Every markdown file must remain under 500 lines.
+- Keep `SKILL.md` entrypoints and top-level repository guidance under 500 lines, and split deeper reference docs as they are refreshed.
 - `SKILL.md` should contain execution logic, not textbook-length explanation.
 - Deep detail belongs in `references/`.
 - Engineering skills should align with `world-class-engineering`.
@@ -199,7 +199,7 @@ Then include:
 
 ## Repository Stats
 
-- 88+ skills across architecture, web, mobile, AI, security, UX, data, and SDLC
+- 193 skills across architecture, web, mobile, AI, security, UX, data, and SDLC
 - full-stack coverage for web apps, mobile apps, SaaS, ERP, APIs, and data systems
 - layered baseline for architecture, data design, delivery workflow, and production quality
 

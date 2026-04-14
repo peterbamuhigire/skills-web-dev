@@ -16,6 +16,7 @@ Good alerts answer:
 - how severe it is
 - what changed recently
 - what to check first
+- who owns the first response
 
 ## Bad Alerts
 
@@ -25,6 +26,7 @@ Avoid:
 - alerts with no runbook or owner
 - duplicate alerts from multiple layers for the same symptom
 - alerts on low-action signals such as routine retries unless they indicate user impact
+- alerts that cannot be correlated to a release, tenant, or dependency
 
 ## Routing Rule
 

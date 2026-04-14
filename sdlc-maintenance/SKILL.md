@@ -63,6 +63,21 @@ metadata:
 <!-- dual-compat-end -->
 Generate a complete **Software Maintenance Plan (SMP)** and supporting maintenance documentation for software projects. This skill produces 3 documents that establish the maintenance baseline, define the change request workflow, and track ongoing maintenance metrics.
 
+## Load Order
+
+1. Load `world-class-engineering`.
+2. Load `reliability-engineering`, `engineering-management-system`, and `sdlc-post-deployment`.
+3. Load this skill to formalize the maintenance operating model from real production evidence.
+
+## Executable Maintenance Standard
+
+Maintenance documents must define:
+
+- intake, classification, and ownership rules
+- validation, rollout, and rollback expectations for maintenance changes
+- maintenance metrics tied to real operational evidence
+- learning loops back into planning, design, and release process
+
 ## When to Use
 
 - Transitioning a **delivered system into the maintenance phase**
@@ -208,6 +223,7 @@ Two of Lehman's eight laws are directly relevant to maintenance planning and ser
 - [ ] Change Request / Problem Report Form template covers: ID, classification, impact, CCB decision, resolution
 - [ ] Maintenance Metrics Report covers: defect rates, MTTR, type mix, cost actuals
 - [ ] All documents cross-reference the SRS, SDP, STP, and Deployment Guide
+- [ ] Maintenance workflow includes release evidence, rollback posture, and documentation update requirements
 - [ ] No vague language ("fast fixes", "as needed") — all SLAs have numeric targets
 
 ## Anti-Patterns
@@ -255,3 +271,7 @@ Two of Lehman's eight laws are directly relevant to maintenance planning and ser
 **Back to:** [Skills Repository](../CLAUDE.md)
 **Related:** [sdlc-planning](../sdlc-planning/SKILL.md) | [sdlc-testing](../sdlc-testing/SKILL.md) | [sdlc-user-deploy](../sdlc-user-deploy/SKILL.md) | [sdlc-post-deployment](../sdlc-post-deployment/SKILL.md)
 **Last Updated:** 2026-03-15 (created per ISO/IEC/IEEE 14764:2022 Clause 9 + Grubb & Takang 2003)
+
+## References
+
+- [../sdlc-lifecycle.md](../sdlc-lifecycle.md): Shared SDLC execution model and lifecycle gates.

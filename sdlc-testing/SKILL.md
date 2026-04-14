@@ -63,6 +63,21 @@ metadata:
 <!-- dual-compat-end -->
 Generate a complete **Testing & Quality** documentation suite for software development projects. This skill produces 5 documents that establish the testing baseline, define test cases, verify and validate the system, report results, and standardize peer reviews.
 
+## Load Order
+
+1. Load `world-class-engineering`.
+2. Load `advanced-testing-strategy`.
+3. Load this skill to produce formal test documentation and release evidence.
+
+## Executable Testing Standard
+
+Testing documentation must make these explicit:
+
+- commit-stage checks versus deeper validation
+- deterministic evidence and residual risk
+- telemetry that will detect escaped failure after release
+- Go/No-Go inputs, rollback assumptions, and observation windows
+
 ## When to Use
 
 - Establishing a **testing strategy** for a SaaS project
@@ -338,6 +353,7 @@ Before test execution begins, confirm:
 - [ ] Test Report includes pass rates, coverage, defect resolution protocol, and Go/No-Go recommendation
 - [ ] Incident Report template populated for every detected anomaly
 - [ ] Test Completion Report produced at phase close: summary, deviations, residual risks, lessons learned
+- [ ] Release evidence and post-deploy watch signals are stated for risky changes
 - [ ] Peer Review Report includes tech-stack-specific checklists
 - [ ] Multi-tenant isolation addressed in test cases and V&V plan
 - [ ] Test environments match deployment environments (Windows/Ubuntu/Debian)
@@ -374,6 +390,10 @@ Each template provides the complete structure, section-by-section guidance, exam
 5. [Peer Review / Inspection Report](templates/peer-review-report.md)
 6. [Incident Report](templates/incident-report.md)
 7. [Test Completion Report](templates/test-completion-report.md)
+
+## References
+
+- [../sdlc-lifecycle.md](../sdlc-lifecycle.md): Shared SDLC execution model and lifecycle gates.
 
 ---
 

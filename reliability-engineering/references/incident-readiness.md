@@ -9,6 +9,7 @@ Use this checklist before calling a critical system operationally ready.
 - Link alerts to dashboards, logs, traces, and runbooks.
 - Prepare safe operator tooling for replay, disable, requeue, or feature-flag rollback.
 - Record release markers so incidents can be correlated with changes.
+- Rehearse the first actions for the highest-cost scenarios.
 
 ## During Incident Design
 
@@ -20,6 +21,7 @@ Define for each major incident type:
 - rollback trigger
 - communication owner
 - follow-up evidence needed
+- whether rollback, failover, or degraded mode is the preferred first move
 
 ## After Incident
 

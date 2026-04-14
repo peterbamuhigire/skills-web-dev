@@ -63,6 +63,21 @@ metadata:
 <!-- dual-compat-end -->
 Generate a complete **Design & Development** documentation suite for software development projects. This skill produces 6 design documents that translate requirements (from `sdlc-planning`) into actionable technical architecture and implementation guidance.
 
+## Load Order
+
+1. Load `world-class-engineering`.
+2. Load `system-architecture-design` and `database-design-engineering`.
+3. Load this skill to turn approved requirements into executable design artifacts.
+
+## Executable Design Standard
+
+Design documents must define:
+
+- critical flows, invariants, and failure handling
+- release-aware architecture and migration posture
+- observability, audit, and operational ownership expectations
+- contract evolution rules for live systems
+
 ## When to Use
 
 - Translating an **approved SRS** into a technical architecture and system design
@@ -248,6 +263,7 @@ Run after generating all documents:
 - [ ] Code Documentation Standards cover PHP, Kotlin, and SQL
 - [ ] Security architecture addresses dual auth, RBAC, encryption, audit trails
 - [ ] Deployment environments (Windows dev, Ubuntu staging, Debian prod) documented
+- [ ] Rollout, migration, and rollback posture are explicit for live systems
 - [ ] All documents cross-reference each other and upstream SRS
 - [ ] No vague language -- all specifications are measurable and concrete
 - [ ] Examples are tailored to the project's actual tech stack and domain
@@ -279,6 +295,10 @@ Each template provides the complete structure, section-by-section guidance, exam
 4. [Database Design Document](templates/database-design-document.md)
 5. [Code Documentation Standards](templates/code-documentation-standards.md)
 6. [API Documentation](templates/api-documentation.md)
+
+## References
+
+- [../sdlc-lifecycle.md](../sdlc-lifecycle.md): Shared SDLC execution model and lifecycle gates.
 
 ---
 

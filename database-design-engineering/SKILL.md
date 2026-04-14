@@ -75,6 +75,7 @@ Define:
 - Transactional invariants.
 - Reporting and audit requirements.
 - Retention, archival, and deletion rules.
+- The release and migration constraints for live data.
 
 Model events and states, not just forms and screens.
 
@@ -109,6 +110,7 @@ Do not use schemaless storage as a substitute for undecided modeling.
 - Plan archival, purging, and partitioning before large-volume tables arrive.
 - Use expand-contract migrations for live systems.
 - Separate transactional truth from projections, integrations, and analytical read models.
+- Design test-data and backfill strategies for major schema evolution before the first risky migration.
 
 ## Core Standards
 
@@ -139,6 +141,14 @@ Do not use schemaless storage as a substitute for undecided modeling.
 - Prefer additive changes, backfills, then cutovers, then cleanup.
 - Keep application code compatible across deployment overlap where possible.
 - Rehearse destructive or high-volume changes before production.
+- Tag migrations with rollback posture: reversible, compensating-only, or forward-fix-only.
+
+### Operable Data Systems
+
+- Emit release markers and migration identifiers into logs and dashboards where possible.
+- Track replication lag, queue lag, backfill progress, and lock or saturation risk on critical stores.
+- Treat long-running migrations and backfills as operational workflows with owners and stop conditions.
+- Document how data correctness will be verified after migration, replay, or recovery.
 
 ### Scale, Replication, and Change Data
 
@@ -176,6 +186,7 @@ For substantive database work, produce:
 - Table or collection design.
 - Index plan.
 - Migration strategy.
+- Data verification and rollback posture.
 - Data retention and audit plan.
 - Top 5 critical queries or access patterns.
 - Projection, outbox, or replication notes where external reads or integrations exist.
@@ -187,6 +198,7 @@ For substantive database work, produce:
 - [ ] Invariants are protected at durable layers.
 - [ ] Indexes match real access paths.
 - [ ] Migrations support live deployment safety.
+- [ ] Migration verification and rollback posture are explicit.
 - [ ] Audit, retention, and archival rules are documented.
 - [ ] Reporting needs do not distort the transactional model without justification.
 - [ ] Replica lag, projections, or CDC assumptions are explicit where they matter.
@@ -194,4 +206,5 @@ For substantive database work, produce:
 ## References
 
 - [references/data-review-checklist.md](references/data-review-checklist.md): Schema and migration review prompts.
+- [references/live-data-evolution.md](references/live-data-evolution.md): Expand-contract, backfills, verification, and rollback posture.
 - [../world-class-engineering/references/source-patterns.md](../world-class-engineering/references/source-patterns.md): Source-derived patterns for design quality and website/data analysis.

@@ -72,10 +72,24 @@ Every output must satisfy all of these:
 For meaningful work, produce these artifacts explicitly:
 
 - problem frame and success criteria
+- value-stream slice and batch-size choice
 - architecture or module shape
 - data, API, and failure assumptions
 - validation and release evidence
 - operational and ownership notes
+
+## Executable Standard
+
+Treat engineering as a delivery system, not only an implementation activity. A result is not world-class unless it can be changed safely, verified quickly, deployed repeatedly, diagnosed under stress, and improved without heroics.
+
+For non-trivial work, explicitly produce or update:
+
+- a critical-flow table: actor, trigger, happy path, failure modes, operator action
+- a release path: commit stage, deeper verification, rollout method, rollback method
+- a telemetry map: logs, metrics, traces, audit events, release markers
+- a test strategy: risk class, required layers, manual checks, residual risk
+- an ownership map: module owner, alert owner, operational escalation path
+- a simplification note: what complexity was intentionally avoided and why
 
 ## Delivery Workflow
 
@@ -126,6 +140,9 @@ Build for future modifications:
 - Idempotent writes, retry-safe jobs, and deterministic side effects.
 - Optimize for iteration speed where it does not compromise safety: fast tests, reversible releases, small changes, low-friction environments.
 - Record decisions and assumptions so future engineers do not need to rediscover them.
+- Keep work in small batches. Large changes hide risk, slow review, and reduce rollback quality.
+- Keep `main` or the releasable branch deployable. If that is not true, the delivery system is degrading.
+- Prefer trunk-friendly integration, short-lived branches, and feature flags over long-lived divergence.
 
 ### 5. Engineer for Failure and Operations
 
@@ -137,6 +154,8 @@ Assume the happy path is incomplete:
 - Make recovery paths explicit: retry, replay, reconcile, compensate, roll back.
 - Reduce operational burden with automation for repeatable mechanics before trying to automate judgment.
 - Design ownership for alerts, incidents, follow-up fixes, and stale complexity removal.
+- Add release markers and version metadata so incidents can be tied to specific changes quickly.
+- Design operator workflows with stress in mind: simple commands, obvious blast radius, safe defaults, clear reversibility.
 
 ### 6. Manage Delivery as a System
 
@@ -147,6 +166,8 @@ World-class engineering management means:
 - validate early with prototypes, experiments, staging checks, or rollout slices
 - preserve team health and clarity with transparent decisions, direct communication, and explicit ownership
 - build a culture where knowledge is shared, review is normal, and hidden work is discouraged
+- stop the line when the build, deployment path, or telemetry becomes unreliable
+- treat incidents, flaky tests, broken pipelines, and missing runbooks as delivery-system defects, not routine noise
 
 Good management increases both throughput and quality. It does not trade one for the other by default.
 
@@ -164,6 +185,14 @@ Do not call an output production-ready unless it passes:
 - Operability gate
 
 Use the release gates in [references/world-class-gates.md](references/world-class-gates.md).
+
+### 8. Learn and Simplify
+
+- capture what slowed delivery, detection, recovery, or understanding
+- remove recurring toil before adding more process
+- convert useful lessons into automation, tests, runbooks, or simpler architecture
+- reassess branch strategy, pipeline stages, and alerting if the team depends on heroics
+- keep the feedback loop visible with deployment frequency, lead time, change failure rate, and recovery time
 
 ## Non-Negotiable Standards
 
@@ -227,9 +256,20 @@ Use the release gates in [references/world-class-gates.md](references/world-clas
 
 - Keep branches short-lived and commits reviewable.
 - Make CI prove correctness, safety, and packaging readiness.
+- Build artifacts once and promote the same artifact through environments.
 - Use code review to catch risk, not style trivia.
 - Preserve deployability on main.
+- Favor feature flags, dark launches, or canary-style exposure when risk is hard to remove upfront.
 - Make rollback and release verification routine, not heroic.
+
+## Delivery-System Heuristics
+
+- If the change cannot be released safely in isolation, shrink it or add a release-control mechanism.
+- If production confidence depends on a person remembering manual steps, encode those steps into the delivery workflow.
+- If a rollback depends on deleting or rewriting live data, the release design is too fragile.
+- If observability cannot explain a failure inside the first few minutes, the system is under-instrumented.
+- If tests are slow, flaky, or hard to trust, they are limiting throughput and must be treated as product defects in the engineering system.
+- If architecture decisions increase cognitive load without clear gains in deployability, reliability, or ownership, simplify.
 
 ## Review Prompts
 
@@ -260,4 +300,5 @@ Use these prompts while working:
 ## References
 
 - [references/source-patterns.md](references/source-patterns.md): Book-to-practice workflows derived from the supplied PDFs.
+- [references/executable-engineering-system.md](references/executable-engineering-system.md): Delivery-system rules, artifacts, and operating loops derived from the supplied books.
 - [references/world-class-gates.md](references/world-class-gates.md): Release gates for engineering, security, performance, UX, and operations.

@@ -75,6 +75,7 @@ Define:
 - the current delivery bottlenecks
 - the quality bar that cannot be traded away
 - who owns decisions, execution, and operations
+- the service or product metrics that show whether the team is actually improving the system
 
 ### 2. Prioritize for Leverage
 
@@ -98,6 +99,7 @@ Create a repeatable cadence for:
 - release readiness
 - incident follow-up
 - one-to-ones and coaching
+- delivery-system review: pipeline health, flaky tests, deployment pain, alert fatigue, toil
 
 Good rhythm reduces chaos without slowing learning.
 
@@ -114,6 +116,14 @@ Good rhythm reduces chaos without slowing learning.
 - Use review, docs, standards, and demos to spread knowledge.
 - Remove single points of failure in people and systems.
 - Protect maintainability and readability because they compound into velocity.
+- Make incidents, rollback pain, and chronic manual work visible as management problems, not background noise.
+
+### 6. Manage The Delivery System
+
+- Track throughput and stability together: deployment frequency, lead time, change failure rate, recovery time.
+- Stop and repair broken pipelines, high-flake suites, and unsafe release mechanics quickly.
+- Use post-incident and post-release reviews to remove structural causes, not only assign local fixes.
+- Treat architecture, testing, observability, and release process as parts of one management system.
 
 ## Management Standards
 
@@ -129,6 +139,7 @@ Good rhythm reduces chaos without slowing learning.
 - Improve the constraint with the highest leverage first.
 - Prefer smaller validated slices over large speculative projects.
 - Treat recurring coordination friction as a system design problem.
+- Protect slack for tooling, documentation, automation, and training when they raise future throughput.
 
 ### Team Growth
 
@@ -147,6 +158,7 @@ For management-system work, produce:
 - delivery bottleneck analysis
 - health metrics and review cadence
 - knowledge-sharing improvements
+- delivery-system scorecard and remediation priorities
 
 ## Review Checklist
 
@@ -156,8 +168,10 @@ For management-system work, produce:
 - [ ] Ownership and delegation boundaries are clear.
 - [ ] Knowledge sharing reduces heroics and hidden work.
 - [ ] Delivery metrics balance speed with stability.
+- [ ] Broken flow mechanisms such as flaky tests, risky releases, or weak telemetry have owners and follow-up plans.
 
 ## References
 
 - [references/operating-rhythm.md](references/operating-rhythm.md): Cadence and meeting design for engineering teams.
 - [references/coaching-and-delegation.md](references/coaching-and-delegation.md): Practical rules for growing engineers while keeping execution safe.
+- [references/delivery-management-scorecard.md](references/delivery-management-scorecard.md): Delivery-system metrics, review prompts, and corrective actions.

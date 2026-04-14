@@ -62,6 +62,21 @@ metadata:
 <!-- dual-compat-end -->
 Generate a **Post-Deployment Evaluation Report (PDER)** that assesses software health after a production release. This skill produces 1 primary document grounded in ISO/IEC/IEEE 14764:2022 mandatory process outcomes and Grubb & Takang (2003) first-year operational metrics.
 
+## Load Order
+
+1. Load `world-class-engineering`.
+2. Load `observability-monitoring`, `reliability-engineering`, and `deployment-release-engineering`.
+3. Load this skill to convert post-release data into decisions and maintenance actions.
+
+## Executable Post-Deployment Standard
+
+The PDER must connect:
+
+- what was released
+- what telemetry observed
+- what failed, degraded, or surprised the team
+- what maintenance, architecture, or delivery-system changes follow
+
 ## When to Use
 
 - **30–90 days after a major release** — the primary evaluation window per Grubb & Takang (2003)
@@ -224,6 +239,7 @@ Osborne's Model (Grubb & Takang, 2003) defines a formal post-installation review
 - [ ] Recommended budget for next period expressed as person-months per maintenance type
 - [ ] Osborne's review gate formally triggered: signed PDER authorizes SMP to become operative
 - [ ] `[OUTCOME-UNMET]` flags raised for any ISO 14764 outcome lacking evidence
+- [ ] Findings map directly to owners, dates, and the next maintenance or delivery action
 
 ## Anti-Patterns
 
@@ -267,3 +283,7 @@ Osborne's Model (Grubb & Takang, 2003) defines a formal post-installation review
 **Back to:** [Skills Repository](../CLAUDE.md)
 **Related:** [sdlc-maintenance](../sdlc-maintenance/SKILL.md) | [sdlc-testing](../sdlc-testing/SKILL.md) | [sdlc-user-deploy](../sdlc-user-deploy/SKILL.md)
 **Last Updated:** 2026-03-15 (created per ISO/IEC/IEEE 14764:2022 Clause 6 + Grubb & Takang 2003)
+
+## References
+
+- [../sdlc-lifecycle.md](../sdlc-lifecycle.md): Shared SDLC execution model and lifecycle gates.

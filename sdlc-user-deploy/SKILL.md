@@ -63,6 +63,21 @@ metadata:
 <!-- dual-compat-end -->
 Generate a complete **User & Deployment** documentation suite for software development projects. This skill produces 6 documents that guide end-users, system administrators, and operations teams through using, deploying, and maintaining the software.
 
+## Load Order
+
+1. Load `world-class-engineering`.
+2. Load `deployment-release-engineering` and `observability-monitoring`.
+3. Load this skill to turn a tested system into a deployable and operable product.
+
+## Executable Delivery Standard
+
+Delivery documents must define:
+
+- rollout and rollback procedure
+- release evidence and post-deploy watch list
+- operator ownership and runbook entry points
+- user-facing changes, known limitations, and recovery guidance
+
 ## When to Use
 
 - Preparing a SaaS product for **production deployment** and user onboarding
@@ -293,6 +308,7 @@ Each file must stay under 500 lines. Split into subdirectories as needed.
 - [ ] All commands are copy-pasteable with expected output documented
 - [ ] Documents cross-reference each other and upstream SRS/SDD
 - [ ] Documentation deliverables included in sprint Definition of Done
+- [ ] Release notes and operations docs identify rollback trigger points and observation owners
 
 ## Anti-Patterns (What NOT to Do)
 
@@ -321,6 +337,10 @@ Each template provides the complete structure, section-by-section guidance, exam
 4. [Release Notes](templates/release-notes.md)
 5. [Maintenance Manual](templates/maintenance-manual.md)
 6. [README File](templates/readme-file.md)
+
+## References
+
+- [../sdlc-lifecycle.md](../sdlc-lifecycle.md): Shared SDLC execution model and lifecycle gates.
 
 ---
 

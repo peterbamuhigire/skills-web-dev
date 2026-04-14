@@ -76,6 +76,7 @@ Capture:
 - Read/write paths, async flows, and operational jobs.
 - Non-functional constraints: latency, availability, compliance, team size, release cadence.
 - The business events, policies, and failure consequences that make the system expensive to get wrong.
+- The release shape: expected batch size, deployment frequency, rollback expectations, and who operates the system.
 
 ### 2. Decompose by Capability
 
@@ -85,6 +86,7 @@ Split the system by business capability first, technical layer second.
 - Shared modules should expose narrow stable interfaces.
 - Avoid "core" dumping grounds with mixed responsibilities.
 - If a module changes for unrelated reasons, split it.
+- Prefer boundaries that support independent understanding and low-risk releases before chasing deployment independence.
 
 ### 3. Choose the Runtime Shape
 
@@ -93,6 +95,7 @@ Use the simplest viable shape:
 - Modular monolith for most early and mid-stage systems.
 - Service extraction only when scaling, deployability, team boundaries, or isolation justify the extra cost.
 - Event-driven workflows only when loose coupling, resilience, or asynchronous processing clearly matter.
+- Feature flags, dark launches, or canaries when exposure control matters more than runtime separation.
 
 Default rule: prefer a well-structured monolith before microservices.
 
@@ -112,6 +115,7 @@ Also define:
 - consistency requirement: immediate, eventual, or compensating
 - ownership of downstream effects
 - rollback or reconciliation path when dependencies disagree
+- release evidence needed before exposing the flow broadly
 
 ### 5. Record Decisions
 
@@ -124,6 +128,16 @@ Use ADR logic for decisions that are expensive to reverse:
 - Consequences
 
 Use the template in [references/adr-template.md](references/adr-template.md).
+
+### 6. Produce Executable Architecture Artifacts
+
+For non-trivial systems, produce:
+
+- context map and ownership map
+- critical-flow table with invariants, dependency failures, and operator actions
+- deployment and rollback assumptions
+- telemetry and audit requirements by flow
+- migration and contract-evolution notes for live systems
 
 ## Structural Standards
 
@@ -150,6 +164,14 @@ Use the template in [references/adr-template.md](references/adr-template.md).
 - Every critical workflow needs logs, metrics, and traceable IDs.
 - Every background processor needs dead-letter or replay strategy.
 - Every external dependency needs timeout, retry, and degradation rules.
+- Every architecture proposal should show how recent changes will be correlated to failures in production.
+
+### Release-Aware Architecture
+
+- Prefer designs that can be shipped in small batches.
+- Avoid boundaries that force big-bang database, contract, or traffic cutovers without a strong reason.
+- Keep overlapping-version compatibility where staging and production may run different revisions briefly.
+- Make feature-flag and migration strategy explicit when architecture depends on phased rollout.
 
 ### Team and Dependency Boundaries
 
@@ -193,6 +215,7 @@ Split a service or module when:
 - [ ] Capabilities are separated by business meaning.
 - [ ] Data ownership is explicit for every module.
 - [ ] Critical paths include failure and observability design.
+- [ ] The runtime shape supports low-risk release and rollback, not only clean decomposition.
 - [ ] Service boundaries are justified by evidence, not fashion.
 - [ ] Contracts are explicit and evolution-safe.
 - [ ] Background work is idempotent and retry-safe.
@@ -203,4 +226,5 @@ Split a service or module when:
 ## References
 
 - [references/adr-template.md](references/adr-template.md): Decision record format and architecture review prompts.
+- [references/architecture-execution-model.md](references/architecture-execution-model.md): Architecture artifacts, release-aware boundaries, and flow design.
 - [../world-class-engineering/references/source-patterns.md](../world-class-engineering/references/source-patterns.md): Architecture review patterns derived from the supplied books.

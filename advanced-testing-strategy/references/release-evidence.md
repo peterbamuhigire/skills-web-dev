@@ -8,3 +8,5 @@ Before shipping, state:
 - which critical flows were exercised
 - what was not tested and why
 - rollback or mitigation path
+- telemetry or SLO signals that will detect failure quickly
+- known flakes, quarantines, or evidence gaps that still exist

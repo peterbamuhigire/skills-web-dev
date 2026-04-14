@@ -7,6 +7,7 @@
 - [ ] Tests cover the changed behavior at the right level.
 - [ ] Migration, config, or dependency changes are called out explicitly.
 - [ ] Risky areas and rollback notes are documented when relevant.
+- [ ] Feature flags or release controls are documented when integration and exposure are separated.
 
 ## Reviewer Checklist
 
@@ -23,3 +24,4 @@
 - [ ] Rollback path is known.
 - [ ] Post-deploy verification steps are defined.
 - [ ] Monitoring exists for the highest-risk change in the release.
+- [ ] No one-off manual branch or artifact handling is required.

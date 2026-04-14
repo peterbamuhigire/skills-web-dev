@@ -27,6 +27,8 @@
 - Metrics
 - Traces
 - Audit events
+- Release markers
+- Cost or usage signals if relevant
 
 ## Response
 

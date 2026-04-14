@@ -61,9 +61,11 @@ Use this skill to keep version control readable, reviewable, and recoverable. It
 
 - Keep `main` or the release branch deployable.
 - Prefer small branches and small review units.
+- Prefer trunk-based integration or similarly short-lived branches.
 - Review your own diff before asking others to review it.
 - Use recovery-first thinking before destructive commands.
 - Treat commit history as shared operational documentation.
+- Treat broken builds as stop-the-line events for the affected team.
 
 ## Collaboration Workflow
 
@@ -113,6 +115,7 @@ Avoid messages that only describe mechanics.
 - Reviewers should focus on bugs, regressions, migration risk, and missing tests.
 - Releases should include rollback awareness and post-deploy verification.
 - Keep branch strategy coupled to CI quality and release safety, not personal preference.
+- Use feature flags or other release controls to keep integration small when exposure needs to wait.
 
 ## Decision Heuristics
 
@@ -166,4 +169,5 @@ See [references/review-and-release.md](references/review-and-release.md) for PR 
 ## References
 
 - [references/review-and-release.md](references/review-and-release.md): Pull request, merge, and release checklists.
+- [references/trunk-based-delivery.md](references/trunk-based-delivery.md): Short-lived branch and integration rules.
 - [../world-class-engineering/references/source-patterns.md](../world-class-engineering/references/source-patterns.md): Git workflows derived from the supplied PDFs.

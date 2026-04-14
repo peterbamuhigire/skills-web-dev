@@ -1,11 +1,8 @@
 ---
 name: cicd-pipeline-design
-description: Design and implement production CI/CD pipelines — canonical stage sequence,
-  DORA metrics, branching strategy, build-once-deploy-many, artifact management, and
-  deployment strategies (blue-green, rolling, canary). Synthesised from DevOps Design
-  Patterns (Chintale), CI/CD Unleashed (Clark 2025), CI/CD Pipeline with Docker and
-  Jenkins (Rawat). Use when designing or reviewing a pipeline for any language or
-  platform.
+description: Use when designing or reviewing production CI/CD pipelines, deployment
+  pipelines, artifact promotion, branch strategy, release controls, rollback paths,
+  and delivery-system metrics for any language or platform.
 metadata:
   portable: true
   compatible_with:
@@ -18,7 +15,7 @@ metadata:
 <!-- dual-compat-start -->
 ## Use When
 
-- Design and implement production CI/CD pipelines — canonical stage sequence, DORA metrics, branching strategy, build-once-deploy-many, artifact management, and deployment strategies (blue-green, rolling, canary). Synthesised from DevOps Design Patterns (Chintale), CI/CD Unleashed (Clark 2025), CI/CD Pipeline with Docker and Jenkins (Rawat). Use when designing or reviewing a pipeline for any language or platform.
+- Use when designing or reviewing production CI/CD pipelines, deployment pipelines, artifact promotion, branch strategy, release controls, rollback paths, and delivery-system metrics for any language or platform.
 - The task needs reusable judgment, domain constraints, or a proven workflow rather than ad hoc advice.
 
 ## Do Not Use When
@@ -28,7 +25,7 @@ metadata:
 
 ## Required Inputs
 
-- Gather relevant project context, constraints, and the concrete problem to solve.
+- Gather relevant project context, constraints, and the concrete problem to solve; load `references` only as needed.
 - Confirm the desired deliverable: design, code, review, migration plan, audit, or documentation.
 
 ## Workflow
@@ -56,211 +53,129 @@ metadata:
 
 ## References
 
-- Use the links and companion skills already referenced in this file when deeper context is needed.
+- Use the `references/` directory for deep detail after reading the core workflow below.
 <!-- dual-compat-end -->
-**Target environment:** Self-managed Linux servers (Debian/Ubuntu). No cloud dependency required.
+Use this skill when the pipeline must function as a trusted delivery system. The goal is not merely automation. The goal is to keep changes small, verifiable, promotable, observable, and reversible.
 
----
+## Load Order
+
+1. Load `world-class-engineering`.
+2. Load `deployment-release-engineering` for rollout and rollback design.
+3. Load this skill to define the pipeline, artifact flow, and branch strategy.
+4. Pair it with `advanced-testing-strategy`, `observability-monitoring`, and `cicd-devsecops`.
 
 ## Core Principles
 
-- **Pipeline is the only route to production** — no direct server deploys, ever
-- **Build once, deploy many** — build the artifact once; promote the same binary through all environments
-- **Fail fast** — cheap checks (lint, unit tests) run first; expensive checks (E2E, perf) run later
-- **Hermetic builds** — given the same inputs, the build always produces the same outputs
-- **DORA metrics are your pipeline KPIs**: deployment frequency, lead time, MTTR, change failure rate
+- Pipeline is the only normal route to production.
+- Build once and promote the same artifact through environments.
+- Keep cheap checks early and deeper checks later, but do not remove meaningful risk checks.
+- Treat broken default-branch pipelines as urgent delivery defects.
+- Track throughput and stability together through DORA-style metrics.
 
----
+## Executable Outputs
 
-## 1. Canonical Pipeline Stages
+For non-trivial pipeline work, produce:
 
-Run stages in this order. Parallelise where marked.
+- stage map with entry and exit criteria
+- artifact promotion model
+- branch and release-control model
+- migration and rollback steps
+- telemetry, alert, and release-marker plan
+- pipeline bottlenecks and remediation priorities
 
-```
-Stage 1:  SCM Checkout
-Stage 2:  Install Dependencies       ← proxy through Nexus for reliability
-Stage 3:  Build                      ← Docker multi-stage preferred
-Stage 4:  Unit Tests + Lint          ← PARALLEL; fail build if coverage drops below threshold
-Stage 5:  Security Scan              ← OWASP DC (deps) + SonarQube (code) + Trivy (image)
-Stage 6:  Version + Tag              ← semver from conventional commits; git tag the commit
-Stage 7:  Publish Artifact           ← push Docker image or package to Nexus
-Stage 8:  Deploy Dev                 ← Ansible playbook; DB migration (Flyway/Liquibase)
-Stage 9:  Smoke Tests                ← hit /health + 2–3 critical journeys
-Stage 10: Deploy Staging             ← blue-green or rolling; mirrors prod config
-Stage 11: Integration + E2E Tests    ← API tests (Newman/Karate); UI tests (Playwright)
-Stage 12: Performance Tests          ← only if contractual SLAs exist; gate on SLO thresholds
-Stage 13: Deploy Production          ← main branch only; blue-green preferred; manual gate optional
-Stage 14: Notify Stakeholders        ← Slack/Teams webhook (automated, not manual)
-```
+## Pipeline Workflow
 
-### Stage Rules
+### 1. Define the Delivery Path
 
-- Stages 4 (lint) and 4 (unit tests) must run in parallel — never sequentially
-- Stage 5 security scan runs before artifact is published — never after
-- Stage 13 only triggers on `main`/`master` branch — feature branches stop at Stage 10
-- Never skip stages to "save time" — fix the underlying cause instead
+Capture:
 
----
+- source control and branch strategy
+- commit stage checks
+- deeper validation stages
+- artifact repository and promotion flow
+- rollout path to each environment
+- rollback or feature-disable path
 
-## 2. Branching Strategy
+### 2. Build a Canonical Stage Model
 
-Use **trunk-based development** for teams; **GitHub Flow** for solo/small teams.
+Use a shape like:
 
-```
-main (trunk)          ← always deployable; protected branch
-  ↑
-feature/TICKET-123    ← short-lived (<2 days); merge via PR
-  ↑
-hotfix/TICKET-456     ← branches from main; merges back to main only
-```
+1. checkout and dependency restore
+2. build and package
+3. unit tests, lint, and static checks
+4. security and dependency checks
+5. artifact publish
+6. deploy to lower environment
+7. smoke, integration, contract, and acceptance checks as risk requires
+8. performance or resilience checks where justified
+9. production rollout and observation window
 
-**Branch protection rules (enforce in GitLab/GitHub):**
-- Require PR/MR approval before merge to `main`
-- Require all pipeline stages to pass (status checks)
-- Require signed commits for `main`
-- No direct pushes to `main` — not even from admins
+### 3. Design Artifact Promotion
 
----
+- Promote the same artifact through environments.
+- Keep environment differences in configuration and secrets, not rebuilt binaries.
+- Version artifacts so release candidates, production builds, and ephemeral snapshots are distinguishable.
+- Keep provenance and release notes attached to the promoted artifact.
 
-## 3. Build-Once, Deploy-Many
+### 4. Choose Branch and Release Controls
 
-```
-Build → Tag artifact with version → Store in Nexus
-                                          ↓
-                             Deploy same artifact to Dev
-                                          ↓
-                             Promote same artifact to QA
-                                          ↓
-                             Promote same artifact to Staging
-                                          ↓
-                             Promote same artifact to Production
-```
+- Prefer trunk-based development or similarly short-lived branches.
+- Use feature flags, dark launches, or canaries when deployment can complete before exposure should.
+- Keep `main` or the releasable branch deployable.
+- Require status checks and review on the branch that feeds production.
 
-**Never rebuild for each environment.** Config changes between environments via:
-- Environment variables injected at deploy time (Ansible `vars`, Docker `--env-file`)
-- HashiCorp Vault secrets pulled at runtime — never baked into images
-- Config files rendered from templates by Ansible per environment
+### 5. Design Migration and Rollback Safety
 
----
+- Put schema and data changes into the pipeline explicitly.
+- Use expand-contract for overlapping-version support on live systems.
+- Define migration verification queries and rollback posture before release.
+- Classify data changes as reversible, compensating-only, or forward-fix-only.
 
-## 4. Artifact Management (Nexus 3)
+### 6. Observe and Improve the Pipeline
 
-Nexus 3 is the self-hosted standard. Install on a dedicated Debian server.
+- Emit release markers so telemetry can answer what changed recently.
+- Measure pipeline duration, red-time, flaky stages, and rerun frequency.
+- Remove stale or low-signal stages that erode trust.
+- Treat pipeline pain as engineering debt with owners and follow-up dates.
 
-| Repository Type | Use |
-|---|---|
-| Docker (hosted) | Store built Docker images |
-| Docker (proxy) | Cache Docker Hub pulls — eliminates rate limits |
-| Maven (hosted) | Store Java JARs/WARs |
-| npm (proxy) | Cache npm registry |
-| PyPI (proxy) | Cache pip packages |
-| Raw (hosted) | Store compiled binaries, APKs |
+## Standards
 
-**Versioning convention:**
-```
-image:1.4.2          ← stable, promoted to prod
-image:1.4.2-rc.1     ← release candidate, staging only
-image:dev-abc1234    ← dev snapshot, never promoted
-```
+### Commit Stage
 
----
+- Fast enough to run on every normal integration.
+- Strong enough to reject obviously unsafe changes.
+- Clear failure messages with links to evidence when possible.
 
-## 5. Deployment Strategies
+### Promotion
 
-### Blue-Green (Production Default)
+- Artifact immutability is preferred.
+- Rebuild drift between staging and production is not acceptable.
+- Pipeline definition should live in version control.
 
-```
-Load Balancer
-├── Blue (v1) ← live, 100% traffic
-└── Green (v2) ← deploy here, run smoke tests
-               ← switch traffic to Green (seconds)
-               ← Blue becomes standby for rollback
-```
+### Branching
 
-- **Fastest rollback**: switch routing back to Blue in <30 seconds
-- **Cost**: requires 2× resources during cutover window
-- **Tool**: Traefik weighted routing or Nginx upstream swap
+- Long-lived branches are a warning sign, not a default.
+- Protect trunk quality with review, tests, and rapid repair of failures.
+- Do not hide poor release slicing behind long integration delay.
 
-### Rolling (QA/Staging)
+### Release Evidence
 
-Replace instances one-by-one behind the load balancer. Zero downtime. Rollback is slow (also rolling).
-Use for staging where resource cost matters more than rollback speed.
+- Keep records of what passed, what was skipped, and what remains unproven.
+- Attach migration notes, rollback notes, and post-deploy watch lists to risky releases.
+- Make observation ownership explicit for production rollout windows.
 
-### Canary (Advanced)
+## Review Checklist
 
-```
-Load Balancer
-├── Stable (v1) ← 90% traffic
-└── Canary (v2) ← 10% traffic → monitor DORA metrics → cut over
-```
-
-Use when you want data-driven promotion decisions. Requires load balancer with weighted routing.
-
----
-
-## 6. Database Migrations
-
-Run DB migrations as a pipeline stage **before** deploying new application code.
-
-**Tool: Flyway or Liquibase** (both have Maven/Gradle plugins and Docker images)
-
-```
-Stage 8a: Run Flyway migrate (Dev DB)
-Stage 8b: Deploy application (Dev)
-...
-Stage 13a: Run Flyway migrate (Prod DB) ← use expand-contract pattern for zero downtime
-Stage 13b: Deploy application (Prod)
-```
-
-**Expand-contract pattern** for zero-downtime schema changes:
-1. **Expand**: add new column (nullable); old code still runs
-2. **Deploy**: new app code uses new column
-3. **Contract**: drop old column in next release cycle
-
----
-
-## 7. DORA Metrics — Pipeline KPIs
-
-| Metric | Elite | High | Medium | Low |
-|---|---|---|---|---|
-| Deployment frequency | Multiple/day | Weekly | Monthly | <Monthly |
-| Lead time for changes | <1 hour | <1 week | <1 month | >1 month |
-| MTTR | <1 hour | <1 day | <1 week | >1 week |
-| Change failure rate | 0–5% | 5–10% | 10–15% | >15% |
-
-Track these in Grafana using Jenkins build data exported to Prometheus.
-
----
-
-## 8. Monitoring Stack (Self-Hosted)
-
-```
-Application → metrics → Prometheus → dashboards → Grafana
-Application → logs    → Loki       → dashboards → Grafana
-Application → traces  → Jaeger     → dashboards → Jaeger UI
-Prometheus  → alerts  → Alertmanager → Slack/PagerDuty
-```
-
-**Alert design rule** (from Clark 2025):
-- **Alert**: human action required NOW (page someone)
-- **Ticket**: action required within days (create a Jira ticket automatically)
-- **Log**: diagnostic only (write to log, no human action)
-
-Never page on metrics that don't require immediate human action — alert fatigue kills MTTR.
-
----
-
-## 9. Pipeline as Code Rules
-
-- Jenkinsfile/workflow YAML lives in the **application repository** alongside source code
-- Changes to the pipeline go through the same PR review process as application code
-- Never configure pipelines through UI — UI config is not version-controlled
-- One Jenkinsfile per repo; use shared libraries for cross-repo patterns
-
----
+- [ ] The pipeline is the normal route to production.
+- [ ] The same artifact is promoted through environments.
+- [ ] Branch strategy keeps integration delay low.
+- [ ] Stage purpose, owner, and failure evidence are explicit.
+- [ ] Migration and rollback steps are part of the pipeline, not side notes.
+- [ ] Release markers and telemetry support post-deploy diagnosis.
+- [ ] Pipeline bottlenecks and flaky stages have remediation owners.
 
 ## References
 
-- `references/stage-templates.md` — Jenkinsfile snippets for each stage
-- `references/nexus-setup.md` — Nexus 3 installation and repository configuration
-- `references/dora-dashboard.md` — Prometheus metrics and Grafana dashboard config
+- [references/pipeline-governance.md](references/pipeline-governance.md): Pipeline trust, evidence, and stop-the-line response.
+- [../deployment-release-engineering/references/deployment-pipeline.md](../deployment-release-engineering/references/deployment-pipeline.md): Canonical release stage model and release packet.
+- [../world-class-engineering/references/source-patterns.md](../world-class-engineering/references/source-patterns.md): CI/CD and DevOps patterns derived from the supplied books.

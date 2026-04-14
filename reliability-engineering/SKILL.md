@@ -75,6 +75,7 @@ For each important workflow, define:
 - data-loss tolerance
 - financial, compliance, or trust consequences
 - recovery time expectation
+- acceptable operator effort or toil
 
 Not every path needs the same reliability level.
 
@@ -88,6 +89,8 @@ Explicitly list:
 - stale reads or cache inconsistency
 - concurrency conflict
 - operator or configuration error
+- overload, backpressure, or queue growth
+- release-induced regression
 
 If a failure mode is plausible and unhandled, the design is incomplete.
 
@@ -101,6 +104,8 @@ Choose deliberate policies for:
 - circuit breaking or load shedding
 - queues, dead-letter handling, and replay
 - graceful degradation or fallback behavior
+- concurrency limits and admission control
+- reconciliation jobs for eventually consistent workflows
 
 ### 4. Design Recovery
 
@@ -111,6 +116,7 @@ For every critical flow, define:
 - whether to retry, compensate, reconcile, or roll back
 - what can be replayed safely
 - what manual tooling or runbook is needed
+- how recent deployments or config changes will be ruled in or out quickly
 
 ### 5. Verify Reliability
 
@@ -121,6 +127,8 @@ Before production claims, produce evidence for:
 - queue recovery or replay
 - duplicate-request safety
 - alert and runbook usefulness
+- overload or backpressure behavior
+- staged recovery drills or game-day exercises for the highest-cost failures
 
 ## Reliability Standards
 
@@ -137,6 +145,7 @@ Before production claims, produce evidence for:
 - Poison messages need dead-letter or quarantine behavior.
 - Replay must be safe, observable, and permissioned.
 - Long-running jobs need progress or heartbeat signals.
+- Queues need saturation and age monitoring, not only failure counts.
 
 ### Degradation
 
@@ -151,6 +160,7 @@ Before production claims, produce evidence for:
 - Correlate incidents to release version, tenant, actor, and dependency.
 - Keep recovery tools safe for operators under stress.
 - Write runbooks for high-cost incidents before the incident happens.
+- Rehearse at least the top failure scenarios often enough that the response is not theoretical.
 
 ## Deliverables
 
@@ -162,6 +172,7 @@ For meaningful reliability work, produce:
 - degradation and fallback notes
 - queue and replay strategy
 - incident ownership and recovery outline
+- reliability verification or exercise plan
 
 ## Review Checklist
 
@@ -176,3 +187,4 @@ For meaningful reliability work, produce:
 
 - [references/reliability-patterns.md](references/reliability-patterns.md): Design rules for timeouts, retries, queues, and degradation.
 - [references/incident-readiness.md](references/incident-readiness.md): Incident preparation and recovery prompts.
+- [references/reliability-verification.md](references/reliability-verification.md): Reliability drills, overload checks, and evidence expectations.

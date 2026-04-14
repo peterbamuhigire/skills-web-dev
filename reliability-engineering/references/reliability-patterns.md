@@ -21,6 +21,7 @@ Use these patterns when designing fault-tolerant systems.
 - Define delivery guarantee assumptions: at-most-once, at-least-once, effectively-once.
 - Handle poison messages with dead-letter queues and operator visibility.
 - Track lag, retries, age, and failure rate for every important queue.
+- Add backpressure or admission-control behavior before queues become silent outage amplifiers.
 - Document replay tooling before a production emergency requires it.
 
 ## Degradation Rules

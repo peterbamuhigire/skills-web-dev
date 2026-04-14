@@ -63,6 +63,22 @@ metadata:
 <!-- dual-compat-end -->
 Generate a complete **Planning & Management** documentation suite for software development projects. This skill produces 7 foundational documents that establish the project baseline before any code is written.
 
+## Load Order
+
+1. Load `world-class-engineering`.
+2. Load this skill to define the planning baseline and phase-entry gates.
+3. Pair it with `engineering-management-system`, `advanced-testing-strategy`, and `deployment-release-engineering` when the plan must be executable.
+
+## Executable Planning Standard
+
+Planning documents must define more than scope. They must define:
+
+- critical flows and risk class
+- measurable success criteria and service expectations
+- delivery slices and release assumptions
+- testing, observability, and rollback expectations
+- ownership for decisions, operations, and follow-up
+
 ## When to Use
 
 - Starting a **new SaaS project** and need a governance baseline
@@ -260,6 +276,7 @@ Run after generating all documents:
 - [ ] All documents cross-reference each other where relevant
 - [ ] Multi-tenant isolation addressed in SRS, QA Plan, and Risk Plan
 - [ ] Deployment environments (Windows dev, Ubuntu staging, Debian prod) documented in SDP
+- [ ] Release, rollback, and post-deploy observation assumptions are documented in the plan set
 - [ ] No vague language ("user-friendly", "fast", "secure") -- all measurable
 - [ ] Examples are tailored to the project's actual tech stack and domain
 
@@ -292,6 +309,10 @@ Each template provides the complete structure, section-by-section guidance, exam
 5. [Risk Management Plan](templates/risk-management-plan.md)
 6. [Software Requirements Specification](templates/software-requirements-spec.md)
 7. [Feasibility Study Report](templates/feasibility-study-report.md)
+
+## References
+
+- [../sdlc-lifecycle.md](../sdlc-lifecycle.md): Shared SDLC execution model and lifecycle gates.
 
 ---
 

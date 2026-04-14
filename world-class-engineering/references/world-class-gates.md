@@ -17,6 +17,7 @@ Use these gates before describing any output as production-ready.
 - [ ] Business rules are isolated from transport, UI, and storage concerns.
 - [ ] High-impact decisions have tradeoff reasoning or ADR notes.
 - [ ] Backward compatibility and migration strategy are defined for live systems.
+- [ ] The architecture supports low-risk releases, not only clean diagrams.
 
 ## Security Gate
 
@@ -53,15 +54,26 @@ Use these gates before describing any output as production-ready.
 ## Testing Gate
 
 - [ ] Core logic has automated tests at the right level.
+- [ ] The commit stage is fast enough to run on every meaningful integration.
 - [ ] Edge cases and failure modes have explicit verification.
 - [ ] Integration boundaries are tested where contracts matter.
+- [ ] Acceptance, exploratory, or end-to-end checks cover the few workflows automation at lower layers cannot prove.
 - [ ] Manual verification steps exist for UX-critical and release-critical flows.
 - [ ] Test names and structure make regressions diagnosable.
 
 ## Operability Gate
 
 - [ ] Logs, metrics, traces, and audit records exist where diagnosis matters.
+- [ ] Release markers or version metadata allow incidents to be tied to specific changes.
 - [ ] Background jobs are idempotent and replay-safe.
 - [ ] Rollout, rollback, and recovery steps are known.
 - [ ] Ownership is clear for alerts, incidents, and follow-up maintenance.
 - [ ] Documentation is sufficient for the next engineer to operate the system safely.
+
+## Delivery-System Gate
+
+- [ ] The change can move through the normal pipeline without one-off manual heroics.
+- [ ] Artifact promotion avoids rebuild drift.
+- [ ] Branching and release strategy keep integration delay and software inventory low.
+- [ ] Broken builds, flaky tests, and missing telemetry are treated as defects to fix.
+- [ ] Deployment frequency, lead time, change failure rate, and recovery time can be measured or approximated.

@@ -1,6 +1,63 @@
 # Source Patterns
 
-This file transforms the supplied PDFs into reusable workflows and decision frameworks for Claude Code skills.
+This file transforms the supplied books into reusable workflows and decision frameworks for Claude Code and Codex skills.
+
+## Continuous Delivery
+
+### Workflow: Deployment Pipeline Thinking
+
+1. Treat every change as a release candidate from the moment it passes the commit stage.
+2. Run a fast commit stage first: build, unit tests, static checks, packaging.
+3. Promote the same artifact into automated acceptance, integration, and nonfunctional stages.
+4. Use a final production decision gate only if risk, policy, or market timing requires it.
+5. Design database and contract changes with overlapping-version safety.
+6. Keep rollback, replay, and environment setup automated enough to rehearse.
+
+### Reusable Patterns
+
+- Commit stage plus downstream confidence stages.
+- Build once, deploy many.
+- Expand-contract schema evolution.
+- Application-driver testing for acceptance-level workflows.
+- Release candidate mindset instead of "works on my machine" mindset.
+
+## Continuous Deployment
+
+### Workflow: Inventory Reduction Through Automation
+
+1. Reduce software inventory: long-lived branches, waiting QA queues, and unreleased code all count as waste.
+2. Merge to trunk frequently and keep the branch strategy biased toward integration, not isolation.
+3. Use automation to remove repetitive environment, test, and deployment work.
+4. Prefer small releases and fast feedback over infrequent "big safe releases."
+5. Use feature flags, dark launches, or controlled exposure to separate deploy from release when needed.
+6. Treat pipeline friction as a flow problem to fix, not an excuse to batch more work.
+
+### Reusable Patterns
+
+- Trunk-based development.
+- Small frequent releases.
+- Inventory reduction as a design goal.
+- Feature flags as release controls, not permanent architecture.
+- Stop-the-line response to broken pipelines.
+
+## The DevOps Handbook, Second Edition
+
+### Workflow: Flow, Feedback, and Learning
+
+1. Make the value stream visible from idea to production.
+2. Optimize the bottleneck that most limits delivery speed or recovery.
+3. Integrate operations concerns into daily engineering work.
+4. Build deployment pipelines, telemetry, and low-risk releases as first-class system capabilities.
+5. Use feedback from production, experimentation, and incidents to reshape the system.
+6. Design team boundaries and architecture together so ownership and change flow stay aligned.
+
+### Reusable Patterns
+
+- Value-stream mapping.
+- Deployment pipeline foundations.
+- Fast and reliable automated testing.
+- Telemetry for seeing and solving problems.
+- Architecture and team design with Conway's Law in mind.
 
 ## Web Performance Engineering in the Age of AI
 
@@ -243,6 +300,61 @@ This file transforms the supplied PDFs into reusable workflows and decision fram
 - Stability plus throughput scorecard.
 - Delivery-system bottleneck analysis.
 - Evidence-based process changes.
+
+## Testing JavaScript Applications
+
+### Workflow: Risk-Driven Test Portfolio
+
+1. Decide what to prove, not just what to automate.
+2. Put more tests at the fast layers and reserve slower layers for the behaviors only they can prove.
+3. Use integration tests where module seams and real dependencies create risk.
+4. Use end-to-end tests for a small number of high-value journeys.
+5. Keep exploratory testing for ambiguity, UX issues, and scenarios automation misses.
+6. Review test cost versus business risk instead of chasing raw coverage numbers.
+
+### Reusable Patterns
+
+- Testing pyramid with explicit exceptions.
+- Acceptance versus end-to-end distinction.
+- Exploratory testing for new or unclear behaviors.
+- Test doubles only where they reduce noise without hiding risk.
+
+## Observability Engineering
+
+### Workflow: Diagnosis-First Telemetry
+
+1. Start from the questions engineers and operators must answer during failure, latency, cost, and correctness problems.
+2. Instrument events with enough dimensions to slice by actor, tenant, version, route, dependency, and release.
+3. Use metrics for trend and alerting, traces for path analysis, logs for rich event context, and profiles when CPU or memory cost matters.
+4. Manage cardinality deliberately instead of flattening away important debugging context.
+5. Treat SLOs, cost, and performance telemetry as parts of one production feedback system.
+6. For AI systems, instrument prompts, tool paths, retrieval stages, token usage, and quality eval outcomes.
+
+### Reusable Patterns
+
+- Wide structured events for debugging unknown failures.
+- Release markers and deploy correlation.
+- Cost-aware observability.
+- AI and LLM telemetry with eval hooks.
+- Profiling as part of production performance engineering.
+
+## CI/CD Unleashed
+
+### Workflow: Healthy Pipeline and Branching Discipline
+
+1. Keep the pipeline as the only trusted path to production.
+2. Run tests in an order that fails fast without removing critical confidence.
+3. Use trunk-based development or similarly short-lived branches.
+4. Use small, frequent releases to reduce blast radius.
+5. Make broken builds an immediate team concern.
+6. Match deployment strategy to risk, rollback speed, and monitoring strength.
+
+### Reusable Patterns
+
+- Blue-green, rolling, and canary rollout selection.
+- Broken-build immediate response.
+- Feature flags for release control.
+- DORA metrics as delivery KPIs.
 
 ## Software Engineering at Google
 

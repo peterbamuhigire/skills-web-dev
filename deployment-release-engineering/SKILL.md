@@ -76,6 +76,8 @@ Identify whether the release includes:
 - infrastructure or dependency changes
 - high-traffic path changes
 - AI behavior or prompt changes
+- feature-flag or config-controlled exposure
+- rollback-hostile data changes
 
 Higher-risk releases need narrower rollout and stronger verification.
 
@@ -85,22 +87,35 @@ Higher-risk releases need narrower rollout and stronger verification.
 - Promote the same artifact through environments.
 - Keep environment differences in configuration and secrets, not source or binaries.
 - Do not rebuild separately for staging and production.
+- Keep pipeline definition in version control so release mechanics are reviewable.
 
-### 3. Choose A Rollout Strategy
+### 3. Use A Deployment Pipeline, Not Ad Hoc Stages
+
+For meaningful changes, define these stages explicitly:
+
+- commit stage: fast build, unit checks, static analysis, packaging
+- automated acceptance or workflow stage
+- deeper integration, contract, and nonfunctional stages as risk requires
+- production readiness gate: release notes, migration review, rollback review
+- rollout and observation window
+
+### 4. Choose A Rollout Strategy
 
 Use the simplest safe option:
 
 - rolling for low-risk or capacity-constrained changes
 - blue-green for quick rollback and clean cutover
 - canary for risky changes where partial exposure gives useful feedback
+- dark launch or feature-flag exposure when deployment should finish before user release
 
-### 4. Protect Live Data
+### 5. Protect Live Data
 
 - Use expand-contract migrations where live compatibility matters.
 - Sequence migrations, code rollout, backfills, and cleanup deliberately.
 - Never tie rollback to a destructive schema assumption unless explicitly planned.
+- Separate deployment rollback from business-data correction when side effects have already escaped.
 
-### 5. Verify The Release
+### 6. Verify The Release
 
 Post-deploy verification should confirm:
 
@@ -109,8 +124,16 @@ Post-deploy verification should confirm:
 - telemetry and alert behavior
 - migration success
 - no unexpected error spike
+- no unexpected saturation, queue growth, or cost surge
+- release markers visible in dashboards and traces
 
 See [references/release-checklist.md](references/release-checklist.md).
+
+### 7. Learn From The Release
+
+- Record what slowed release preparation, deployment, rollback confidence, or verification.
+- Convert repeated manual steps into pipeline or runbook improvements.
+- Treat failed rollbacks, unclear ownership, and weak telemetry as release-system defects.
 
 ## Release Standards
 
@@ -136,6 +159,7 @@ Every meaningful release needs:
 - rollback owner
 - rollback method
 - data compatibility assessment
+- feature-flag disable path when applicable
 
 Rollback must be designed before release, not improvised during incident response.
 
@@ -153,6 +177,7 @@ For risky releases, define:
 For significant releases, produce:
 
 - release classification
+- deployment pipeline stage map
 - rollout strategy
 - migration sequence
 - rollback plan
@@ -162,6 +187,7 @@ For significant releases, produce:
 ## Review Checklist
 
 - [ ] Artifact promotion avoids rebuild drift.
+- [ ] Pipeline stages match change risk and are defined before release day.
 - [ ] Rollout strategy matches release risk.
 - [ ] Migration sequence is safe for overlapping versions.
 - [ ] Rollback path is explicit and realistic.
@@ -170,5 +196,6 @@ For significant releases, produce:
 
 ## References
 
+- [references/deployment-pipeline.md](references/deployment-pipeline.md): Stage model, release packet, and rollout heuristics.
 - [references/release-checklist.md](references/release-checklist.md): Pre-deploy and post-deploy checks.
 - [references/rollout-selection.md](references/rollout-selection.md): Choosing rolling, blue-green, or canary.

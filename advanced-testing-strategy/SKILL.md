@@ -76,6 +76,8 @@ Classify the change:
 - migration-heavy
 - high-traffic or high-scale
 - UX-critical
+- release-control heavy: feature flags, canaries, config flips, or dark launches
+- operationally risky: on-call impact, hard rollback, fragile dependencies
 
 Higher risk requires broader validation depth.
 
@@ -89,6 +91,9 @@ List what can fail:
 - concurrency or retry behavior
 - data migration and backward compatibility
 - degraded-state UX
+- observability blind spots
+- flaky timing, clock, or async behavior
+- unsafe test data setup or teardown
 
 Tests should prove these failures are either prevented or detected.
 
@@ -96,13 +101,22 @@ Tests should prove these failures are either prevented or detected.
 
 Use the smallest layer that can prove the behavior, but do not stop below the layer where failure is likely.
 
+- commit-stage tests for fast build feedback on logic, schema, packaging, and static analysis
 - unit tests for pure logic and branching rules
-- integration tests for DB, API, queue, and persistence boundaries
+- integration tests for DB, API, queue, persistence, and framework seams
 - contract tests for service and API compatibility
-- end-to-end tests for high-value user journeys
-- manual verification for visual, usability, or platform-sensitive flows
+- acceptance or workflow tests for business journeys at the application boundary
+- end-to-end tests for a very small number of high-value user journeys
+- manual and exploratory verification for visual, usability, accessibility, or platform-sensitive flows
 
-### 4. Define Release Evidence
+### 4. Define Test Data and Determinism
+
+- Prefer production-like fixtures and schemas where integration risk is real.
+- Seed data so important scenarios are reproducible.
+- Freeze clocks, random sources, and async boundaries where nondeterminism would create flake.
+- Treat flaky tests as delivery defects. Fix, quarantine with owner, or remove them quickly.
+
+### 5. Define Release Evidence
 
 Before shipping, state:
 
@@ -110,6 +124,7 @@ Before shipping, state:
 - what was verified manually
 - what remains unproven
 - what rollback or mitigation exists if the risk materializes
+- what telemetry will detect escaped failure quickly after release
 
 ## Strategy Rules
 
@@ -122,6 +137,7 @@ Before shipping, state:
 
 - Use for repositories, APIs, data access, queues, workers, and migration-sensitive behavior.
 - Prefer real boundaries over excessive mocking in high-risk flows.
+- Cover the seams where frameworks, infrastructure, or serialization can invalidate a unit-tested design.
 
 ### Contract Tests
 
@@ -132,11 +148,17 @@ Before shipping, state:
 
 - Use sparingly for revenue-critical, auth-critical, or workflow-critical flows.
 - Focus on a small number of high-signal journeys.
+- Keep them stable by limiting them to flows where only full-stack execution can prove the risk.
 
 ### Manual Verification
 
 - Required for platform behavior, accessibility, visual correctness, and critical degraded states.
 - Explicitly list manual checks in release notes or change evidence.
+
+### Exploratory Testing
+
+- Use when product ambiguity, cross-browser variation, or user-behavior surprises matter.
+- Focus exploratory time on newly complex paths, recent incidents, and areas with weak automated evidence.
 
 ## AI And Workflow-Specific Testing
 
@@ -161,22 +183,27 @@ For meaningful changes, produce:
 
 - risk classification
 - test matrix by layer
+- commit-stage checks
 - release evidence summary
 - manual verification list
 - open risk list
+- flake or determinism notes when relevant
 
 See [references/test-matrix-template.md](references/test-matrix-template.md).
 
 ## Review Checklist
 
 - [ ] Test depth matches business and operational risk.
+- [ ] Fast checks exist for every normal integration to trunk.
 - [ ] Integration boundaries are tested where failures are plausible.
 - [ ] Contracts are validated where clients or services depend on them.
+- [ ] Exploratory or manual testing covers ambiguity automation would miss.
 - [ ] End-to-end tests are focused on the highest-value flows.
 - [ ] Manual verification covers the platform or UX gaps automation cannot.
 - [ ] Release evidence makes residual risk explicit.
 
 ## References
 
+- [references/risk-driven-testing.md](references/risk-driven-testing.md): Test-layer selection, determinism, and flake policy.
 - [references/test-matrix-template.md](references/test-matrix-template.md): Test plan by risk and layer.
 - [references/release-evidence.md](references/release-evidence.md): What must be true before shipping.

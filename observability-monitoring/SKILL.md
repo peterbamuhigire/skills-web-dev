@@ -92,6 +92,7 @@ Use this mapping:
 - metrics for trend, rate, saturation, and alerting
 - traces for multi-hop latency and dependency diagnosis
 - audit events for material business or security actions
+- profiles when CPU, memory, lock, or cost behavior matters
 
 ### 3. Design Correlation
 
@@ -101,10 +102,19 @@ Every request, job, and workflow should have:
 - actor or service identity
 - tenant or ownership context where applicable
 - environment and version metadata
+- release marker or deploy version
+- dependency identity for important downstream calls
 
 Without correlation, telemetry becomes noise.
 
-### 4. Define SLOs And Alerts
+### 4. Design High-Context Events
+
+- Prefer structured events with useful dimensions over sparse text strings.
+- Keep personally sensitive or secret fields out, but do not strip away the context needed to debug.
+- Be deliberate about cardinality. High-cardinality dimensions can be valuable when they answer real debugging questions.
+- Emit state transitions for long-running jobs and workflows so operators can reconstruct partial failure.
+
+### 5. Define SLOs And Alerts
 
 Use SLOs for user-facing reliability, not for every internal metric.
 
@@ -117,7 +127,7 @@ Define:
 
 Alerts should page only when immediate action is required.
 
-### 5. Build Dashboards For Diagnosis
+### 6. Build Dashboards For Diagnosis
 
 Dashboards should answer:
 
@@ -125,6 +135,7 @@ Dashboards should answer:
 - who is affected?
 - where is the bottleneck?
 - what changed recently?
+- what should the operator do next?
 
 Do not create vanity dashboards that cannot guide action.
 
@@ -148,6 +159,8 @@ Track:
 - queue depth and lag
 - retry and fallback counts
 - cache hit rates where relevant
+- cost or token usage where relevant
+- saturation signals for pools, workers, rate limits, or thread usage
 
 Prefer percentiles and rates over averages.
 
@@ -159,6 +172,7 @@ Trace:
 - expensive background workflows
 - external dependencies
 - AI or retrieval pipelines with multiple stages
+- deploy markers and notable async transitions when the platform supports them
 
 ### Audit Events
 
@@ -169,6 +183,16 @@ Audit events are required for:
 - entitlement changes
 - exports, deletions, and approvals
 - AI actions with external or privileged side effects
+
+### AI And Cost-Aware Telemetry
+
+For AI-enabled systems, capture:
+
+- model, prompt version, and tool path
+- retrieval stages and source counts
+- token, latency, and cost budgets
+- eval outcomes or quality checks where available
+- fallback, refusal, and validation failures
 
 ## Alert Design Rules
 
@@ -190,11 +214,13 @@ For significant systems, produce:
 - dashboard outline
 - audit event list
 - trace and correlation ID strategy
+- cardinality and sensitive-data guardrails
 
 ## Review Checklist
 
 - [ ] Critical flows have explicit telemetry.
 - [ ] IDs and tenant context are correlated across logs, metrics, and traces.
+- [ ] Events contain enough context to debug without unsafe data leakage.
 - [ ] Alerts map to operator action, not mere curiosity.
 - [ ] SLOs reflect user impact, not internal implementation trivia.
 - [ ] Audit events are defined for material actions.
@@ -203,4 +229,5 @@ For significant systems, produce:
 ## References
 
 - [references/alert-design.md](references/alert-design.md): Alert severity and routing rules.
+- [references/diagnosis-first-observability.md](references/diagnosis-first-observability.md): Event design, cardinality, release markers, and AI telemetry.
 - [references/slo-template.md](references/slo-template.md): SLO template and service questions.

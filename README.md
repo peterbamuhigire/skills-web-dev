@@ -27,6 +27,8 @@ For serious implementation work, start with the repository baseline before loadi
 
 These skills establish the shared bar for architecture, data modeling, workflow design, release discipline, security, performance, UX, testing, operability, and engineering management.
 
+The baseline is intended to be executable, not aspirational: small-batch integration, risk-based testing, build-once artifact promotion, diagnosis-first telemetry, and recovery-aware release design are part of the default standard.
+
 ## Recommended Load Order
 
 For high-stakes engineering work, load in this order:

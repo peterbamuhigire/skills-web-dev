@@ -85,6 +85,16 @@ If improving a skill:
 - `distributed-systems-patterns` - consistency, messaging, idempotency, sagas, and cross-service tradeoffs
 - `engineering-management-system` - prioritization, delegation, operating rhythm, coaching, and team scaling
 
+### UI/UX Baseline
+
+For any visual, layout, or interaction work load these three together before the platform skill:
+
+- `grid-systems` - column math, baseline rhythm, responsive mapping (Müller-Brockmann adapted for digital)
+- `practical-ui-design` - colour, typography, spacing, buttons, forms (Dannaway)
+- `interaction-design-patterns` - behaviour, navigation, layout, actions, data patterns (Tidwell)
+
+Add `laws-of-ux`, `ux-psychology`, `ux-writing`, `motion-design`, `responsive-design`, `ai-slop-prevention`, and `design-audit` as the feature demands.
+
 ## Repository Structure
 
 Representative layout:

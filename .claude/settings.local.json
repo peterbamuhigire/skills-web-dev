@@ -96,7 +96,9 @@
       "Bash(mkdir -p \"/c/Users/Peter/.claude/skills/cicd-jenkins-debian/references\")",
       "Bash(mkdir -p \"/c/Users/Peter/.claude/skills/cicd-devsecops/references\")",
       "Bash(mkdir -p /c/Users/Peter/.claude/skills/ios-development/references)",
-      "Read(//c/Users/Peter/.claude/skills/ios-development/references//**)"
+      "Read(//c/Users/Peter/.claude/skills/ios-development/references//**)",
+      "Bash(rm \"C:\\\\Users\\\\Peter\\\\.claude\\\\skills\\\\docs\\\\plans\\\\2026-04-14-phase-01-infrastructure-foundation.md\")",
+      "Bash(mkdir -p \"C:\\\\Users\\\\Peter\\\\.claude\\\\skills\\\\docs\\\\plans\\\\engine-phases\")"
     ]
   }
 }

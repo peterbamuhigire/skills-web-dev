@@ -78,6 +78,17 @@ For meaningful work, produce these artifacts explicitly:
 - validation and release evidence
 - operational and ownership notes
 
+### Artifact standards and cross-skill composition
+
+Every skill in this repository — baseline, specialist, or platform — must follow `skill-composition-standards`. That skill defines:
+
+- **The house style** every SKILL.md must meet (frontmatter, required section order, ≤500 lines, decision rules as tables, concrete anti-patterns, British English, no emojis).
+- **The input and output contracts** every skill declares: what artifacts it consumes from upstream, what it produces for downstream. Standard artifacts have templates — context map, ADR, critical-flow table, entity model, access patterns, migration plan, OpenAPI contract, error model, SLO set, release plan, rollback plan, runbook, threat model, test plan.
+
+The artifact list above in this section maps directly onto the `skill-composition-standards` templates. When a skill produces "architecture" or "release evidence", it means the template-format version, not free-form prose. This is what makes the repository compose as a system rather than a library of linked documents.
+
+For authoring new skills or normalising older ones against the current bar, load `skill-composition-standards` first, then `skill-writing`.
+
 ## Executable Standard
 
 Treat engineering as a delivery system, not only an implementation activity. A result is not world-class unless it can be changed safely, verified quickly, deployed repeatedly, diagnosed under stress, and improved without heroics.

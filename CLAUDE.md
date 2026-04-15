@@ -74,6 +74,7 @@ If improving a skill:
 ## Key Baseline Skills
 
 - `world-class-engineering` - shared production bar and release gates
+- `skill-composition-standards` - house-style template, cross-skill I/O contracts, 14 canonical artifact templates
 - `system-architecture-design` - decomposition, contracts, ADRs, failure design
 - `database-design-engineering` - schema shape, tenancy, indexing, migrations, retention
 - `saas-erp-system-design` - configurable workflow systems, approvals, controls, auditability

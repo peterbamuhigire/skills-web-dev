@@ -3,9 +3,10 @@
 ## Update History
 
 - **2026-04-12 original assessment:** five high-priority capability gaps flagged
-- **2026-04-15 reassessment:** all five original gaps closed; remaining gaps are integration and normalisation concerns, not missing capability
+- **2026-04-15 reassessment:** all five original gaps closed; remaining gaps were integration and normalisation concerns
+- **2026-04-15 follow-up pass:** the two most load-bearing remaining gaps — cross-skill output contracts and un-normalised specialist skills — both closed structurally (contracts) and materially (first batch of 5 high-traffic skills normalised)
 
-The body below is the 2026-04-15 reassessment. The 2026-04-12 gap list is preserved at the end.
+The body below is the 2026-04-15 reassessment as updated by the follow-up pass. The 2026-04-12 gap list is preserved at the end.
 
 ## Status of April 12 Gaps (all closed)
 
@@ -29,38 +30,42 @@ Each of these is now a first-class baseline skill. The "operability layer" the A
 
 The repository grew from roughly 180 skills to 209, and the baseline layer grew from 5 to 11.
 
-## Remaining Gaps (2026-04-15)
+## Remaining Gaps (2026-04-15, follow-up pass)
 
-The remaining gaps are integration and enforcement concerns, not missing capability.
+### Gap 1: Cross-Skill Output Contracts — CLOSED (structural)
 
-### Gap 1: Cross-Skill Output Contracts Still Implicit
+Codified by the new `skill-composition-standards` skill. Every SKILL.md must now declare:
 
-Despite strong individual skills, there is no repository-wide rule about what a baseline skill must produce for downstream skills. Example of the kind of contract still missing:
+- an **Inputs** table naming the upstream skill and artifact it depends on
+- an **Outputs** table naming the downstream consumer and the template format it must produce in
 
-- Architecture skill output must include: context map, critical-flow table, ADR set, dependency diagram.
-- Database skill output must include: entity model, access patterns, index plan, migration plan.
-- API skill output must include: OpenAPI contract, auth model, error model, observability notes.
-- Release skill output must include: test evidence, rollout plan, rollback plan, monitoring plan.
+14 canonical artifact templates were written under `skill-composition-standards/references/`: context-map, ADR, critical-flow, entity-model, access-patterns, migration-plan, OpenAPI contract, error-model, threat-model, SLO, release-plan, rollback-plan, runbook, test-plan. Each has a rules section and common-failures section so downstream skills can rely on the shape.
 
-Without this, the skills still behave like linked documents rather than a guaranteed-composable system. This is the single biggest remaining architectural gap.
+`world-class-engineering` now links to this skill as the enforcement spine. The 20-point house-style checklist enforces contract declaration during skill review.
 
-### Gap 2: Older Specialist Skills Not Yet Normalised
+Structural closure. Repository coverage of the contracts still depends on the normalisation pass below, because older skills declared none.
 
-New skills (Python, Kubernetes, TypeScript production, GIS, SaaS business, and the 6 new baseline skills) follow a consistent high-rigour template — decision rules, thresholds, anti-patterns, references to deep-dive files.
+### Gap 2: Older Specialist Skills Not Yet Normalised — FIRST BATCH CLOSED (5 skills)
 
-Many older specialist skills pre-date that template and still read as:
+First normalisation batch complete. All 5 high-traffic specialist skills moved from ~7–8/20 on the house-style checklist to **19/20**:
 
-- example-heavy tactical notes
-- stack-specific guidance without decision logic
-- partially outdated conventions
+| Skill | Before | After | Notes |
+|---|---:|---:|---|
+| `multi-tenant-saas-architecture` | 8/20 | 19/20 | Contracts declared, 5 decision tables, 9 concrete anti-patterns |
+| `frontend-performance` | 8/20 | 19/20 | Performance-budget contract, 4 references split from 382-line SKILL |
+| `api-design-first` | 7/20 | 19/20 | OpenAPI contract + error-model as formal outputs, 4 decision tables |
+| `ai-web-apps` | 6/20 | 19/20 | AI module gate + token ledger as formal outputs, 10 anti-patterns |
+| `vibe-security-skill` | 8/20 | 19/20 | Threat-model + abuse-case + auth matrix + secret-plan as outputs |
 
-Until these are normalised against the new baseline style, the repository's floor lags its ceiling.
+All 5 validator-green. Remaining work: roll the same normalisation over the rest of the specialist layer in batches. Each batch gets an entry in the ScoredNormalisation log.
 
-### Gap 3: Capability Matrix Absent
+Until that rollout is complete, specialist skills outside the first batch still vary in quality. The floor has moved, but not yet uniformly.
+
+### Gap 3: Capability Matrix Absent (unchanged)
 
 No single document maps capability -> baseline skill -> specialist skills -> validation skill -> remaining depth. Without it, operators cannot see at a glance whether a domain is fully supported and where to add depth.
 
-### Gap 4: Validation Spine Not Yet Unified
+### Gap 4: Validation Spine Not Yet Unified (unchanged)
 
 Individual skills cover validation per domain (advanced-testing-strategy, skill-safety-audit, code-safety-scanner, vibe-security-skill, web-app-security-audit, etc.), but there is no repository-wide validation spine asking, for any substantial output:
 
@@ -81,7 +86,7 @@ The baseline layer is now 11 skills strong, but nothing automatically blocks a d
 
 ### Bottleneck 1 (was #1 in April 12): Cross-skill output contract
 
-Status: **still open**. Highest priority architectural improvement remaining.
+Status: **CLOSED structurally**. `skill-composition-standards` codifies the contract. 5 high-traffic skills already produce contracts in the new format. Rollout to the rest of the specialist layer is in progress.
 
 ### Bottleneck 2 (was #2 in April 12): Missing operability layer
 
@@ -93,7 +98,7 @@ Status: **partially open**. Individual validation skills exist and are strong; r
 
 ### Bottleneck 4 (was #4 in April 12): Legacy and new standards coexist unevenly
 
-Status: **still open**. The gap between new-style and older-style skills is in fact wider now — the new skills raised the ceiling, and older skills have not been brought up. Next-phase normalisation pass addresses this.
+Status: **partially closed**. First batch of 5 high-traffic skills now sit at 19/20 on the house-style checklist; the normalisation playbook and 20-point checklist are codified so subsequent batches can be rolled out deterministically. Remaining specialist skills outside batch 1 still need the same pass.
 
 ### Bottleneck 5 (was #5 in April 12): World-class target stated more than enforced
 
@@ -101,11 +106,11 @@ Status: **partially open**. The target is better matched by capability now (all 
 
 ## Priority of Remaining Work
 
-1. **Introduce cross-skill output contracts** in `world-class-engineering` so every baseline skill must produce a defined artifact set that downstream skills can consume. (Architectural lever — unblocks the biggest remaining bottleneck.)
-2. **Normalise high-traffic older specialist skills** against the new baseline template (decision rules, thresholds, anti-patterns, reference splits).
-3. **Build a repository capability matrix** at `README.md` or `docs/capability-matrix.md` mapping domain -> baseline -> specialists -> validation -> gaps.
-4. **Formalise the validation spine** — a single skill or document that codifies "what proves production-readiness" across correctness, safety, operability, UX.
-5. **Book-verbatim pass** on the Python / Kubernetes / TypeScript / GIS / SaaS new-family reference files, now that PDF/EPUB extraction tooling is available.
+1. **Roll the normalisation playbook** over the rest of the specialist layer in batches of 5–8 skills. Each batch validated, scored, logged. (Floor-raising — the contract spine is live; the mass of skills still needs to adopt it.)
+2. **Build a repository capability matrix** at `README.md` or `docs/capability-matrix.md` mapping domain -> baseline -> specialists -> validation -> gaps.
+3. **Formalise the validation spine** — a single skill or document that codifies "what proves production-readiness" across correctness, safety, operability, UX.
+4. **Book-verbatim pass** on the Python / Kubernetes / TypeScript / GIS / SaaS new-family reference files, now that PDF/EPUB extraction tooling is available.
+5. **CI enforcement** of the contract gate — parse Inputs/Outputs tables and warn when a claimed upstream artifact is not declared by any upstream skill.
 
 ---
 

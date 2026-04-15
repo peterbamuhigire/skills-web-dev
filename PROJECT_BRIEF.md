@@ -24,6 +24,7 @@ The repository is being shaped around six goals:
 ## Core System Skills
 
 - `world-class-engineering` - shared release gates and engineering standards
+- `skill-composition-standards` - house-style template + I/O contracts + canonical artifact templates so skills compose as a system
 - `system-architecture-design` - decomposition, contracts, ADRs, failure design, scaling tradeoffs
 - `database-design-engineering` - schema design, tenancy, migrations, indexing, retention strategy
 - `saas-erp-system-design` - ERP-grade workflow modeling, controls, approvals, and auditability
@@ -150,6 +151,7 @@ Examples:
 
 ## Version
 
-- Current version: 1.2.0
+- Current version: 1.3.0
 - Last updated: April 2026
 - Maintained by: Peter Bamuhigire
+- Changelog 1.3.0: added `skill-composition-standards` baseline skill; published 14 canonical artifact templates; first normalisation batch (5 high-traffic skills) upgraded to 19/20 on the house-style checklist

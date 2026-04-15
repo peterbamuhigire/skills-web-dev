@@ -1,8 +1,6 @@
 ---
 name: ai-web-apps
-description: Building AI-enhanced web apps — MCP servers/clients, multi-provider AI
-  factory, streamUI with tool calling generators, composable middleware, per-user
-  quotas, model fallback, multi-modal images, streaming, RAG, structured output, prompt...
+description: Use when designing or building an AI-enhanced web app (Next.js + Vercel AI SDK, MCP tools, multi-provider chat/RAG) — produces the module gate, token-ledger + budget schema, provider abstraction, and output guardrails. Specialises the integration patterns in `ai-architecture-patterns` for a web-app runtime; hand off metering depth to `ai-metering-billing` and prompt/threat depth to `ai-security` / `llm-security`.
 metadata:
   portable: true
   compatible_with:
@@ -10,466 +8,297 @@ metadata:
   - codex
 ---
 
-# AI-Enhanced Web Apps with Next.js + Vercel AI SDK
+# AI-Enhanced Web Apps
 
 <!-- dual-compat-start -->
 ## Use When
 
-- Building AI-enhanced web apps — MCP servers/clients, multi-provider AI factory, streamUI with tool calling generators, composable middleware, per-user quotas, model fallback, multi-modal images, streaming, RAG, structured output, prompt...
-- The task needs reusable judgment, domain constraints, or a proven workflow rather than ad hoc advice.
+- Designing or building an AI-enhanced web app on Next.js + Vercel AI SDK with streaming chat, tool calling, RAG, multi-modal input, or MCP-exposed tools.
+- Wiring an AI feature into a multi-tenant SaaS and needing the module gate, token ledger, and provider abstraction for that feature.
+- Reviewing an existing AI web-app route for missing budget, quota, guardrail, or fallback controls.
 
 ## Do Not Use When
 
-- The task is unrelated to `ai-web-apps` or would be better handled by a more specific companion skill.
-- The request only needs a trivial answer and none of this skill's constraints or references materially help.
+- The AI feature is purely backend or batch (no interactive web surface) — use `ai-llm-integration` or `python-saas-integration` instead.
+- The task is a pure UX pattern question — use `ai-ux-patterns` or `ux-for-ai`.
+- The task is full metering / billing strategy — use `ai-metering-billing` or `ai-saas-billing`.
+- The task is prompt or threat design — use `ai-prompt-engineering`, `ai-security`, or `llm-security`.
 
 ## Required Inputs
 
-- Gather relevant project context, constraints, and the concrete problem to solve.
-- Confirm the desired deliverable: design, code, review, migration plan, audit, or documentation.
+- Context map, access patterns, and threat model from upstream skills (see Inputs table below).
+- Product scope of the AI feature: user job, authority boundary, cost ceiling.
 
 ## Workflow
 
-- Read this `SKILL.md` first, then load only the referenced deep-dive files that are necessary for the task.
-- Apply the ordered guidance, checklists, and decision rules in this skill instead of cherry-picking isolated snippets.
-- Produce the deliverable with assumptions, risks, and follow-up work made explicit when they matter.
+- Read this `SKILL.md`, then load only the deep-dive references needed for the concrete task.
+- Apply the decision tables before writing code — architecture first, implementation second.
+- Produce the four formal outputs (module gate, token ledger, provider abstraction, guardrails) as named artifacts, not as scattered edits.
 
 ## Quality Standards
 
-- Keep outputs execution-oriented, concise, and aligned with the repository's baseline engineering standards.
-- Preserve compatibility with existing project conventions unless the skill explicitly requires a stronger standard.
-- Prefer deterministic, reviewable steps over vague advice or tool-specific magic.
+- Every AI feature is OFF by default and gated at tenant + user + budget.
+- Every model call writes a ledger row before the response reaches the user.
+- Every structured output is validated by Zod; every rendered output is Markdown-sanitised.
+- `maxTokens` is set on every call; fallback is limited to transient provider errors.
 
 ## Anti-Patterns
 
-- Treating examples as copy-paste truth without checking fit, constraints, or failure modes.
-- Loading every reference file by default instead of using progressive disclosure.
+- Fetching API keys in feature code instead of a single provider factory.
+- Gating an AI feature on a single flag and calling it done — three gates (entitlement, user, budget) are required.
+- Rendering model output through `dangerouslySetInnerHTML` or unsanitised Markdown.
 
 ## Outputs
 
-- A concrete result that fits the task: implementation guidance, review findings, architecture decisions, templates, or generated artifacts.
-- Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
-- References used, companion skills, or follow-up actions when they materially improve execution.
+- Module gate contract (feature catalog, tenant flags, kill switch) — see `references/module-gate.md`.
+- Token ledger + budget schema — see `references/token-ledger-and-budgets.md`.
+- Provider abstraction contract (factory, fallback, request schema) — see `references/provider-abstraction.md`.
+- Output validation + guardrail rules — see `references/output-guardrails.md`.
 
 ## References
 
-- Use the links and companion skills already referenced in this file when deeper context is needed.
+- See the `References` section below.
 <!-- dual-compat-end -->
-## Load Alongside
 
-- `world-class-engineering` for release gates and production-quality expectations.
-- `frontend-performance` for Core Web Vitals and budgets.
-- `vibe-security-skill` and `ai-security` for threat modeling, abuse controls, and secure defaults.
-- `api-design-first` when the AI app exposes or depends on external contracts.
+This skill specialises the generic integration patterns in `ai-architecture-patterns` for a Next.js + Vercel AI SDK runtime. It is the AI-specialist seat in the architecture: it turns a feature concept plus upstream context/threat artifacts into four concrete deliverables the rest of the stack can depend on.
 
-## Production Workflow
+## Prerequisites
 
-### 1. Define the AI Interaction Contract
+Load the following before this skill, in order:
 
-Specify before coding:
+1. `world-class-engineering` — release gates and production bar.
+2. `system-architecture-design` — produces the context map and critical-flow table.
+3. `database-design-engineering` — produces the access-pattern list that shapes the ledger schema.
+4. `vibe-security-skill` — produces the threat model; `ai-security` and `llm-security` extend it for LLMs.
 
-- User job to be done
-- Input shape and validation limits
-- Output shape and failure fallback
-- Allowed tools and authority boundaries
-- Latency and cost budget per request
+## When this skill applies
 
-### 2. Isolate the Expensive Parts
+- Introducing an AI-powered route, server action, or streaming UI in a Next.js web app.
+- Wiring an MCP server or MCP client into an existing web app.
+- Adding a new model, provider, or fallback pair to an existing AI feature.
+- Bolting a token ledger, budget guard, or kill switch onto a feature that shipped without one.
+- Reviewing an AI web-app PR against the house contract (see Outputs).
 
-- Keep model selection, prompting, tool wiring, caching, and billing in dedicated server-side modules.
-- Stream results for UX, but keep writes and side effects behind explicit validation gates.
-- Put long-running or multi-step AI work on queues when it can exceed request budgets.
+## Inputs
 
-### 3. Design for Failure and Abuse
+| Artifact | Produced by | Required? | Why |
+|---|---|---|---|
+| Context map | `system-architecture-design` | required | names the module boundary the AI feature sits inside |
+| Critical-flow table | `system-architecture-design` | required | sets latency + availability budget for the feature |
+| Access-pattern list | `database-design-engineering` | required | shapes the ledger, quota, and corpus-retrieval queries |
+| Threat model | `vibe-security-skill` / `ai-security` / `llm-security` | required | informs prompt-injection, PII, and abuse controls |
+| Auth/authz matrix | `vibe-security-skill` | required | drives the role check inside the module gate |
+| SLO set | `observability-monitoring` | optional | calibrates fallback thresholds and kill-switch triggers |
+| Pricing / plan catalog | `saas-subscription-mastery` / `subscription-billing` | optional | determines `min_plan_tier` in the feature catalog |
 
-- Treat timeouts, provider outages, malformed tool outputs, quota exhaustion, and prompt injection as normal cases.
-- Require schema validation for structured output before it reaches business logic.
-- Add audit logs for model, prompt version, tool use, cost, and user/tenant attribution.
+## Outputs
 
-### 4. Ship with Budgets
+| Artifact | Consumed by | Template |
+|---|---|---|
+| Module gate contract | `ai-saas-billing`, platform admin UI, feature routes | `references/module-gate.md` |
+| Token ledger + budget schema | `ai-metering-billing`, `observability-monitoring`, finance reporting | `references/token-ledger-and-budgets.md` |
+| Provider abstraction contract | every AI route, `ai-feature-spec`, `ai-evaluation` | `references/provider-abstraction.md` |
+| Output validation + guardrail rules | every AI route, `ai-evaluation`, `ai-security` | `references/output-guardrails.md` |
+| Streaming + UI implementation notes | frontend integrators | `references/streaming-and-ui-patterns.md` |
+| MCP server/client contract | internal tool owners, `ai-agents-tools` | `references/mcp-integration.md` |
 
-- Set budgets for initial bundle size, server latency, AI latency, token spend, and cache hit rate.
-- Do not add an AI feature that breaks the critical path for non-AI users.
+Each of the four formal outputs has a template; other outputs are implementation references.
+
+## Non-negotiables
+
+- AI features ship **OFF**. Enablement is an explicit tenant admin action recorded in audit.
+- Every model call writes a ledger row with tenant, user, request, provider, model, tokens, cost, latency, status.
+- Every call sets `maxTokens`; cost estimation uses `maxTokens`, not an optimistic expected completion.
+- Tool outputs are validated before they influence writes, prompts, or UI.
+- Model fallback fires only on transient provider errors (429, 5xx). Never on 4xx input errors.
+- Rendered output goes through a Markdown sanitiser; `dangerouslySetInnerHTML` is banned.
+- Secrets never reach the browser; `NEXT_PUBLIC_*` for an AI key is a release blocker.
+
+## Decision rules
+
+### When to expose a tool via MCP vs inline `tools:`
+
+```text
+Single app, single model, <5 tools             -> inline tools in streamText
+Reused across apps or across models             -> MCP server (stdio transport)
+Tools require out-of-process credentials        -> MCP server, separate service account
+Latency budget <150 ms per tool call            -> inline; MCP handshake adds overhead
+```
+
+Wrong choice cost: inline-when-should-be-MCP means every app duplicates the tool surface; MCP-when-should-be-inline pays handshake latency for no composition benefit.
+
+### Provider / model selection (short form)
+
+| Need | First choice | Fallback | Why not the other way |
+|---|---|---|---|
+| Latency-critical chat, short replies | Gemini Flash | GPT-3.5 | frontier model burns budget on a task that does not need it |
+| High-quality reasoning, long tool chains | Claude Sonnet | GPT-4o | flash model hallucinates multi-step chains |
+| Cheapest structured extraction | Gemini Flash | GPT-3.5 | frontier cost is a 10–30x multiplier with no quality gain |
+| Strict schema adherence (`generateObject`) | GPT-4o | Claude Sonnet (tool-call) | flash models drift from the schema under pressure |
+| Residency / on-prem constraint | regional deployment | fail closed | cross-region fallback is a compliance breach |
+
+Full selection table: `references/provider-abstraction.md`.
+
+### Three-gate evaluation order
+
+```text
+1. Module gate   (entitlement + enablement + role + consent)
+2. Quota gate    (Redis counter, per user per feature per day)
+3. Budget guard  (ledger sum + estimated cost vs tenant cap)
+4. Execute call  (factory -> model with maxTokens)
+5. Ledger write  (onFinish, real tokens + real cost)
+6. Guardrails    (structural -> semantic -> render)
+```
+
+Skip step 1: free tenants consume paid features. Skip step 2: one user drains tenant cap. Skip step 3: fallback to cheaper model masks runaway spend. Skip step 5: cost attribution breaks; billing disputes become unresolvable. Skip step 6: XSS or bad-data writes reach production.
+
+### Sync route vs queued job
+
+| Signal | Route (streaming) | Queue (background) |
+|---|---|---|
+| p95 total work | <25 s | >25 s |
+| User must see partial output as it arrives | yes | no |
+| Multi-step tool chain with web fetches | mixed | queue |
+| Result is persisted regardless of UI | optional | queue |
+| Retry on failure must be automatic | hard in route | natural in queue |
+
+Wrong choice: running a 90-second multi-tool task in a route blows the 30 s Vercel function cap; running a fast chat through a queue destroys the streaming UX users expect.
+
+### Structural vs semantic vs render guardrail
+
+```text
+Zod schema missing          -> silent data corruption downstream
+Business rule check missing -> valid-looking nonsense reaches users / DB
+Markdown sanitiser missing  -> XSS via model output
+```
+
+All three run; skipping any layer imports that layer's failure mode.
 
 ## Architecture
 
-```
+```text
 User (React UI)
-  ↓ HTTP / Server Actions
-Next.js App Router
-  ↓ Vercel AI SDK
-AI Providers (OpenAI, Google Gemini, Anthropic)
-  ↓ MCP Tools / LangChain.js
-External APIs + Vector Stores
+  |
+  v  Server Actions / HTTP
+Next.js App Router (middleware: CORS, IP rate limit, auth)
+  |
+  v
+Module Gate  ->  Quota Gate  ->  Budget Guard
+  |
+  v  Provider Factory (allow-listed)
+Vercel AI SDK  ----------------------->  OpenAI / Gemini / Anthropic
+  |                                       ^
+  v                                       |  ai-fallback on 429/5xx
+MCP Client (optional)  ---------------->  MCP Server(s) -> internal APIs + vector stores
+  |
+  v  Guardrails (structural, semantic, render)
+Ledger Write (onFinish)  ->  Streaming response back to client
 ```
 
-## Setup
+The four dashed boxes in this diagram correspond to the four formal outputs. Everything else is glue.
+
+## Core workflow
+
+### 1. Define the AI interaction contract
+
+Write these down before touching code:
+
+- User job to be done and success signal.
+- Input shape + size limits + validation (Zod schema).
+- Output shape + fallback shape when the model fails (Zod schema).
+- Allowed tools, authority boundary per tool, and whether tool results can trigger writes.
+- Latency budget (p50, p95) and cost budget per request + per user per day.
+- Consent requirement (e.g. data leaving tenant boundary).
+
+This is the `ai-feature-spec` deliverable. This skill consumes it.
+
+### 2. Declare the three gates
+
+Implement the module gate (`references/module-gate.md`) and the quota + budget pair (`references/token-ledger-and-budgets.md`) **before** writing the route. The route wires them together; it does not invent them.
+
+Order in the route:
+
+```text
+moduleGate -> quotaGate -> budgetGuard -> factory -> streamText -> guardrails -> ledgerWrite
+```
+
+### 3. Centralise the provider
+
+All model access goes through the factory in `references/provider-abstraction.md`. Feature code never imports a provider SDK directly. This is how:
+
+- Cost attribution stays correct (factory is the single place that knows which model is live).
+- Fallback stays policy-driven, not ad hoc per route.
+- Swapping a provider is a one-file change.
+
+### 4. Stream safely
+
+Streaming gives a great UX and a fragile validation point. Rules:
+
+- Stream raw text to the UI for responsiveness.
+- Do not persist or trigger side effects until `onFinish` has validated the final object.
+- Validate each tool call's parameters before executing the tool, never after.
+- Write the ledger row in `onFinish` with real usage; never use the estimate as the billed amount.
+
+Implementation: `references/streaming-and-ui-patterns.md`.
+
+### 5. Enforce guardrails in three layers
+
+Structural (Zod on `generateObject` and tools), semantic (business rules, PII scrub, confidence thresholds), render (Markdown-only with a sanitiser). Full rules in `references/output-guardrails.md`.
+
+### 6. Observability
+
+Every call logs a single `request_id` that joins the prompt trace, tool calls, and the ledger row. Metrics at minimum:
+
+- `ai.requests_total{feature, model, status}`
+- `ai.tokens_total{feature, model, kind=prompt|completion}`
+- `ai.cost_micros_total{tenant, feature}`
+- `ai.guard_failures_total{guard, feature}`
+- `ai.fallback_triggered_total{from_model, to_model}`
+
+Alert on sustained fallback (>5% for 5 min), sustained guard failures (>1% for 10 min), and any tenant crossing 80% of monthly cap.
+
+### 7. Setup
 
 ```bash
-npm install ai @ai-sdk/openai @ai-sdk/google @ai-sdk/anthropic
+npm install ai @ai-sdk/openai @ai-sdk/google @ai-sdk/anthropic ai-fallback zod
+npm install @modelcontextprotocol/sdk     # if exposing or consuming MCP tools
+npm install lru-cache                     # only for dev / single-instance rate limit
 ```
 
----
-
-## MCP (Model Context Protocol)
-
-MCP is a standardized protocol for exposing tools to AI models across applications.
-
-### MCP Server
-
-```javascript
-// src/stdio/server.js
-import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
-import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
-import { z } from 'zod';
-
-const server = new McpServer({ name: 'my-mcp', version: '1.0.0' });
-
-server.tool('get-data', 'Fetch data from internal API', {}, async () => {
-  const data = await fetchInternalData();
-  return { content: [{ type: 'text', text: JSON.stringify(data) }] };
-});
-
-const transport = new StdioServerTransport();
-await server.connect(transport);
-```
-
-### MCP Client in Next.js Route
-
-```javascript
-// app/api/chat/route.ts
-import { streamText, convertToModelMessages, experimental_createMCPClient } from 'ai';
-import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio';
-
-export async function POST(req: Request) {
-  const { messages } = await req.json();
-  const transport = new StdioClientTransport({ command: 'node', args: ['src/stdio/server.js'] });
-  const mcpClient = await experimental_createMCPClient({ transport });
-  const tools = await mcpClient.tools();
-
-  const result = streamText({
-    model: gemini('gemini-2.5-flash'),
-    messages: convertToModelMessages(messages),
-    tools,
-    onFinish: async () => await mcpClient.close(),
-  });
-  return result.toUIMessageStreamResponse();
-}
-```
-
----
-
-## Multi-Provider AI Factory
-
-```typescript
-// lib/ai-factory.ts
-import { createOpenAI } from '@ai-sdk/openai';
-import { createGoogleGenerativeAI } from '@ai-sdk/google';
-import { createAnthropic } from '@ai-sdk/anthropic';
-
-const providers = {
-  openai: { constructor: createOpenAI, models: ['gpt-3.5-turbo', 'gpt-4', 'gpt-4o'] },
-  gemini: { constructor: createGoogleGenerativeAI, models: ['models/gemini-2.0-flash', 'models/gemini-2.5-flash'] },
-  anthropic: { constructor: createAnthropic, models: ['claude-opus-4-6', 'claude-sonnet-4-6'] },
-};
-
-export function getSupportedModel(provider: string, model: string) {
-  const cfg = providers[provider as keyof typeof providers];
-  if (!cfg) throw new Error(`Unsupported provider: ${provider}`);
-  if (!cfg.models.includes(model)) throw new Error(`Unsupported model: ${model}`);
-  const apiKey = process.env[`${provider.toUpperCase()}_API_KEY`];
-  if (!apiKey) throw new Error(`Missing API key for: ${provider}`);
-  return cfg.constructor({ apiKey })(model);
-}
-
-// Usage: const model = getSupportedModel('gemini', 'models/gemini-2.0-flash');
-```
-
----
-
-## Streaming Route Handler
-
-```ts
-// app/api/chat/route.ts
-export async function POST(req: Request) {
-  const { messages, provider = 'gemini', model = 'models/gemini-2.0-flash' } = await req.json();
-  const result = await streamText({
-    model: getSupportedModel(provider, model),
-    system: 'You are a helpful assistant.',
-    messages,
-    maxTokens: 1024,
-  });
-  return result.toDataStreamResponse();
-}
-export const maxDuration = 30;
-```
-
----
-
-## useChat Hook — Client Chat UI
-
-```tsx
-'use client';
-import { useChat } from 'ai/react';
-export default function ChatPage() {
-  const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat({
-    api: '/api/chat',
-    body: { provider: 'gemini', model: 'models/gemini-2.0-flash' },
-  });
-  return (
-    <div className="flex flex-col h-screen">
-      <div className="flex-1 overflow-y-auto p-4 space-y-4">
-        {messages.map(m => (
-          <div key={m.id} className={m.role === 'user' ? 'text-right' : 'text-left'}>
-            <span className="rounded bg-gray-100 px-3 py-2 inline-block">{m.content}</span>
-          </div>
-        ))}
-        {isLoading && <span className="animate-pulse">Thinking...</span>}
-      </div>
-      <form onSubmit={handleSubmit} className="p-4 border-t flex gap-2">
-        <textarea value={input} onChange={handleInputChange} className="flex-1 border rounded p-2" />
-        <button type="submit" disabled={isLoading}>Send</button>
-      </form>
-    </div>
-  );
-}
-```
-
----
-
-## streamUI with Tool Calling (Async Generator)
-
-```typescript
-import { streamUI } from 'ai/rsc';
-import { z } from 'zod';
-
-export async function streamWeatherUI(input: string) {
-  const result = await streamUI({
-    model: getSupportedModel('openai', 'gpt-4'),
-    messages: [{ role: 'user', content: input }],
-    text: ({ content }) => <ChatBubble text={content} />,
-    tools: {
-      getWeather: {
-        description: 'Get current weather for a city',
-        parameters: z.object({ city: z.string() }),
-        // Async generator — yields interim UI, returns final component
-        generate: async function* ({ city }) {
-          yield <LoadingSpinner city={city} />;
-          const weather = await fetchWeather(city);
-          return <WeatherCard city={city} temp={weather.temp} condition={weather.condition} />;
-        },
-      },
-    },
-  });
-  return { display: result.value };
-}
-```
-
----
-
-## Composable Middleware Pipeline
-
-```typescript
-// middleware.ts
-import { NextResponse } from 'next/server';
-
-const composeMiddleware = (middlewares: Function[]) => async (request: Request) => {
-  for (const fn of middlewares) {
-    const result = await fn(request);
-    if (result?.response) return result.response;
-    if (result?.continue === false) break;
-  }
-  return NextResponse.next();
-};
-
-const handleCORS = async (req: Request) => {
-  const origin = req.headers.get('origin');
-  if (origin && !allowedOrigins.includes(origin))
-    return { response: new Response('CORS error', { status: 403 }) };
-};
-
-const rateLimit = async (req: Request) => {
-  const { success } = await upstashRatelimit.limit(req.ip || '127.0.0.1');
-  if (!success) return { response: new Response('Too many requests', { status: 429 }) };
-};
-
-const authenticate = async (req: Request) => {
-  const token = req.headers.get('authorization')?.split(' ')[1];
-  if (!token) return { response: new Response('Unauthorized', { status: 401 }) };
-};
-
-export default composeMiddleware([handleCORS, rateLimit, authenticate]);
-export const config = { matcher: '/api/:path*' };
-```
-
----
-
-## Per-User Daily Quotas
-
-```typescript
-// lib/quota.ts
-import redis from './redis';
-
-export async function checkMessageQuota(userId: string, dailyLimit = 10): Promise<boolean> {
-  const today = new Date().toISOString().split('T')[0];
-  const key = `quota:${userId}:${today}`;
-  const count = await redis.incr(key);
-  if (count === 1) await redis.expire(key, 24 * 60 * 60); // TTL: 24h
-  return count <= dailyLimit;
-}
-
-// In API route
-const { userId } = getAuth(req);
-if (!await checkMessageQuota(userId, 10)) {
-  return Response.json({ error: 'Daily message quota exceeded (10/day)' }, { status: 429 });
-}
-```
-
----
-
-## Model Fallback
-
-```typescript
-import { createFallback } from 'ai-fallback';
-import { createOpenAI } from '@ai-sdk/openai';
-import { createGoogleGenerativeAI } from '@ai-sdk/google';
-
-const model = createFallback({
-  models: [
-    createGoogleGenerativeAI({ apiKey: process.env.GEMINI_API_KEY! })('models/gemini-2.0-flash'),
-    createOpenAI({ apiKey: process.env.OPENAI_API_KEY! })('gpt-3.5-turbo'),
-  ],
-  onError: (error, modelId) => console.error(`Model ${modelId} failed:`, error),
-  shouldRetryThisError: (error) => [429, 500, 503].includes(error.statusCode),
-  modelResetInterval: 60_000,
-});
-```
-
----
-
-## Multi-Modal Image Input
-
-```typescript
-// Backend: process image + text together
-const processMessages = (messages: Message[], imageData?: { base64: string; mimeType: string }) => {
-  if (!imageData || !messages.length) return messages;
-  const last = messages[messages.length - 1];
-  if (last.role === 'user') {
-    last.content = [
-      { type: 'text', text: typeof last.content === 'string' ? last.content : '' },
-      { type: 'image', image: `data:${imageData.mimeType};base64,${imageData.base64}` },
-    ];
-  }
-  return messages;
-};
-
-// Frontend: file → base64
-const handleFileUpload = (file: File) => {
-  const reader = new FileReader();
-  reader.onload = (e) => setImageData({
-    base64: (e.target?.result as string).split(',')[1],
-    mimeType: file.type,
-  });
-  reader.readAsDataURL(file);
-};
-```
-
----
-
-## Structured Output
-
-```ts
-import { generateObject } from 'ai';
-import { z } from 'zod';
-
-const { object } = await generateObject({
-  model: getSupportedModel('openai', 'gpt-4'),
-  schema: z.object({
-    title: z.string(),
-    tags: z.array(z.string()),
-    sentiment: z.enum(['positive', 'negative', 'neutral']),
-    summary: z.string().max(200),
-  }),
-  prompt: 'Analyse this review: "Great product, fast shipping!"',
-});
-// object.title, object.tags — fully typed
-```
-
----
-
-## Tool / Function Calling
-
-```ts
-import { streamText, tool } from 'ai';
-import { z } from 'zod';
-
-const result = await streamText({
-  model: getSupportedModel('openai', 'gpt-4'),
-  tools: {
-    getWeather: tool({
-      description: 'Get current weather for a city',
-      parameters: z.object({ city: z.string(), unit: z.enum(['celsius', 'fahrenheit']).default('celsius') }),
-      execute: async ({ city }) => ({ temperature: 22, condition: 'Sunny', city }),
-    }),
-  },
-  messages: [{ role: 'user', content: "What's the weather in London?" }],
-});
-```
-
----
-
-## Rate Limiting (LRU)
-
-```ts
-import { LRUCache } from 'lru-cache';
-const cache = new LRUCache<string, number>({ max: 500, ttl: 60_000 });
-
-export function checkRateLimit(id: string, limit = 10): boolean {
-  const n = cache.get(id) ?? 0;
-  if (n >= limit) return false;
-  cache.set(id, n + 1);
-  return true;
-}
-```
-
----
-
-## Input Validation
-
-```ts
-import { z } from 'zod';
-const schema = z.object({
-  messages: z.array(z.object({ role: z.enum(['user', 'assistant']), content: z.string().max(4000) })).max(50),
-  provider: z.enum(['openai', 'gemini', 'anthropic']).default('gemini'),
-});
-const parsed = schema.safeParse(await req.json());
-if (!parsed.success) return Response.json({ error: 'Invalid request' }, { status: 400 });
-```
-
----
-
-## Security Checklist
-
-- Store API keys server-only — never `NEXT_PUBLIC_`
-- Validate all user input with Zod before passing to LLM
-- Set `maxTokens` on every call — prevent runaway costs
-- Rate-limit per IP AND per user (quota + sliding window)
-- Never `dangerouslySetInnerHTML` AI output — use ReactMarkdown
-- Log all AI calls for audit and billing
-- Keep tool permissions narrower than the chat UI appears to allow
-- Sanitize and validate tool outputs before using them in writes or privileged actions
-- Separate retrieval corpora by tenant and access policy
-
-## UX Patterns
-
-1. Stream responses — never wait for full completion
-2. Show typing indicator immediately
-3. Auto-scroll to latest message
-4. Disable send while loading — prevent duplicate requests
-5. Format AI output as Markdown with syntax highlighting
-6. Validate images before upload (size, type, dimensions)
-7. Retry button on errors — LLM APIs fail regularly
-
----
-
-*Source: Despoudis, T. — Build AI-Enhanced Web Apps (Packt, 2024)*
+Production rate limits are Redis-backed (e.g. Upstash); the LRU snippet in `references/streaming-and-ui-patterns.md` is a dev fallback.
+
+## Anti-patterns
+
+- **Reading `OPENAI_API_KEY` directly in a route handler.** Fix: all keys resolve inside `lib/ai/factory.ts`; feature code calls `getSupportedModel(provider, model)` only. A missing key becomes a typed error, not a runtime 500.
+- **Shipping an AI feature with a single feature flag.** Fix: three independent gates — `tenant_ai_features.enabled`, `roleMayUseFeature`, `checkBudget`. All three must pass; any one is sufficient to block.
+- **Estimating billing cost from the actual completion.** Fix: estimate with `maxTokens` pre-call for the budget guard; record the real usage in the ledger `onFinish`. Estimating with expected completion lets runaway responses blow through the cap.
+- **`toDataStreamResponse()` without `maxTokens` on `streamText`.** Fix: `maxTokens` is always set; the budget guard uses the same value. Otherwise a jailbroken prompt can produce a 10 000-token reply on your dime.
+- **Rendering AI Markdown with `dangerouslySetInnerHTML` for "formatting".** Fix: render through `react-markdown` + `rehype-sanitize`, disable raw HTML, allow-list link protocols. Direct HTML injection is a live XSS vector.
+- **Falling back to a cheaper model on any error.** Fix: fallback only fires on transient provider errors (429, 5xx). A 400 from input validation must surface to the user so they can fix the request; masking it wastes money and hides bugs.
+- **Tool result used directly to authorise a write.** Fix: model-driven flows propose; user-driven events dispose. A tool that "sends payment" surfaces a confirmation UI, and the write is triggered by the user clicking confirm, not by the model returning `status: "confirmed"`.
+- **MCP client opened per request and never closed.** Fix: close in `onFinish` and on request abort; cache the tool list per worker. Otherwise stdio subprocesses accumulate and the worker OOMs.
+- **Quota key using server-local date.** Fix: use the UTC day (`toISOString().slice(0, 10)`). Local-date keys cause midnight races for users in other timezones and let them double their quota on travel days.
+- **Prompt includes raw tool output from an untrusted source.** Fix: tag fetched content as `untrusted` in the system prompt, strip to text-only, and never let untrusted content trigger privileged tools in the same turn. See `llm-security` for the trust-tiering pattern.
+
+## Read next
+
+- `skill-composition-standards` — the house style and contract gates this skill implements.
+- `ai-architecture-patterns` — the generic integration patterns this skill specialises.
+- `ai-security` — prompt-injection defence, PII handling, abuse controls.
+- `ai-evaluation` — offline evals, regression tests, AI-as-judge for quality gates.
+- `ai-metering-billing` — depth on ledger-to-invoice, unit economics, rev-share models.
+- `llm-security` — OWASP Top 10 for LLMs, trust-tiering, instruction hierarchy.
+- `ai-feature-spec` — how to write the feature contract this skill consumes.
+- `ai-ux-patterns` — streaming UX, confidence indicators, progressive disclosure.
+- `nextjs-app-router` — server/client components, middleware, RBAC three-tier.
+
+## References
+
+- `references/module-gate.md` — feature catalog, tenant flags, kill switch, audit, rollout choreography.
+- `references/token-ledger-and-budgets.md` — ledger schema, budget guard, quota gate, cost estimation, join queries.
+- `references/provider-abstraction.md` — factory, request schema, model selection table, fallback policy.
+- `references/output-guardrails.md` — three-layer guardrails, tool-result validation, streaming validation, prompt-injection hooks.
+- `references/streaming-and-ui-patterns.md` — streaming route, `useChat`, `streamUI` generators, multi-modal, middleware pipeline, light rate limits.
+- `references/mcp-integration.md` — MCP server + client, authority tiers, lifecycle, observability.
+
+*Source base: Despoudis, T. — Build AI-Enhanced Web Apps (Packt, 2024), adapted to the repository contract model.*

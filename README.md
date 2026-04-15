@@ -20,12 +20,13 @@ Skills are markdown instruction packages that encode reusable engineering judgme
 For serious implementation work, start with the repository baseline before loading stack-specific skills:
 
 - `world-class-engineering`
+- `skill-composition-standards`
 - `system-architecture-design`
 - `database-design-engineering`
 - `saas-erp-system-design`
 - `git-collaboration-workflow`
 
-These skills establish the shared bar for architecture, data modeling, workflow design, release discipline, security, performance, UX, testing, operability, and engineering management.
+These skills establish the shared bar for architecture, data modeling, workflow design, release discipline, security, performance, UX, testing, operability, and engineering management. `skill-composition-standards` is the enforcement spine that codifies the house-style template and declares the input/output artifact contracts every other skill consumes and produces.
 
 The baseline is intended to be executable, not aspirational: small-batch integration, risk-based testing, build-once artifact promotion, diagnosis-first telemetry, and recovery-aware release design are part of the default standard.
 
@@ -55,6 +56,7 @@ Typical baseline choices:
 | Skill | Purpose |
 |-------|---------|
 | `world-class-engineering` | Shared production-grade engineering bar and release gates |
+| `skill-composition-standards` | House-style template, cross-skill I/O contracts, and 14 canonical artifact templates |
 | `system-architecture-design` | Decomposition, contracts, ADRs, failure design, scaling tradeoffs |
 | `database-design-engineering` | Cross-engine data architecture, tenancy, indexing, migration safety, retention |
 | `saas-erp-system-design` | Configurable SaaS and ERP workflow design, controls, auditability, extensions |

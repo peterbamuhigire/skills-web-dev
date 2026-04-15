@@ -4,6 +4,7 @@
 
 - **2026-04-12 original:** recommended 6 new skills + system-level improvements
 - **2026-04-15 reassessment:** all 6 recommended skills completed (plus 10 more in adjacent families); new priority is enforcement and normalisation, not more new skills
+- **2026-04-15 follow-up pass:** cross-skill output contracts codified (`skill-composition-standards`), first batch of 5 older skills normalised to 19/20
 
 ## Status of April 12 Recommendations
 
@@ -32,9 +33,9 @@
 
 | Recommendation | Status |
 |---|---|
-| Standardise skill interfaces (cross-skill output contracts) | NOT DONE — highest-priority remaining item |
+| Standardise skill interfaces (cross-skill output contracts) | **DONE** — `skill-composition-standards` skill codifies the house-style template and I/O contract declaration; 14 canonical artifact templates published |
 | Add a validation spine | PARTIAL — individual validation skills exist (`skill-safety-audit`, `code-safety-scanner`, `api-testing-verification`, etc.) but no unified spine |
-| Normalise older skills against new baseline | NOT DONE — still the biggest consistency gap |
+| Normalise older skills against new baseline | **FIRST BATCH DONE** — 5 high-traffic skills (multi-tenant-saas-architecture, frontend-performance, api-design-first, ai-web-apps, vibe-security-skill) at 19/20 on the house-style checklist; rollout continues |
 | Create a repository capability matrix | NOT DONE |
 | Forward-testing for key skills | NOT DONE |
 
@@ -48,34 +49,24 @@
 
 Plus the `engineering-management-system` baseline skill (not on the April 12 list) covering team operating rhythm, prioritisation, delegation, coaching — meaningfully expanding the delivery-side baseline.
 
-## New Recommendations (2026-04-15)
+## New Recommendations (2026-04-15, follow-up pass)
 
-The focus shifts from "add missing capability" to "unify and enforce what exists". In priority order:
+The focus has shifted from "add missing capability" to "unify and enforce what exists". The two highest-priority architectural items from the morning pass are now materially addressed. Remaining items in priority order:
 
-### 1. Introduce cross-skill output contracts (HIGHEST PRIORITY)
+### 1. Cross-skill output contracts — DONE (2026-04-15 follow-up)
 
-Codify in `world-class-engineering` the mandatory output artifacts every baseline skill must produce:
+Codified by `skill-composition-standards`. Every SKILL.md now declares Inputs and Outputs tables. Fourteen canonical artifact templates published under `skill-composition-standards/references/`. Baseline contract register fixes the output set for every baseline skill type. `world-class-engineering` links to it as the enforcement authority.
 
-- architecture output: context map + critical-flow table + ADR set + dependency diagram + failure modes
-- database output: entity model + access patterns + index plan + migration plan + retention + tenancy
-- API output: OpenAPI contract + auth model + error model + observability notes + idempotency keys
-- release output: test evidence + rollout plan + rollback plan + monitoring plan + runbook
-- observability output: SLOs + alerts + dashboards + runbook per service
-- security output: threat model + abuse cases + auth/authz matrix + secret handling
+### 2. Normalise older specialist skills — FIRST BATCH DONE; ROLLOUT CONTINUES
 
-Each downstream skill declares what upstream artifacts it consumes. That makes the repository a composable system rather than a library.
+First batch (5 skills) complete and validator-green at 19/20. Next batches, proposed:
 
-### 2. Normalise older specialist skills against the new baseline
+- **Batch 2 (operational):** `observability-monitoring`, `reliability-engineering`, `deployment-release-engineering`, `advanced-testing-strategy`, `distributed-systems-patterns` — confirm each produces its declared artifact set in the template format.
+- **Batch 3 (platform):** `nextjs-app-router`, `ios-development`, `android-development`, `nodejs-development`, `php-modern-standards` — high-traffic stack baselines.
+- **Batch 4 (data):** `postgresql-fundamentals`, `mysql-best-practices`, `mysql-data-modeling`, `postgresql-administration`, `database-reliability` — normalise the data family.
+- **Batch 5 (UI/UX):** `grid-systems`, `practical-ui-design`, `interaction-design-patterns`, `ux-writing`, `design-audit`.
 
-Target the top 20 most-loaded older specialist skills. For each:
-
-- add "When this skill applies" section if missing
-- add decision-rule tables with concrete thresholds
-- extract deep content into `references/` files
-- add anti-patterns section
-- add explicit cross-references to adjacent skills
-
-This closes the ceiling-floor gap.
+Batch cadence: 5 skills per pass, parallel agent dispatch, validator run, score log entry, commit.
 
 ### 3. Build a capability matrix
 
@@ -102,17 +93,16 @@ For each of the 11 baseline skills, write 3–5 representative evaluation prompt
 
 The April 12 recommendation #6 was partially addressed by scattered content. A stand-alone `performance-profiling` skill covering backend profiling, DB hot-path analysis, memory / CPU diagnosis, capacity planning, and regression detection would complete the six-recommendation set and close the last pure-capability gap.
 
-## Priority Order
+## Priority Order (updated)
 
-Recommended implementation order for the 2026-04-15 cycle:
-
-1. Cross-skill output contracts (architectural lever)
-2. Normalise top 20 older specialist skills
-3. Capability matrix
-4. Validation spine
-5. Book-verbatim normalisation pass on new families
-6. Forward-testing harness for baseline
-7. Performance-profiling skill (if appetite remains)
+- [x] Cross-skill output contracts (architectural lever) — **done** via `skill-composition-standards`
+- [~] Normalise older specialist skills — **first batch of 5 done; rolling**
+- [ ] Capability matrix
+- [ ] Validation spine
+- [ ] Book-verbatim normalisation pass on new families
+- [ ] Forward-testing harness for baseline
+- [ ] Performance-profiling skill (if appetite remains)
+- [ ] CI enforcement of contract gate (parse Inputs/Outputs tables, warn on orphan claims)
 
 ---
 

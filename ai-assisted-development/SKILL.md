@@ -2,8 +2,9 @@
 name: ai-assisted-development
 description: Orchestrate AI agents (Claude Code and Codex and Codex and Codex and
   Codex and Codex and Codex and Codex and Codex and Codex and Codex and Codex and
-  Codex and Codex and Codex, sub-agents, etc.) for software development workflows.
-  Use when coordinating multiple AI assistants or planning AI-driven development processes.
+  Codex and Codex and Codex and Codex, sub-agents, etc.) for software development
+  workflows. Use when coordinating multiple AI assistants or planning AI-driven development
+  processes.
 metadata:
   portable: true
   compatible_with:
@@ -20,7 +21,7 @@ metadata:
 <!-- dual-compat-start -->
 ## Use When
 
-- Orchestrate AI agents (Claude Code and Codex and Codex and Codex and Codex and Codex and Codex and Codex and Codex and Codex and Codex and Codex and Codex and Codex and Codex, sub-agents, etc.) for software development workflows. Use when coordinating multiple AI assistants or planning AI-driven development processes.
+- Orchestrate AI agents (Claude Code and Codex and Codex and Codex and Codex and Codex and Codex and Codex and Codex and Codex and Codex and Codex and Codex and Codex and Codex and Codex, sub-agents, etc.) for software development workflows. Use when coordinating multiple AI assistants or planning AI-driven development processes.
 - The task needs reusable judgment, domain constraints, or a proven workflow rather than ad hoc advice.
 
 ## Do Not Use When

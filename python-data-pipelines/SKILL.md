@@ -184,7 +184,7 @@ with pdfplumber.open(path) as pdf:
         tables = page.extract_tables(table_settings={"vertical_strategy": "lines"})
 ```
 
-Never trust uploaded PDFs — validate MIME type, size, and run through a scanner if doing anything beyond text extraction. See `references/pdf-extraction.md`.
+Never trust uploaded PDFs — validate MIME type, size, and run through a scanner if doing anything beyond text extraction. See `references/pdf-extraction.md`. For the full library catalogue (PyMuPDF, pdfplumber, ebooklib, camelot, ocrmypdf, unstructured) plus system dependencies (poppler, tesseract, ghostscript), see `references/document-parsing-toolkit.md`.
 
 ## Image / media processing
 
@@ -300,6 +300,7 @@ See `references/observability-pipelines.md`.
 - `references/etl-external-apis.md`
 - `references/ocr-tesseract.md`
 - `references/pdf-extraction.md`
+- `references/document-parsing-toolkit.md` — full catalogue of PDF + EPUB Python libraries (PyMuPDF, pdfplumber, pypdf, camelot, ocrmypdf, pdf2image, ebooklib, unstructured) plus the poppler / tesseract / ghostscript system dependencies
 - `references/image-processing-pillow.md`
 - `references/scheduling.md`
 - `references/validation-and-deadletter.md`

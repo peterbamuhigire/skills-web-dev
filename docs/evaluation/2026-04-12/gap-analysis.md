@@ -1,118 +1,135 @@
 # Gap Analysis
 
-## Missing Capability Areas
+## Update History
 
-### Observability And Monitoring
+- **2026-04-12 original assessment:** five high-priority capability gaps flagged
+- **2026-04-15 reassessment:** all five original gaps closed; remaining gaps are integration and normalisation concerns, not missing capability
 
-There is no strong first-class skill focused on:
+The body below is the 2026-04-15 reassessment. The 2026-04-12 gap list is preserved at the end.
 
-- logs, metrics, traces
-- instrumentation strategy
-- alert design
-- SLOs and error budgets
-- diagnosis-first production telemetry
+## Status of April 12 Gaps (all closed)
 
-This is one of the clearest gaps between the repository and a world-class systems standard.
+| April 12 Gap | Status | Closed by |
+|---|---|---|
+| Observability and Monitoring | CLOSED | `observability-monitoring` |
+| Reliability and SRE | CLOSED | `reliability-engineering` |
+| Advanced Testing Strategy | CLOSED | `advanced-testing-strategy` |
+| Deployment and Release Engineering | CLOSED | `deployment-release-engineering` |
+| Distributed Systems Discipline | CLOSED | `distributed-systems-patterns` + microservices-fundamentals, microservices-communication, microservices-resilience, microservices-ai-integration, microservices-architecture-models |
 
-### Reliability And SRE
+Each of these is now a first-class baseline skill. The "operability layer" the April 12 report called the biggest architectural bottleneck is structurally filled.
 
-The repository mentions operability and failure handling in the baseline, but it does not yet provide a dedicated reliability engineering layer covering:
+## New Capability Added Since 2026-04-12 (beyond closing original gaps)
 
-- retry policy design
-- backpressure and overload handling
-- incident response
-- service health semantics
-- redundancy and failure-domain reasoning
-- postmortem patterns
+- **Python (6 skills):** `python-modern-standards`, `python-saas-integration`, `python-data-analytics`, `python-document-generation`, `python-ml-predictive`, `python-data-pipelines`. Covers Python as sidecar / worker alongside PHP SaaS for analytics, branded document output, predictive ML, ETL, OCR.
+- **Kubernetes (3 skills):** `kubernetes-fundamentals`, `kubernetes-production`, `kubernetes-saas-delivery`. From "no K8s coverage at all" to complete family covering mental model, production hardening, multi-tenant GitOps delivery.
+- **TypeScript production (2 new):** `typescript-effective` (production idioms), `typescript-full-stack` (tRPC, Prisma, Fastify, Zod, turborepo).
+- **GIS depth (3 new):** `gis-postgis-backend`, `gis-maps-integration`, `gis-enterprise-domain` — adds server-side spatial, Google Maps / Mapbox / MapLibre, ArcGIS admin + real-estate patterns.
+- **SaaS business (2 new):** `saas-sales-organization`, `saas-subscription-mastery` — sales org design and subscription business strategy.
 
-### Advanced Testing Strategy
+The repository grew from roughly 180 skills to 209, and the baseline layer grew from 5 to 11.
 
-Testing exists in some platform skills, but not as a shared cross-system engineering capability. Missing depth includes:
+## Remaining Gaps (2026-04-15)
 
-- contract testing
-- integration test strategy for service boundaries
-- regression-risk-based test selection
-- test data lifecycle
-- flaky-test control
-- release gate design
+The remaining gaps are integration and enforcement concerns, not missing capability.
 
-### Deployment And Release Engineering
+### Gap 1: Cross-Skill Output Contracts Still Implicit
 
-There are CI/CD-related skills in the repository, but the current baseline does not strongly integrate them into the layered system. What is missing is a clear release-engineering baseline covering:
+Despite strong individual skills, there is no repository-wide rule about what a baseline skill must produce for downstream skills. Example of the kind of contract still missing:
 
-- build promotion strategy
-- environment parity
-- rollback design
-- progressive rollout
-- release verification
-- migration-safe deployment choreography
+- Architecture skill output must include: context map, critical-flow table, ADR set, dependency diagram.
+- Database skill output must include: entity model, access patterns, index plan, migration plan.
+- API skill output must include: OpenAPI contract, auth model, error model, observability notes.
+- Release skill output must include: test evidence, rollout plan, rollback plan, monitoring plan.
 
-### Distributed Systems Discipline
+Without this, the skills still behave like linked documents rather than a guaranteed-composable system. This is the single biggest remaining architectural gap.
 
-The repository has partial distributed systems coverage through microservices skills and realtime topics, but it lacks a high-signal, first-class distributed systems reasoning skill for:
+### Gap 2: Older Specialist Skills Not Yet Normalised
 
-- consistency tradeoffs
-- partition tolerance and degradation
-- queues and event semantics
-- ordering and deduplication
-- saga patterns
-- service ownership and failure isolation
+New skills (Python, Kubernetes, TypeScript production, GIS, SaaS business, and the 6 new baseline skills) follow a consistent high-rigour template — decision rules, thresholds, anti-patterns, references to deep-dive files.
 
-## Weak Areas
+Many older specialist skills pre-date that template and still read as:
 
-### Uneven Skill Maturity
+- example-heavy tactical notes
+- stack-specific guidance without decision logic
+- partially outdated conventions
 
-Some skills are strong principal-level guidance. Others are still tactical, example-heavy, or partially outdated. This unevenness creates a serious bottleneck because a layered system is only as reliable as its weakest commonly-used skills.
+Until these are normalised against the new baseline style, the repository's floor lags its ceiling.
 
-### Weak Baseline Enforcement
+### Gap 3: Capability Matrix Absent
 
-The new baseline is strong in concept, but the repository still does not enforce questions like:
+No single document maps capability -> baseline skill -> specialist skills -> validation skill -> remaining depth. Without it, operators cannot see at a glance whether a domain is fully supported and where to add depth.
 
-- did the downstream skill include observability?
-- did it account for testing?
-- did it define failure behavior?
-- did it produce artifacts expected by adjacent skills?
+### Gap 4: Validation Spine Not Yet Unified
 
-That makes the baseline advisory, not governing.
+Individual skills cover validation per domain (advanced-testing-strategy, skill-safety-audit, code-safety-scanner, vibe-security-skill, web-app-security-audit, etc.), but there is no repository-wide validation spine asking, for any substantial output:
 
-### Inconsistent Cross-Skill Contracts
+- what proves correctness?
+- what proves safety?
+- what proves operability?
+- what proves user quality?
 
-There is no consistent answer to:
+### Gap 5: Book-Verbatim Grounding Inconsistent
 
-- what should an architecture skill output for an API skill?
-- what should a data skill output for a backend skill?
-- what should a performance skill expect from a frontend skill?
+The Python, Kubernetes, GIS, and TypeScript reference files were written when the system lacked PDF/EPUB extraction tooling. Content is canonical-knowledge-aligned rather than source-book-verbatim. Now that the Python toolkit is installed and the admin script is available for system binaries, future reference writing should be book-verbatim for book-sourced skills.
 
-Without standard handoff artifacts, the repository behaves more like a connected library than a deterministic layered system.
+### Gap 6: Enforcement Remains Advisory
 
-### Production Operations Underrepresented
+The baseline layer is now 11 skills strong, but nothing automatically blocks a downstream skill from shipping output that ignores observability, reliability, tests, or rollout plans. Enforcement is still a discipline choice by the operator.
 
-The repository is stronger at design and implementation than at operations. This creates a blind spot where systems may be structurally good but not truly production-safe to run at scale.
+## System Bottlenecks (2026-04-15)
 
-### UX And Product Quality Still Somewhat Detached
+### Bottleneck 1 (was #1 in April 12): Cross-skill output contract
 
-UX and writing coverage is broad, but the integration into architecture and release gates is still softer than security and data concerns. World-class systems require UX quality to be enforced as part of the system, not optional companion reading.
+Status: **still open**. Highest priority architectural improvement remaining.
 
-## System Bottlenecks
+### Bottleneck 2 (was #2 in April 12): Missing operability layer
 
-### Bottleneck 1: No Mandatory Output Interface Between Layers
+Status: **CLOSED**. `observability-monitoring`, `reliability-engineering`, `advanced-testing-strategy`, `deployment-release-engineering`, `distributed-systems-patterns`, and the Kubernetes production family now provide this layer.
 
-This is the biggest architectural bottleneck.
+### Bottleneck 3 (was #3 in April 12): Review and validation depth fragmented
 
-Without a standard output interface, skills cannot reliably compose into a predictable end-to-end engineering workflow.
+Status: **partially open**. Individual validation skills exist and are strong; repository-wide validation spine still not unified.
 
-### Bottleneck 2: Missing Operability Layer
+### Bottleneck 4 (was #4 in April 12): Legacy and new standards coexist unevenly
 
-The repository can describe how to build things more reliably than how to run them reliably.
+Status: **still open**. The gap between new-style and older-style skills is in fact wider now — the new skills raised the ceiling, and older skills have not been brought up. Next-phase normalisation pass addresses this.
 
-### Bottleneck 3: Review And Validation Depth Is Fragmented
+### Bottleneck 5 (was #5 in April 12): World-class target stated more than enforced
 
-There are audit and testing-related skills, but they are not yet unified into a repository-wide validation spine.
+Status: **partially open**. The target is better matched by capability now (all 5 first-order gaps closed), but consistency and enforcement remain the remaining distance.
 
-### Bottleneck 4: Legacy And New Standards Coexist Unevenly
+## Priority of Remaining Work
 
-The new baseline skills are stronger than many older skills. Until more of the repository is normalized against the new baseline, output quality will remain inconsistent.
+1. **Introduce cross-skill output contracts** in `world-class-engineering` so every baseline skill must produce a defined artifact set that downstream skills can consume. (Architectural lever — unblocks the biggest remaining bottleneck.)
+2. **Normalise high-traffic older specialist skills** against the new baseline template (decision rules, thresholds, anti-patterns, reference splits).
+3. **Build a repository capability matrix** at `README.md` or `docs/capability-matrix.md` mapping domain -> baseline -> specialists -> validation -> gaps.
+4. **Formalise the validation spine** — a single skill or document that codifies "what proves production-readiness" across correctness, safety, operability, UX.
+5. **Book-verbatim pass** on the Python / Kubernetes / TypeScript / GIS / SaaS new-family reference files, now that PDF/EPUB extraction tooling is available.
 
-### Bottleneck 5: World-Class Target Is Stated More Strongly Than It Is Enforced
+---
 
-The repository now speaks the language of elite engineering more convincingly than it yet guarantees elite engineering outcomes.
+## Historical: 2026-04-12 Gap Analysis (preserved)
+
+The April 12 assessment identified five missing capability areas as the primary gap to world-class:
+
+1. Observability and Monitoring
+2. Reliability and SRE
+3. Advanced Testing Strategy
+4. Deployment and Release Engineering
+5. Distributed Systems Discipline
+
+Plus four weak areas:
+- uneven skill maturity
+- weak baseline enforcement
+- inconsistent cross-skill contracts
+- production operations underrepresented
+
+And five bottlenecks:
+1. no mandatory output interface between layers
+2. missing operability layer
+3. review and validation depth fragmented
+4. legacy and new standards coexist unevenly
+5. world-class target stated more strongly than enforced
+
+As of 2026-04-15, all five missing capabilities have been added. Three of the five bottlenecks remain fully or partially open. The primary lever for the next improvement is formalising cross-skill output contracts.

@@ -1,5 +1,125 @@
 # Skill-By-Skill Analysis
 
+## Update History
+
+- **2026-04-12:** 5-skill baseline + 5 representative specialists analysed
+- **2026-04-15:** baseline expanded to 11 skills; 16 new skills added across Python, Kubernetes, TypeScript, GIS, SaaS business. The 2026-04-12 analysis below is preserved; the new material is summarised at the top.
+
+## 2026-04-15 — New Skills Added Since April 12
+
+### Baseline expansion (6 new baseline skills)
+
+- **`observability-monitoring`** — closed the #1 April 12 gap. Logs, metrics, traces, SLOs, alerts, diagnosis-first telemetry.
+- **`reliability-engineering`** — retries, timeouts, degradation, incident readiness, recovery-aware design.
+- **`advanced-testing-strategy`** — risk-based testing depth across unit / integration / contract / E2E with release evidence.
+- **`deployment-release-engineering`** — rollout, rollback, migration safety, progressive delivery, post-deploy verification.
+- **`distributed-systems-patterns`** — consistency, messaging, idempotency, sagas, service boundaries. Complemented by a 5-skill microservices family.
+- **`engineering-management-system`** — team operating rhythm, prioritisation, delegation, coaching. Delivery-side baseline.
+
+Effect: the April 12 operability-layer bottleneck is now architecturally closed.
+
+### Python family (6 skills, new since April 12)
+
+`python-modern-standards`, `python-saas-integration`, `python-data-analytics`, `python-document-generation`, `python-ml-predictive`, `python-data-pipelines`.
+
+Strengths:
+
+- consistent house standards across all 6 (uv, ruff, mypy, Pydantic v2, structlog, pytest)
+- explicit integration pattern with PHP SaaS (FastAPI sidecar + Redis worker)
+- decision rules per skill (e.g., "sidecar vs worker", "Prophet vs statsmodels", "pandas vs Polars")
+- 53 reference files with deep-dive content
+
+Weaknesses:
+
+- reference content written before PDF/EPUB extraction tooling was installed, so book-verbatim grounding is inconsistent
+- still partially disconnected from the older `ai-*` family (complementary but not explicitly cross-mapped)
+
+### Kubernetes family (3 skills, greenfield since April 12)
+
+`kubernetes-fundamentals`, `kubernetes-production`, `kubernetes-saas-delivery`.
+
+Strengths:
+
+- complete coverage from mental model to multi-tenant SaaS delivery
+- production skill is comprehensive (Helm, HPA, PDB, StatefulSets, secrets, observability, RBAC, PSS, NetworkPolicies, Velero, cost control)
+- SaaS delivery skill includes GitOps (ArgoCD), progressive delivery, tenant onboarding automation, cost allocation, offboarding runbook
+- tight cross-references to `cloud-architecture`, `multi-tenant-saas-architecture`, `observability-monitoring`, `deployment-release-engineering`
+
+Weaknesses:
+
+- assumes AWS/GCP managed K8s as default — less coverage of air-gapped / bare-metal
+- operator-pattern guidance is light (given the target user base)
+
+### TypeScript production additions (2 new, complementing existing 2)
+
+`typescript-effective`, `typescript-full-stack`.
+
+Strengths:
+
+- `typescript-effective` covers the production-idiom gap (strict tsconfig beyond `strict: true`, Zod at boundaries, Result/Either, migration from JS, build performance, 26 anti-patterns)
+- `typescript-full-stack` covers end-to-end with Fastify, tRPC, Prisma vs Drizzle, Zod shared schemas, turborepo, auth, Docker
+- decision rules throughout (tRPC vs REST, Prisma vs Drizzle, Lucia vs Clerk vs better-auth)
+
+Weaknesses:
+
+- no Deno/Bun coverage (intentional)
+- examples skew Node-first; Cloudflare Workers edge patterns less represented
+
+### GIS depth (3 new, complementing existing `gis-mapping`)
+
+`gis-postgis-backend`, `gis-maps-integration`, `gis-enterprise-domain`.
+
+Strengths:
+
+- `gis-postgis-backend` covers the server-side gap with SRID strategy, spatial indexes, MVT tiles, geocoding, hybrid MySQL+PostGIS, RLS tenant isolation
+- `gis-maps-integration` covers Leaflet vs Google vs Mapbox vs MapLibre with cost control and accessibility
+- `gis-enterprise-domain` combines ArcGIS Enterprise admin with real-estate-specific recipes (property search, catchment isochrones, market heatmaps, walk-score)
+
+Weaknesses:
+
+- real-estate domain specificity means some patterns are narrower than the skill names imply
+- no mobile GIS (offline maps on Android / iOS) skill yet
+
+### SaaS business (2 new)
+
+`saas-sales-organization`, `saas-subscription-mastery`.
+
+Strengths:
+
+- `saas-sales-organization` covers sales motions, roles, pipeline design, territories, quotas/commission, forecasting, ramp, hiring
+- `saas-subscription-mastery` covers 29-step framework, retention point, activation, engagement loops, churn prevention, expansion, billing-provider selection
+- together they complement existing `saas-business-metrics`, `subscription-billing`, `software-pricing-strategy`, `software-business-models`
+
+Weaknesses:
+
+- business-side skills harder to ground in engineering-style decision rules — some guidance remains directional
+
+## 2026-04-15 — Status of April 12 Skill Recommendations
+
+### `world-class-engineering` improvements
+
+- Status: PARTIAL. Baseline expanded materially (5 → 11 skills) but the formal "required output artifacts per downstream skill" contract recommended in April 12 is not yet added.
+
+### `system-architecture-design` improvements
+
+- Status: DONE for distributed systems depth (via `distributed-systems-patterns` + microservices family). Still could add standard architecture deliverables like context-map / ADR templates.
+
+### `database-design-engineering` improvements
+
+- Status: PARTIAL. Replication / CDC / hot-path patterns exist in the PostgreSQL family and `python-data-pipelines`, but not yet folded back into the baseline skill.
+
+### `saas-erp-system-design` improvements
+
+- Status: NOT DONE this cycle.
+
+### `git-collaboration-workflow` improvements
+
+- Status: PARTIAL. CI/release coupling handled in `cicd-pipeline-design`, `cicd-pipelines`, `deployment-release-engineering` — but the cross-reference back into `git-collaboration-workflow` itself is still light.
+
+---
+
+## 2026-04-12 — Original Analysis (preserved)
+
 ## Baseline Skills
 
 ### `world-class-engineering`

@@ -18,70 +18,46 @@ metadata:
 <!-- dual-compat-start -->
 ## Use When
 
-- You are designing or reviewing a layout, page template, dashboard, editorial article, product landing page, mobile feed, or dense data screen, and spatial order has to hold across breakpoints.
-- You need to decide column count, gutter, margin, baseline rhythm, or image proportions from first principles rather than by eye.
-- You are pairing this with `practical-ui-design`, `responsive-design`, `webapp-gui-design`, `swiftui-design`, `jetpack-compose-ui`, or `healthcare-ui-design` and want their visual tokens to sit on a real grid.
+- Use when laying out any screen, page, dashboard, or editorial surface that needs disciplined alignment, rhythm, and proportion. Covers Swiss-style grid construction (manuscript, column, modular, baseline, hierarchical), column math, baseline grids, type-on-grid alignment, image-field alignment, and mapping these to 4/8/12-col responsive web and mobile grids. Load alongside practical-ui-design and responsive-design whenever layout discipline matters.
+- The task needs reusable judgment, domain constraints, or a proven workflow rather than ad hoc advice.
 
 ## Do Not Use When
 
-- The surface is a tiny fragment (a single modal, toast, or icon) where grid math adds no value.
-- The task is purely content writing, a backend change, or a text-only CLI — no spatial design decisions are being made.
-- A platform skill (`jetpack-compose-ui`, `swiftui-design`, `webapp-gui-design`) already encodes a fixed grid and the task is only to use it; load this skill only when the grid itself is being chosen or stress-tested.
+- The task is unrelated to `grid-systems` or would be better handled by a more specific companion skill.
+- The request only needs a trivial answer and none of this skill's constraints or references materially help.
 
 ## Required Inputs
 
-- Target surface: viewport widths (min/max), content classes (text, image, data table, card, chart), density intent (editorial / application / dashboard / mobile feed).
-- Known constraints: brand margins, existing design-token scale, baseline line-height of body type, any mandated framework grid (Bootstrap 12, Tailwind, Material, iOS 8-col).
-- The deliverable: a grid spec, a layout review, a responsive mapping, or corrected layout code.
+- Gather relevant project context, constraints, and the concrete problem to solve; load `references` only as needed.
+- Confirm the desired deliverable: design, code, review, migration plan, audit, or documentation.
 
 ## Workflow
 
-1. Classify the surface (editorial / application / dashboard / mobile) — this picks the grid type.
-2. Define the **baseline unit** from the body line-height (usually 4pt or 8pt).
-3. Derive the **spacing scale** as integer multiples of the baseline (4, 8, 12, 16, 24, 32, 48, 64, 96).
-4. Choose **column count** per breakpoint using the rules in `references/01-grid-types.md`.
-5. Compute **column width, gutter, margin** using the formulae in `references/02-column-math.md`.
-6. Set **baseline grid** (vertical rhythm) and align all type, images, and elements to it per `references/03-baseline-grid.md`.
-7. Map the base grid to each responsive breakpoint per `references/04-responsive-mapping.md`.
-8. Validate with the checklist in `references/07-checklist.md` (squint test, module fidelity, baseline alignment, no orphans).
+- Read this `SKILL.md` first, then load only the referenced deep-dive files that are necessary for the task.
+- Apply the ordered guidance, checklists, and decision rules in this skill instead of cherry-picking isolated snippets.
+- Produce the deliverable with assumptions, risks, and follow-up work made explicit when they matter.
 
 ## Quality Standards
 
-- Every column width, gutter, and margin must be expressible as a formula or integer token; no "eyeballed" values.
-- Baseline rhythm must hold across headings, body, cards, and image captions — changing font size must preserve vertical rhythm via multiples of the baseline unit.
-- The same page must not mix more than one grid system; refined/modular grids are sub-divisions of a single base grid, not rivals to it.
-- On responsive breakpoints, grids must simplify (fewer columns), never multiply; never stretch a desktop 12-col blindly onto a 375px phone.
-- Images, charts, and media must align to integer module counts (1x1, 2x1, 3x2, 4x3) — no arbitrary aspect ratios inside a grid.
+- Keep outputs execution-oriented, concise, and aligned with the repository's baseline engineering standards.
+- Preserve compatibility with existing project conventions unless the skill explicitly requires a stronger standard.
+- Prefer deterministic, reviewable steps over vague advice or tool-specific magic.
 
 ## Anti-Patterns
 
-- Using multiple inconsistent gutter widths on the same page (e.g. 16 here, 20 there, 24 elsewhere).
-- Setting arbitrary heading `line-height` values that break baseline rhythm; headings must sit on N baseline units.
-- Stretching text across full viewport width so line length exceeds 75 characters.
-- Mapping a desktop 12-col grid 1:1 onto a tablet or phone without collapsing columns.
-- Placing images or charts on fractional module widths (image spans 3.5 columns).
-- Treating the grid as a wireframe-only tool and letting production code break it.
-- Forcing card rows of unequal heights without a baseline snap.
-- Nesting a second grid inside a cell with a different base unit.
-- Using `margin: auto` for layout without a container max-width tied to line-length.
-- Relying on whitespace alone for hierarchy while abandoning the grid; whitespace is part of the grid, not an escape from it.
+- Treating examples as copy-paste truth without checking fit, constraints, or failure modes.
+- Loading every reference file by default instead of using progressive disclosure.
 
 ## Outputs
 
-- A grid spec (column count, column width formula, gutter, margin, baseline unit, spacing tokens) per breakpoint.
-- Worked CSS/Tailwind/SwiftUI/Compose code snippets showing the grid applied.
-- A short rationale for column count and baseline unit, tied to content class and body line-height.
-- Optional: layout audit notes with fixes for misalignment, baseline drift, or broken responsive mapping.
+- A concrete result that fits the task: implementation guidance, review findings, architecture decisions, templates, or generated artifacts.
+- Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
+- References used, companion skills, or follow-up actions when they materially improve execution.
 
 ## References
 
-- `references/01-grid-types.md` — manuscript, column, modular, baseline, hierarchical grids; when each applies; detection.
-- `references/02-column-math.md` — formulae for column width, gutter, margin; worked desktop/tablet/mobile examples; fluid grids and container queries.
-- `references/03-baseline-and-type.md` — vertical rhythm, type-on-grid alignment, spacing-scale derivation, cap-height compensation.
-- `references/04-responsive-and-hierarchy.md` — 12/8/4-col responsive ladder, collapse rules, container queries, hierarchy through span and whitespace, focal points.
-- `references/05-examples-and-checklist.md` — worked examples (editorial, dashboard, landing, mobile feed, chart) and the grid review checklist + launch gate.
+- Use the `references/` directory for deep detail after reading the core workflow below.
 <!-- dual-compat-end -->
-
 ## Core Concept (One-Screen Summary)
 
 A grid is a repeating system of reference lines that keeps type, image, and space in predictable proportion. In Swiss typography (Müller-Brockmann) the grid is built from:

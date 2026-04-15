@@ -1,6 +1,8 @@
 ---
 name: cicd-pipelines
-description: Use when implementing GitHub Actions pipelines for web, API, and mobile apps — Node.js/PHP build and deploy, iOS TestFlight via Fastlane, Android Google Play via Supply, environment promotion, OIDC secrets, caching, and rollback.
+description: Use when implementing GitHub Actions pipelines for web, API, and mobile
+  apps — Node.js/PHP build and deploy, iOS TestFlight via Fastlane, Android Google
+  Play via Supply, environment promotion, OIDC secrets, caching, and rollback.
 metadata:
   portable: true
   compatible_with:
@@ -14,64 +16,45 @@ metadata:
 ## Use When
 
 - Use when implementing GitHub Actions pipelines for web, API, and mobile apps — Node.js/PHP build and deploy, iOS TestFlight via Fastlane, Android Google Play via Supply, environment promotion, OIDC secrets, caching, and rollback.
-- The repository ships software that must move from commit to production through reviewable, versioned workflow files.
+- The task needs reusable judgment, domain constraints, or a proven workflow rather than ad hoc advice.
 
 ## Do Not Use When
 
-- The task is only pipeline architecture and governance — use `cicd-pipeline-design` for the higher-level structure first.
-- Security gate policy is the subject — use `cicd-devsecops` for secrets, scan policy, and compliance gates.
-- The pipeline target is Jenkins — use `cicd-jenkins-debian`.
+- The task is unrelated to `cicd-pipelines` or would be better handled by a more specific companion skill.
+- The request only needs a trivial answer and none of this skill's constraints or references materially help.
 
 ## Required Inputs
 
-- Languages and build tools in the repository (Node.js/npm, PHP/Composer, Gradle, Xcode, Python/pip, etc.).
-- Target platforms: web host, container registry, TestFlight, Play Console, static CDN.
-- Secret store posture: GitHub OIDC federation to AWS/GCP, environment-scoped secrets, external Vault integration.
-- Branch and environment model: trunk-based vs release branches, dev/staging/prod environments.
-- Rollback expectation: manual, automatic-on-health-fail, both.
+- Gather relevant project context, constraints, and the concrete problem to solve; load `references` only as needed.
+- Confirm the desired deliverable: design, code, review, migration plan, audit, or documentation.
 
 ## Workflow
 
-1. Inventory runtime stacks and the artefacts each produces (Docker image, AAB, IPA, static bundle, deb package).
-2. Set up GitHub Environments for `dev`, `staging`, and `production` with protection rules and required reviewers.
-3. Wire OIDC to the cloud provider — remove any long-lived access keys from repo secrets.
-4. Build language-specific workflows using reusable workflows and caches.
-5. Promote artefacts by digest between environments — do not rebuild per environment.
-6. Gate production with manual approval plus automated smoke tests.
-7. Add automatic rollback on health-check failure and a documented manual rollback workflow.
-8. Emit a deployment record and notification to the release channel on success or failure.
+- Read this `SKILL.md` first, then load only the referenced deep-dive files that are necessary for the task.
+- Apply the ordered guidance, checklists, and decision rules in this skill instead of cherry-picking isolated snippets.
+- Produce the deliverable with assumptions, risks, and follow-up work made explicit when they matter.
 
 ## Quality Standards
 
-- Every workflow file is linted (`actionlint`) and the entire tree passes `workflow_call` reusability checks.
-- Every job uses the minimum `permissions:` block required — never the default all-write token.
-- Secrets pulled via OIDC federation or environment-scoped secrets. No `AWS_ACCESS_KEY_ID` in repo secrets.
-- Every artefact is tagged with the full commit SHA and an immutable digest before promotion.
-- Every pipeline writes a signed deployment record consumable by the audit log.
+- Keep outputs execution-oriented, concise, and aligned with the repository's baseline engineering standards.
+- Preserve compatibility with existing project conventions unless the skill explicitly requires a stronger standard.
+- Prefer deterministic, reviewable steps over vague advice or tool-specific magic.
 
 ## Anti-Patterns
 
-- Long-lived cloud keys stored in `secrets.AWS_*` — always prefer OIDC.
-- Branch-per-environment deployments where `staging` and `main` drift apart.
-- Rebuilding the same artefact for each environment instead of promoting by digest.
-- Pinning actions by tag alone (`@v4`) instead of by SHA for security-critical jobs.
-- Inline scripts that grow to hundreds of lines inside a single step — extract to a repo script.
-- Uploading signing keys into repo secrets as base64 blobs when a keychain service or Match repo is available.
+- Treating examples as copy-paste truth without checking fit, constraints, or failure modes.
+- Loading every reference file by default instead of using progressive disclosure.
 
 ## Outputs
 
-- One or more `.github/workflows/*.yml` files producing the required builds and deployments.
-- A `release.yml` or equivalent that promotes artefacts through environments with gates.
-- A written rollback runbook linked from the repo README.
-- A deployment record schema and sink (S3, CloudWatch, Datadog, Slack, etc.).
+- A concrete result that fits the task: implementation guidance, review findings, architecture decisions, templates, or generated artifacts.
+- Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
+- References used, companion skills, or follow-up actions when they materially improve execution.
 
 ## References
 
-- [references/github-actions-workflows.md](references/github-actions-workflows.md): Copy-paste YAML templates for Node.js, PHP, Docker, and reusable workflows.
-- [references/ios-fastlane-pipeline.md](references/ios-fastlane-pipeline.md): Fastlane lanes for test/beta/release + Match code signing.
-- [references/android-pipeline.md](references/android-pipeline.md): Gradle build, unit tests, signed AAB, Google Play via Supply.
+- Use the `references/` directory for deep detail after reading the core workflow below.
 <!-- dual-compat-end -->
-
 ## Load Order
 
 1. Load `world-class-engineering` and `git-collaboration-workflow` for the baseline.

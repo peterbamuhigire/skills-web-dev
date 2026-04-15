@@ -99,6 +99,21 @@ Typical baseline choices:
 | iOS | `ios-development`, `ios-data-persistence`, `ios-tdd`, `swiftui-design` |
 | Cross-platform planning | `mobile-saas-planning`, `mobile-reports`, `mobile-report-tables`, `mobile-rbac` |
 
+### Python (analytics, documents, ML, ETL)
+
+Python sits alongside the PHP backend as a sidecar and worker to handle analytics, document generation, predictive ML, and data pipelines.
+
+| Skill | Purpose |
+|-------|---------|
+| `python-modern-standards` | House style for all Python — uv, ruff, mypy, Pydantic v2, structlog, testing, security baseline |
+| `python-saas-integration` | FastAPI sidecar + Redis worker integration with PHP, deployment on Debian, PHP↔Python contract |
+| `python-data-analytics` | pandas/Polars analytics, cohort/funnel/retention, financial math (IRR/NPV), statistics, geospatial |
+| `python-document-generation` | Branded Excel dashboards, Word documents, and PDF reports delivered to web, Android, and iOS |
+| `python-ml-predictive` | Forecasting (Prophet/statsmodels), classification/regression (sklearn, XGBoost), anomaly detection, serving |
+| `python-data-pipelines` | ETL from external APIs, OCR, PDF/image processing, scheduling, DLQs, multi-tenant pipelines |
+
+Load order for Python work: `python-modern-standards` + `python-saas-integration` first, then the domain-specific skill.
+
 ### Security
 
 | Skill | Scope |
@@ -141,6 +156,9 @@ Typical baseline choices:
 - Production release workflow: `world-class-engineering` + `advanced-testing-strategy` + `observability-monitoring` + `deployment-release-engineering`
 - Distributed workflow or service platform: `world-class-engineering` + `system-architecture-design` + `distributed-systems-patterns` + `reliability-engineering`
 - Engineering leadership and delivery improvement: `world-class-engineering` + `engineering-management-system` + `git-collaboration-workflow`
+- Python analytics + document generation add-on to a PHP SaaS: `python-modern-standards` + `python-saas-integration` + `python-data-analytics` + `python-document-generation`
+- Python predictive ML feature: `python-modern-standards` + `python-saas-integration` + `python-ml-predictive` + `python-data-analytics`
+- Python ETL / OCR / data ingestion: `python-modern-standards` + `python-saas-integration` + `python-data-pipelines`
 
 ## How To Use
 
@@ -201,7 +219,7 @@ Then include:
 
 ## Repository Stats
 
-- 193 skills across architecture, web, mobile, AI, security, UX, data, and SDLC
+- 199 skills across architecture, web, mobile, Python analytics/ML/documents, AI, security, UX, data, and SDLC
 - full-stack coverage for web apps, mobile apps, SaaS, ERP, APIs, and data systems
 - layered baseline for architecture, data design, delivery workflow, and production quality
 

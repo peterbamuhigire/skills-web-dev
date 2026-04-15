@@ -9,7 +9,6 @@ metadata:
   - codex
 ---
 
-
 ## Platform Notes
 
 - Optional helper plugins may help in some environments, but they must not be treated as required for this skill.

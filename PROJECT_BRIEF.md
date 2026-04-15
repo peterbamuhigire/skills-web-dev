@@ -77,6 +77,13 @@ Default loading order for complex engineering work:
 - Purpose: production-grade Swift and SwiftUI standards with security, testing, and performance rules
 - Use cases: new iOS apps, feature development, code reviews
 
+### Python (6 skills)
+
+- Domain: Python as sidecar and worker alongside the PHP + mobile SaaS stack
+- Purpose: analytics, document generation (Excel/Word/PDF), predictive ML, OCR, ETL pipelines
+- Skills: `python-modern-standards`, `python-saas-integration`, `python-data-analytics`, `python-document-generation`, `python-ml-predictive`, `python-data-pipelines`
+- Use cases: complex analytics beyond SQL, branded downloadable reports, demand/churn forecasting, receipt OCR, external API syncs (Stripe, payment gateways, bank feeds)
+
 ### Vibe Security Skill
 
 - Domain: web application security

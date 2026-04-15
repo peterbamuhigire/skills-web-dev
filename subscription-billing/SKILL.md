@@ -1,9 +1,9 @@
 ---
 name: subscription-billing
-description: Use when designing or reviewing subscription billing strategy, plan
-  lifecycle, dunning, metered billing, tax handling, churn recovery, and SaaS revenue
-  metrics. Covers trial-to-paid conversion, upgrades, downgrades, pauses, cancellations,
-  usage pricing, and revenue recognition fundamentals.
+description: Use when designing or reviewing subscription billing strategy, plan lifecycle,
+  dunning, metered billing, tax handling, churn recovery, and SaaS revenue metrics.
+  Covers trial-to-paid conversion, upgrades, downgrades, pauses, cancellations, usage
+  pricing, and revenue recognition fundamentals.
 metadata:
   portable: true
   compatible_with:
@@ -26,8 +26,8 @@ metadata:
 
 ## Required Inputs
 
-- Gather pricing strategy, customer segments, currencies, entitlement model, tax footprint, and the concrete billing problem to solve; load `references/` only as needed.
-- Confirm the desired deliverable: pricing architecture, implementation plan, code, review, migration plan, audit, or documentation.
+- Gather relevant project context, constraints, and the concrete problem to solve; load `references` only as needed.
+- Confirm the desired deliverable: design, code, review, migration plan, audit, or documentation.
 
 ## Workflow
 

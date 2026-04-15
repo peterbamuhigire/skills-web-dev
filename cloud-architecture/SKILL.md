@@ -1,6 +1,8 @@
 ---
 name: cloud-architecture
-description: Use when designing cloud deployments, Dockerising applications, laying out AWS or GCP environments, choosing a deployment pattern, or moving a workload from a single VM to a resilient multi-AZ topology.
+description: Use when designing cloud deployments, Dockerising applications, laying
+  out AWS or GCP environments, choosing a deployment pattern, or moving a workload
+  from a single VM to a resilient multi-AZ topology.
 metadata:
   portable: true
   compatible_with:
@@ -14,66 +16,45 @@ metadata:
 ## Use When
 
 - Use when designing cloud deployments, Dockerising applications, laying out AWS or GCP environments, choosing a deployment pattern, or moving a workload from a single VM to a resilient multi-AZ topology.
-- The task needs decisions about compute shape, data durability, traffic routing, cost posture, or deployment safety that must survive production load.
+- The task needs reusable judgment, domain constraints, or a proven workflow rather than ad hoc advice.
 
 ## Do Not Use When
 
-- The task is a local developer experience fix with no cloud impact.
-- Kubernetes is the target runtime — load `kubernetes-platform` instead once Phase 03 is in scope.
-- The task is only about CI pipeline steps — use `cicd-pipelines` or `cicd-pipeline-design`.
+- The task is unrelated to `cloud-architecture` or would be better handled by a more specific companion skill.
+- The request only needs a trivial answer and none of this skill's constraints or references materially help.
 
 ## Required Inputs
 
-- Workload shape: stateless web, stateful service, batch, async worker, scheduled job.
-- Traffic profile: baseline RPS, peak RPS, burst duration, geographical spread.
-- Data profile: size, durability tier, recovery point objective (RPO), recovery time objective (RTO).
-- Budget posture: spend ceiling, willingness to use spot/reserved capacity, commitment horizon.
-- Compliance constraints: data residency, encryption, audit retention.
+- Gather relevant project context, constraints, and the concrete problem to solve; load `references` only as needed.
+- Confirm the desired deliverable: design, code, review, migration plan, audit, or documentation.
 
 ## Workflow
 
-1. Confirm workload shape, traffic profile, data durability tier, and compliance posture.
-2. Select the compute model: single-host Docker Compose, EC2 ASG, ECS/Fargate, or Kubernetes (defer to Phase 03 skill).
-3. Write the Dockerfile using the multi-stage pattern and a pinned distroless or slim base.
-4. Lay out the `docker-compose.yml` for local parity with production service topology.
-5. Size the AWS footprint: VPC with two or more AZs, subnets per tier, NAT, ALB, ASG, RDS with Multi-AZ, S3, CloudFront.
-6. Define IAM roles and instance profiles using least privilege — no static keys.
-7. Pick a deployment pattern (blue-green, canary, rolling) from the shape, traffic, and rollback budget.
-8. Attach TLS (Certbot + Let's Encrypt or ACM), CDN, auto-scaling policy, and cost guardrails.
-9. Document the runbook: deploy, rollback, scale, failure recovery.
+- Read this `SKILL.md` first, then load only the referenced deep-dive files that are necessary for the task.
+- Apply the ordered guidance, checklists, and decision rules in this skill instead of cherry-picking isolated snippets.
+- Produce the deliverable with assumptions, risks, and follow-up work made explicit when they matter.
 
 ## Quality Standards
 
-- Multi-AZ for any production data store and any load-balanced compute tier.
-- No credentials in Dockerfiles, images, Git history, or environment files committed to source.
-- Every production image is signed, scanned, and pinned by digest before promotion.
-- Every workload has a documented rollback path validated at least quarterly.
-- Every account has billing alerts at 50%, 80%, and 100% of the monthly budget.
+- Keep outputs execution-oriented, concise, and aligned with the repository's baseline engineering standards.
+- Preserve compatibility with existing project conventions unless the skill explicitly requires a stronger standard.
+- Prefer deterministic, reviewable steps over vague advice or tool-specific magic.
 
 ## Anti-Patterns
 
-- Credentials in Dockerfiles, ENTRYPOINT scripts, or committed `.env` files.
-- Single-AZ production topologies for paid customer traffic.
-- Using the AWS root account or an engineer's IAM user as the application identity.
-- Fat runtime containers with build toolchains left in the final image.
-- Auto-scaling based only on CPU when request latency is the real pressure signal.
-- Manual snapshot-and-copy "blue-green" without scripted, rehearsed rollback.
+- Treating examples as copy-paste truth without checking fit, constraints, or failure modes.
+- Loading every reference file by default instead of using progressive disclosure.
 
 ## Outputs
 
-- Architecture diagram or topology description covering VPC, subnets, AZs, and data flow.
-- Dockerfile(s) and `docker-compose.yml` for local parity.
-- IaC skeleton or a written account plan naming every AWS resource to create.
-- Deployment pattern selection with rollback runbook.
-- Cost and scaling posture: reserved vs on-demand vs spot, auto-scaling triggers, CDN posture.
+- A concrete result that fits the task: implementation guidance, review findings, architecture decisions, templates, or generated artifacts.
+- Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
+- References used, companion skills, or follow-up actions when they materially improve execution.
 
 ## References
 
-- [references/aws-core-services.md](references/aws-core-services.md): Service-by-service CLI reference for EC2, S3, RDS, IAM, ALB, ASG, CloudFront.
-- [references/docker-compose-patterns.md](references/docker-compose-patterns.md): Local-parity stack: Node.js + MySQL + Redis + vector DB sidecar.
-- [references/deployment-patterns.md](references/deployment-patterns.md): Blue-green and canary runbooks with rollback steps.
+- Use the `references/` directory for deep detail after reading the core workflow below.
 <!-- dual-compat-end -->
-
 ## Load Order
 
 1. Load `world-class-engineering` for the production bar.

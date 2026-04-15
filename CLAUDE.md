@@ -95,6 +95,18 @@ For any visual, layout, or interaction work load these three together before the
 
 Add `laws-of-ux`, `ux-psychology`, `ux-writing`, `motion-design`, `responsive-design`, `ai-slop-prevention`, and `design-audit` as the feature demands.
 
+### Python Baseline
+
+Python plugs into the PHP + Android + iOS stack as a sidecar and worker for analytics, documents, ML, and ETL. For any Python work, load in this order:
+
+1. `python-modern-standards` - house style (uv, ruff, mypy, Pydantic v2, structlog, testing, security)
+2. `python-saas-integration` - FastAPI sidecar + Redis worker, deployment, PHP contract
+3. then one of:
+   - `python-data-analytics` - pandas/Polars, cohort/funnel/retention, financial math, statistics, geospatial
+   - `python-document-generation` - branded Excel / Word / PDF output for web and mobile clients
+   - `python-ml-predictive` - forecasting (Prophet / statsmodels), classification/regression (sklearn, XGBoost), anomaly detection
+   - `python-data-pipelines` - ETL, OCR, PDF extraction, image processing, scheduling, DLQ
+
 ## Repository Structure
 
 Representative layout:

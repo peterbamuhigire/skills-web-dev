@@ -10,7 +10,6 @@ metadata:
   - codex
 ---
 
-
 ## Platform Notes
 
 - Optional helper plugins may help in some environments, but they must not be treated as required for this skill.
@@ -30,7 +29,7 @@ metadata:
 
 ## Required Inputs
 
-- Gather relevant project context, constraints, and the concrete problem to solve.
+- Gather relevant project context, constraints, and the concrete problem to solve; load `references` only as needed.
 - Confirm the desired deliverable: design, code, review, migration plan, audit, or documentation.
 
 ## Workflow
@@ -58,7 +57,7 @@ metadata:
 
 ## References
 
-- Use the links and companion skills already referenced in this file when deeper context is needed.
+- Use the `references/` directory for deep detail after reading the core workflow below.
 <!-- dual-compat-end -->
 ## When to Use This Skill
 

@@ -25,7 +25,7 @@ metadata:
 
 ## Required Inputs
 
-- Gather relevant project context, constraints, and the concrete problem to solve.
+- Gather relevant project context, constraints, and the concrete problem to solve; load `references` only as needed.
 - Confirm the desired deliverable: design, code, review, migration plan, audit, or documentation.
 
 ## Workflow
@@ -53,7 +53,7 @@ metadata:
 
 ## References
 
-- Use the links and companion skills already referenced in this file when deeper context is needed.
+- Use the `references/` directory for deep detail after reading the core workflow below.
 <!-- dual-compat-end -->
 Advanced patterns for experienced SwiftUI developers. Covers the internals that make SwiftUI tick.
 

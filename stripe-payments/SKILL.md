@@ -26,8 +26,8 @@ metadata:
 
 ## Required Inputs
 
-- Gather product pricing, billing flows, target countries, authentication model, and the concrete payment problem to solve; load `references/` only as needed.
-- Confirm the desired deliverable: architecture, implementation plan, code, review, migration plan, audit, or documentation.
+- Gather relevant project context, constraints, and the concrete problem to solve; load `references` only as needed.
+- Confirm the desired deliverable: design, code, review, migration plan, audit, or documentation.
 
 ## Workflow
 

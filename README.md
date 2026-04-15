@@ -114,6 +114,40 @@ Python sits alongside the PHP backend as a sidecar and worker to handle analytic
 
 Load order for Python work: `python-modern-standards` + `python-saas-integration` first, then the domain-specific skill.
 
+### TypeScript (production + full-stack)
+
+Beyond `typescript-mastery` (type system) and `typescript-design-patterns` (GoF):
+
+| Skill | Purpose |
+|-------|---------|
+| `typescript-effective` | Production idioms — strict tsconfig, effective-TS items, clean code, Zod boundaries, migration from JS, build performance, anti-patterns |
+| `typescript-full-stack` | End-to-end TS — Fastify, tRPC, Prisma/Drizzle, Zod shared schemas, turborepo, auth, Docker |
+
+### Kubernetes (greenfield K8s family)
+
+| Skill | Purpose |
+|-------|---------|
+| `kubernetes-fundamentals` | Core objects, kubectl, probes, ingress, when K8s is right vs alternatives, EKS/GKE/kind |
+| `kubernetes-production` | Helm, autoscaling, StatefulSets, external-secrets, observability, RBAC + PSS, NetworkPolicies, Velero, cost control |
+| `kubernetes-saas-delivery` | Multi-tenancy models, namespace isolation, ArgoCD GitOps, progressive delivery, tenant onboarding + offboarding, cost allocation |
+
+### GIS (backend + map clients + enterprise domain)
+
+Extends existing `gis-mapping` (Leaflet) with:
+
+| Skill | Purpose |
+|-------|---------|
+| `gis-postgis-backend` | PostGIS schema, SRID choice, spatial indexes, MVT tiles, geocoding, hybrid MySQL+PostGIS, RLS tenant isolation |
+| `gis-maps-integration` | Google Maps JavaScript API + Mapbox GL — setup, Places, directions, styling, offline, cost control, accessibility |
+| `gis-enterprise-domain` | ArcGIS Enterprise admin + real-estate GIS patterns (property search, neighbourhood analysis, catchment, market heatmaps) |
+
+### SaaS Business
+
+| Skill | Purpose |
+|-------|---------|
+| `saas-sales-organization` | Sales motions, roles (SDR/BDR/AE/CSM/SE), pipeline stages, territory + quota + commission design, forecasting, hiring |
+| `saas-subscription-mastery` | Subscription business strategy — retention point, 29-step framework, activation, engagement loops, churn prevention, expansion, billing provider selection |
+
 ### Security
 
 | Skill | Scope |
@@ -219,7 +253,7 @@ Then include:
 
 ## Repository Stats
 
-- 199 skills across architecture, web, mobile, Python analytics/ML/documents, AI, security, UX, data, and SDLC
+- 209 skills across architecture, web, mobile, Python analytics/ML/documents, full-stack TypeScript, Kubernetes, GIS, AI, security, UX, data, SaaS business, and SDLC
 - full-stack coverage for web apps, mobile apps, SaaS, ERP, APIs, and data systems
 - layered baseline for architecture, data design, delivery workflow, and production quality
 

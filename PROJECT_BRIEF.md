@@ -84,6 +84,26 @@ Default loading order for complex engineering work:
 - Skills: `python-modern-standards`, `python-saas-integration`, `python-data-analytics`, `python-document-generation`, `python-ml-predictive`, `python-data-pipelines`
 - Use cases: complex analytics beyond SQL, branded downloadable reports, demand/churn forecasting, receipt OCR, external API syncs (Stripe, payment gateways, bank feeds)
 
+### TypeScript Full-Stack (2 new skills, alongside existing `typescript-mastery` + `typescript-design-patterns`)
+
+- Skills: `typescript-effective` (production idioms + migration), `typescript-full-stack` (Fastify + tRPC + Prisma + turborepo + Zod end-to-end)
+- Use cases: production TypeScript review, greenfield TS apps, end-to-end type safety across FE and BE, monorepo setup
+
+### Kubernetes (3 skills, greenfield)
+
+- Skills: `kubernetes-fundamentals`, `kubernetes-production`, `kubernetes-saas-delivery`
+- Use cases: adopting K8s, hardening a cluster to production, running multi-tenant SaaS with GitOps (ArgoCD) and progressive delivery
+
+### GIS Extended (3 skills, alongside existing `gis-mapping`)
+
+- Skills: `gis-postgis-backend`, `gis-maps-integration`, `gis-enterprise-domain`
+- Use cases: PostGIS backend with MVT tiles, Google Maps / Mapbox client integration, ArcGIS Enterprise admin, real-estate GIS patterns (search, catchment, heatmaps)
+
+### SaaS Business (2 skills)
+
+- Skills: `saas-sales-organization` (sales org design), `saas-subscription-mastery` (retention, 29-step framework, expansion)
+- Use cases: scaling sales hires, designing commission plans, improving retention, choosing billing providers, designing subscription pricing models
+
 ### Vibe Security Skill
 
 - Domain: web application security

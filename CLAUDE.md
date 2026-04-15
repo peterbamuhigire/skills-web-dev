@@ -107,6 +107,38 @@ Python plugs into the PHP + Android + iOS stack as a sidecar and worker for anal
    - `python-ml-predictive` - forecasting (Prophet / statsmodels), classification/regression (sklearn, XGBoost), anomaly detection
    - `python-data-pipelines` - ETL, OCR, PDF extraction, image processing, scheduling, DLQ
 
+### TypeScript Baseline
+
+For any TypeScript work:
+
+1. `typescript-mastery` - type system depth
+2. `typescript-effective` - production idioms, strict tsconfig, Zod at boundaries, anti-patterns
+3. add `typescript-full-stack` for end-to-end apps (Fastify, tRPC, Prisma, turborepo)
+4. add `typescript-design-patterns` for GoF patterns when the problem calls for them
+
+### Kubernetes Baseline
+
+For K8s work:
+
+1. `kubernetes-fundamentals` - objects, kubectl, probes, ingress, when K8s is right
+2. `kubernetes-production` - Helm, autoscaling, secrets, observability, security baseline
+3. `kubernetes-saas-delivery` - multi-tenancy, GitOps (ArgoCD), progressive delivery, onboarding/offboarding
+
+### GIS Baseline
+
+Load in layers:
+
+- `gis-mapping` - Leaflet client (existing)
+- `gis-postgis-backend` - spatial backend (PostGIS)
+- `gis-maps-integration` - Google Maps / Mapbox / MapLibre when Leaflet is insufficient
+- `gis-enterprise-domain` - ArcGIS Enterprise admin + real-estate domain patterns
+
+### SaaS Business Skills (non-engineering)
+
+- `saas-sales-organization` - designing and scaling a sales org
+- `saas-subscription-mastery` - building / retaining / growing a subscription business
+- Plus existing `saas-business-metrics`, `subscription-billing`, `software-pricing-strategy`, `software-business-models`
+
 ## Repository Structure
 
 Representative layout:

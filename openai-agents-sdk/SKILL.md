@@ -51,6 +51,13 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Correctness | OpenAI Agents SDK contract test plan | Markdown doc covering Agent, Runner, Tools, Handoff, and Guardrails primitive tests | `docs/ai/openai-agents-tests.md` |
+| Security | Agent guardrail and key handling note | Markdown doc covering tool whitelisting, output filtering, and API key rotation | `docs/ai/openai-agents-security.md` |
+
 ## References
 
 - Use the links and companion skills already referenced in this file when deeper context is needed.

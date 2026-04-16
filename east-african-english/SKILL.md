@@ -51,6 +51,12 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| UX quality | East-African English copy audit | Markdown doc reviewing East-African English tone, idiom, and authenticity per page | `docs/content/east-african-audit.md` |
+
 ## References
 
 - Use the links and companion skills already referenced in this file when deeper context is needed.

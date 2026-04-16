@@ -56,6 +56,12 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Correctness | Test plan compliant with BS ISO/IEC/IEEE 29119-3:2013 | Markdown doc per `skill-composition-standards/references/test-plan-template.md` aligned to the IEEE testing standard | `docs/sdlc/test-plan-checkout.md` |
+
 ## References
 
 - Use the `templates/` directory when the task needs a structured deliverable.

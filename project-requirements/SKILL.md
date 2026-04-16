@@ -55,6 +55,12 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Release evidence | Requirements documentation set | Markdown docs covering requirements.md, business-rules.md, and user-types.md per the guided interview | `docs/requirements/requirements.md` |
+
 ## References
 
 - Use the links and companion skills already referenced in this file when deeper context is needed.

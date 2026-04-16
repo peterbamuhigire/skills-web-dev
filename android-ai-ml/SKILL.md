@@ -57,12 +57,14 @@ ML Kit analyser + CameraX pipeline; TFLite model loader + Interpreter wrapper; M
 
 ## Evidence Produced
 
-| Category | Artifact | Example |
-|----------|----------|---------|
-| Code | ML analyser + CameraX pipeline | `feature/scan/BarcodeAnalyzer.kt`, `feature/scan/CameraScreen.kt` |
-| Code | TFLite Interpreter wrapper | `ml/ClassifierInterpreter.kt`, `assets/model_int8.tflite` |
-| Ops | Device benchmark report | `docs/ml/benchmarks-2026-04-16.md` |
-| Test | Golden-output unit tests | `src/test/.../ClassifierInterpreterTest.kt` |
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Correctness | Android on-device ML test plan | Markdown doc covering ML Kit (text/face/barcode/language/entity), TensorFlow Lite model load, and inference path tests | `docs/android/ml-tests.md` |
+| Performance | On-device inference latency budget | Markdown doc covering per-model latency, memory, and battery-impact budgets | `docs/android/ml-perf-budget.md` |
+| Release evidence | ML analyser + CameraX pipeline | Kotlin source files implementing ML Kit analyser and CameraX capture pipeline | `feature/scan/BarcodeAnalyzer.kt`, `feature/scan/CameraScreen.kt` |
+| Release evidence | TFLite Interpreter wrapper | Kotlin source and bundled TFLite model asset | `ml/ClassifierInterpreter.kt`, `assets/model_int8.tflite` |
+| Operability | Device benchmark report | Markdown doc capturing latency and memory per target device | `docs/ml/benchmarks-2026-04-16.md` |
+| Correctness | Golden-output unit tests | Kotlin test files verifying classifier output against known inputs | `src/test/.../ClassifierInterpreterTest.kt` |
 
 ## References
 

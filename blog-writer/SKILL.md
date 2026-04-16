@@ -52,6 +52,12 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Release evidence | Published blog post record | Markdown doc capturing each published post: title, slug, language(s), images, and metadata | `docs/content/blog-publish-log.md` |
+
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.

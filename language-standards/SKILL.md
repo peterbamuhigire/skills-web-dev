@@ -51,6 +51,12 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| UX quality | Multilingual copy audit | Markdown doc reviewing tone and style consistency across English, French, and other supported languages per page | `docs/content/multilingual-audit.md` |
+
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.

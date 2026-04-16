@@ -62,6 +62,7 @@ metadata:
 ## References
 
 - Use the links and companion skills already referenced in this file when deeper context is needed.
+- Companion skill: `event-driven-architecture` — for event sourcing, CQRS, saga orchestration, outbox, DLQ, and broker selection details when moving beyond basic async messaging.
 <!-- dual-compat-end -->
 ## The Two Communication Styles
 

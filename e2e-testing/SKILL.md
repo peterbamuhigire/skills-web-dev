@@ -59,14 +59,11 @@ metadata:
 
 ## When E2E Tests Are Worth It
 
-E2E tests sit at the top of the Cohn pyramid: 70% unit, 20% integration, 10% E2E. They catch failures unit tests cannot — third-party script regressions, CSS layout breakage, auth cookie handling, real network timing, browser quirks. *Do not use E2E tests to verify pure logic*; that belongs in unit tests.
-
-Production targets: pass rate `>=` 99% over 7 days, wall-clock `<=` 5 min on CI with sharding, flake rate `<=` 1% (quarantine failures within 24 h).
+E2E tests sit at the top of the Cohn pyramid: 70% unit, 20% integration, 10% E2E. They catch failures unit tests cannot — third-party script regressions, CSS layout breakage, auth cookies, real network timing, browser quirks. *Do not use E2E to verify pure logic*; that belongs in unit tests. Targets: pass rate `>=` 99% over 7 days, wall-clock `<=` 5 min on CI with sharding, flake rate `<=` 1% (quarantine within 24 h).
 
 ```typescript
 // tests/smoke.spec.ts — minimum smoke test a deploy must pass
 import { test, expect } from '@playwright/test';
-
 test('home page renders and primary CTA works', async ({ page }) => {
   await page.goto('/');
   await expect(page).toHaveTitle(/Dashboard/);
@@ -82,18 +79,13 @@ Initialise with `npm init playwright@latest` (answer TypeScript, `tests/`, GitHu
 ```typescript
 // playwright.config.ts
 import { defineConfig, devices } from '@playwright/test';
-
 export default defineConfig({
   testDir: './tests/e2e',
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 4 : undefined,
-  reporter: [
-    ['html', { open: 'never' }],
-    ['junit', { outputFile: 'results.xml' }],
-    ['list'],
-  ],
+  reporter: [['html', { open: 'never' }], ['junit', { outputFile: 'results.xml' }], ['list']],
   use: {
     baseURL: process.env.BASE_URL ?? 'http://localhost:3000',
     trace: 'on-first-retry',
@@ -107,12 +99,7 @@ export default defineConfig({
     { name: 'webkit', use: { ...devices['Desktop Safari'] }, dependencies: ['setup'] },
     { name: 'mobile-chrome', use: { ...devices['Pixel 7'] }, dependencies: ['setup'] },
   ],
-  webServer: {
-    command: 'npm run dev',
-    url: 'http://localhost:3000',
-    reuseExistingServer: !process.env.CI,
-    timeout: 120_000,
-  },
+  webServer: { command: 'npm run dev', url: 'http://localhost:3000', reuseExistingServer: !process.env.CI, timeout: 120_000 },
 });
 ```
 
@@ -124,7 +111,6 @@ One class per page. The class owns locators and exposes intent-level methods. Te
 // tests/e2e/pages/LoginPage.ts
 import type { Page, Locator } from '@playwright/test';
 import { expect } from '@playwright/test';
-
 export class LoginPage {
   readonly page: Page;
   readonly emailInput: Locator;
@@ -167,7 +153,7 @@ Prefer locators that match how a real user finds elements. Priority order:
 
 1. `getByRole` — canonical accessibility query.
 2. `getByLabel` — form inputs with associated labels.
-3. `getByPlaceholder` — inputs without labels (fix the accessibility bug later).
+3. `getByPlaceholder` — inputs without labels (fix the a11y bug later).
 4. `getByText` — static copy and headings.
 5. `getByTestId` — last resort when semantics cannot express the target.
 
@@ -175,7 +161,6 @@ Prefer locators that match how a real user finds elements. Priority order:
 // Good — survives CSS refactors, signals intent
 await page.getByRole('button', { name: 'Save changes' }).click();
 await page.getByLabel('Quantity').fill('3');
-
 // Bad — brittle, opaque, couples test to markup internals
 await page.locator('.btn.btn-primary.save-btn').click();
 await page.locator('#root > div > form > div:nth-child(2) > input').fill('3');
@@ -191,7 +176,6 @@ Fixtures inject reusable setup. Extend `test` to add authed pages, seeded record
 // tests/e2e/fixtures.ts
 import { test as base, type Page } from '@playwright/test';
 import { LoginPage } from './pages/LoginPage';
-
 export const test = base.extend<{ authedPage: Page }>({
   authedPage: async ({ page }, use) => {
     const login = new LoginPage(page);
@@ -201,7 +185,6 @@ export const test = base.extend<{ authedPage: Page }>({
   },
 });
 export { expect } from '@playwright/test';
-
 // Usage — test body starts logged in
 import { test, expect } from './fixtures';
 test('dashboard loads for authed user', async ({ authedPage }) => {
@@ -211,12 +194,11 @@ test('dashboard loads for authed user', async ({ authedPage }) => {
 
 ## Authentication in E2E Tests
 
-Do not re-run the login UI per test. Log in once in a `setup` project, save `storageState`, reuse it across the run. This cuts suite time 30-60% and removes login flows from the critical path.
+Do not re-run the login UI per test. Log in once in a `setup` project, save `storageState`, reuse across the run. Cuts suite time 30-60% and removes login flows from the critical path.
 
 ```typescript
 // tests/e2e/auth.setup.ts
 import { test as setup, expect } from '@playwright/test';
-
 const authFile = 'playwright/.auth/user.json';
 
 setup('authenticate', async ({ page }) => {
@@ -227,18 +209,11 @@ setup('authenticate', async ({ page }) => {
   await expect(page).toHaveURL(/\/dashboard/);
   await page.context().storageState({ path: authFile });
 });
-```
 
-Wire the state into dependent projects:
-
-```typescript
-// playwright.config.ts (project block excerpt)
+// playwright.config.ts — wire state into dependent projects
 {
   name: 'chromium',
-  use: {
-    ...devices['Desktop Chrome'],
-    storageState: 'playwright/.auth/user.json',
-  },
+  use: { ...devices['Desktop Chrome'], storageState: 'playwright/.auth/user.json' },
   dependencies: ['setup'],
 },
 ```
@@ -258,10 +233,8 @@ await page.route('**/api/orders', async (route) => {
     body: JSON.stringify({ orders: [{ id: 1, total: 42.00 }] }),
   });
 });
-
 // Force network failure
 await page.route('**/api/payments', (route) => route.abort('failed'));
-
 // Simulate slow backend — 2s delay before the real request continues
 await page.route('**/api/reports/*', async (route) => {
   await new Promise((r) => setTimeout(r, 2_000));
@@ -269,7 +242,7 @@ await page.route('**/api/reports/*', async (route) => {
 });
 ```
 
-Full-page throttling (CPU + bandwidth) uses CDP: `const client = await page.context().newCDPSession(page); await client.send('Network.emulateNetworkConditions', { offline: false, latency: 400, downloadThroughput: 500_000, uploadThroughput: 500_000 });`.
+Full throttling (CPU + bandwidth) uses CDP: `const client = await page.context().newCDPSession(page); await client.send('Network.emulateNetworkConditions', { offline: false, latency: 400, downloadThroughput: 500_000, uploadThroughput: 500_000 });`.
 
 ## Form Submission Testing
 
@@ -302,7 +275,6 @@ Pixel snapshots catch layout breakage that functional assertions miss. Baseline 
 test('dashboard matches visual baseline', async ({ page }) => {
   await page.goto('/dashboard');
   await page.waitForLoadState('networkidle');
-
   await expect(page).toHaveScreenshot('dashboard.png', {
     maxDiffPixelRatio: 0.01,
     mask: [page.getByTestId('current-time'), page.getByRole('img', { name: 'Avatar' })],
@@ -310,37 +282,33 @@ test('dashboard matches visual baseline', async ({ page }) => {
 });
 ```
 
-Regenerate baselines: `npx playwright test --update-snapshots`. Images land under `tests/e2e/<spec>.spec.ts-snapshots/dashboard-chromium-linux.png`. *Mask every dynamic region* — clocks, randomised charts, avatar URLs — or snapshots flake.
+Regenerate baselines with `npx playwright test --update-snapshots`; images land under `tests/e2e/<spec>.spec.ts-snapshots/dashboard-chromium-linux.png`. *Mask every dynamic region* — clocks, randomised charts, avatar URLs — or snapshots flake.
 
 ## Accessibility Testing
 
-Fail the build on WCAG 2.2 AA violations using `@axe-core/playwright`. Wire one check per page-level test; full coverage catches regressions the design team would otherwise ship.
+Fail the build on WCAG 2.2 AA violations using `@axe-core/playwright`. One check per page-level test; full coverage catches regressions the design team would otherwise ship.
 
 ```typescript
 import AxeBuilder from '@axe-core/playwright';
 import { test, expect } from '@playwright/test';
-
 test('dashboard has no accessibility violations', async ({ page }) => {
   await page.goto('/dashboard');
-
   const results = await new AxeBuilder({ page })
     .withTags(['wcag2a', 'wcag2aa', 'wcag22aa'])
     .exclude('#third-party-widget')
     .analyze();
-
   expect(results.violations).toEqual([]);
 });
 ```
 
-Violations contain `id`, `impact`, `description`, and `nodes[].html` — enough to open a ticket with a selector and remediation pointer.
+Violations contain `id`, `impact`, `description`, and `nodes[].html` — enough to open a ticket with selector and remediation pointer.
 
 ## Mobile Viewport Testing
 
-Three viewports matter: 375 px (iPhone), 768 px (iPad portrait), 1280 px (laptop). Device descriptors set viewport, user agent, and touch support in one line.
+Three viewports matter: 375 px (iPhone), 768 px (iPad portrait), 1280 px (laptop). Device descriptors set viewport, user agent, touch support in one line.
 
 ```typescript
 import { test, expect, devices } from '@playwright/test';
-
 test.use({ ...devices['iPhone 15 Pro'] });
 
 test('mobile nav drawer opens on tap', async ({ page }) => {
@@ -366,7 +334,6 @@ The `request` fixture hits the API directly. Use it to seed data before UI asser
 
 ```typescript
 import { test, expect } from '@playwright/test';
-
 test('invoice list shows a newly created invoice', async ({ request, page }) => {
   const created = await request.post('/api/invoices', {
     data: { customer: 'Acme', total: 1200 },
@@ -377,12 +344,11 @@ test('invoice list shows a newly created invoice', async ({ request, page }) => 
 
   await page.goto('/invoices');
   await expect(page.getByRole('row', { name: /Acme/ })).toBeVisible();
-
   await test.info().attach('invoice-id', { body: String(id) });
 });
 
 test.afterEach(async ({ request }) => {
-  await request.delete(`/api/invoices/test-cleanup`, {
+  await request.delete('/api/invoices/test-cleanup', {
     headers: { Authorization: `Bearer ${process.env.API_TOKEN}` },
   });
 });
@@ -393,21 +359,17 @@ test.afterEach(async ({ request }) => {
 Playwright parallelises at the file level by default. `fullyParallel: true` parallelises at the test level within a file. Use `workers: 4` on CI, unbounded locally.
 
 ```typescript
-export default defineConfig({
-  fullyParallel: true,
-  workers: process.env.CI ? 4 : undefined,
-});
-
+export default defineConfig({ fullyParallel: true, workers: process.env.CI ? 4 : undefined });
 // Per-file override when tests mutate shared state
 test.describe.configure({ mode: 'serial' });
 // Sharding — run 1/4 of the suite per CI job: npx playwright test --shard=2/4
 ```
 
-Shared state (DB rows, uploaded files) requires serial mode, per-worker isolation (unique tenant per `testInfo.workerIndex`), or a seeded fresh database per shard.
+Shared state (DB rows, uploaded files) requires serial mode, per-worker isolation (unique tenant per `testInfo.workerIndex`), or a fresh seeded DB per shard.
 
 ## CI Integration (GitHub Actions)
 
-The standard workflow: install dependencies, cache npm and browsers, run tests in a shard matrix, upload the HTML report on failure.
+Install deps, cache npm and browsers, run tests in a shard matrix, upload the HTML report on failure.
 
 ```yaml
 # .github/workflows/e2e.yml
@@ -416,7 +378,6 @@ on:
   pull_request:
   push:
     branches: [main]
-
 jobs:
   e2e:
     timeout-minutes: 20
@@ -431,23 +392,18 @@ jobs:
         with:
           node-version: 20
           cache: npm
-
       - run: npm ci
-
       - name: Cache Playwright browsers
         uses: actions/cache@v4
         with:
           path: ~/.cache/ms-playwright
           key: pw-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-
       - run: npx playwright install --with-deps
-
       - run: npx playwright test --shard=${{ matrix.shard }}
         env:
           BASE_URL: http://localhost:3000
           E2E_USER_EMAIL: ${{ secrets.E2E_USER_EMAIL }}
           E2E_USER_PASSWORD: ${{ secrets.E2E_USER_PASSWORD }}
-
       - name: Upload HTML report
         if: always()
         uses: actions/upload-artifact@v4
@@ -462,14 +418,14 @@ jobs:
 Four tools, ranked by frequency of use:
 
 1. **Trace Viewer** — every failure produces `trace.zip`. Open with `npx playwright show-trace trace.zip` for DOM snapshot, network log, console timeline per action.
-2. **`--debug`** — `npx playwright test login.spec.ts --debug` opens Playwright Inspector (step-through UI + locator picker).
+2. **`--debug`** — `npx playwright test login.spec.ts --debug` opens Inspector (step-through UI + locator picker).
 3. **`page.pause()`** — drop in the test body to freeze execution and explore interactively.
 4. **Screenshots** — `screenshot: 'only-on-failure'` in config; inspect under `test-results/`.
 
 ```typescript
 test('dashboard shows recent orders', async ({ page }) => {
   await page.goto('/dashboard');
-  await page.pause(); // Opens Inspector; remove before commit
+  await page.pause(); // opens Inspector; remove before commit
   await expect(page.getByRole('table')).toBeVisible();
 });
 ```
@@ -486,7 +442,7 @@ reporter: [
 ],
 ```
 
-Catch flakes early: `retries: 2` tolerates transient issues while reporting them. Run `npx playwright test --repeat-each=20 flaky.spec.ts` locally to prove a suspect test is deterministic. Any test that fails at least once in 20 runs is quarantined via `test.fixme()` and a ticket opened within 24 h.
+Catch flakes early: `retries: 2` tolerates transient issues while reporting them. Run `npx playwright test --repeat-each=20 flaky.spec.ts` locally to prove determinism. Tests failing at least once in 20 runs are quarantined via `test.fixme()` with a ticket inside 24 h.
 
 ## Companion Skills
 

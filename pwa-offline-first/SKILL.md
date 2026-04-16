@@ -59,20 +59,17 @@ metadata:
 
 ## Why Offline-First for East Africa
 
-Connectivity in Uganda, Kenya, and Tanzania is bimodal: urban fibre and 4G in Kampala CBD, Westlands, or Masaki, then EDGE/2G the moment a user boards a boda, enters a Bushenyi cooperative, or works inside a hospital ward with poor indoor coverage. Field workers counting inventory in Mbale, community health workers in Arua, and agents confirming MTN MoMo or Airtel Money disbursements in village kiosks all depend on apps that tolerate zero bars for minutes at a time. Co-working spaces on Kampala Road and Ngong Road regularly suffer 30-second uplink stalls mid-upload.
-
-The operational consequence: every write path must queue locally and sync when connectivity returns; every read path must fall back to a cached response rather than a spinner.
+Connectivity in Uganda, Kenya, and Tanzania is bimodal: urban fibre and 4G in Kampala CBD, Westlands, or Masaki, then EDGE/2G the moment a user boards a boda, enters a Bushenyi cooperative, or works inside a hospital ward with poor indoor coverage. Field workers counting inventory in Mbale, community health workers in Arua, and agents confirming MTN MoMo or Airtel Money disbursements in village kiosks all tolerate zero bars for minutes at a time. Co-working spaces on Kampala Road and Ngong Road suffer 30-second uplink stalls mid-upload. Every write path must queue locally and sync when connectivity returns; every read path must fall back to a cached response rather than a spinner.
 
 ## PWA Checklist
 
-- Served over HTTPS (localhost exempt for development).
-- Web App Manifest (`manifest.json` or `manifest.webmanifest`) present and linked from `<head>`.
+- Served over HTTPS (localhost exempt); Web App Manifest present and linked from `<head>`.
 - Service Worker registered at the narrowest scope needed.
-- Icons supplied at 192x192, 512x512, and maskable variants.
-- `beforeinstallprompt` event captured and surfaced as an in-app install button.
-- Lighthouse PWA category score greater than or equal to 90.
+- Icons at 192x192, 512x512, and maskable variants.
+- `beforeinstallprompt` captured and surfaced as an in-app install button.
+- Lighthouse PWA score greater than or equal to 90.
 - Core content renders with JavaScript disabled; interactive features degrade gracefully.
-- `start_url` returns HTTP 200 when the network is offline (served from cache).
+- `start_url` returns HTTP 200 when offline (served from cache).
 
 ## Web App Manifest
 
@@ -100,7 +97,7 @@ The operational consequence: every write path must queue locally and sync when c
 }
 ```
 
-Link from the document head: `<link rel="manifest" href="/manifest.webmanifest">`.
+Link from head: `<link rel="manifest" href="/manifest.webmanifest">`.
 
 ## Service Worker Lifecycle
 
@@ -140,7 +137,7 @@ navigator.serviceWorker.register('/sw.js').then((reg) => {
 
 ## Workbox Setup
 
-`vite-plugin-pwa` for Vite, `next-pwa` for Next.js. Default to `generateSW`; switch to `injectManifest` only when custom Service Worker logic is required (Background Sync queues, custom push routing).
+`vite-plugin-pwa` for Vite, `next-pwa` for Next.js. Default to `generateSW`; switch to `injectManifest` only when custom Service Worker logic is required.
 
 ```typescript
 // vite.config.ts
@@ -152,16 +149,7 @@ export default defineConfig({
     registerType: 'autoUpdate',
     strategies: 'generateSW',
     includeAssets: ['favicon.svg', 'robots.txt', 'offline.html'],
-    manifest: {
-      name: 'Field Inventory Uganda',
-      short_name: 'FieldInv',
-      theme_color: '#0f172a',
-      icons: [
-        { src: '/icons/icon-192.png', sizes: '192x192', type: 'image/png' },
-        { src: '/icons/icon-512.png', sizes: '512x512', type: 'image/png' },
-        { src: '/icons/maskable-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' }
-      ]
-    },
+    manifest: { /* see Web App Manifest section */ },
     workbox: {
       globPatterns: ['**/*.{js,css,html,woff2,svg,png}'],
       navigateFallback: '/offline.html',
@@ -171,7 +159,7 @@ export default defineConfig({
           options: { cacheName: 'api-catalog', networkTimeoutSeconds: 10, expiration: { maxAgeSeconds: 3600 } } },
         { urlPattern: ({ request }) => request.destination === 'image',
           handler: 'CacheFirst',
-          options: { cacheName: 'images', expiration: { maxAgeSeconds: 60 * 60 * 24 * 30, maxEntries: 200 } } }
+          options: { cacheName: 'images', expiration: { maxAgeSeconds: 2592000, maxEntries: 200 } } }
       ]
     }
   })]
@@ -181,7 +169,7 @@ export default defineConfig({
 ## Caching Strategies
 
 | Strategy | Use Case | TTL |
-|----------|----------|-----|
+|---|---|---|
 | NetworkFirst | Catalog, user profile, dashboards | 10 min |
 | CacheFirst | Fonts, hashed JS/CSS, versioned images | 30 days |
 | StaleWhileRevalidate | Help docs, blog, release notes | 24 hours |
@@ -194,32 +182,26 @@ import { ExpirationPlugin } from 'workbox-expiration';
 
 registerRoute(({ url }) => url.pathname.startsWith('/api/profile'),
   new NetworkFirst({ cacheName: 'profile', networkTimeoutSeconds: 10 }));
-
 registerRoute(({ request }) => request.destination === 'font',
-  new CacheFirst({
-    cacheName: 'fonts',
-    plugins: [new ExpirationPlugin({ maxAgeSeconds: 60 * 60 * 24 * 30 })]
-  }));
-
+  new CacheFirst({ cacheName: 'fonts',
+    plugins: [new ExpirationPlugin({ maxAgeSeconds: 60 * 60 * 24 * 30 })] }));
 registerRoute(({ url }) => url.pathname.startsWith('/help'),
   new StaleWhileRevalidate({ cacheName: 'help-docs' }));
-
 registerRoute(({ url }) => url.pathname.startsWith('/api/payments'),
   new NetworkOnly(), 'POST');
 ```
 
-Never attach caching strategies to mutation verbs. Workbox will silently cache a POST response only if you ask it to; that is almost always a bug.
+Never cache mutation verbs. Workbox caches POST responses only when asked; doing so is almost always a bug.
 
 ## App Shell Architecture
 
-The shell is the minimal HTML, CSS, and JavaScript required to render the UI chrome. It is precached on install; content is fetched at runtime and layered in.
+The shell is the minimal HTML, CSS, and JavaScript needed to render UI chrome. Precached on install; content is fetched at runtime and layered in.
 
 ```text
 App Shell (cached)  ---  API content (network + cache fallback)
-     |                          |
-     +-- header, nav, skeleton  +-- /api/visits, /api/customers
-     +-- critical CSS           +-- images, documents
-     +-- app.js bootstrap       +-- falls back to IndexedDB when offline
+  header, nav, skeleton     /api/visits, /api/customers
+  critical CSS              images, documents
+  app.js bootstrap          falls back to IndexedDB when offline
 ```
 
 ```javascript
@@ -228,43 +210,27 @@ import { precacheAndRoute, createHandlerBoundToURL } from 'workbox-precaching';
 import { NavigationRoute, registerRoute } from 'workbox-routing';
 
 precacheAndRoute(self.__WB_MANIFEST);
-
-const navigationHandler = createHandlerBoundToURL('/index.html');
-registerRoute(new NavigationRoute(navigationHandler, { denylist: [/^\/api\//] }));
+const handler = createHandlerBoundToURL('/index.html');
+registerRoute(new NavigationRoute(handler, { denylist: [/^\/api\//] }));
 ```
 
 ## IndexedDB with Dexie.js
 
-Raw IndexedDB is verbose and transaction-leaky. Dexie wraps it with promises, typed tables, and migrations.
-
-```bash
-npm install dexie
-```
+Raw IndexedDB is verbose and transaction-leaky. Dexie wraps it with promises, typed tables, and migrations. Install with `npm install dexie`.
 
 ```typescript
 // src/db/index.ts
 import Dexie, { Table } from 'dexie';
-
 type SyncStatus = 'synced' | 'pending' | 'error';
 
-export interface Customer {
-  id?: number; externalId: string; name: string; phone: string;
-  district: string; syncStatus: SyncStatus; updatedAt: number;
-}
-export interface Visit {
-  id?: number; customerId: number; notes: string; amountUgx: number;
-  capturedAt: number; syncStatus: SyncStatus;
-}
-export interface PendingSync {
-  id?: number; endpoint: string; method: 'POST' | 'PUT' | 'DELETE';
-  body: string; attemptCount: number; createdAt: number; lastError?: string;
-}
+export interface Customer { id?: number; externalId: string; name: string; phone: string; district: string; syncStatus: SyncStatus; updatedAt: number; }
+export interface Visit { id?: number; customerId: number; notes: string; amountUgx: number; capturedAt: number; syncStatus: SyncStatus; }
+export interface PendingSync { id?: number; endpoint: string; method: 'POST' | 'PUT' | 'DELETE'; body: string; attemptCount: number; createdAt: number; lastError?: string; }
 
 export class FieldDB extends Dexie {
   customers!: Table<Customer, number>;
   visits!: Table<Visit, number>;
   pendingSyncs!: Table<PendingSync, number>;
-
   constructor() {
     super('field-inventory-db');
     this.version(1).stores({
@@ -276,18 +242,15 @@ export class FieldDB extends Dexie {
 }
 
 export const db = new FieldDB();
-
-export const queuePendingCustomers = () =>
-  db.customers.where('syncStatus').equals('pending').toArray();
-export const markCustomerSynced = (id: number) =>
-  db.customers.update(id, { syncStatus: 'synced' });
+export const queuePendingCustomers = () => db.customers.where('syncStatus').equals('pending').toArray();
+export const markCustomerSynced = (id: number) => db.customers.update(id, { syncStatus: 'synced' });
 ```
 
 Compound indexes (`[district+syncStatus]`) let you query "all pending customers in Bushenyi" without a full-table scan.
 
 ## Offline Form Submissions
 
-Write to IndexedDB first, always. Network is a best-effort add-on.
+Write to IndexedDB first. Network is a best-effort add-on.
 
 ```typescript
 import { db } from './db';
@@ -305,11 +268,11 @@ export async function saveVisit(input: Omit<Visit, 'id' | 'syncStatus'>) {
 }
 ```
 
-The user sees "Saved" immediately. The Service Worker drains the queue when the device next comes online.
+The user sees "Saved" immediately; the Service Worker drains the queue on reconnect.
 
 ## Background Sync API
 
-Feature-detect first; fall back to an `online` listener on platforms without Background Sync (Safari as of iOS 17 still lacks it).
+Feature-detect first; fall back to an `online` listener on platforms without Background Sync (Safari as of iOS 17).
 
 ```javascript
 // sw.js
@@ -319,8 +282,7 @@ self.addEventListener('sync', (event) => {
 
 async function syncPendingData() {
   const db = await openDB();
-  const pending = await db.getAll('pendingSyncs');
-  for (const row of pending) {
+  for (const row of await db.getAll('pendingSyncs')) {
     try {
       const res = await fetch(row.endpoint, {
         method: row.method,
@@ -342,17 +304,15 @@ Fallback for Safari:
 
 ```javascript
 window.addEventListener('online', () => {
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.controller?.postMessage({ type: 'MANUAL_SYNC' });
-  }
+  navigator.serviceWorker?.controller?.postMessage({ type: 'MANUAL_SYNC' });
 });
 ```
 
 ## Conflict Resolution
 
-1. **Last-write-wins** — trivial to implement, acceptable for non-financial fields (customer notes, address corrections). Client timestamp overwrites server version.
-2. **Server-authoritative** — server rejects stale writes with HTTP 409 and the canonical record. Use for money, stock quantities, MoMo transaction references.
-3. **Timestamp-based merge** — each field carries an `updatedAt`; merge accepts the newer value per-field. Use when two offline clients edit the same record.
+1. **Last-write-wins** — trivial; acceptable for non-financial fields (notes, address corrections). Client timestamp overwrites server.
+2. **Server-authoritative** — server rejects stale writes with HTTP 409 + canonical record. Use for money, stock quantities, MoMo refs.
+3. **Timestamp-based merge** — each field carries an `updatedAt`; newer value per-field wins. Use when two offline clients edit the same record.
 
 ```typescript
 async function handleConflict(db: IDBDatabase, row: PendingSync, server: any) {
@@ -371,19 +331,14 @@ async function handleConflict(db: IDBDatabase, row: PendingSync, server: any) {
 }
 ```
 
-Money fields default to server-authoritative: the ledger is the single source of truth.
+Money defaults to server-authoritative: the ledger is the single source of truth.
 
 ## Push Notifications
 
-Generate a VAPID keypair once per environment and store the private key on the server.
-
-```bash
-npx web-push generate-vapid-keys
-```
-
-Client subscription and Service Worker handlers:
+Generate a VAPID keypair once per environment (`npx web-push generate-vapid-keys`) and store the private key on the server.
 
 ```typescript
+// Client
 export async function subscribePush(vapidPublicKey: string) {
   if ((await Notification.requestPermission()) !== 'granted') return null;
   const reg = await navigator.serviceWorker.ready;
@@ -392,8 +347,7 @@ export async function subscribePush(vapidPublicKey: string) {
     applicationServerKey: urlBase64ToUint8Array(vapidPublicKey)
   });
   await fetch('/api/push/subscribe', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(subscription)
   });
   return subscription;
@@ -409,7 +363,6 @@ self.addEventListener('push', (event) => {
     data: { url: data.url ?? '/' }
   }));
 });
-
 self.addEventListener('notificationclick', (event) => {
   event.notification.close();
   event.waitUntil(self.clients.openWindow(event.notification.data.url));
@@ -446,7 +399,7 @@ test('visit saves offline then syncs', async ({ page, context }) => {
   await page.getByRole('button', { name: 'Save' }).click();
   await expect(page.getByText('Saved offline')).toBeVisible();
   await context.setOffline(false);
-  await expect(page.getByText('Synced')).toBeVisible({ timeout: 15_000 });
+  await expect(page.getByText('Synced')).toBeVisible({ timeout: 15000 });
 });
 ```
 
@@ -471,15 +424,13 @@ const withPWA = require('next-pwa')({
 module.exports = withPWA({ reactStrictMode: true });
 ```
 
-Payment and authentication routes must be `NetworkOnly`. A cached 200 response on `/api/payments/confirm` is a double-spend waiting to happen.
+Payment and authentication routes must be `NetworkOnly`; a cached 200 on `/api/payments/confirm` is a double-spend waiting to happen.
 
 ## Performance Budget
 
 - Time to Interactive less than or equal to 3 s on Slow 3G (400 Kbps, 400 ms RTT).
-- First Contentful Paint less than or equal to 1.8 s on Slow 3G.
-- Offline load from cache less than or equal to 1 s.
-- Precache manifest less than or equal to 1 MB compressed.
-- JavaScript bundle less than or equal to 170 KB compressed on the critical path.
+- First Contentful Paint less than or equal to 1.8 s on Slow 3G; offline cache load less than or equal to 1 s.
+- Precache manifest less than or equal to 1 MB; critical-path JS less than or equal to 170 KB compressed.
 - Largest Contentful Paint less than or equal to 2.5 s at P75 (Core Web Vitals "Good").
 - Cumulative Layout Shift less than 0.1; Interaction to Next Paint less than 200 ms.
 
@@ -487,15 +438,13 @@ Enforce via Lighthouse CI assertions; a red budget fails the build rather than w
 
 ## Companion Skills
 
-- `nextjs-app-router` — Next.js App Router patterns, layouts, server/client components
-- `frontend-performance` — Core Web Vitals, bundle budget, render-path analysis
-- `image-compression` — Client-side image compression before offline upload queueing
+- `nextjs-app-router` — Next.js App Router patterns, layouts, server/client components.
+- `frontend-performance` — Core Web Vitals, bundle budget, render-path analysis.
+- `image-compression` — Client-side image compression before offline upload queueing.
 
 ## Sources
 
-- Workbox documentation — `developer.chrome.com/docs/workbox`
-- Dexie.js documentation — `dexie.org/docs`
+- Workbox — `developer.chrome.com/docs/workbox`; Dexie.js — `dexie.org/docs`
 - MDN Service Worker API — `developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API`
-- web.dev PWA guide — `web.dev/progressive-web-apps`
-- Lighthouse CI — `github.com/GoogleChrome/lighthouse-ci`
+- web.dev PWA — `web.dev/progressive-web-apps`; Lighthouse CI — `github.com/GoogleChrome/lighthouse-ci`
 - *Building Progressive Web Apps* — Tal Ater (O'Reilly)

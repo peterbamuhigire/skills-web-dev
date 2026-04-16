@@ -144,6 +144,8 @@ See `references/house-style-checklist.md` for the full 20-point checklist and `r
 
 Every skill declares what it produces (outputs) and what it consumes (inputs). Downstream skills can then depend on those artifacts being present and well-formed. The baseline skills produce the artifact set that specialist skills consume, and specialist skills produce narrower deliverables that platform skills consume.
 
+Beyond Inputs and Outputs, specialist skills also declare which of seven fixed validation categories their artifacts contribute to. That third contract lives in `validation-contract`; it turns scattered validation skills into a coherent ship-readiness check and produces the canonical Release Evidence Bundle at release time.
+
 ### Required contract declaration
 
 Every SKILL.md has an **Inputs** and an **Outputs** section with a table:

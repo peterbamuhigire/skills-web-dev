@@ -51,6 +51,12 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Correctness | Type-system test plan | Markdown doc covering generic, conditional, mapped, and template-literal type tests | `docs/ts/types-tests.md` |
+
 ## References
 
 - Use the links and companion skills already referenced in this file when deeper context is needed.

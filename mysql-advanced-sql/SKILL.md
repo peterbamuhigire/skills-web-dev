@@ -51,6 +51,12 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Correctness | Advanced query test plan | Markdown doc covering window function, recursive CTE, and JSON-path test cases | `docs/data/mysql-advanced-tests.md` |
+
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.

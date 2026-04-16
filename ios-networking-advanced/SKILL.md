@@ -51,6 +51,13 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Correctness | API contract test output | CI log or recorded test report covering URLSession contracts | `docs/ios/network-tests-2026-04-16.md` |
+| Security | TLS / certificate-pinning configuration note | Markdown doc covering ATS, pinning, and credential transport | `docs/ios/network-security-config.md` |
+
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.

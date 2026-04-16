@@ -56,6 +56,12 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Release evidence | SDLC planning document set | Markdown docs covering Project Vision & Scope, SDP, SCMP, QA Plan, and Risk Plan | `docs/sdlc/planning-2026-04-16.md` |
+
 ## References
 
 - Use the `templates/` directory when the task needs a structured deliverable.

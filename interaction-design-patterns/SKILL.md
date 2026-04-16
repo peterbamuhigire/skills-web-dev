@@ -51,6 +51,12 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| UX quality | Tidwell pattern usage register | Markdown doc cataloguing applied Tidwell interaction patterns per surface | `docs/ux/tidwell-pattern-register.md` |
+
 ## References
 
 - Use the `sections/` directory for modular deep dives and load only the parts relevant to the task.

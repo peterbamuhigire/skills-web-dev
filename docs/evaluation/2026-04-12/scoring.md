@@ -4,9 +4,10 @@
 
 - **Initial evaluation: 2026-04-12** — average 7.1 / 10 (strong but not world-class)
 - **Reassessment: 2026-04-15** — average 8.4 / 10 (world-class emerging)
-- **Follow-up pass: 2026-04-15 (same day)** — average **8.9 / 10** (consistently world-class in capability and structure; depends on completing the normalisation rollout for full floor-raising)
+- **Follow-up pass: 2026-04-15 (same day)** — average 8.9 / 10 (consistently world-class in capability and structure)
+- **Normalisation + enforcement pass: 2026-04-16** — average **9.0 / 10** (world-class with mechanical contract enforcement and 100% specialist coverage)
 
-The section below reflects the follow-up pass. The intermediate 2026-04-15 scores remain in the table for traceability; 2026-04-12 justifications are preserved at the end.
+The section below reflects the 2026-04-16 pass. The intermediate columns remain in the table for traceability; 2026-04-12 justifications are preserved at the end.
 
 ## Scoring Scale
 
@@ -15,20 +16,20 @@ The section below reflects the follow-up pass. The intermediate 2026-04-15 score
 - 7 to 8: strong
 - 9 to 10: world-class
 
-## Scores (2026-04-15)
+## Scores (2026-04-16)
 
-| Dimension | 2026-04-12 | 2026-04-15 | Follow-up | Change total | Assessment |
-|---|---:|---:|---:|---:|---|
-| Coverage | 8 | 9.5 | **9.5** | +1.5 | World-class |
-| Baseline Strength | 7 | 8.5 | **9** | +2 | World-class |
-| Instruction Quality | 7 | 8 | **8.5** | +1.5 | Strong approaching world-class |
-| System Architecture | 8 | 8.5 | **9.5** | +1.5 | World-class |
-| Reasoning Depth | 7 | 8 | **8.5** | +1.5 | Strong approaching world-class |
-| Cross-Domain Integration | 7 | 8 | **9** | +2 | World-class |
-| Production Readiness | 6 | 8.5 | **9** | +3 | World-class |
-| Output Quality Potential | 7 | 8.5 | **9** | +2 | World-class |
+| Dimension | 2026-04-12 | 2026-04-15 | 2026-04-15 follow-up | 2026-04-16 | Change total | Assessment |
+|---|---:|---:|---:|---:|---:|---|
+| Coverage | 8 | 9.5 | 9.5 | **9.5** | +1.5 | World-class |
+| Baseline Strength | 7 | 8.5 | 9 | **9.5** | +2.5 | World-class |
+| Instruction Quality | 7 | 8 | 8.5 | **9** | +2 | World-class |
+| System Architecture | 8 | 8.5 | 9.5 | **9.5** | +1.5 | World-class |
+| Reasoning Depth | 7 | 8 | 8.5 | **8.5** | +1.5 | Strong approaching world-class |
+| Cross-Domain Integration | 7 | 8 | 9 | **9** | +2 | World-class |
+| Production Readiness | 6 | 8.5 | 9 | **9.5** | +3.5 | World-class |
+| Output Quality Potential | 7 | 8.5 | 9 | **9** | +2 | World-class |
 
-**Overall average: 8.9 / 10 (was 8.4 on the same-day intermediate assessment, and 7.1 on 2026-04-12). Follow-up delta: +0.5.**
+**Overall average: 9.0 / 10 (was 8.9 on the 2026-04-15 follow-up, 8.4 on the morning pass, 7.1 on the original). 2026-04-16 delta: +0.1.**
 
 ## What Changed Since 2026-04-12
 
@@ -157,11 +158,23 @@ Not 9 because output still depends on skill selection discipline. A user who ski
 
 ## Overall
 
-- **Average score: 8.9 / 10** (was 8.4 / 10 on intermediate, 7.1 / 10 original)
+- **Average score: 9.0 / 10** (was 8.9 / 10 on 2026-04-15 follow-up, 8.4 / 10 morning, 7.1 / 10 original)
 
-The repository is now **consistently world-class in capability and structure**. The cross-skill output contract — the single biggest remaining architectural lever flagged on 2026-04-15 — is now codified in `skill-composition-standards`, with 14 artifact templates downstream skills can consume in a known format. The first normalisation batch (5 high-traffic skills) is complete and all sit at 19/20 on the 20-point house-style checklist.
+The repository is now **world-class in capability and structure with mechanical contract enforcement**. The two architectural levers flagged on 2026-04-15 as the remaining path to 9.0+ — (a) cross-skill output contract enforcement and (b) normalisation rollout volume — are both now delivered.
 
-The remaining path to 9.5+ is volume rather than architecture: roll the same normalisation playbook over the rest of the specialist layer in batches, then add CI enforcement of the contract gate.
+The remaining path to 9.5+ is no longer architectural. It is content depth: book-verbatim grounding of the Python / Kubernetes / TypeScript / GIS new-family reference files (audited as item 4 in the parent backlog), and the long-tail addition of structured `## Inputs Contract` / `## Outputs Contract` declarations once `skill-composition-standards` defines the table form.
+
+## What Moved on 2026-04-16
+
+- **Baseline Strength 9.0 → 9.5** — Two new baseline skills landed: `validation-contract` (the third repository-wide contract; 7 evidence categories + Release Evidence Bundle) and `capability-matrix` (per-domain Foundation → Implementation → Validation → Companions lookup, 17 rows). Plus `contract_gate.py` validator script enforcing both. Baseline count now 14 (was 12).
+- **Instruction Quality 8.5 → 9.0** — The normalisation rollout now covers **210 of 210** non-exempt specialists. Every specialist skill in the repository declares `## Evidence Produced` with canonical category names, sitting inside the dual-compat block. The April 12 criticism that "the floor has not moved as much as the ceiling" is closed.
+- **Production Readiness 9.0 → 9.5** — The "advisory baseline" criticism flagged on every prior pass is closed. `contract_gate.py` mechanically enforces:
+  - Every specialist carries a well-formed Evidence Produced section
+  - Every category value is canonical
+  - Every Release Evidence Bundle has no empty cells / no unjustified `N/A`
+  
+  Final repo-wide gate output: **210 scanned | 0 errors | 0 warnings | 10 exempt**. The repository now structurally forces production-grade output rather than depending on operator discipline.
+- **Coverage / System Architecture / Reasoning Depth / Cross-Domain Integration / Output Quality** — no change this pass; capability is complete and the new contract layer was already credited at 8.9.
 
 ## What Moved in the Follow-Up Pass (2026-04-15 same day)
 

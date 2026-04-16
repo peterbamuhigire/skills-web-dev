@@ -55,6 +55,12 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Correctness | AI output validation test plan | Markdown doc covering schema validation, hallucination detection, and fallback paths | `docs/ai/output-validation-tests.md` |
+
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.

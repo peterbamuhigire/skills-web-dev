@@ -56,6 +56,12 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Release evidence | End-user manual | Markdown doc covering feature walkthrough, screenshots, and FAQ per ERP module | `docs/manuals/inventory-manual.md` |
+
 ## References
 
 - Use the links and companion skills already referenced in this file when deeper context is needed.

@@ -51,6 +51,12 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Security | Skill safety audit report | Markdown doc flagging unsafe instructions, unknown tools, external installers, or credential harvesting in scanned skills | `docs/security/skill-safety-2026-04-16.md` |
+
 ## References
 
 - Use the links and companion skills already referenced in this file when deeper context is needed.

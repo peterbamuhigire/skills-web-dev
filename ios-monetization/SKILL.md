@@ -51,6 +51,13 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Correctness | StoreKit 2 purchase flow test plan | Markdown doc covering consumable, non-consumable, subscription, and restore flows | `docs/ios/storekit-tests-checkout.md` |
+| Release evidence | App Store subscription configuration record | Markdown doc capturing product IDs, pricing tiers, and intro offers per region | `docs/ios/subscription-config-2026-04-16.md` |
+
 ## References
 
 - Use the links and companion skills already referenced in this file when deeper context is needed.

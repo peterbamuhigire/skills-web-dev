@@ -55,6 +55,12 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Data safety | PostgreSQL schema and constraints register | Markdown doc per `skill-composition-standards/references/entity-model-template.md` | `docs/data/postgres-schema-orders.md` |
+
 ## References
 
 - Use the links and companion skills already referenced in this file when deeper context is needed.

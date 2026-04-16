@@ -52,6 +52,13 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Operability | ArcGIS Enterprise admin runbook | Markdown doc per `skill-composition-standards/references/runbook-template.md` covering portal, Server, and Data Store ops | `docs/gis/arcgis-runbook.md` |
+| Data safety | Real-estate domain data model | Markdown doc per `skill-composition-standards/references/entity-model-template.md` covering parcel, ownership, and valuation entities | `docs/gis/real-estate-model.md` |
+
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.

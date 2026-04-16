@@ -51,6 +51,12 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| UX quality | Responsive breakpoint audit | Markdown doc covering content-driven breakpoints, container queries, and pointer/hover detection per page | `docs/web/responsive-audit-checkout.md` |
+
 ## References
 
 - Use the links and companion skills already referenced in this file when deeper context is needed.

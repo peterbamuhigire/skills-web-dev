@@ -52,6 +52,13 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Data safety | AI analytics tenancy note | Markdown doc covering per-tenant data scoping for semantic search and natural-language queries | `docs/ai/analytics-tenancy.md` |
+| Correctness | Natural-language query test plan | Markdown doc covering query parsing, intent recognition, and result-correctness golden set | `docs/ai/nl-query-tests.md` |
+
 ## References
 
 - Use the links and companion skills already referenced in this file when deeper context is needed.

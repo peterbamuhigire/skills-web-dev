@@ -75,6 +75,8 @@ If improving a skill:
 
 - `world-class-engineering` - shared production bar and release gates
 - `skill-composition-standards` - house-style template, cross-skill I/O contracts, 14 canonical artifact templates
+- `validation-contract` - seven evidence categories, Release Evidence Bundle, and ship-readiness gate for specialist skills
+- `capability-matrix` - per-domain Foundation → Implementation → Validation → Companions skill stacks; load when starting any new project or feature
 - `system-architecture-design` - decomposition, contracts, ADRs, failure design
 - `database-design-engineering` - schema shape, tenancy, indexing, migrations, retention
 - `saas-erp-system-design` - configurable workflow systems, approvals, controls, auditability
@@ -86,59 +88,9 @@ If improving a skill:
 - `distributed-systems-patterns` - consistency, messaging, idempotency, sagas, and cross-service tradeoffs
 - `engineering-management-system` - prioritization, delegation, operating rhythm, coaching, and team scaling
 
-### UI/UX Baseline
+### Per-domain stacks
 
-For any visual, layout, or interaction work load these three together before the platform skill:
-
-- `grid-systems` - column math, baseline rhythm, responsive mapping (Müller-Brockmann adapted for digital)
-- `practical-ui-design` - colour, typography, spacing, buttons, forms (Dannaway)
-- `interaction-design-patterns` - behaviour, navigation, layout, actions, data patterns (Tidwell)
-
-Add `laws-of-ux`, `ux-psychology`, `ux-writing`, `motion-design`, `responsive-design`, `ai-slop-prevention`, and `design-audit` as the feature demands.
-
-### Python Baseline
-
-Python plugs into the PHP + Android + iOS stack as a sidecar and worker for analytics, documents, ML, and ETL. For any Python work, load in this order:
-
-1. `python-modern-standards` - house style (uv, ruff, mypy, Pydantic v2, structlog, testing, security)
-2. `python-saas-integration` - FastAPI sidecar + Redis worker, deployment, PHP contract
-3. then one of:
-   - `python-data-analytics` - pandas/Polars, cohort/funnel/retention, financial math, statistics, geospatial
-   - `python-document-generation` - branded Excel / Word / PDF output for web and mobile clients
-   - `python-ml-predictive` - forecasting (Prophet / statsmodels), classification/regression (sklearn, XGBoost), anomaly detection
-   - `python-data-pipelines` - ETL, OCR, PDF extraction, image processing, scheduling, DLQ
-
-### TypeScript Baseline
-
-For any TypeScript work:
-
-1. `typescript-mastery` - type system depth
-2. `typescript-effective` - production idioms, strict tsconfig, Zod at boundaries, anti-patterns
-3. add `typescript-full-stack` for end-to-end apps (Fastify, tRPC, Prisma, turborepo)
-4. add `typescript-design-patterns` for GoF patterns when the problem calls for them
-
-### Kubernetes Baseline
-
-For K8s work:
-
-1. `kubernetes-fundamentals` - objects, kubectl, probes, ingress, when K8s is right
-2. `kubernetes-production` - Helm, autoscaling, secrets, observability, security baseline
-3. `kubernetes-saas-delivery` - multi-tenancy, GitOps (ArgoCD), progressive delivery, onboarding/offboarding
-
-### GIS Baseline
-
-Load in layers:
-
-- `gis-mapping` - Leaflet client (existing)
-- `gis-postgis-backend` - spatial backend (PostGIS)
-- `gis-maps-integration` - Google Maps / Mapbox / MapLibre when Leaflet is insufficient
-- `gis-enterprise-domain` - ArcGIS Enterprise admin + real-estate domain patterns
-
-### SaaS Business Skills (non-engineering)
-
-- `saas-sales-organization` - designing and scaling a sales org
-- `saas-subscription-mastery` - building / retaining / growing a subscription business
-- Plus existing `saas-business-metrics`, `subscription-billing`, `software-pricing-strategy`, `software-business-models`
+For domain-specific Foundation → Implementation → Validation → Companions skill stacks, load `capability-matrix`. It covers 17 technology domains (Web/SaaS, Multi-tenant SaaS, iOS, Android, KMP, API, Database, Frontend, AI Feature, LLM Integration, Python Service, TypeScript Stack, Kubernetes, GIS, ERP, CI/CD, SRE) with explicit row entries per column, plus vertical addenda for Healthcare, POS, Payments, Auth, East-African compliance, and reporting.
 
 ## Repository Structure
 

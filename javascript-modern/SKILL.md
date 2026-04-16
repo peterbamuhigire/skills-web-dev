@@ -52,6 +52,12 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Correctness | JavaScript module test plan | Markdown doc covering async, generators, Proxy, and module boundary tests | `docs/web/js-module-tests.md` |
+
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.

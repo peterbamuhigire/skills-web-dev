@@ -52,6 +52,12 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Release evidence | Sales organisation design document | Markdown doc covering motions, role mix (SDR/BDR/AE/CSM/SE), pipeline stages, and lead-source allocation | `docs/business/sales-org-design.md` |
+
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.

@@ -53,6 +53,12 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Security | Server hardening checklist | Markdown doc covering user/sudo, file permissions, PAM/MFA, and auditd findings | `docs/server/hardening-checklist.md` |
+
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.

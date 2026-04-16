@@ -51,6 +51,12 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| UX quality | AI dashboard design audit | Markdown doc covering metric clarity, confidence display, drill-down paths, and AI-output explanation surfaces | `docs/ai/dashboard-audit.md` |
+
 ## References
 
 - Use the links and companion skills already referenced in this file when deeper context is needed.

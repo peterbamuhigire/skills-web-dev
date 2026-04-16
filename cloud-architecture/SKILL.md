@@ -51,6 +51,13 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Correctness | Cloud topology decision record | Markdown doc per `skill-composition-standards/references/adr-template.md` covering compute, storage, network, and IAM picks | `docs/cloud/topology-adr.md` |
+| Security | Cloud account hardening checklist | Markdown doc covering root-account, IAM, network, and logging baseline | `docs/cloud/hardening-checklist.md` |
+
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.

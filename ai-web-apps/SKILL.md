@@ -55,6 +55,13 @@ metadata:
 - Provider abstraction contract (factory, fallback, request schema) — see `references/provider-abstraction.md`.
 - Output validation + guardrail rules — see `references/output-guardrails.md`.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Correctness | AI web app integration test plan | Markdown doc covering Next.js + Vercel AI SDK + MCP tool flow tests | `docs/ai/web-app-tests.md` |
+| Security | AI web app security note | Markdown doc covering provider-key handling, prompt-injection defense, and per-tenant isolation | `docs/ai/web-app-security.md` |
+
 ## References
 
 - See the `References` section below.

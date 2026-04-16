@@ -53,6 +53,13 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Correctness | Node service test plan | Markdown doc per `skill-composition-standards/references/test-plan-template.md` covering unit, integration, and stream tests | `docs/node/test-plan-checkout.md` |
+| Performance | Event-loop and memory profile report | Markdown doc covering p50/p95/p99 latency, memory baseline, and GC behaviour | `docs/node/perf-profile-checkout.md` |
+
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.

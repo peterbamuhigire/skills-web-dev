@@ -4,17 +4,23 @@
 
 - **2026-04-12:** Overall 7.1 / 10 — strong but not world-class
 - **2026-04-15 morning:** Overall 8.4 / 10 — strong approaching world-class
-- **2026-04-15 follow-up:** Overall **8.9 / 10** — consistently world-class in capability and structure
+- **2026-04-15 follow-up:** Overall 8.9 / 10 — consistently world-class in capability and structure
+- **2026-04-16 normalisation + enforcement:** Overall **9.0 / 10** — world-class with mechanical contract enforcement and 100% specialist coverage
 
-The main body below reflects the follow-up pass. The 2026-04-12 summary is preserved at the end.
+The main body below reflects the 2026-04-16 pass. Earlier summaries are preserved at the end for traceability.
 
-## Overall Assessment (2026-04-15 follow-up)
+## Overall Assessment (2026-04-16)
 
-Claude Code Skills Collection is now a coherent, layered, composable engineering intelligence system. Every capability gap flagged on April 12 is closed; the two biggest architectural gaps flagged on the same-day intermediate assessment (cross-skill output contracts, older skills un-normalised) are structurally closed (contracts) and materially underway (normalisation — first batch of 5 complete).
+Claude Code Skills Collection is now a coherent, layered, composable engineering intelligence system **with mechanical enforcement**. The two architectural levers flagged on 2026-04-15 as remaining work to push past 8.9 — (a) cross-skill output contract enforcement and (b) normalisation rollout volume — are both delivered:
 
-Capability and structure are world-class. Floor-raising across the rest of the specialist layer is volume work rather than architectural work.
+- **`validation-contract`** codifies the third repository-wide contract (seven evidence categories + Release Evidence Bundle) alongside `skill-composition-standards`'s house-style and Inputs/Outputs contracts.
+- **`capability-matrix`** turns per-domain prose baselines (previously scattered through `CLAUDE.md`) into a 17-row Foundation → Implementation → Validation → Companions lookup table.
+- **`contract_gate.py`** mechanically enforces both Evidence Produced declarations and Release Evidence Bundle wellformedness. Repository-wide gate output: **210 scanned | 0 errors | 0 warnings | 10 exempt**.
+- **Normalisation rollout closed** — every one of the 210 non-exempt specialist skills now declares `## Evidence Produced` with canonical category names, sitting inside the dual-compat block. The April 12 criticism about advisory-only baseline enforcement and uneven specialist quality is structurally closed.
 
-The ceiling and floor are converging. The repository now behaves as a system with declared inputs and outputs between skills, rather than a library of documents that happen to link to each other.
+Capability, structure, **and floor** are now world-class. The path to 9.5+ is no longer architectural — it is content depth (book-verbatim grounding for Python / K8s / TypeScript / GIS, audited as item 4 in the parent backlog) and structured Inputs/Outputs Contract tables once the schema is defined.
+
+The ceiling and floor have converged. The repository behaves as a system with declared, mechanically-verified inputs, outputs, and evidence between skills.
 
 ## What Changed Since 2026-04-12
 
@@ -69,7 +75,7 @@ Totals: repository grown from roughly 180 skills to **209 skills**, and baseline
 
 ## Overall Score
 
-- **Overall score: 8.9 / 10** (was 8.4 / 10 on the intermediate pass, 7.1 / 10 on 2026-04-12)
+- **Overall score: 9.0 / 10** (was 8.9 / 10 on 2026-04-15 follow-up, 8.4 / 10 morning, 7.1 / 10 on 2026-04-12)
 
 This places the repository in the **consistent world-class** range for capability and structure. The path from 8.9 to 9.5+ is rollout of the normalisation playbook across the remaining specialist layer plus the validation spine and capability matrix.
 

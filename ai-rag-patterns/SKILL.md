@@ -52,6 +52,13 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Correctness | RAG retrieval evaluation report | Markdown doc covering recall / precision / answer-quality on a fixed eval set | `docs/ai/rag-eval-2026-04-16.md` |
+| Data safety | Index ingestion + tenancy isolation note | Markdown doc covering chunking, source filtering, and per-tenant index segregation | `docs/ai/rag-tenancy-note.md` |
+
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.

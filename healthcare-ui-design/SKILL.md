@@ -55,6 +55,13 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| UX quality | Clinical UI accessibility audit | Markdown doc covering WCAG, error tolerance, alarm fatigue, and clinician workflow findings | `docs/health/clinical-ui-audit.md` |
+| Security | PHI handling note | Markdown doc covering display, redaction, and audit-trail requirements per HIPAA / equivalent regulation | `docs/health/phi-handling-note.md` |
+
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.

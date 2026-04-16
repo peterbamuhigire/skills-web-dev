@@ -51,6 +51,13 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Release evidence | Pipeline configuration record | Markdown doc covering build, test, deploy stages plus secret references | `docs/ci/pipeline-config.md` |
+| Release evidence | Latest release run evidence | CI URL plus archived log of the most recent successful release | `docs/ci/release-run-2026-04-16.md` |
+
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.

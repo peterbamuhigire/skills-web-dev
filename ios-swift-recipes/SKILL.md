@@ -52,6 +52,12 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Correctness | Recipe usage register | Markdown doc cataloguing applied Swift recipes (numeric conversion, Codable, decoders) per feature | `docs/ios/recipe-register.md` |
+
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.

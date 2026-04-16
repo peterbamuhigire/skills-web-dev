@@ -52,6 +52,14 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Data safety | Migration plan | Markdown doc per `skill-composition-standards/references/migration-plan-template.md` | `docs/data/migration-2026-04-16-add-tenant-column.md` |
+| Data safety | Entity model | Markdown doc per `skill-composition-standards/references/entity-model-template.md` | `docs/data/entity-model-billing.md` |
+| Data safety | Access pattern register | Markdown doc per `skill-composition-standards/references/access-patterns-template.md` | `docs/data/access-patterns-billing.md` |
+
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.

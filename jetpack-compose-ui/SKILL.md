@@ -55,6 +55,12 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| UX quality | Compose screen audit | Markdown doc reviewing layout, theming, semantics, and accessibility findings | `docs/android/compose-audit-checkout.md` |
+
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.

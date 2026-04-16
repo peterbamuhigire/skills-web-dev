@@ -52,9 +52,17 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Correctness | Service-to-service contract test plan | Markdown doc covering REST/gRPC contracts and async event payload contracts | `docs/services/comm-contract-tests.md` |
+| Operability | Async messaging operations note | Markdown doc covering broker choice, partitioning, retention, and DLQ inspection | `docs/services/async-ops-note.md` |
+
 ## References
 
 - Use the links and companion skills already referenced in this file when deeper context is needed.
+- Companion skill: `event-driven-architecture` — for event sourcing, CQRS, saga orchestration, outbox, DLQ, and broker selection details when moving beyond basic async messaging.
 <!-- dual-compat-end -->
 ## The Two Communication Styles
 

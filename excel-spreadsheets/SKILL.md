@@ -51,6 +51,12 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Release evidence | Generated Excel workbook | Branded .xlsx artefact compliant with the excel-spreadsheets design standard | `docs/output/dashboard-2026-04-16.xlsx` |
+
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.

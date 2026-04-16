@@ -51,6 +51,13 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Data safety | Data Protection Impact Assessment | Markdown doc covering lawful basis, data flows, risks, and mitigations | `docs/compliance/dpia-customer-onboarding.md` |
+| Data safety | PII / retention register | Markdown doc mapping personal data fields to basis and retention window | `docs/compliance/pii-retention-register.md` |
+
 ## References
 
 - Use the links and companion skills already referenced in this file when deeper context is needed.

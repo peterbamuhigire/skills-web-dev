@@ -52,6 +52,12 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| UX quality | Habit loop assessment | Markdown doc covering Hooked-model trigger, action, variable reward, and investment per feature | `docs/product/habit-loop-assessment.md` |
+
 ## References
 
 - Use the links and companion skills already referenced in this file when deeper context is needed.

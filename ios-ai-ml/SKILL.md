@@ -51,6 +51,13 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Correctness | Core ML inference test plan | Markdown doc covering model load, batch prediction, and dynamic model swap scenarios | `docs/ios/coreml-tests.md` |
+| Performance | On-device inference latency budget | Markdown doc covering per-model latency and memory budgets | `docs/ios/coreml-perf-budget.md` |
+
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.

@@ -52,6 +52,12 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Security | GraphQL audit report | Markdown doc covering introspection, depth limit, rate limit, and authz findings | `docs/security/graphql-audit-2026-04-16.md` |
+
 ## References
 
 - Use the links and companion skills already referenced in this file when deeper context is needed.

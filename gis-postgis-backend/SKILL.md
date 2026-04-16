@@ -51,6 +51,13 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Data safety | Spatial schema and SRID register | Markdown doc per `skill-composition-standards/references/entity-model-template.md` covering geometry/geography columns, SRID, and spatial indexes | `docs/gis/spatial-schema.md` |
+| Performance | Spatial query plan review | Markdown doc covering EXPLAIN ANALYZE for hot spatial queries | `docs/gis/spatial-query-plans.md` |
+
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.

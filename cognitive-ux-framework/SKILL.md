@@ -51,6 +51,12 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| UX quality | Six Minds cognitive review | Markdown doc applying Whalen's Six Minds model to the surface under review | `docs/ux/six-minds-review-checkout.md` |
+
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.

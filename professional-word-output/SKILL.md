@@ -52,6 +52,12 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Release evidence | Generated Word document | Branded .docx artefact compliant with the professional-word-output design standard | `docs/output/report-2026-04-16.docx` |
+
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.

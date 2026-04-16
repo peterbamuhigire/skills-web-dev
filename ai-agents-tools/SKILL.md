@@ -51,6 +51,13 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Correctness | Agent tool contract tests | CI log or recorded report covering tool definitions, dispatch, and handoff scenarios | `docs/ai/agent-tool-tests-2026-04-16.md` |
+| Security | Tool-use guardrail note | Markdown doc covering tool whitelisting, scope limits, and per-tool authorisation | `docs/ai/agent-tool-guardrails.md` |
+
 ## References
 
 - Use the links and companion skills already referenced in this file when deeper context is needed.

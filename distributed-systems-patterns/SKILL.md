@@ -51,6 +51,13 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Operability | Service consistency and idempotency note | Markdown doc covering chosen consistency model, idempotency keys, and saga sequences | `docs/dist/consistency-note-checkout.md` |
+| Operability | Failure-mode catalogue | Markdown doc listing partition, retry, and replay failure modes with mitigations | `docs/dist/failure-modes-checkout.md` |
+
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.

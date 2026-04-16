@@ -52,6 +52,12 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Operability | FastAPI sidecar runbook | Markdown doc per `skill-composition-standards/references/runbook-template.md` covering deploy, health checks, and Redis worker recovery | `docs/python/sidecar-runbook.md` |
+
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.

@@ -51,6 +51,13 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Security | LLM threat model | Markdown doc covering prompt injection, data exfiltration, and output-handling risks | `docs/security/llm-threat-model-assistant.md` |
+| Security | Prompt-injection test suite results | CI log or archived test report | `docs/security/llm-injection-tests-2026-04-16.md` |
+
 ## References
 
 - Use the links and companion skills already referenced in this file when deeper context is needed.

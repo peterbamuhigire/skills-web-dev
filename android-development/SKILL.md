@@ -55,6 +55,13 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Correctness | Android feature test plan | Markdown doc covering unit, instrumentation, and Compose tests | `docs/android/feature-tests-checkout.md` |
+| UX quality | Accessibility audit | Markdown doc covering TalkBack, semantics, and contrast | `docs/android/a11y-checkout.md` |
+
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.

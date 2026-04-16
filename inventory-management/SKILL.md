@@ -55,6 +55,13 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Data safety | Inventory data model | Markdown doc per `skill-composition-standards/references/entity-model-template.md` covering stock, movement, BOM, and valuation entities | `docs/inventory/data-model.md` |
+| Correctness | Inventory workflow test plan | Markdown doc covering receive, issue, transfer, valuation, and multi-location scenarios | `docs/inventory/workflow-tests.md` |
+
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.

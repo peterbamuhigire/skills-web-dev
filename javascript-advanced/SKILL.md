@@ -51,6 +51,12 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Correctness | Closure and prototype contract tests | Markdown doc covering closure-scope, prototype-chain, and memory-leak tests for hot paths | `docs/web/js-advanced-tests.md` |
+
 ## References
 
 - Use the links and companion skills already referenced in this file when deeper context is needed.

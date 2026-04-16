@@ -54,6 +54,12 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Correctness | Markdown lint cleanup record | Markdown doc tracking lint warnings fixed (headings, blank lines around lists, language-tagged fences) per pass | `docs/lint/markdown-cleanup-2026-04-16.md` |
+
 ## References
 
 - Use the links and companion skills already referenced in this file when deeper context is needed.

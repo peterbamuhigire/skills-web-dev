@@ -52,6 +52,13 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Data safety | Persistence model spec | Markdown doc per `skill-composition-standards/references/entity-model-template.md` covering Core Data / SwiftData entities | `docs/ios/persistence-model-orders.md` |
+| Correctness | Persistence test plan | Markdown doc listing CRUD and migration test cases | `docs/ios/persistence-tests-orders.md` |
+
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.

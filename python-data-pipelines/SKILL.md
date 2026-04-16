@@ -51,6 +51,13 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Data safety | ETL job spec | Markdown doc covering source contracts, idempotency, DLQ handling, and retention | `docs/python/etl-spec-orders.md` |
+| Operability | Pipeline runbook | Markdown doc per `skill-composition-standards/references/runbook-template.md` covering schedule, retries, and DLQ inspection | `docs/python/etl-runbook.md` |
+
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.

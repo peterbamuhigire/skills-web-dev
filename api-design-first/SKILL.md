@@ -68,12 +68,20 @@ Design APIs as contracts before code. This skill produces the OpenAPI 3.1 contra
 - Observability notes: per-endpoint span names, SLO class, log fields, audit events.
 - Implementation checklist result.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Correctness | OpenAPI contract | Markdown doc plus OpenAPI YAML covering paths, schemas, and error responses | `docs/api/openapi-checkout.yml` |
+| Correctness | Contract test results | CI log or recorded report from API contract tests against the OpenAPI spec | `docs/api/contract-tests-2026-04-16.md` |
+
 ## References
 
 - [references/rest-conventions.md](references/rest-conventions.md) — URLs, methods, status codes, envelope, pagination, middleware order, health checks.
 - [references/openapi-workflow.md](references/openapi-workflow.md) — spec-first workflow, OpenAPI 3.1 skeleton, versioning, HATEOAS, HTTP caching, GraphQL decision.
 - [references/auth-and-security.md](references/auth-and-security.md) — headers, CORS, auth-method selection table, API key, JWT, OAuth2, rate limiting, idempotency keys.
 - [references/implementation-checklist.md](references/implementation-checklist.md) — pre-merge checklist and observability contract handed to `observability-monitoring`.
+- Companion skill: `graphql-patterns` — schema-first Apollo Server + TypeScript patterns when choosing GraphQL over REST for client-shaped reads.
 <!-- dual-compat-end -->
 
 ## Prerequisites

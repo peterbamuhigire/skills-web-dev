@@ -51,6 +51,12 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Correctness | Pattern usage decision record | Markdown doc per `skill-composition-standards/references/adr-template.md` covering applied GoF patterns and rationale | `docs/ts/patterns-adr.md` |
+
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.

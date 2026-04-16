@@ -51,6 +51,13 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Release evidence | AI billing configuration record | Markdown doc covering per-tenant module gating, token allocation, and overage policy | `docs/ai/billing-config-2026-04-16.md` |
+| Operability | Token-usage dashboard | Dashboard link plus archived snapshot covering per-tenant and per-user token consumption | `docs/ai/token-usage-dashboard.md` |
+
 ## References
 
 - Use the links and companion skills already referenced in this file when deeper context is needed.

@@ -56,6 +56,12 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Operability | Software Maintenance Plan (SMP) | Markdown doc compliant with ISO/IEC/IEEE 14764 covering corrective, adaptive, perfective, and preventive maintenance | `docs/sdlc/smp-checkout.md` |
+
 ## References
 
 - Use the links and companion skills already referenced in this file when deeper context is needed.

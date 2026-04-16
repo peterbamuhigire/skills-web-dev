@@ -56,6 +56,13 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Security | Auth + RBAC decision record | Markdown doc per `skill-composition-standards/references/adr-template.md` covering Session vs JWT split and tenant scoping | `docs/auth/dual-auth-adr.md` |
+| Security | RBAC permission matrix | Markdown doc mapping roles, modules, and per-action grants | `docs/auth/rbac-matrix.md` |
+
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.

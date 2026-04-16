@@ -56,6 +56,12 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Correctness | PDF export test plan | Markdown doc covering page layout, paginated content, fonts, and image rendering | `docs/ios/pdf-export-tests.md` |
+
 ## References
 
 - Use the links and companion skills already referenced in this file when deeper context is needed.

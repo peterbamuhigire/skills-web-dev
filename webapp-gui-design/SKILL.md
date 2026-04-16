@@ -55,6 +55,12 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| UX quality | GUI template audit | Markdown doc covering Tabler/Bootstrap 5 component coverage, theme tokens, and accessibility findings | `docs/web/gui-audit-checkout.md` |
+
 ## References
 
 - Use the `sections/` directory for modular deep dives and load only the parts relevant to the task.

@@ -52,6 +52,12 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Operability | iOS debugging playbook | Markdown doc covering LLDB regex breakpoints, register manipulation, and persistent breakpoint setup for repeat investigations | `docs/ios/lldb-playbook.md` |
+
 ## References
 
 - Use the links and companion skills already referenced in this file when deeper context is needed.

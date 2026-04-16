@@ -51,6 +51,13 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Correctness | APNs push test plan | Markdown doc covering registration, permission, foreground/background delivery, and rich notification payloads | `docs/ios/push-tests.md` |
+| Operability | Push notification ops note | Markdown doc covering APNs key rotation, payload size limits, and per-environment configuration | `docs/ios/push-ops-note.md` |
+
 ## References
 
 - Use the links and companion skills already referenced in this file when deeper context is needed.

@@ -55,6 +55,13 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Security | iOS RBAC permission matrix | Markdown doc mapping roles to feature gates and screen visibility | `docs/ios/rbac-matrix-checkout.md` |
+| Security | RBAC enforcement test plan | Markdown doc covering positive + negative permission scenarios | `docs/ios/rbac-tests.md` |
+
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.

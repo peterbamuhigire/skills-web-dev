@@ -51,6 +51,13 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Correctness | Analytics test plan | Markdown doc covering KPI computation, cohort/funnel/retention, and edge-case (empty / sparse) tests | `docs/python/analytics-tests.md` |
+| Performance | Pandas/Polars performance note | Markdown doc covering DataFrame size, vectorisation choices, and memory footprint per query | `docs/python/analytics-perf-note.md` |
+
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.

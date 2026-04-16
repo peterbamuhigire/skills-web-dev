@@ -52,6 +52,13 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Operability | Xcode project setup record | Markdown doc covering schemes, xcconfig per environment, Info.plist keys, and SPM dependencies | `docs/ios/project-setup.md` |
+| Release evidence | Build configuration record | Markdown doc covering Dev/Staging/Prod scheme settings and signing configuration | `docs/ios/build-config-2026-04-16.md` |
+
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.

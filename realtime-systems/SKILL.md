@@ -51,6 +51,13 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Correctness | Real-time feature test plan | Markdown doc covering connection lifecycle, message ordering, reconnection, and presence-state tests | `docs/realtime/feature-tests.md` |
+| Performance | Real-time latency budget | Markdown doc covering message delivery, presence update, and reconnect-recovery latency budgets | `docs/realtime/latency-budget.md` |
+
 ## References
 
 - Use the links and companion skills already referenced in this file when deeper context is needed.

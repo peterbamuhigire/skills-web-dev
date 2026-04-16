@@ -51,6 +51,13 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Correctness | Maps provider integration test plan | Markdown doc covering markers, info windows, geocoding, and rate-limit handling for Google/Mapbox/MapLibre | `docs/gis/provider-tests.md` |
+| Security | API key handling note | Markdown doc covering provider key storage, referrer restrictions, and quota policies | `docs/gis/maps-key-handling.md` |
+
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.

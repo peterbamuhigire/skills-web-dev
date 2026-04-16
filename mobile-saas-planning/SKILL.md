@@ -55,6 +55,12 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Release evidence | Mobile app planning document | Markdown doc covering scope, milestones, integration points with the SaaS backend, and store-submission timeline | `docs/mobile/saas-planning-2026-04-16.md` |
+
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.

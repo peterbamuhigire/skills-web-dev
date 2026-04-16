@@ -57,6 +57,7 @@ Typical baseline choices:
 |-------|---------|
 | `world-class-engineering` | Shared production-grade engineering bar and release gates |
 | `skill-composition-standards` | House-style template, cross-skill I/O contracts, and 14 canonical artifact templates |
+| `validation-contract` | Seven evidence categories every specialist skill declares against and the canonical Release Evidence Bundle for ship readiness |
 | `system-architecture-design` | Decomposition, contracts, ADRs, failure design, scaling tradeoffs |
 | `database-design-engineering` | Cross-engine data architecture, tenancy, indexing, migration safety, retention |
 | `saas-erp-system-design` | Configurable SaaS and ERP workflow design, controls, auditability, extensions |

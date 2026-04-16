@@ -25,6 +25,7 @@ The repository is being shaped around six goals:
 
 - `world-class-engineering` - shared release gates and engineering standards
 - `skill-composition-standards` - house-style template + I/O contracts + canonical artifact templates so skills compose as a system
+- `validation-contract` - seven evidence categories every specialist skill declares against + canonical Release Evidence Bundle for ship readiness
 - `system-architecture-design` - decomposition, contracts, ADRs, failure design, scaling tradeoffs
 - `database-design-engineering` - schema design, tenancy, migrations, indexing, retention strategy
 - `saas-erp-system-design` - ERP-grade workflow modeling, controls, approvals, and auditability

@@ -167,8 +167,8 @@ Specialist skills add a `## Evidence Produced` section to their `SKILL.md`, betw
 
 | Category | Artifact | Format | Example |
 |----------|----------|--------|---------|
-| Security | Threat model | Markdown doc per `skill-composition-standards/references/threat-model.md` | `docs/security/threat-model-checkout.md` |
-| Operability | Runbook | Markdown doc per `skill-composition-standards/references/runbook.md` | `docs/runbooks/payment-failures.md` |
+| Security | Threat model | Markdown doc per `skill-composition-standards/references/threat-model-template.md` | `docs/security/threat-model-checkout.md` |
+| Operability | Runbook | Markdown doc per `skill-composition-standards/references/runbook-template.md` | `docs/runbooks/payment-failures.md` |
 ```
 
 ### Rules
@@ -371,14 +371,14 @@ Every specialist skill that produces validation evidence adds this section to it
 
 | Category | Artifact | Format | Example |
 |----------|----------|--------|---------|
-| Security | Threat model | Markdown doc per `skill-composition-standards/references/threat-model.md` | `docs/security/threat-model-checkout.md` |
+| Security | Threat model | Markdown doc per `skill-composition-standards/references/threat-model-template.md` | `docs/security/threat-model-checkout.md` |
 ```
 
 ## Column semantics
 
 - **Category** — one of the seven canonical names: `Correctness`, `Security`, `Data safety`, `Performance`, `Operability`, `UX quality`, `Release evidence`. Case-sensitive.
 - **Artifact** — the concrete thing the skill produces. Noun phrase, not verb.
-- **Format** — either a pointer to an existing template (preferred) or a short inline description. Examples of existing templates: `skill-composition-standards/references/threat-model.md`, `skill-composition-standards/references/runbook.md`, `skill-composition-standards/references/migration-plan.md`.
+- **Format** — either a pointer to an existing template (preferred) or a short inline description. Examples of existing templates: `skill-composition-standards/references/threat-model-template.md`, `skill-composition-standards/references/runbook-template.md`, `skill-composition-standards/references/migration-plan-template.md`.
 - **Example** — a realistic path showing where the artifact would live in a project repository.
 
 ## Worked example 1 — `advanced-testing-strategy`
@@ -388,7 +388,7 @@ Every specialist skill that produces validation evidence adds this section to it
 
 | Category | Artifact | Format | Example |
 |----------|----------|--------|---------|
-| Correctness | Test plan | Markdown doc per `skill-composition-standards/references/test-plan.md` | `docs/testing/test-plan-checkout.md` |
+| Correctness | Test plan | Markdown doc per `skill-composition-standards/references/test-plan-template.md` | `docs/testing/test-plan-checkout.md` |
 | Correctness | Latest CI run evidence | CI URL or archived log | `https://ci.example.com/run/12345` |
 ```
 
@@ -399,7 +399,7 @@ Every specialist skill that produces validation evidence adds this section to it
 
 | Category | Artifact | Format | Example |
 |----------|----------|--------|---------|
-| Security | Threat model | Markdown doc per `skill-composition-standards/references/threat-model.md` | `docs/security/threat-model-checkout.md` |
+| Security | Threat model | Markdown doc per `skill-composition-standards/references/threat-model-template.md` | `docs/security/threat-model-checkout.md` |
 | Security | Abuse-case catalogue | Markdown doc listing misuse scenarios | `docs/security/abuse-cases-checkout.md` |
 ```
 
@@ -410,8 +410,8 @@ Every specialist skill that produces validation evidence adds this section to it
 
 | Category | Artifact | Format | Example |
 |----------|----------|--------|---------|
-| Operability | SLO record | Markdown doc per `skill-composition-standards/references/slo.md` | `docs/slo/checkout-service.md` |
-| Operability | Runbook | Markdown doc per `skill-composition-standards/references/runbook.md` | `docs/runbooks/checkout-latency.md` |
+| Operability | SLO record | Markdown doc per `skill-composition-standards/references/slo-template.md` | `docs/slo/checkout-service.md` |
+| Operability | Runbook | Markdown doc per `skill-composition-standards/references/runbook-template.md` | `docs/runbooks/checkout-latency.md` |
 | Release evidence | Post-deploy verification log | Markdown doc or CI artifact | `docs/releases/2026-04-16-verify.md` |
 ```
 
@@ -806,7 +806,7 @@ Add between `## Outputs` and `## References`:
 
 | Category | Artifact | Format | Example |
 |----------|----------|--------|---------|
-| Correctness | Test plan | Markdown doc per `skill-composition-standards/references/test-plan.md` | `docs/testing/test-plan-checkout.md` |
+| Correctness | Test plan | Markdown doc per `skill-composition-standards/references/test-plan-template.md` | `docs/testing/test-plan-checkout.md` |
 | Correctness | Latest CI run evidence | CI URL or archived log | `https://ci.example.com/run/12345` |
 ```
 
@@ -847,7 +847,7 @@ Insert between Outputs and References:
 
 | Category | Artifact | Format | Example |
 |----------|----------|--------|---------|
-| Security | Threat model | Markdown doc per `skill-composition-standards/references/threat-model.md` | `docs/security/threat-model-checkout.md` |
+| Security | Threat model | Markdown doc per `skill-composition-standards/references/threat-model-template.md` | `docs/security/threat-model-checkout.md` |
 | Security | Abuse-case catalogue | Markdown doc listing misuse scenarios and mitigations | `docs/security/abuse-cases-checkout.md` |
 ```
 
@@ -914,9 +914,9 @@ Expected: no `FAIL` lines.
 
 | Category | Artifact | Format | Example |
 |----------|----------|--------|---------|
-| Data safety | Migration plan | Markdown doc per `skill-composition-standards/references/migration-plan.md` | `docs/data/migration-2026-04-16-add-tenant-column.md` |
-| Data safety | Entity model | Markdown doc per `skill-composition-standards/references/entity-model.md` | `docs/data/entity-model-billing.md` |
-| Data safety | Access pattern register | Markdown doc per `skill-composition-standards/references/access-patterns.md` | `docs/data/access-patterns-billing.md` |
+| Data safety | Migration plan | Markdown doc per `skill-composition-standards/references/migration-plan-template.md` | `docs/data/migration-2026-04-16-add-tenant-column.md` |
+| Data safety | Entity model | Markdown doc per `skill-composition-standards/references/entity-model-template.md` | `docs/data/entity-model-billing.md` |
+| Data safety | Access pattern register | Markdown doc per `skill-composition-standards/references/access-patterns-template.md` | `docs/data/access-patterns-billing.md` |
 ```
 
 - [ ] **Step 2: `dpia-generator/SKILL.md`**
@@ -948,7 +948,7 @@ Expected: no `FAIL` lines.
 
 | Category | Artifact | Format | Example |
 |----------|----------|--------|---------|
-| Operability | SLO record | Markdown doc per `skill-composition-standards/references/slo.md` | `docs/slo/checkout-service.md` |
+| Operability | SLO record | Markdown doc per `skill-composition-standards/references/slo-template.md` | `docs/slo/checkout-service.md` |
 | Operability | Observability wiring note | Markdown doc listing logs, metrics, traces, and dashboards wired | `docs/observability/checkout-wiring.md` |
 | Operability | Alert catalogue | Markdown doc listing alert name, threshold, and runbook link | `docs/observability/checkout-alerts.md` |
 ```
@@ -960,8 +960,8 @@ Expected: no `FAIL` lines.
 
 | Category | Artifact | Format | Example |
 |----------|----------|--------|---------|
-| Operability | Runbook | Markdown doc per `skill-composition-standards/references/runbook.md` | `docs/runbooks/payment-failures.md` |
-| Operability | Rollback plan | Markdown doc per `skill-composition-standards/references/rollback-plan.md` | `docs/releases/2026-04-16-rollback.md` |
+| Operability | Runbook | Markdown doc per `skill-composition-standards/references/runbook-template.md` | `docs/runbooks/payment-failures.md` |
+| Operability | Rollback plan | Markdown doc per `skill-composition-standards/references/rollback-plan-template.md` | `docs/releases/2026-04-16-rollback.md` |
 | Operability | Failure-mode catalogue | Markdown doc listing known failure modes and mitigations | `docs/reliability/failure-modes-checkout.md` |
 ```
 
@@ -1025,8 +1025,8 @@ Expected: no `FAIL` lines.
 
 | Category | Artifact | Format | Example |
 |----------|----------|--------|---------|
-| Release evidence | Release plan | Markdown doc per `skill-composition-standards/references/release-plan.md` | `docs/releases/2026-04-16-release-plan.md` |
-| Release evidence | Rollback plan | Markdown doc per `skill-composition-standards/references/rollback-plan.md` | `docs/releases/2026-04-16-rollback-plan.md` |
+| Release evidence | Release plan | Markdown doc per `skill-composition-standards/references/release-plan-template.md` | `docs/releases/2026-04-16-release-plan.md` |
+| Release evidence | Rollback plan | Markdown doc per `skill-composition-standards/references/rollback-plan-template.md` | `docs/releases/2026-04-16-rollback-plan.md` |
 | Release evidence | Change record | PR range or tagged commit list | `docs/releases/2026-04-16-change-record.md` |
 ```
 

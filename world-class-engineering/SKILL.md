@@ -307,7 +307,7 @@ Use these prompts while working:
 - Load `distributed-systems-patterns` when crossing service, queue, or consistency boundaries.
 - Load `engineering-management-system` for delivery operating rhythm, delegation, communication, and team scaling.
 - Load platform and security skills relevant to the stack after this baseline is established.
-- Load `validation-contract` when authoring a specialist skill or assembling a Release Evidence Bundle for ship; it is the canonical source for what evidence ship-readiness requires.
+- Load `validation-contract` when authoring a specialist skill or assembling a Release Evidence Bundle for ship; it is the canonical source for what evidence ship readiness requires.
 
 ## References
 

@@ -380,6 +380,13 @@ CREATE POLICY tenant_isolation ON orders
 - `web-app-security-audit` — uses this skill's artifacts as inputs when auditing an existing application end-to-end.
 - `php-security`, `graphql-security`, `network-security`, `cicd-devsecops`, `linux-security-hardening` — stack-specific companions.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Security | Threat model | Markdown doc per `skill-composition-standards/references/threat-model-template.md` | `docs/security/threat-model-checkout.md` |
+| Security | Abuse-case catalogue | Markdown doc listing misuse scenarios and mitigations | `docs/security/abuse-cases-checkout.md` |
+
 ## References
 
 - `references/owasp-mapping.md` — OWASP Top 10 2025 complete map with code.

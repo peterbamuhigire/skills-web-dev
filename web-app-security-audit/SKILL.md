@@ -52,6 +52,13 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Security | Web application audit report | Markdown doc covering config, auth, input validation, and session handling findings | `docs/security/web-audit-2026-04-16.md` |
+| Security | Remediation plan | Markdown doc listing findings, owners, and due dates | `docs/security/web-remediation-2026-04-16.md` |
+
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.

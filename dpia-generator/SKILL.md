@@ -233,6 +233,13 @@ Before marking this skill complete:
 
 ---
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Data safety | Data Protection Impact Assessment | Markdown doc covering lawful basis, data flows, risks, and mitigations | `docs/compliance/dpia-customer-onboarding.md` |
+| Data safety | PII / retention register | Markdown doc mapping personal data fields to basis and retention window | `docs/compliance/pii-retention-register.md` |
+
 ## References
 
 - Data Protection and Privacy Act 2019 (No. 9 of 2019) — Section 23 (breach), Section 9 (special data)

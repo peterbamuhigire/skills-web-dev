@@ -183,6 +183,14 @@ For meaningful reliability work, produce:
 - [ ] Recovery paths and owners are explicit.
 - [ ] Reliability claims are backed by tests, simulations, or staged evidence.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Operability | Runbook | Markdown doc per `skill-composition-standards/references/runbook-template.md` | `docs/runbooks/payment-failures.md` |
+| Operability | Rollback plan | Markdown doc per `skill-composition-standards/references/rollback-plan-template.md` | `docs/releases/2026-04-16-rollback.md` |
+| Operability | Failure-mode catalogue | Markdown doc listing known failure modes and mitigations | `docs/reliability/failure-modes-checkout.md` |
+
 ## References
 
 - [references/reliability-patterns.md](references/reliability-patterns.md): Design rules for timeouts, retries, queues, and degradation.

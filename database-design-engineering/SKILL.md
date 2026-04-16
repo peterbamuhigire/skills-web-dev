@@ -203,6 +203,14 @@ For substantive database work, produce:
 - [ ] Reporting needs do not distort the transactional model without justification.
 - [ ] Replica lag, projections, or CDC assumptions are explicit where they matter.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Data safety | Migration plan | Markdown doc per `skill-composition-standards/references/migration-plan-template.md` | `docs/data/migration-2026-04-16-add-tenant-column.md` |
+| Data safety | Entity model | Markdown doc per `skill-composition-standards/references/entity-model-template.md` | `docs/data/entity-model-billing.md` |
+| Data safety | Access pattern register | Markdown doc per `skill-composition-standards/references/access-patterns-template.md` | `docs/data/access-patterns-billing.md` |
+
 ## References
 
 - [references/data-review-checklist.md](references/data-review-checklist.md): Schema and migration review prompts.

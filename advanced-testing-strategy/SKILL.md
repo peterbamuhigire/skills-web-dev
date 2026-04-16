@@ -202,6 +202,13 @@ See [references/test-matrix-template.md](references/test-matrix-template.md).
 - [ ] Manual verification covers the platform or UX gaps automation cannot.
 - [ ] Release evidence makes residual risk explicit.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Correctness | Test plan | Markdown doc per `skill-composition-standards/references/test-plan-template.md` | `docs/testing/test-plan-checkout.md` |
+| Correctness | Latest CI run evidence | CI URL or archived log | `https://ci.example.com/run/12345` |
+
 ## References
 
 - [references/risk-driven-testing.md](references/risk-driven-testing.md): Test-layer selection, determinism, and flake policy.

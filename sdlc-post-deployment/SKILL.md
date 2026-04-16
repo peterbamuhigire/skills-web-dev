@@ -283,6 +283,13 @@ Osborne's Model (Grubb & Takang, 2003) defines a formal post-installation review
 **Related:** [sdlc-maintenance](../sdlc-maintenance/SKILL.md) | [sdlc-testing](../sdlc-testing/SKILL.md) | [sdlc-user-deploy](../sdlc-user-deploy/SKILL.md)
 **Last Updated:** 2026-03-15 (created per ISO/IEC/IEEE 14764:2022 Clause 6 + Grubb & Takang 2003)
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Release evidence | Post-Deployment Evaluation Report | Markdown doc covering deploy outcome, KPIs, and remediation actions | `docs/releases/pder-2026-04-16.md` |
+| Release evidence | Post-deploy verification log | Markdown doc or CI artifact listing checks run and results | `docs/releases/verify-2026-04-16.md` |
+
 ## References
 
 - [../sdlc-lifecycle.md](../sdlc-lifecycle.md): Shared SDLC execution model and lifecycle gates.

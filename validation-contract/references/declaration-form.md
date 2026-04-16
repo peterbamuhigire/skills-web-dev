@@ -9,14 +9,14 @@ Every specialist skill that produces validation evidence adds this section to it
 
 | Category | Artifact | Format | Example |
 |----------|----------|--------|---------|
-| Security | Threat model | Markdown doc per `skill-composition-standards/references/threat-model.md` | `docs/security/threat-model-checkout.md` |
+| Security | Threat model | Markdown doc per `skill-composition-standards/references/threat-model-template.md` | `docs/security/threat-model-checkout.md` |
 ```
 
 ## Column semantics
 
 - **Category** — one of the seven canonical names: `Correctness`, `Security`, `Data safety`, `Performance`, `Operability`, `UX quality`, `Release evidence`. Case-sensitive.
 - **Artifact** — the concrete thing the skill produces. Noun phrase, not verb.
-- **Format** — either a pointer to an existing template (preferred) or a short inline description. Examples of existing templates: `skill-composition-standards/references/threat-model.md`, `skill-composition-standards/references/runbook.md`, `skill-composition-standards/references/migration-plan.md`.
+- **Format** — either a pointer to an existing template (preferred) or a short inline description. Examples of existing templates: `skill-composition-standards/references/threat-model-template.md`, `skill-composition-standards/references/runbook-template.md`, `skill-composition-standards/references/migration-plan-template.md`.
 - **Example** — a realistic path showing where the artifact would live in a project repository.
 
 ## Worked example 1 — `advanced-testing-strategy`
@@ -26,7 +26,7 @@ Every specialist skill that produces validation evidence adds this section to it
 
 | Category | Artifact | Format | Example |
 |----------|----------|--------|---------|
-| Correctness | Test plan | Markdown doc per `skill-composition-standards/references/test-plan.md` | `docs/testing/test-plan-checkout.md` |
+| Correctness | Test plan | Markdown doc per `skill-composition-standards/references/test-plan-template.md` | `docs/testing/test-plan-checkout.md` |
 | Correctness | Latest CI run evidence | CI URL or archived log | `https://ci.example.com/run/12345` |
 ```
 
@@ -37,7 +37,7 @@ Every specialist skill that produces validation evidence adds this section to it
 
 | Category | Artifact | Format | Example |
 |----------|----------|--------|---------|
-| Security | Threat model | Markdown doc per `skill-composition-standards/references/threat-model.md` | `docs/security/threat-model-checkout.md` |
+| Security | Threat model | Markdown doc per `skill-composition-standards/references/threat-model-template.md` | `docs/security/threat-model-checkout.md` |
 | Security | Abuse-case catalogue | Markdown doc listing misuse scenarios | `docs/security/abuse-cases-checkout.md` |
 ```
 
@@ -48,8 +48,8 @@ Every specialist skill that produces validation evidence adds this section to it
 
 | Category | Artifact | Format | Example |
 |----------|----------|--------|---------|
-| Operability | SLO record | Markdown doc per `skill-composition-standards/references/slo.md` | `docs/slo/checkout-service.md` |
-| Operability | Runbook | Markdown doc per `skill-composition-standards/references/runbook.md` | `docs/runbooks/checkout-latency.md` |
+| Operability | SLO record | Markdown doc per `skill-composition-standards/references/slo-template.md` | `docs/slo/checkout-service.md` |
+| Operability | Runbook | Markdown doc per `skill-composition-standards/references/runbook-template.md` | `docs/runbooks/checkout-latency.md` |
 | Release evidence | Post-deploy verification log | Markdown doc or CI artifact | `docs/releases/2026-04-16-verify.md` |
 ```
 

@@ -97,8 +97,8 @@ Specialist skills add a `## Evidence Produced` section to their `SKILL.md`, betw
 
 | Category | Artifact | Format | Example |
 |----------|----------|--------|---------|
-| Security | Threat model | Markdown doc per `skill-composition-standards/references/threat-model.md` | `docs/security/threat-model-checkout.md` |
-| Operability | Runbook | Markdown doc per `skill-composition-standards/references/runbook.md` | `docs/runbooks/payment-failures.md` |
+| Security | Threat model | Markdown doc per `skill-composition-standards/references/threat-model-template.md` | `docs/security/threat-model-checkout.md` |
+| Operability | Runbook | Markdown doc per `skill-composition-standards/references/runbook-template.md` | `docs/runbooks/payment-failures.md` |
 ```
 
 ### Rules

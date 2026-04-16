@@ -55,6 +55,13 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Release evidence | Play Console submission record | Markdown doc covering listing, screenshots, content rating, and pre-launch report | `docs/android/play-store-submission-2026-04-16.md` |
+| Release evidence | Play Store rejection / approval log | Markdown doc tracking review outcomes and remediation | `docs/android/play-store-review-log.md` |
+
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.

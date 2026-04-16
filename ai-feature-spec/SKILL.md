@@ -51,6 +51,13 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Release evidence | AI feature spec | Markdown doc covering model, prompt, output schema, fallback, and unit-economics decisions | `docs/ai/feature-spec-assistant.md` |
+| Correctness | AI feature evaluation report | Markdown doc covering pre-release evaluation against acceptance criteria | `docs/ai/feature-eval-assistant.md` |
+
 ## References
 
 - Use the links and companion skills already referenced in this file when deeper context is needed.

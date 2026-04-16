@@ -58,6 +58,13 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Data safety | Tenant isolation note | Markdown doc covering row-level vs schema-level isolation, RLS policies, and tenant-scoped indexes | `docs/saas/tenant-isolation-note.md` |
+| Security | Tenant authorization audit | Markdown doc covering super-admin vs tenant-admin vs user privilege boundaries and authz tests | `docs/saas/tenant-authz-audit.md` |
+
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.

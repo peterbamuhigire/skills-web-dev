@@ -51,6 +51,12 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Correctness | Pattern usage decision record | Markdown doc per `skill-composition-standards/references/adr-template.md` covering Container/Presentational, HOC, Render Props, and Compound Component picks | `docs/web/react-patterns-adr.md` |
+
 ## References
 
 - Use the links and companion skills already referenced in this file when deeper context is needed.

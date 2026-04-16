@@ -51,6 +51,13 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Correctness | PHP test plan | Markdown doc per `skill-composition-standards/references/test-plan-template.md` covering unit, integration, and contract tests | `docs/php/test-plan-checkout.md` |
+| Operability | PHP-FPM operations note | Markdown doc covering opcache, request lifecycle, and OPcache reset procedure | `docs/php/fpm-ops-note.md` |
+
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.

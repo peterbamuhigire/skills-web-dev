@@ -51,6 +51,13 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Operability | iOS crash and stability runbook | Markdown doc per `skill-composition-standards/references/runbook-template.md` covering crash triage, symbolication, and rollback | `docs/ios/stability-runbook.md` |
+| Correctness | Crash regression test plan | Markdown doc listing reproduction steps and assertions for previously-fixed crashes | `docs/ios/crash-regression-tests.md` |
+
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.

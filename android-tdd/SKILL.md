@@ -55,6 +55,13 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Correctness | Android TDD test plan | Markdown doc per `skill-composition-standards/references/test-plan-template.md` covering Red-Green-Refactor cycles per layer | `docs/android/tdd-plan-checkout.md` |
+| Correctness | Test pyramid coverage report | Markdown doc showing 70/20/10 distribution and per-layer coverage | `docs/android/tdd-coverage-2026-04-16.md` |
+
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.

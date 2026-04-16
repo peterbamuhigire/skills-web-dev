@@ -68,6 +68,13 @@ Design APIs as contracts before code. This skill produces the OpenAPI 3.1 contra
 - Observability notes: per-endpoint span names, SLO class, log fields, audit events.
 - Implementation checklist result.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Correctness | OpenAPI contract | Markdown doc plus OpenAPI YAML covering paths, schemas, and error responses | `docs/api/openapi-checkout.yml` |
+| Correctness | Contract test results | CI log or recorded report from API contract tests against the OpenAPI spec | `docs/api/contract-tests-2026-04-16.md` |
+
 ## References
 
 - [references/rest-conventions.md](references/rest-conventions.md) — URLs, methods, status codes, envelope, pagination, middleware order, health checks.

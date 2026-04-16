@@ -50,6 +50,12 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| UX quality | Data visualisation review | Markdown doc applying Knaflic's six-lesson framework to the dashboard or report under review | `docs/ux/dataviz-review-checkout.md` |
+
 ## References
 
 - Use the links and companion skills already referenced in this file when deeper context is needed.

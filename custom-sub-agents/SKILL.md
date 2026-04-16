@@ -55,6 +55,12 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Release evidence | Custom sub-agent register | Markdown doc cataloguing per-project agents, their folder layout, and per-agent strengths | `docs/agents/sub-agent-register.md` |
+
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.

@@ -171,10 +171,11 @@ When improving an existing skill:
 
 After creating or updating a skill:
 
-1. Run `python -X utf8 skill-writing/scripts/quick_validate.py <skill-dir>`.
-2. Fix any frontmatter or structure issues.
-3. Sanity-check the skill against a realistic prompt.
-4. Ensure the skill still reads cleanly when loaded on its own.
+1. Run `python -X utf8 skill-writing/scripts/quick_validate.py <skill-dir>` (frontmatter, required sections, dual-compat markers, line limits).
+2. Run `python -X utf8 skill-writing/scripts/contract_gate.py --skill <skill-dir>` (Evidence Produced contract from `validation-contract`). Use `--all` to scan the whole repo, `--bundle <path>` to validate a Release Evidence Bundle, and `--strict` to treat warnings as errors.
+3. Fix any frontmatter, structure, or contract issues.
+4. Sanity-check the skill against a realistic prompt.
+5. Ensure the skill still reads cleanly when loaded on its own.
 
 ## Anti-Patterns
 

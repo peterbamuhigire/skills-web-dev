@@ -57,11 +57,11 @@ App shell component, route-level layout files, reusable primitives (`DataTable`,
 
 ## Evidence Produced
 
-| Category | Artifact | Example |
-|----------|----------|---------|
-| Design | Screen layouts + state matrix | `docs/ui/screens/orders-list.md` |
-| Code | Shell + primitives | `src/app/(app)/layout.tsx`, `src/components/{data-table,form-field,dialog}` |
-| UX | A11y + responsive sweep | `docs/ui/a11y-audit-2026-04-16.md` |
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| UX quality | Screen layout + state matrix | Markdown doc covering per-screen layout, states, and component inventory | `docs/ui/screens/orders-list.md` |
+| UX quality | Accessibility + responsive sweep | Markdown doc covering a11y findings and responsive behaviour across breakpoints | `docs/ui/a11y-audit-2026-04-16.md` |
+| Correctness | UI shell + primitives register | Markdown doc listing layout, data-table, form-field, and dialog primitives used per screen | `docs/ui/primitives-register.md` |
 
 ## References
 

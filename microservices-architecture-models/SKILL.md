@@ -246,6 +246,170 @@ resolver 127.0.0.1:8600 valid=1s;  # Consul DNS on port 8600
 
 ---
 
+## Reverse Proxy & API Gateway Operations
+
+### Nginx as Reverse Proxy
+
+Complete production `server` block example:
+
+```nginx
+upstream api_backend {
+    least_conn;
+    server 10.0.1.10:3000 max_fails=3 fail_timeout=30s;
+    server 10.0.1.11:3000 max_fails=3 fail_timeout=30s;
+    keepalive 32;
+}
+
+server {
+    listen 443 ssl http2;
+    server_name api.example.com;
+
+    ssl_certificate     /etc/letsencrypt/live/api.example.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/api.example.com/privkey.pem;
+    ssl_protocols       TLSv1.2 TLSv1.3;
+    ssl_ciphers         HIGH:!aNULL:!MD5;
+    ssl_prefer_server_ciphers on;
+    ssl_stapling on;
+    ssl_stapling_verify on;
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+
+    location / {
+        proxy_pass http://api_backend;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header Connection "";
+        proxy_read_timeout 60s;
+        proxy_send_timeout 60s;
+
+        limit_req zone=api_rl burst=20 nodelay;
+    }
+}
+```
+
+### Nginx Rate Limiting
+
+Zone definition (in `http` context, above server blocks):
+
+```nginx
+limit_req_zone $binary_remote_addr zone=api_rl:10m rate=10r/s;
+limit_req_status 429;
+```
+
+Interpretation:
+
+- `10m` zone — about 160,000 IP entries in memory
+- `rate=10r/s` — 10 requests per second per IP sustained
+- `burst=20 nodelay` — allow a burst of 20 queued requests, served immediately; excess returns 429
+
+### Nginx SSL Termination
+
+Let's Encrypt with Certbot: `sudo certbot --nginx -d api.example.com --agree-tos --email ops@example.com`. Auto-renewal via systemd timer `certbot.timer` (installed by the Certbot package).
+
+HSTS and OCSP stapling directives already shown above. TLS 1.3 enabled by `ssl_protocols TLSv1.2 TLSv1.3`. Test rating with `ssllabs.com/ssltest` — target grade A+.
+
+### Nginx Cache Configuration
+
+```nginx
+proxy_cache_path /var/cache/nginx levels=1:2 keys_zone=api_cache:10m
+                 max_size=1g inactive=60m use_temp_path=off;
+
+server {
+    location /public/ {
+        proxy_pass http://api_backend;
+        proxy_cache api_cache;
+        proxy_cache_valid 200 302 10m;
+        proxy_cache_valid 404 1m;
+        proxy_cache_bypass $http_cache_control;
+        add_header X-Cache-Status $upstream_cache_status;
+    }
+}
+```
+
+Check cache hit rate via `X-Cache-Status` header (`HIT` / `MISS` / `BYPASS` / `EXPIRED`).
+
+### Nginx Zero-Downtime Reload
+
+- Validate config first: `sudo nginx -t` — exits non-zero on error
+- Reload without dropping connections: `sudo nginx -s reload`
+- Binary upgrade with no downtime: `kill -USR2 <master-pid>` to start a new master alongside, `kill -QUIT <old-master-pid>` once new workers are healthy
+- Verify: `curl -I https://api.example.com` during reload; expect 100% success
+
+### Kong API Gateway
+
+Kong follows a service → route → plugin model. Declarative config (`deck` / `kong.yaml` format):
+
+```yaml
+_format_version: "3.0"
+services:
+  - name: user-service
+    url: http://user-service:3000
+    routes:
+      - name: user-api
+        paths:
+          - /api/users
+        strip_path: false
+    plugins:
+      - name: jwt
+        config:
+          claims_to_verify: [exp]
+      - name: rate-limiting
+        config:
+          minute: 60
+          policy: redis
+          redis_host: redis
+      - name: prometheus
+```
+
+Apply: `deck sync --state kong.yaml --kong-addr http://kong-admin:8001`.
+
+### Traefik as Alternative
+
+Traefik is Docker-native with automatic TLS. Example `docker-compose.yml` labels on a service:
+
+```yaml
+services:
+  api:
+    image: myorg/api:latest
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.api.rule=Host(`api.example.com`)"
+      - "traefik.http.routers.api.entrypoints=websecure"
+      - "traefik.http.routers.api.tls.certresolver=letsencrypt"
+      - "traefik.http.middlewares.api-ratelimit.ratelimit.average=50"
+      - "traefik.http.routers.api.middlewares=api-ratelimit"
+```
+
+Choice: Kong for full plugin ecosystem and enterprise features; Traefik for Docker/K8s-native auto-discovery; Nginx for raw throughput and low memory.
+
+### HAProxy for TCP/HTTP Load Balancing
+
+Example `haproxy.cfg` backend with health checks and sticky sessions:
+
+```
+backend app_backend
+    balance leastconn
+    cookie SERVERID insert indirect nocache
+    option httpchk GET /health
+    http-check expect status 200
+    default-server inter 2s fall 3 rise 2
+    server app1 10.0.1.10:3000 check cookie app1
+    server app2 10.0.1.11:3000 check cookie app2
+
+listen stats
+    bind *:8404
+    stats enable
+    stats uri /stats
+    stats refresh 10s
+    stats auth admin:changeme
+```
+
+Stats page at `:8404/stats` shows live backend state — put it behind auth and a firewall.
+
+---
+
 **See also:**
 - `microservices-fundamentals` — When to choose microservices, decomposition patterns
 - `microservices-resilience` — Circuit breaker implementation, health check design

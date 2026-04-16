@@ -51,6 +51,13 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Correctness | Prompt regression suite | Versioned prompt + golden-output set with diff results | `docs/ai/prompt-regression-2026-04-16.md` |
+| Security | Prompt-injection defense note | Markdown doc covering input scrubbing and tool-use guardrails | `docs/ai/prompt-injection-defense.md` |
+
 ## References
 
 - Use the links and companion skills already referenced in this file when deeper context is needed.

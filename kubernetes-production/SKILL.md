@@ -52,6 +52,13 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Operability | K8s deployment runbook | Markdown doc per `skill-composition-standards/references/runbook-template.md` covering rollout, scaling, secret rotation, and PDB review | `docs/k8s/deployment-runbook.md` |
+| Operability | Resource and autoscaler config note | Markdown doc covering requests/limits, HPA/VPA, and PDB rationale | `docs/k8s/resources-config.md` |
+
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.

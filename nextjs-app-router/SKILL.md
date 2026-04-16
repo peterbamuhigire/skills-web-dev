@@ -52,6 +52,13 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Correctness | Route + middleware test plan | Markdown doc covering server/client component boundaries, parallel routes, and middleware | `docs/web/nextjs-route-tests.md` |
+| Security | RBAC three-tier configuration note | Markdown doc covering middleware / server action / data-access guards | `docs/web/nextjs-rbac.md` |
+
 ## References
 
 - Use the links and companion skills already referenced in this file when deeper context is needed.

@@ -52,6 +52,13 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Data safety | Room schema migration plan | Markdown doc per `skill-composition-standards/references/migration-plan-template.md` | `docs/android/room-migration-2026-04-16.md` |
+| Correctness | Room DAO test plan | Markdown doc covering DAO, Flow, and migration tests | `docs/android/room-tests-orders.md` |
+
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.

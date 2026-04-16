@@ -52,6 +52,13 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Performance | Per-tenant token cost projection | Markdown doc with token-usage estimates by feature and tenant tier | `docs/ai/cost-projection-2026-04-16.md` |
+| Release evidence | AI feature go/no-go cost gate | Markdown doc declaring the per-tenant unit-economics decision before release | `docs/ai/cost-gate-2026-04-16.md` |
+
 ## References
 
 - Use the links and companion skills already referenced in this file when deeper context is needed.

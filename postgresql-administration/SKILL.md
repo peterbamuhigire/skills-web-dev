@@ -54,6 +54,12 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Operability | Cluster and backup runbook | Markdown doc per `skill-composition-standards/references/runbook-template.md` covering replication, vacuum, and restore-test procedure | `docs/data/postgres-runbook.md` |
+
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.

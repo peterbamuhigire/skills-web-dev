@@ -52,6 +52,14 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Security | Provider key handling note | Markdown doc covering secret storage, rotation, and per-tenant isolation | `docs/ai/llm-key-handling.md` |
+| Correctness | Provider contract test results | CI log or recorded test report covering response shape and streaming | `docs/ai/llm-contract-tests.md` |
+| Performance | Token-usage and latency budget | Markdown doc stating per-call token and latency budgets | `docs/ai/llm-budgets.md` |
+
 ## References
 
 - Use the links and companion skills already referenced in this file when deeper context is needed.

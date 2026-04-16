@@ -194,6 +194,280 @@ Implementation detail: [references/container-runtime-security.md](references/con
 - [ ] Compliance control mapping is current and evidence collection is continuous.
 - [ ] Container runtime policy (admission + detection) is enforced, not just image scanning.
 
+## Advanced Security Operations
+
+### HashiCorp Vault
+
+Secret engines cover the common credential types; choose the engine that matches the credential lifecycle.
+
+- KV v2 for static app secrets with versioning:
+
+```bash
+vault secrets enable -path=secret -version=2 kv
+vault kv put secret/myapp/db username=app password=s3cret!
+vault kv get -version=3 secret/myapp/db
+```
+
+- Database engine for dynamic PostgreSQL credentials (unique user per lease, auto-revoked at TTL):
+
+```bash
+vault secrets enable database
+vault write database/config/app-postgres \
+  plugin_name=postgresql-database-plugin \
+  allowed_roles="app-ro" \
+  connection_url="postgresql://{{username}}:{{password}}@db:5432/app?sslmode=require" \
+  username="vault" password="$VAULT_DB_PASSWORD"
+
+vault write database/roles/app-ro \
+  db_name=app-postgres \
+  creation_statements="CREATE ROLE \"{{name}}\" WITH LOGIN PASSWORD '{{password}}' VALID UNTIL '{{expiration}}'; GRANT SELECT ON ALL TABLES IN SCHEMA public TO \"{{name}}\";" \
+  default_ttl="1h" max_ttl="24h"
+
+vault read database/creds/app-ro
+```
+
+- AWS engine for dynamic IAM credentials scoped to a policy:
+
+```bash
+vault secrets enable aws
+vault write aws/config/root access_key=$AWS_ACCESS_KEY secret_key=$AWS_SECRET_KEY region=eu-west-1
+vault write aws/roles/s3-readonly credential_type=iam_user policy_document=@s3-readonly.json
+vault read aws/creds/s3-readonly
+```
+
+- Transit engine for encryption-as-a-service (the app never holds the key):
+
+```bash
+vault secrets enable transit
+vault write -f transit/keys/orders
+vault write transit/encrypt/orders plaintext=$(base64 <<< "card-tok-42")
+vault write transit/decrypt/orders ciphertext="vault:v1:..."
+```
+
+PKI infrastructure issues short-lived leaf certificates from a root plus intermediate CA.
+
+```bash
+# Root CA (offline after setup)
+vault secrets enable -path=pki_root pki
+vault secrets tune -max-lease-ttl=87600h pki_root
+vault write -field=certificate pki_root/root/generate/internal \
+  common_name="example-root" ttl=87600h > root_ca.crt
+
+# Intermediate CA (online issuer)
+vault secrets enable -path=pki_int pki
+vault secrets tune -max-lease-ttl=43800h pki_int
+vault write -format=json pki_int/intermediate/generate/internal \
+  common_name="example-intermediate" | jq -r '.data.csr' > pki_int.csr
+vault write -format=json pki_root/root/sign-intermediate csr=@pki_int.csr \
+  format=pem_bundle ttl=43800h | jq -r '.data.certificate' > pki_int.crt
+vault write pki_int/intermediate/set-signed certificate=@pki_int.crt
+
+# Role + issue leaf cert
+vault write pki_int/roles/my-role allowed_domains="example.com" \
+  allow_subdomains=true max_ttl="72h"
+vault write pki_int/issue/my-role common_name="api.example.com" ttl="24h"
+```
+
+Kubernetes auth method binds Vault to ServiceAccounts so pods fetch secrets without static tokens.
+
+```bash
+vault auth enable kubernetes
+vault write auth/kubernetes/config \
+  kubernetes_host="https://kubernetes.default.svc" \
+  token_reviewer_jwt="$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)" \
+  kubernetes_ca_cert=@/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+
+vault write auth/kubernetes/role/app \
+  bound_service_account_names=app-sa \
+  bound_service_account_namespaces=prod \
+  policies=app-read ttl=1h
+```
+
+Auto-rotation on the database role sets `default_ttl` (lease TTL) and `rotation_period` (root-credential rotation). Reference the Vault Agent Injector through pod annotations:
+
+```yaml
+metadata:
+  annotations:
+    vault.hashicorp.com/agent-inject: "true"
+    vault.hashicorp.com/role: "app"
+    vault.hashicorp.com/agent-inject-secret-db: "database/creds/app-ro"
+    vault.hashicorp.com/agent-inject-template-db: |
+      {{- with secret "database/creds/app-ro" -}}
+      DB_USER={{ .Data.username }}
+      DB_PASS={{ .Data.password }}
+      {{- end }}
+```
+
+### ISO 27001 Controls Mapping
+
+Annex A controls most relevant to a SaaS pipeline with their 2022 IDs:
+
+- A.5.15 Access control — RBAC across Git, CI, artifact registry, K8s, cloud accounts.
+- A.5.23 Cloud services — documented shared-responsibility boundary, vendor assurance records.
+- A.8.2 Privileged access rights — break-glass procedures, MFA for admins, approval workflow.
+- A.8.16 Monitoring activities — centralised logs, alerting on privileged actions, audit retention.
+- A.8.24 Cryptography — TLS 1.2+, KMS-managed keys, approved cipher suites, rotation schedule.
+- A.8.25 Secure development lifecycle — threat modelling, peer review, gated merges, tracked design decisions.
+- A.8.28 Secure coding — SAST in CI, dependency scanning, secure coding training records.
+
+Evidence collection checklist — CI/CD must automatically capture:
+
+- pipeline run logs (retain 3 years minimum, longer if ISMS demands)
+- signed container images plus CycloneDX SBOMs attached to each digest
+- access request tickets linked to the change that consumed the access
+- pull-request records with reviewer identity, approval timestamp, and change description
+- vulnerability-scan artefacts (SAST, DAST, SCA, container) with severity and remediation status
+
+### PCI-DSS v4.0
+
+Requirement snapshot for a SaaS that redirects card capture to Stripe (reduces scope to SAQ A):
+
+- Req 3 Protect stored account data — not applicable when no PAN, CVV, or track data touches your systems (Stripe-hosted Checkout).
+- Req 4 Protect transmission with cryptography — TLS 1.2+ on every public endpoint, HSTS, strong cipher suites only.
+- Req 6 Develop and maintain secure systems — SAST and DAST in CI, patch management SLA, change-control records.
+- Req 8 Identify users and authenticate access — MFA mandatory for any admin, console, or production-deploy role.
+- Req 10 Log and monitor access — centralised audit log of admin and data access, retained 12 months minimum.
+- Req 11 Regular testing — quarterly external vulnerability scans by an ASV, annual third-party penetration test.
+
+SAQ A scope reduction explanation: Stripe-hosted Checkout loads the card form inside an iframe served from Stripe's domain. Card data never enters your DOM, your servers, or your logs. That limits you to SAQ A (around 22 controls) instead of SAQ D (~329 controls). What still applies: TLS on your redirect page, MFA for staff, logging, vulnerability scans of any page that redirects to Stripe, written policies, and vendor management of Stripe itself.
+
+### Falco Runtime Threat Detection
+
+Install on Kubernetes via Helm with the eBPF driver (no kernel module required):
+
+```bash
+helm repo add falcosecurity https://falcosecurity.github.io/charts
+helm install falco falcosecurity/falco \
+  --namespace falco --create-namespace \
+  --set driver.kind=ebpf \
+  --set falcosidekick.enabled=true \
+  --set falcosidekick.webui.enabled=true
+```
+
+Sample rule that detects a shell spawned inside a container:
+
+```yaml
+- rule: Shell spawned in container
+  desc: A shell was spawned inside a container
+  condition: container.id != host and proc.name in (shell_binaries)
+  output: "Shell started (user=%user.name container=%container.id command=%proc.cmdline)"
+  priority: WARNING
+  tags: [container, shell]
+```
+
+Alert routing through Falcosidekick forwards detections to Slack, PagerDuty, and Loki simultaneously:
+
+```yaml
+falcosidekick:
+  config:
+    slack:
+      webhookurl: "https://hooks.slack.com/services/XXX/YYY/ZZZ"
+      minimumpriority: warning
+    pagerduty:
+      routingkey: "$PAGERDUTY_ROUTING_KEY"
+      minimumpriority: critical
+    loki:
+      hostport: "http://loki:3100"
+      minimumpriority: informational
+```
+
+### OPA/Gatekeeper Admission Policies
+
+Install Gatekeeper from the upstream release manifest:
+
+```bash
+kubectl apply -f https://raw.githubusercontent.com/open-policy-agent/gatekeeper/release-3.15/deploy/gatekeeper.yaml
+```
+
+ConstraintTemplate requiring `runAsNonRoot: true`:
+
+```yaml
+apiVersion: templates.gatekeeper.sh/v1
+kind: ConstraintTemplate
+metadata:
+  name: k8srequirednonroot
+spec:
+  crd:
+    spec:
+      names:
+        kind: K8sRequiredNonRoot
+  targets:
+    - target: admission.k8s.gatekeeper.sh
+      rego: |
+        package k8srequirednonroot
+        violation[{"msg": msg}] {
+          input.review.object.spec.securityContext.runAsNonRoot == false
+          msg := "Containers must runAsNonRoot: true"
+        }
+```
+
+Constraint manifest applying the template to all pods in production namespaces:
+
+```yaml
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sRequiredNonRoot
+metadata:
+  name: pods-must-run-as-nonroot
+spec:
+  enforcementAction: deny
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+    namespaces: ["prod", "prod-eu", "prod-us"]
+```
+
+Violation reporting and audit:
+
+```bash
+kubectl get constraints
+kubectl get k8srequirednonroot pods-must-run-as-nonroot -o yaml
+kubectl logs -n gatekeeper-system -l control-plane=audit-controller
+```
+
+Enable audit logging on the API server to capture admission denials with `--audit-policy-file` referencing a policy that records `RequestResponse` on `admissionregistration.k8s.io` resources.
+
+### Trivy Container Scanning
+
+GitHub Action snippet that fails the build on unfixed CRITICAL or HIGH findings and uploads SARIF to GitHub Security:
+
+```yaml
+- name: Trivy image scan
+  uses: aquasecurity/trivy-action@master
+  with:
+    image-ref: ${{ steps.build.outputs.image }}
+    severity: CRITICAL,HIGH
+    exit-code: 1
+    ignore-unfixed: true
+    format: sarif
+    output: trivy-results.sarif
+- uses: github/codeql-action/upload-sarif@v3
+  with:
+    sarif_file: trivy-results.sarif
+```
+
+SBOM generation in CycloneDX format (attach to the image digest via `cosign attest`):
+
+```bash
+trivy image --format cyclonedx --output sbom.json "$IMAGE"
+cosign attest --predicate sbom.json --type cyclonedx "$IMAGE"
+```
+
+CVE threshold policy:
+
+- block pipeline on CRITICAL or HIGH with a known fix available
+- allow known-unfixable findings only through `.trivyignore` with an expiry annotation
+
+Example `.trivyignore`:
+
+```text
+# CVE-2024-12345 — no upstream fix as of 2026-03-01
+# Owner: platform-sec; Review: 2026-06-01
+CVE-2024-12345 exp:2026-06-01
+```
+
+CI should reject any `.trivyignore` entry without an `exp:YYYY-MM-DD` annotation and fail the nightly scan when an entry expires.
+
 ## References
 
 - [references/security-gate-governance.md](references/security-gate-governance.md): Gate policy, suppression hygiene, and evidence retention.

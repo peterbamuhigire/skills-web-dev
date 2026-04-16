@@ -51,6 +51,14 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Security | Pipeline security gate configuration | YAML or JSON defining SAST/DAST/dependency/secret scan steps | `.github/workflows/security.yml` |
+| Security | Scan-exception register | Markdown doc listing accepted findings, owner, and expiry | `docs/security/scan-exceptions.md` |
+| Release evidence | Signed build and provenance record | SBOM plus signature or attestation output | `artifacts/sbom-2026-04-16.spdx.json` |
+
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.
@@ -193,14 +201,6 @@ Implementation detail: [references/container-runtime-security.md](references/con
 - [ ] Vault AppRole, dynamic DB creds, and PKI engine are documented with rotation runbooks.
 - [ ] Compliance control mapping is current and evidence collection is continuous.
 - [ ] Container runtime policy (admission + detection) is enforced, not just image scanning.
-
-## Evidence Produced
-
-| Category | Artifact | Format | Example |
-|----------|----------|--------|---------|
-| Security | Pipeline security gate configuration | YAML or JSON defining SAST/DAST/dependency/secret scan steps | `.github/workflows/security.yml` |
-| Security | Scan-exception register | Markdown doc listing accepted findings, owner, and expiry | `docs/security/scan-exceptions.md` |
-| Release evidence | Signed build and provenance record | SBOM plus signature or attestation output | `artifacts/sbom-2026-04-16.spdx.json` |
 
 ## References
 

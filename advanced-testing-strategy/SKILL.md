@@ -52,6 +52,13 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Correctness | Test plan | Markdown doc per `skill-composition-standards/references/test-plan-template.md` | `docs/testing/test-plan-checkout.md` |
+| Correctness | Latest CI run evidence | CI URL or archived log | `https://ci.example.com/run/12345` |
+
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.
@@ -201,13 +208,6 @@ See [references/test-matrix-template.md](references/test-matrix-template.md).
 - [ ] End-to-end tests are focused on the highest-value flows.
 - [ ] Manual verification covers the platform or UX gaps automation cannot.
 - [ ] Release evidence makes residual risk explicit.
-
-## Evidence Produced
-
-| Category | Artifact | Format | Example |
-|----------|----------|--------|---------|
-| Correctness | Test plan | Markdown doc per `skill-composition-standards/references/test-plan-template.md` | `docs/testing/test-plan-checkout.md` |
-| Correctness | Latest CI run evidence | CI URL or archived log | `https://ci.example.com/run/12345` |
 
 ## References
 

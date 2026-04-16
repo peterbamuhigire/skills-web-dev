@@ -59,6 +59,13 @@ Specialist frontend skill. Produces the three deliverables that give a team an o
 - Measurement plan (SLIs, source, reporting surface, alert thresholds).
 - Regression gate in CI.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Performance | Performance budget document | Markdown doc stating page, API, and interaction budgets | `docs/performance/budgets-checkout.md` |
+| Performance | Real-user and synthetic metrics evidence | Dashboard link plus archived snapshot | `docs/performance/rum-snapshot-2026-04-16.md` |
+
 ## References
 
 - `references/budgets-and-regression-gate.md`
@@ -208,13 +215,6 @@ A blocking CI job with at least: `size-limit` per entry, Lighthouse CI score and
 - `system-architecture-design` — source of the critical-flow table that budgets depend on.
 - `react-development` — React-specific patterns referenced by the framework recipes.
 - `nextjs-app-router` — Next.js App Router strategies for server components, streaming, and `next/image`.
-
-## Evidence Produced
-
-| Category | Artifact | Format | Example |
-|----------|----------|--------|---------|
-| Performance | Performance budget document | Markdown doc stating page, API, and interaction budgets | `docs/performance/budgets-checkout.md` |
-| Performance | Real-user and synthetic metrics evidence | Dashboard link plus archived snapshot | `docs/performance/rum-snapshot-2026-04-16.md` |
 
 ## References
 

@@ -52,6 +52,13 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Correctness | ERP workflow decision record | Markdown doc per `skill-composition-standards/references/adr-template.md` covering domain modules, approvals, and audit-trail design | `docs/erp/workflow-adr.md` |
+| Data safety | ERP module data model | Markdown doc per `skill-composition-standards/references/entity-model-template.md` covering entities, period-close, and audit columns | `docs/erp/module-data-model.md` |
+
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.

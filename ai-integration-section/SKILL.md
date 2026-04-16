@@ -51,6 +51,12 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Release evidence | AI Integration section of the design document | Markdown insertion covering opportunities, gates, and risks for the host SRS / PRD / HLD / LLD | `docs/design/ai-integration-section.md` |
+
 ## References
 
 - Use the links and companion skills already referenced in this file when deeper context is needed.

@@ -52,6 +52,13 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Correctness | Stripe webhook + flow test plan | Markdown doc covering checkout, subscription lifecycle, customer portal, and webhook signature verification tests | `docs/billing/stripe-tests.md` |
+| Security | Stripe key handling note | Markdown doc covering API key storage, webhook secret rotation, and per-environment configuration | `docs/billing/stripe-key-handling.md` |
+
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.

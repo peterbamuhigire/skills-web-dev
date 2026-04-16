@@ -54,6 +54,13 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Data safety | pgvector schema and embedding pipeline | Markdown doc covering embedding model choice, vector dimensions, and tenancy scoping for AI workloads | `docs/data/pgvector-schema.md` |
+| Performance | Vector index performance plan | Markdown doc covering ivfflat / hnsw choice, recall vs latency budget, and EXPLAIN samples | `docs/data/pgvector-perf.md` |
+
 ## References
 
 - Use the links and companion skills already referenced in this file when deeper context is needed.

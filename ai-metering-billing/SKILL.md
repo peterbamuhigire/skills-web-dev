@@ -51,6 +51,13 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Operability | Token ledger schema register | Markdown doc per `skill-composition-standards/references/entity-model-template.md` covering token, request, and overage tables | `docs/ai/token-ledger-schema.md` |
+| Release evidence | Per-tenant metering policy | Markdown doc capturing per-tenant token allocation, overage handling, and billing-cycle reconciliation | `docs/ai/metering-policy.md` |
+
 ## References
 
 - Use the links and companion skills already referenced in this file when deeper context is needed.

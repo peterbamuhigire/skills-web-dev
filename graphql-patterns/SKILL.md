@@ -59,13 +59,10 @@ Monolithic `schema.js`/`index.js`; mixed auth patterns across resolvers; client-
 
 ## Evidence Produced
 
-| Category | Artifact | Example |
-|----------|----------|---------|
-| Design | Schema + operations + ADR | `src/schema.graphql`, `docs/adr/0004-cursor-pagination.md` |
-| Code | Apollo Server + context + formatError | `src/server.ts` |
-| Code | DataLoader factory (per join) | `src/loaders.ts` |
-| Code | Generated TS types from codegen | `src/__generated__/graphql.ts` |
-| Ops | Hardening checklist | `docs/graphql-hardening.md` |
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Correctness | GraphQL schema decision record | Markdown doc per `skill-composition-standards/references/adr-template.md` covering SDL design, resolver patterns, and N+1 mitigations | `docs/graphql/schema-adr.md` |
+| Performance | Resolver performance budget | Markdown doc covering per-resolver latency budget and DataLoader strategy | `docs/graphql/resolver-budget.md` |
 
 ## References
 

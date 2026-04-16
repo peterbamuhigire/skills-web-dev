@@ -54,6 +54,12 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Correctness | Server-side function test plan | Markdown doc covering PL/pgSQL function tests, trigger tests, and extension behaviour | `docs/data/postgres-server-tests.md` |
+
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.

@@ -52,6 +52,12 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| Correctness | JS-in-own-files boundary register | Markdown doc covering data passing via data-attributes, JSON islands, and PHP-emitted state | `docs/web/js-php-boundary.md` |
+
 ## References
 
 - Use the links and companion skills already referenced in this file when deeper context is needed.

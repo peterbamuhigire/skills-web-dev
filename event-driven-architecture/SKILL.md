@@ -68,10 +68,8 @@ metadata:
 
 | Category | Artifact | Format | Example |
 |----------|----------|--------|---------|
-| Design | Event catalogue | Markdown + JSON Schema files | `docs/events/catalogue.md`, `schemas/order-placed.v1.json` |
-| Design | Broker topology diagram | Mermaid + IaC | `docs/events/topology.md`, `terraform/msk.tf` |
-| Code | Outbox migration + relay | SQL + worker source | `db/migrations/2026_add_outbox.sql`, `src/relay/outbox_relay.ts` |
-| Ops | Replay runbook | Markdown runbook | `docs/runbooks/event-replay.md` |
+| Correctness | Event schema and contract test results | Markdown doc plus CI log covering event schema tests, consumer compatibility, and saga workflow validation | `docs/events/contract-tests-2026-04-16.md` |
+| Operability | Event broker operations runbook | Markdown doc per `skill-composition-standards/references/runbook-template.md` covering broker, partitioning, replay, and DLQ handling | `docs/events/broker-runbook.md` |
 
 ## References
 

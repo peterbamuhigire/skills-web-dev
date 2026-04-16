@@ -51,6 +51,12 @@ metadata:
 - Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
 - References used, companion skills, or follow-up actions when they materially improve execution.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|----------|----------|--------|---------|
+| UX quality | AI surface design review | Markdown doc covering trustworthiness, error tolerance, and refusal-state handling for AI-powered features | `docs/ai/ux-design-review.md` |
+
 ## References
 
 - Use the links and companion skills already referenced in this file when deeper context is needed.

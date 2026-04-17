@@ -255,3 +255,4 @@ See `references/real-estate-saas-integration.md`.
 - `references/catchment-isochrones.md`
 - `references/market-heatmaps.md`
 - `references/real-estate-saas-integration.md`
+- `references/arcgis-pro-workflows.md` — geodatabase invariants, topology rules for parcels, branch vs traditional versioning, georeferencing with RMS targets, service pre-flight checklist

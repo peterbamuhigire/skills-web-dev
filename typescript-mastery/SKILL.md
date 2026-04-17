@@ -463,4 +463,8 @@ type Status = typeof Status[keyof typeof Status];
 
 ---
 
-*Sources: Total TypeScript — Matt Pocock (No Starch Press, 2026); Ultimate TypeScript Handbook — Dan Wellman (2023); 250 Killer TypeScript One-Liners — Abella; Programming TypeScript — Boris Cherny (O'Reilly, 2019)*
+*Sources: Total TypeScript — Matt Pocock (No Starch Press, 2026); Ultimate TypeScript Handbook — Dan Wellman (2023); 250 Killer TypeScript One-Liners — Abella; Programming TypeScript — Boris Cherny (O'Reilly, 2019); Effective TypeScript 2nd ed. — Dan Vanderkam (O'Reilly, 2024)*
+
+## References
+
+- `references/generics-and-type-level.md` — depth on items 50-58 (generics as functions, distribution control, template literal DSLs, type tests, Prettify, tail-recursive types, codegen tradeoffs, soundness traps, compiler perf checklist).

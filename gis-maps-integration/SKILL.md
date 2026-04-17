@@ -271,3 +271,4 @@ See `references/a11y-maps.md`.
 - `references/styling-comparison.md`
 - `references/cost-control-quotas.md`
 - `references/a11y-maps.md`
+- `references/vector-tile-pipeline.md` — MVT vs raster decision, tippecanoe flags, zoom strategy, Mapbox GL per-layer performance rules, self-hosted sprites/glyphs

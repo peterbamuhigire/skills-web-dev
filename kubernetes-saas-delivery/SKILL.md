@@ -95,6 +95,21 @@ Enterprise tenants (tens, custom SLAs, compliance)          -> Cluster per tenan
 
 See `references/multi-tenancy-models.md`.
 
+## Isolation model — namespace vs vCluster vs cluster
+
+```text
+Tenants never touch the kube-API directly                   -> namespace per tenant
+Tenants need their own CRDs / kubectl / per-tenant audit    -> vCluster
+Compliance / data residency / hard tenancy                  -> cluster per tenant
+Noisy-neighbour CPU/memory dominates and quotas don't fix   -> dedicated nodepool per tenant, then cluster
+```
+
+A namespace is not a tenant boundary on its own. It becomes one only when you stack ResourceQuota + LimitRange + default-deny NetworkPolicy + Pod Security `restricted` + per-tenant ServiceAccount + tenant-scoped Role + per-tier PriorityClass + per-tenant ingress. See `references/multi-tenant-isolation.md` for the full checklist and tradeoffs.
+
+## Service mesh — only if you need one
+
+Install a mesh when at least two hold: mTLS-everywhere is a compliance control, polyglot stack with no shared RPC library, cross-cluster service discovery, or per-tenant traffic shifting. Otherwise: cert-manager + SPIRE for mTLS, OpenTelemetry SDKs for telemetry, NetworkPolicy for segmentation. See `references/service-mesh-tradeoffs.md`.
+
 ## Namespace isolation
 
 Per-tenant namespace with:
@@ -329,3 +344,5 @@ See `references/offboarding-data-deletion.md`.
 - `references/tenant-observability.md`
 - `references/cost-allocation.md`
 - `references/offboarding-data-deletion.md`
+- `references/multi-tenant-isolation.md`
+- `references/service-mesh-tradeoffs.md`

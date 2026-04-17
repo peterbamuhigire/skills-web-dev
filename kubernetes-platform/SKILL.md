@@ -91,7 +91,11 @@ Every topic the repository covers on Kubernetes is owned by exactly one of the t
 | Deployment Strategies (rolling, blue-green, canary, Argo Rollouts) | `kubernetes-saas-delivery` | Progressive Delivery |
 | Node Operations (drain, cordon, taints, tolerations) | `kubernetes-production` | Cost Control; Stateful Workloads |
 | Observability (metrics-server, Prometheus, Grafana, Loki) | `kubernetes-production` | Observability Stack |
-| Troubleshooting Playbook (CrashLoopBackOff, Pending, ImagePullBackOff) | `kubernetes-fundamentals` | kubectl Workflow |
+| Troubleshooting Playbook (CrashLoopBackOff, Pending, ImagePullBackOff) | `kubernetes-fundamentals` | Debug Triage; `references/debugging-recipes.md` |
+| Cluster and Node Upgrades (PDB, drain, version skew, add-on order) | `kubernetes-production` | Cluster and Node Upgrades; `references/upgrade-runbook.md` |
+| CRDs and Operators (build vs install vs avoid) | `kubernetes-production` | When to Reach for an Operator; `references/crd-operators.md` |
+| Multi-tenant Isolation (namespace vs vCluster vs cluster) | `kubernetes-saas-delivery` | Isolation Model; `references/multi-tenant-isolation.md` |
+| Service Mesh Decision (Istio, Linkerd, Cilium, ambient) | `kubernetes-saas-delivery` | Service Mesh; `references/service-mesh-tradeoffs.md` |
 
 ## Common Task Recipes
 

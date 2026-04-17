@@ -159,7 +159,8 @@ Examples:
 
 ## Version
 
-- Current version: 1.3.0
+- Current version: 1.4.0
 - Last updated: April 2026
 - Maintained by: Peter Bamuhigire
+- Changelog 1.4.0: distilled 12 O'Reilly / Manning / Apress technical books into 12 modified skills across three domains — TypeScript/React (`typescript-effective`, `typescript-mastery`, `typescript-full-stack`, `react-development`), Kubernetes (`kubernetes-fundamentals`, `kubernetes-platform`, `kubernetes-production`, `kubernetes-saas-delivery`), GIS/mapping (`gis-mapping`, `gis-maps-integration`, `gis-postgis-backend`, `gis-enterprise-domain`). Added 10 new `references/` files with decision tables, runbooks, and anti-patterns (rendering thresholds, Leaflet plugin matrix, vector tile pipeline, projections deep-dive, ArcGIS Pro workflows, K8s debugging recipes, upgrade runbook, CRD/operators, multi-tenant isolation, service mesh tradeoffs) plus large-scale React+TS and React+TS gotchas.
 - Changelog 1.3.0: added `skill-composition-standards` baseline skill; published 14 canonical artifact templates; first normalisation batch (5 high-traffic skills) upgraded to 19/20 on the house-style checklist

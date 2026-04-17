@@ -93,6 +93,44 @@ The operational bar for running K8s in production — not just running Pods, but
 [ ] SLOs + runbooks per service
 ```
 
+## Request sizing heuristics
+
+Measure first; do not guess. Steady-state and peak come from `kubectl top` plus `container_memory_working_set_bytes` and `rate(container_cpu_usage_seconds_total[5m])` over a representative week.
+
+```text
+Memory request  = p95 working set
+Memory limit    = p99 working set + 30% headroom
+CPU request     = p95 utilisation in cores
+CPU limit       = 2x request, or unset (with PriorityClass + tested cluster) for burstable workloads
+```
+
+QoS classes (set deliberately):
+
+```text
+Guaranteed  requests == limits          -> tier-1 services, evicted last
+Burstable   requests < limits           -> default for most apps
+BestEffort  no requests/limits          -> never use in production
+```
+
+HPA does not work without CPU requests. VPA in `recommend` mode for one week tells you whether you are over- or under-provisioned.
+
+## When to reach for an operator
+
+```text
+Stateful system you operate (Postgres, Kafka, Redis, ES) -> install a vetted operator (CloudNativePG, Strimzi, ECK)
+Repeated multi-step ops you do by hand                   -> consider an operator
+Watch a ConfigMap and bounce Pods                        -> CronJob is enough
+Tenant lifecycle in SaaS                                 -> GitOps + ApplicationSet first; operator only if dynamic
+```
+
+Rule: install before you build. See `references/crd-operators.md` for the build/install/avoid matrix and CRD hygiene.
+
+## Cluster and node upgrades
+
+Upgrades are releases, not chores. Pre-flight: run `kube-no-trouble`/`pluto` against Git for removed APIs, verify a Velero restore in a sandbox, drain-test one canary node.
+
+Order: control plane -> node groups one at a time -> add-ons (CNI first, mesh last). Every workload with replicas > 1 has a PDB; a PDB of `minAvailable: 100%` blocks drain forever. See `references/upgrade-runbook.md`.
+
 ## Helm vs Kustomize
 
 ```text
@@ -311,3 +349,5 @@ See `references/cost-control.md`.
 - `references/admission-control-opa-kyverno.md`
 - `references/backup-velero.md`
 - `references/cost-control.md`
+- `references/upgrade-runbook.md`
+- `references/crd-operators.md`

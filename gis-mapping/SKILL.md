@@ -224,6 +224,23 @@ See geofencing.md for full patterns, point-in-polygon checks, and multi-geometry
 - Use marker clustering or server-side tiling
 - Lazy load heavy layers
 - Simplify large polygons for UI display
+- Pick a rendering strategy by feature count — see references/rendering-thresholds.md for the full table. Short form:
+  - < 200 features: plain markers/SVG
+  - 200–2 000 points: `Leaflet.markercluster`
+  - 200–5 000 polygons: `preferCanvas: true` on the map
+  - 2 000–10 000: server-side bbox filtering + per-zoom geometry simplification
+  - \> 10 000: switch to MVT via `Leaflet.VectorGrid` or MapLibre/Mapbox GL
+  - \> 50 000: WebGL overlay (`Leaflet.glify`, `PixiOverlay`)
+- Return zoom-appropriate geometry from the backend — one simplification tolerance for all zooms is always wrong.
+
+## Anti-Patterns (map-specific)
+
+- Loading multi-megabyte GeoJSON at zoom 3 "for completeness" — simplify per zoom.
+- Client-side reprojection on every pan — project server-side, deliver EPSG:4326.
+- SVG renderer for 10 k+ polygons — switch to Canvas or vector tiles.
+- Heatmap under ~200 points — implies density that is not statistically there.
+- Two plugins for the same job (e.g. `leaflet-draw` and Geoman both active) — event collisions, see references/leaflet-plugins.md.
+- Leaving `L.marker` default icon in production — image path breaks when bundled (Webpack/Vite); use a custom icon or shim.
 
 ## Backend Validation
 
@@ -252,3 +269,5 @@ Always validate coordinates server-side:
 - geofencing.md (sub-skill)
 - references/leaflet-capabilities.md
 - references/leaflet-arcgis-equivalents.md (index)
+- references/leaflet-plugins.md — plugin selection matrix, compatibility checklist, plugin-vs-custom decision
+- references/rendering-thresholds.md — feature-count → strategy table, Canvas vs SVG vs WebGL, per-zoom simplification

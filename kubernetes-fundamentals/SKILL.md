@@ -162,6 +162,31 @@ Four rules this manifest enforces:
 3. Always readiness probe — Service won't route to Pods not ready.
 4. Liveness probe only for genuine stuck/crashed detection — misconfigured liveness causes restart loops.
 
+## Workload type — pick correctly
+
+```text
+Stateless app, identical replicas, rolling update         -> Deployment
+Stable identity, ordered start, per-Pod PV                -> StatefulSet
+One Pod per node (logs, metrics, CNI, CSI)                -> DaemonSet
+Run to completion (migration, batch)                      -> Job
+Run on a schedule                                         -> CronJob
+Dev/debug pods you'll throw away                          -> kubectl run (never in prod manifests)
+```
+
+Anti-pattern: Deployment for a database. You will lose data on the first reschedule unless you have a PVC + careful affinity, and even then identity churn breaks replication.
+
+## Debug triage — first 60 seconds
+
+```text
+1. kubectl get pod <name> -o wide                       -> status, restarts, node
+2. kubectl describe pod <name>                          -> read Events at the bottom FIRST
+3. kubectl logs <name> -c <ctr> --previous              -> the run that crashed, not the new one
+4. kubectl get events --sort-by=.lastTimestamp -n <ns>  -> recent cluster activity
+5. Exit code in describe: 137 = OOMKilled, 143 = SIGTERM, 1 = app error
+```
+
+For symptom-by-symptom playbooks (CrashLoopBackOff, ImagePullBackOff, Pending, OOMKilled, Evicted, no endpoints, DNS, stuck rollouts, NotReady nodes) see `references/debugging-recipes.md`.
+
 ## kubectl workflow
 
 ```bash
@@ -259,3 +284,4 @@ See `references/cluster-setup-eks-gke.md` and `references/local-kind-minikube.md
 - `references/cluster-setup-eks-gke.md`
 - `references/local-kind-minikube.md`
 - `references/anti-patterns.md`
+- `references/debugging-recipes.md`

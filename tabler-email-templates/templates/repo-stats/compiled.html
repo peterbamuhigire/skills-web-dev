@@ -1,0 +1,883 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office" style="color-scheme: light dark; supported-color-schemes: light dark;">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta content="telephone=no" name="format-detection" />
+
+    <meta name="x-apple-disable-message-reformatting" />
+
+
+    <meta name="color-scheme" content="light dark" />
+    <meta name="supported-color-schemes" content="light dark only" />
+
+    <style data-premailer="ignore">
+        :root {
+            color-scheme: light dark;
+            supported-color-schemes: light dark;
+        }
+
+        @media screen and (max-width: 600px) {
+            u+.body {
+                width: 100vw !important;
+            }
+        }
+
+        a[x-apple-data-detectors] {
+            color: inherit !important;
+            text-decoration: none !important;
+            font-size: inherit !important;
+            font-family: inherit !important;
+            font-weight: inherit !important;
+            line-height: inherit !important;
+        }
+    </style>
+    <!--[if mso]>
+      <style type="text/css">
+        body, table, td {
+	font-family: Arial, Helvetica, sans-serif !important;
+}
+
+img {
+	-ms-interpolation-mode: bicubic;
+}
+
+.box {
+	border-color: #eee !important;
+}
+      </style>
+    <![endif]-->
+    <!--[if !mso]><!-->
+    <link href="https://rsms.me/inter/inter.css" rel="stylesheet" type="text/css" data-premailer="ignore" />
+    <style type="text/css" data-premailer="ignore">
+        @import url(https://rsms.me/inter/inter.css);
+    </style>
+    <!--<![endif]-->
+
+
+    <style>
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 400;
+            src: url('https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZ9hjQ.ttf') format('truetype');
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f9fafb;
+            font-size: 15px;
+            line-height: 160%;
+            mso-line-height-rule: exactly;
+            color: #4b5563;
+            width: 100%;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            -webkit-font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+            font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+        }
+
+        body {
+            font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;
+        }
+
+        img {
+            display: inline-block;
+            border: 0 none;
+            line-height: 100%;
+            outline: none;
+            text-decoration: none;
+            vertical-align: bottom;
+            font-size: 0;
+        }
+
+        a:hover {
+            text-decoration: underline !important;
+        }
+
+        .btn:hover {
+            text-decoration: none !important;
+        }
+
+        .btn.bg-secondary:hover {
+            background-color: #f9fafb;
+        }
+
+        a.bg-blue:hover {
+            background-color: #0667c2 !important;
+        }
+
+        a.bg-azure:hover {
+            background-color: #3592df !important;
+        }
+
+        a.bg-indigo:hover {
+            background-color: #3458ea !important;
+        }
+
+        a.bg-purple:hover {
+            background-color: #a636c2 !important;
+        }
+
+        a.bg-pink:hover {
+            background-color: #d02a64 !important;
+        }
+
+        a.bg-red:hover {
+            background-color: #d32c2c !important;
+        }
+
+        a.bg-orange:hover {
+            background-color: #e86107 !important;
+        }
+
+        a.bg-yellow:hover {
+            background-color: #e69500 !important;
+        }
+
+        a.bg-lime:hover {
+            background-color: #6baa14 !important;
+        }
+
+        a.bg-green:hover {
+            background-color: #2ca73f !important;
+        }
+
+        a.bg-teal:hover {
+            background-color: #0b986e !important;
+        }
+
+        a.bg-cyan:hover {
+            background-color: #1596aa !important;
+        }
+
+        a.bg-gray:hover {
+            background-color: #5f6b79 !important;
+        }
+
+        a.bg-white:hover {
+            background-color: #f7f7f7 !important;
+        }
+
+        .img-hover:hover img {
+            opacity: 0.64;
+        }
+
+        .theme-dark a.bg-secondary:hover {
+            background-color: #354258 !important;
+        }
+
+        .theme-dark .btn.bg-bordered:hover {
+            background-color: #066FD1 !important;
+            color: #ffffff !important;
+        }
+
+        .theme-dark .btn.bg-bordered:hover .btn-span {
+            color: #ffffff !important;
+        }
+
+        @media only screen and (max-width: 560px) {
+            body {
+                font-size: 14px !important;
+            }
+
+            .content {
+                padding: 24px !important;
+            }
+
+            .content-image-text {
+                padding: 24px !important;
+            }
+
+            .content-image {
+                height: 100px !important;
+            }
+
+            .content-image-text {
+                padding-top: 96px !important;
+            }
+
+            h1 {
+                font-size: 24px !important;
+            }
+
+            .h1 {
+                font-size: 24px !important;
+            }
+
+            h2 {
+                font-size: 20px !important;
+            }
+
+            .h2 {
+                font-size: 20px !important;
+            }
+
+            h3 {
+                font-size: 18px !important;
+            }
+
+            .h3 {
+                font-size: 18px !important;
+            }
+
+            .col {
+                display: table !important;
+                width: 100% !important;
+            }
+
+            .col-spacer {
+                display: table !important;
+                width: 100% !important;
+            }
+
+            .col-spacer-xs {
+                display: table !important;
+                width: 100% !important;
+            }
+
+            .col-spacer-sm {
+                display: table !important;
+                width: 100% !important;
+            }
+
+            .col-hr {
+                display: table !important;
+                width: 100% !important;
+            }
+
+            .row {
+                display: table !important;
+                width: 100% !important;
+            }
+
+            .col-hr {
+                border: 0 !important;
+                height: 24px !important;
+                width: auto !important;
+                background: transparent !important;
+            }
+
+            .col-spacer {
+                width: 100% !important;
+                height: 24px !important;
+            }
+
+            .col-spacer-sm {
+                height: 16px !important;
+            }
+
+            .col-spacer-xs {
+                height: 8px !important;
+            }
+
+            .chart-cell-spacer {
+                width: 4px !important;
+            }
+
+            .text-mobile-center {
+                text-align: center !important;
+            }
+
+            .d-mobile-none {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-body" style="font-size: 15px; line-height: 160%; mso-line-height-rule: exactly; color: #4b5563; width: 100%; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; -webkit-font-feature-settings: &quot;cv02&quot;, &quot;cv03&quot;, &quot;cv04&quot;, &quot;cv11&quot;; font-feature-settings: &quot;cv02&quot;, &quot;cv03&quot;, &quot;cv04&quot;, &quot;cv11&quot;; font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; margin: 0; padding: 0;" bgcolor="#f9fafb">
+    <center>
+        <table class="main bg-body" width="100%" cellspacing="0" cellpadding="0" role="presentation" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; border-collapse: collapse; width: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%;" bgcolor="#f9fafb">
+            <tr>
+                <td align="center" valign="top" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;">
+                    <!--[if (gte mso 9)|(IE)]>
+				<table border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<td align="center" valign="top" width="640">
+				<![endif]-->
+
+                    <span class="preheader" style="font-size: 0; display: none; max-height: 0; mso-hide: all; line-height: 0; color: transparent; height: 0; max-width: 0; opacity: 0; overflow: hidden; visibility: hidden; width: 0; padding: 0;">This is preheader text. Some clients will show this text as a preview.</span>
+
+                    <table class="wrap" cellspacing="0" cellpadding="0" role="presentation" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; border-collapse: collapse; width: 100%; max-width: 640px; text-align: left;">
+                        <tr>
+                            <td class="p-sm" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; padding: 8px;"><!-- HEADER -->
+
+                                <table cellpadding="0" cellspacing="0" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; border-collapse: collapse; width: 100%;">
+                                    <tr>
+                                        <td class="py-lg" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; padding-top: 24px; padding-bottom: 24px;">
+                                            <table cellspacing="0" cellpadding="0" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; border-collapse: collapse; width: 100%;">
+                                                <tr>
+                                                    <td style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;">
+
+
+                                                        <a href="https://tabler.io/emails?utm_source=demo" style="color: #066FD1; text-decoration: none;">
+
+
+
+
+                                                            <img src="./assets/sample-logo.png" class="img-light " width="114" height="32" alt="" style="display: inline-block; line-height: 100%; outline: none; text-decoration: none; vertical-align: bottom; font-size: 0; border-style: none; border-width: 0;" />
+
+                                                            <!--[if !mso]> <!-->
+                                                            <img src="./assets/sample-logo-white.png" class="img-dark " width="114" height="32" alt="" style="display: none; line-height: 100%; outline: none; text-decoration: none; vertical-align: bottom; font-size: 0; border-style: none; border-width: 0;" />
+                                                            <!-- <![endif]-->
+
+                                                        </a>
+
+                                                    </td>
+                                                    <td class="text-right" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;" align="right">
+                                                        <a href="https://tabler.io/emails?utm_source=demo" class="text-muted-light" style="color: #8491a1; text-decoration: none;">
+                                                            View online
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <!-- /HEADER -->
+
+                                <div class="main-content">
+                                    <div class="box" style="background-color: #ffffff; border-radius: 8px; -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05); box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05); border: 1px solid #e8ebee;">
+                                        <table class="box-table" cellpadding="0" cellspacing="0" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; border-collapse: collapse; width: 100%; border-radius: 8px;" bgcolor="#ffffff">
+                                            <tr>
+                                                <td style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;">
+                                                    <table cellpadding="0" cellspacing="0" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; border-collapse: collapse; width: 100%;">
+
+                                                        <tr>
+                                                            <td class="content pb-0" align="center" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; padding: 48px 48px 0;">
+
+                                                                <!--[if mso]>
+      <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="." style="height:64px;v-text-anchor:middle;width:64px;" arcsize="100%" stroke="f" fillcolor="#066FD1">
+        <w:anchorlock/>
+        <center style="color:#ffffff;font-family:sans-serif;font-size:16px;font-weight:bold;">
+          
+
+
+
+
+
+
+
+<img src="./assets/icons-white-brand-github.png" class="  va-middle"  width="32" height="32" alt="brand-github" />
+
+        </center>
+      </v:roundrect>
+    <![endif]-->
+                                                                <!--[if !mso]> <!-->
+                                                                <table class="icon icon-lg bg-blue " cellspacing="0" cellpadding="0" role="presentation" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; border-collapse: separate; width: 64px; border-radius: 50%; line-height: 100%; font-weight: 300; height: 64px; font-size: 48px; text-align: center; color: #ffffff; padding: 0;" bgcolor="#066FD1">
+                                                                    <tr>
+                                                                        <td valign="middle" align="center" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;">
+
+
+
+
+
+
+
+                                                                            <img src="./assets/icons-white-brand-github.png" class="  va-middle" width="32" height="32" alt="brand-github" style="display: block; line-height: 100%; outline: none; text-decoration: none; vertical-align: middle; font-size: 0; width: 32px; height: 32px; border-style: none; border-width: 0;" />
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                                <!-- <![endif]-->
+
+                                                                <h1 class="text-center m-0 font-strong mt-md" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; font-weight: 600; mso-line-height-rule: exactly; color: #111827; font-size: 30px; line-height: 126%; margin: 16px 0 0;" align="center">
+                                                                    Repo overview
+                                                                </h1>
+
+                                                                <p class="text-center mt-sm mb-0 text-muted" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; color: #667382; margin: 8px 0 0;" align="center">December 5, 2022 – December 12, 2022</p>
+
+                                                            </td>
+                                                        </tr>
+
+
+                                                        <tr>
+                                                            <td class="content" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; padding: 48px;">
+                                                                <table class="row" cellpadding="0" cellspacing="0" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; border-collapse: collapse; width: 100%; table-layout: fixed;">
+                                                                    <tr>
+                                                                        <td class="col text-center" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;" align="center" valign="top">
+                                                                            <table class="row" cellpadding="0" cellspacing="0" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; border-collapse: collapse; width: 100%; table-layout: fixed; height: 100%;">
+                                                                                <tr>
+                                                                                    <td class="col-mobile text-center" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;" align="center" valign="top">
+                                                                                        <div class="h3 lh-1" style="font-weight: 500; mso-line-height-rule: exactly; color: #111827; font-size: 20px; line-height: 100%; margin: 0 0 0.5em;">
+
+
+
+
+
+
+
+                                                                                            <img src="./assets/icons-gray-git-merge.png" class="  va-bottom va-middle" width="20" height="20" alt="git-merge" style="display: inline-block; line-height: 100%; outline: none; text-decoration: none; vertical-align: bottom; font-size: 0; border-style: none; border-width: 0;" />
+                                                                                            15
+                                                                                        </div>
+                                                                                        <div class="mt-xs lh-narrow" style="line-height: 133.33%; margin-top: 4px;">Merged Pull Requests</div>
+                                                                                    </td>
+                                                                                    <td class="col-mobile-spacer" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; width: 24px;"></td>
+                                                                                    <td class="col-mobile text-center" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;" align="center" valign="top">
+                                                                                        <div class="h3 lh-1" style="font-weight: 500; mso-line-height-rule: exactly; color: #111827; font-size: 20px; line-height: 100%; margin: 0 0 0.5em;">
+
+
+
+
+
+
+
+                                                                                            <img src="./assets/icons-gray-git-branch.png" class="  va-bottom va-middle" width="20" height="20" alt="git-branch" style="display: inline-block; line-height: 100%; outline: none; text-decoration: none; vertical-align: bottom; font-size: 0; border-style: none; border-width: 0;" />
+                                                                                            8
+                                                                                        </div>
+                                                                                        <div class="mt-xs lh-narrow" style="line-height: 133.33%; margin-top: 4px;">Proposed Pull Requests</div>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </table>
+                                                                        </td>
+                                                                        <td class="col-spacer" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; width: 24px;" valign="top"></td>
+                                                                        <td class="col text-center" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;" align="center" valign="top">
+                                                                            <table class="row" cellpadding="0" cellspacing="0" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; border-collapse: collapse; width: 100%; table-layout: fixed; height: 100%;">
+                                                                                <tr>
+                                                                                    <td class="col-mobile text-center" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;" align="center" valign="top">
+                                                                                        <div class="h3 lh-1" style="font-weight: 500; mso-line-height-rule: exactly; color: #111827; font-size: 20px; line-height: 100%; margin: 0 0 0.5em;">
+
+
+
+
+
+
+
+                                                                                            <img src="./assets/icons-gray-square-x.png" class="  va-bottom va-middle" width="20" height="20" alt="square-x" style="display: inline-block; line-height: 100%; outline: none; text-decoration: none; vertical-align: bottom; font-size: 0; border-style: none; border-width: 0;" />
+                                                                                            22
+                                                                                        </div>
+                                                                                        <div class="mt-xs lh-narrow" style="line-height: 133.33%; margin-top: 4px;">Closed Issues</div>
+                                                                                    </td>
+                                                                                    <td class="col-mobile-spacer" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; width: 24px;"></td>
+                                                                                    <td class="col-mobile text-center" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;" align="center" valign="top">
+                                                                                        <div class="h3 lh-1" style="font-weight: 500; mso-line-height-rule: exactly; color: #111827; font-size: 20px; line-height: 100%; margin: 0 0 0.5em;">
+
+
+
+
+
+
+
+                                                                                            <img src="./assets/icons-gray-square-check.png" class="  va-bottom va-middle" width="20" height="20" alt="square-check" style="display: inline-block; line-height: 100%; outline: none; text-decoration: none; vertical-align: bottom; font-size: 0; border-style: none; border-width: 0;" />
+                                                                                            11
+                                                                                        </div>
+                                                                                        <div class="mt-xs lh-narrow" style="line-height: 133.33%; margin-top: 4px;">New Issues</div>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </table>
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="content border-top" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; border-top-width: 1px; border-top-color: #e8ebee; border-top-style: solid; padding: 48px;">
+                                                                <table class="row" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; border-collapse: collapse; width: 100%; table-layout: fixed;" cellpadding="0" cellspacing="0">
+                                                                    <tr>
+                                                                        <td class="col" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;" valign="top">
+
+
+
+
+                                                                            <table class="progress mb-sm" cellspacing="0" cellpadding="0" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; border-collapse: collapse; width: 100%; height: 8px; margin-bottom: 8px;">
+                                                                                <tr>
+                                                                                    <td class="bg-purple" style="width: %; font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; border-radius: 4px 0 0 4px; color: #ffffff;" bgcolor="#ae3ec9"></td>
+                                                                                    <td class="bg-purple-lightest" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; border-radius: 0 4px 4px 0;" bgcolor="#f7ecfa"></td>
+                                                                                </tr>
+                                                                            </table>
+                                                                            <strong style="font-weight: 600;">23</strong> Active Pull Requests
+                                                                        </td>
+                                                                        <td class="col-spacer" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; width: 24px;" valign="top"></td>
+                                                                        <td class="col" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;" valign="top">
+
+
+
+
+                                                                            <table class="progress mb-sm" cellspacing="0" cellpadding="0" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; border-collapse: collapse; width: 100%; height: 8px; margin-bottom: 8px;">
+                                                                                <tr>
+                                                                                    <td class="bg-green" style="width: %; font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; border-radius: 4px 0 0 4px; color: #ffffff;" bgcolor="#2fb344"></td>
+                                                                                    <td class="bg-green-lightest" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; border-radius: 0 4px 4px 0;" bgcolor="#eaf7ec"></td>
+                                                                                </tr>
+                                                                            </table>
+                                                                            <strong style="font-weight: 600;">33</strong> Active Issues
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="content pt-0" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; padding: 0 48px 48px;">
+                                                                <table class="row" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; border-collapse: collapse; width: 100%; table-layout: fixed;" cellpadding="0" cellspacing="0">
+                                                                    <tr>
+                                                                        <td class="col" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;" valign="top">
+                                                                            <h4 style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; font-weight: 500; mso-line-height-rule: exactly; color: #111827; font-size: 16px; margin: 0 0 0.5em;">Repo stats</h4>
+                                                                            <p class="m-0" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; margin: 0;">
+                                                                                Excluding merges, <strong style="font-weight: 600;">13 authors</strong>
+                                                                                have pushed
+                                                                                <strong style="font-weight: 600;">67 commits</strong> to master and
+                                                                                <strong style="font-weight: 600;">127 commits</strong>
+                                                                                to all branches.
+                                                                                On master, <strong style="font-weight: 600;">244 files</strong>
+                                                                                have changed and there have been
+                                                                                <a href="https://tabler.io/emails?utm_source=demo" class="text-default" style="color: #4b5563; text-decoration: none;">
+                                                                                    <strong class="text-green" style="font-weight: 600; color: #2fb344;">2,474</strong> <strong style="font-weight: 600;">additions</strong> and
+                                                                                    <strong class="text-red" style="font-weight: 600; color: #d63939;">3,605</strong> <strong style="font-weight: 600;">deletions</strong></a>.
+                                                                            </p>
+                                                                        </td>
+                                                                        <td class="col-spacer" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; width: 24px;" valign="top"></td>
+                                                                        <td class="col" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;" valign="top">
+                                                                            <h4 style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; font-weight: 500; mso-line-height-rule: exactly; color: #111827; font-size: 16px; margin: 0 0 0.5em;">Top commiters</h4>
+
+                                                                            <table class="chart" cellpadding="0" cellspacing="0" align="center" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; border-collapse: collapse; width: 100%; table-layout: fixed;">
+                                                                                <tr>
+
+                                                                                    <td class="chart-cell" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; margin: 0; padding: 0;" align="left" valign="bottom">
+                                                                                        <table class="chart-bar" cellpadding="0" cellspacing="0" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; border-collapse: collapse; width: 100%; margin: 0;">
+                                                                                            <tr>
+                                                                                                <td class="chart-bar-label" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; color: #4b5563; font-size: 10px; line-height: 100%; padding: 0 0 4px;" align="center">150</td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td class="chart-bar-series bg-orange-light rounded" height="75.0" title="150 commits" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; font-size: 0; line-height: 0; border-radius: 4px; margin: 0; padding: 0;" align="left" bgcolor="#f99551"> 150</td>
+                                                                                            </tr>
+                                                                                        </table>
+                                                                                    </td>
+                                                                                    <td class="chart-cell-spacer" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; width: 8px;"></td>
+
+                                                                                    <td class="chart-cell" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; margin: 0; padding: 0;" align="left" valign="bottom">
+                                                                                        <table class="chart-bar" cellpadding="0" cellspacing="0" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; border-collapse: collapse; width: 100%; margin: 0;">
+                                                                                            <tr>
+                                                                                                <td class="chart-bar-label" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; color: #4b5563; font-size: 10px; line-height: 100%; padding: 0 0 4px;" align="center">141</td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td class="chart-bar-series bg-orange-light rounded" height="70.5" title="141 commits" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; font-size: 0; line-height: 0; border-radius: 4px; margin: 0; padding: 0;" align="left" bgcolor="#f99551"> 141</td>
+                                                                                            </tr>
+                                                                                        </table>
+                                                                                    </td>
+                                                                                    <td class="chart-cell-spacer" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; width: 8px;"></td>
+
+                                                                                    <td class="chart-cell" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; margin: 0; padding: 0;" align="left" valign="bottom">
+                                                                                        <table class="chart-bar" cellpadding="0" cellspacing="0" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; border-collapse: collapse; width: 100%; margin: 0;">
+                                                                                            <tr>
+                                                                                                <td class="chart-bar-label" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; color: #4b5563; font-size: 10px; line-height: 100%; padding: 0 0 4px;" align="center">112</td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td class="chart-bar-series bg-orange-light rounded" height="56.0" title="112 commits" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; font-size: 0; line-height: 0; border-radius: 4px; margin: 0; padding: 0;" align="left" bgcolor="#f99551"> 112</td>
+                                                                                            </tr>
+                                                                                        </table>
+                                                                                    </td>
+                                                                                    <td class="chart-cell-spacer" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; width: 8px;"></td>
+
+                                                                                    <td class="chart-cell" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; margin: 0; padding: 0;" align="left" valign="bottom">
+                                                                                        <table class="chart-bar" cellpadding="0" cellspacing="0" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; border-collapse: collapse; width: 100%; margin: 0;">
+                                                                                            <tr>
+                                                                                                <td class="chart-bar-label" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; color: #4b5563; font-size: 10px; line-height: 100%; padding: 0 0 4px;" align="center">100</td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td class="chart-bar-series bg-orange-light rounded" height="50.0" title="100 commits" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; font-size: 0; line-height: 0; border-radius: 4px; margin: 0; padding: 0;" align="left" bgcolor="#f99551"> 100</td>
+                                                                                            </tr>
+                                                                                        </table>
+                                                                                    </td>
+                                                                                    <td class="chart-cell-spacer" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; width: 8px;"></td>
+
+                                                                                    <td class="chart-cell" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; margin: 0; padding: 0;" align="left" valign="bottom">
+                                                                                        <table class="chart-bar" cellpadding="0" cellspacing="0" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; border-collapse: collapse; width: 100%; margin: 0;">
+                                                                                            <tr>
+                                                                                                <td class="chart-bar-label" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; color: #4b5563; font-size: 10px; line-height: 100%; padding: 0 0 4px;" align="center">96</td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td class="chart-bar-series bg-orange-light rounded" height="48.0" title="96 commits" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; font-size: 0; line-height: 0; border-radius: 4px; margin: 0; padding: 0;" align="left" bgcolor="#f99551"> 96</td>
+                                                                                            </tr>
+                                                                                        </table>
+                                                                                    </td>
+                                                                                    <td class="chart-cell-spacer" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; width: 8px;"></td>
+
+                                                                                    <td class="chart-cell" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; margin: 0; padding: 0;" align="left" valign="bottom">
+                                                                                        <table class="chart-bar" cellpadding="0" cellspacing="0" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; border-collapse: collapse; width: 100%; margin: 0;">
+                                                                                            <tr>
+                                                                                                <td class="chart-bar-label" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; color: #4b5563; font-size: 10px; line-height: 100%; padding: 0 0 4px;" align="center">83</td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td class="chart-bar-series bg-orange-light rounded" height="41.5" title="83 commits" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; font-size: 0; line-height: 0; border-radius: 4px; margin: 0; padding: 0;" align="left" bgcolor="#f99551"> 83</td>
+                                                                                            </tr>
+                                                                                        </table>
+                                                                                    </td>
+                                                                                    <td class="chart-cell-spacer" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; width: 8px;"></td>
+
+                                                                                    <td class="chart-cell" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; margin: 0; padding: 0;" align="left" valign="bottom">
+                                                                                        <table class="chart-bar" cellpadding="0" cellspacing="0" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; border-collapse: collapse; width: 100%; margin: 0;">
+                                                                                            <tr>
+                                                                                                <td class="chart-bar-label" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; color: #4b5563; font-size: 10px; line-height: 100%; padding: 0 0 4px;" align="center">56</td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td class="chart-bar-series bg-orange-light rounded" height="28.0" title="56 commits" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; font-size: 0; line-height: 0; border-radius: 4px; margin: 0; padding: 0;" align="left" bgcolor="#f99551"> 56</td>
+                                                                                            </tr>
+                                                                                        </table>
+                                                                                    </td>
+                                                                                    <td class="chart-cell-spacer" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; width: 8px;"></td>
+
+                                                                                </tr>
+                                                                                <tr>
+
+                                                                                    <td class="chart-cell text-center pt-sm" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; margin: 0; padding: 8px 0 0;" align="center" valign="bottom">
+
+
+
+
+
+
+
+                                                                                        <img src="./assets/sample-female-1.jpg" class="  avatar rounded" width="24" height="24" alt="" style="display: inline-block; line-height: 100%; outline: none; text-decoration: none; vertical-align: bottom; font-size: 0; border-radius: 4px; -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05); box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05); border-style: none; border-width: 0;" />
+
+                                                                                    </td>
+                                                                                    <td class="chart-cell-spacer" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; width: 8px;"></td>
+
+                                                                                    <td class="chart-cell text-center pt-sm" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; margin: 0; padding: 8px 0 0;" align="center" valign="bottom">
+
+
+
+
+
+
+
+                                                                                        <img src="./assets/sample-male-2.jpg" class="  avatar rounded" width="24" height="24" alt="" style="display: inline-block; line-height: 100%; outline: none; text-decoration: none; vertical-align: bottom; font-size: 0; border-radius: 4px; -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05); box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05); border-style: none; border-width: 0;" />
+
+                                                                                    </td>
+                                                                                    <td class="chart-cell-spacer" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; width: 8px;"></td>
+
+                                                                                    <td class="chart-cell text-center pt-sm" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; margin: 0; padding: 8px 0 0;" align="center" valign="bottom">
+
+
+
+
+
+
+
+                                                                                        <img src="./assets/sample-female-2.jpg" class="  avatar rounded" width="24" height="24" alt="" style="display: inline-block; line-height: 100%; outline: none; text-decoration: none; vertical-align: bottom; font-size: 0; border-radius: 4px; -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05); box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05); border-style: none; border-width: 0;" />
+
+                                                                                    </td>
+                                                                                    <td class="chart-cell-spacer" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; width: 8px;"></td>
+
+                                                                                    <td class="chart-cell text-center pt-sm" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; margin: 0; padding: 8px 0 0;" align="center" valign="bottom">
+
+
+
+
+
+
+
+                                                                                        <img src="./assets/sample-male-3.jpg" class="  avatar rounded" width="24" height="24" alt="" style="display: inline-block; line-height: 100%; outline: none; text-decoration: none; vertical-align: bottom; font-size: 0; border-radius: 4px; -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05); box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05); border-style: none; border-width: 0;" />
+
+                                                                                    </td>
+                                                                                    <td class="chart-cell-spacer" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; width: 8px;"></td>
+
+                                                                                    <td class="chart-cell text-center pt-sm" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; margin: 0; padding: 8px 0 0;" align="center" valign="bottom">
+
+
+
+
+
+
+
+                                                                                        <img src="./assets/sample-female-3.jpg" class="  avatar rounded" width="24" height="24" alt="" style="display: inline-block; line-height: 100%; outline: none; text-decoration: none; vertical-align: bottom; font-size: 0; border-radius: 4px; -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05); box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05); border-style: none; border-width: 0;" />
+
+                                                                                    </td>
+                                                                                    <td class="chart-cell-spacer" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; width: 8px;"></td>
+
+                                                                                    <td class="chart-cell text-center pt-sm" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; margin: 0; padding: 8px 0 0;" align="center" valign="bottom">
+
+
+
+
+
+
+
+                                                                                        <img src="./assets/sample-male-4.jpg" class="  avatar rounded" width="24" height="24" alt="" style="display: inline-block; line-height: 100%; outline: none; text-decoration: none; vertical-align: bottom; font-size: 0; border-radius: 4px; -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05); box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05); border-style: none; border-width: 0;" />
+
+                                                                                    </td>
+                                                                                    <td class="chart-cell-spacer" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; width: 8px;"></td>
+
+                                                                                    <td class="chart-cell text-center pt-sm" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; margin: 0; padding: 8px 0 0;" align="center" valign="bottom">
+
+
+
+
+
+
+
+                                                                                        <img src="./assets/sample-female-4.jpg" class="  avatar rounded" width="24" height="24" alt="" style="display: inline-block; line-height: 100%; outline: none; text-decoration: none; vertical-align: bottom; font-size: 0; border-radius: 4px; -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05); box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05); border-style: none; border-width: 0;" />
+
+                                                                                    </td>
+                                                                                    <td class="chart-cell-spacer" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; width: 8px;"></td>
+
+                                                                                </tr>
+                                                                            </table>
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="content border-top" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; border-top-width: 1px; border-top-color: #e8ebee; border-top-style: solid; padding: 48px;">
+                                                                <h4 style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; font-weight: 500; mso-line-height-rule: exactly; color: #111827; font-size: 16px; margin: 0 0 0.5em;">12 Pull requests by 6 people</h4>
+
+                                                                <table class="list" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; border-collapse: collapse; width: 100%;" cellpadding="0" cellspacing="0">
+                                                                    <tr class="list-item">
+                                                                        <td style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; padding-top: 0; padding-bottom: 8px;"><a href="https://tabler.io/emails?utm_source=demo" style="color: #066FD1; text-decoration: none;">#27754</a> Update Scrollspy doc to include missing method options</td>
+                                                                        <td class="text-muted text-right va-top" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; padding-top: 0; padding-bottom: 8px; color: #667382;" align="right" valign="top">a day ago</td>
+                                                                    </tr>
+                                                                    <tr class="list-item">
+                                                                        <td style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; padding-top: 8px; padding-bottom: 8px;"><a href="https://tabler.io/emails?utm_source=demo" style="color: #066FD1; text-decoration: none;">#27810</a> Update docs vendor JS</td>
+                                                                        <td class="text-muted text-right va-top" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; padding-top: 8px; padding-bottom: 8px; color: #667382;" align="right" valign="top">2 days ago</td>
+                                                                    </tr>
+                                                                    <tr class="list-item">
+                                                                        <td style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; padding-top: 8px; padding-bottom: 8px;"><a href="https://tabler.io/emails?utm_source=demo" style="color: #066FD1; text-decoration: none;">#27809</a> Update glyphicons URL.</td>
+                                                                        <td class="text-muted text-right va-top" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; padding-top: 8px; padding-bottom: 8px; color: #667382;" align="right" valign="top">2 days ago</td>
+                                                                    </tr>
+                                                                    <tr class="list-item">
+                                                                        <td style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; padding-top: 8px; padding-bottom: 8px;"><a href="https://tabler.io/emails?utm_source=demo" style="color: #066FD1; text-decoration: none;">#27792</a> fix fade animation for toast</td>
+                                                                        <td class="text-muted text-right va-top" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; padding-top: 8px; padding-bottom: 8px; color: #667382;" align="right" valign="top">2 days ago</td>
+                                                                    </tr>
+                                                                    <tr class="list-item">
+                                                                        <td style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; padding-top: 8px; padding-bottom: 8px;"><a href="https://tabler.io/emails?utm_source=demo" style="color: #066FD1; text-decoration: none;">#27808</a> Master xmr v3 fixes7</td>
+                                                                        <td class="text-muted text-right va-top" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; padding-top: 8px; padding-bottom: 8px; color: #667382;" align="right" valign="top">2 days ago</td>
+                                                                    </tr>
+                                                                    <tr class="list-item">
+                                                                        <td style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; padding-top: 8px; padding-bottom: 8px;"><a href="https://tabler.io/emails?utm_source=demo" style="color: #066FD1; text-decoration: none;">#27802</a> Change button checkbox/radios to ignore hidden input fields</td>
+                                                                        <td class="text-muted text-right va-top" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; padding-top: 8px; padding-bottom: 8px; color: #667382;" align="right" valign="top">2 days ago</td>
+                                                                    </tr>
+                                                                    <tr class="list-item">
+                                                                        <td style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; padding-top: 8px; padding-bottom: 8px;"><a href="https://tabler.io/emails?utm_source=demo" style="color: #066FD1; text-decoration: none;">#27806</a> Update devDependencies. </td>
+                                                                        <td class="text-muted text-right va-top" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; padding-top: 8px; padding-bottom: 8px; color: #667382;" align="right" valign="top">2 days ago</td>
+                                                                    </tr>
+                                                                    <tr class="list-item">
+                                                                        <td style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; padding-top: 8px; padding-bottom: 0;"><a href="https://tabler.io/emails?utm_source=demo" style="color: #066FD1; text-decoration: none;">#27787</a> Remove nonsensical boolean check </td>
+                                                                        <td class="text-muted text-right va-top" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; padding-top: 8px; padding-bottom: 0; color: #667382;" align="right" valign="top">6 days ago</td>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="content pt-0" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; padding: 0 48px 48px;">
+                                                                <!-- BUTTON -->
+                                                                <table cellspacing="0" cellpadding="0" role="presentation" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; border-collapse: collapse; width: 100%;">
+                                                                    <tr>
+                                                                        <td align="center" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;">
+                                                                            <table cellpadding="0" cellspacing="0" border="0" class="bg-secondary rounded-lg" role="presentation" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; border-collapse: separate; width: 100%; border-radius: 8px;" bgcolor="#f0f1f3">
+                                                                                <tr>
+                                                                                    <td align="center" valign="top" class="lh-1" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; line-height: 100%;">
+                                                                                        <a href="https://tabler.io/emails?utm_source=demo" class="btn bg-secondary border-secondary" style="color: #4b5563; text-decoration: none; white-space: nowrap; font-weight: 500; font-size: 16px; border-radius: 8px; line-height: 125%; display: block; background-color: #ffffff; padding: 12px 32px; border: 1px solid #e8ebee;">
+                                                                                            <span class="btn-span" style="color: #4b5563; font-size: 14px; text-decoration: none; white-space: nowrap; font-weight: 500; line-height: 100%;">View all pull requests</span>
+                                                                                        </a>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </table>
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                                <!-- /BUTTON -->
+
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <!-- FOOTER -->
+                                <table cellspacing="0" cellpadding="0" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; border-collapse: collapse; width: 100%;">
+                                    <tr>
+                                        <td class="py-xl" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; padding-top: 48px; padding-bottom: 48px;">
+                                            <table class="text-center text-muted" cellspacing="0" cellpadding="0" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; border-collapse: collapse; width: 100%; color: #667382; text-align: center;">
+                                                <tr>
+                                                    <td align="center" class="pb-md" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; padding-bottom: 16px;">
+                                                        <table class="w-auto" cellspacing="0" cellpadding="0" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; border-collapse: collapse; width: auto;">
+                                                            <tr>
+                                                                <td class="px-sm" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; padding-right: 8px; padding-left: 8px;">
+                                                                    <a href="https://x.com/tabler_io" style="color: #066FD1; text-decoration: none;">
+
+
+
+
+
+
+
+
+                                                                        <img src="./assets/icons-gray-brand-x.png" class="  va-middle" width="24" height="24" alt="brand-x" style="display: inline-block; line-height: 100%; outline: none; text-decoration: none; vertical-align: middle; font-size: 0; border-style: none; border-width: 0;" />
+
+                                                                    </a>
+                                                                </td>
+                                                                <td class="px-sm" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; padding-right: 8px; padding-left: 8px;">
+                                                                    <a href="https://github.com/tabler" style="color: #066FD1; text-decoration: none;">
+
+
+
+
+
+
+
+
+                                                                        <img src="./assets/icons-gray-brand-github.png" class="  va-middle" width="24" height="24" alt="brand-github" style="display: inline-block; line-height: 100%; outline: none; text-decoration: none; vertical-align: middle; font-size: 0; border-style: none; border-width: 0;" />
+
+                                                                    </a>
+                                                                </td>
+                                                                <td class="px-sm" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; padding-right: 8px; padding-left: 8px;">
+                                                                    <a href="https://www.linkedin.com/company/tabler-io?originalSubdomain=pl" style="color: #066FD1; text-decoration: none;">
+
+
+
+
+
+
+
+
+                                                                        <img src="./assets/icons-gray-brand-linkedin.png" class="  va-middle" width="24" height="24" alt="brand-linkedin" style="display: inline-block; line-height: 100%; outline: none; text-decoration: none; vertical-align: middle; font-size: 0; border-style: none; border-width: 0;" />
+
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="pt-md" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; padding-top: 16px;">
+                                                        If you have any questions, feel free to message us at <a href="https://tabler.io/emails?utm_source=demo" style="color: #066FD1; text-decoration: none;">hello@tabler.io</a>.
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="pt-md" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; padding-top: 16px;">
+                                                        You are receiving this email because you have bought or downloaded one of the Tabler products. <a href="https://tabler.io/emails?utm_source=demo" style="color: #066FD1; text-decoration: none;">Unsubscribe</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="pt-md" style="font-family: Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif; padding-top: 16px;">
+                                                        Copyright © 2025 Tabler. All rights reserved.
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <!-- /FOOTER -->
+                            </td>
+                        </tr>
+                    </table>
+
+                    <!--[if (gte mso 9)|(IE)]>
+						</td>
+					</tr>
+				</table>
+				<![endif]-->
+                </td>
+            </tr>
+        </table>
+    </center>
+</body>
+
+</html>

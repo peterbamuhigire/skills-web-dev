@@ -119,6 +119,12 @@ Default loading order for complex engineering work:
 - Purpose: create repository-native Claude Code skills with validation-safe frontmatter and strong execution logic
 - Use cases: creating new skills, upgrading weak skills, enforcing repository standards
 
+### Tabler Email Templates
+
+- Domain: transactional and marketing email
+- Purpose: bundle 80 production Tabler Emails 3.0 HTML templates (light + dark, mobile-responsive, cross-client tested) as a skill so any app can generate branded emails without hand-rolling MJML
+- Use cases: welcome, confirm-email, magic-link, OTP, password reset, invoice, receipt, order, shipped, subscription, newsletter, promotions, security alert, deployment-failed, invitations, surveys
+
 ## Repository Shape
 
 The repository is organized as a flat collection of skill folders, each with a `SKILL.md` file and optional `references/`, `scripts/`, or `assets/` directories.

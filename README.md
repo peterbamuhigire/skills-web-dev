@@ -173,6 +173,7 @@ Extends existing `gis-mapping` (Leaflet) with:
 | `practical-ui-design` | Visual design systems, layout, typography, color |
 | `interaction-design-patterns` | Reusable interaction patterns |
 | `design-audit` | Structured UI quality review |
+| `tabler-email-templates` | 80 production HTML email templates (Tabler 3.0) — welcome, invoice, OTP, magic-link, password reset, newsletter, promotions, etc. Light + dark, mobile-responsive, cross-client tested |
 
 ### AI And Orchestration
 

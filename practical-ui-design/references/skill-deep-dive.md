@@ -182,49 +182,90 @@ Content > Padding > Border > Margin. Spacing starts small at innermost layer and
 
 ## 5. Buttons
 
-### 5.1 Three Button Weights
+### 5.1 Semantics First: Button vs Link
 
-| Weight | Style | When to Use |
+| Element | Use For | Example |
 |---|---|---|
-| **Primary** | Solid fill (brand colour) + white text + rounded corners | Most important action per screen/section |
-| **Secondary** | Outlined (brand colour border + text) + rounded corners | Alternative or equally important actions |
-| **Tertiary** | Text-only (underlined or brand colour, no fill/border) | Least important actions, destructive actions |
+| **`<button>`** | In-place actions that change state, submit data, open UI, confirm, or delete | Save changes, Apply filters, Delete project |
+| **`<a href>`** | Navigation to another URL, route, section, file, or external destination | View pricing, Read documentation, Back to homepage |
+
+- Never use a styled `div` or `span` as a button when a native element will do.
+- Never use a `<button>` for plain navigation when an `<a href>` expresses the intent correctly.
+- Users bring this mental model with them. Breaking it creates hesitation before the click.
+
+### 5.2 Four Button Roles
+
+| Role | Style | When to Use |
+|---|---|---|
+| **Primary** | Solid fill (brand colour) + high-contrast text + rounded corners | Main commitment for this step |
+| **Secondary** | Outlined (brand colour border + text) + rounded corners | Supporting action, cancel, back, skip |
+| **Tertiary** | Text-only or ghost style | Optional or exploratory action |
+| **Destructive** | Distinct danger treatment (usually red) with explicit risk language | Delete, remove, clear, cancel permanently |
 
 - Never use a second solid-fill colour for Secondary (confuses with Primary, especially for colour-blind users).
 - Never use light grey fill for Secondary (looks disabled).
+- Destructive is not just a quieter Secondary. It needs its own semantic treatment.
 
-### 5.2 Single Primary Per Screen
+### 5.3 Single Primary Per Decision Point
 
-One Primary button per visible screen area. "If everything is important, nothing is important." Use Secondary for equal-weight alternatives.
+One Primary button per visible screen area or decision point. "If everything is important, nothing is important." Use Secondary for alternatives and Tertiary for lower-commitment actions.
 
-### 5.3 Contrast and Sizing
+- A form, modal, confirmation step, or card section should answer "what should I do next?" at a glance.
+- If two actions feel equally primary, the flow is usually under-designed rather than under-styled.
+
+### 5.4 Contrast, Clickability, and Sizing
 
 - Button **shape** contrast: >= 3:1 against page background.
 - Button **text** contrast: >= 4.5:1 against button fill.
 - Target area: minimum **48pt x 48pt** (aligns with 8pt grid).
 - Space between adjacent buttons: at least **16pt**.
+- Buttons must read as pressable within half a second: visible boundary, clear containment, obvious contrast.
+- Do not let buttons visually collapse into body text or card backgrounds.
 
-### 5.4 Alignment and Text
+### 5.5 Alignment, Labels, and Icons
 
 - **Left-align buttons** (desktop). Most important = leftmost.
 - **Mobile:** Stack top-to-bottom, most-to-least important; full-width for one-handed use.
 - Button text formula: **verb + noun** ("Save changes", "Delete message", "Edit profile"). Avoid vague labels: "OK", "Submit", "Yes".
+- Prefer outcome labels over mechanism labels: "Send application" beats "Submit".
+- Icons are optional support, not decoration. Keep them only when they add meaning the label does not already carry.
+- Avoid redundant icon + label pairs such as trash + "Delete" unless the icon aids rapid scanning in a dense UI.
 
-### 5.5 Destructive Action Friction (Escalating)
+### 5.6 Required States
+
+Ship all six states for every button:
+
+| State | Purpose | Minimum Requirement |
+|---|---|---|
+| **Enabled** | Default actionable state | Looks interactive and readable against its background |
+| **Hover** | Mouse feedback | Immediate visual response without dramatic layout shift |
+| **Focus** | Keyboard visibility | High-contrast ring that is never obscured |
+| **Pressed** | Instant confirmation | Clear down-state within ~100ms to prevent double-click doubt |
+| **Disabled** | Temporarily unavailable | Pair with visible explanation if the reason is not obvious |
+| **Loading** | Work in progress | Keep the label context: "Saving...", "Sending...", "Deleting..." |
+
+- Do not remove the label and leave only a spinner. Users should not have to remember what they clicked.
+- Hover and focus are not the same state. Keyboard users need a dedicated focus treatment.
+- Dark mode button states must be designed explicitly, not auto-inverted from light mode.
+
+### 5.7 Destructive Action Friction (Escalating)
 
 | Level | Technique | Example |
 |---|---|---|
-| **Initial** | Make destructive action a Tertiary button, position away from Primary | Tertiary "Delete" far from Primary "Save" |
+| **Initial** | Use the destructive variant and position away from Primary | Destructive "Delete" away from Primary "Save" |
 | **Light** | Simple confirmation dialog | "Delete message?" / Delete message / Cancel |
 | **Medium** | Red button + warning icon in dialog | "Delete article? You won't be able to recover it." |
 | **Heavy** | Confirmation checkbox before action enables | "I confirm I want to delete my account" checkbox |
 | **Undo** | Allow reversal after action | Toast: "Message deleted. Restore" |
 
-### 5.6 Avoid Disabled Buttons
+### 5.8 Disabled and Unavailable Actions
 
-Disabled buttons provide no feedback, fail contrast, and are not keyboard-accessible. Prefer: enable and validate on submit, remove unavailable actions with explanation, or use a lock icon for premium features.
+- Do not pre-disable the main action with no explanation. Users can accept a constraint; they cannot accept unexplained silence.
+- If an action is unavailable, make the reason explicit nearby: "Complete all required fields to continue."
+- For forms, prefer enabling the submit action and validating on submit or blur instead of making users guess why nothing is available.
+- For premium or permission-locked actions, show the lock state and the reason for inaccessibility.
 
-### 5.7 Icon + Text Pairs
+### 5.9 Icon + Text Pairs
 
 Match icon weight (stroke thickness) to text weight. Match icon size to text size. If mismatch is unavoidable, decrease icon contrast using the Medium colour token.
 
@@ -359,7 +400,9 @@ Dark mode is a distinct palette, not a CSS `invert()`. Colours, contrast ratios,
 | Centre-aligned long paragraphs | Inconsistent line start, hard to scan | Left-align; centre only 1-2 lines |
 | Trendy effects (glassmorphism, neumorphism) | Fail contrast, short shelf life | Clean, minimal styles |
 | Multiple primary buttons per screen | Everything competing = nothing prominent | One Primary per visible area |
+| Buttons used for navigation | Breaks user expectation and semantics | Use links for destination changes |
 | Disabled buttons without explanation | No feedback, inaccessible | Enable + validate, or explain |
+| Spinner-only loading buttons | Users lose action context | Keep verb visible: "Saving..." |
 | Title Case for UI text | Harder to scan, inconsistent rules | Sentence case |
 | Generic link text ("Click here") | Inaccessible, non-descriptive | Describe destination |
 
@@ -381,6 +424,9 @@ Before shipping any screen, verify:
 - [ ] All touch targets >= 48pt; >= 16pt between buttons
 - [ ] Sentence case for all UI text
 - [ ] Button text = verb + noun
+- [ ] Buttons trigger actions; links handle navigation
+- [ ] All six button states designed: enabled, hover, focus, pressed, disabled, loading
+- [ ] Disabled or locked actions explain why they are unavailable
 - [ ] Links describe their destination
 - [ ] Forms: single column, labels on top, validate on submit
 - [ ] Squint test passes (hierarchy clear when blurred)

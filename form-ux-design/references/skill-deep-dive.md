@@ -264,7 +264,9 @@ Standard sequence for both platforms:
 1. Client-side validation (all fields)
        |
        v  (all valid?)
-2. Disable submit button + show loading spinner
+2. Preserve context on the submit control
+   - Keep the label visible as action + progress ("Save" -> "Saving...")
+   - Prevent duplicate submission
        |
        v
 3. Send request
@@ -281,6 +283,14 @@ Standard sequence for both platforms:
 5. Re-enable submit button
 ```
 
+### Submit Control Rules
+
+- Use a native `<button type="submit">` for form submission, not a clickable `div` or anchor.
+- The submit control is the form's primary action. There should be only one primary submit button per form step.
+- Keep the submit button near the end of the thinking path: after the final field or summary.
+- Do not replace the label with a spinner alone. Use "Saving...", "Sending...", "Creating account..." so users know what is happening.
+- If the submit action is unavailable for a non-obvious reason, explain why in helper text near the button.
+
 ### Web: Submit Handler
 
 ```javascript
@@ -290,7 +300,8 @@ form.addEventListener('submit', async function (e) {
 
     const btn = form.querySelector('[type="submit"]');
     btn.disabled = true;
-    btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Saving...';
+    btn.setAttribute('aria-busy', 'true');
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Saving...';
 
     try {
         const res = await fetch(form.action, {
@@ -308,6 +319,7 @@ form.addEventListener('submit', async function (e) {
         Swal.fire('Error', 'Network error. Please try again.', 'error');
     } finally {
         btn.disabled = false;
+        btn.removeAttribute('aria-busy');
         btn.innerHTML = 'Save';
     }
 });
@@ -353,6 +365,8 @@ fun submit() {
 - Label to input gap: 4px / 4dp
 - Input to helper/error text gap: 4px / 4dp
 - Submit button gets 24px / 24dp top margin from last field
+- On mobile, primary submit buttons should usually be full-width and remain inside the thumb-friendly zone
+- Sticky submit bars must never cover validation errors, helper text, or the focused field
 
 ---
 
@@ -364,6 +378,8 @@ fun submit() {
 - Validate on blur, not on keystroke
 - Show total error count on submit when multiple errors exist
 - Preserve all form data on validation failure
+- Use one primary submit button per form step and keep secondary actions visually quieter
+- Keep button labels outcome-specific: "Send application", "Save profile", "Request quote"
 - Use `autocomplete` attributes: `name`, `email`, `tel`, `address-line1`, `cc-number`
 - Group related fields with `<fieldset>` + `<legend>` (web) or section headers (Android)
 - Support keyboard Enter to submit on the last field
@@ -372,6 +388,10 @@ fun submit() {
 - Use `inputmode` (web) and `keyboardOptions` (Android) to show the correct keyboard
 
 ### DON'T
+
+- Do not use an `<a>` or clickable container as the submit control. Use a native submit button.
+- Do not put two competing primary buttons at the end of the form. The next step must be obvious.
+- Do not swap the button label for a spinner alone. Keep the action visible while the form submits.
 
 - **Don't use placeholder text as the label** — it disappears, looks pre-filled, corrupts data, not accessible
 - **Don't use float labels** — same problems as placeholder-as-label; space saved is illusory

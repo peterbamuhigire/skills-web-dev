@@ -113,7 +113,7 @@ Configure base URLs using build flavors (`dev`, `staging`, `prod`) so the app ta
 | **UI Design System**        | `references/ui-design-system.md`      | Tokens, components, Material 3                  |
 | **Screen Patterns**         | `references/screen-patterns.md`       | Complete screen templates, state handling       |
 | **Testing**                 | `references/testing.md`               | Unit, UI, instrumentation tests                 |
-| **Build Configuration**     | `references/build-configuration.md`   | Gradle KTS, dependencies, build types           |
+| **Build Configuration**     | `references/build-configuration.md`   | Gradle KTS, Android Studio setup, dependencies, build types, build-speed tuning |
 | **API Integration**         | `references/api-integration.md`       | Retrofit, error handling, repository pattern    |
 | **Analytics & Performance** | `references/analytics-performance.md` | Firebase, monitoring, optimization              |
 | **AI Agent Guidelines**     | `references/ai-agent-guidelines.md`   | Prompt templates, quality checklists            |
@@ -197,15 +197,33 @@ Every Android app MUST have exactly 3 build variants. This is non-negotiable.
 **Rules:**
 
 1. **User must provide** the staging and production API URLs for each project. Debug always points to the local dev server (`http://10.0.2.2/...` for emulator or the host LAN IP).
-2. **Every build command MUST build all 3 APKs**: `./gradlew assembleDebug assembleStaging assembleRelease`
-3. **After building, always install the dev APK** to the connected emulator: `./gradlew installDebug`
-4. If the user explicitly asks to test staging, install staging instead: `./gradlew installStaging`
-5. **APK naming** uses a consistent prefix per app (e.g., `DMS-dev-1.0.0.apk`, `DMS-staging-1.0.0.apk`, `DMS-prod-1.0.0.apk`). Configure via `applicationVariants.all` in `build.gradle.kts`.
-6. **Staging** inherits from release (R8 enabled, resource shrinking) but uses the debug signing config so it can be installed alongside dev on the same device.
-7. **ProGuard rules** must strip `Log.v`, `Log.d`, `Log.i`, and `println` from staging and release builds.
+2. **During active development, build only the variant you need** — usually `debug`. Do not build `staging` and `release` on every iteration.
+3. **Default local loop:** `./gradlew installDebug` (or `assembleDebug`) for normal coding, UI work, and device testing.
+4. **Build all 3 APKs only for release verification, QA handoff, CI, or when the user explicitly asks for all artifacts**: `./gradlew assembleDebug assembleStaging assembleRelease`
+5. If the user explicitly asks to test staging, install staging instead: `./gradlew installStaging`
+6. **APK naming** uses a consistent prefix per app (e.g., `DMS-dev-1.0.0.apk`, `DMS-staging-1.0.0.apk`, `DMS-prod-1.0.0.apk`). Configure via the modern Android Components Variant API, not deprecated internal output classes.
+7. **Staging** inherits from release (R8 enabled, resource shrinking) but uses the debug signing config so it can be installed alongside dev on the same device.
+8. **ProGuard rules** must strip `Log.v`, `Log.d`, `Log.i`, and `println` from staging and release builds.
 8. **Never hardcode API URLs** — always use `BuildConfig.API_BASE_URL` (or similar) set per build type.
 
 See `references/build-configuration.md` for the complete Gradle setup.
+
+Always set API endpoints through `BuildConfig.API_BASE_URL` (or a similar generated constant) per build type or flavor. Never hardcode server URLs in app code.
+
+### Android Studio + Build Speed Baseline
+
+Before doing deeper performance work, establish this baseline:
+
+1. **Keep tools current** — update Android Studio, SDK tools, Gradle, and AGP together when the project allows it.
+2. **Use KSP instead of kapt** wherever the library supports it. `kapt` should be treated as legacy.
+3. **Pin dependency and plugin versions** — never use dynamic versions like `2.+` or `latest.release`.
+4. **Disable Jetifier** unless Build Analyzer proves the project still needs it.
+5. **Enable configuration cache** once the project and plugins are compatible.
+6. **Use configuration-avoidance and lazy APIs** in Gradle scripts; do not run expensive logic during configuration.
+7. **Keep debug builds static** — no dynamic version names, manifest placeholders, or generated values that force full rebuilds.
+8. **Prefer modularization** when the app is large enough that feature or core modules can compile independently.
+9. **Use Build Analyzer and Gradle profiling before guessing**. Measure first, then optimize the real bottleneck.
+10. **Develop on API 24+ devices/emulators whenever possible** for faster deployment loops.
 
 ### Device & Android Version Compatibility (CRITICAL)
 
@@ -258,6 +276,11 @@ class MainActivity : AppCompatActivity() {
 - `derivedStateOf` for expensive calculations
 - Image loading via Coil with caching
 - ProGuard + resource shrinking in release
+- Build with `debug` only during normal development; reserve full multi-variant builds for QA or release checks
+- Use Build Analyzer before changing Gradle memory, GC, or plugin settings
+- Prefer KSP-backed processors and remove `kapt` unless there is no supported migration path
+- Keep `android.enableJetifier=false` unless a dependency audit proves otherwise
+- Enable configuration cache only after checking plugin compatibility and fixing violations
 
 ### Release Gate
 

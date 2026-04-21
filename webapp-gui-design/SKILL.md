@@ -46,10 +46,16 @@ The target surface (dashboard, CRUD table, form, settings), the auth/tenant mode
 - Every form uses React Hook Form + Zod with a single `FormField` primitive.
 - Every interactive widget is keyboard-operable (Tab, Enter, Escape, Arrow).
 - Colour contrast ≥ 4.5:1 for body text, 3:1 for ≥18pt or bold text.
+- Buttons use the correct element: `<button>` for actions, `<a href>` for navigation.
+- Every decision point has one clear primary action; secondary and tertiary actions must not compete with it.
+- Every button ships with enabled, hover, focus, pressed, disabled, and loading states.
+- Button labels describe the outcome ("Save changes", "Delete project"), not a vague mechanism ("Submit", "OK").
+- Destructive actions use a dedicated danger variant and explicit confirmation or undo when the action is high impact.
+- Touch targets are at least 44x44 CSS pixels, including icon-only buttons.
 
 ## Anti-Patterns
 
-Spinners on the whole page after initial load; per-route custom chrome; forms with unvalidated submit handlers; empty states that say only "No data"; modals that trap focus incorrectly.
+Spinners on the whole page after initial load; per-route custom chrome; forms with unvalidated submit handlers; empty states that say only "No data"; modals that trap focus incorrectly; buttons used as links; generic CTA copy; loading buttons that remove the action label.
 
 ## Outputs
 

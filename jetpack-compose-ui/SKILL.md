@@ -73,12 +73,13 @@ metadata:
 
 1. **Minimalism over decoration** - Remove anything that doesn't serve the user
 2. **Consistency over novelty** - Same patterns across every app screen
-3. **Whitespace is a feature** - Generous spacing creates visual breathing room
-4. **Speed is UX** - If it feels slow, it's broken regardless of how it looks
-5. **Content-first hierarchy** - Important information is immediately visible
-6. **Touch-friendly targets** - Minimum 48dp for all interactive elements
-7. **Adaptive by default** - Every screen MUST work on phones AND tablets
-8. **Colour and first impressions** — Users form visual judgments in ~90 seconds; colour is the first impression. The brain processes images 60,000× faster than text — use visuals and colour to communicate primary meaning instantly.
+3. **Visible affordances over guesswork** - Interactive elements must look tappable without relying on motion or discovery
+4. **Whitespace is a feature** - Generous spacing creates visual breathing room
+5. **Speed is UX** - If it feels slow, it's broken regardless of how it looks
+6. **Content-first hierarchy** - Important information is immediately visible
+7. **Touch-friendly targets** - Minimum 48dp for all interactive elements
+8. **Adaptive by default** - Every screen MUST work on phones AND tablets
+9. **Colour and first impressions** — Users form visual judgments quickly; use visuals and colour to communicate primary meaning instantly.
 
 ### Enterprise Mobile UX Principles
 

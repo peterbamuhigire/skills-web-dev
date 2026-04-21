@@ -1,11 +1,10 @@
 ---
 name: webapp-gui-design
 description: Use when designing or building SaaS web application UIs with React, Next.js,
-  TypeScript, and Tailwind CSS — covers the application shell, navigation, dashboards, data
-  tables (TanStack), forms (React Hook Form + Zod), modals, loading/error states, toasts,
-  auth flows, tenant switching, dark mode, uploads, empty states, and accessibility. For
-  the Bootstrap/Tabler/PHP stack used in the seeder template, load the deep-dive files in
-  the `sections/` directory.
+  TypeScript, and Tailwind CSS. Covers the application shell, navigation, dashboards, data
+  tables, forms, dialogs, loading and error states, auth flows, uploads, accessibility,
+  and interface consistency. For the Bootstrap/Tabler/PHP stack used in the seeder
+  template, load the deep-dive files in the `sections/` directory.
 metadata:
   portable: true
   compatible_with:
@@ -38,7 +37,8 @@ The target surface (dashboard, CRUD table, form, settings), the auth/tenant mode
 2. Pick the layout primitive (dashboard grid, table, form, detail-with-tabs).
 3. Wire data with React Query; never call `fetch` inside components.
 4. Attach loading + error + empty states *before* connecting real data.
-5. Run the a11y + responsive sweep (§15 checklist) before merge.
+5. Check consistency against existing screens and primitives before adding a new pattern.
+6. Run the a11y + responsive sweep (§15 checklist) before merge.
 
 ## Quality Standards
 
@@ -66,6 +66,7 @@ App shell component, route-level layout files, reusable primitives (`DataTable`,
 ## References
 
 - Companion skills: `react-development`, `nextjs-app-router`, `tailwind-css`, `responsive-design`, `form-ux-design`, `frontend-performance`, `ux-principles-101`.
+- Use `references/interface-consistency.md` when a new module risks drifting from the established UI language.
 - Free: Shadcn/ui (`ui.shadcn.com`), TanStack Table (`tanstack.com/table`), Atomic Design (`atomicdesign.bradfrost.com`), React Hook Form (`react-hook-form.com`), Zod (`zod.dev`).
 - For the Bootstrap/Tabler/PHP seeder stack, load `sections/01-overview.md` and onwards.
 <!-- dual-compat-end -->

@@ -48,6 +48,10 @@ Alias: if a user says `seeder-script`, treat it as the `saas-seeder` skill.
 
 For web applications, APIs, and web-connected systems, always pair the main implementation skill with the relevant security skill. `vibe-security-skill` is the default web security baseline.
 
+### Email Baseline
+
+Whenever an app needs to send HTML email (transactional or marketing), load `tabler-email-templates`. It ships 80 production HTML templates (welcome, confirm-email, magic-link, OTP, password reset, invoice, order, shipped, subscription, newsletter, promotions, security alert, deployment-failed, invitations, surveys, etc.) with light + dark variants and cross-client tested markup. Do not hand-roll responsive email HTML when a template in this skill matches the intent.
+
 ### When Adding New Skills
 
 If asked to create a new skill:

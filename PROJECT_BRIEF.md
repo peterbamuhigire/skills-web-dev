@@ -119,6 +119,12 @@ Default loading order for complex engineering work:
 - Purpose: create repository-native Claude Code skills with validation-safe frontmatter and strong execution logic
 - Use cases: creating new skills, upgrading weak skills, enforcing repository standards
 
+### Tabler Email Templates
+
+- Domain: transactional and marketing email
+- Purpose: bundle 80 production Tabler Emails 3.0 HTML templates (light + dark, mobile-responsive, cross-client tested) as a skill so any app can generate branded emails without hand-rolling MJML
+- Use cases: welcome, confirm-email, magic-link, OTP, password reset, invoice, receipt, order, shipped, subscription, newsletter, promotions, security alert, deployment-failed, invitations, surveys
+
 ## Repository Shape
 
 The repository is organized as a flat collection of skill folders, each with a `SKILL.md` file and optional `references/`, `scripts/`, or `assets/` directories.
@@ -153,7 +159,8 @@ Examples:
 
 ## Version
 
-- Current version: 1.3.0
+- Current version: 1.4.0
 - Last updated: April 2026
 - Maintained by: Peter Bamuhigire
+- Changelog 1.4.0: distilled 12 O'Reilly / Manning / Apress technical books into 12 modified skills across three domains — TypeScript/React (`typescript-effective`, `typescript-mastery`, `typescript-full-stack`, `react-development`), Kubernetes (`kubernetes-fundamentals`, `kubernetes-platform`, `kubernetes-production`, `kubernetes-saas-delivery`), GIS/mapping (`gis-mapping`, `gis-maps-integration`, `gis-postgis-backend`, `gis-enterprise-domain`). Added 10 new `references/` files with decision tables, runbooks, and anti-patterns (rendering thresholds, Leaflet plugin matrix, vector tile pipeline, projections deep-dive, ArcGIS Pro workflows, K8s debugging recipes, upgrade runbook, CRD/operators, multi-tenant isolation, service mesh tradeoffs) plus large-scale React+TS and React+TS gotchas.
 - Changelog 1.3.0: added `skill-composition-standards` baseline skill; published 14 canonical artifact templates; first normalisation batch (5 high-traffic skills) upgraded to 19/20 on the house-style checklist

@@ -180,6 +180,113 @@ Use a shape like:
 - [ ] Release markers and telemetry support post-deploy diagnosis.
 - [ ] Pipeline bottlenecks and flaky stages have remediation owners.
 
+## FinOps & Cost Governance
+
+### Resource Tagging Strategy
+
+Mandatory tag keys that every cloud resource must carry:
+
+- `Environment` — `dev` / `staging` / `production`
+- `Team` — owning team name (e.g., `payments`, `platform`)
+- `CostCenter` — finance code for chargeback
+- `Project` — logical project or product name
+- `Owner` — primary on-call email
+
+Enforce via Terraform `default_tags` at provider level:
+
+```hcl
+provider "aws" {
+  region = "eu-west-1"
+  default_tags {
+    tags = {
+      Environment = var.environment
+      Team        = var.team
+      CostCenter  = var.cost_center
+      Project     = var.project
+      Owner       = var.owner_email
+      ManagedBy   = "terraform"
+    }
+  }
+}
+```
+
+Enforce at admission time via AWS Config Rule `required-tags` or a Gatekeeper Constraint on K8s.
+
+### AWS Cost Explorer & Budgets
+
+- Cost Explorer: enable granularity by `DAILY`, group by `TAG:Team` and `TAG:Environment`
+- Create a monthly budget via AWS CLI:
+
+```bash
+aws budgets create-budget \
+  --account-id 123456789012 \
+  --budget '{
+    "BudgetName": "monthly-cap",
+    "BudgetLimit": {"Amount": "500", "Unit": "USD"},
+    "TimeUnit": "MONTHLY",
+    "BudgetType": "COST"
+  }' \
+  --notifications-with-subscribers '[
+    {
+      "Notification": {
+        "NotificationType": "FORECASTED",
+        "ComparisonOperator": "GREATER_THAN",
+        "Threshold": 80,
+        "ThresholdType": "PERCENTAGE"
+      },
+      "Subscribers": [{"SubscriptionType": "EMAIL", "Address": "finance@example.com"}]
+    }
+  ]'
+```
+
+- Anomaly detection: `AWS Cost Anomaly Detection` — subscribe to a SNS topic for `DAILY` anomaly alerts above threshold.
+
+### Kubernetes Resource Quotas
+
+Per-namespace `ResourceQuota`:
+
+```yaml
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: team-quota
+  namespace: payments
+spec:
+  hard:
+    requests.cpu: "20"
+    requests.memory: 40Gi
+    limits.cpu: "40"
+    limits.memory: 80Gi
+    persistentvolumeclaims: "10"
+    services.loadbalancers: "2"
+```
+
+Cost per namespace tracking via Kubecost or OpenCost; correlate with CostExplorer via the `kubernetes.io/cluster/<name>` tag.
+
+### Utilisation Targets
+
+- CPU ≥ 70% average, memory ≥ 60% average across 30-day window
+- Under-utilised = < 40% average CPU for 7+ days → right-size or consolidate
+- Use AWS Compute Optimizer for EC2/RDS recommendations
+- For K8s: VPA recommendations + HPA targets tuned to keep average between 60–80%
+
+### Spot Instance Strategy
+
+- CI runners: use `github-actions-runner-controller` on K8s with Spot node pool, `karpenter` provisioner filtering on Spot interruption rate
+- Batch jobs / ML training: `aws ec2 run-instances` with `InstanceMarketOptions.MarketType=spot` and `MaxPrice` at 50% of on-demand
+- Production web: only on Spot with multi-AZ / multi-instance-type diversification and graceful interruption handling (draining on `spot-instance-interruption-warning`)
+- Never Spot for: stateful databases (RDS, Elasticsearch primary), single-replica critical services
+
+### FinOps Maturity Model
+
+Three stages — crawl / walk / run:
+
+- **Crawl**: monthly manual cost review meeting, tags enforced on new resources, budget alerts wired to Slack. Expected savings: 10–15%.
+- **Walk**: automated anomaly detection, dedicated cost owner per team, reserved instance strategy for steady-state workloads, right-sizing recommendations reviewed monthly. Expected savings: 20–30%.
+- **Run**: chargeback to teams in internal accounting, cost impact reviewed per PR for significant infra changes, automated Spot/Reserved mix optimisation, unit economics dashboard ($/user, $/transaction). Expected savings: 30–45% plus improved decision quality.
+
+Choose the stage that matches current operational maturity; do not skip stages.
+
 ## References
 
 - [references/pipeline-governance.md](references/pipeline-governance.md): Pipeline trust, evidence, and stop-the-line response.

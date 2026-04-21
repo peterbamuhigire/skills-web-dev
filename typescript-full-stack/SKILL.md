@@ -300,3 +300,4 @@ See `references/docker-node-production.md`.
 - `references/auth-patterns.md`
 - `references/testing-full-stack.md`
 - `references/docker-node-production.md`
+- `references/large-scale-react-ts.md`

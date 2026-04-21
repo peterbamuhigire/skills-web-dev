@@ -1,0 +1,145 @@
+License
+=======
+
+Personal License
+----------------
+
+By purchasing Tabler Emails, you are granted an ongoing, non-exclusive license by codecalm.net to use Tabler Emails.
+
+The license grants permission to one individual (the Licensee) to access and use the Tabler Emails.
+
+You **can**:
+
+* Use the Tabler Emails to create unlimited End Products.
+* Modify the Tabler Emails to create derivative Tabler Emails. Those Tabler Emails are subject to this license.
+* Use the Tabler Emails to create unlimited End Products for unlimited Clients.
+* Use the Tabler Emails to create End Products where the End Product is sold to End Users.
+
+You **cannot**:
+
+* Use the Tabler Emails to create End Products that are designed to allow an End User to build their own End Products using the Tabler Emails or derivatives of the Tabler Emails.
+* Re-distribute the Tabler Emails or derivatives of the Tabler Emails separately from an End Product, neither in code nor as design assets.
+* Share your access to the Tabler Emails with any other individuals. You need a Team License for that to be allowed. 
+* Use the Tabler Emails to create End Products that are open source and freely available to End Users.
+* Use the Tabler Emails to produce anything that may be deemed by codecalm.net, in their sole and absolute discretion, to be competitive or in conflict with the business of codecalm.net
+
+
+### Example usage
+
+Examples of usage **allowed** by the license:   
+
+
+* Creating and sending emails by yourself, modifying the content or replacing their parts (like images, illustrations, etc.) with your own.
+* Creating a website or an application by yourself with messages send by emails, created with Tabler Emails.
+
+
+Examples of usage **not allowed** by the license:
+
+* Creating a repository of your favorite Tabler Emails (or derivatives based on Tabler Emails) and publishing it publicly.
+* Creating a UI library using Tabler Emails and making it available either for sale or for free.
+* Converting Tabler Emails to another framework and making it available either for sale or for free. 
+* Creating a Figma or Sketch file based on the Tabler Emails. 
+* Creating an "email builder" project where end users can build their own emails using templates included with or derived from Tabler Emails. 
+* Creating a theme, template, or project starter kit using the emails and making it available either for sale or for free.
+* Creating a web application where the primary purpose is clearly not to simply re-distribute the emails (like a conference organization app that uses the emails for its UI for example) that is free and open source, where the source code is publicly available.
+
+In simple terms, use Tabler Emails for anything you like as long as it doesn't compete with Tabler Emails.
+
+
+### Personal License Definitions
+
+**Licensee** is the individual who has purchased a Personal License.
+
+**Tabler Emails** are the source code and design assets made available to the Licensee after purchasing a Tabler Emails license.
+
+**End Product** is any artifact produced that incorporates the Tabler Emails or derivatives of the Tabler Emails.
+
+**End User** is a user of an End Product.
+
+**Client** is an individual or entity receiving custom professional services directly from the Licensee, produced specifically for that individual or entity. Customers of software-as-a-service products are not considered clients for the purpose of this document.
+
+Team License
+------------
+
+By purchasing Tabler Emails, you are granted an ongoing, non-exclusive license by codecalm.net to use Tabler Emails.
+
+The license grants permission for up to 10 Employees and Contractors of the Licensee to access and use the Tabler Emails.
+
+You **can**:
+
+* Use the Tabler Emails to create unlimited End Products.
+* Modify the Tabler Emails to create derivative Tabler Emails. Those Tabler Emails are subject to this license.
+* Use the Tabler Emails to create unlimited End Products for unlimited Clients.
+* Use the Tabler Emails to create End Products where the End Product is sold to End Users.
+
+You **cannot**:
+
+* Use the Tabler Emails to create End Products that are designed to allow an End User to build their own End Products using the Tabler Emails or derivatives of the Tabler Emails.
+* Re-distribute the Tabler Emails or derivatives of the Tabler Emails separately from an End Product.
+* Use the Tabler Emails to create End Products that are the property of any individual or entity other than the Licensee or Clients of the Licensee.
+* Grant access to the Tabler Emails to individuals who are not an Employee or Contractor of the Licensee.
+* Use the Tabler Emails to create End Products that are open source and freely available to End Users.
+* Use the Tabler Emails to produce anything that may be deemed by codecalm.net, in their sole and absolute discretion, to be competitive or in conflict with the business of codecalm.net.
+
+
+### Example usage
+
+Examples of usage **allowed** by the license:
+* Creating and sending emails by yourself or one of your Employees and Contractors, modifying the content or replacing their parts (like images, illustrations, etc.) with your own.
+* Creating a website or an application by a team of up to 10 Employees or Contractors, with messages send by emails, created with Tabler Emails.
+
+Examples of use **not allowed** by the license:
+
+* Creating a repository of your favorite Tabler Emails (or derivatives based on Tabler Emails) and publishing it publicly.
+* Creating a UI library using Tabler Emails and making it available either for sale or for free.
+* Converting Tabler Emails to another framework and making it available either for sale or for free. 
+* Creating an "email builder" project where end users can build their own emails using templates included with or derived from Tabler Emails. 
+* Creating a theme or template using the emails and making it available either for sale or for free.
+* Creating any End Product that is not the sole property of either your company or a client of your company. For example your employees/contractors can't use your company Tabler Emails license to build their own websites or side projects.
+* Giving someone access to Tabler Emails when they purchase a product from you. For example, you can't use a Team License as a way to give someone access to Tabler Emails when they purchase an online course from you.
+* Selling access to your team account to people who don't work for you company.
+
+
+### Team License Definitions
+
+**Licensee** is the business entity who has purchased a Team License.
+
+**Tabler Emails** are the source code and design assets made available to the Licensee after purchasing a Tabler Emails license.
+
+**End Product** is any artifact produced that incorporates the Tabler Emails or derivatives of the Tabler Emails.
+
+**End User** is a user of an End Product.
+
+**Employee** is a full-time or part-time employee of the Licensee.
+
+**Contractor** is an individual or business entity contracted to perform services for the Licensee.
+
+**Client** is an individual or entity receiving custom professional services directly from the Licensee, produced specifically for that individual or entity. Customers of software-as-a-service products are not considered clients for the purpose of this document.
+
+
+
+
+Enforcement
+-----------
+
+If you are found to be in violation of the license, access to your Tabler account will be terminated, and a refund may be issued at our discretion. When license violation is blatant and malicious (such as intentionally redistributing the Tabler Emails through private warez channels), no refund will be issued.
+
+The copyright of the Tabler Emails is owned by codecalm.net. You are granted only the permissions described in this license; all other rights are reserved. codecalm.net reserves the right to pursue legal remedies for any unauthorized use of the Tabler Emails outside the scope of this license.
+
+
+
+Liability
+---------
+
+codecalm.net’s liability to you for costs, damages, or other losses arising from your use of the Tabler Emails — including third-party claims against you — is limited to a refund of your license fee. codecalm.net may not be held liable for any consequential damages related to your use of the Tabler Emails.
+
+This Agreement is governed by the applicable laws of Poland. Legal proceedings related to this Agreement may only be brought in the courts of Poland. You agree to service of process at the e-mail address on your original order.
+
+
+
+Questions?
+----------
+
+Unsure which license you need, or unsure if your use case is covered by our licenses?
+
+Email us at <hello@tabler.io> with your questions.

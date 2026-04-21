@@ -100,7 +100,10 @@
       "Bash(rm \"C:\\\\Users\\\\Peter\\\\.claude\\\\skills\\\\docs\\\\plans\\\\2026-04-14-phase-01-infrastructure-foundation.md\")",
       "Bash(mkdir -p \"C:\\\\Users\\\\Peter\\\\.claude\\\\skills\\\\docs\\\\plans\\\\engine-phases\")",
       "Bash(echo \"test\")",
-      "Bash(rm \"C:/Users/BIRDC/.claude/skills/practical-ui-design/.writetest\")"
+      "Bash(rm \"C:/Users/BIRDC/.claude/skills/practical-ui-design/.writetest\")",
+      "Bash(mkdir -p \"C:/Users/Peter/.claude/skills/tabler-email-templates/templates\")",
+      "Bash(cp -r \"F:/Templates & Design Stuff/Tabler/tabler-emails-3.0/emails/.\" \"C:/Users/Peter/.claude/skills/tabler-email-templates/templates/\")",
+      "Bash(cp \"F:/Templates & Design Stuff/Tabler/tabler-emails-3.0/license.txt\" \"C:/Users/Peter/.claude/skills/tabler-email-templates/LICENSE-tabler.txt\")"
     ]
   }
 }

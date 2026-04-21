@@ -402,8 +402,15 @@ To restore: stop Jenkins, restore JENKINS_HOME contents, start Jenkins.
 
 ---
 
+## Linux Systems Hardening
+
+Full hardening reference moved to [references/linux-systems-hardening.md](references/linux-systems-hardening.md). Covers sysctl hardening parameters, cgroups v2 service limits, auditd rules, AppArmor profiles for Nginx/MySQL/Node.js, fail2ban jails for SSH and Nginx, and TCP stack tuning (BBR, keepalive).
+
+Load this reference when hardening a Jenkins host, a production application server, or any Debian/Ubuntu box exposed to the internet.
+
 ## References
 
 - `references/nginx-reverse-proxy.md` — Nginx TLS config for Jenkins
 - `references/multibranch-pipeline.md` — Multibranch pipeline setup for GitLab/GitHub
 - `references/shared-library.md` — Jenkins shared library for cross-repo pipeline patterns
+- `references/linux-systems-hardening.md` — sysctl, cgroups v2, auditd, AppArmor, fail2ban, BBR

@@ -310,6 +310,174 @@ Is the caller waiting for a result to continue?
 
 ---
 
+## Workflow Automation & Async Orchestration
+
+### n8n Self-Hosted
+
+Install on Docker:
+
+```yaml
+services:
+  n8n:
+    image: n8nio/n8n:latest
+    restart: unless-stopped
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_HOST=automation.example.com
+      - N8N_PROTOCOL=https
+      - WEBHOOK_URL=https://automation.example.com
+      - DB_TYPE=postgresdb
+      - DB_POSTGRESDB_HOST=postgres
+      - DB_POSTGRESDB_DATABASE=n8n
+      - DB_POSTGRESDB_USER=n8n
+      - DB_POSTGRESDB_PASSWORD_FILE=/run/secrets/n8n_db
+      - N8N_ENCRYPTION_KEY_FILE=/run/secrets/n8n_enc
+    volumes:
+      - n8n_data:/home/node/.n8n
+    secrets:
+      - n8n_db
+      - n8n_enc
+```
+
+Core concepts:
+
+- Nodes — building blocks (HTTP Request, Function, IF, Set, Schedule Trigger, Webhook)
+- Triggers — how a workflow starts (webhook, schedule, database polling, event)
+- Credentials — stored encrypted at rest with `N8N_ENCRYPTION_KEY`, referenced by node configuration
+- Executions — each run is logged and retriable from the UI
+
+### n8n for SaaS Automations
+
+Example workflow: Stripe `checkout.session.completed` webhook → n8n enrich → send onboarding email → create Slack channel.
+
+- Webhook Trigger — URL `https://automation.example.com/webhook/stripe`
+- HTTP Request — `GET https://api.stripe.com/v1/customers/{{ $json.customer }}` (credentials: Stripe API)
+- Set — map Stripe fields to internal schema
+- HTTP Request — `POST https://api.example.com/internal/users` to provision the account
+- SendGrid — send welcome email template
+- Slack — `POST https://slack.com/api/conversations.create` with name `customer-{{ $json.company_slug }}`
+- IF — route to SEV2 ticket on any failure (fallback branch)
+
+### Temporal Workflow Orchestration
+
+Temporal separates **workflow code** (durable, deterministic) from **activity code** (side effects, may fail and retry). The workflow engine persists state so crashes resume where they left off.
+
+Minimal TypeScript workflow + activity:
+
+```ts
+// activities.ts
+export async function chargeCard(customerId: string, amount: number): Promise<string> {
+  const charge = await stripe.charges.create({ customer: customerId, amount });
+  return charge.id;
+}
+
+export async function sendReceipt(customerId: string, chargeId: string): Promise<void> {
+  await sendgrid.send({ to: customerId, templateId: "receipt", dynamic: { chargeId } });
+}
+```
+
+```ts
+// workflows.ts
+import { proxyActivities, sleep } from "@temporalio/workflow";
+import type * as activities from "./activities";
+
+const { chargeCard, sendReceipt } = proxyActivities<typeof activities>({
+  startToCloseTimeout: "30s",
+  retry: { initialInterval: "1s", maximumAttempts: 5, backoffCoefficient: 2 },
+});
+
+export async function onboardingWorkflow(customerId: string, amount: number): Promise<void> {
+  const chargeId = await chargeCard(customerId, amount);
+  await sleep("5s");
+  await sendReceipt(customerId, chargeId);
+}
+```
+
+```ts
+// worker.ts
+import { Worker } from "@temporalio/worker";
+import * as activities from "./activities";
+
+await Worker.create({
+  workflowsPath: require.resolve("./workflows"),
+  activities,
+  taskQueue: "onboarding",
+}).then((w) => w.run());
+```
+
+### Temporal Patterns
+
+Key durability and control-flow features:
+
+- Retries with backoff — declared per activity (initial interval, max interval, coefficient, max attempts)
+- Timeouts — `startToCloseTimeout` (activity), `scheduleToCloseTimeout` (total including retries), `heartbeatTimeout` (long activities report progress)
+- Signals — external events into a running workflow (`workflow.signal('approved')`)
+- Queries — read workflow state without mutating it (`workflow.query('getStatus')`)
+- Child workflows — decompose long workflows into composable sub-workflows
+- Continue-as-new — refresh history when a workflow accumulates too many events
+
+### Temporal vs BullMQ
+
+Decision criteria:
+
+| Factor | Temporal | BullMQ |
+|--------|----------|--------|
+| Durability | Full workflow history persisted; resumes after crash | Job state in Redis; resumable but limited history |
+| Programming model | Write workflow code in TS/Go/Java/Python | Submit jobs to queue with handlers |
+| Best for | Multi-step business workflows, long-running processes | Short background jobs, fan-out tasks |
+| Ops overhead | Temporal cluster (Cassandra/Postgres, frontend, matching, history services) | Single Redis instance |
+| Visibility | Web UI with full execution history | Basic Redis-backed UI |
+
+Rule of thumb — if the workflow is longer than 30 seconds or has multiple external calls with their own failure modes, use Temporal; else BullMQ.
+
+### Apache Airflow
+
+Apache Airflow schedules and orchestrates ETL-style DAGs. Each DAG is a Python file defining tasks and their dependencies.
+
+```python
+from airflow import DAG
+from airflow.operators.python import PythonOperator
+from datetime import datetime, timedelta
+
+default_args = {
+    "owner": "data-team",
+    "retries": 3,
+    "retry_delay": timedelta(minutes=5),
+}
+
+with DAG(
+    dag_id="daily_revenue_sync",
+    default_args=default_args,
+    start_date=datetime(2026, 1, 1),
+    schedule="0 2 * * *",
+    catchup=False,
+) as dag:
+    extract = PythonOperator(task_id="extract", python_callable=extract_stripe)
+    transform = PythonOperator(task_id="transform", python_callable=transform_rows)
+    load = PythonOperator(task_id="load", python_callable=load_warehouse)
+
+    extract >> transform >> load
+```
+
+XCom passes small values between tasks; sensors wait for external conditions (file arrival, partition availability, API readiness).
+
+### Airflow vs Temporal
+
+- Airflow — batch ETL pipelines with time-based scheduling, data-team ownership, Python-first
+- Temporal — business-process workflows (orders, onboarding, refunds), engineering-team ownership, language-agnostic
+
+Don't use Airflow for sub-second latency workflows; don't use Temporal for scheduled nightly ETL.
+
+### Workflow Observability
+
+- Temporal Web UI — every execution visible with full event history, click into any activity to see input/output and retry count
+- n8n execution logs — per-workflow execution list with node-level inputs/outputs; filter by status
+- Airflow task instance logs — per-task run log, DAG graph view, Gantt view for bottleneck analysis
+- All three expose Prometheus metrics for scraping into Grafana
+
+---
+
 **See also:**
 - `microservices-architecture-models` — Where service discovery is handled (Proxy/Router/Fabric)
 - `microservices-resilience` — Retry, timeout, circuit breaker for synchronous calls

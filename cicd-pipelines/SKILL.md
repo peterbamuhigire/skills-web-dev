@@ -62,6 +62,7 @@ metadata:
 
 - Use the `references/` directory for deep detail after reading the core workflow below.
 <!-- dual-compat-end -->
+
 ## Load Order
 
 1. Load `world-class-engineering` and `git-collaboration-workflow` for the baseline.
@@ -71,158 +72,429 @@ metadata:
 
 ## Executable Outputs
 
-- reusable workflow file with versioned inputs and outputs
-- environment-specific deploy workflows (`deploy-dev.yml`, `deploy-staging.yml`, `deploy-prod.yml`)
+- reusable workflow with versioned inputs/outputs; environment-specific deploy workflows (`deploy-dev.yml`, `deploy-staging.yml`, `deploy-prod.yml`)
 - Fastlane `Fastfile` for iOS and Android when mobile apps ship
-- OIDC role trust policy and least-privilege IAM policy
-- rollback workflow (`rollback.yml`) triggered manually with artefact-digest input
-- signed deployment record schema and example
+- OIDC role trust policy, least-privilege IAM policy, rollback workflow (`rollback.yml`), signed deployment record
 
-## GitHub Actions — Core Rules
+## Pipeline Design Principles
 
-### Structure
+- Fast feedback: unit tests and lint under 60 seconds on PR; slower jobs run in a follow-up stage, not the PR gate.
+- Fail fast: lint and type-check before tests; tests before Docker build; Docker build before deploy. Cheap signals block expensive steps.
+- Build once, deploy many: a single artefact (Docker digest, signed AAB, `.ipa`, tarball) produced on merge to `main` and promoted through every environment — never rebuild per environment.
+- Same binary everywhere: environment differences live in configuration and secrets, not images; digests are identical across dev, staging, production.
+- Immutable builds: no mutable tags like `latest` in production. Every deploy references a digest (`sha256:...`) or a signed semver tag; rollback is re-deploying an older digest.
+- Every run emits a deployment record (git SHA, image digest, environment, actor, timestamp) to an append-only store for audit and DORA metrics.
 
-- Top-level `name:` is human-readable; the filename is the stable reference (`build-web.yml`).
-- Triggers are explicit: `on: push`, `pull_request`, `workflow_dispatch`, `schedule`, `release`, or `workflow_call` for reusables.
-- Jobs run on `ubuntu-latest` by default; pin to `ubuntu-24.04` for reproducibility on security-critical paths.
-- `concurrency` blocks guarantee no two runs of the same workflow race on the same environment.
+## GitHub Actions Fundamentals
+
+- Workflow files live in `.github/workflows/*.yml`. Filename is the stable reference; `name:` is human-readable.
+- Triggers: `push` for branch builds, `pull_request` for PR gates, `workflow_dispatch` for manual runs with inputs, `schedule` for cron, `release` for tag-driven publishes, `workflow_call` for reusable workflows.
+- Jobs run in parallel by default; use `needs:` to serialise. Each job gets a fresh runner and must restore its own cache and checkout its own code.
+- Steps run sequentially inside a job. `uses:` calls a reusable action (pin to full SHA on security-critical paths); `run:` executes shell.
+- Matrix, concurrency, and permissions:
 
 ```yaml
+strategy:
+  fail-fast: false
+  matrix:
+    node: ['18', '20', '22']
+    os: [ubuntu-24.04, macos-14]
+
 concurrency:
   group: deploy-${{ github.ref }}-${{ matrix.environment }}
   cancel-in-progress: false
-```
 
-### Permissions
-
-Every workflow starts with an explicit minimum:
-
-```yaml
 permissions:
   contents: read
-  id-token: write   # for OIDC
+  id-token: write
   packages: read
 ```
 
-Add other scopes (`pull-requests: write`, `issues: write`) only when a job needs them.
+## Secrets & Environment Variables
 
-### Secrets
-
-- Repo secrets for unscoped values.
-- Environment secrets for environment-scoped values (production DB URL, Play service account, Apple API key).
-- OIDC federation for cloud providers. No static `AWS_ACCESS_KEY_ID` in any repo.
-- For Vault integration, use `hashicorp/vault-action` with OIDC auth.
-
-### OIDC to AWS (Node.js deploy)
+- Repository secrets: unscoped values reused across workflows (`CODECOV_TOKEN`).
+- Environment secrets: scoped to a GitHub Environment (`dev`, `staging`, `production`). Production secrets never leak into PR builds.
+- Organisation secrets: shared across repos (e.g., ECR pull credentials). Use sparingly.
+- Environment protection rules gate promotion. Configure `required_reviewers`, `wait_timer`, and deployment-branches in the environment settings UI, then reference in YAML:
 
 ```yaml
-permissions:
-  id-token: write
-  contents: read
+jobs:
+  deploy-prod:
+    environment: { name: production, url: https://app.example.com }
+    runs-on: ubuntu-24.04
+    steps:
+      - run: echo "deploying"
+```
 
+- OIDC to AWS is mandatory. No static `AWS_ACCESS_KEY_ID` anywhere. Configure a trust policy on the IAM role restricting `sub` to the intended repo and branch:
+
+```yaml
+permissions: { id-token: write, contents: read }
 steps:
   - uses: actions/checkout@v4
-
   - uses: aws-actions/configure-aws-credentials@v4
     with:
       role-to-assume: arn:aws:iam::123456789012:role/github-actions-deploy
       aws-region: eu-west-1
-
   - run: aws sts get-caller-identity
 ```
 
-### Caching
+- HashiCorp Vault: `hashicorp/vault-action` with JWT/OIDC. GCP: `google-github-actions/auth@v2` with Workload Identity Federation.
 
-- Node: `actions/cache` keyed on `package-lock.json`; restore `~/.npm`.
-- Gradle: `actions/cache` on `~/.gradle/caches` and `~/.gradle/wrapper`.
-- CocoaPods: `actions/cache` on `Pods/` keyed on `Podfile.lock`.
-- pip: `actions/cache` on `~/.cache/pip` keyed on `requirements*.txt`.
-- Docker buildx: `type=gha` cache with `mode=max`.
+## Node.js / PHP Pipeline
 
-See `references/github-actions-workflows.md` for full caching snippets.
+Complete workflow: lint → type-check → unit tests → build Docker → push to ECR → deploy to ECS. For PHP, swap the install and test steps for `composer install --no-dev` and `vendor/bin/phpunit`.
 
-## Language Pipelines
+```yaml
+name: build-and-deploy-api
 
-### Node.js
+on:
+  push: { branches: [main] }
+  pull_request:
 
+concurrency: { group: api-${{ github.ref }}, cancel-in-progress: true }
+permissions: { contents: read, id-token: write, packages: read }
+
+jobs:
+  lint-typecheck:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20', cache: 'npm' }
+      - run: npm ci
+      - run: npm run lint && npm run typecheck
+
+  unit-tests:
+    needs: lint-typecheck
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20', cache: 'npm' }
+      - run: npm ci && npm test -- --coverage
+      - uses: actions/upload-artifact@v4
+        with: { name: coverage, path: coverage/ }
+  build-and-push:
+    needs: unit-tests
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    outputs: { image: ${{ steps.push.outputs.image }} }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: aws-actions/configure-aws-credentials@v4
+        with: { role-to-assume: arn:aws:iam::123456789012:role/github-actions-ecr, aws-region: eu-west-1 }
+      - uses: aws-actions/amazon-ecr-login@v2
+        id: ecr
+      - uses: docker/setup-buildx-action@v3
+      - id: push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.ecr.outputs.registry }}/api:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+  deploy-ecs:
+    needs: build-and-push
+    runs-on: ubuntu-24.04
+    environment: { name: production, url: https://api.example.com }
+    steps:
+      - uses: aws-actions/configure-aws-credentials@v4
+        with: { role-to-assume: arn:aws:iam::123456789012:role/github-actions-deploy, aws-region: eu-west-1 }
+      - run: aws ecs update-service --cluster prod --service api --force-new-deployment
 ```
-install → lint → test → build → docker build → push ECR → deploy
+
+For EC2 via SSM replace the ECS step with `aws ssm send-command --document-name AWS-RunShellScript`.
+
+## Next.js Pipeline
+
+Type-check → Playwright E2E (see the `e2e-testing` skill for test authoring) → build → deploy to Vercel or Kubernetes.
+
+```yaml
+name: nextjs-release
+
+on:
+  push: { branches: [main] }
+  pull_request:
+
+permissions: { contents: read, id-token: write }
+
+jobs:
+  typecheck:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20', cache: 'npm' }
+      - run: npm ci && npm run typecheck
+
+  e2e:
+    needs: typecheck
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix: { shard: [1/4, 2/4, 3/4, 4/4] }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20', cache: 'npm' }
+      - run: npm ci && npx playwright install --with-deps chromium
+      - run: npx playwright test --shard=${{ matrix.shard }}
+  deploy-vercel:
+    needs: e2e
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    environment: { name: production, url: https://app.example.com }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-args: '--prod'
 ```
 
-- Use `npm ci` for reproducibility.
-- Run typecheck and lint in parallel jobs to shorten the critical path.
-- Tests and coverage go to an artefact uploaded on every run.
-- Docker image tagged with commit SHA + semver tag for release builds.
+For Kubernetes targets swap the Vercel step for `kubectl apply -f k8s/ --record` after `aws eks update-kubeconfig --name prod`.
 
-### PHP
+## Docker Build & Push
 
+Multi-platform only when the runtime differs (ARM Graviton, Apple Silicon dev boxes) — it doubles build time. Cache via `type=gha` with `mode=max`. Push to ECR via OIDC; never commit registry passwords.
+
+```yaml
+- uses: docker/setup-qemu-action@v3
+- uses: docker/setup-buildx-action@v3
+- uses: aws-actions/configure-aws-credentials@v4
+  with: { role-to-assume: arn:aws:iam::123456789012:role/github-actions-ecr, aws-region: eu-west-1 }
+- uses: aws-actions/amazon-ecr-login@v2
+  id: ecr
+- uses: docker/build-push-action@v5
+  with:
+    context: .
+    platforms: linux/amd64,linux/arm64
+    push: true
+    tags: ${{ steps.ecr.outputs.registry }}/api:${{ github.sha }}
+    cache-from: type=gha
+    cache-to: type=gha,mode=max
+    provenance: true
+    sbom: true
 ```
-composer install → PHPStan → PHPUnit → rsync/ssh deploy
+
+## Kubernetes Deployment
+
+Option A — direct `kubectl apply` from GitHub Actions. Assume an IAM role mapped to a Kubernetes RBAC binding, update kubeconfig, apply:
+
+```yaml
+- uses: aws-actions/configure-aws-credentials@v4
+  with: { role-to-assume: arn:aws:iam::123456789012:role/github-actions-eks, aws-region: eu-west-1 }
+- uses: azure/setup-kubectl@v4
+  with: { version: 'v1.30.0' }
+- run: aws eks update-kubeconfig --name prod-cluster --region eu-west-1
+- run: |
+    kubectl set image deployment/api api=${{ needs.build-and-push.outputs.image }} -n production
+    kubectl rollout status deployment/api -n production --timeout=5m
 ```
 
-- Composer cache keyed on `composer.lock`.
-- PHPStan at level 8 or agreed baseline; PHPUnit runs against a containerised DB.
-- Deploy via `rsync -avz --delete` or a containerised image.
-
-### Docker
-
-- One image per service; pushed to ECR/GCR/GHCR by digest.
-- Multi-platform (`linux/amd64,linux/arm64`) only when the runtime actually differs; do not do it by reflex.
+Option B (recommended for multi-cluster SaaS) — ArgoCD Image Updater watches the registry and updates the Git manifest when a new semver tag appears. CI only builds and pushes; ArgoCD reconciles. No cluster credentials live in CI. Pair with `kubernetes-saas-delivery` for the full GitOps pattern.
 
 ## Environment Promotion
 
-```
-feature branch → pull request checks → merge to main → build+push once →
-deploy dev → automated tests → deploy staging → manual approval → deploy prod
+- Flow: feature branch → PR checks → merge to `main` → build and push once → deploy `dev` → smoke tests → deploy `staging` → manual approval → deploy `production`.
+- Each environment is a GitHub Environment with its own secrets and protection rules; production requires `required_reviewers` and restricts deploy branches to `main`.
+- Promotion is a `workflow_dispatch` with an `image_digest` input — never rebuilds.
+
+```yaml
+name: promote
+on:
+  workflow_dispatch:
+    inputs:
+      image_digest: { description: 'sha256:... to promote', required: true }
+      target:
+        description: 'Target environment'
+        required: true
+        type: choice
+        options: [staging, production]
+jobs:
+  deploy:
+    runs-on: ubuntu-24.04
+    environment: { name: ${{ inputs.target }} }
+    strategy:
+      matrix: { cluster: [cluster-a, cluster-b] }
+    steps:
+      - run: echo "Deploying ${{ inputs.image_digest }} to ${{ inputs.target }}/${{ matrix.cluster }}"
 ```
 
-Rules:
+- Nightly scheduled staging re-deploy detects drift between `main` HEAD and live.
 
-- Build the artefact once. Promote the digest. Never rebuild for staging or prod.
-- `production` environment requires a human reviewer and a passing staging smoke test.
-- Promotion actions are `workflow_dispatch` inputs (`image_digest`), not free-form shell.
+## Test Parallelisation
+
+Playwright shards run in parallel via matrix and merge reports at the end:
 
 ```yaml
 jobs:
-  deploy:
-    environment:
-      name: production
-      url: https://app.example.com
+  e2e:
+    strategy:
+      fail-fast: false
+      matrix: { shard: [1/4, 2/4, 3/4, 4/4] }
     runs-on: ubuntu-24.04
-    steps: ...
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20', cache: 'npm' }
+      - run: npm ci && npx playwright install --with-deps
+      - run: npx playwright test --shard=${{ matrix.shard }} --reporter=blob
+      - uses: actions/upload-artifact@v4
+        with:
+          name: blob-report-${{ strategy.job-index }}
+          path: blob-report
+          retention-days: 1
+
+  merge-reports:
+    if: always()
+    needs: [e2e]
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20', cache: 'npm' }
+      - run: npm ci
+      - uses: actions/download-artifact@v4
+        with: { path: reports, pattern: blob-report-*, merge-multiple: true }
+      - run: npx playwright merge-reports --reporter=html ./reports
 ```
 
-Add a scheduled staging re-deploy (nightly or weekly) to catch drift between what is in `main` and what is actually live.
+- Jest: `jest --shard=1/4` across a matrix, or `--maxWorkers=50%` on a single large runner.
+- Report merging is mandatory — reviewers need a single HTML report, not four.
+
+## Mobile Pipelines (iOS and Android)
+
+Full iOS and Android CI/CD details live in `references/mobile-pipelines.md` (plus `references/ios-fastlane-pipeline.md` and `references/android-pipeline.md`). Headlines:
+
+- iOS: Fastlane `match` for code signing (read-only in CI), `gym` to build, `pilot`/`deliver` to upload. Runs on `macos-14` with Xcode 15+.
+- Android: `./gradlew assembleRelease` with keystore base64-decoded from a GitHub Secret; upload via Fastlane `supply` or `r0adkll/upload-google-play@v1`.
+- Both flows tag `v1.2.3` and promote a single signed artefact to TestFlight/internal-track first, then staged rollout.
+
+## Branch Strategy
+
+- GitHub Flow (default for SaaS web/API): long-lived `main`, short feature branches merged via PR, deploys from `main`. Every merge is a potential production deploy; best when shipping multiple times per day.
+- Trunk-based (10+ engineers): very short-lived branches (< 1 day), feature flags hide unfinished work, `main` always releasable. Pair with LaunchDarkly/Unleash/Flagsmith to decouple deploy from release.
+- Release branches (mobile, firmware, versioned SDKs): `main` holds ongoing work; `release/v1.2` is cut, stabilised, tagged `v1.2.0`, shipped. Hotfixes land in the release branch and cherry-pick back to `main`.
+- Pick one per repo and document in `CONTRIBUTING.md`; mixing strategies confuses reviewers and breaks automation.
+
+## Semantic Versioning
+
+- Conventional commits drive version bumps: `feat:` → minor, `fix:` → patch, `feat!:` or `BREAKING CHANGE:` in body → major, `chore:`/`docs:`/`refactor:` → no release.
+- `semantic-release` automates tag, CHANGELOG, GitHub Release, and npm publish on merge to `main`:
+
+```yaml
+name: release
+on:
+  push: { branches: [main] }
+permissions: { contents: write, issues: write, pull-requests: write, id-token: write }
+jobs:
+  release:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0, persist-credentials: false }
+      - uses: actions/setup-node@v4
+        with: { node-version: '20', cache: 'npm', registry-url: 'https://registry.npmjs.org' }
+      - run: npm ci && npx semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+```
+
+- Config lives in `.releaserc.json` with plugins: `commit-analyzer`, `release-notes-generator`, `changelog`, `npm`, `github`, `git`.
+
+## Artefact Caching
+
+`actions/cache@v4` caches directories keyed on a lockfile hash — the key changes when the lockfile changes, invalidating the cache:
+
+```yaml
+- uses: actions/cache@v4
+  with:
+    path: ~/.npm
+    key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+    restore-keys: ${{ runner.os }}-npm-
+```
+
+- Targets: `~/.npm`, `~/.cache/pnpm`, `~/.cache/composer`, `~/.gradle/caches` + `~/.gradle/wrapper`, `Pods/` (keyed on `Podfile.lock`), `~/.cargo/registry` + `target/`, `~/.cache/pip` (keyed on `requirements*.txt`).
+- Docker buildx: `type=gha` with `mode=max` stores all intermediate layers. Cache size limit: 10 GB per repo total — evict old caches via `gh cache delete`.
+- `setup-node` / `setup-python` / `setup-java` have a built-in `cache:` parameter — prefer it when the lockfile is at the repo root.
+
+## Slack/Email Notifications
+
+Failure alerts to a Slack channel via `slackapi/slack-github-action`:
+
+```yaml
+- name: Notify Slack on failure
+  if: failure()
+  uses: slackapi/slack-github-action@v1.26.0
+  with:
+    channel-id: 'C012ABCDEF'
+    slack-message: |
+      Failed: ${{ github.workflow }} / ${{ github.ref }} / ${{ github.actor }}
+      ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+  env:
+    SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+```
+
+- Deployment announcements include the deploy URL, image digest, and actor. Post to `#deploys` on success, `#incidents` on failure.
+- Email via `dawidd6/action-send-mail` or an SMTP relay — reserve for on-call paging; Slack covers day-to-day.
+- PR status uses GitHub's built-in check runs; do not duplicate pass/fail into Slack for every PR.
+
+## Security Scanning in CI
+
+Trivy scans Docker images for OS and language CVEs. Fail on HIGH or CRITICAL:
+
+```yaml
+- uses: aquasecurity/trivy-action@master
+  with:
+    image-ref: ${{ steps.ecr.outputs.registry }}/api:${{ github.sha }}
+    format: sarif
+    output: trivy-results.sarif
+    severity: HIGH,CRITICAL
+    exit-code: '1'
+- uses: github/codeql-action/upload-sarif@v3
+  if: always()
+  with: { sarif_file: trivy-results.sarif }
+```
+
+- Dependency audit: `npm audit --audit-level=high`, `composer audit`, `pip-audit`, `bundle-audit` — run on every PR.
+- SAST gate: CodeQL (free for public, GHAS for private) or Snyk Code. CodeQL runs weekly on `main` and on every PR.
+- Secret scanning: GitHub's native scanner plus `gitleaks` on PRs. Rotate any leaked secret immediately — removing the commit does not help once pushed.
+- CVE exceptions live in a tracked `.trivyignore` with a reason and expiry date. Renew quarterly.
+- See `cicd-devsecops` for policy, gating thresholds, and exception governance.
 
 ## Rollback
 
-### Automatic
+- Automatic: post-deploy health checks failing, ALB target-health dropping below threshold for 3 consecutive minutes, or error-rate SLO burn triggers `rollback.yml`.
+- Manual `rollback.yml` takes `image_digest` and `environment` inputs, assumes the OIDC role, re-deploys without a build step.
+- Record a reason on every rollback. Three rollbacks in a week on the same service freezes deploys until a post-mortem is filed.
 
-- Post-deploy health checks fail → revert service to previous task definition / deployment revision.
-- ALB target-health drops below threshold for 3 consecutive minutes → trigger `rollback.yml`.
+## Verification & Platform Notes
 
-### Manual
+- Every workflow PR must be reviewed by someone other than the author; `actionlint` is a required status check on any `.github/workflows/*.yml` change.
+- Track DORA metrics (deploy frequency, lead time, change-failure rate, MTTR) off the deployment-record sink.
+- Claude Code and Codex users on the same repo work from the same files — nothing platform-specific goes in workflow YAML.
 
-`rollback.yml` accepts `image_digest` and environment as inputs, assumes the OIDC role, and re-deploys without a build step. Keep the trigger authenticated and audited.
+## Companion Skills
 
-### Rollback Does Not Restart a Broken Deploy Loop
+- `cicd-pipeline-design` — high-level pipeline shape, stage boundaries, gate design.
+- `cicd-devsecops` — secrets policy, scan thresholds, exception governance.
+- `cicd-jenkins-debian` — when the CI server is Jenkins, not GitHub Actions.
+- `deployment-release-engineering` — rollout, canary, blue/green, post-deploy verification.
+- `kubernetes-saas-delivery` — ArgoCD GitOps for multi-tenant SaaS.
+- `observability-monitoring` — deploy markers, error-rate SLO burn, MTTR.
+- `ios-development`, `android-development` — app build config upstream of the pipeline.
 
-Record a reason on rollback. If three rollbacks happen inside a week for the same service, freeze deploys and investigate — do not keep re-deploying hoping the next one works.
+## Sources
 
-## Verification
-
-- Every workflow PR must be reviewed by someone other than the author.
-- Run `actionlint` as a required status check.
-- Track DORA metrics (deploy frequency, lead time, change-failure rate, MTTR) off the deployment record sink.
-
-## Platform Notes
-
-- Claude Code users: GitHub Actions workflows can be generated and validated locally with `actionlint` via the CLI. Codex users on the same repo work from the same files — nothing platform-specific goes in workflow YAML.
-
-## References
-
-- [references/github-actions-workflows.md](references/github-actions-workflows.md): Node.js, PHP, Docker, and reusable workflow templates.
+- [references/github-actions-workflows.md](references/github-actions-workflows.md): Node.js, PHP, Docker, reusable workflow templates.
 - [references/ios-fastlane-pipeline.md](references/ios-fastlane-pipeline.md): TestFlight and App Store release lanes with Match.
 - [references/android-pipeline.md](references/android-pipeline.md): Signed AAB + Play Console release via Fastlane Supply.
-- GitHub Actions docs: [docs.github.com/actions](https://docs.github.com/actions)
-- Fastlane docs: [docs.fastlane.tools](https://docs.fastlane.tools)
+- [references/mobile-pipelines.md](references/mobile-pipelines.md): iOS + Android CI/CD overview, Fastfile snippets, `macos-14` runner setup.
+- GitHub Actions: [docs.github.com/actions](https://docs.github.com/actions); Fastlane: [docs.fastlane.tools](https://docs.fastlane.tools)
+- Trivy: [aquasecurity.github.io/trivy](https://aquasecurity.github.io/trivy); semantic-release: [semantic-release.gitbook.io](https://semantic-release.gitbook.io)

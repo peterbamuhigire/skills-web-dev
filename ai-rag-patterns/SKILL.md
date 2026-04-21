@@ -101,9 +101,10 @@ RAG solves the core LLM limitation: they only know what they were trained on. Us
 
 ## Additional Guidance
 
-Extended guidance for `ai-rag-patterns` was moved to [references/skill-deep-dive.md](references/skill-deep-dive.md) to keep this entrypoint compact and fast to load.
+Guidance is split across two reference files so this entrypoint stays compact.
 
-Use that deep dive for:
+**[references/skill-deep-dive.md](references/skill-deep-dive.md)** — architecture, chunking, retrieval, schema:
+
 - `Pipeline Architecture`
 - `Chunking Strategies`
 - `Embedding Model Selection`
@@ -116,4 +117,18 @@ Use that deep dive for:
 - `Evaluation Framework`
 - `Production Patterns`
 - `Agentic RAG`
-- Additional deep-dive sections continue in the reference file.
+- `Multimodal RAG`, `Edge Cases`, `Cost Optimisation`, `Sources`
+
+**[references/production-rag.md](references/production-rag.md)** — the progression from draft to production and the gates before shipping:
+
+- `RAG Maturity Model` — Naive → Advanced → Modular
+- `Query Transformation` — HyDE, Multi-Query, Step-Back
+- `Contextual Compression`
+- `Self-RAG`
+- `RAGAS Evaluation` — 4 metrics with production thresholds
+- `Embedding Pipeline` — batching, upserts, re-embed triggers, $/1M-token table
+- `Cost Management Decision Tree` — concrete dollar figures per branch
+- `Failure Mode Playbook` — empty, irrelevant, hallucinated, stale
+- `Gates Before Shipping`
+
+Load the production file when building a RAG system that has to pass evaluation gates, survive multi-tenant review, or hit a cost budget under load.

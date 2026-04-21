@@ -326,3 +326,4 @@ See `references/tenant-isolation-rls.md`.
 - `references/hybrid-mysql-postgis.md`
 - `references/backup-migration.md`
 - `references/tenant-isolation-rls.md`
+- `references/projections-deep.md` — CRS decision table, UTM zones for East Africa, `geometry` vs `geography`, `ST_Subdivide` for large polygons, BRIN vs GIST, KNN index rule

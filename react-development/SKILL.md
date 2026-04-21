@@ -72,6 +72,7 @@ Production-grade React patterns drawn from Mastering React (Horton & Vice), Pro 
 | State management patterns | `references/state-management.md` |
 | Performance optimisation | `references/performance.md` |
 | TypeScript + React | `references/typescript.md` |
+| TS + React production gotchas (Fullstack React with TS) | `references/react-typescript-gotchas.md` |
 | Testing (RTL) | `references/testing.md` |
 | Forms and validation | `references/forms.md` |
 | React 18/19 features | `references/react-18-19.md` |

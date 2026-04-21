@@ -437,6 +437,12 @@ Return findings as a structured list sorted by severity.
 - Auditing only new code without reviewing existing patterns
 - Skipping the dependency audit (most common attack vector)
 
+## Network Security Layer
+
+Full perimeter and network-hardening reference in [references/network-security-layer.md](references/network-security-layer.md). Covers UFW firewall rules for a SaaS VPS, iptables advanced rate limiting, Cloudflare WAF managed rulesets, self-hosted ModSecurity with the OWASP Core Rule Set, zero-trust principles, WireGuard VPN setup for remote team access, layered DDoS mitigation, and TLS certificate lifecycle with HSTS preloading.
+
+Load this reference when hardening a new VPS, preparing for a penetration test, or onboarding a remote engineer.
+
 ## Quick Start
 
 When user invokes this skill:

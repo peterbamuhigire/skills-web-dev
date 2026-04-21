@@ -1,8 +1,9 @@
 ---
 name: design-audit
 description: Comprehensive UI/UX quality audit covering visual hierarchy, accessibility,
-  AI slop detection, typography, colour, layout, interaction states, responsive behaviour,
-  performance, and microcopy. Produces severity-rated findings with actionable...
+  consistency, AI slop detection, typography, colour, layout, interaction states,
+  responsive behaviour, performance, and microcopy. Produces severity-rated findings with
+  actionable remediation.
 metadata:
   portable: true
   compatible_with:
@@ -61,6 +62,7 @@ metadata:
 ## References
 
 - Use the links and companion skills already referenced in this file when deeper context is needed.
+- Use `references/consistency-audit.md` when drift between screens, components, or labels is a suspected issue.
 <!-- dual-compat-end -->
 ## Plugins (Load Alongside)
 

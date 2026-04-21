@@ -73,12 +73,13 @@ metadata:
 
 1. **Minimalism over decoration** — Content first, chrome last. Remove anything that doesn't serve the user.
 2. **Consistency over novelty** — Same patterns across every app screen.
-3. **Whitespace is a feature** — Generous spacing creates visual breathing room, not waste.
-4. **Speed is UX** — If it feels slow, it's broken regardless of how it looks.
-5. **Content-first hierarchy** — Important information is immediately visible.
-6. **Touch-friendly targets** — Minimum 44pt for all interactive elements (Apple HIG).
-7. **SF Symbols for icons** — Use SF Symbols for system icons unless custom icons are required per `mobile-custom-icons`.
-8. **iOS 26 Liquid Glass** — For apps recompiled against iOS 26 SDK, adopt the Liquid Glass design language for translucent materials and depth.
+3. **Visible affordances** — Controls must read as tappable without relying on animation, discovery, or overly subtle styling.
+4. **Whitespace is a feature** — Generous spacing creates visual breathing room, not waste.
+5. **Speed is UX** — If it feels slow, it's broken regardless of how it looks.
+6. **Content-first hierarchy** — Important information is immediately visible.
+7. **Touch-friendly targets** — Minimum 44pt for all interactive elements (Apple HIG).
+8. **SF Symbols for icons** — Use SF Symbols for system icons unless custom icons are required per `mobile-custom-icons`.
+9. **iOS 26 Liquid Glass** — For apps recompiled against iOS 26 SDK, adopt the Liquid Glass design language for translucent materials and depth.
 
 ### Visual Standards
 

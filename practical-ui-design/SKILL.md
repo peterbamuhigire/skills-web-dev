@@ -1,8 +1,8 @@
 ---
 name: practical-ui-design
-description: Rules-based visual UI design system covering colour (HSB palettes, light/dark
-  mode), typography (type scales, line height), layout (spacing tokens, 12-column
-  grid), copywriting, buttons, and forms. Load alongside any platform skill...
+description: Rules-based visual UI design system covering colour, typography, spacing,
+  layout, buttons, forms, and visual consistency. Load alongside any platform skill when
+  the work needs a deliberate interface system instead of ad hoc styling.
 metadata:
   portable: true
   compatible_with:
@@ -60,6 +60,7 @@ metadata:
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.
+- Use `references/visual-consistency.md` when pattern coherence, affordances, or user expectations are part of the task.
 <!-- dual-compat-end -->
 ## Plugins (Load Alongside)
 

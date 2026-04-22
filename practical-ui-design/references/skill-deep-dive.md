@@ -13,6 +13,7 @@ This file contains the extended guidance moved out of [../SKILL.md](../SKILL.md)
 - `8. Dark Mode Rules`
 - `9. Anti-Patterns`
 - `10. Design Checklist`
+- `11. Design Systems And Governance`
 
 ## 2. Typography Rules
 
@@ -409,6 +410,59 @@ Dark mode is a distinct palette, not a CSS `invert()`. Colours, contrast ratios,
 ---
 
 ## 10. Design Checklist
+
+## 11. Design Systems And Governance
+
+### 11.1 Audit Before Reinvention
+
+Before inventing a new pattern, check the existing product for:
+
+- duplicated components that already solve the problem
+- token drift such as one-off colors, shadows, radii, or spacing values
+- states that exist in some screens but not others
+- documentation that no longer matches the shipped UI
+
+Variation is often design debt, not innovation.
+
+### 11.2 Token Layers
+
+Keep three layers distinct:
+
+- primitive tokens: raw color, spacing, radius, type, elevation values
+- semantic tokens: purpose-based names
+- component tokens: component-scoped values and states
+
+When page code uses raw values directly, the system usually stops scaling.
+
+### 11.3 Component Standard
+
+Every shared component should be explainable through:
+
+- purpose
+- anatomy
+- variants
+- states
+- accessibility behavior
+- responsive behavior
+- content rules
+- when to use and when not to use
+
+If those are unclear, the component is not mature enough to standardize.
+
+### 11.4 Source Of Truth
+
+The product needs one obvious place where contributors can learn the current truth about tokens, components, and usage rules.
+If design files, code, and docs all disagree, treat that as a quality defect.
+
+### 11.5 Living System Rule
+
+Design systems are not finished artifacts.
+They need:
+
+- maintenance
+- contribution rules
+- adoption checks
+- cleanup of duplicates and dead variants
 
 Before shipping any screen, verify:
 

@@ -33,12 +33,15 @@ metadata:
 - Read this `SKILL.md` first, then load only the referenced deep-dive files that are necessary for the task.
 - Apply the ordered guidance, checklists, and decision rules in this skill instead of cherry-picking isolated snippets.
 - Produce the deliverable with assumptions, risks, and follow-up work made explicit when they matter.
+- When a product already exists, audit token drift, duplicated components, and inconsistent states before proposing new styling.
 
 ## Quality Standards
 
 - Keep outputs execution-oriented, concise, and aligned with the repository's baseline engineering standards.
 - Preserve compatibility with existing project conventions unless the skill explicitly requires a stronger standard.
 - Prefer deterministic, reviewable steps over vague advice or tool-specific magic.
+- Prefer system-level fixes over per-screen decorative fixes.
+- Treat the design system as a living product with documented tokens, components, and usage rules.
 
 ## Anti-Patterns
 

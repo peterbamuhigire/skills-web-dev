@@ -83,6 +83,26 @@ $userType = getSession('user_type');
 - Use `getSession('franchise_id')` to get franchise context
 - All database queries MUST filter by `franchise_id`
 
+## Component Reuse Rules
+
+Do not create a new screen-level widget just because this page looks slightly different.
+
+Before adding a new component:
+
+1. check whether an existing primitive or shared component already solves it
+2. check whether a new variant, slot, or state would be enough
+3. document the reason if a genuinely new component is required
+
+Standardize:
+
+- anatomy
+- variants
+- states
+- accessibility behavior
+- content rules
+
+If those are not clear, it is not ready to be shared.
+
 ## SweetAlert2 (Mandatory)
 
 **Never use alert/confirm/prompt.**

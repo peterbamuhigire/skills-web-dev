@@ -38,13 +38,15 @@ The target surface (dashboard, CRUD table, form, settings), the auth/tenant mode
 3. Wire data with React Query; never call `fetch` inside components.
 4. Attach loading + error + empty states *before* connecting real data.
 5. Check consistency against existing screens and primitives before adding a new pattern.
-6. Run the a11y + responsive sweep (§15 checklist) before merge.
+6. Extend shared primitives/components before creating a bespoke screen-only pattern.
+7. Run the a11y + responsive sweep (§15 checklist) before merge.
 
 ## Quality Standards
 
 - Every data screen has a loading, empty, error, and success state.
 - Every form uses React Hook Form + Zod with a single `FormField` primitive.
 - Every interactive widget is keyboard-operable (Tab, Enter, Escape, Arrow).
+- Shared patterns must resolve through documented tokens and components, not one-off screen styling.
 - Colour contrast ≥ 4.5:1 for body text, 3:1 for ≥18pt or bold text.
 - Buttons use the correct element: `<button>` for actions, `<a href>` for navigation.
 - Every decision point has one clear primary action; secondary and tertiary actions must not compete with it.

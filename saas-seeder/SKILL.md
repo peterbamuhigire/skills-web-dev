@@ -15,6 +15,7 @@ metadata:
 - Optional helper plugins may help in some environments, but they must not be treated as required for this skill.
 
 # SaaS Seeder Template Bootstrap
+Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 
 <!-- dual-compat-start -->
 ## Use When

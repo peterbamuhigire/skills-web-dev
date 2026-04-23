@@ -11,6 +11,7 @@ metadata:
 ---
 
 # iOS Networking — Advanced Production Patterns
+Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 
 <!-- dual-compat-start -->
 ## Use When

@@ -12,6 +12,7 @@ metadata:
 ---
 
 # Web Application Security Audit
+Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 
 <!-- dual-compat-start -->
 ## Use When

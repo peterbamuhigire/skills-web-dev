@@ -12,6 +12,7 @@ metadata:
 ---
 
 # Subscription Billing
+Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 
 <!-- dual-compat-start -->
 

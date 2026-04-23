@@ -9,6 +9,7 @@ metadata:
 ---
 
 # Vibe Security Skill
+Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 
 Baseline web-application and SaaS security skill. Produces the four contract artifacts — threat model, abuse case list, auth/authz matrix, secret handling plan — that downstream specialist skills (api-design-first, deployment-release-engineering, observability-monitoring, ai-security, llm-security) consume.
 

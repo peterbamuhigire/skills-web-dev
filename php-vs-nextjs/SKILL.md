@@ -12,6 +12,7 @@ metadata:
 ---
 
 # PHP vs Next.js: Technology Decision Framework
+Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 
 <!-- dual-compat-start -->
 ## Use When

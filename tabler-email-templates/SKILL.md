@@ -4,6 +4,7 @@ description: Use when building transactional or marketing email templates for an
 ---
 
 # Tabler Email Templates
+Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 
 Commercially licensed Tabler Emails 3.0 collection, bundled as a skill so any app in this workspace can generate branded transactional and marketing emails quickly without reinventing responsive HTML email layout.
 

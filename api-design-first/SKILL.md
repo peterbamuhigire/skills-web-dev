@@ -9,6 +9,7 @@ metadata:
 ---
 
 # API Design First
+Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 
 Design APIs as contracts before code. This skill produces the OpenAPI 3.1 contract and its companion auth / error / idempotency / observability artifacts that downstream frontend, mobile, SDK, security, and reliability skills depend on.
 

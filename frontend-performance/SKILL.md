@@ -9,6 +9,7 @@ metadata:
 ---
 
 # Frontend Performance
+Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 
 Specialist frontend skill. Produces the three deliverables that give a team an operable performance posture: a budget per critical flow, a measurement plan tied to the SLO set, and a regression gate in CI. Not a generic optimisation checklist.
 

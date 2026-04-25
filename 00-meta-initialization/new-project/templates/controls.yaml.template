@@ -1,0 +1,3 @@
+# Project control selection. Refer to domains/<domain>/controls/control-register.yaml.
+# After editing, run: python -m engine validate <project>
+selected: []

@@ -15,6 +15,8 @@ Skills are markdown instruction packages that encode reusable engineering judgme
 - what to avoid
 - what quality gates must be met before calling the result production-ready
 
+Active skills live under `skills/<skill-name>/SKILL.md`. The repository root is reserved for project documentation and operational folders such as `docs/`, `skills/`, and `projects/` where relevant.
+
 ## Core Baseline
 
 For serious implementation work, start with the repository baseline before loading stack-specific skills:
@@ -215,7 +217,7 @@ Use world-class-engineering and system-architecture-design before proposing the 
 Reference the skills from your project-level `CLAUDE.md` or `AGENTS.md`:
 
 ```markdown
-Load these skills from ~/.claude/skills:
+Load these skills from ~/.claude/skills/skills:
 - world-class-engineering
 - system-architecture-design
 - database-design-engineering
@@ -245,7 +247,7 @@ Then include:
 
 - Claude Code can continue using the repository through `CLAUDE.md` and direct skill invocation.
 - Codex can use the same skill folders through root `AGENTS.md` routing plus each skill's `SKILL.md`.
-- No `skills/` subfolder is required for compatibility; the flat repository layout is intentional.
+- Skills are stored in the standard `skills/<skill-name>/SKILL.md` layout.
 - Optional plugin notes may remain in skills, but they must not block execution in Codex.
 
 ## Repository Standards
@@ -258,7 +260,7 @@ Then include:
 
 ## Repository Stats
 
-- 209 skills across architecture, web, mobile, Python analytics/ML/documents, full-stack TypeScript, Kubernetes, GIS, AI, security, UX, data, SaaS business, and SDLC
+- 236 skills across architecture, web, mobile, Python analytics/ML/documents, full-stack TypeScript, Kubernetes, GIS, AI, security, UX, data, SaaS business, and SDLC
 - full-stack coverage for web apps, mobile apps, SaaS, ERP, APIs, and data systems
 - layered baseline for architecture, data design, delivery workflow, and production quality
 

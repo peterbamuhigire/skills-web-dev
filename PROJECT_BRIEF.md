@@ -8,7 +8,7 @@ A curated collection of reusable Claude Code and Codex skills designed to accele
 
 Provide consistent, battle-tested patterns and workflows that can be integrated into any Claude Code project, reducing repeated architectural decisions and raising the quality bar across implementation, review, and planning work.
 
-The same repository is now also structured to work as a Codex skills and instruction system without duplicating the skills or relocating them into a different directory layout.
+The same repository is now also structured to work as a Codex skills and instruction system without duplicating the skills. The standard repository layout keeps active skills under `skills/<skill-name>/SKILL.md`.
 
 ## Strategic Direction
 
@@ -127,20 +127,20 @@ Default loading order for complex engineering work:
 
 ## Repository Shape
 
-The repository is organized as a flat collection of skill folders, each with a `SKILL.md` file and optional `references/`, `scripts/`, or `assets/` directories.
+The repository is organized with root-level project documentation and operational folders, plus a `skills/` catalog. Each active skill lives in `skills/<skill-name>/SKILL.md` with optional `references/`, `scripts/`, or `assets/` directories.
 
-This flat layout is intentional and is the compatibility shape for both Claude Code and Codex.
+The root should contain project docs such as `README.md`, `AGENTS.md`, `CLAUDE.md`, `PROJECT_BRIEF.md`, and `doc-standards.md`, plus `docs/`, `skills/`, and `projects/` where relevant.
 
 Examples:
 
-- `world-class-engineering/`
-- `system-architecture-design/`
-- `database-design-engineering/`
-- `saas-erp-system-design/`
-- `android-development/`
-- `ios-development/`
-- `api-design-first/`
-- `modular-saas-architecture/`
+- `skills/world-class-engineering/`
+- `skills/system-architecture-design/`
+- `skills/database-design-engineering/`
+- `skills/saas-erp-system-design/`
+- `skills/android-development/`
+- `skills/ios-development/`
+- `skills/api-design-first/`
+- `skills/modular-saas-architecture/`
 
 ## Best Practices
 

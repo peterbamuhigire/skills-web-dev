@@ -7,7 +7,7 @@ Quick reference hub for working in this repository.
 - Purpose: shared Claude Code skills library
 - Type: reference and execution-logic repository
 - Usage pattern: skills are authored here and loaded into Claude Code sessions in other projects
-- Dual-compatibility note: the same skill directories are also consumable by Codex through root `AGENTS.md`
+- Dual-compatibility note: the same `skills/<skill-name>/SKILL.md` directories are also consumable by Codex through root `AGENTS.md`
 
 ## Mandatory Documentation Rules
 
@@ -63,7 +63,7 @@ If asked to create a new skill:
 5. preserve Codex compatibility by keeping the skill portable through `SKILL.md` frontmatter and the portable execution sections
 6. align new engineering skills with `world-class-engineering` unless there is a clear reason not to
 
-See `skill-writing/SKILL.md` and `claude-guides/skill-creation-workflow.md`.
+See `skills/skill-writing/SKILL.md` and `claude-guides/skill-creation-workflow.md`.
 
 ### When Modifying Existing Skills
 
@@ -101,23 +101,25 @@ For domain-specific Foundation → Implementation → Validation → Companions 
 Representative layout:
 
 ```text
-|-- world-class-engineering/
-|-- system-architecture-design/
-|-- database-design-engineering/
-|-- saas-erp-system-design/
-|-- git-collaboration-workflow/
-|-- observability-monitoring/
-|-- reliability-engineering/
-|-- advanced-testing-strategy/
-|-- deployment-release-engineering/
-|-- distributed-systems-patterns/
-|-- engineering-management-system/
-|-- android-development/
-|-- ios-development/
-|-- api-design-first/
-|-- modular-saas-architecture/
-|-- multi-tenant-saas-architecture/
-|-- skill-writing/
+|-- docs/
+|-- skills/
+|   |-- world-class-engineering/
+|   |-- system-architecture-design/
+|   |-- database-design-engineering/
+|   |-- saas-erp-system-design/
+|   |-- git-collaboration-workflow/
+|   |-- observability-monitoring/
+|   |-- reliability-engineering/
+|   |-- advanced-testing-strategy/
+|   |-- deployment-release-engineering/
+|   |-- distributed-systems-patterns/
+|   |-- engineering-management-system/
+|   |-- android-development/
+|   |-- ios-development/
+|   |-- api-design-first/
+|   |-- modular-saas-architecture/
+|   |-- multi-tenant-saas-architecture/
+|   `-- skill-writing/
 |-- README.md
 |-- PROJECT_BRIEF.md
 `-- CLAUDE.md
@@ -173,7 +175,7 @@ Use only repository-accepted frontmatter keys. Keep the trigger description spec
 Use the repository validator after editing skills:
 
 ```text
-python -X utf8 skill-writing/scripts/quick_validate.py <skill-directory>
+python -X utf8 skills/skill-writing/scripts/quick_validate.py skills/<skill-directory>
 ```
 
 ### Reading Strategy
@@ -188,7 +190,7 @@ When applying a skill:
 
 - `README.md` - public-facing repository overview
 - `PROJECT_BRIEF.md` - concise repository mission and direction
-- `skill-writing/SKILL.md` - repository-native skill authoring rules
+- `skills/skill-writing/SKILL.md` - repository-native skill authoring rules
 - `doc-standards.md` - markdown limits and formatting rules
 - `claude-guides/` - deeper workflow guides
 

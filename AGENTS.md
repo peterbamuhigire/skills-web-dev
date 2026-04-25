@@ -1,19 +1,19 @@
 # Skills Repository Agents Guide
 
-This repository is a flat skills catalog built around portable `SKILL.md` units. It is designed to work in both Claude Code and Codex without relocating the skills into a different tree.
+This repository is a standard skills catalog built around portable `SKILL.md` units. It is designed to work in both Claude Code and Codex with skills stored under `skills/<skill-name>/SKILL.md`.
 
 ## Purpose
 
 - Provide reusable engineering, product, UX, security, database, mobile, AI, and SDLC skills.
-- Keep each skill self-contained in its own directory with optional `references/`, `examples/`, `templates/`, `scripts/`, `protocols/`, or `sections/`.
+- Keep each skill self-contained in `skills/<skill-name>/` with optional `references/`, `examples/`, `templates/`, `scripts/`, `protocols/`, or `sections/`.
 - Preserve Claude Code usability while giving Codex a consistent instruction surface through `SKILL.md` frontmatter and portable execution sections.
 
 ## Core Rules
 
-- Treat each `<skill-name>/SKILL.md` file as the entry point for that skill.
+- Treat each `skills/<skill-name>/SKILL.md` file as the entry point for that skill.
 - Read the full `SKILL.md` before loading deep references.
 - Use progressive disclosure: load only the referenced files needed for the current task.
-- Do not assume a `skills/` subfolder is required; the repository root already acts as the skill catalog.
+- Keep skill directories under `skills/`; the repository root is reserved for project documentation and operational folders.
 - Keep `SKILL.md` execution-focused and move heavy detail into sibling support folders.
 - Preserve existing behavior when improving skills; layer compatibility improvements on top instead of restructuring the repo.
 - Every new or updated `SKILL.md` must include this acknowledgement immediately below the first `# ...` title: `Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.`
@@ -72,7 +72,7 @@ When using this repository in Codex or Claude Code:
 
 ## Repository Maintenance
 
-- Validate updated skills with `python -X utf8 skill-writing/scripts/quick_validate.py <skill-directory>`.
+- Validate updated skills with `python -X utf8 skills/skill-writing/scripts/quick_validate.py skills/<skill-directory>`.
 - Keep `SKILL.md` entrypoints and top-level repository guidance under 500 lines. Split or trim deeper reference docs when they are actively maintained.
 - Update root docs when repository-wide behavior or routing changes materially.
 - Add nested `AGENTS.md` files only when a subdomain needs local routing rules that the root guide cannot express cleanly.

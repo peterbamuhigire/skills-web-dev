@@ -276,3 +276,21 @@ The PM must sell the vision internally as aggressively as the sales team sells t
 - **Upstream:** None — this is a foundational thinking skill
 - **Downstream:** `product-discovery` (strategy identifies which problems to discover), `competitive-analysis-pm` (stress-tests strategy assumptions)
 - **Related:** `saas-business-metrics` (OKR Key Results should be drawn from SaaS metrics), `lean-ux-validation` (validates product-level assumptions)
+---
+
+## Innovation of meaning vs innovation of solutions (Verganti)
+
+For products in saturated/overcrowded markets, "ship more features" or "out-execute the incumbent" rarely wins. Roberto Verganti's *Overcrowded* (MIT Press, 2016) argues the scarce resource is **direction**, not ideas. Load `references/verganti-overcrowded.md` for the full method. Key contrasts:
+
+- **Innovation of solutions** — better answers to existing questions (the dominant mode of Lean UX, design thinking, JTBD interviews).
+- **Innovation of meaning** — redefines *which questions are worth asking*. Yankee Candle redefined candles from "illumination" to "emotional warmth"; Nest redefined thermostats from "control" to "comfort without controlling".
+
+Verganti's process for innovation of meaning:
+
+1. **Individuals** — autonomous envisioning over ~1 month, using the sentence *"I would love a [solution] that enables me to [experience] because [meaning]"*. The *because* clause is the deliverable.
+2. **Pairs** — sparring partners deepen each hypothesis through trusted criticism.
+3. **Radical circle** — a 15–20 person 2-day workshop ("the meaning factory") where pairs clash and fuse hypotheses; common-enemy framing is the unlock.
+4. **Interpreters** — 6–8 outside experts (bias toward out-of-network) at a 1-day "interpreter's lab" halfway through; their deliverable is a *good question*, not a good idea.
+5. **Customers** — meet *last*, after a vision exists, to test the new framework rather than to source it.
+
+Use innovation-of-meaning work as a separate track from solution work. A team that ships only solution improvements eventually loses the category to a meaning shift it didn't see coming.

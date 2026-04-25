@@ -78,3 +78,19 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 - `product-discovery` for broader opportunity and risk framing.
 - `feature-planning` after discovery is resolved.
 - `webapp-gui-design`, `jetpack-compose-ui`, or `swiftui-design` for platform execution after the flow is defined.
+---
+
+## ARRIVE — Six-stage framework for established firms
+
+For multi-dimensional innovation projects (where business model + technology + user experience all change), the ARRIVE framework is the strongest fit. Load `references/arrive-framework.md` for the full method. Summary:
+
+- **A**udit — environmental scan across user/market/technology/firm; produces the Initial Project Outline and the **Firm's Strategic Innovation Profile** (the load-bearing artefact most enterprise discovery skills miss).
+- **R**esearch — deep ethnographic user understanding, kept separate from synthesis.
+- **R**eframe — explicit reframing stage with the Reframed Project Vision; the "secret sauce" that distinguishes ARRIVE from Lean UX and Design Sprint.
+- **I**deate — diverge then converge to 1–2 strategically-outlined concepts on Concept Boards (A); FVS Sanity Index runs at least monthly.
+- **V**alidate — Lean Canvas + Assumption Map (importance × evidence); high-importance / low-evidence assumptions get tested first.
+- **E**xecute — proves *capacity* to earn revenue at limited scale; produces Concept Board (B), Business Case Dashboard, Execute Test Plan.
+
+The decisive contribution to enterprise UX: **Strategic Suitability** is added to the classic Desirability/Viability/Feasibility triple, addressing the most common late-stage failure mode (the project is desirable, viable, and feasible — but does not fit the firm's portfolio, risk appetite, or executive championship).
+
+Use ARRIVE alongside the existing enterprise-ux-process when the project crosses business-model and technology dimensions, not just UI/UX.

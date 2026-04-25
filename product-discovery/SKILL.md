@@ -112,3 +112,18 @@ Run a 1-2 week cycle:
 
 - `enterprise-ux-process` for feature-definition inside enterprise delivery environments.
 - `feature-planning` once the opportunity passes discovery.
+---
+
+## ARRIVE: separating Research from Reframe
+
+Many discovery processes collapse "research" and "synthesis" into one phase, which is exactly the failure mode that produces decks nobody acts on. The ARRIVE framework treats them as distinct stages — Research is ethnographic gathering, Reframe is the deliberate scope-and-meaning shift that names what to build against.
+
+Load `references/arrive-framework.md` for:
+
+- The two-R front end (Research, then Reframe — never collapsed).
+- The Persona Needs Matrix and the Reframed Project Vision template that locks in scope.
+- The Concept Board (A) for low-fidelity concepts that test the *idea*, not the polish.
+- The Assumption Map (importance × evidence) that prioritises which assumptions to validate first.
+- Strategic Suitability as a fourth dimension alongside Desirability/Viability/Feasibility.
+
+Use ARRIVE's Reframe stage as a hard checkpoint: the client signs off on the new frame before any concept work begins. Without that gate, ideation becomes unanchored.

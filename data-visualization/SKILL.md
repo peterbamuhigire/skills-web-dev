@@ -478,3 +478,17 @@ Apply this checklist to every data visualisation before sharing:
 - Lidwell, Holden, Butler. *Universal Principles of Design.* Rockport, 2010.
 - Ware, Colin. *Information Visualization: Perception for Design.* Morgan Kaufmann, 2004.
 - Atkinson, Cliff. *Beyond Bullet Points.* Microsoft Press, 2011.
+---
+
+## Beyond Knaflic: building custom visualisations
+
+When the task requires hand-building a chart in HTML/SVG/CSS/JS rather than dropping in a charting library, load `references/svg-css-js-implementation.md`. It covers:
+
+- The four-language framing (HTML structure, SVG geometry, CSS styling, JS data-binding) from Peter Cook's *Fundamentals of HTML, SVG, CSS and JavaScript for Data Visualisation* (Leanpub, 2022).
+- SVG primitives — `line`, `rect`, `circle`, `text`, `g`, `path` — with exact attribute syntax, transforms (translate, rotate, scale), and the SVG-namespace gotcha for `createElementNS`.
+- D3 patterns supplementing the book: selections, enter/update/exit + v7 `.join()`, the full set of scales (linear, log, time, band, ordinal, sequential), axes, and generators (line, area, arc, pie, stack).
+- Responsive viz with `viewBox` + `ResizeObserver`.
+- Accessibility for SVG: `role="img"`, `<title>`, `<desc>`, `aria-label`, reduced-motion support.
+- Runnable skeletons for bar / line / scatter / donut / stacked-area.
+
+Use this when a charting library would not give the visual control or the bespoke interaction the design needs.

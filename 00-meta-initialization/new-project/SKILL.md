@@ -96,6 +96,7 @@ After the interview, Claude performs these actions in order:
 
 Also create **`projects/<ProjectName>/export/`** — deliverable export folder:
 - Create an empty `export/` directory with a `.gitkeep` file.
+- Treat `export/`, `export-docs.ps1`, and `export-docs.sh` as required project-root paths for every project that generates Word deliverables.
 - Create **`projects/<ProjectName>/export-docs.sh`** — bash export script:
 
 ```bash

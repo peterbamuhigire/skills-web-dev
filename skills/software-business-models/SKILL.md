@@ -1,8 +1,16 @@
 ---
 name: software-business-models
-description: Business model frameworks for software companies. Covers products vs
-  services vs hybrid models, platform business models, subscription vs perpetual licensing,
-  open source strategies, the services-to-product transition, and startup survival...
+description: "Use when choosing, evaluating, or transitioning between software business models — products vs services vs hybrid, platform mechanics, subscription vs perpetual licensing, open-source strategies, and the services-to-product transition. Applies Cusumano's frameworks for revenue model design, startup survival patterns, and go-to-market alignment."
+user-invocable: true
+triggers:
+  - choose business model
+  - product vs service
+  - SaaS business model
+  - services to product transition
+  - open source strategy
+  - platform business model
+  - software licensing model
+  - startup revenue model
 metadata:
   portable: true
   compatible_with:
@@ -11,46 +19,61 @@ metadata:
 ---
 
 # Software Business Models
+
 Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 
 <!-- dual-compat-start -->
 ## Use When
 
-- Business model frameworks for software companies. Covers products vs services vs hybrid models, platform business models, subscription vs perpetual licensing, open source strategies, the services-to-product transition, and startup survival...
-- The task needs reusable judgment, domain constraints, or a proven workflow rather than ad hoc advice.
+- Choosing a business model for a new software product or company
+- Evaluating whether to pivot from services to products (or vice versa)
+- Designing a revenue strategy that balances recurring income and services income
+- Deciding whether to open-source part of the technology stack
+- Advising on platform business model mechanics (two-sided markets, cold start)
+- Comparing subscription vs perpetual licensing for an enterprise product
 
 ## Do Not Use When
 
-- The task is unrelated to `software-business-models` or would be better handled by a more specific companion skill.
-- The request only needs a trivial answer and none of this skill's constraints or references materially help.
+- Setting specific price points or pricing tiers — use `software-pricing-strategy` instead
+- Tracking SaaS metrics (MRR, churn, LTV) — use `saas-business-metrics` instead
+- Designing the technical multi-tenant architecture — use `multi-tenant-saas-architecture` instead
 
 ## Required Inputs
 
-- Gather relevant project context, constraints, and the concrete problem to solve.
-- Confirm the desired deliverable: design, code, review, migration plan, audit, or documentation.
+- Current business context: services-only, product-only, or hybrid
+- Target market size and customer profile (enterprise, SMB, consumer)
+- Capital constraints and revenue timeline expectations
+- Competitive landscape and defensibility factors
 
 ## Workflow
 
-- Read this `SKILL.md` first, then load only the referenced deep-dive files that are necessary for the task.
-- Apply the ordered guidance, checklists, and decision rules in this skill instead of cherry-picking isolated snippets.
-- Produce the deliverable with assumptions, risks, and follow-up work made explicit when they matter.
+1. Read this `SKILL.md` for the business model frameworks and decision tree
+2. Classify the current and target business model using the three-model spectrum (section 1)
+3. If transitioning, apply the services-to-product framework (section 2)
+4. Evaluate platform mechanics if applicable (section 3)
+5. Select licensing model (section 4) and open-source strategy if relevant (section 5)
+6. Validate against startup survival patterns (section 6)
+7. Document the decision as an ADR with key assumptions and risks
 
 ## Quality Standards
 
-- Keep outputs execution-oriented, concise, and aligned with the repository's baseline engineering standards.
-- Preserve compatibility with existing project conventions unless the skill explicitly requires a stronger standard.
-- Prefer deterministic, reviewable steps over vague advice or tool-specific magic.
+- Ground recommendations in the specific market context, not generic advice
+- Quantify gross margin expectations for each model option considered
+- Address the cash flow timing gap between services and product revenue explicitly
+- Validate unit economics at realistic scale (100 customers, not 10,000)
 
 ## Anti-Patterns
 
-- Treating examples as copy-paste truth without checking fit, constraints, or failure modes.
-- Loading every reference file by default instead of using progressive disclosure.
+- Choosing products over services purely for valuation multiples without validating market fit
+- Delaying the product transition indefinitely because services cover payroll
+- Open-sourcing before product/market fit is established
+- Building a platform before solving the cold-start problem on at least one side
 
 ## Outputs
 
-- A concrete result that fits the task: implementation guidance, review findings, architecture decisions, templates, or generated artifacts.
-- Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
-- References used, companion skills, or follow-up actions when they materially improve execution.
+- Business model decision record (ADR format) with chosen model and key assumptions
+- Revenue model comparison with gross margin projections per option
+- Transition plan with quarterly milestones if changing models
 
 ## Evidence Produced
 

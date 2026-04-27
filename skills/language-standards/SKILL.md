@@ -1,8 +1,16 @@
 ---
 name: language-standards
-description: Language and tone standards for all written content across 3 languages
-  — English (British, East African), French (Francophone African), and Kiswahili (East
-  African standard). Enforces authentic, culturally appropriate, professional communication...
+description: "Use when writing or reviewing user-facing content in English (British, East African), French (Francophone African), or Kiswahili (East African standard). Enforces culturally authentic, professionally courteous tone and correct grammar across all three languages. Covers spelling conventions, date/number formats, CTAs, courteous phrasing, and country-specific tone adjustments."
+user-invocable: true
+triggers:
+  - language standards
+  - tone review
+  - multilingual copy
+  - British English style
+  - East African English
+  - French copy review
+  - Kiswahili content
+  - content localization
 metadata:
   portable: true
   compatible_with:
@@ -11,46 +19,57 @@ metadata:
 ---
 
 # Language Standards — Multi-Language Tone & Grammar
+
 Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 
 <!-- dual-compat-start -->
 ## Use When
 
-- Language and tone standards for all written content across 3 languages — English (British, East African), French (Francophone African), and Kiswahili (East African standard). Enforces authentic, culturally appropriate, professional communication...
-- The task needs reusable judgment, domain constraints, or a proven workflow rather than ad hoc advice.
+- Writing or reviewing website copy, headings, CTAs, descriptions, or microcopy in English, French, or Kiswahili
+- Auditing existing content for tone consistency and cultural appropriateness across supported languages
+- Localising content for East African or Francophone African markets
+- Ensuring British English spelling and formal East African professional tone in all English content
 
 ## Do Not Use When
 
-- The task is unrelated to `language-standards` or would be better handled by a more specific companion skill.
-- The request only needs a trivial answer and none of this skill's constraints or references materially help.
+- Writing purely internal technical documentation not seen by end users
+- The content is in a language not covered here (English, French, Kiswahili only)
+- Writing marketing copy that intentionally departs from formal tone (confirm with stakeholders first)
 
 ## Required Inputs
 
-- Gather relevant project context, constraints, and the concrete problem to solve; load `references` only as needed.
-- Confirm the desired deliverable: design, code, review, migration plan, audit, or documentation.
+- Target language(s) for the content
+- Content type (website copy, CTA buttons, notifications, email, documentation)
+- Target audience context (country, formality level, domain)
 
 ## Workflow
 
-- Read this `SKILL.md` first, then load only the referenced deep-dive files that are necessary for the task.
-- Apply the ordered guidance, checklists, and decision rules in this skill instead of cherry-picking isolated snippets.
-- Produce the deliverable with assumptions, risks, and follow-up work made explicit when they matter.
+1. Read this `SKILL.md` for core principles and English standards
+2. Load `references/skill-deep-dive.md` for detailed rules on spelling, dates, country-specific tone, French, and Kiswahili
+3. Apply the six core principles (clear, formal, no hype, professionally indirect, measured confidence, culturally authentic)
+4. Review all content against the language-specific rules for the target language
+5. Verify consistent verb tense within each section and consistent terminology across pages
 
 ## Quality Standards
 
-- Keep outputs execution-oriented, concise, and aligned with the repository's baseline engineering standards.
-- Preserve compatibility with existing project conventions unless the skill explicitly requires a stronger standard.
-- Prefer deterministic, reviewable steps over vague advice or tool-specific magic.
+- British English spelling throughout (colour, organisation, licence as noun)
+- Simple present or past tense preferred over progressive forms
+- Consistent verb tense within each section — no mixing past and present
+- Courteous, formally indirect phrasing that respects East African communication norms
+- No slang, exaggeration, or excessive marketing language
 
 ## Anti-Patterns
 
-- Treating examples as copy-paste truth without checking fit, constraints, or failure modes.
-- Loading every reference file by default instead of using progressive disclosure.
+- Using American English spelling in a British English context
+- Switching between formal and informal tone within the same page
+- Direct imperative commands without courteous softening
+- Machine-translating English copy into French or Kiswahili without cultural adaptation
+- Ignoring country-specific tone differences (Uganda vs Kenya vs Tanzania)
 
 ## Outputs
 
-- A concrete result that fits the task: implementation guidance, review findings, architecture decisions, templates, or generated artifacts.
-- Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
-- References used, companion skills, or follow-up actions when they materially improve execution.
+- Reviewed or written content that meets the language standards for the target language
+- Multilingual copy audit documenting tone, style, and grammar findings per page
 
 ## Evidence Produced
 

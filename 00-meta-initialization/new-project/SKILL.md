@@ -1,15 +1,18 @@
 ---
-name: "new-project"
-description: "Use when the task matches skill: new project scaffold and this skill's local workflow."
+name: new-project
+description: "Use when starting a new software project to scaffold the full directory structure, context files, and documentation status tracker. Runs a 4-question interview to determine project name, vision, methodology (Waterfall/Agile/Hybrid), and owner, then auto-deduces domain and injects defaults. Follows the PRIME methodology."
+user-invocable: true
+triggers:
+  - start a new project
+  - create a new project
+  - scaffold a project
+  - new client project
+  - initialize project
 metadata:
-  use_when: "Use when the task matches skill: new project scaffold and this skill's local workflow."
-  do_not_use_when: "Do not use when a more specific upstream or downstream skill owns the task, or when the required project context has not been prepared."
-  required_inputs: "Provide the target project or document, the relevant context files, scope constraints, and any domain or standards inputs referenced here."
-  workflow: "Follow the ordered steps, review gates, and local generation logic in this file before consulting deeper support files as needed."
-  quality_standards: "Keep outputs grounded in source context, traceable to stated standards, and specific enough to review or verify."
-  anti_patterns: "Do not fabricate missing requirements, skip human review gates, or substitute vague prose for verifiable documentation."
-  outputs: "Produce or update the document, scaffold, analysis, or phase artifact that this skill defines."
-  references: "Use sibling files in this directory when deeper detail is needed."
+  portable: true
+  compatible_with:
+  - claude-code
+  - codex
 ---
 
 # Skill: New Project Scaffold

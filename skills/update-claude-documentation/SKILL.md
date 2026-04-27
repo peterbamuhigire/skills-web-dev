@@ -1,8 +1,14 @@
 ---
-name: update-claude-documentation
-description: Update project documentation files (README.md, PROJECT_BRIEF.md, TECH_STACK.md,
-  ARCHITECTURE.md, docs/API.md, docs/DATABASE.md, CLAUDE.md, docs/plans/NEXT_FEATURES.md)
-  when significant changes occur. MANDATORY at end of each work session to...
+name: update-project-documentation
+description: "Use when you need to systematically update project documentation (README.md, PROJECT_BRIEF.md, TECH_STACK.md, ARCHITECTURE.md, docs/API.md, docs/DATABASE.md, CLAUDE.md, docs/plans/NEXT_FEATURES.md) after code changes, at end-of-session, or when closing for the day. Ensures all docs tell one cohesive story across audiences."
+user-invocable: true
+triggers:
+  - update project documentation
+  - update docs
+  - close for the day
+  - end of session docs
+  - sync documentation
+  - refresh project docs
 metadata:
   portable: true
   compatible_with:
@@ -10,57 +16,64 @@ metadata:
   - codex
 ---
 
-## Platform Notes
-
-- Optional helper plugins may help in some environments, but they must not be treated as required for this skill.
-
 # Update Claude Documentation
+
 Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 
 <!-- dual-compat-start -->
 ## Use When
 
-- Update project documentation files (README.md, PROJECT_BRIEF.md, TECH_STACK.md, ARCHITECTURE.md, docs/API.md, docs/DATABASE.md, CLAUDE.md, docs/plans/NEXT_FEATURES.md) when significant changes occur. MANDATORY at end of each work session to...
-- The task needs reusable judgment, domain constraints, or a proven workflow rather than ad hoc advice.
+- Updating project documentation (README.md, PROJECT_BRIEF.md, TECH_STACK.md, ARCHITECTURE.md, docs/API.md, docs/DATABASE.md, CLAUDE.md, docs/plans/NEXT_FEATURES.md) after significant code or architecture changes
+- Closing a work session and need to preserve context for the next session
+- Adding, removing, or modifying features that affect multiple documentation files
+- Restructuring project directories or changing development workflows
 
 ## Do Not Use When
 
-- The task is unrelated to `update-claude-documentation` or would be better handled by a more specific companion skill.
-- The request only needs a trivial answer and none of this skill's constraints or references materially help.
+- Making typo-only fixes (edit the file directly)
+- Updating code comments (not documentation scope)
+- Working on WIP features not yet merged to the main branch
 
 ## Required Inputs
 
-- Gather relevant project context, constraints, and the concrete problem to solve; load `references` only as needed.
-- Confirm the desired deliverable: design, code, review, migration plan, audit, or documentation.
+- The type of change made (feature, architecture, tech stack, API, database)
+- Which files or modules were affected
+- Whether the change is breaking or non-breaking
 
 ## Workflow
 
-- Read this `SKILL.md` first, then load only the referenced deep-dive files that are necessary for the task.
-- Apply the ordered guidance, checklists, and decision rules in this skill instead of cherry-picking isolated snippets.
-- Produce the deliverable with assumptions, risks, and follow-up work made explicit when they matter.
+1. Read this `SKILL.md`, then load only the `references/` files relevant to the current change type
+2. Identify all affected documentation files using the Change-to-File mapping below
+3. Read current state of all affected files before editing
+4. Update files in specific-to-general order: technical specs first, then architecture, then user-facing docs
+5. Verify cross-file consistency (terminology, versions, paths, component names)
+6. Update `docs/plans/NEXT_FEATURES.md` — mandatory at every session end
 
 ## Quality Standards
 
-- Keep outputs execution-oriented, concise, and aligned with the repository's baseline engineering standards.
-- Preserve compatibility with existing project conventions unless the skill explicitly requires a stronger standard.
-- Prefer deterministic, reviewable steps over vague advice or tool-specific magic.
+- All markdown files must stay under the 500-line hard limit
+- CLAUDE.md must stay under 10k characters as a navigation hub, not a content dump
+- Keep outputs execution-oriented and concise
+- Prefer deterministic, reviewable steps over vague advice
 
 ## Anti-Patterns
 
-- Treating examples as copy-paste truth without checking fit, constraints, or failure modes.
-- Loading every reference file by default instead of using progressive disclosure.
+- Updating only one file when multiple files reference the same concept
+- Using inconsistent terminology across files (pick one term and use it everywhere)
+- Bloating CLAUDE.md with detailed guides that belong in `docs/` subdirectories
+- Updating general docs before specific docs (always go specific-to-general)
 
 ## Outputs
 
-- A concrete result that fits the task: implementation guidance, review findings, architecture decisions, templates, or generated artifacts.
-- Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
-- References used, companion skills, or follow-up actions when they materially improve execution.
+- Updated documentation files that reflect the current state of the codebase
+- End-of-session completion document at `docs/plans/YYYY-MM-DD-[feature-name]-completion.md`
+- Updated `docs/plans/NEXT_FEATURES.md` with completed work and revised priorities
 
 ## Evidence Produced
 
 | Category | Artifact | Format | Example |
 |----------|----------|--------|---------|
-| Release evidence | Documentation update record | Markdown doc tracking changes made to README.md, PROJECT_BRIEF.md, TECH_STACK.md, ARCHITECTURE.md, docs/API.md, and docs/DATABASE.md | `docs/updates/doc-update-2026-04-16.md` |
+| Release evidence | Documentation update record | Markdown doc tracking changes made across all affected documentation files | `docs/updates/doc-update-2026-04-16.md` |
 
 ## References
 

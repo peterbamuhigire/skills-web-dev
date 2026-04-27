@@ -1,8 +1,15 @@
 ---
 name: ux-for-ai
-description: AI interface design framework for building AI-powered features that feel
-  premium, trustworthy, and world-class — not sloppy or robotic. Covers trust/transparency
-  principles, avoiding AI slop, human oversight requirements, onboarding AI features...
+description: "Use when designing or reviewing AI-powered features (chatbots, copilots, search, recommendations, generative outputs) to ensure they feel premium, trustworthy, and world-class. Applies the RETCH trust framework, progressive disclosure for AI capabilities, human oversight requirements, and graceful error degradation patterns. Based on Nudelman (2024)."
+user-invocable: true
+triggers:
+  - design AI feature
+  - AI UX review
+  - chatbot UX
+  - copilot design
+  - AI trust patterns
+  - AI onboarding
+  - review AI interface
 metadata:
   portable: true
   compatible_with:
@@ -11,46 +18,58 @@ metadata:
 ---
 
 # UX for AI — Design Framework
+
 Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 
 <!-- dual-compat-start -->
 ## Use When
 
-- AI interface design framework for building AI-powered features that feel premium, trustworthy, and world-class — not sloppy or robotic. Covers trust/transparency principles, avoiding AI slop, human oversight requirements, onboarding AI features...
-- The task needs reusable judgment, domain constraints, or a proven workflow rather than ad hoc advice.
+- Building any AI-powered feature, chatbot, copilot, or AI search interface
+- Designing AI recommendations, anomaly detection, or generative output surfaces
+- Reviewing existing AI features for trust, transparency, and premium feel
+- Onboarding users to AI capabilities without overwhelming them
+- Avoiding the "AI slop" feeling in AI-assisted products
 
 ## Do Not Use When
 
-- The task is unrelated to `ux-for-ai` or would be better handled by a more specific companion skill.
-- The request only needs a trivial answer and none of this skill's constraints or references materially help.
+- The feature has no AI component — use general UX skills instead
+- Building backend AI infrastructure with no user-facing surface
+- The task is purely about ML model accuracy or training, not user experience
 
 ## Required Inputs
 
-- Gather relevant project context, constraints, and the concrete problem to solve.
-- Confirm the desired deliverable: design, code, review, migration plan, audit, or documentation.
+- The AI feature type (chatbot, copilot, search, recommendations, generative)
+- Target user context (domain expertise level, risk tolerance, task complexity)
+- Whether this is new feature design or an audit of existing AI UX
 
 ## Workflow
 
-- Read this `SKILL.md` first, then load only the referenced deep-dive files that are necessary for the task.
-- Apply the ordered guidance, checklists, and decision rules in this skill instead of cherry-picking isolated snippets.
-- Produce the deliverable with assumptions, risks, and follow-up work made explicit when they matter.
+1. Read this `SKILL.md` for core principles and patterns
+2. Identify which RETCH principles (Restate, Calibrate, Explain, Transparent, Human oversight) apply
+3. Apply the relevant design patterns from sections 2-7 below
+4. Validate against the anti-patterns checklist in section 8
+5. Produce the deliverable with explicit assumptions about AI accuracy and failure modes
 
 ## Quality Standards
 
-- Keep outputs execution-oriented, concise, and aligned with the repository's baseline engineering standards.
-- Preserve compatibility with existing project conventions unless the skill explicitly requires a stronger standard.
-- Prefer deterministic, reviewable steps over vague advice or tool-specific magic.
+- Every AI interaction must leave the user holding something useful ("never leave empty-handed")
+- All AI error-recovery procedures must be visible on screen, not hidden in documentation
+- Manual fallback paths must exist for every AI-assisted workflow
+- Confidence levels must be communicated when AI output accuracy varies
 
 ## Anti-Patterns
 
-- Treating examples as copy-paste truth without checking fit, constraints, or failure modes.
-- Loading every reference file by default instead of using progressive disclosure.
+- Replacing an expert directly — AI should assist and augment, never compete
+- Chat-only information architecture — chat is a command line, not a complete product
+- Copying ChatGPT patterns blindly — invent patterns suited to your specific use case
+- Optimising on accuracy metrics alone — real-world ROI is the metric that matters
+- Large overlay copilot panels that obscure parent content — use side panels instead
 
 ## Outputs
 
-- A concrete result that fits the task: implementation guidance, review findings, architecture decisions, templates, or generated artifacts.
-- Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
-- References used, companion skills, or follow-up actions when they materially improve execution.
+- AI surface design specification with trust/transparency patterns applied
+- Error state and graceful degradation design for AI failure modes
+- Human oversight control placement (start, stop, pause, approve)
 
 ## Evidence Produced
 

@@ -1,0 +1,227 @@
+# Project Documentation Methodology
+
+**Project:** [Project Name]
+**Selected Methodology:** [Waterfall / Agile / Hybrid]
+**Selection Date:** [Date]
+**Confidence Score:** [XX%]
+
+---
+
+## Methodology Selection
+
+### Chosen Approach: [Waterfall / Agile / Hybrid]
+
+**Rationale:**
+
+[Explanation of why this methodology was selected based on project characteristics]
+
+---
+
+## Project Characteristics
+
+### Regulatory & Compliance Requirements
+
+- **Regulated Industry:** [Yes / No]
+- **Standards Required:** [FDA, FAA, HIPAA, GDPR, SOC2, PCI-DSS, None]
+- **Safety-Critical:** [Yes / No]
+- **Compliance Audit Required:** [Yes / No]
+
+### Project Profile
+
+- **Project Type:** [Greenfield / Brownfield / Startup/MVP / Enterprise]
+- **Scope Stability:** [Fixed / Evolving / Highly Uncertain]
+- **Contract Type:** [Fixed-Price / Time & Materials / Internal Project]
+- **Team Size:** [Solo / Small (2-5) / Medium (6-15) / Large (15+)]
+- **Development Pace:** [Rapid / Moderate / Methodical]
+
+### Technical Stack
+
+- **Primary Language:** [PHP / JavaScript / Python / C# / Java / Other]
+- **Framework:** [Laravel / React / Django / .NET / Spring / Other]
+- **Database:** [MySQL / PostgreSQL / MongoDB / SQL Server / Other]
+- **Deployment:** [Shared Hosting / Docker / Kubernetes / Cloud (AWS/Azure/GCP)]
+
+---
+
+## Active Documentation Pipelines
+
+Based on the selected methodology, the following documentation pipelines are **ACTIVE**:
+
+### ✅ Active Phases
+
+[For Waterfall:]
+- **Phase 01:** Strategic Vision (Optional)
+  - 01-prd-generation (if needed for stakeholder alignment)
+
+- **Phase 02:** Requirements Engineering - Waterfall Track
+  - 01-initialize-srs
+  - 02-context-engineering
+  - 03-descriptive-modeling
+  - 04-interface-specification
+  - 05-feature-decomposition
+  - 06-logic-modeling
+  - 07-attribute-mapping
+  - 08-semantic-auditing
+
+- **Phase 03:** Design Documentation
+  - 01-high-level-design
+  - 02-low-level-design
+  - 03-api-specification
+  - 04-database-design
+
+- **Phase 05:** Testing Documentation
+  - 01-test-strategy
+  - 02-test-plans
+  - 03-test-cases
+
+- **Phase 06:** Deployment & Operations
+  - 01-deployment-guide
+  - 02-runbook-generation
+
+- **Phase 09:** Governance & Compliance
+  - 01-traceability-matrix
+  - 02-audit-reports
+  - 03-compliance-docs
+
+[For Agile:]
+- **Phase 01:** Strategic Vision (Mandatory)
+  - 01-prd-generation (lightweight PRD)
+
+- **Phase 02:** Requirements Engineering - Agile Track
+  - 01-user-story-generation
+  - 02-acceptance-criteria
+  - 03-story-mapping
+  - 04-backlog-prioritization
+
+- **Phase 03:** Design Documentation (Lightweight)
+  - 01-high-level-design (HLD only, skip LLD)
+
+- **Phase 05:** Testing Documentation
+  - 02-test-plans (lightweight, per sprint)
+  - 03-test-cases (from acceptance criteria)
+
+- **Phase 07:** Agile Artifacts
+  - 01-sprint-planning
+  - 02-definition-of-done
+  - 03-definition-of-ready
+  - 04-retrospectives
+
+- **Phase 08:** End-User Documentation
+  - 01-user-manual (post-MVP)
+  - 03-troubleshooting
+
+### ❌ Disabled Phases
+
+[List phases that are NOT applicable for the selected methodology]
+
+---
+
+## Documentation Standards
+
+All documentation generated will comply with:
+
+### Waterfall Standards
+- IEEE Std 830-1998 (Software Requirements Specifications)
+- IEEE Std 1233-1998 (System Requirements Development)
+- IEEE Std 1012-2016 (Verification and Validation)
+- IEEE Std 1016-2009 (Software Design Descriptions)
+- ISO/IEC 25010 (Software Product Quality)
+
+### Agile Standards
+- IEEE Std 29148-2018 (Requirements Engineering)
+- INVEST Criteria (User Story Quality)
+- Behavior-Driven Development (BDD) for acceptance criteria
+- Story Mapping (Jeff Patton methodology)
+
+### Universal Standards
+- IEEE Std 610.12-1990 (Software Engineering Terminology)
+- ISO 26514 (User Documentation)
+- OpenAPI 3.0 (API Documentation)
+
+---
+
+## Quality Gates
+
+### Waterfall Quality Gates
+
+1. **Requirements Gate:** SRS must pass IEEE 830 conformance audit
+2. **Design Gate:** HLD/LLD must have traceability to requirements
+3. **Testing Gate:** Test cases must cover 100% of SHALL statements
+4. **Compliance Gate:** RTM must show complete traceability
+
+### Agile Quality Gates
+
+1. **Story Gate:** All stories must pass INVEST validation
+2. **Sprint Gate:** DoD must be met for all stories
+3. **Release Gate:** User acceptance testing complete
+4. **Documentation Gate:** User manual updated for new features
+
+---
+
+## Change Management
+
+### Methodology Changes
+
+If project characteristics change and a different methodology becomes more appropriate:
+
+1. Re-run `00-meta-initialization` skill
+2. Document reason for change in this file
+3. Create transition plan (migrate docs from old to new format)
+4. Notify all stakeholders of methodology shift
+
+### Hybrid Adjustments
+
+If running Hybrid methodology:
+
+**Backend (Waterfall):**
+- Components: [List regulated/critical components using Waterfall]
+- Reason: [Compliance, safety-critical, fixed-scope]
+
+**Frontend (Agile):**
+- Components: [List components using Agile]
+- Reason: [Rapid iteration, user feedback, evolving requirements]
+
+---
+
+## Next Steps
+
+### Immediate Actions
+
+1. **Review this file** with project stakeholders/team
+2. **Confirm methodology selection** is appropriate
+3. **Review `doc_roadmap.md`** for execution plan
+4. **Run first documentation skill** (see doc_roadmap.md for guidance)
+
+### First Skill to Execute
+
+[For Waterfall:]
+```bash
+Run skill: 02-requirements-engineering/waterfall/01-initialize-srs
+```
+
+[For Agile:]
+```bash
+Run skill: 01-strategic-vision/01-prd-generation
+Then: 02-requirements-engineering/agile/01-user-story-generation
+```
+
+---
+
+## Methodology Review Schedule
+
+**Review Frequency:** [Quarterly / Per Sprint / Per Milestone]
+**Next Review Date:** [Date]
+**Review Criteria:** Check if project characteristics still match selected methodology
+
+---
+
+## Approval
+
+**Methodology Selected By:** [Name/Role]
+**Approved By:** [Stakeholder Name/Role]
+**Date:** [Date]
+
+---
+
+**Last Updated:** [Date]
+**Version:** 1.0

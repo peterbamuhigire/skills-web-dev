@@ -1,0 +1,361 @@
+# Documentation Roadmap: [Project Name]
+
+**Methodology:** [Waterfall / Agile / Hybrid]
+**Generated:** [Date]
+**Project Phase:** [Planning / Development / Testing / Deployment / Maintenance]
+
+---
+
+## Executive Summary
+
+This roadmap outlines all documentation to be generated for [Project Name] using the [Methodology] approach.
+
+**Estimated Timeline:** [X weeks/sprints]
+**Critical Path:** [List blocking documentation items]
+**Stakeholders:** [List key stakeholders who will review/approve docs]
+
+---
+
+## Documentation Pipeline Status
+
+| Phase | Skill | Status | Priority | Estimated Effort | Due Date |
+|-------|-------|--------|----------|------------------|----------|
+| 01 | Strategic Vision | ⏳ Pending | High | 1 day | [Date] |
+| 02 | Requirements Engineering | ⏳ Pending | Critical | 2 weeks | [Date] |
+| 03 | Design Documentation | ⏳ Pending | High | 1 week | [Date] |
+| 05 | Testing Documentation | ⏳ Pending | Medium | 3 days | [Date] |
+| ... | ... | ... | ... | ... | ... |
+
+**Legend:**
+- ⏳ Pending - Not started
+- 🚧 In Progress - Currently executing
+- ✅ Completed - Finished and approved
+- ⏸️ Paused - Blocked or waiting
+- ❌ Skipped - Not applicable
+
+---
+
+## Phase 01: Strategic Vision
+
+### Purpose
+Establish product vision, goals, and high-level requirements.
+
+### Skills to Execute
+
+#### 01-prd-generation
+- **Description:** Generate Product Requirements Document
+- **Input:** Project vision, stakeholder interviews
+- **Output:** `projects/<ProjectName>/01-strategic-vision/.../PRD.md`
+- **Estimated Time:** [X hours/days]
+- **Priority:** [Critical / High / Medium / Low]
+- **Status:** ⏳ Pending
+- **Prerequisites:** None
+- **Command:** `Run skill: 01-strategic-vision/01-prd-generation`
+
+---
+
+## Phase 02: Requirements Engineering
+
+### Purpose
+[For Waterfall:] Document comprehensive, verifiable requirements per IEEE 830.
+[For Agile:] Generate user stories with acceptance criteria.
+
+### Skills to Execute
+
+[For Waterfall:]
+
+#### 01-initialize-srs
+- **Description:** Initialize SRS context files
+- **Input:** Project vision, tech stack, business rules
+- **Output:** Context templates in `projects/<ProjectName>/_context/`
+- **Estimated Time:** 2 hours
+- **Priority:** Critical
+- **Status:** ⏳ Pending
+- **Prerequisites:** None
+- **Command:** `Run skill: 02-requirements-engineering/waterfall/01-initialize-srs`
+
+#### 02-context-engineering
+- **Description:** Generate SRS Section 1.0 (Introduction)
+- **Input:** `vision.md`, `glossary.md`
+- **Output:** `projects/<ProjectName>/02-requirements-engineering/.../SRS_Draft.md` Section 1.0
+- **Estimated Time:** 4 hours
+- **Priority:** Critical
+- **Status:** ⏳ Pending
+- **Prerequisites:** 01-initialize-srs
+- **Command:** `Run skill: 02-requirements-engineering/waterfall/02-context-engineering`
+
+[Continue for all 8 phases...]
+
+[For Agile:]
+
+#### 01-user-story-generation
+- **Description:** Generate INVEST-compliant user stories
+- **Input:** `features.md`, `personas.md`
+- **Output:** `projects/<ProjectName>/02-requirements-engineering/.../user_stories.md`, `story_map.mmd`
+- **Estimated Time:** 1 day
+- **Priority:** Critical
+- **Status:** ⏳ Pending
+- **Prerequisites:** 01-strategic-vision/01-prd-generation
+- **Command:** `Run skill: 02-requirements-engineering/agile/01-user-story-generation`
+
+[Continue for all Agile skills...]
+
+---
+
+## Phase 03: Design Documentation
+
+### Purpose
+Document system architecture and detailed design.
+
+### Skills to Execute
+
+#### 01-high-level-design
+- **Description:** Generate HLD with C4 diagrams
+- **Input:** Requirements (SRS or User Stories), `tech_stack.md`
+- **Output:** `projects/<ProjectName>/03-design-documentation/.../HLD.md`, architecture diagrams
+- **Estimated Time:** [X days]
+- **Priority:** High
+- **Status:** ⏳ Pending
+- **Prerequisites:** Phase 02 complete
+- **Command:** `Run skill: 03-design-documentation/01-high-level-design`
+
+#### 02-low-level-design (Waterfall only)
+- **Description:** Generate LLD with class/sequence diagrams
+- **Input:** `HLD.md`, detailed requirements
+- **Output:** `projects/<ProjectName>/03-design-documentation/.../LLD.md`
+- **Estimated Time:** [X days]
+- **Priority:** High
+- **Status:** [⏳ Pending / ❌ Skipped for Agile]
+- **Prerequisites:** 01-high-level-design
+- **Command:** `Run skill: 03-design-documentation/02-low-level-design`
+
+---
+
+## Phase 05: Testing Documentation
+
+### Purpose
+Define test strategy and create test plans/cases.
+
+### Skills to Execute
+
+#### 01-test-strategy
+- **Description:** Define overall testing approach
+- **Input:** Requirements, quality standards
+- **Output:** `projects/<ProjectName>/05-testing-documentation/.../Test_Strategy.md`
+- **Estimated Time:** [X hours]
+- **Priority:** Medium
+- **Status:** ⏳ Pending
+- **Prerequisites:** Phase 02 complete
+- **Command:** `Run skill: 05-testing-documentation/01-test-strategy`
+
+---
+
+## Phase 06: Deployment & Operations
+
+### Purpose
+Document deployment procedures and operational runbooks.
+
+### Skills to Execute
+
+#### 01-deployment-guide
+- **Description:** Step-by-step deployment instructions
+- **Input:** `tech_stack.md`, infrastructure setup
+- **Output:** `projects/<ProjectName>/06-deployment-operations/.../Deployment_Guide.md`
+- **Estimated Time:** [X hours]
+- **Priority:** Medium
+- **Status:** ⏳ Pending
+- **Prerequisites:** Phase 03 complete
+- **Command:** `Run skill: 06-deployment-operations/01-deployment-guide`
+
+---
+
+## Phase 07: Agile Artifacts (Agile Only)
+
+### Purpose
+Generate sprint-level artifacts for Agile teams.
+
+### Skills to Execute
+
+#### 01-sprint-planning
+- **Description:** Create sprint backlog from product backlog
+- **Input:** `user_stories.md`, team velocity
+- **Output:** `projects/<ProjectName>/07-agile-artifacts/.../sprint_X_backlog.md`
+- **Estimated Time:** 2 hours per sprint
+- **Priority:** High
+- **Status:** [⏳ Pending / ❌ Skipped for Waterfall]
+- **Prerequisites:** 02-requirements-engineering/agile/04-backlog-prioritization
+- **Command:** `Run skill: 07-agile-artifacts/01-sprint-planning`
+
+---
+
+## Phase 08: End-User Documentation
+
+### Purpose
+Create user-facing documentation (manuals, FAQs, guides).
+
+### Skills to Execute
+
+#### 01-user-manual
+- **Description:** Generate end-user manual
+- **Input:** Requirements, UI mockups, feature descriptions
+- **Output:** `projects/<ProjectName>/08-end-user-documentation/.../User_Manual.md`
+- **Estimated Time:** [X days]
+- **Priority:** Medium
+- **Status:** ⏳ Pending
+- **Prerequisites:** Phase 02, Phase 03
+- **Command:** `Run skill: 08-end-user-documentation/01-user-manual`
+
+---
+
+## Phase 09: Governance & Compliance
+
+### Purpose
+Generate traceability matrices, audit reports, compliance docs.
+
+### Skills to Execute
+
+#### 01-traceability-matrix
+- **Description:** Generate RTM linking requirements to tests
+- **Input:** `SRS_Draft.md` or `user_stories.md`, test cases
+- **Output:** `projects/<ProjectName>/09-governance-compliance/.../Traceability_Matrix.md`
+- **Estimated Time:** [X hours]
+- **Priority:** Critical (for Waterfall), Medium (for Agile)
+- **Status:** ⏳ Pending
+- **Prerequisites:** Phase 02, Phase 05
+- **Command:** `Run skill: 09-governance-compliance/01-traceability-matrix`
+
+#### 02-audit-reports
+- **Description:** Validate documentation against standards
+- **Input:** All generated docs
+- **Output:** `projects/<ProjectName>/09-governance-compliance/.../Audit_Report.md`
+- **Estimated Time:** [X hours]
+- **Priority:** High
+- **Status:** ⏳ Pending
+- **Prerequisites:** All previous phases
+- **Command:** `Run skill: 09-governance-compliance/02-audit-reports`
+
+---
+
+## Execution Timeline
+
+### Waterfall Timeline
+
+```
+Week 1-2:   Phase 02 (Requirements - SRS generation)
+Week 3-4:   Phase 03 (Design - HLD + LLD)
+Week 5:     Phase 05 (Testing - Strategy + Plans)
+Week 6:     Phase 06 (Deployment - Guides)
+Week 7:     Phase 09 (Governance - RTM + Audits)
+```
+
+### Agile Timeline
+
+```
+Sprint 0:       Phase 01 (PRD), Phase 02 (User Stories)
+Sprint 0:       Phase 03 (HLD - lightweight)
+Sprint 1-N:     Phase 07 (Sprint Planning - ongoing)
+Post-MVP:       Phase 08 (User Manual)
+Continuous:     Phase 09 (Lightweight traceability)
+```
+
+---
+
+## Dependency Graph
+
+```mermaid
+flowchart TD
+    P01[Phase 01:<br/>Strategic Vision] --> P02[Phase 02:<br/>Requirements]
+    P02 --> P03[Phase 03:<br/>Design]
+    P02 --> P05[Phase 05:<br/>Testing]
+    P03 --> P06[Phase 06:<br/>Deployment]
+    P02 --> P07[Phase 07:<br/>Agile Artifacts]
+    P03 --> P08[Phase 08:<br/>End-User Docs]
+    P02 --> P09[Phase 09:<br/>Governance]
+    P05 --> P09
+
+    style P02 fill:#e1f5ff
+    style P09 fill:#fff4e1
+```
+
+---
+
+## Critical Path
+
+The following documentation items are on the **critical path** (delays will impact project timeline):
+
+1. **Phase 02: Requirements** - Blocks all downstream documentation
+2. **Phase 03: Design** - Blocks development start
+3. **Phase 09: Governance** - Blocks regulatory approval (if applicable)
+
+**Recommendation:** Prioritize these phases first.
+
+---
+
+## Risk Assessment
+
+| Risk | Impact | Mitigation |
+|------|--------|------------|
+| Requirements change mid-project | High | Use Agile for uncertain areas, Waterfall for stable core |
+| Stakeholder unavailable for review | Medium | Schedule reviews in advance, use async review tools |
+| Documentation falls behind code | High | Enforce DoD: no code merge without updated docs |
+| Compliance audit failure | Critical | Run Phase 09 audit early and often |
+
+---
+
+## Review & Approval Process
+
+### Documentation Review Cadence
+
+[For Waterfall:]
+- **Requirements Review:** After Phase 02 complete (formal signoff)
+- **Design Review:** After Phase 03 complete (architecture review board)
+- **Final Review:** After Phase 09 complete (compliance audit)
+
+[For Agile:]
+- **Sprint Review:** Review docs updated during sprint (part of DoD)
+- **Release Review:** Review all docs before major release
+- **Quarterly Review:** Ensure docs are up-to-date
+
+### Approval Workflow
+
+1. **Author:** Generate documentation using SDLC-Docs-Engine skills
+2. **Peer Review:** Technical review by team members
+3. **Stakeholder Review:** Business/product owner review
+4. **Approval:** Formal signoff by [role/name]
+5. **Archive:** Version and store in [location]
+
+---
+
+## Next Steps
+
+### Immediate Actions (Next 48 Hours)
+
+1. [ ] Review this roadmap with team/stakeholders
+2. [ ] Confirm priorities and timeline are realistic
+3. [ ] Allocate resources for documentation tasks
+4. [ ] Execute first skill in pipeline (see below)
+
+### First Skill to Execute
+
+[For Waterfall:]
+```bash
+Run skill: 02-requirements-engineering/waterfall/01-initialize-srs
+```
+
+[For Agile:]
+```bash
+Run skill: 01-strategic-vision/01-prd-generation
+```
+
+### Ongoing Maintenance
+
+- **Update this roadmap weekly** with status changes
+- **Mark completed phases** with ✅ and actual completion date
+- **Document blockers/issues** in the Risk Assessment section
+- **Re-run 00-meta-initialization** if methodology changes
+
+---
+
+**Last Updated:** [Date]
+**Version:** 1.0
+**Maintained By:** [Name/Role]

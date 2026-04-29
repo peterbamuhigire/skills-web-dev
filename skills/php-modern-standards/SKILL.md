@@ -125,6 +125,17 @@ Code runs on Windows (dev), Ubuntu (staging), and Debian (production). Linux is 
 
 Extended guidance for `php-modern-standards` was moved to [references/skill-deep-dive.md](references/skill-deep-dive.md) to keep this entrypoint compact and fast to load.
 
+### PHP DevOps Runtime Discipline
+
+When PHP work affects deployment or production operations, pair this skill with `deployment-release-engineering` and apply the PHP delivery notes in `../deployment-release-engineering/references/devops-book-patterns.md`:
+
+- keep Composer lockfiles and dependency installation reproducible;
+- run static analysis, coding standards, and tests in CI before packaging;
+- manage `.env` and secrets outside version control;
+- document PHP-FPM pool settings, OPcache reset or warm-up, queue worker restart, cache clear/warm, and file-permission steps;
+- include database migration order, backup, verification queries, and rollback or compensating actions;
+- verify server updates, unattended security updates, web server config, and backup/restore for uploaded files.
+
 Use that deep dive for:
 - `Type System`
 - `Modern Features`

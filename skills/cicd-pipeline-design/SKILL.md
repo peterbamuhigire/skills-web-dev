@@ -78,6 +78,7 @@ Use this skill when the pipeline must function as a trusted delivery system. The
 - Keep cheap checks early and deeper checks later, but do not remove meaningful risk checks.
 - Treat broken default-branch pipelines as urgent delivery defects.
 - Track throughput and stability together through DORA-style metrics.
+- Optimise for flow, feedback, and learning: short-lived branches, visible queues, release markers, actionable alerts, and recurring pipeline-pain removal.
 
 ## Executable Outputs
 
@@ -144,6 +145,7 @@ Use a shape like:
 - Measure pipeline duration, red-time, flaky stages, and rerun frequency.
 - Remove stale or low-signal stages that erode trust.
 - Treat pipeline pain as engineering debt with owners and follow-up dates.
+- Review the full value stream, not only tool execution time: branch age, manual approval delay, environment wait time, deployment queue time, and incident recovery time are pipeline design inputs.
 
 ## Standards
 
@@ -292,4 +294,5 @@ Choose the stage that matches current operational maturity; do not skip stages.
 
 - [references/pipeline-governance.md](references/pipeline-governance.md): Pipeline trust, evidence, and stop-the-line response.
 - [../deployment-release-engineering/references/deployment-pipeline.md](../deployment-release-engineering/references/deployment-pipeline.md): Canonical release stage model and release packet.
+- [../deployment-release-engineering/references/devops-book-patterns.md](../deployment-release-engineering/references/devops-book-patterns.md): DevOps value-stream, deployment, GitOps, observability, DevSecOps, and PHP runtime delivery patterns.
 - [../world-class-engineering/references/source-patterns.md](../world-class-engineering/references/source-patterns.md): CI/CD and DevOps patterns derived from the supplied books.

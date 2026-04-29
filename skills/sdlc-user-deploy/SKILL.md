@@ -83,6 +83,8 @@ Delivery documents must define:
 - release evidence and post-deploy watch list
 - operator ownership and runbook entry points
 - user-facing changes, known limitations, and recovery guidance
+- release markers, actionable alerts, and observation ownership for the deployment window
+- database, cache, queue, file-storage, and external-side-effect recovery posture
 
 ## When to Use
 
@@ -315,6 +317,8 @@ Each file must stay under 500 lines. Split into subdirectories as needed.
 - [ ] Documents cross-reference each other and upstream SRS/SDD
 - [ ] Documentation deliverables included in sprint Definition of Done
 - [ ] Release notes and operations docs identify rollback trigger points and observation owners
+- [ ] Operations docs identify release markers, page-worthy alerts, and the post-deploy observation window
+- [ ] PHP deployments document Composer, PHP-FPM, OPcache, queue workers, cache warm/clear, file permissions, and backup/restore where applicable
 
 ## Anti-Patterns (What NOT to Do)
 

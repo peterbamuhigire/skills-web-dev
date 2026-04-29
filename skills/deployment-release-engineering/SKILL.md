@@ -75,6 +75,10 @@ Use this skill when shipping software to real users. It turns implementation out
 
 ## Release Workflow
 
+### DevOps Source Lens
+
+Apply the DevOps operating model in [references/devops-book-patterns.md](references/devops-book-patterns.md) when the release touches production, operations, CI/CD, PHP runtime, infrastructure, Kubernetes, GitOps, observability, or incident response. Use the source lens to test flow, feedback, and learning before choosing tooling.
+
 ### 1. Classify The Release
 
 Identify whether the release includes:
@@ -208,3 +212,4 @@ For significant releases, produce:
 - [references/deployment-pipeline.md](references/deployment-pipeline.md): Stage model, release packet, and rollout heuristics.
 - [references/release-checklist.md](references/release-checklist.md): Pre-deploy and post-deploy checks.
 - [references/rollout-selection.md](references/rollout-selection.md): Choosing rolling, blue-green, or canary.
+- [references/devops-book-patterns.md](references/devops-book-patterns.md): Value-stream, pipeline, observability, DevSecOps, PHP, cloud-native, and GitOps patterns from the supplied DevOps books.

@@ -1,8 +1,9 @@
 ---
 name: inventory-management
 description: Coordinate infrastructure for inventory, stock movement, BOMs, valuation,
-  and multi-location controls while referencing the existing ERP implementation, inventory
-  docs, and the small-business bookkeeping playbook.
+  logistics network design, transportation execution, and multi-location controls while
+  referencing the existing ERP implementation, inventory docs, CLTD logistics patterns,
+  and the small-business bookkeeping playbook.
 metadata:
   portable: true
   compatible_with:
@@ -20,7 +21,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 <!-- dual-compat-start -->
 ## Use When
 
-- Coordinate infrastructure for inventory, stock movement, BOMs, valuation, and multi-location controls while referencing the existing ERP implementation, inventory docs, and the small-business bookkeeping playbook.
+- Coordinate infrastructure for inventory, stock movement, BOMs, valuation, logistics network design, transportation execution, and multi-location controls while referencing the existing ERP implementation, inventory docs, CLTD logistics patterns, and the small-business bookkeeping playbook.
 - The task needs reusable judgment, domain constraints, or a proven workflow rather than ad hoc advice.
 
 ## Do Not Use When
@@ -70,7 +71,9 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 
 ## Overview
 
-Pair the existing stock-tracking implementation (stock ledgers, unit conversion, movements, purchase and sales flows, asset-level constraints) with general bookkeeping principles such as multi-location control, valuation methods, auditing, and SKU types. Use this skill whenever a change touches stock items, transfers, inventory valuation, assembly or BOM flows, stock adjustments, or reporting.
+Pair the existing stock-tracking implementation (stock ledgers, unit conversion, movements, purchase and sales flows, asset-level constraints) with general bookkeeping principles such as multi-location control, valuation methods, auditing, and SKU types. Use this skill whenever a change touches stock items, transfers, inventory valuation, assembly or BOM flows, stock adjustments, warehouse execution, logistics network design, transportation, in-transit inventory, shipment exceptions, carrier/fleet controls, or reporting.
+
+When the task involves distribution, wholesale, import/export, fleet, warehouse, branch replenishment, or customer delivery, load [references/cltd-logistics-inventory-patterns.md](references/cltd-logistics-inventory-patterns.md) before designing data models, workflows, reports, or acceptance criteria.
 
 ## Inventory Data Model
 
@@ -366,6 +369,14 @@ On sale under FIFO, deduct from the oldest layer first; on sale under LIFO, dedu
 - In-transit stock belongs to a synthetic location per transfer (`TRANSFER-<id>`), not to source or destination, until the transfer is completed.
 - Cross-location visibility is governed by role: a clerk at `WH1` should not see `WH2` stock unless given the `inventory.read_all_locations` permission.
 
+## Logistics and In-Transit Controls
+
+- Treat in-transit stock as a controlled inventory state with shipment or transfer ownership, expected arrival, carrier/fleet assignment, and exception status.
+- Link customer delivery, branch transfer, supplier inbound, and return shipments to auditable events: booked, picked up, in transit, delayed, delivered, refused, damaged, returned, or claimed.
+- Carrier or fleet selection must be driven by configured service level, lane, capacity, cost, compliance, tracking capability, and claims performance.
+- For import/export flows, keep Incoterms, customs broker, commercial invoice, packing list, BOL/waybill, declaration, duty estimate, clearance status, and risk-transfer point attached to the shipment record.
+- Replenishment logic should consider on-hand stock, reserved stock, backorders, scheduled receipts, in-transit stock, lead-time variation, MOQ, route reliability, and safety-stock policy.
+
 ## Reporting
 
 Four core reports every deployment must ship:
@@ -401,6 +412,7 @@ GROUP BY sku_id, age_bucket;
 ## Companion Skills
 
 - `saas-erp-system-design` — multi-module ERP architecture where inventory fits
+- `logistics` domain references in SRS skills — network, shipment, route, fleet, and WMS requirements for ERP projects
 - `pos-sales-ui-design` — retail sales that consume inventory
 - `pos-restaurant-ui-standard` — restaurant inventory depletes on order fire
 - `mysql-data-modeling` / `postgresql-fundamentals` — database patterns for ledger-style movements
@@ -411,5 +423,6 @@ GROUP BY sku_id, age_bucket;
 
 - *Warehouse Management* — Gwynne Richards (Kogan Page)
 - *Operations Management* — Jay Heizer (Pearson)
+- CLTD 2022 Modules 2, 6, and 8 — logistics network design, inventory management, and transportation management
 - FEFO / FIFO methodology — `en.wikipedia.org/wiki/FIFO_and_LIFO_accounting`
 - Uganda Revenue Authority EFRIS inventory requirements — `efris.ura.go.ug`

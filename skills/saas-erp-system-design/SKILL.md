@@ -83,6 +83,7 @@ Identify bounded domains such as:
 - Sales and CRM
 - Procurement
 - Inventory and fulfillment
+- Logistics network, transportation, fleet/carrier management, and warehouse execution where physical goods move across locations
 - Finance and accounting
 - HR and payroll
 - Operations and reporting
@@ -188,7 +189,10 @@ For major SaaS or ERP design tasks, produce:
 - Integration map for external systems and async jobs.
 - Cross-module workflow map and policy boundaries.
 
+For ERP projects involving manufacturing, wholesale, distribution, import/export, fleet, field delivery, agriculture aggregation, or warehouse operations, pair this skill with `inventory-management` and load `inventory-management/references/cltd-logistics-inventory-patterns.md`. The ERP design should explicitly model inventory policy, in-transit stock, shipment events, carrier/fleet assignment, freight documents, customs controls where relevant, returns, claims, and logistics KPIs rather than treating fulfilment as a simple order status.
+
 ## References
 
 - [references/domain-modeling.md](references/domain-modeling.md): Core entities, controls, and workflow review prompts.
+- [../inventory-management/references/cltd-logistics-inventory-patterns.md](../inventory-management/references/cltd-logistics-inventory-patterns.md): Logistics network, inventory policy, transportation, carrier/fleet, trade documentation, and shipment exception patterns for ERP systems.
 - Load `modular-saas-architecture`, `multi-tenant-saas-architecture`, and `database-design-engineering` when implementing the design.

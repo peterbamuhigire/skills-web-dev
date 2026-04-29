@@ -480,6 +480,63 @@ Apply this checklist to every data visualisation before sharing:
 - Atkinson, Cliff. *Beyond Bullet Points.* Microsoft Press, 2011.
 ---
 
+## Responsive charts on narrow viewports (360 px and below)
+
+Knaflic optimises for a printed page or a desktop slide. On a 360 px phone screen, most of her chart types break — especially time series with many x-axis points (30-day bars, 90-day lines, hourly traces). The rule **"every chart must read at 360 px wide"** is correct; horizontal scroll is a fallback, not a solution, because hidden data is rarely discovered.
+
+### Core principle
+
+At 360 px you do not shrink the chart — you change *what the chart is*. Pick the rendering by the question the user is asking, not by the data you happen to have.
+
+### Decision table — 30+ point time series on mobile
+
+| Pattern | Use when | How |
+|---------|----------|-----|
+| **Headline + sparkline** | The question is "is it up or down?" — a single trend, no comparisons | Big number + delta vs prior period + thin sparkline + "View full chart" link to landscape full-screen |
+| **Aggregate at breakpoint** | The user wants the same time span at coarser granularity | Below 640 px collapse 30 daily bars → 4–5 weekly bars. Offer Daily / Weekly / Monthly toggle |
+| **Switch chart type** | Bars become unreadable but the trend still matters | Bars on desktop, line or area chart on mobile. Bars compete for pixel width; lines do not |
+| **Default-window + zoom** | Power users occasionally need full detail | Default to 7 D on mobile; chips 7 D / 14 D / 30 D / 90 D. The 30 D view opens full-screen in landscape with pinch-to-zoom |
+| **Small multiples stacked vertically** | Comparing 3–5 series over time | Each series gets its own narrow strip, full screen width, stacked. Beats one congested multi-line chart |
+
+### When horizontal scroll is unavoidable
+
+If the design absolutely requires the full daily chart inline, three affordances are mandatory — without them users miss the off-screen data:
+
+- **Sticky Y-axis** — the axis must not scroll with the bars, or labels disappear
+- **Scroll snap** — `scroll-snap-type: x mandatory` so bars don't end up half-cut at the edge
+- **Visible scroll affordance** — faded right edge gradient OR a "← swipe →" hint OR a thumbnail scrollbar. The user must *know* there is more
+
+### Bar charts specifically
+
+A bar chart's bar must be wider than the gap between bars (Knaflic, Lesson 2). At 360 px with 30 daily bars and standard padding, each bar is ~6–8 px wide — below the legible threshold. Therefore:
+
+- **Below ~600 px**: never render more than ~12 bars. Aggregate or switch to a line.
+- **Touch target**: if bars are tappable for tooltips, each bar's hit area must be ≥ 44 × 44 px — which alone forces aggregation on mobile.
+
+### The "headline first" rule
+
+On mobile, always render the **insight as text** above the chart, not inside it:
+
+- "UGX 28.4 M this month, **▲ 12 %** vs prior 30 days"
+- The chart becomes supporting evidence, not the primary readout
+- A user who never scrolls past the headline still got the answer
+
+### Implementation note
+
+Use a CSS container query or a single `md:` breakpoint at 640 px. Render two chart variants in the markup (or swap the data series) — do not try to make one chart "responsive" by squeezing it. The mobile chart is a different chart, not a smaller copy.
+
+### Anti-patterns
+
+| Anti-pattern | Why it fails | Fix |
+|-------------|--------------|-----|
+| 30 daily bars at 360 px with horizontal scroll | Bars unreadable, off-screen data invisible to most users | Aggregate to weekly, or switch to line, or use sparkline + headline |
+| Shrinking labels and tick marks until they fit | Below ~10 px, axis labels become illegible chart junk | Drop labels, abbreviate (M-1, M-2 instead of dates), or rotate to horizontal bar |
+| Same chart on every breakpoint | Forces desktop assumptions onto mobile | Pick a mobile-specific pattern from the decision table |
+| Pinch-to-zoom as the primary mobile interaction | Users don't discover it; charts inside scrolling pages fight the page scroll | Use explicit "View full chart" affordance into a landscape full-screen view |
+| Tooltip-on-hover only | No hover on touch devices — entire interactive layer is dead | Tap-to-pin tooltips, or render values directly on the chart |
+
+---
+
 ## Beyond Knaflic: building custom visualisations
 
 When the task requires hand-building a chart in HTML/SVG/CSS/JS rather than dropping in a charting library, load `references/svg-css-js-implementation.md`. It covers:

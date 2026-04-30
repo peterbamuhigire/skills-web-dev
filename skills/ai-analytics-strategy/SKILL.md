@@ -61,6 +61,9 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 ## References
 
 - Use the links and companion skills already referenced in this file when deeper context is needed.
+- Use `references/business-analytics-operating-model.md` when designing analytics
+  maturity, governance, KPI ownership, BI capability, decision triggers, or AI analytics
+  adoption for a business or SaaS module.
 <!-- dual-compat-end -->
 ## What Analytics Is
 

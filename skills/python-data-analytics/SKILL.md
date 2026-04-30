@@ -73,6 +73,8 @@ Use Python when SQL stops being the right tool: multi-step transformations, stat
 - Financial math: IRR, NPV, amortization, depreciation schedules at scale.
 - Accounting analytics: trial balance, AR/AP aging, bank reconciliation, inventory valuation, fixed-asset reconciliation, cost variance, and finance dashboard calculations.
 - Statistical tests: A/B test significance, distribution comparisons, trend detection.
+- Analytics method selection: descriptive, diagnostic, predictive, and prescriptive
+  analysis with explicit data-quality and decision-handoff controls.
 - Outlier/anomaly detection on SaaS metrics.
 - Geospatial analytics: territory stats, route distances, geofence compliance reports.
 - Any workload where SQL requires >3 subqueries or a window function chain that's hard to read.
@@ -260,6 +262,7 @@ Analytics results don't live in Python — they return to PHP or become document
 
 ## References
 
+- `references/analytics-method-selection-and-governance.md`
 - `references/pandas-idioms.md`
 - `references/loading-data.md`
 - `references/cohort-funnel-retention.md`

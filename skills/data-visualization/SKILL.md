@@ -1,7 +1,6 @@
 ---
 name: data-visualization
-description: Data visualization patterns from Storytelling with Data (Knaflic, 2015)
-  — the 6-lesson framework for transforming raw data into compelling visual stories
+description: Data visualization patterns for transforming raw data into compelling visual stories, dashboards, charts, and decision-ready analytical exhibits.
 metadata:
   portable: true
   compatible_with:
@@ -9,13 +8,13 @@ metadata:
   - codex
 ---
 
-# Data Visualization — Storytelling with Data
+# Data Visualization ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â Storytelling with Data
 Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 
 <!-- dual-compat-start -->
 ## Use When
 
-- Data visualization patterns from Storytelling with Data (Knaflic, 2015) — the 6-lesson framework for transforming raw data into compelling visual stories
+- Data visualization patterns from Storytelling with Data (Knaflic, 2015) ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â the 6-lesson framework for transforming raw data into compelling visual stories
 - The task needs reusable judgment, domain constraints, or a proven workflow rather than ad hoc advice.
 
 ## Do Not Use When
@@ -65,12 +64,12 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 
 ## The 6-Lesson Framework
 
-1. **Understand the context** — Who, What, How before any visual
-2. **Choose an appropriate visual** — Match chart type to data + message
-3. **Eliminate clutter** — Remove everything that does not add informative value
-4. **Focus attention** — Use preattentive attributes to direct the eye
-5. **Think like a designer** — Affordances, accessibility, aesthetics, acceptance
-6. **Tell a story** — Beginning (plot), middle (twists), end (call to action)
+1. **Understand the context** ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â Who, What, How before any visual
+2. **Choose an appropriate visual** ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â Match chart type to data + message
+3. **Eliminate clutter** ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â Remove everything that does not add informative value
+4. **Focus attention** ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â Use preattentive attributes to direct the eye
+5. **Think like a designer** ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â Affordances, accessibility, aesthetics, acceptance
+6. **Tell a story** ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â Beginning (plot), middle (twists), end (call to action)
 
 ---
 
@@ -80,21 +79,21 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 
 - **Exploratory** = hunting for pearls in oysters (100 hypotheses, maybe 2 findings)
 - **Explanatory** = presenting the pearls (the specific story you want to tell)
-- NEVER show exploratory analysis to stakeholders — concentrate on the pearls
+- NEVER show exploratory analysis to stakeholders ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â concentrate on the pearls
 
 ### Who, What, How (in this order)
 
 | Question | Detail |
 |----------|--------|
-| **Who** | Specific audience + your relationship with them. Narrow the audience — avoid "internal and external stakeholders." Identify the decision maker. |
-| **What** | What must they know or DO? Always recommend an action. Even if uncertain, suggest possible next steps — gives audience something to react to. |
+| **Who** | Specific audience + your relationship with them. Narrow the audience ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â avoid "internal and external stakeholders." Identify the decision maker. |
+| **What** | What must they know or DO? Always recommend an action. Even if uncertain, suggest possible next steps ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â gives audience something to react to. |
 | **How** | Only AFTER who + what: what data supports your case? Data = supporting evidence. |
 
 ### Communication Mechanism Continuum
 
-- **Live presentation** (left) — you control pacing, less detail needed on slides
-- **Written document** (right) — audience controls, more detail needed
-- **Slideument** — hybrid serving both; poses challenges for both needs
+- **Live presentation** (left) ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â you control pacing, less detail needed on slides
+- **Written document** (right) ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â audience controls, more detail needed
+- **Slideument** ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â hybrid serving both; poses challenges for both needs
 
 ### Key Tools
 
@@ -116,7 +115,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 
 ## Lesson 2: Choosing the Right Visual
 
-### Decision Tree — When to Use What
+### Decision Tree ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â When to Use What
 
 | Visual Type | Use When |
 |-------------|----------|
@@ -127,7 +126,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 | **Slopegraph** | Two time periods or comparison points. Shows absolute values + rate of change intuitively. |
 | **Vertical bar** | Categorical data, single/two/multiple series. More series = harder to read. |
 | **Stacked vertical bar** | Compare totals + subcomponents. Hard to compare non-bottom series. Use sparingly. |
-| **Waterfall chart** | Starting point → increases → decreases → ending point. |
+| **Waterfall chart** | Starting point ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ increases ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ decreases ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ ending point. |
 | **Horizontal bar** | **Go-to for categorical data.** Easy to read: labels left-to-right, eyes hit category names before data (z-pattern). |
 | **Stacked horizontal bar** | Parts of whole, negative-to-positive scale (e.g., Likert survey data). |
 | **100% stacked bar** | Proportions summing to 100%. Consider also showing absolute totals. |
@@ -139,16 +138,16 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 | Avoid | Why |
 |-------|-----|
 | **Pie charts** | Humans cannot accurately compare angles/areas. Even with labels, not worth the space. Replace with horizontal bar chart sorted by value. |
-| **Donut charts** | Even worse — comparing arc lengths is harder than angles. |
+| **Donut charts** | Even worse ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â comparing arc lengths is harder than angles. |
 | **3D charts** | NEVER use 3D. Skews perception, adds chart junk (side/floor panels). Only exception: actually plotting a third dimension. |
-| **Secondary y-axis** | Confusing — audience must figure out which data maps to which axis. Alternatives: (1) label second series directly, (2) pull into separate graph sharing the same x-axis. |
+| **Secondary y-axis** | Confusing ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â audience must figure out which data maps to which axis. Alternatives: (1) label second series directly, (2) pull into separate graph sharing the same x-axis. |
 
 ### Critical Rules
 
-- **Bar charts MUST have a zero baseline** — violating this creates false visual comparison (Fox News example: 460% visual increase vs 13% actual)
-- **Line graphs CAN have nonzero baselines** — but make it clear and don't overzoom
+- **Bar charts MUST have a zero baseline** ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â violating this creates false visual comparison (Fox News example: 460% visual increase vs 13% actual)
+- **Line graphs CAN have nonzero baselines** ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â but make it clear and don't overzoom
 - **Bar width** should be wider than white space between bars, but not so wide audience compares areas
-- **Consistent time intervals** on x-axis for line graphs — never mix decades with years
+- **Consistent time intervals** on x-axis for line graphs ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â never mix decades with years
 - **Logical category ordering**: natural order if it exists; otherwise biggest-first or smallest-first depending on emphasis
 
 ---
@@ -158,7 +157,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 ### Cognitive Load Principle
 
 - Every element on the page costs the audience brain power
-- **Perceived** cognitive load matters most — if it LOOKS hard, audience gives up
+- **Perceived** cognitive load matters most ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â if it LOOKS hard, audience gives up
 - Maximise the **data-ink ratio** (Tufte): larger share of ink devoted to data = better
 - Maximise **signal-to-noise ratio** (Duarte): signal = message, noise = clutter
 
@@ -169,24 +168,24 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 | **Proximity** | Close objects = same group | Use spacing in tables to guide eyes to rows or columns |
 | **Similarity** | Same colour/shape/size = related | Colour rows to guide reading direction; no borders needed |
 | **Enclosure** | Objects in same area = group | Light background shading to separate forecast from actual |
-| **Closure** | Brain fills in gaps | Remove chart borders and background — graph still reads as cohesive |
-| **Continuity** | Eyes seek smoothest path | Remove y-axis line — consistent white space still aligns bars |
-| **Connection** | Connected objects = group | Line graphs leverage this — lines create order in data |
+| **Closure** | Brain fills in gaps | Remove chart borders and background ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â graph still reads as cohesive |
+| **Continuity** | Eyes seek smoothest path | Remove y-axis line ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â consistent white space still aligns bars |
+| **Connection** | Connected objects = group | Line graphs leverage this ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â lines create order in data |
 
 ### Decluttering Step-by-Step (the 6 Moves)
 
-1. **Remove chart border** — use white space instead (closure principle)
-2. **Remove gridlines** — if kept, make thin and light grey; never compete with data
-3. **Remove data markers** — only use with purpose, not as default
-4. **Clean up axis labels** — remove trailing zeros, abbreviate months to fit horizontally, eliminate diagonal text
-5. **Label data directly** — eliminate legend; leverage proximity principle
-6. **Use consistent colour** — label text same colour as its data series (similarity principle)
+1. **Remove chart border** ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â use white space instead (closure principle)
+2. **Remove gridlines** ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â if kept, make thin and light grey; never compete with data
+3. **Remove data markers** ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â only use with purpose, not as default
+4. **Clean up axis labels** ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â remove trailing zeros, abbreviate months to fit horizontally, eliminate diagonal text
+5. **Label data directly** ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â eliminate legend; leverage proximity principle
+6. **Use consistent colour** ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â label text same colour as its data series (similarity principle)
 
 ### Alignment Rules
 
-- **Left-justify text** (avoid centre-aligned — creates no clean lines)
-- **Upper-left-most justify** titles, axis titles, legends — audience sees how to read before reaching data
-- Avoid **diagonal elements** — diagonal text is 52% slower to read (45°) and 205% slower at 90°
+- **Left-justify text** (avoid centre-aligned ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â creates no clean lines)
+- **Upper-left-most justify** titles, axis titles, legends ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â audience sees how to read before reaching data
+- Avoid **diagonal elements** ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â diagonal text is 52% slower to read (45ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â°) and 205% slower at 90ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â°
 - Create clean vertical and horizontal lines of elements and white space
 
 ### White Space Rules
@@ -194,7 +193,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 - Margins must remain free of text and visuals
 - Do NOT stretch visuals to fill available space
 - NEVER add data just to fill space
-- White space = dramatic pause in a presentation — strategically powerful
+- White space = dramatic pause in a presentation ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â strategically powerful
 - If one thing is really important, make it the ONLY thing on the page
 
 ### Contrast Rule
@@ -205,17 +204,17 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 
 ### Keep These Redundant Details
 
-- Dollar signs ($), percent signs (%), commas in large numbers — always retain with data
+- Dollar signs ($), percent signs (%), commas in large numbers ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â always retain with data
 - These ease interpretation even if title already states the unit
 
 ---
 
-## Lesson 4: Focus Attention — Preattentive Attributes
+## Lesson 4: Focus Attention ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â Preattentive Attributes
 
 ### How Vision Works
 
 - **Iconic memory**: fraction-of-a-second processing, tuned to preattentive attributes
-- **Short-term memory**: holds ~4 chunks — legend with 10 colours = cognitive overload
+- **Short-term memory**: holds ~4 chunks ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â legend with 10 colours = cognitive overload
 - **Long-term memory**: visual + verbal combined trigger strongest recall
 
 ### The Preattentive Attributes (Adapted from Few)
@@ -225,16 +224,16 @@ Orientation | Shape | Line length | Line width | Size | Curvature | Added marks 
 ### Quantitative vs Categorical
 
 - **Quantitative encoding**: line length, spatial position, line width, size, intensity (longer = greater)
-- **Categorical encoding**: colour hue, shape — NOT quantitative (red is not "more" than blue)
+- **Categorical encoding**: colour hue, shape ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â NOT quantitative (red is not "more" than blue)
 
 ### Two Strategic Uses
 
-1. **Direct attention** — make the audience see what you want BEFORE they consciously think
-2. **Create visual hierarchy** — establish implicit order for processing information
+1. **Direct attention** ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â make the audience see what you want BEFORE they consciously think
+2. **Create visual hierarchy** ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â establish implicit order for processing information
 
 ### The "Where Are Your Eyes Drawn?" Test
 
-- Create your visual → close eyes → look back → note where eyes land first
+- Create your visual ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ close eyes ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ look back ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ note where eyes land first
 - Better: show colleague and have them narrate what they see and in what order
 
 ### Rules for Using Preattentive Attributes
@@ -251,7 +250,7 @@ Orientation | Shape | Line length | Line width | Size | Curvature | Added marks 
 - If one thing is most important, make it BIG
 - Don't let layout accidents (e.g., placeholder sizing) signal false importance
 
-### Colour — The Most Powerful Attribute
+### Colour ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â The Most Powerful Attribute
 
 **Core approach**: Design in shades of grey, pick ONE bold colour to draw attention.
 
@@ -264,7 +263,7 @@ Orientation | Shape | Line length | Line width | Size | Curvature | Added marks 
 | **Colourblind safe** | ~8% of men are red-green colourblind. Avoid red+green together. Use blue (positive) + orange (negative). Add bold/plus/minus signs as backup cues. |
 | **Tone-appropriate** | Bold black for clinical/serious; muted blue for friendly; peppy colours for lighthearted content |
 | **Brand colours** | Use 1-2 brand colours as "look here" cues; keep rest muted grey. If brand colour lacks contrast, use a different standout colour. |
-| **Heatmap over rainbow** | Single-colour saturation scale (heatmap) beats rainbow — carries quantitative connotation |
+| **Heatmap over rainbow** | Single-colour saturation scale (heatmap) beats rainbow ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â carries quantitative connotation |
 | **Dark backgrounds** | Reverse the logic: grey baseline, white stands out. Yellow pops against black. Generally avoid dark backgrounds. |
 
 ### Position on Page
@@ -288,18 +287,18 @@ Orientation | Shape | Line length | Line width | Size | Curvature | Added marks 
 - **10% rule**: highlight at most 10% of the visual design (Lidwell et al.)
 
 **Highlighting techniques ranked:**
-- **Bold** — preferred: minimal noise, clearly highlights
-- *Italics* — minimal noise but less standout, less legible
-- Underline — adds noise, compromises legibility, use sparingly
-- UPPERCASE — works for titles/labels/keywords (short sequences)
-- **Colour** — effective when used sparingly, best combined with bold
-- **Size** — signals importance
-- **Inversing** — effective but noisy, use sparingly
+- **Bold** ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â preferred: minimal noise, clearly highlights
+- *Italics* ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â minimal noise but less standout, less legible
+- Underline ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â adds noise, compromises legibility, use sparingly
+- UPPERCASE ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â works for titles/labels/keywords (short sequences)
+- **Colour** ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â effective when used sparingly, best combined with bold
+- **Size** ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â signals importance
+- **Inversing** ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â effective but noisy, use sparingly
 - Layering multiple attributes (large + coloured + bold) for highest-priority items
 
 #### 2. Accessibility
 
-- "If it's hard to read, it's hard to do" (Song & Schwarz, 2008) — fussy fonts made students judge exercise routines as harder
+- "If it's hard to read, it's hard to do" (Song & Schwarz, 2008) ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â fussy fonts made students judge exercise routines as harder
 - **Make it legible**: consistent, easy-to-read font
 - **Keep it clean**: leverage visual affordances
 - **Straightforward language**: simple > complex, fewer words > more, spell out acronyms
@@ -329,7 +328,7 @@ Orientation | Shape | Line length | Line width | Size | Curvature | Added marks 
 ### Why Story Works
 
 - Stories engage emotion in ways facts cannot (McKee, HBR)
-- Red Riding Hood test: 80-90% of adults recall the high-level story — proof of story's memory power
+- Red Riding Hood test: 80-90% of adults recall the high-level story ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â proof of story's memory power
 - Conventional rhetoric (bullet-point facts) = intellectual only; story = emotional + intellectual
 
 ### Aristotle's Three-Act Structure Applied to Data
@@ -350,7 +349,7 @@ Orientation | Shape | Line length | Line width | Size | Curvature | Added marks 
 ### Conflict and Tension Are Essential
 
 - A story where everything is rosy is not attention-grabbing
-- Frame in terms of the audience's problem — they have a stake in the solution
+- Frame in terms of the audience's problem ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â they have a stake in the solution
 - Duarte: tension = "the conflict between what is and what could be"
 
 ### Narrative Structure
@@ -372,10 +371,10 @@ Orientation | Shape | Line length | Line width | Size | Curvature | Added marks 
 
 ### Four Tactics for Story Clarity
 
-1. **Horizontal logic** — slide titles alone tell the overarching story (requires action titles)
-2. **Vertical logic** — everything on one slide self-reinforces (title ↔ visual ↔ text)
-3. **Reverse storyboarding** — flip through final deck, write down each slide's main point; result should match your intended storyboard
-4. **Fresh perspective** — show to someone without context; have them narrate what they see
+1. **Horizontal logic** ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â slide titles alone tell the overarching story (requires action titles)
+2. **Vertical logic** ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â everything on one slide self-reinforces (title ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â visual ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â text)
+3. **Reverse storyboarding** ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â flip through final deck, write down each slide's main point; result should match your intended storyboard
+4. **Fresh perspective** ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â show to someone without context; have them narrate what they see
 
 ### Vonnegut's Writing Rules (Applied to Data)
 
@@ -385,7 +384,7 @@ Orientation | Shape | Line length | Line width | Size | Curvature | Added marks 
 4. Have the guts to cut
 5. Sound like yourself
 6. Say what you meant to say
-7. Pity the readers — be a sympathetic, patient teacher
+7. Pity the readers ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â be a sympathetic, patient teacher
 
 ---
 
@@ -393,22 +392,22 @@ Orientation | Shape | Line length | Line width | Size | Curvature | Added marks 
 
 ### Spaghetti Graph Solutions (Too Many Overlapping Lines)
 
-1. **Emphasise one line at a time** — bold + colour one series, grey the rest
-2. **Separate spatially (vertically)** — same x-axis, one mini-graph per series (sparklines)
-3. **Separate spatially (horizontally)** — same y-axis, side-by-side mini-graphs (small multiples)
-4. **Combined approach** — separate AND emphasise one at a time
-5. **Reduce data** — do you really need all categories/years?
+1. **Emphasise one line at a time** ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â bold + colour one series, grey the rest
+2. **Separate spatially (vertically)** ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â same x-axis, one mini-graph per series (sparklines)
+3. **Separate spatially (horizontally)** ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â same y-axis, side-by-side mini-graphs (small multiples)
+4. **Combined approach** ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â separate AND emphasise one at a time
+5. **Reduce data** ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â do you really need all categories/years?
 
 ### Pie Chart Alternatives
 
-1. **Simple text** — if 1-2 numbers tell the story, just state them
-2. **Simple bar graph** — aligned baseline, easy comparison
-3. **100% stacked horizontal bar** — preserves part-to-whole, consistent baselines on both ends
-4. **Slopegraph** — shows change between two points with intuitive slope
+1. **Simple text** ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â if 1-2 numbers tell the story, just state them
+2. **Simple bar graph** ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â aligned baseline, easy comparison
+3. **100% stacked horizontal bar** ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â preserves part-to-whole, consistent baselines on both ends
+4. **Slopegraph** ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â shows change between two points with intuitive slope
 
 ### Animation Strategy (Presentation vs Circulation)
 
-- **Live presentation**: build the graph progressively using animation (Appear/Disappear only — no fly-ins)
+- **Live presentation**: build the graph progressively using animation (Appear/Disappear only ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â no fly-ins)
 - **Circulated version**: single annotated visual with all key points marked
 - Stack all animation frames on one slide; final annotated version on top for print
 
@@ -464,7 +463,7 @@ Apply this checklist to every data visualisation before sharing:
 | No call to action | Always end with what audience should do |
 | Secondary y-axis | Label directly or split into two graphs |
 | Dark/coloured background | White background (unless brand requires otherwise) |
-| Filling every pixel of space | Preserve white space — it is strategic |
+| Filling every pixel of space | Preserve white space ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â it is strategic |
 | Same visual for presentation + report | Build progressively for live; annotate fully for circulation |
 
 ---
@@ -480,72 +479,19 @@ Apply this checklist to every data visualisation before sharing:
 - Atkinson, Cliff. *Beyond Bullet Points.* Microsoft Press, 2011.
 ---
 
-## Responsive charts on narrow viewports (360 px and below)
+## Responsive charts on narrow viewports
 
-Knaflic optimises for a printed page or a desktop slide. On a 360 px phone screen, most of her chart types break — especially time series with many x-axis points (30-day bars, 90-day lines, hourly traces). The rule **"every chart must read at 360 px wide"** is correct; horizontal scroll is a fallback, not a solution, because hidden data is rarely discovered.
-
-### Core principle
-
-At 360 px you do not shrink the chart — you change *what the chart is*. Pick the rendering by the question the user is asking, not by the data you happen to have.
-
-### Decision table — 30+ point time series on mobile
-
-| Pattern | Use when | How |
-|---------|----------|-----|
-| **Headline + sparkline** | The question is "is it up or down?" — a single trend, no comparisons | Big number + delta vs prior period + thin sparkline + "View full chart" link to landscape full-screen |
-| **Aggregate at breakpoint** | The user wants the same time span at coarser granularity | Below 640 px collapse 30 daily bars → 4–5 weekly bars. Offer Daily / Weekly / Monthly toggle |
-| **Switch chart type** | Bars become unreadable but the trend still matters | Bars on desktop, line or area chart on mobile. Bars compete for pixel width; lines do not |
-| **Default-window + zoom** | Power users occasionally need full detail | Default to 7 D on mobile; chips 7 D / 14 D / 30 D / 90 D. The 30 D view opens full-screen in landscape with pinch-to-zoom |
-| **Small multiples stacked vertically** | Comparing 3–5 series over time | Each series gets its own narrow strip, full screen width, stacked. Beats one congested multi-line chart |
-
-### When horizontal scroll is unavoidable
-
-If the design absolutely requires the full daily chart inline, three affordances are mandatory — without them users miss the off-screen data:
-
-- **Sticky Y-axis** — the axis must not scroll with the bars, or labels disappear
-- **Scroll snap** — `scroll-snap-type: x mandatory` so bars don't end up half-cut at the edge
-- **Visible scroll affordance** — faded right edge gradient OR a "← swipe →" hint OR a thumbnail scrollbar. The user must *know* there is more
-
-### Bar charts specifically
-
-A bar chart's bar must be wider than the gap between bars (Knaflic, Lesson 2). At 360 px with 30 daily bars and standard padding, each bar is ~6–8 px wide — below the legible threshold. Therefore:
-
-- **Below ~600 px**: never render more than ~12 bars. Aggregate or switch to a line.
-- **Touch target**: if bars are tappable for tooltips, each bar's hit area must be ≥ 44 × 44 px — which alone forces aggregation on mobile.
-
-### The "headline first" rule
-
-On mobile, always render the **insight as text** above the chart, not inside it:
-
-- "UGX 28.4 M this month, **▲ 12 %** vs prior 30 days"
-- The chart becomes supporting evidence, not the primary readout
-- A user who never scrolls past the headline still got the answer
-
-### Implementation note
-
-Use a CSS container query or a single `md:` breakpoint at 640 px. Render two chart variants in the markup (or swap the data series) — do not try to make one chart "responsive" by squeezing it. The mobile chart is a different chart, not a smaller copy.
-
-### Anti-patterns
-
-| Anti-pattern | Why it fails | Fix |
-|-------------|--------------|-----|
-| 30 daily bars at 360 px with horizontal scroll | Bars unreadable, off-screen data invisible to most users | Aggregate to weekly, or switch to line, or use sparkline + headline |
-| Shrinking labels and tick marks until they fit | Below ~10 px, axis labels become illegible chart junk | Drop labels, abbreviate (M-1, M-2 instead of dates), or rotate to horizontal bar |
-| Same chart on every breakpoint | Forces desktop assumptions onto mobile | Pick a mobile-specific pattern from the decision table |
-| Pinch-to-zoom as the primary mobile interaction | Users don't discover it; charts inside scrolling pages fight the page scroll | Use explicit "View full chart" affordance into a landscape full-screen view |
-| Tooltip-on-hover only | No hover on touch devices — entire interactive layer is dead | Tap-to-pin tooltips, or render values directly on the chart |
+When charts must work at 360 px or similar mobile widths, load
+`references/responsive-mobile-charts.md`. It covers chart-type switching, aggregation,
+sparkline/headline patterns, horizontal-scroll safeguards, touch targets, and mobile
+anti-patterns.
 
 ---
 
 ## Beyond Knaflic: building custom visualisations
 
-When the task requires hand-building a chart in HTML/SVG/CSS/JS rather than dropping in a charting library, load `references/svg-css-js-implementation.md`. It covers:
+When hand-building charts in HTML/SVG/CSS/JS, load `references/svg-css-js-implementation.md` for SVG, D3, responsive, accessibility, and runnable skeleton patterns.
 
-- The four-language framing (HTML structure, SVG geometry, CSS styling, JS data-binding) from Peter Cook's *Fundamentals of HTML, SVG, CSS and JavaScript for Data Visualisation* (Leanpub, 2022).
-- SVG primitives — `line`, `rect`, `circle`, `text`, `g`, `path` — with exact attribute syntax, transforms (translate, rotate, scale), and the SVG-namespace gotcha for `createElementNS`.
-- D3 patterns supplementing the book: selections, enter/update/exit + v7 `.join()`, the full set of scales (linear, log, time, band, ordinal, sequential), axes, and generators (line, area, arc, pie, stack).
-- Responsive viz with `viewBox` + `ResizeObserver`.
-- Accessibility for SVG: `role="img"`, `<title>`, `<desc>`, `aria-label`, reduced-motion support.
-- Runnable skeletons for bar / line / scatter / donut / stacked-area.
+---
 
-Use this when a charting library would not give the visual control or the bespoke interaction the design needs.
+When the visual carries a management decision, KPI review, forecast, risk score, or analytics output, load `references/analytics-dashboard-decision-story.md`.

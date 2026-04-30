@@ -94,6 +94,7 @@ Exit duration = **~75% of enter duration**. Users care less about things leaving
 - Anything over 400ms feels slow for micro-interactions
 - Total staggered sequence should not exceed 800ms
 - **80ms threshold**: if an operation takes < 80ms, skip the loading animation entirely
+- Treat timing as a scale: derive related delays and durations from a base value, then cap the total sequence so the interface still feels responsive.
 
 ---
 
@@ -218,6 +219,7 @@ These run on the GPU compositor — no layout recalculation, no jank.
 - 40-80ms between items (60ms is sweet spot)
 - Cap total stagger time at 800ms (for 10+ items, reduce per-item delay)
 - First item appears immediately (no delay)
+- Formula: `delay = min(index * 60ms, 480ms)` keeps long lists from becoming slow.
 
 ---
 
@@ -290,6 +292,7 @@ User taps "Like" → Heart fills instantly → API call fires in background
 - Use `will-change` sparingly (only on elements about to animate)
 - Use Web Animations API for complex JS-driven sequences
 - Use `requestAnimationFrame` for frame-synced updates
+- For JS-driven motion, calculate from elapsed time, not assumed frame count; compare decimals with a small tolerance when snapping to an end state.
 
 ### Android (Jetpack Compose)
 

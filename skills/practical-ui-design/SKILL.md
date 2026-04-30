@@ -65,6 +65,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 
 - Use the `references/` directory for deep detail after reading the core workflow below.
 - Use `references/visual-consistency.md` when pattern coherence, affordances, or user expectations are part of the task.
+- Pair with `responsive-design/references/math-for-web-design.md` when proportions, type scales, spacing, aspect ratios, color steps, fluid sizing, or motion timing require mathematical consistency.
 <!-- dual-compat-end -->
 ## Plugins (Load Alongside)
 

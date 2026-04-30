@@ -358,6 +358,7 @@ Usage: `<article class="prose lg:prose-xl">`, `<input class="form-input" />`
 <div class="grid grid-cols-3 gap-6">
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
 <div class="col-span-2">             <!-- span 2 columns -->
+<div class="grid grid-cols-[repeat(auto-fit,minmax(min(18rem,100%),1fr))] gap-[clamp(1rem,2vw,2rem)]">
 
 <!-- Position -->
 <div class="relative">
@@ -390,6 +391,7 @@ Usage: `<article class="prose lg:prose-xl">`, `<input class="form-input" />`
 <!-- Truncate long text -->
 <p class="truncate">     <!-- single line -->
 <p class="line-clamp-3"> <!-- 3 lines then … -->
+<h1 class="text-[clamp(2.25rem,6vw,5rem)] leading-[1.05]"> <!-- fluid bounded heading -->
 ```
 
 ---
@@ -460,6 +462,7 @@ Usage: `<article class="prose lg:prose-xl">`, `<input class="form-input" />`
 | Use `extend` not override in theme | Preserve default utilities |
 | Use framework components (React, Vue) instead of HTML loops | Class strings in components = clean repetition |
 | Check Tailwind v3 docs for new classes | Classes added/renamed across versions |
+| Use arbitrary values for mathematical relationships, not random decoration | `clamp()`, `minmax()`, `calc()`, `aspect-ratio`, and `ch` preserve proportion and responsiveness |
 
 ---
 

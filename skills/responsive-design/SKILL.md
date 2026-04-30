@@ -61,6 +61,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 ## References
 
 - Use the links and companion skills already referenced in this file when deeper context is needed.
+- Load `references/math-for-web-design.md` when layout, typography, spacing, grids, color, animation, or JavaScript sizing needs ratio, proportion, `clamp()`, `calc()`, `minmax()`, aspect-ratio, rounding, or precision guidance.
 <!-- dual-compat-end -->
 ## Plugins (Load Alongside)
 
@@ -336,6 +337,7 @@ h1 {
 - Reduce heading scale on mobile to prevent excessive wrapping
 - Body text minimum: **16px** (never smaller, even on mobile)
 - Test at browser zoom levels: 100%, 150%, 200% (WCAG requirement)
+- Derive scale from a deliberate ratio and cap it with `clamp()`; do not hand-tune unrelated font sizes that drift across components.
 
 ---
 
@@ -388,6 +390,7 @@ DevTools device emulation does NOT accurately represent:
 | Hiding content on mobile with `display: none` | Restructure or use progressive disclosure |
 | Hover-only interactions | Add tap/click alternatives |
 | Fixed pixel widths for containers | Use `%`, `fr`, `min()`, `clamp()` |
+| Fluid values without bounds | Use `clamp(min, preferred, max)` so layouts scale without becoming tiny or huge |
 | Text in images (unscalable) | Use real text with CSS styling |
 | Assuming portrait orientation | Test and design for both orientations |
 | Ignoring safe areas | Apply `env(safe-area-inset-*)` |

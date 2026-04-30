@@ -191,8 +191,11 @@ For major SaaS or ERP design tasks, produce:
 
 For ERP projects involving manufacturing, wholesale, distribution, import/export, fleet, field delivery, agriculture aggregation, or warehouse operations, pair this skill with `inventory-management` and load `inventory-management/references/cltd-logistics-inventory-patterns.md`. The ERP design should explicitly model inventory policy, in-transit stock, shipment events, carrier/fleet assignment, freight documents, customs controls where relevant, returns, claims, and logistics KPIs rather than treating fulfilment as a simple order status.
 
+For ERP projects with billing, fees, POS, payroll, inventory valuation, grants, patient billing, school fees, donor funds, manufacturing cost, or statutory reporting, pair this skill with `saas-accounting-system` and load `saas-accounting-system/references/accounting-bookkeeping-erp-patterns.md`. The design should model GL, subledgers, control accounts, fiscal periods, posting rules, reconciliation, close, dimensions, cost centres, profit centres, tax, fixed assets, and management reporting as first-class capabilities.
+
 ## References
 
 - [references/domain-modeling.md](references/domain-modeling.md): Core entities, controls, and workflow review prompts.
 - [../inventory-management/references/cltd-logistics-inventory-patterns.md](../inventory-management/references/cltd-logistics-inventory-patterns.md): Logistics network, inventory policy, transportation, carrier/fleet, trade documentation, and shipment exception patterns for ERP systems.
+- [../saas-accounting-system/references/accounting-bookkeeping-erp-patterns.md](../saas-accounting-system/references/accounting-bookkeeping-erp-patterns.md): Double-entry bookkeeping, subledgers, ERP finance configuration, cost accounting, controls, reconciliations, and close patterns.
 - Load `modular-saas-architecture`, `multi-tenant-saas-architecture`, and `database-design-engineering` when implementing the design.

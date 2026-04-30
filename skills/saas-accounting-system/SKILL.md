@@ -126,7 +126,7 @@ The COA is the backbone. Every account has a type that determines its normal bal
 - Accounts cannot be deleted if they have posted entries
 - Sub-accounts supported (e.g., 1100 Cash → 1101 Petty Cash, 1102 Main Bank)
 
-See: `references/chart-of-accounts.md`
+See: `references/chart-of-accounts.md` and `references/accounting-bookkeeping-erp-patterns.md`.
 
 ## Auto-Posting Rules
 
@@ -153,7 +153,7 @@ Users never create journal entries manually. Every business transaction has a po
 
 **Multi-line entries:** A single sale with tax and discount creates 3+ journal lines, all in one entry. The entry MUST balance.
 
-See: `references/journal-posting-rules.md`
+See: `references/journal-posting-rules.md` and `references/accounting-bookkeeping-erp-patterns.md`.
 
 ## Void & Reversal Mechanics
 
@@ -230,6 +230,23 @@ account_balances (id, franchise_id, account_id, period_id,
 - `status` enum: DRAFT, POSTED, VOIDED
 
 See: `references/schema-design.md`
+
+## Subledger and Control Account Discipline
+
+Every finance module must reconcile to the general ledger through control accounts:
+
+- Accounts receivable aging must reconcile to the AR control account.
+- Accounts payable aging must reconcile to the AP control account.
+- Inventory valuation must reconcile to inventory control accounts.
+- Fixed asset register net book value must reconcile to asset cost less accumulated depreciation.
+- Bank reconciliation must explain the difference between bank statement and book balance.
+- Tax schedules must reconcile tax payable/receivable accounts to return-ready evidence.
+
+Do not let users post directly to control accounts except through controlled adjustment workflows with reason, approval, and audit trail.
+
+## Management Accounting Layer
+
+When the system supports manufacturing, services, projects, schools, clinics, retail, or ERP management reporting, add cost-centre, profit-centre, project, branch, department, and product dimensions to postings. Use these dimensions for budgets, flexible budget reports, standard-cost variance, contribution margin, activity-based costing, and management packs without corrupting statutory GL structure.
 
 ## Dual Reporting System
 
@@ -354,3 +371,4 @@ Every implementation MUST pass these tests:
 - `references/void-reversal-patterns.md` — Void mechanics and edge cases
 - `references/financial-statements.md` — Report SQL queries and formats
 - `references/schema-design.md` — Complete database schema with constraints
+- `references/accounting-bookkeeping-erp-patterns.md` — bookkeeping, subledger control, ERP finance configuration, cost accounting, management reporting, and acceptance tests

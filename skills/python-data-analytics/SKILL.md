@@ -71,6 +71,7 @@ Use Python when SQL stops being the right tool: multi-step transformations, stat
 
 - Computing cohort retention, funnel conversion, churn curves.
 - Financial math: IRR, NPV, amortization, depreciation schedules at scale.
+- Accounting analytics: trial balance, AR/AP aging, bank reconciliation, inventory valuation, fixed-asset reconciliation, cost variance, and finance dashboard calculations.
 - Statistical tests: A/B test significance, distribution comparisons, trend detection.
 - Outlier/anomaly detection on SaaS metrics.
 - Geospatial analytics: territory stats, route distances, geofence compliance reports.
@@ -197,7 +198,7 @@ def amortization_schedule(principal: Decimal, annual_rate: Decimal, months: int)
     ...
 ```
 
-Recipes for IRR, NPV, amortization, depreciation (straight-line, declining, units-of-production), and day-count conventions (30/360, actual/365) in `references/financial-math.md`.
+Recipes for IRR, NPV, amortization, depreciation (straight-line, declining, units-of-production), and day-count conventions (30/360, actual/365) in `references/financial-math.md`. For accounting and bookkeeping analytics, load `references/accounting-finance-analytics.md` before calculating trial balances, aging schedules, reconciliations, cost variances, or finance dashboards.
 
 ## Statistical tests and anomalies
 
@@ -263,6 +264,7 @@ Analytics results don't live in Python — they return to PHP or become document
 - `references/loading-data.md`
 - `references/cohort-funnel-retention.md`
 - `references/financial-math.md`
+- `references/accounting-finance-analytics.md`
 - `references/statistics-and-anomalies.md`
 - `references/geospatial-analytics.md`
 - `references/performance-and-polars.md`

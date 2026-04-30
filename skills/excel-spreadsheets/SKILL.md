@@ -70,6 +70,7 @@ Excel done right looks like a financial analyst and a graphic designer collabora
 - `references/programmatic-generation.md` — openpyxl, xlsxwriter, PhpSpreadsheet, pandas — code patterns for generating professional Excel from apps
 - `references/charts-pivot.md` — chart types, professional chart formatting, PivotTables, slicers, dashboards
 - `references/financial-modeling.md` — PMT, PV, FV, NPV, IRR; Goal Seek, Data Tables, Scenario Manager, Solver; modeling golden rules; formula debugging
+- `references/finance-accounting-workbooks.md` — bookkeeping ledgers, trial balance, AR/AP aging, bank reconciliation, fixed assets, budgets, cost accounting, statement checks, and finance dashboards
 - `references/python-automation.md` — Excel–Python–Excel workflow, advanced read_excel(), 6-step export, pivot_table/merge/crosstab, email automation, =PY() function, xlwings
 - `references/vba-macros.md` — recording/running macros, VBA golden rules, common patterns, keyboard shortcuts reference
 - `references/quality-checklist.md` — pre-delivery checklist
@@ -303,7 +304,7 @@ df = df.dropna(subset=["ID"])  # drop rows with no ID
 
 ## Financial Functions Quick Reference
 
-Read `references/financial-modeling.md` for full formulas, examples, and What-If tools.
+Read `references/financial-modeling.md` for full formulas, examples, and What-If tools. Read `references/finance-accounting-workbooks.md` when the workbook is a ledger, trial balance, aging report, reconciliation, financial model, budget, forecast, cost model, or finance dashboard.
 
 | Function | Use case | Key rule |
 |---|---|---|
@@ -347,6 +348,7 @@ Read `references/vba-macros.md` for full VBA patterns and keyboard shortcuts.
 | openpyxl/xlsxwriter code | `references/programmatic-generation.md` |
 | Chart types and formatting | `references/charts-pivot.md` |
 | Financial functions & What-If | `references/financial-modeling.md` |
+| Finance/accounting workbooks | `references/finance-accounting-workbooks.md` |
 | Python automation & =PY() | `references/python-automation.md` |
 | VBA macros & keyboard shortcuts | `references/vba-macros.md` |
 | Pre-delivery checks | `references/quality-checklist.md` |

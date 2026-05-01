@@ -186,6 +186,21 @@ superseded by mobile-* equivalents.*
 
 ---
 
+## DevOps / Infrastructure — 3 Skills (Partial — Gaps Exist)
+
+| Skill | Coverage |
+|-------|----------|
+| cicd-pipeline-design | 14-stage CI/CD methodology, DORA metrics, blue-green/canary, branching strategy |
+| cicd-jenkins-debian | Jenkins on Debian/Ubuntu: install, Declarative Jenkinsfile, Docker agents, RBAC, backup |
+| cicd-devsecops | Vault basics, OWASP Dependency Check, SonarQube, Trivy image scanning, UFW, container hardening |
+
+**Assessment:** Foundational CI/CD and DevSecOps covered. Critical gaps: Kubernetes (zero coverage),
+Infrastructure as Code (zero coverage), Observability stack (zero coverage), full secrets lifecycle,
+Linux hardening depth, network security architecture. See `04-gap-analysis.md` GAP 10 for the full
+enhancements and new skills plan.
+
+---
+
 ## Microservices — 5 Skills
 
 | Skill | Coverage |

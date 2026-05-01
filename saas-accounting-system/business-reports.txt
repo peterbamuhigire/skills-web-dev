@@ -1,0 +1,5340 @@
+[]
+
+[]
+
+[]
+
+[]
+
+Business Report Guides
+
+[]
+
+Business Report Guides
+
+Research Reports and Business
+
+Plans
+
+Dorinda Clippinger
+
+Business Report Guides: Research Reports and Business Plans Copyright ©
+Business Expert Press, LLC, 2019.
+
+All rights reserved. No part of this publication may be reproduced,
+stored in a retrieval system, or transmitted in any form or by any
+means—electronic, mechanical, photocopy, recording, or any other except
+for brief quotations, not to exceed 400 words, without the prior
+permission of the publisher.
+
+First published in 2019 by
+
+Business Expert Press, LLC
+
+222 East 46th Street, New York, NY 10017
+
+www.businessexpertpress.com
+
+ISBN-13: 978-1-94944-372-1 (paperback)
+
+ISBN-13: 978-1-94944-373-8 (e-book)
+
+Business Expert Press Corporate Communication Collection
+
+Collection ISSN: 2156-8162 (print)
+
+Collection ISSN: 2156-8170 (electronic)
+
+Cover and interior design by Exeter Premedia Services Private Ltd.,
+Chennai, India First edition: 2019
+
+10 9 8 7 6 5 4 3 2 1
+
+Printed in the United States of America.
+
+Abstract
+
+Business Report Guides: Research Reports and Business Plans offers
+strategies for creating two complex reports. Also, it includes a
+complete replica of a business research report and a business plan. The
+guides for both reports emphasize thorough planning and preparation and
+take readers through these essential steps. Additional guides aid
+readers in writing, producing, and presenting research reports and
+business plans. This book is for you if you are an MBA candidate or an
+upper-level student in any professional field OR if you are a business
+manager or other professional whose career involves (1) conducting
+business research and generating reports for others in and outside your
+organization or (2) attracting investors for starting an organization or
+changing an existing one.
+
+This convenient book includes guides for planning and launching a
+research project and writing a research proposal; identifying major
+findings in research data, drawing conclusions from findings, and using
+them to recommend appropriate action; and managing special features of
+formal research reports, including citing sources, page numbering,
+preliminary and supplementary pages, and visual displays.
+
+This useful book also discusses why entrepreneurs need a business plan,
+objectives of a business plan, and what a business plan contains.
+
+Additionally, the book includes an entire award-winning business plan
+that resulted in a successful organization. This valuable illustration
+includes insightful annotations and guidelines for creating every part
+of the business plan.
+
+The crisp writing style, bullet points, and many realistic examples and
+visuals give you essential information quickly. Chapter summaries
+include checklists. Business Report Guides: Research Reports and
+Business Plans gives you how-to information you can use now—and refer to
+frequently throughout your career.
+
+Keywords
+
+conclusions; entrepreneurs; executive summary; findings; future
+development; investors; management plan; marketing plan; online formats;
+operational plan; primary data collection; pro forma financial
+statements; recommendations; report deck format; report preliminaries;
+risks and contingencies; source citations; venture strategy; visuals
+
+Contents
+
+Preface
+
+Acknowledgments
+
+Chapter 1 Writing Business Research Reports
+
+Chapter 2 Writing Business Plans
+
+Appendix A: Business Data Sources on the Web and in Libraries
+
+Notes
+
+References
+
+About the Author
+
+Index
+
+Preface
+
+Business Report Guides: Research Reports and Business Plans is designed
+to help business managers, MBA candidates, and upper-level college
+students develop the distinctive skills that research reports and
+business plans require.
+
+The book offers solid guidelines for planning and creating these complex
+reports in keeping with “best practices.” Many examples and full- report
+visuals help ensure readers’ complete understanding.
+
+In two chapters, readers receive practical solutions to reporting
+situations that professionals are likely to encounter at some point:
+
+Chapter 1 covers the preparation and formatting of research reports.
+
+It contains a complete research report, including an appendix
+
+showing the data collection instruments used.
+
+Chapter 2 explains moving a business concept from your, the
+entrepreneur’s, mind into a report—a business plan—that wins the support
+of (1) prospective co-managers and employees and (2)
+
+potential investors.
+
+Business Report Guides: Research Reports and Business Plans can be your
+go-to handbook for years to come. Reading through it in a couple hours,
+you can pick up plenty of information that you can apply immediately.
+Then keep this book handy and refer to it as needs arise in your future.
+
+Acknowledgments
+
+Thank you, Dr. Debbie DuFrene. Your expert editing transformed my drafts
+into this reader-friendly book. Also, thank you, Dr. Shirley Kuiper.
+Your earlier writings and vision underpin this publication. Thank you,
+too, William Jewell (my husband). Your wit, patience, and love kept me
+going.
+
+Thank you, students and associates who have worked with me during my
+half century of teaching, researching, publishing, and business
+managing.
+
+You have influenced my thinking about educating for business, business
+communication, and other business practices.
+
+Please send your suggestions for improving future editions.
+
+CHAPTER 1
+
+Writing Business
+
+Research Reports
+
+Managers must often make decisions such as the following that will have
+a major impact on the success of their organizations.
+
+Should a would-be entrepreneur begin the business she has long
+
+contemplated?
+
+Should an advertising agency give a substantial amount of money to a
+state university to establish a business communication center?
+
+Should an insurance company change its policy about medical
+
+insurance coverage for domestic partners?
+
+How can an Appalachian mountain resort strive to attract more of the
+state’s tourism business?
+
+These and other questions require extensive research before they can be
+answered with confidence.
+
+Planning Research
+
+The first step in the research process is to create a plan that clearly
+identifies the problem to be studied and its scope as well as the
+purpose of the study and the audience to whom the information will be
+reported. This plan becomes a guide for collecting data, analyzing data,
+and reporting the results of the analysis. A research plan includes 12
+parts as indicated in
+
+Figure 1.1.
+
+[]
+
+[]
+
+Figure 1.1 A 12-part research plan
+
+*Two-way arrows suggest that a reiterative approach to these parts of
+the research plan may improve its overall quality.
+
+The following list describes each planning step.
+
+Authorization. Are you approved to spend time and money on the research?
+Obtain or review your authorization.
+
+Audience. Who will receive your research results—both the primary and
+secondary audiences? Identify your audience.
+
+Research problem. Go beyond the managerial problem and its symptoms to
+the bigger picture. Define the research problem.
+
+Putting it in question form usually helps clarify.
+
+Purpose. What do you hope to accomplish by doing the study?
+
+Clarify the purpose of the research. If you can, separate the purpose
+from the problem.
+
+Scope. You may not be able to study all parts of the research problem;
+so ask, which parts will lead me to useful facts? Narrow the scope of
+the problem.
+
+Delimitations and limitations. What boundaries are you drawing between
+what you will and will not study? This question refers to delimitations.
+Could any practical limits on your research lower its applicability to
+the problem? This question refers to shortcomings or inadequacies due to
+circumstances beyond your control. State and explain your delimitations
+and potential limitations of the research.
+
+Data col ection. What kinds of information will you need to answer the
+research question? Should you use primary data (collected from records
+or people or both), secondary data (collected and published by others),
+or both? Plan for data collection.
+
+Data analysis. Does the context call for qualitative or quantitative
+data? If the latter, then determine what statistical test to apply to
+the data you will collect. Plan for data analysis.
+
+Time schedule. Plan backward from the due date, setting interim dates
+for completing each phase of the research. Estimate the time
+
+schedule.
+
+Resources. Include realistic estimates of equipment, labor, supplies,
+travel, and other costs. Estimate all resources needed.
+
+Results presentation. What will be the nature of your research report?
+
+What communication medium will you use to make your findings,
+
+conclusions, and recommendations known? Plan the presentation of
+results.
+
+Approval. Present your research plan in person, in writing, or both and
+seek feedback. In most instances, you will want a contractual agreement
+before continuing with the project. Ask for approval to proceed.
+
+Of the 12 steps, defining the problem, narrowing the scope, and planning
+data collection are perhaps the most vital. Therefore, these planning
+steps require further examination.
+
+Define the Problem
+
+The problem is the central focus of the research. A clear, concise
+statement of the problem keeps the researcher on target. To conduct
+business research, you must distinguish between the managerial problem
+(or symptoms of a problem) and the research problem itself. 1
+
+The observable phenomena about which a decision must be made make up the
+managerial problem. Such phenomena are also called the symptoms of the
+problem. For example, a manager may observe that the office support
+personnel often are tardy for work; turn in poor-quality work; and
+complain
+
+about eyestrain, wrist strain, and backache. These are all symptoms that
+something is amiss in the office support system. A manager who considers
+only one symptom at a time may decide that the resolution to the
+“problem”
+
+is to reprimand tardy employees, give negative work evaluations to
+employees who do inferior work, or buy new office chairs and wrist
+rests.
+
+But a manager who looks at the cluster symptoms may decide that a deeper
+problem exists. Perhaps the question that must be addressed is this: How
+can we improve the productivity of our office support staff? That
+question would become the research problem or research question.
+
+Narrow the Scope
+
+By narrowing the scope of the analysis, you identify the specific
+factors or elements to be analyzed. 3 A perfect study would investigate
+all possible aspects of the research question. However, time and money
+constraints require that you focus your study on the factors most likely
+to yield relevant data. Preliminary research often leads to the
+identification of those elements. After identifying the factors, you
+will concentrate the remainder of your research on those items.
+
+As an example, the new administrator at Peaceful Village, a retirement
+center in operation for three years, authorizes research for this
+research problem: to explore ways to attract and retain residents. The
+study’s-purpose is to enable the retirement center to reach its goal of
+99%‐
+
+occupancy. The scope of a study could include these factors regarding
+attracting and retaining residents:
+
+A. Advertising
+
+1. Cost/benefit analysis of current program
+
+2. Analysis of competitors’ advertising
+
+B. Intake procedures
+
+1. Work-flow analysis of current procedures
+
+2. Analysis of procedures used in other facilities
+
+3. Residents’ evaluation of current procedures
+
+C. Services to residents
+
+1. Food
+
+2. Recreation
+
+3. Entertainment
+
+4. Personal and medical services
+
+5. Maintenance of private rooms
+
+6. Maintenance of common areas
+
+Notice that the scope remains focused on the problem of attracting and
+retaining residents. It does not, for example, include looking at
+alternative uses for the building and grounds. That factor is outside
+the scope of this research problem.
+
+Plan Data Collection
+
+The first step in data collection is to identify potential sources. 3
+Researchers use two kinds of data: primary and secondary. Information
+that has been collected and published by others is secondary data.
+Books, magazines, journals, and corporate annual reports found in public
+or private libraries are examples of secondary data sources. Many
+traditional secondary sources are now available through Internet
+services and online databases.
+
+Primary data consist of information collected at its origin. People
+(customers, employees, and suppliers) and company files are major
+sources of primary data used in business research. (Please note that
+“data” is the plural form of “datum.” Always refer to data with a plural
+pronoun and accompany the word with a plural verb.)
+
+The scope of the research problem directs the selection of data sources.
+To ensure the validity of the data, sources must be chosen for their
+relevance, not their convenience. Two questions should guide you as you
+determine possible sources for research data:
+
+1. What kinds of information do I need to answer the research question?
+
+2. Should I use primary or secondary data sources—or both—to obtain that
+information?
+
+Data Need
+
+The research question, divided into appropriate elements or factors of
+analysis, must direct your search for data. After you have defined the
+research question clearly and have narrowed the scope, you must focus
+your attention on finding data directly related to those factors.
+
+Keeping the scope of analysis in mind will assist your efforts to be
+both efficient and effective as a researcher. You will be efficient
+because you will target your data search toward the sources most likely
+to yield meaningful information rather than wasting time looking at
+unrelated data. You will be effective because you will be able to judge
+all data in terms of their relevance to the research problem and will
+not be tempted to include interesting but irrelevant data.
+
+The research question guides the selection of information sources. For
+each element in the scope, specific kinds of data and specific data
+sources must be identified. More than one kind of data and more than one
+data source may be required to analyze an element adequately, as
+indicated
+
+in Figure 1.2.
+
+[]
+
+Figure 1.2 Planning data needs and sources
+
+Primary Versus Secondary Data
+
+After narrowing the scope of the analysis, you must determine whether
+primary or secondary sources will best answer each element of the
+problem, as demonstrated in Figure 1.2. When the problem you are
+investigating is unique to your organization, primary data may yield the
+only usable information. But if adequate secondary data are available,
+you should use them instead of relying solely on the time-consuming
+process of collecting from primary sources.
+
+As already noted, primary data are acquired at their sources through
+observation, experimentation, interviews, questionnaire surveys, and
+searches through company records, while secondary data consist of
+information compiled by others and provided in books, blogs, magazines,
+journals, and other published sources.
+
+In addition, many business data sources can be accessed on the web.
+
+However, even the most adept web user looking for secondary business
+sources can expect to use library print sources, microforms, and
+database subscriptions, too. See Appendix A for a list of valuable
+sources.
+
+Some researchers mistakenly consider primary data to be better than
+secondary data. They assume that information “straight from the source”
+is better information than secondhand data. Others prefer to use primary
+data because they are stimulated by that data collection process and
+feel restricted when they must sit in a library searching through
+documents or in front of a computer screen using search engines to find
+secondary information. In contrast, some researchers—equally
+mistakenly—suspect the accuracy of primary data. They recognize that
+people can deliberately distort self-reported information, and
+researchers can make incorrect observations or lead people to report
+what the researcher wants to record. In addition, some researchers may
+feel uncomfortable with the primary data collection process but enjoy
+the sense of discovery that comes from searching out well-documented
+information in secondary sources.
+
+Neither attitude can produce consistently effective research reports.
+When you recognize a problem and the need for research, first consult
+secondary sources. Secondary sources often provide information to help
+define the problem more clearly and to identify elements that should be
+investigated.
+
+To obtain approval, most researchers write their research plan and
+present it in a formal document called a research or project proposal. 4
+For the
+
+research report in this chapter, the researcher’s proposal is shown in
+Figure
+
+1.3a–c (pp. 9−11).
+
+[]
+
+Figure 1.3a Research proposal (authorization, problem, and purpose)
+
+[]
+
+Figure 1.3b Research proposal (scope, description of data,
+delimitations,
+
+and limitations)
+
+[]
+
+Figure 1.3c Research proposal (data analysis, schedule, resources,
+
+presentation, and approval)
+
+The proposal may also be presented orally so that managers can ask
+questions immediately, clarify any ambiguities, or request changes
+before giving their approval.
+
+Research planning includes thinking in advance about the nature and
+appearance of the formal report you will write, present orally, or both.
+
+Anticipate whether your report will be printed on paper, prepared as a
+slide deck, or posted as a PDF or web pages. For any of these formats,
+envision an attractive, functional report that enables readers to absorb
+easily the information it contains and stimulates them to act on the
+report’s contents.
+
+Formatting a Manuscript
+
+When a report exceeds three pages, instead of the memo or letter format,
+use manuscript format. Include a title page and a cover memo or cover
+letter. Add other parts—such as a table of contents, list of visuals,
+glossary, and so on—if you believe the report’s readers will need them.
+Observe these formatting conventions. 5
+
+Use single-spaced or multiple-spaced, blocked paragraphs unless
+otherwise indicated. Put blank space above and below headings and
+between paragraphs.
+
+For paragraphs in a printed report, use only one size 10 to 12 serif
+font, such as Times New Roman OR use a serif font for paragraphs and a
+sans serif font for the title and Level 1 and 2 headings. Note: For
+reports likely to be read from a screen, reverse the serif and sans
+serif font usage.
+
+Use a 1 in. top margin on each page after the first and a 1 in. bottom
+margin on all pages—the usual default setting of word processing
+
+software. On page 1, place the report title in large letters, roughly
+1.5 in. from the top and leave several blank lines below it.
+
+Use a left margin of 1.5 in. when binding on the left. Otherwise, make
+it 1 in.—same as the right margin.
+
+These formatting basics are illustrated in Figures 1.7 and 1.8; and as
+you read the next section, you will be referred to these figures, so you
+can observe page format along with other report features.
+
+Parts of a Formal Research Report
+
+Business research reports are often classified as informational or
+analytical reports. An informational report provides comprehensive data
+related to a business problem along with interpretation of the data, but
+it offers no conclusions or recommendations. An analytical report
+includes conclusions and may also present recommendations.
+
+A characteristic of a formal business report is the inclusion of several
+parts that are not included in less formal reports. Although you may
+adapt the parts of a formal report to suit the requirements of your
+reporting situation, the most comprehensive structure includes the
+report parts listed
+
+in Figure 1.4.
+
+[]
+
+Figure 1.4 Parts of a formal research report
+
+Each part is explained in these pages and demonstrated in Figures 1.7,
+
+1.8, and 1.9, pp. 34–58. * The preferred procedure is to display
+illustrations as soon as possible after they are introduced in the text.
+However, illustrations of the formal research report are grouped so that
+all report
+
+pages may be viewed continuously. Consider the report shown in these
+figures to be the result of the research proposal presented in Figure
+1.3.
+
+Suggestion: Review that proposal now.
+
+Then, as you study the explanation of each report part, examine its
+counterpart in the figures. In addition, notice the writing style and
+the report’s inductive structure.
+
+Report Preliminaries
+
+The preliminary parts of a formal report help to make the report user
+friendly. Those parts provide a convenient way to physically transmit
+the report, establish a context for understanding it, and enable the
+reader to locate specific information easily. Some preliminary parts may
+be omitted when justified by the length of the report, the complexity of
+the topic, or the formality of the situation.
+
+Although the report preliminaries, or prelims, are the first pages the
+report user sees, many of those parts can be compiled only after you
+have written the full report. The prelims must accurately reflect the
+report’s content and structure. If you revise your report in any way
+after you have written the preliminaries, be sure to check the accuracy
+of all preliminary parts and, if necessary, revise them before
+delivering the report. For example, be sure that your table of contents
+accurately shows the final content and page numbering of your report.
+Preliminary parts appear in Figure 1.7 and you will be referred to each
+part as you read about it.
+
+Cover or Binder
+
+A reader must be able to handle the report document conveniently.
+
+Although some readers may prefer that you present unbound pages, perhaps
+enclosed in an envelope or a folder, many prefer that you bind the
+report securely. A cover or binder protects the pages of a printed
+report and prevents them from loosening while the reader uses the
+report. Your report cover should show at least the title of the report;
+if the title is long, a
+
+shortened form may appear on the cover. You may also include a design or
+illustration to suggest the content of the report and stimulate
+interest. See
+
+Figure 1.7a, p. 34. Naturally, this prelim is omitted if the report is
+circulated electronically.
+
+[]
+
+Figure 1.7a Preliminaries: Report cover
+
+[]
+
+[]
+
+Figure 1.7b Preliminaries: Title page
+
+[]
+
+Figure 1.7c Preliminaries: Transmittal letter
+
+Figure 1.7d Preliminaries: Table of contents
+
+[]
+
+Figure 1.7e Preliminaries: List of illustrations
+
+[]
+
+Figure 1.7f Preliminaries: Executive summary
+
+Flyleaves
+
+A blank sheet, called a flyleaf, may be placed at both the front and
+back of the report to protect other pages and provide a space for
+readers’ comments.
+
+Since flyleaves connote a high level of formality, include them in
+printed reports only when you think the situation justifies such
+formality. Note, for example, that most hardcover books contain
+flyleaves, but many soft cover books do not.
+
+Title Page
+
+As noted earlier, the title page usually contains four facts.
+
+Full title of the report (displayed at the top in large characters)
+Identity of the person or agency for whom the report was prepared,
+including contact information
+
+Report writer’s identity, including contact information
+
+Transmittal date (month and year)
+
+Although inclusion of the author’s identity is optional, it may be
+advantageous to include such information on all reports unless you are
+instructed not to do so. Such information will help readers provide
+feedback, such as questions, commendations, or requests for new
+projects.
+
+The title of the report should provide a concise statement of the
+report’s content. Include as much who, what, why, when, and where
+information as is possible without creating a cumbersome title. To
+achieve conciseness, avoid using unnecessary words and phrases such as
+an analysis of or the determination of. A talking title may stimulate
+interest more readily than a purely descriptive title. The following
+examples contrast a cumbersome, verbose title with a descriptive title
+and a talking title.
+
+Cumbersome, verbose:
+
+A Comprehensive Analysis of Tourism in West Virginia and Actions the
+Hatfield-McCoy Mountains Coalition Should Take to Increase Tourism in
+That Region
+
+Descriptive:
+
+Increasing Tourism in the Hatfield-McCoy Mountains Region of West
+Virginia
+
+Talking:
+
+What Should the Hatfield-McCoy Mountains Coalition Do to Increase
+Tourism in Its Region?
+
+For the title page, you may use a traditional format or any creative
+format that effectively conveys the required information. A traditional
+title page format is demonstrated in Figure 1.7b, p. 35. Notice that no
+page number appears on the title page, though it is counted in the
+numbering scheme.
+
+Transmittal Message
+
+The transmittal message—in letter (external reports) or memo (internal
+reports) format—presents the report to your primary reader(s).
+
+If you have written the report in a formal (impersonal) writing style,
+the transmittal message gives you an opportunity to speak more
+personally to your primary contact person and to reinforce goodwill. The
+message may include any comments that will stimulate interest in the
+report; confirm confidence in you as the researcher and writer; and
+perhaps lead to further interesting, responsible assignments.
+Appropriate content for the transmittal message includes some, but not
+necessarily all, of the following.
+
+Review of the research problem, purpose, and methodology Highlights of
+major findings
+
+Significant recommendations
+
+Comments about the research experience
+
+Offer to discuss the report
+
+Offer to assist with future project
+
+The transmittal message is often bound within the report, either
+immediately before or immediately after the title page, as shown in
+
+Figure 1.7c, p. 36.
+
+Authorization and Acceptance Messages
+
+The authorization message provides evidence of permission to undertake
+the project, and the acceptance message gives evidence of agreement to
+do the task. Those messages are often exchanged before the research
+project is undertaken, sometimes orally and sometimes in writing. If
+written, they may be included in the report as formal notice to
+secondary readers that the project was appropriately authorized and
+accepted. However, if the transmittal message includes reference to the
+authorization, as in
+
+Figure 1.7c, these messages may be omitted from the report. Note: If
+separate authorization and acceptance messages had been included in
+
+Figure 1.7, they would resemble the following examples.
+
+Authorization Message (in appropriate letter or memo format): Please
+proceed with the investigation of ways to increase tourism in the
+Hatfield-McCoy Mountains region.
+
+As we discussed this morning, the members of the Hatfield-McCoy
+Mountains Coalition must be fully aware of current tourism trends and
+tourists’ perceptions of the Hatfield-McCoy Mountains region. The
+
+research proposal you presented to the Coalition convinced us that your
+agency is the right one to undertake this study. You have my full
+support.
+
+You agreed to submit a written report of your findings, conclusions, and
+recommendations no later than July 25. I would appreciate a progress
+report on July 10.
+
+Acceptance Message (appropriate letter or memorandum format): Thank you
+for authorizing Penworthy Research Associates to analyze tourism trends
+in West Virginia and tourists’ perceptions of the Hatfield-McCoy
+Mountains region. My research team has already begun to collect data.
+
+You will have a report of the research no later than July 25. As you
+requested, I will submit a progress report on July 10.
+
+You may occasionally submit unsolicited research reports. In such an
+instance, authorization and acceptance messages do not exist; therefore,
+the transmittal message must indicate clearly why you are submitting the
+report.
+
+Contents
+
+Any report you create will likely have multiple readers now and in the
+future. Few of them, however, will read the entire report in sequence.
+
+Instead, they will read selectively, with some readers focusing on the
+executive summary; others on the summary, conclusions, and
+recommendations; and still others on the visuals included in the
+findings. In a lengthy report, a table of contents and list of tables
+and figures help readers get an overview of the report and easily refer
+to specific parts of it.
+
+The table of contents must list all items that appear after that page:
+any preliminary pages that follow and all chapter or section headings
+and subheadings used in the report. Do not list preliminary pages that
+appear before the table of contents. The number of the page on which
+each first-level division begins must be included. Many writers include
+page numbers to mark the beginning of each second-level subdivision as
+well, as shown in
+
+Figure 1.7d, p. 37. Note: Some writers use an outline numbering system,
+such as the decimal system demonstrated in Figure 1.4, to identify
+entries in the table of contents.
+
+A list of tables or figures follows the table of contents when the
+report includes visuals. When only one or two visuals are used, some
+writers include them in the table of contents. However, the reader can
+locate the visuals more easily if they appear in a separate list. If the
+list is short and space permits, the list may be included on the same
+page as the table of contents. If few visuals are used, tables and
+figures may be grouped in a single list of illustrations. Otherwise, the
+list of tables usually precedes the list of figures, as shown in Figure
+1.7e, p. 38.
+
+Preface
+
+A preface is most appropriate in an unsolicited report. It should
+present some special details about the report and create interest.
+Comments about what stimulated the study and its significance are
+appropriate content for a preface. If that information already is
+conveyed in the authorization, acceptance, or transmittal messages, you
+may omit the preface. A preface is not as comprehensive as an executive
+summary, which appears later.
+
+The report preliminaries shown in Figure 1.7 contains no preface. The
+following example demonstrates an appropriate preface for that report.
+
+Preface:
+
+The decline of coal mining in the Hatfield-McCoy Mountains region
+requires that community leaders pursue all possible means of promoting
+new industry in the region. One effective way to improve the economic
+well-being of the region is to capture a larger share of the state’s
+tourism trade.
+
+This report addresses the challenge of increasing tourism in the
+Hatfield-McCoy Mountains region and suggests possible routes to that
+increase.
+
+Acknowledgments
+
+Include an acknowledgments page when you want to give credit to people
+who have assisted with the project. When such recognition is included in
+the transmittal message, the acknowledgments page is omitted.‐
+
+Acknowledgments are often written in the first person, even if the
+report itself is written in the third person. The following example
+demonstrates appropriate acknowledgments for the report prelims
+presented in Figure 1.7.
+
+Acknowledgments:
+
+Many people contributed to the success of this study, and I am grateful
+to all of them. A special thank you goes to several who contributed in
+unique ways.
+
+Aaron Everette of the Hatfield-McCoy Mountains Coalition is primarily
+responsible for this project. He entrusted Penworthy Research Associates
+with the research assignment and gave valuable advice during the early
+stages of the project. His suggestions and perceptive questions helped
+to clarify the objectives of the project and determine the best ways to
+accomplish those objectives.
+
+Individuals visiting tourist sites in the Metro Valey and New River-‐
+
+Greenbrier regions willingly provided information about their travel
+
+expriences and perceptions of the Hatfield-McCoy Mountains Region.
+
+Their candid comments provided the data necessary to gain a perspective
+on potentially successful promotional strategies. Without their
+assistance, we would not have been able to produce this report.
+
+To all, a hearty “Thank you.”
+
+Arlene W. Sherman
+
+Director of Market Research
+
+Penworthy Research Associates, LLP
+
+Executive Summary
+
+The executive summary, sometimes called a synopsis, immediately precedes
+the report body. Typically, an executive summary includes the research
+problem, purpose, research methods, major findings, conclusions, and
+recommendations. The executive summary—a condensed version of the entire
+report—must contain enough information to help a reader decide how much
+of the full report he or she should read.
+
+One technique for drafting an executive summary is to reduce each major
+section of the report to one paragraph. After condensing the report in
+that way, you can revise the draft by arranging the paragraphs into the
+desired structure and adding transitions to link the paragraphs into a
+coherent summary. Note: Although an analytical report may be written in
+inductive (indirect) structure, many readers prefer that the executive
+summary be written in deductive (direct) structure, beginning with the
+recommendations. See Figure 1.7f, p. 39.
+
+Some executives prefer that the summary be no longer than one page. The
+length and complexity of the report, however, most often govern the
+length of the executive summary. Unless instructed to do so, do not feel
+that you must limit the summary to one page.
+
+Report Body
+
+Whereas the preliminaries provide a context for understanding the report
+and a summary of its contents, the body of your report must contain all
+details of the study. Since the report body should be a coherent unit,
+it begins with the report title, placed approximately 1.5 in. from the
+top of the first page of the report body.
+
+Write the report body so clearly and completely that a reader will
+understand its contents even if the person merely skims the preliminary
+parts. When the report is written in inductive structure, the title is
+followed by
+
+coherent introduction
+
+complete presentation, discussion, and summary of findings
+
+(informational report ends here)
+
+conclusions and recommendations (analytical report only)
+
+The body of an analytical report written in inductive structure begins
+on page 1, immediately after the executive summary, as shown in Figure
+1.8a,
+
+p. 40.
+
+[]
+
+Figure 1.8a Body: Introduction
+
+[]
+
+Figure 1.8a Body: Introduction (continued)
+
+Note: This main section of a research report is called various names,
+including analysis, data analysis, discussion, findings, and research
+findings.
+
+[]
+
+[]
+
+Figure 1.8a Body: Introduction (continued)
+
+Figure 1.8a Body: Introduction (concluded); discussion of findings
+
+begins
+
+[]
+
+Figure 1.8b Body: Discussion of findings (continued)
+
+[]
+
+Figure 1.8b Body: Findings (continued)
+
+[]
+
+Figure 1.8b Body: Analysis (continued)
+
+[]
+
+Figure 1.8b Body: Research findings (continued)
+
+[]
+
+[]
+
+Figure 1.8b Body: Analysis (continued)
+
+[]
+
+Figure 1.8b Body: Discussion of findings (concluded)
+
+Figure 1.8c Body: Summary of findings and conclusions
+
+[]
+
+Figure 1.8d Body: Recommendations
+
+Note: Statements in the recommendations section should not be identical
+to those in the Executive Summary.
+
+[]
+
+Figure 1.8e Body: References
+
+Introduction
+
+The introduction provides all information necessary to understand the
+remainder of the report. The introduction establishes the context for
+interpreting the findings and conclusions.
+
+Typically, the introductory section for a report written in inductive
+structure includes the background of the problem, a statement of the
+research problem and purpose, the scope of analysis, and the research
+methodology, or procedures. Delimitations, limitations, and definitions
+of terms may also be included.
+
+If you prepared a comprehensive research proposal, you can draw much of
+the information for the introduction from that document. Do not,
+however, merely copy the proposal. Use only those parts that are
+relevant and write in a style that is appropriate for a final report.
+Suggestion: Again,
+
+review the proposal in Figure 1.3 and note how its major points are
+included in the introduction to the report shown in Figure 1.8a, pp.
+40−43.
+
+Note also that some parts of the proposal (such as the time schedule and
+budget) would be meaningless in the final report.
+
+Note: Report headings need not contain the words introduction or
+problem. The topic, or functional, headings, used in Figure 1.8a are
+customary. Regular consumers of research look for these, or similar,
+headings. They skim the content for each topic and quickly discern the
+who, what, when, where, and why of the research. In addition, they
+swiftly evaluate the soundness of the research problem and procedures.
+Therefore, you will aid readers by using these standard topic headings
+to introduce your research reports.
+
+Findings
+
+The presentation and discussion of findings comprise the major portion
+of the report. In this section, you must present a complete and clear
+analysis of all data collected. For coherence, the final paragraph of
+the introduction (as shown) or the first paragraph of the findings
+section should contain a preview of how the findings section will be
+organized.
+
+The report need not contain an actual heading called “Findings.”
+Instead, coherence should be achieved in this section through talking
+headings and subheadings (like newspaper headlines). Talking headings
+provide clues about the information in each section and lead the reader
+through the analysis.
+
+Headings Aid Discussion of Findings
+
+Headings, like the report title, should be concise. Also, at each level,
+headings should be parallel (same grammatical form or pattern) and
+specific. Parallelism helps readers see the report’s organization and
+the relationship of topics. Specifics in wording adds interest. In the
+following
+
+examples, both sets are parallel but not equally interesting. Specifics
+in the second set makes an important difference for readers.
+
+Nonspecific headings
+
+Treating mild hypothermia
+
+Treating moderate hypothermia
+
+Treating severe hypothermia
+
+Specific headings
+
+Mild hypothermia: Warm the core and let the periphery care for itself
+Moderate hypothermia: Do not allow the patient to stand
+
+Severe hypothermia: Time for a scoop-and-run rescue
+
+Figure 1.5 shows six grammatical patterns for report headings—all
+equally effective.6
+
+[]
+
+Figure 1.5 Six parallel heading patterns
+
+More than one pattern may be used in a report. For example, you might
+use questions for Level 1 headings, gerund phrases for Level 2, and
+
+imperatives or statements for Level 3 headings.
+
+Visuals Clarify and Simplify Findings
+
+When your report contains several visuals, identify each by a label,
+number, and title, like in the List of Tables and Figures. A
+well-written title for a visual answers the what and when questions
+about the data, and in many cases the title should also answer who and
+where. 7 For example, Microcom Sales by District, 2018 and 2019, is a
+more meaningful title for a chart than Microcom Sales or Sales by
+District. Titles of tables are normally placed above the table, while
+titles of charts or figures may be placed at either the top or the
+bottom. Remember to be consistent with your placement of titles.
+
+Besides identifying the visual by label, number, and title, you should
+identify the data source. If you used secondary data, that source may be
+identified in a shortened form, assuming that full identification is
+provided in the report’s list of sources. An example of noting a
+secondary source is
+
+“Source: Statistical Abstract of the United States, 2018.” If the data
+are from a primary source, such as observation, experimentation,
+interviews, questionnaire surveys, and searches through company records,
+the simple notation “Source: Primary” is adequate.
+
+The most effective placement of visuals is in the report body, not in an
+appendix, unless you know that your main reader prefers to have visuals
+grouped in an appendix. Visuals should be placed where needed for
+emphasis, clarity, simplification, reinforcement, summary, interest,
+credibility, or coherence. And a visual should be placed as near as
+possible to the accompanying narrative. An effective three-step
+procedure for incorporating a visual into a report is to introduce the
+graphic, display it, and then discuss it.
+
+Introduce the Visual
+
+In the introductory statement, mention a key fact that the visual
+illustrates.
+
+Focus on the information contained in that visual, not on the visual
+itself.
+
+Following the introduction, identify the visual by number or title to
+help the reader locate it in the report. If the visual is on another
+page, also include the page number in the identification. The following
+examples contrast less effective and more effective introductions.
+
+Less E ective: Illustration 1 shows sales for oatbran, rice bran, and
+wheat bran in 2018.
+
+More E ective: Oat bran substantially outsold both rice bran and wheat
+bran in 2018. (See Illustration 1.)
+
+Less E ective: As Figure 1 shows, a research plan contains 12 parts.
+
+More E ective: Planning research is a 12-part process, as demonstrated
+in
+
+Figure 1, page 4.
+
+Display the Graphic
+
+Following the introduction, display the visual as soon as possible.
+Separate the visual from the narrative with additional blank space or
+horizontal lines to achieve contrast. Some report writers include a 2-
+to 3-in. column on the left of each page and place small, simple
+graphics in it, beside the introduction on the right; but, integrate
+larger illustrations with the text as just described.
+
+If space permits, place the visual on the same page as the introduction.
+If the visual does not fit on the same page, do not leave a large patch
+of blank space at the bottom of the page; just continue with your
+discussion and place the visual at the top of the next page.
+
+Visuals must fit within the margins of the report narrative and should
+not be so large that they distract from the narrative. If necessary,
+reduce the
+
+visual so that it will fit attractively within the report margins while
+retaining legibility.
+
+When large visuals must be used, they may occupy a full page and may be
+placed vertically or horizontally. Whenever possible, display full-page
+visuals on the page immediately following the one on which the visual is
+introduced.
+
+Discuss the Illustration
+
+While a visual can add interest to a report or summarize essential
+information, it is your responsibility as the report writer to interpret
+the data in that visual. After introducing and displaying the visual,
+discuss it in an interpretive manner. Interpretation requires more than
+merely repeating the data presented in the visual. Your discussion must
+clarify data or add details that cannot be captured visually.
+
+When your discussion requires only one paragraph, you may combine the
+introduction and discussion. In that situation, display the visual after
+the discussion. If the discussion is lengthy, however, the introduce-
+display-discuss sequence is more effective. The proper pattern for
+introducing, displaying, and discussing visuals is demonstrated in
+Figure 1.8.
+
+Source Citations Aid Credibility
+
+Writers of business reports using secondary data usually acknowledge
+their sources for several reasons. Acknowledging sources separates the
+content you borrowed from your original ideas. Also, it enables other
+report writers to find the data you used and build on it in their
+research. Your contemporaries in business and academics expect the
+honesty documenting sources represents. Additionally, citing sources
+helps prevent a lapse in ethics called plagiarism.
+
+Copyright infringement (reproduction, or lifting, of an author’s content
+into another’s work without permission) violates Federal laws governing
+
+intellectual property and may result in criminal penalties. However,
+U.S.
+
+copyright laws do not apply to simple notions, most material published
+before 1923, so-called common knowledge, and material in the public
+domain. In deciding claims of copyright infringement, courts apply the
+doctrine of fair use. Fair use is determined by careful consideration of
+the type of copyrighted material, how that material is used, proportion
+of the copyrighted work reproduced, and the effect of lifting on sales
+of the copyrighted content.
+
+To avoid plagiarism in your reports, follow these guides. 8
+
+Create a citation for any precise wording as well as facts and ideas
+that you pick up during your research.
+
+Know what citation styles are available to you. If possible, settle on
+one style, such as APA ( Publication Manual of the American
+
+Psychological Association), 9 to use for every report.
+
+Become adept at writing original summaries of source content.
+
+Loose paraphrasing (reproduction of an author’s wording with a
+
+few words replaced by synonyms) is never appropriate.
+
+When in doubt about the need to cite a source, cite it.
+
+Know the results of plagiarism in your academic institution or
+
+profession.
+
+Use an online plagiarism checker, such as iThenticate
+
+(www.ithenticate.com) or Turnitin (http://turnitin.com).
+
+To avoid copyright infringement, follow these guides when writing and
+
+presenting business reports.10
+
+Assume that all current intellectual property except U.S.
+
+government publications is copyrighted.
+
+Use quotations sparingly; quote infrequently and just enough to make
+your point.
+
+Before lifting a block of copyrighted content, send a written request
+for permission to the copyright holder.
+
+If told to cease from using lifted content, do so promptly. An
+
+apology may help you avoid copyright infringement charges.
+
+Cite each source in the report text, according to the style manual you
+have adopted. The APA Style Manual, along with several style manuals,
+recommends source acknowledgments inserted in parentheses and calls this
+citing method author-date notes, also known as in-text citations or
+parenthetical documentation.11 The following guides will cover most of
+your reporting situations. Consult your style manual whenever you
+
+encounter circumstances not covered here.12
+
+When citing in your text, these guides will help you achieve the
+accurate results that readers expect.
+
+Generally, insert both the surname and year in parentheses with a comma
+separating them.
+
+Example: More and more organizations of various types have
+
+discovered the value of enterprise social media (ESM) and are
+
+expanding use of it (Anders 2016).
+
+If you include the author’s name in your narrative, place only the
+publication year in parentheses after the name.
+
+Example: According to Anders (2016), professional work is
+
+increasingly collaborative, social, and virtual.
+
+When the publication year is included in the narrative along with the
+name—perhaps because you want to emphasize the recency of
+
+the data—omit a parenthetical reference.
+
+Example: In his 2017 study, Anders noted growth in ESM; that is, an
+organization’s use of social media platforms such as LinkedIn and
+Facebook to connect people internally and externally who
+
+share business activities or interests.
+
+If you quote a printed source directly, include the page number in the
+author-date note.
+
+Example: “Supporting these trends, research has noted the
+
+growing use and importance of ESM for many types of
+
+organizations” (Anders 2016, p. 224).
+
+If you quote an online source directly and page numbers are
+
+missing, use paragraph numbers. If no paragraph numbers appear in the
+document, cite the section heading and then cite the paragraph number by
+counting down from the heading.
+
+Example: “The good thing about mistakes is that we learn the
+
+most from them” (Fulton, “Keep Calm and Carry On,” para. 2).
+
+Observe the author-date notes in Figure 1.8b, report pages 4, 6, 8, and
+9.
+
+Each in-text citation should be listed fully under References, at the
+end of the report body.
+
+Report Summary
+
+Information and analytical reports should always contain an overall
+summary of the findings. When the analysis is lengthy and complex, you
+should also summarize your discussion of the findings at the end of each
+major section. For an information report written in inductive structure,
+the summary marks the end of the report content. In an analytical
+report, the
+
+summary may occupy a separate section, as is shown in Figure 1.8c, p.
+50, or may be included in a section with the conclusions and
+recommendations.
+
+Conclusions and Recommendations
+
+When analytical reports are written in inductive structure, the
+conclusions and recommendations constitute the final section or sections
+of the content.
+
+Conclusions must be logical inferences supported by the data analysis,
+or findings. As you draw conclusions, you are moving further from the
+objectivity of the collected data and relying on your perceptions of
+what those data mean. To avoid unwarranted subjectivity in conclusions
+and to state them effectively, follow these guides:
+
+Conclusions must not be a mere restatement of the findings.
+
+Conclusions must be objective and flow logically from the analysis.
+
+If the data contradict anticipated outcomes, you must put aside your
+expectations—or those of the person who authorized the study—
+
+and base conclusions on the available data.
+
+Conclusions must be relevant to the stated problem and purpose of the
+report.
+
+Several findings may be used to support a single conclusion. You need
+not draw a conclusion from each major finding. On the other hand, one
+major finding may lead to more than one conclusion.
+
+You should always review your conclusions to ensure that your data
+
+analysis (findings) supports them. See Figure 1.8c.
+
+Recommendations propose actions that are justified by the findings and
+conclusions; recommendations may also suggest other research that should
+be undertaken. Recommendations are most meaningful when they are
+
+related to the stated purpose of the study. Notice, for example, the
+relationship of the purpose, conclusion, and recommendation in the
+following example.
+
+Purpose:
+
+To provide information that would help the Hatfield-McCoy Mountains
+Coalition promote the area more effectively to resident and nonresident
+tourists.
+
+Conclusion:
+
+Tourists’ knowledge of and interest in the area is too low. Confusion
+within and among some of the state’s official tourist publications does
+little to stimulate interest in the area.
+
+Recommendation:
+
+Promote the state parks in the region … Do not depend on the state to
+provide adequate publicity about the region’s state parks.
+
+See the recommendations in Figure 1.8d, p. 51. Then review the
+conclusions in Figure 1.8c to see the connection between them.
+
+When writing the conclusions and recommendations, ensure that all
+information to support them is in the data analysis sections. Some
+writers, perhaps in a mistaken attempt to compose a dramatic ending to
+the report, introduce new data with the conclusions or recommendations.
+That practice tends to confuse the reader and destroys report coherence.
+For example, in
+
+Figure 1.8b (bottom of page 9), a writer might be tempted to withhold
+
+information about coverage of the region in the West Virginia official
+tourist guide. Such a writer might think that the information would give
+final, solid justification for the conclusion drawn later and the
+recommendation based on it. However, since the data about coverage in
+the guide is closely related to respondents’ perceptions of the region,
+it should be—and is—included as part of the findings.
+
+The conclusions and recommendations indicate completion of the analysis.
+However, the inclusion of author-date notes in the findings section
+requires adding a list of data sources, or references, to end the report
+body.
+
+References
+
+The list of secondary data sources is titled References by the APA13 and
+Works Cited by the Modern Language Association (MLA).14 Each is a list
+of publications cited in your report. Note: A bibliography and list of
+works consulted are similar, but bibliographies usually include
+publications you consulted for background information but did not cite
+in the report body.
+
+Following the last content page, the references are listed
+alphabetically.
+
+See Figure 1.8e, p. 52. Generally, references should include these
+details: author name, publication date, title of the work, publisher,
+and page numbers when applicable. Also, references are listed in
+alphabetical order, usually by the author’s last name. If an agency,
+association, or institution is the author, alphabetize by the first
+major word of the organization’s name.
+
+If no author is named, move the title to the beginning of the reference;
+alphabetize the reference by the first major word of the title. Figure
+1.6
+
+shows various references (APA style). To reference a source for which no
+example is given, follow patterns in the available examples. For more
+precise referencing, see the APA manual.15
+
+[]
+
+[]
+
+Figure 1.6 Reference examples
+
+Omit any personal communications from the references list because
+conversations (including in interviews and by phone), e-mail, letters,
+memos, texts, tweets, and voice mail generally do not include
+information that a reader could recover and verify.
+
+Citation management software, such as Citefast (http://www.citefast.com)
+or Writing House (http://writinghouse.org), do not eliminate the need to
+know basic rules of citing and referencing. However, these online
+programs do save considerable time and effort for a busy
+researcher-writer.
+
+The references list indicates completion of the report body. Some
+situations warrant use of supplements, which provide supporting
+information.
+
+Report Supplements
+
+The supplements to a report include any information that may be useful—
+
+but not essential—for understanding the analysis, conclusions, and
+
+[]
+
+recommendations. Supplements may include a glossary, an appendix or
+
+several appendices, and an index. Report supplements are shown in Figure
+
+1.9a–d, pp. 53–58.
+
+Figure 1.9a Supplements: Glossary
+
+[]
+
+Figure 1.9b Supplements: Interview guide, page 1
+
+[]
+
+Figure 1.9b Supplements: Interview guide, page 2
+
+[]
+
+[]
+
+Figure 1.9c Supplements: Visitor’s checklist
+
+Figure 1.9d Supplements: Profile of the participants, page 1
+
+[]
+
+Figure 1.9d Supplements: Profile of the participants, page 2
+
+Glossary
+
+A glossary—a list of selected words with their meanings—is required only
+when the report contains terms that may be unfamiliar to some readers
+and when those terms have not already been defined in the body of the
+report.
+
+Including a glossary is advisable when the readership consists of some
+persons who know the technical terminology and others who do not. That
+practice provides definitions for readers who need them without
+cluttering the report with information that is unnecessary for many
+readers. If the report contains few technical or unfamiliar terms or
+words are given a specific meaning in the report, those terms may be
+included in the introductory section of the report, as is done in Figure
+1.8b. The report also includes a glossary; see Figure 1.9a.
+
+Appendix
+
+An appendix includes any items referred to but not displayed in the
+report body. Similarly, all items displayed in the appendix must be
+identified at some point in the report. Do not use the appendix to
+“share” interesting but nonessential information. Materials often
+displayed in an appendix include copies of transmittal messages and
+questionnaires (Figure 1.9b) or interview guides (Figure 1.9c),
+tabulations of data (Figure 1.9d), and statistical formulas, graphs,
+charts, and diagrams. Remember, however, that visuals intended to
+clarify, emphasize, or summarize parts of the report should be
+incorporated into the report narrative unless you are specifically
+requested to group them in an appendix.
+
+Index
+
+An index—such as the one ending this book—is a list of key words and
+topics found in a report, along with the page numbers on which those
+words and topics appear. Generally, an index is included only if readers
+will be
+
+unable to locate essential information without it. In most situations,
+however, a comprehensive table of contents along with clear, concise
+division headings will suffice to direct the reader to specific topics.
+
+As you select parts to include in your report, remember that your
+objectives are to establish rapport with report readers, stimulate
+interest in the report, and facilitate its use. Include all parts that
+will help you achieve those objectives.
+
+Varying Report Parts
+
+The parts for a formal research report should be adapted to meet your
+specific reporting requirements. Be mindful of your audience and include
+all parts that will assist your readers. For example, when you must
+prepare an information report, you would include all parts except the
+conclusions and recommendations. In some contexts, the report summary
+may be included in the transmittal message, eliminating the need for a
+separate executive summary.
+
+Nontraditional Title Page
+
+For the title page you may use a creative format that effectively
+conveys the required information. A nontraditional title page format is
+demonstrated in
+
+Figure 1.10.
+
+[]
+
+Figure 1.10 Nontraditional title page format
+
+Always showcase the title on this page, placing it above and in a larger
+font than other information.
+
+Separate Transmittal Message
+
+Instead of binding the transmittal message in the report, as shown in
+Figure
+
+1.7c, some writers prefer to present it as a separate transmittal
+message
+
+accompanying the report. Figure 1.11 provides an example of a separate
+transmittal message accompanying the report. In this example as the
+transmittal letter indicates, the report will likely be circulated
+outside the organization for which it was prepared. Therefore, the
+separate transmittal letter is appropriate.
+
+[]
+
+Figure 1.11 Separate transmittal message, including acceptance and
+
+authorization
+
+In this example, as the transmittal message indicates, the report will
+likely be circulated outside the organization for which it was prepared.
+Therefore, the separate transmittal letter is appropriate.
+
+Executive Summary in Visual (Infographics) Form
+
+Infographics format largely replaces textual descriptions of data with
+visual representations of the data. (In fact, another name for
+infographics is data visualization.) A trend in business research
+reporting is to prepare the executive summary as an infographic, as
+shown in Figure 1.12, p. 62.
+
+[]
+
+Figure 1.12 Executive summary infographic
+
+Three key points support this trend.16
+
+The brain processes images faster than words.
+
+Pictures inherently are more interesting than text.
+
+Visual information is retained better and longer than textual
+
+information.
+
+Recall, the executive summary contains the complete report in condensed
+form. Remember, also, some report readers will read only the executive
+summary and decide they need not read the full report. Thus, some report
+writers contend, an infographic executive summary is a necessity,
+despite the additional time and effort involved in creating it.
+
+Initially, business people created infographics using imaging and design
+applications, such as Adobe PhotoShop. Today, though, they are more
+likely to use tools called infographics makers, many of which are
+available online at no cost. The following list names popular online
+software for creating infographics.
+
+Easel.ly (www.easel.ly)
+
+Get About (www.get-about.com)
+
+Infogr.am (infogr.am)
+
+Piktochart (piktochart.com) Venngage (venngage.com)
+
+When using an infographics maker, follow these guides.17
+
+Become thoroughly familiar with your data and the story it tells.
+
+Identify what you want readers to take away from your visual
+
+report.
+
+Sketch a storyboard, laying out the data-story left to right and top to
+bottom.
+
+For the small amount of text involved, use unusual fonts that are also
+very readable.
+
+Choose calm, harmonious colors, avoiding a white background and dark and
+neon colors. The rule of three is reliable for color
+
+selection: three complementary colors with the lightest in the
+
+background. If you need more colors, use shades of the original three.
+
+As a test, ask someone unfamiliar with your data to interpret your
+infographic report.
+
+Report Body in Deductive Structure
+
+In Figure 1.8, as already observed, the writer used inductive structure,
+starting with background information, followed by the scope and purpose,
+
+… and ending with conclusions and recommendations. However, if the
+reader’s preference or likely reaction justifies your use of deductive
+structure, recommendations and conclusions may be presented at the
+beginning of the report. The opening pages of a report presented
+deductively are shown in Figure 1.13.
+
+[]
+
+Figure 1.13a Introduction of report in deductive structure, page 1
+
+[]
+
+Figure 1.13b Introduction of report in deductive structure, page 2
+
+Following a description of the scope, include all other introductory
+parts of the report as shown in Figure 1.8a, followed by the findings,
+and ending with the report summary.
+
+Formatting Prelims, Body, and Supplements
+
+As you prepare your manuscript, attempt to determine your reader’s
+preference for margins, spacing, headings, and page numbering. One way
+to determine a reader’s preference is to ask; another way is to look in
+the company files to find examples of report styles in use. Some
+companies and government agencies publish office manuals (printed or
+online) for their employees. Those manuals often include formats and the
+requirement that all reports follow the approved formats.
+
+Some writers find that templates in word processing software are useful;
+other writers think those templates give a “canned” look. A template
+includes samples of default colors, fonts, graphics, headings, and
+visuals.
+
+When using a template, select one that complements the report’s style
+and level of formality. Also, ensure that the template applies protocols
+for margins, spacing, placement of headings, and pagination that are
+acceptable to your audience. If not, modify the template to meet your
+reader’s preferences and save it with a different file name.
+
+Format Guides for Prelims
+
+Page numbering is the focus of these guides. The following paragraphs
+also mention several advanced software features to assist you with
+preliminary pages.
+
+Number Preliminary Pages
+
+Traditionally, each of the preliminary parts begins on a new page—except
+for a list of tables and figures that fits on the table of contents’
+last page. As shown in Figure 1.7, the preliminary pages are generally
+numbered with lowercase Roman numerals, centered in the page footer. Use
+the numbering scheme for preliminary pages shown in Figure 1.14.
+
+[]
+
+Figure 1.14 Page numbering for report prelims
+
+While preliminary pages are numbered with lowercase Roman numerals, the
+report body pages and supplements are numbered with Arabic numerals.
+
+As noted, the recommended placement of those page numbers differs, too.
+
+You might handle these differences by creating the preliminaries and
+report body in separate files. Otherwise, access Help in your word
+processing software and determine how to include different numbering
+schemes in one file. Note: In Microsoft Word 2016, the key is to insert
+a section break between the prelims and report body. Also, make sure the
+two sections are not linked. Then, set the page numbering for each of
+the sections (steps provided in Help).
+
+Insert Report Cover and Title Page
+
+Naturally you can generate a report cover and title page, as made in
+
+Figures 1.5a and b and Figure 1.10. To save time and effort, you may opt
+for a cover or title page template if your software provides one. Note:
+Using Word 2016, you can insert a cover and title page from the Insert
+tab.
+
+Insert a Blank Page
+
+Sometimes you may want to insert a blank page between text pages of your
+report. In the prelims, for example, you may want a blank page to serve
+as a placeholder for the transmittal letter. You would print the letter
+on your organization’s letterhead as usual; then remove the blank page
+and insert the letter in its place before binding the report. Likewise,
+in the body of a
+
+report, you may need to insert a blank page to represent an oversized
+visual to be added later. Note: In Word, a blank page can be inserted
+from the Insert tab.
+
+Insert a Table of Contents
+
+Your word processing software may streamline preparation of your
+contents page. First, you must apply heading styles to Level 1 and Level
+2 headings in the report, the only levels included in a table of
+contents. The software uses these built-in heading styles to compile a
+table of contents. Note: In Microsoft Word 2016, you can customize the
+contents page. In Word Help, search for “create a table of contents in
+Word.” Directions include how to apply heading styles and how to add the
+table of contents. Then search for
+
+“custom table of contents” to see adaptations you can make.
+
+Format Guides for the Report Body
+
+If your organization does not specify a report format and you cannot
+determine the preferences of your report readers, apply the following
+guides.
+
+Margins and Spacing
+
+Top, bottom, and side margins should contribute to the appearance and
+readability of the report. Figures 1.7, 1.8, and 1.9 comply with the
+guides for business report margins shown in Figure 1.15.
+
+[]
+
+Figure 1.15 Margins for business research reports
+
+*Varied to achieve balanced appearance.
+
+Source: Kuiper and Clippinger (2013, p. 482).
+
+Notes: Top, bottom, left, and right margins of 1 in. are usually the
+default setting in word processing software. To facilitate setting wider
+margins, display the ruler in your software (View tab in Microsoft Word
+2016). Report pages in this chapter are formatted as an unbound
+manuscript to conserve space.
+
+Although some readers may prefer double-spaced manuscripts with indented
+paragraphs, most contemporary business reports are single-spaced with
+paragraphs not indented. Whenever you use single spacing (or Multiple
+spacing in Microsoft Word), insert extra space between paragraphs. A
+setting of 8, 10, or 12 points (pt.) below each paragraph is appropriate
+when used consistently. Note: Space between lines, like font size, is
+measured in points (1 in. = 72 pt. = 2.54 cm).
+
+[]
+
+Headings Format
+
+Whether you use single- or double-spaced text, you should use
+appropriate division headings to guide readers through your report. The
+font style (all capitalized, lowercase, bold, underlined, and
+italicized) and placement of the headings must accurately reflect the
+organization of your report.
+
+Style manuals differ in their guides for style and placement of
+headings.
+
+Most manuals, including APA, recommend capitalizing major words in the
+report title, 18 rather than typing it in all capital letters.
+
+Although most reference manuals suggest that the title be centered on
+the first page, effective variations of title placement are shown in
+Microsoft Word templates and other examples.
+
+Remember, most document designers recommend that you not underline
+headings because underlining can impair readability. Instead of
+underlining, headings may be distinguished from the report text and from
+other headings by variations in font style, color, and size. The title
+and headings used for the tourism report are shown in Figure 1.16.
+
+Figure 1.16 Levels of headings used in report body (Figure 1.8).
+
+Headings at Levels 1 and 2 may be printed in a complementary color or
+colors other than black. Medium to dark colors are appropriate to ensure
+adequate contrast with a white or light background. Colors add visual
+interest and are especially important for reports on the web. For widely
+distributed printed reports, however, the use of multiple colors
+increases costs.
+
+Page Numbering
+
+The report body and report supplements are numbered consecutively with
+Arabic numerals. The numeral “1” is usually omitted from the first page
+of the report body. Place numerals for subsequent pages in the page
+header, aligned with the right margin, as shown throughout Figures 1.8
+and 1.9.
+
+Leafing through a printed report or scrolling a report file to find a
+specific page is easiest when numbers appear at the upper right.
+
+If you use two-sided printing on heavy paper, the first page of the
+report body (after preliminary parts) should be on a right-hand page,
+with no number printed. The numbers for subsequent odd-numbered pages
+are aligned at the right margin; even-numbered pages, at the left
+margin. Use the page number feature of your word-processing software for
+consistent placement of page numbers. Note: In Microsoft Office 2016,
+the Insert tab includes Page Number in the Header and Footer group.
+
+Format Guides for References and Supplements
+
+A references list follows a set format. In APA style, the first line of
+each entry aligns with the left margin. All subsequent lines are
+indented 0.5 in.
+
+This format is called hanging indentation, and the hanging indent
+feature in your word processing software will enable you to achieve this
+format either before or after typing the references.
+
+The font name and size for references should be the same as the report
+body. If you opt for the convenience of citation management software,
+such as Citation Builder (www.lib.ncsu.edu/citationbuilder) or Citation
+Machine (www.citationmachine.net), the generated list will include
+hanging indentations; and the sources will be listed in alphabetical
+order. However, you may need to change the font and font size to match
+the body text.
+
+In references to web content, which may involve a mix of DOIs and URLs,
+follow these guides for managing both kinds of document finder.
+
+In reports to be printed, remove the hyperlinks. For online reports,
+including PDFs, ensure that all links remain active: Test them.
+
+If you create a references list from scratch instead of using citation
+management software, copy the address (digital object identifier
+
+[DOI] or uniform resource locator [URL]) from your browser’s
+
+address field rather than type it into your list. Also, include the
+protocol—usually http:// but watch for exceptions.
+
+Prevent an overly ragged right margin by breaking DOIs and URLs before
+or after punctuation marks.
+
+In the supplementary parts, continue page numbering from the report
+body. For supplementary parts you create just for the report, continue
+with the same fonts and spacing. If you include a pre- formatted
+document, such as a letter, memo, or questionnaire, insert it into the
+report in its original format, which may not match pages in the report
+body.
+
+Alternative Presentations
+
+The chapter introduced manuscript format for presenting research
+reports, but two additional formats are needed to round out coverage:
+report deck format and web format.
+
+Report Deck Format
+
+A report deck is created with presentation software, such as Keynote or
+PowerPoint. But, report decks are meant to be understandable without a
+presenter. Usually a report deck is sent as an e-mail attachment and
+receivers read slide by slide from their computer screens. A report in
+this format includes less text—and, therefore, less detail—than most
+other report formats (but more text than most slide shows). 19 A report
+deck relies
+
+[]
+
+on visuals (diagrams, graphs, and photos) more than text to convey
+information and can be used for any kind of report.
+
+A report deck offers several advantages over other formats20: One report
+functions as a written report and as slides for an oral follow-up report
+to a small group.
+
+Presentation software is decidedly easier to use than word
+
+processing software for placing visual elements precisely.
+
+Generally, business people are more skilled at using presentation
+software than word processing software.
+
+Figure 1.17 shows pages (slides) from a report deck.
+
+Figure 1.17a The contents page (slide) in a report deck
+
+[]
+
+Figure 1.17b Page from report body in slide deck
+
+[]
+
+Figure 1.17c References list in a slide deck
+
+While these three pages contain mostly text, many intervening pages,
+especially the findings (data analysis) section, contain visuals—charts,
+graphs, maps, photographs, and tables—and little or no text.
+
+Naturally, to be effective, a report deck’s content must be easy to
+grasp.
+
+Follow these content guides to aid your reader’s comprehension.21
+
+Use a short-sentence headline, or title, on each page, left-aligned
+rather than centered. Type the headline in sentence case; that is,
+capitalize only the first word and proper nouns. Omit a period at the
+end of statements but include a question mark at the end of questions.
+
+Create content to reinforce the headline. Be sure that all text and
+visuals on the slide support the statement or answer the question in the
+headline. If you run out of space, create another slide with the same
+headline. Never try to squeeze text or visuals on a report page.
+
+Do not type paragraphs; instead, use concise sentences with space
+between them. Bullets do become monotonous, so do not use them on every
+slide in your deck.
+
+Rely on visuals as much as possible to carry your information, with text
+in a supporting role. Often, the charts, graphs, and tables in a slide
+deck must be simpler than those in a manuscript. Therefore, a deck may
+contain two or three times as many visuals as a manuscript
+
+report.
+
+To engage your readers, a report deck must be both attractive and
+functional. Follow these design guides. 22
+
+Create a title slide to serve as the deck’s title page. Besides the
+report title, include the company name, author’s name, and the date.
+
+Include a contents slide, listing the name of each report section. If
+the report is long, include the starting page number for each section.
+
+Hyperlinks may be inserted in these numbers to help readers
+
+navigate the report.
+
+Set your design features on a master slide to ensure consistency
+throughout the report deck.
+
+Use a solid background; omit any effects that could distract readers’
+
+attention.
+
+Resize the headline text box so it can hold two lines of size 24 text.
+No text in the report deck should be smaller than size 18. Note: These
+small font sizes undermine the effectiveness of a report deck for
+presenting to a roomful of people. On typical presentation slides, no
+text should be smaller than size 24 so that the content is visible to
+
+everyone in the audience.23
+
+In one of the upper corners, place a tracker, or header, showing the
+section of the deck. And place a footer on each slide, including the
+slide number, project name, and proprietary information.
+
+Online Format
+
+For distributing research on the web, you have three options. The most
+common means involves converting a word processing file to portable
+document format (PDF). This way, any report can be accessed from a
+landing page or web page even though it may be unusually complex and
+formal. Another means involves tagging a word processing file with
+HyperText Markup Language (HTML) code. This method is practical for
+relatively short, informal reports with few graphics. The third method
+is a combination of the previous two.
+
+PDF File
+
+Uploading and linking a PDF to a website is recommended under these
+circumstances.
+
+The audience will likely want to print all or part of the report.
+
+The report is too complex to lay out well as a web page. 24
+
+Follow these guides when linking a PDF to a website.
+
+Use the website’s content management system (CMS) to upload your
+prepared file. If the website does not have a CMS, use a file transfer
+protocol (FTP) to upload your file.
+
+Use a size 12 or 14 font.
+
+Limit report length to 60 pages or about 35 kb.
+
+On the website, warn website users when a link wil open a PDF.
+
+Compress any photographs in your report using an image optimizer, such
+as one of the following programs.
+
+Akamai (https://akamai.com)
+
+Compressor (https://compressor.io)
+
+Optimizilla (http://optimizil a.com)
+
+TinyPNG (https://tinypng.com) Include convenient links in the report to
+aid navigation. For example, insert a link into each heading or page
+number or both in the table of contents and list of tables and figures.
+Likewise, insert a link on each page of the report body to go back to
+the table of contents.
+
+HTML Tags
+
+The success of a web page report depends largely on how rapidly readers
+can download and then read, or scan, the page. In planning a web page
+report, be aware that graphics and multimedia content lowers download
+speed. So, include only the necessary visual elements. 25
+
+Generally, a research report would require other modifications for the
+web, making appearance and writing style less formal. Since most web
+users scan content for only a few seconds before deciding whether to
+leave the page or keep reading, deductive structure is essential. Thus,
+the report’s main point (recommendation) can be in the opening sentence.
+Then, to
+
+increase chances that readers will continue reading, short paragraphs,
+captivating headings, and short pages with ample blank space would be
+necessary.26
+
+Having the report in accurate HTML code is vital. Besides writing the
+code yourself or engaging someone to do it for you, you may use one of
+these tools to convert a word processing file to HTML.
+
+Adobe Dreamweaver
+
+(https://adobe.com/products/dreamweaver.html)
+
+Blue Griffon (http://bluegriffon.org) NamoWebEditor
+(https://www.namowebeditor.com)
+
+In any case, follow these guides to enhance readability of a report in
+web
+
+format.27
+
+Set light colors for backgrounds; then use a maximum of two or three
+sharply contrasting font colors.
+
+As a rule, use only two fonts—a sans serif font, such as Arial or
+Tahoma, for text and larger, attention-grabbing fonts for headings.
+
+Control line length—about 10 to 12 words (50 to 60 characters).
+
+Resist any temptation to reduce letter spacing or leading (space between
+lines) in order to squeeze more text onto a page.
+
+Separate text from images with substantial blank space.
+
+Choose emphasis techniques careful y: Use bold and ALL CAPS
+
+sparingly. Use underlined text for links only. Use indented bullet
+points liberally.
+
+Give every page of your report the same “look and feel.” Use consistent
+styles for each level of headings in the report.
+
+Omit links within paragraphs to maintain consistent navigation. If links
+are necessary in your report, place them at the ends of
+
+paragraphs or in a menu.
+
+The World Wide Web Consortium (W3C) has created the Web Accessibility
+Initiative (WAI). Essentially, the goal of WAI is to make the web
+available to people with a diverse range of hearing, movement, sight,
+and cognitive ability. To date, not all WAI goals have been addressed
+widely. The following lists include measures to make your web page
+reports
+
+accessible to people who have hearing or vision impairments.28
+
+Add text alternatives (alt text) for al audio and visual elements. Thus,
+web users reading with text-to-Braille hardware or text-to-speech
+software can take in the graphics you include.
+
+Likewise, provide a text transcript for podcasts and other audio
+elements, making the information accessible to people who are deaf or
+
+hearing impaired.
+
+When your report includes a video, provide closed caption s or a sign
+
+language version so that deaf and hard-of-hearing users can
+
+understand the video.
+
+Omit design elements, such as animation, that are unsuited for text-only
+browsers; include adaptive tools, such as large-print software or voice
+software.
+
+Design for colorblind readers by omitting al references to colors from
+navigation instructions. For example, asking readers to click the blue
+button would be inappropriate.
+
+Finally, test your web page report in the following ways to maximize
+readers’ success. 29
+
+[]
+
+Test your web pages over a low-speed modem connection. If downloading
+takes more than 7 to 10 seconds, consider removing images or
+
+multimedia content.
+
+Test your web page report on di erent computer monitors, including a
+low-resolution monitor (800 × 600 pixels, for example).
+
+Test your web report in di erent browsers, the most popular being Google
+Chrome, Firefox, and Microsoft Edge.
+
+These sets of guides impose constraints that make uploading a formal
+research report like Figures 1.7, 1.8, and 1.9 an impractical
+undertaking.
+
+Combination
+
+Using the combination method involves displaying a text-only abstract or
+description on a web page, along with a link to the full report (PDF).
+
+An example appears in Figure 1.18.
+
+Figure 1.18 Online research report combining web content and
+
+downloadable PDF
+
+For each report on its website, The Business Research Company30 shows
+four tabs: description, table of contents, and executive summary
+(shown).
+
+The fourth tab is a landing page for ordering the full report
+
+The Centre for Business and Economics Research (Cebr) in collaboration
+with Redwood Software offers another example of the combination method.
+31 The first and last screen of web content appears in Figures 1.19a
+
+and b; the middle screen was omitted here. Notice the bulleted list of
+key
+
+findings at the bottom of Figure 1.19b.
+
+[]
+
+Figure 1.19a Beginning screen of an online abstract
+
+[]
+
+Figure 1.19b Final screen of the abstract, including link to the full
+report
+
+The full informational report PDF contains 27 pages, including report
+preliminaries (title page, disclaimer, contents, and executive summary),
+report body (four divisions, five line graphs, and five tables), and
+report supplements (two appendices). 32 The executive summary and two
+report body pages appear in Figures 1.20a–c, pp. 82–84.
+
+[]
+
+Figure 1.20a Executive summary of an informational report (no
+
+conclusions or recommendations)
+
+[]
+
+Figure 1.20b Report body page, demonstrating proper treatment of a
+
+graphic
+
+[]
+
+Figure 1.20c Last page of informational report body, summarizing
+
+research findings
+
+Summary
+
+Business research reports provide comprehensive data related to a
+business problem along with interpretation of that data. Some of them
+are strictly informative (offer no conclusions or recommendations) while
+others are analytical (draw conclusions and present recommendations).
+
+All effective research begins with a 12-step plan. All steps are
+necessary but three are crucial: defining the problem that will be the
+research focus; narrowing the scope to make the project manageable; and
+determining data needs and how to collect that data (primary and
+secondary sources).
+
+Generally, business research reports are formal; and formal reports
+contain parts that informal reports do not. Few reports include all the
+preliminaries described in this chapter. The title page, table of
+contents with list of illustrations, and executive summary are basic.
+Add other prelims as readers’ needs dictate.
+
+Use this checklist to maintain proper order and styling for the
+preliminary parts.
+
+ □ Included a cover or binder if you expect numerous readers to handle
+the report now and in the future.
+
+ □ Inserted yleaves in a printed report to raise its formality level and
+provide space for notes.
+
+ □ Put the concise, descriptive report title at the top of the title
+page.
+
+Identified the organization for which the report was created and the
+organization that generated it. Also, showed the month and year the
+report was finished.
+
+ □ Used a personal style for the transmittal letter or memo, whether
+included in the report or separate. The message contained one of more of
+these subjects: a key finding, a major recommendation, an offer to
+discuss the report or present it orally.
+
+ □ Added authorization and acceptance letters or memos unless the
+research was authorized and accepted orally or unless you covered this
+content in your transmittal message.
+
+ □ Provided a table of contents and list of visuals as an overview and
+report navigation tool. Remembered to include prelims that follow this
+page and any supplementary parts, as well as the number and title of
+visuals in the analysis section.
+
+ □ If the need for the study and the importance of the research are not
+covered elsewhere in the report, included a preface containing this
+information.
+
+ □ Used an acknowledgments page to recognize individuals who assisted
+you with the research and report—unless you prefer to include
+
+acknowledgments in your transmittal message.
+
+ □ Gave a complete rundown of the research and its results in the
+executive summary. Since readers are most interested in your
+recommendations, you may put them first (deductive structure) in the
+executive summary, even if the report body ends with them.
+
+The report body must include all details of the research in one coherent
+unit. When you write a research report using inductive structure, review
+it to ensure you have included these checklist items:
+
+ □ a well-reasoned introduction;
+
+ □ thorough presentation, discussion, and summary of research
+
+findings; and
+
+ □ conclusions and recommendations (analytical reports only).
+
+The report introduction provides a context for understanding and
+interpreting the whole report.
+
+Ensure your report introduction includes the following elements.
+
+ □ Background of the problem being researched
+
+ □ Statement of the research problem and purpose of the research
+
+ □ Scope of the study
+
+ □ Research procedures used
+
+ □ Delimitations
+
+ □ Limitations
+
+ □ Definitions of terms (or reference to a glossary if many terms
+require defining)
+
+As a researcher and report writer, did you fulfill these
+responsibilities?
+
+ □ collected data from secondary and primary sources;
+
+ □ reduced these data to sets of meaningful information (data analysis);
+
+ □ reduced the data sets to major findings (what the data reveal);
+
+ □ interpreted the findings to produce conclusions and ‐
+
+recommendations; and
+
+ □ reported those findings, conclusions, and recommendations in a formal
+report.
+
+In any research report, the presentation and discussion of findings make
+up the main section. In the findings section of your research reports,
+make sure that you:
+
+ □ Summarized your data visually (charts, graphs, and tables) when
+appropriate
+
+ □ Identified each visual with a label, number, and title
+
+ □ Identified the source of data contained in the visual
+
+ □ Placed each visual appropriately to reinforce surrounding text
+
+ □ Used the introduce-display-discuss technique for each visual
+
+ □ Interpreted the data for your readers, telling them what the data
+mean in relation to the research problem
+
+ □ Showed similarities and differences among data groups and
+
+explained the differences
+
+ □ Used parallel, varied headings that summarize content under each
+heading
+
+Conclusions, followed by recommendations, usually appear at the end of
+the report body, immediately before the references. But some readers
+prefer having recommendations, followed by conclusions, at the beginning
+of the report body. Weather presented inductively or deductively,
+conclusions must flow logically from the findings.
+
+After writing the conclusions for your research report, use this
+checklist to evaluate effectiveness.
+
+ □ All relevant data and analysis are presented before any conclusion is
+drawn.
+
+ □ Each conclusion is closely related to the report’s stated problem and
+purpose.
+
+ □ Each conclusion is an objective statement supported by findings.
+
+ □ Each conclusion interprets findings, rather than restating them.
+
+ □ No conclusion introduces new information.
+
+Recommendations are action statements based on the conclusions.
+
+Review your recommendations, looking for the attributes on this
+checklist.
+
+ □ Each recommendation is justified by a specific conclusion.
+
+ □ Each recommendation begins with an action verb.
+
+ □ Each recommendation includes a plan for implementing it (if
+
+needed).
+
+ □ One or more recommendations involves further research on
+
+questions that arose during your study.
+
+If your report contains data from secondary sources, remember to refer
+to (cite) them in the report body; in addition, end the body with a
+complete list of those sources. Doing so greatly aids your credibility
+as a researcher and writer—and it can help you prevent plagiarism.
+(Citing sources alone cannot prevent copyright infringement, so stay up
+to date on intellectual property laws in countries where you distribute
+research reports.) In the list of sources, show the author name,
+publication date, title of the work, and publisher in keeping with a
+recognized style guide, such as APA.
+
+A report’s supplementary parts contain related information that is
+helpful but not essential to understanding the findings, conclusions,
+and recommendations.
+
+For your research reports, consider the usefulness of these supplements.
+
+ □ Added a glossary only if the report contains many terms unfamiliar to
+some readers.
+
+ □ Used a separate appendix for each type of helpful, nonessential
+information.
+
+ □ Included an index if readers may need more help finding specific
+information than the table of contents provides.
+
+Adapt report parts to specific reporting situations. Know your readers
+and include only the parts that will assist them.
+
+An effective report format is both attractive and functional. Ideally,
+the format motivates readers to respond to the report as you, the
+writer, had hoped. An organization may adopt standards for its documents
+and presentations and expect all writers in the organization to meet
+those standards. In the absence of company standards, check your
+manuscript’s near-final draft against this checklist.
+
+ □ Spacing. The report uses single (or multiple) spacing for paragraphs.
+
+Paragraphs are not indented.
+
+Each paragraph has 8 to 12 points of space below it.
+
+ □ Fonts. Paragraphs in a printed report are typed in a regular serif
+font; but paragraphs in an online report are typed in a regular sans
+serif font.
+
+The paragraph font size is 10 to 12.
+
+Titles and headings (Levels 1 and 2) are typed consistently in a
+matching or contrasting display font (size 14 or larger).
+
+ □ Headings. All Level 1 headings look alike; all Level 2 headings also
+look alike—but different from Level 1 and Level 3 headings.
+
+Heading words are capitalized properly: first and last words and all
+other words over three letters.
+
+The space below each heading matches the space between paragraphs.
+
+No heading appears at the end of a page.
+
+Every heading has at least a single-sentence paragraph under it. No
+instances of a Level 2 heading immediately below a Level 1 heading can
+be found.
+
+ □ Margins. With minor exceptions, bottom, top, and side margins are the
+same on each page and take advantage of the preset margins in word
+processing software.
+
+Every page has a 1 in. bottom margin.
+
+Also, each page after the first has a 1 in. top margin—except when you
+will bind the report at the top. In that case, the top margin is 1.5
+
+in.
+
+The report title (page 1) is about 1.5 in. from the top (2 in. for
+top-bound reports).
+
+Every page has a 1 in. left and right margin—except when you will bind
+the report on the left. In that case, every page has a 1.5-in. left
+margin.
+
+ □ Page numbers. The title page is counted but not numbered. A page
+number should show on all other pages.
+
+Preliminaries are numbered with lowercase Roman numerals, centered in
+the footer.
+
+Body and supplement pages are numbered with Arabic numbers,
+
+placed where they are easy to see at a glance.
+
+Though created with presentation software, report decks are meant to be
+clear to users without a presenter. Thus, a report deck is usually sent
+as an e-mail attachment and viewed by the recipient on his or her
+computer screen or mobile device. Generally, reports in this format
+contain more visuals than text.
+
+After generating a report deck, check your work against this checklist.
+
+ □ A title slide shows the report title, company name, your name, and
+date.
+
+ □ A contents slide lists the name of each report section. A long report
+includes page (slide) numbers and embedded links.
+
+ □ The deck’s design is set on a master slide with a solid background.
+
+ □ Each slide has a tracker (upper corner) showing which report section
+the slide represents.
+
+ □ Each slide has a footer, showing the slide number, project name, and
+brand or copyright information.
+
+ □ A headline statement or question in size 24 font appears in sentence
+case atop each slide.
+
+ □ Content below the headline supports the statement or answers the
+question.
+
+ □ Slides contain mostly visuals with some explanatory text.
+
+ □ No slide contains a paragraph, and sentences are very concise.
+
+ □ Bullet points are used occasionally, not on every page.
+
+ □ No text is smaller than 18—especially if you will project the report
+deck during a presentation.
+
+To distribute research on the web, upload a PDF file for a long report
+containing many visuals. For a short, simple report, tag the word
+processing file with HTML code. Another option: Combine these methods.
+
+Before linking a PDF to a website, use this checklist to help ensure
+success.
+
+ □ The report contains no more than 60 pages.
+
+ □ Any photos in the report have been optimized, using a program such as
+Compressor or Optimizilla.
+
+ □ You have included an ample number of active links to aid navigation.
+
+ □ You have someone to upload the report; or you are equipped to do so,
+using the site’s CMS or an FTP.
+
+ □ The website warns users that the link will open a PDF.
+
+For tagging a report with HTML code, a program like Dreamweaver is
+helpful.
+
+With tags in place, check to be sure the codes will produce these
+results.
+
+ □ Light-colored background and dark-colored fonts (two or three)
+
+ □ One sans serif font for paragraphs; lines of text at or under 60
+
+characters
+
+ □ Headings and paragraphs in different fonts
+
+ □ Each heading level distinguished by variation(s) in font color, size,
+and style
+
+ □ Related information marked with indented bullet points
+
+ □ Very few special effects (bold, CAPS, italics, and underline)
+
+ □ Visual and audio elements accompanied by alt text.
+
+Then, once the report is on the website, test it as follows.
+
+ □ Over a low-speed modem to ensure ten-second download
+
+ □ On a low-resolution computer monitor to ensure undistorted
+
+viewing
+
+ □ In several leading browsers also to ensure satisfactory viewing
+
+Take these steps to combine the PDF and HTML methods for distributing
+research on the web.
+
+ □ Upload the full report in PDF.
+
+ □ Insert HTML code in a text-only abstract; post this tagged file to
+the website.
+
+ □ Below or beside the abstract, insert a link for opening the PDF.
+
+* This chapter’s business research report was created for illustration
+purposes only. Penworthy Research Associates, LLP, is a fictional
+company, and the interview data are hypothetical. Data about tourism in
+West Virginia reflect past studies from that state’s tourism office. For
+the latest information about West Virginia tourism access the website
+(https://gotowv.com). There you can view press releases (Press Center)
+on the subject, download a travel guide, and link to industry
+information.
+
+CHAPTER 2
+
+Writing Business Plans
+
+William R. Sandberg, PhD
+
+Associate Professor of Management
+
+Darla Moore School of Business
+
+University of South Carolina
+
+Creating a business plan is a special situation in business writing. The
+business plan is a document that describes in detail the business
+concept in an entrepreneur’s mind:
+
+An unsatisfied need on the part of potential customers that creates an
+opportunity for the entrepreneur
+
+What the entrepreneur will offer to meet that need
+
+Why and how the entrepreneur’s offering will draw customers away from
+the alternatives available to them
+
+The business plan also describes the various resources the entrepreneur
+will employ to realize the business concept and the expected financial
+results, usually projected under several scenarios.
+
+A less formal way to think of a business plan is as a story. Its author
+must introduce a cast of characters and develop a plot—but in a business
+plan only a portion of the story has already taken place. Its most
+important parts will unfold in the future, and the author’s job is to
+describe those characters (including entrepreneurs, managers, and the
+company itself), their motives for acting as they will, and the logic
+that connects their actions to the goals they seek. Effective
+storytelling makes an entrepreneur more successful at securing resources
+to pursue the plan. Effective stories help in three ways:
+
+Present factual information about the firm and its resources in a clear,
+meaningful way.
+
+Lay out the reasoning behind the plan.
+
+Tie together the plan’s various parts to make a distinctive yet not so
+far-fetched case for the business idea.1
+
+Entrepreneurs and the Business Plan
+
+A business plan serves as a road map to help your business get where you
+want it to be. Use of this metaphor has become a cliché, but it
+expresses an important truth about the business plan’s use and
+importance.
+
+Unfortunately, the business plan is not waiting somewhere for you to
+download it. Instead, the business plan waits for you to create it.
+
+Special Challenge of the Business Plan
+
+The business plan combines vision and often novelty with concrete
+information to offer a thorough, coherent argument for the proposed
+business. Therefore, you will draw on your business research and
+communication skills to present the results with a dual purpose: first,
+to convince readers that your business concept is valid and you are
+prepared to pursue it; and second, to persuade them to play a part in
+making it real.
+
+Seen in this light, your business plan is primarily a sales document;
+its readers are various markets you have targeted, each for its own
+reason.
+
+When thinking of a sales document, most people picture an advertisement
+or brochure that touts the benefits of a company’s product or service.
+They may imagine unfailingly positive statements, glowing descriptions
+of products and services, extravagant claims, and the heavy use of
+superlatives, such as the most, best, biggest, and finest. However
+effective such presentations may be in some sales situations, they are
+disastrous in a business plan.
+
+Think about industries in which you have worked or that you have
+studied. You have likely noticed that:
+
+Most organizations face competitive threats from rivals.
+
+Most business strategies commit resources on the basis of
+
+assumptions or estimates that may be wrong.
+
+Most innovation encounters resistance from those who have
+
+invested in the previous technology or arrangements.
+
+Most any group of customers may change their preferences within a
+product category or their spending priorities across categories.
+
+In short, no new business venture faces only opportunity and promise; it
+also faces threats and problems. A business plan that emphasizes the
+venture’s bright prospects and downplays (or worse, omits) its risks
+warns a reader that you as the entrepreneur are uninformed,
+imperceptive, or dishonest—or that you underestimate the reader’s
+business sense. Any of these judgments will prove fatal to your hopes of
+convincing and persuading the reader. Instead, the business plan should
+present your business concept to the best effect by recognizing its
+risks and the problems you will encounter, coupled with the steps you
+will take to reduce the risks or counter the problems.
+
+Your plan’s readers will fall into two general audiences:
+
+People who might work with you to implement it as your fellow
+
+managers or employees.
+
+People who can provide the financial resources or other means to
+accomplish it.
+
+Among the second group may be bankers from whom you hope to borrow
+funds, professional investors who may buy an interest in your business,
+and the managers of other companies that you seek as either suppliers or
+customers. Members of these audiences have different reasons for reading
+the business plan, concentrate on different aspects of it, and make
+different uses of what they read.
+
+Many of the readers also read business plans submitted by other
+entrepreneurs who seek from them the same resources or cooperation that
+you want; consequently, these readers will compare you to those other
+entrepreneurs as well as consider your idea in some absolute sense.
+Because most readers have many other claims on their attention, your
+business plan must capture and sustain that attention, thoroughly
+present the necessary information, and yet not overtax their scarce
+time. Thus the business plan presents not only a special but also an
+unusually complex situation in business writing.
+
+Why Write a Business Plan?
+
+Anyone who starts a business, even as a solo effort, would benefit from
+writing a business plan. Those benefits include the following:
+
+Through the necessary research you may discover overlooked
+
+opportunities or competitive threats to your idea.
+
+You may clarify your thoughts. For example, you may modify your business
+concept to focus on a slightly different need or group of potential
+customers, or conceive of a more effective way of meeting the original
+need.
+
+You may discover fatal flaws in your concept through research and
+analysis rather than through costly trial and error.
+
+Disappointed entrepreneurs often describe their failures in terms such
+as If I had only known … or I didn’t expect … Often a business plan
+would have revealed the problem.
+
+Entrepreneurs and small-business owners sometimes rationalize their
+failure to write a business plan by arguing that no one can expect to
+implement a plan as written. New opportunities, unseen threats,
+uncontrollable changes in a company’s markets or its supply sources, and
+other possibly unimaginable conditions will arise, they say, and quickly
+
+invalidate the plan. In this way of thinking, the effort and expense
+devoted to a business plan become wasted resources, and the entrepreneur
+would have been better off concentrating on production, sales, or
+raising capital.
+
+Here again the skeptics miss the potential value of a business plan.
+Just as your research and analysis can discover both opportunities and
+problems before you launch the business, they also give you a richer,
+more instinctive understanding of the key factors on which your success
+will depend. When events surprise you or performance does not meet your
+expectations, that understanding will improve your chances of solving
+the problems and saving your company. In the face of a crisis during
+your organization’s early years, you will be stretched to your physical
+and mental limits to keep the company going while identifying and
+implementing the changes needed to save it. By the point of crisis, you
+no longer have the luxury of stepping away from daily pressures to
+rethink your strategy or undertake extensive research. Instead, you need
+to have the information and understanding already in your mind and
+recorded in usable form. If you start a business that requires more than
+just your own money and individual effort, you will probably have to
+write a business plan; and that document is likely to be among the most
+important reports you ever produce. The people you approach for critical
+resources or cooperation—potential partners, investors, lenders, members
+of your management team, major suppliers or customers, and others—will
+use the business plan to evaluate both you and your venture. Many of
+them will insist on receiving it before fully considering your
+proposition to participate or cooperate in the venture. Sometimes their
+evaluation will be analytical and carefully thought out on the basis of
+information you provide, and at other times it will be subjective and
+perhaps quick-triggered on the basis of how well you seem to understand
+your own business concept and plans. In either case, the business plan
+will be pivotal in their evaluation of the business concept and of your
+
+qualifications to carry it out and, therefore, in their response to your
+proposition.
+
+Components and Contents of a Business Plan
+
+There is no standard template for a business plan. Experts generally
+agree on what should be covered and how arguments should be made, though
+there is no consensus on the sequence of a business plan’s components or
+their precise titles. These experts and most of the people who will read
+your business plan look for a clear, logically compelling presentation
+of your business concept, the resources needed, and the expected
+financial results.
+
+Through experience they have learned that each business venture is
+unique and that, within limits, there are many effective variations on a
+“standard”
+
+business plan. The key to successful presentation of your business plan
+is to cover what readers expect and to organize the material so that
+your arguments (for the proposed venture’s prospects, your qualification
+to lead it, and the reader’s commitment to participate or cooperate in
+the desired ways) are effective. In this section of the chapter, you
+will learn about each component, what it should contain, and how to
+maximize its impact.
+
+Notes: The titles of the components used here are generic; in any
+business plan you will want to create titles that focus on your business
+concept. The components appear in a recommended sequence, though it is
+possible that a slightly different sequence could be more effective for
+a particular business plan.
+
+Pages 130 through 167 contain Figures 2.1 and 2.2, a complete business
+plan for KidSmartTM prepared by entrepreneurial MBA candidates who
+sought venture capital investors to fund their company.* The remainder
+of the chapter refers often to Figures 2.1 and 2.2. As you view
+KidSmart’s business plan components and read its content, also read the
+helpful annotations.
+
+[]
+
+[]
+
+Figure 2.1a Business plan cover page
+
+Preliminary Components
+
+The business plan begins with several components that aid the reader in
+quickly sizing up the proposed venture, understanding the entrepreneur’s
+ideas, and anticipating more detailed arguments and information in the
+plan’s main body. Though these brief preliminary components are the
+first things the reader sees, they typically are produced late in the
+process of writing a business plan. Like every other component of a
+business plan, these important elements are included for good reasons
+and can either help or frustrate your efforts to secure resources and
+support for your venture.
+
+Cover Page
+
+The cover page is a business plan’s first page. As such, its purpose is
+similar to that of title pages you have used on other business reports.
+
+The cover page should include the following items.
+
+Company name, address, and phone number
+
+Web address, e-mail address, or both
+
+Company logo or another identifying image
+
+Name, address, phone number, and e-mail address of the company’s contact
+person
+
+Date of the business plan (to distinguish it from earlier or later
+versions) and its copy number (so you can track how many copies you have
+issued, and to whom)
+
+Statement that prohibits copying of the business plan
+
+Because the cover page influences a reader’s first impression of the
+company, you must create a professional appearance: organize the
+information and display it attractively. In addition, a business plan is
+aserious document from which the reader hopes to extract essential
+business information. The cover page is the first visual clue of your
+care and competence. (See Figure 2.1a, p. 130).
+
+[]
+
+[]
+
+Figure 2.1b Table of contents
+
+[]
+
+[]
+
+Figure 2.1c Executive summary (continues on page 5 of business plan)
+
+[]
+
+[]
+
+Figure 2.1c Executive summary (concluded)
+
+Follow these guides when preparing the cover page.
+
+Place the company name and logo in the upper half of the page.
+
+Position the logo or other image where it achieves the best visual e
+ect, whether above or below the company name. Avoid the temptation
+
+to economize by using clip art or your own artistic rendering of a logo
+or other image; either approach appears amateurish. Flashiness may or
+may not be appropriate in the industry you are entering.
+
+Therefore, study the logos and other images of successful firms in that
+industry to see what tone they set. Because it is better to omit a logo
+than to use one that presents you as bizarre, lacking business judgment,
+or unable to afford a design professional, consider hiring a graphic
+designer or artist to craft a similar, yet distinctive, logo or image
+for your company. The resulting professional appearance
+
+easily justifies the modest cost. If the contact person’s address and
+phone number are identical to the company’s, you may list him or her
+with the company information to avoid repeating these details.
+
+Place the plan’s date centered in the lower quarter of the page,
+followed a few lines lower by the copy number.
+
+Table of Contents
+
+The business plan’s second printed page should be a table of contents
+showing an outline of the principal section headings and the page on
+which each section begins. (See Figure 2.1b, p. 131.) The table of
+contents plays a
+
+crucial role in facilitating the reader’s navigation through your
+business plan.
+
+The following guides will help you prepare the table of contents.
+
+If the plan’s sections typical y exceed four or ve pages, add secondary
+headings and their page numbers, indented below their principal
+headings. Note: In this case, consider trimming the length of the
+business plan or some of its sections!
+
+Include al appendices, identified by label (Appendix A, B, and so on),
+title, and page number. Do not treat the appendices as one
+undifferentiated lump named Appendix, or readers will abandon
+
+their effort to find the supplementary information.
+
+Ease readers’ navigation by inserting page tabs to locate principal
+sections.
+
+You want readers to persist in reading your plan. The moment the reader
+loses interest and sets aside your document, you have failed to secure
+the loan, investment, contract, management talent, or other resource you
+sought. Research has shown that venture
+
+capitalists read business plans by skipping from section to section,
+seeking topics or information that would address the interests,
+
+concerns, or questions that come to mind as they read.2 Other
+
+categories of readers will likely skip through the plan as well.
+
+Executive Summary
+
+On the page immediately following the table of contents, the executive
+summary usually is the first component to be really read. (See Figure
+2.1c,
+
+p. 132.) In no more than two pages, the executive summary offers a quick
+look at the entire business plan. It is not an introduction to the
+business plan
+
+nor an identification of the topics covered. Instead, the executive
+summary makes the following points.
+
+Essence of the business concept
+
+How the entrepreneur will pursue that concept
+
+The expected results
+
+The proposition placed before the reader. Note: Your aim in the
+executive summary is to win the reader’s further interest and, if
+possible, his or her tentative acceptance of your logic as you build
+your arguments throughout the plan.
+
+Given the critical nature of the executive summary, keep these guides in
+mind when writing it.
+
+Do not exceed two pages. Exercise selective judgment to distinguish the
+most important points from the details in your business plan.
+
+You must be able to identify the keys to success in your business idea,
+if you are to succeed in its execution. Savvy readers know this fact and
+use the executive summary as a screening device, often reading no
+further before abandoning interest.
+
+Write al other components of the business plan before writing the
+executive summary.
+
+Devote more attention per page to the executive summary than you are
+likely to give to the writing of any other section.
+
+Write the executive summary from scratch so it accurately presents the
+business plan’s main points in an inviting way. Avoid recycling
+sentences or paragraphs from the body of the plan for two reasons: a.
+The reader may notice and be put off by the verbatim repetition when the
+same text appears in the body. By that point in the plan, you want
+
+the reader to experience a comfortable familiarity with your reasoning
+but not a sense of déjà vu.
+
+b. Cutting and pasting to create the executive summary prevents you from
+the difficult but rewarding job of articulating your arguments—(1) for
+the venture’s viability and your qualification to launch it, and (2) for
+the action you want each reader to take.
+
+Recognizing the executive summary’s significance, authors of the
+KidSmart business plan made this preliminary component Section 1 of the
+body.
+
+Body: Concept and Product
+
+The body of a business plan consists of standard essential components as
+well as other optional components. The sequence of components within the
+body will vary according to the priorities and plans of the business
+venture, but the components should fall into an order that logically
+develops the entrepreneur’s arguments and the proposition offered to
+readers.
+
+Some experts recommend that the business plan begin with a general
+company description or similarly titled section. This section elaborates
+what appeared on the cover page (company name, location, and so forth);
+tells whether the company is organized as a sole proprietorship,
+partnership, or corporation; identifies the company’s industry and
+products; explains its objectives; and recounts its history, if any. The
+value of including this section lies primarily in ensuring that the plan
+does not omit this important information. Its primary drawback is the
+risk of starting the business plan’s body with dry, dull, unimaginative
+information. Most of the information routinely included in the “company
+description” either appeared on the cover page or can be presented
+later, in covering the organizational plans or management team. With
+these considerations in mind, you may begin the business plan’s body by
+explaining the business concept. Note: For a brief
+
+but thorough explanation of how to develop a business concept, see
+Allen’s book about launching new ventures.3
+
+The Business Concept
+
+Recall that the business concept identifies an unsatisfied need on the
+part of potential customers, what the entrepreneur will offer to satisfy
+that need, and how this offering will draw customers away from the
+alternatives they currently use. (See Figure 2.2a, p. 134, opening
+paragraph.) In this section of the business plan you must concisely and
+convincingly detail your business concept. What you write here will
+establish the context for everything that follows in your business plan.
+For example, the subsequent sections on the organizational plan and
+management team will detail the human resources required to start and
+build this company, not merely as a generic example of its line of
+business but specifically as a company that pursues the kind of
+uniqueness and serves the types of customers you identify here. Readers
+will keep in mind the requirements implied by your business concept and
+will assess your organizational plan and management team against them.
+
+[]
+
+Figure 2.2a Business concept (first paragraph only) and Figure 2.2b
+
+Product description (continued)
+
+[]
+
+[]
+
+Figure 2.2b Product description (continued)
+
+[]
+
+Figure 2.2b Product further explained
+
+[]
+
+Figure 2.2b Visual explaining KidSmart’s key product
+
+[]
+
+Figure 2.2b Product explanation (continued)
+
+[]
+
+Figure 2.2b KidSmart’s product explanation enhanced by a visual
+
+[]
+
+Figure 2.2b Product explanation (concluded)
+
+[]
+
+[]
+
+Figure 2.2c Industry and market insights (continues through page 24 of
+
+business plan)
+
+[]
+
+[]
+
+Figure 2.2d Market description (continued to top of page 16 of business
+
+plan)
+
+[]
+
+Figure 2.2d Market explanation (continued)
+
+[]
+
+[]
+
+Figure 2.2e Venture strategies and plans (continues through page 18)
+
+[]
+
+Figure 2.2e Venture strategies and plans (continued)
+
+[]
+
+Figure 2.2e Venture strategies and plans (concluded)
+
+[]
+
+[]
+
+Figure 2.2f Marketing plan to implement venture strategies (continues
+
+through page 24)
+
+[]
+
+[]
+
+Figure 2.2f Marketing plan (Phases 1 and 2)
+
+[]
+
+Figure 2.2f Marketing plan includes test marketing, as described in this
+
+business letter
+
+[]
+
+[]
+
+Figure 2.2f Marketing plan includes several catalogs of KidSmart
+
+products
+
+[]
+
+[]
+
+Figure 2.2f Marketing plan (Phase III)
+
+[]
+
+[]
+
+Figure 2.2f Marketing plan (concluded)
+
+[]
+
+[]
+
+Figure 2.2g Operational plan (manufacturing and distribution)
+
+(continued to page 27)
+
+[]
+
+[]
+
+Figure 2.2g Operational plan (manufacturing and distribution)
+
+[]
+
+[]
+
+Figure 2.2h Management plan and management team (continued
+
+through page 28)
+
+[]
+
+[]
+
+Figure 2.2h Management team (concluded)
+
+[]
+
+[]
+
+Figure 2.2i Financial plan for KidSmart (continues through page 36 of
+
+business plan)
+
+[]
+
+[]
+
+[]
+
+Figure 2.2i Tables provide details of the financial plan
+
+Figure 2.2j Pro forma financial statements
+
+[]
+
+Figure 2.2j Pro forma financial statements (continued)
+
+[]
+
+Figure 2.2j Pro forma financial statements (continued)
+
+[]
+
+Figure 2.2j Pro forma financial statements (concluded)
+
+[]
+
+Figure 2.2k Exit strategy and returns to investors
+
+[]
+
+Figure 2.2k Visual presentation of rapid growth and investor returns
+
+[]
+
+Figure 2.2l Risks and contingencies: “What if” comments on the business
+
+plan
+
+[]
+
+[]
+
+Figure 2.2m Future development ideas for KidSmart (continues on page
+
+39)
+
+[]
+
+[]
+
+Figure 2.2m Future growth ideas (concluded)
+
+The following guides will help you explain your business concept.
+
+Give speci c information about four aspects of the business concept.
+
+Ο Company’s product or service. Do not emphasize the features
+
+of your product or service. Do explain the venture in terms of the
+customer needs it will fill through the product or service.
+
+Example: An air charter service should not be described merely as
+renting airplanes and the services of pilots; instead its mission might
+be to provide rapid aerial transportation to locations not served by
+scheduled carriers plus flyover services for aerial
+
+photography and the location or evaluation of sites for property ‐
+
+development.
+
+An effective description of the air charter’s business concept
+
+would include both the physical (for instance, the rental of
+
+airplanes and pilots’ services) and the needs met by its services (for
+instance, the motives that would lead business or pleasure travelers to
+use private aircraft).
+
+Ο Types of customer on which company will focus
+
+Example: You would identify the groups of customers that are
+
+your primary focus (such as executives plus sales and service
+
+personnel with local companies who need to reach industrial
+
+customers in territories not conveniently served by airlines, state
+economic development officials, and representatives of
+
+companies they are assisting in plant location decisions).
+
+Ο Benefits customers will derive from the product or service
+
+Ο Means for distributing the product or service
+
+Example: Tell how your product or service will reach its
+
+customers (for instance, direct mail and personal meetings with
+
+executives of the companies known to need better air connections and
+similar contacts with government agencies that undertake industrial
+recruitment).
+
+Ο Include photographs or quality drawings when they will clarify your
+business concept. Whether to present illustrations in this section or
+later, in a detailed description of the product, is your decision. If
+your product or service is so novel that readers will need help to grasp
+the concept, definitely include illustrations in this section. If the
+product or service is more comparable to
+
+existing products, the illustrations could wait.
+
+Example: An entrepreneur proposing a fashion design boutique
+
+included sketches of dresses and suits by his/her designer. The sketches
+clarified the fashion concept underlying the proposed
+
+venture and conveyed a sense of the designer’s talents.
+
+Describe your potential primary customers in terms of how they differ
+from other buyers. (Not every person or organization that is part of the
+market is equally attracted to the benefits you will offer, able to pay
+the price you will charge, or reachable through the distribution
+channels you will use.) Describe the chief differences between your key
+customers and other buyers who are less likely to respond to your
+appeal. A more detailed description of primary customers will appear in
+the Market section of your business plan.
+
+State clearly the points that wil set your venture apart from its
+rivals.
+
+Explain the uniqueness of your product or service. Entry into an
+industry and the market it serves is challenging under most
+
+conditions but is especially difficult and unpromising if a venture will
+merely imitate existing companies. You seek to persuade
+
+investors, lenders, and others who may not thoroughly understand the
+products and market you describe. Though the features may be obviously
+different from those of rival products or services, you
+
+will want to link those differences directly to the benefits they create
+for customers.
+
+Product Explanation
+
+You have explained the product’s role in your business concept. The
+benefits you outlined earlier are created through product features or
+applications. Readers will want clear explanations of how the necessary
+capabilities are embodied in your product. (See Figure 2.2b, p. 134,
+second paragraph through p. 140.)
+
+These guides will help you provide the product information the readers
+need.
+
+Elaborate on the product or service itself—its design, features, and
+use.
+
+What will enable you to provide customer benefits that competitors
+cannot? Have you rethought a familiar service so it can be ‐
+
+performed uniquely? If so, have you demonstrated its effectiveness?
+
+Report the development status of the product or service if you intend to
+modify an existing product or service in some new way. This topic may be
+omitted when the product or service already is well established.
+
+The topic is needed if your business concept rests on improving a
+technology or its application. Note: Your company probably will have to
+develop and test a prototype product or service before
+
+beginning commercial operations. If so, you should report on the
+prototype’s state of development and the steps required to bring the
+product to readiness. The same is true of any improved production
+process that the venture would use.
+
+Address the chal enges of a new type of service. The business plan
+should report the development of the service and any pilot operations
+
+(small-scale, short-term tryouts to help you see how the service might
+work in practice on a larger scale). 4
+
+Example: a pioneering use of self-service in a business that has not
+seen that concept. Customers would have to learn how to
+
+perform the functions typically performed by an employee, and
+
+the adoption of self-service might require the redesign of the
+
+typical site of interaction with customers.
+
+Note any protection available to the venture for its product, service,
+or business concep t. Possible sources of protection include patents,
+copyrights, trademarks, and licensing agreements. Consider also trade
+secrets and the types of complexity that make imitation
+
+difficult—not all proprietary information and processes are based on
+legal protection.
+
+Explain brie y how the venture wil acquire needed materials or other
+process inputs. Even though a detailed operational plan follows later in
+the business plan, readers may need this information at this point.
+
+Pay particular attention to any input that is critical to the venture’s
+strategy or that is not generally available.
+
+Example: A fashion designer whose products required especially
+
+fine woolen or silk fabrics explained how a reliable supply of
+
+those fabrics would be assured. However, a designer whose
+
+products were cut from a commodity fabric did not need to detail her
+sources.
+
+Example: Most restaurants would need only to ensure readers that
+reliable restaurant food suppliers served their area, but one
+
+specializing in fresh seafood while operating in Nebraska would need to
+identify its sources of supply.
+
+Describe directions for growth that derive from the initial strategy of
+your venture. Directions for growth might include:
+
+Ο additional lines of product or service that could be sold to your
+primary customers.
+
+Ο other customer groups that might become reachable from your
+
+position in your primary market or segment.
+
+Note: Directions for growth is an optional topic as not all ventures
+have such prospects at their inception. It is better to remain silent on
+product or service diversification than to offer far-fetched notions.
+
+Body: The Industry and the Market
+
+Your next aim is to demonstrate that an entrepreneurial opportunity
+exists.
+
+(See Figure 2.2c, p. 141.) An assessment of the possible opportunity
+rests on two fundamental questions:
+
+Do enough people or organizations have an unmet need and the ability to
+pay for a solution?
+
+Is it possible to overcome or evade existing competitors in entering,
+capturing, and holding the market you seek?
+
+How you sequence the sections on the industry and the market will depend
+on which elements of your business concept hold the keys to
+understanding your venture and to its success. Your coverage of industry
+and market should open with the subject that is more central to the
+uniqueness of your business concept:
+
+If the unmet need results from insufficient industry capacity, or if you
+propose an improvement in the production process, then your argument
+depends primarily on characteristics of the industry (the producers or
+providers of the product or service) and the individual firms it
+comprises.
+
+If the unmet need is one that incumbent firms have not noticed or that
+customers themselves have yet to recognize, your argument
+
+depends primarily on the characteristics of the market (the buyers and
+their needs).
+
+From this portion of the business plan, the reader should learn not only
+about the industry and the market but also about your insight into them.
+It is a grave error to treat this portion or its sections as a series of
+separate essays. Here is what you must do instead:
+
+Present an integrated portrait of the industry and market that
+
+develops and sustains your key findings and conclusions about them and
+about your venture’s place in them.
+
+Lead the reader to your conclusions by stating them at the outset in
+concise, summary form, then building the argument for them
+
+throughout the section.
+
+Success in your argument does not arise from repetition of the same
+points or from the accumulation of assertions, but from careful
+construction of the argument through the introduction and logical
+integration of relevant information pointing to your conclusions.
+
+Although a business plan certainly is not a business research paper,
+your work on the industry and market must adopt many of the values and
+conventions associated with that type of writing. For instance, you will
+need to:
+
+find, integrate, and use numerous sources of information. The
+
+sources will range from published accounts in business or general news
+media to your own specialized primary research. For example, you may
+interview industry participants or representative customers to determine
+their satisfaction with existing products, their interest
+
+in an alternative such as you will offer, their sensitivity to price
+versus other factors, or other issues.
+
+combine what you glean from published sources with your own
+
+investigation. It is crucial to the quality of your arguments that you
+push beyond the standard sources—such as Standard and Poor’s, Moody’s,
+or Hoover’s, useful though they are for a starting point—to write your
+own creative analyses.
+
+The Industry
+
+Your industry analysis should show a thorough understanding of the
+overall industry and an assessment of your potential for profit within
+that industry.
+
+Follow these guides to give an effective description of the industry.
+
+Tel how large the industry is, its stage of development (for example,
+introduction, growth, maturity, and decline), and its potential for
+growth beyond this point. Introduce quantitative data from authoritative
+sources whenever possible. Do not use hyperbole!
+
+In describing a particular industry, refer to appropriate kinds of
+quantitative data as shown in the following examples:
+
+Example: number of establishments operated by its firms, such as number
+of pizza restaurants
+
+Example: physical output, such as tons of steel or number of
+
+housing units built
+
+Example: number of customers served, such as number of tax
+
+returns prepared or dollar volume of sales
+
+The appropriate and customary choices for data will vary from one
+industry to another, and your study of the industry should make these
+choices obvious.
+
+Describe in detail the industry’s geographic concentration, if any, and
+the patterns of di erence between regions. This discussion is likely to
+include both quantitative and qualitative information. For example, you
+might report that production capacity in your industry is
+
+concentrated in the upper Midwest and New England, supporting
+
+the statement with data on plants and their capacity, but also quote
+industry analysts’ opinion that the most forward-looking
+
+competitors are young companies on the West Coast. Similarly
+
+diverse sources and approaches may describe trends, entry barriers, and
+other patterns in the industry.
+
+oroughly analyze and discuss the competitive forces your venture faces.
+
+The pivotal point in this section should be your assessment of the
+industry’s potential for profit. Many effective assessments rely on
+
+the Five Forces model of Michael Porter5 to examine the impact of: 1.
+Rivalry among firms already in the industry
+
+2. The threat of new entrants
+
+3. The competitive threat of other products that may substitute for
+those of the industry
+
+4. The bargaining leverage of the industry’s suppliers
+
+5. The bargaining leverage of the industry’s customers
+
+The stronger the effect of any force, the lower the industry’s
+
+potential profitability. Therefore, your choice of which forces to
+emphasize in your analysis must depend on their strength. Your
+
+venture’s greatest competitive barriers or pressures on profitability
+will arise from them.
+
+Discuss the gross margins on sales that prevail in the industry, a topic
+closely related to the industry’s long-run profit potential. Such
+
+information gives you a clearer idea of the volume needed to break even
+and serves as a reality check on your own financial projections.
+
+Typical gross margins may depend on the market segments in which
+companies sell or on the technologies they use, so you must be
+
+careful not to settle for the first statistic you find.
+
+The Market
+
+Along with the industry, you must describe and discuss your venture’s
+market. Not every possible customer of your industry is of equal
+significance to your venture. Some customers are content with the
+offerings of established companies; others will have unmet needs that
+your venture is unprepared to resolve. Your venture’s strategy probably
+cannot be tailored to satisfy everyone; instead it must match the
+benefits you can deliver to customers who will respond to them. They are
+your target market. Your task in the business plan is to define this
+select group and estimate its likely
+
+response. (See Figures 2.2c and 2.2d, pp. 141−43.) Following these
+guides will help you define your target market and predict its likely
+reaction.
+
+Describe the primary and any secondary target markets of the venture,
+using a mixture of quantitative and qualitative data. Draw from
+qualitative data or observation a demographic or psychographic
+
+portrait of the individual, household, or organization that typifies a
+target market; then enrich it with hard numbers.
+
+At the same time, discuss the customer needs that your venture
+
+will serve. Even though you have identified those needs in
+
+describing the business concept, elaborate on them in this section and
+provide evidence that they are unmet to a significant degree within the
+target markets. This section is the probable home for
+
+any original market research—your own surveys, observations, and so on.
+
+Integrate this information, rather than presenting such material in a
+separate section. Explain briefly how you carried out the
+
+research. Use an appendix for a detailed description of your
+
+methods and complete results, if relevant.
+
+Analyze the speci c competitors your venture wil face; identify and
+discuss those rivals in detail. You broadly described the industry and
+detailed the market segments your venture will target, setting the stage
+for this analysis. Your competitors’ effectiveness in pursuing the same
+market segments or in repelling your entry can decide your
+
+venture’s fate. Readers will know that correctly identifying an unmet
+need does not ensure that your venture will succeed in that market. In
+addition, readers will want proof that you understand this reality and
+evidence that your plan will withstand the competitive efforts of your
+rivals.
+
+Compile the fol owing information and assessments of each rival for your
+target markets.
+
+Ο The company’s product line
+
+Ο The features and customer benefits it provides
+
+Ο Principal competitive methods
+
+Ο Price to consumers (and to intermediaries, if applicable)
+
+Ο Strengths and weaknesses as a competitor
+
+Note: This information lends itself to presentation in a table within
+your text. Use the text to highlight the most important competitors and
+the opportunities or threats posed by them. Make your
+
+discussion focused, rather than trying to summarize all the
+
+information, which the table will show. An important exception:
+Sometimes it is impossible or impractical to name specific
+
+competitors, especially if they are indirect rather than direct
+
+competitors for your target market. In such a case you should identify
+the category or type of competitor.
+
+Example: If your venture were a lawn care company, for example, you
+might identify “casual yard services” comprising teenagers
+
+who earn extra money by mowing lawns in their neighborhood—
+
+it would be futile to try to name them, but overlooking the
+
+category would omit a possible source of competition for your
+
+company.
+
+Body: Venture Strategy and Plans
+
+From the foundation laid in analyzing the industry and market, you are
+ready to build the strategy your venture will pursue. You can now argue
+convincingly for the type and source of competitive advantage on which
+you will rely in the market you have targeted and the strategic goals
+you will seek. Then will come the detailed treatments of your plans
+for-marketing, operations, and management. (See Figure 2.2e–h, pp.
+144–56.) While this chapter’s coverage of plans for marketing,
+operations, and management is less extensive than the discussion of
+venture strategy, that difference does not mean that the plans are
+unimportant or that they should necessarily be shorter portions of the
+business plan. Instead, the difference reflects two considerations:
+
+A company’s detailed plans for marketing, operations, and
+
+management are particular to that firm. Here your objective is
+
+tactical: You must ensure that each plan effectively carries out the
+venture strategy by building and maintaining the necessary
+
+competitive advantages. To do so, each plan must be consistent both with
+the venture strategy and within itself. Do not fritter away resources on
+activities that are unrelated to the keys to success for your company.
+
+In the words of Kathleen Allen, “It is much easier to develop tactics
+
+than to develop strategies.”6 Entrepreneurs are prone to answering
+
+investors’ questions about strategy by detailing tactics while
+
+neglecting the strategy they carry out. Although tactics are
+
+important, the venture is likely to fail if the entrepreneur does not
+articulate a well-considered strategy to guide the venture.
+
+Venture Strategy: Differentiation or Cost Advantage?
+
+Now that you have detailed the target market and principal competitors
+your venture will encounter, you are prepared to state its strategic
+goals (the competitive position and capabilities it will pursue) and the
+advantages on which it will rely.
+
+Earlier you described conceptually the uniqueness of the venture’s
+product or service. Now you should explain concretely how your product
+or service will differ from those of your rivals or how its costs will
+be lower or both. Go into more detail than in that earlier, somewhat
+basic explanation.
+
+Relate the venture’s advantage to (a) its attainment through your
+strategy (for example, the resources on which your venture relies, how
+they will be organized or deployed); and (b) the customer needs it will
+meet.
+
+Example: The business plan for a gun club described the shooting ranges
+and equipment to be included in the club’s facilities. It linked them to
+the types of hunters and weapons that each one would suit, then
+contrasted these features and benefits to those available at other gun
+clubs in the geographic market. (The business plan had described the
+rivals earlier in the same section.)
+
+If your venture’s strategy relies on its cost advantage against rivals,
+spell out how the advantage can be achieved. A cost advantage often is
+not easily described before presenting a description of the
+manufacturing or
+
+operational plans, which follow later in the business plan. Even so, an
+entrepreneur whose venture will depend on a cost advantage must take
+extra pains at this point to describe the aspects of the venture’s
+operations that will provide the advantage.
+
+The uniqueness of the activities performed, how they are performed, or
+how they are coordinated with one another is as important to the cost
+advantage strategy as the unique benefits created for customers are to
+the differentiation strategy. Cost advantages are notoriously difficult
+for new ventures; consequently, your readers will require substantial
+evidence to accept your argument.
+
+Marketing Plan
+
+In the section on the market, you identified your target market and
+quantified its potential as much as possible. You also have explained
+the advantage(s) on which your strategy depends. Now you should tell how
+your company’s marketing plans will implement that strategy with respect
+to the target market. (See Figure 2.2f, pp. 147–52.) Your readers will
+look for thoroughness and savvy. Your marketing plan should be
+comprehensive and detailed, crafted with insight into the workings of
+the channels and customers with which you will deal.
+
+Follow these guides to craft your venture’s marketing plan.
+
+Include the fol owing information in your marketing plan.
+
+Ο The distribution channels through which the product or service will be
+sold
+
+Ο The sales methods employed by the venture for each channel
+
+Ο Advertising and promotion directed to each channel
+
+Ο Advertising and promotion directed to final purchasers
+
+Ο Alliances with other companies or organizations to advance the
+venture’s marketing
+
+Ο Other methods
+
+Organize this section to emphasize the marketing e orts that are crucial
+to the venture’s success, especially those on which the business
+concept’s uniqueness depends. The sequence of topics within the section
+is not fixed by any template; instead you should develop your
+
+description logically around what you deem to be the most
+
+important aspects of the marketing plan.
+
+Operational Plan
+
+The content of an operational plan will be quite different for a
+manufacturing company than for a service company. Even so, the plan’s
+purpose remains constant—it explains how the company produces what it
+sells.
+
+Use the following guides in writing an operational plan for your
+venture.
+
+For a manufacturer, describe the manufacturing process, including the
+following details:
+
+Ο the plant that will house the manufacturing process
+
+Ο the types of production equipment and labor the process
+
+requires,
+
+Ο raw materials and their procurement
+
+Ο how the production process will be controlled for efficiency and
+quality
+
+Ο any special considerations such as environmental impact or
+
+process certification that will affect the company’s operations
+
+For a service provider’s operational plan, detail the organizational
+process by which the service is performed.
+
+Example: An auto repair business uses a special facility and
+
+equipment, manages the flow of vehicles through its various
+
+functions, may organize work around specialized workers or all-
+
+purpose teams, ensures its quality of service while minimizing waste of
+materials, complies with environmental requirements in disposing of
+fluids and batteries.
+
+Example: A counseling service—a labor-intensive service that
+
+uses little equipment—has a production process. Its operational plan
+would cover its processes and facilities: private or group sessions or
+both, appropriate space and furnishings for them, the scheduling of
+appointments, methods to ensure quality, and other similar details.
+
+Like the marketing plan, the operational plan is not fixed to a single
+template. Concentrate on a logical presentation that emphasizes
+the-activities and tactics that most directly affect the venture’s
+strategy and competitive advantage. (See Figure 2.2g, pp. 153–55.) At
+the same time you will indirectly advance the idea that you are
+qualified to launch the venture.
+
+Management Plan
+
+Your objective in the management plan shifts to establishing your
+qualifications and those of the management team you have assembled thus
+far. You will need to think carefully about the duties and composition
+of the management team before you write this section. At the time when
+you are creating the business plan, it is not likely that the complete
+management team has been brought together, or even identified. It is
+advisable in your
+
+preparation, though, to detail the skills required, the
+responsibilities, and how the team’s managerial activities are to be
+organized into positions. (See
+
+Figure 2.2h, pp. 155 and 156.)
+
+Follow these guides to write an effective management plan.
+
+Open this section by brie y restating the key management roles and
+requirements under the strategy. They are the basis for what you will
+highlight in presenting the background, knowledge, and skills of the
+management team. Note: Readers may study the management plan early in
+their consideration of a business plan. But venture
+
+capitalists and other serious investors typically look first at the
+executive summary, the business concept, and the venture strategy; then
+they turn to the management plan. These investor-readers want to know
+what the team must accomplish before they evaluate its
+
+qualifications. Therefore, provide that information at the beginning of
+your management plan.
+
+Careful y choose the content to include. The body of the business plan
+is NOT the place for complete biographies. (Include résumés in an
+appendix.) In a short paragraph devoted to each person, state his or her
+position, qualifications, and duties.
+
+Resist the temptation to inflate someone’s qualifications. Such
+misrepresentation is unethical and may constitute fraud.
+
+Professional lenders, investors, and other readers will see through your
+ruse, either immediately or during subsequent “due
+
+diligence” investigation of your proposed venture; and even the
+appearance of such misrepresentation will ruin your chance to
+
+enlist their support. It may also sully your reputation among the
+close-knit community of venture investors and lenders in your
+
+vicinity.
+
+If a member of your management team lacks the necessary qualifications,
+change the team or leave the position vacant. In that case, state your
+plan for filling the vacancy and, if necessary, how its duties will be
+covered in the interim.
+
+Identify members of your board of directors, providing a short profile
+of each that emphasizes his or her qualifications and unique
+
+contribution to the venture. Then do the same for members of your
+company’s advisory board, if you have one. Many of the venture’s needs
+for management talent can be met through its board of
+
+directors or through an advisory board.
+
+Conclude your coverage of necessary talent by identifying the providers
+of professional services required by the venture (for example, legal,
+accounting, and insurance).
+
+Explain your plans for ensuring an adequate supply of quali ed
+employees.
+
+Readers’ concerns will not normally extend to the identity of these
+employees but will focus on their recruitment, selection, training, and
+retention.
+
+Body: Financial Plan
+
+The purposes of the financial plan are to detail the venture’s financial
+needs, how the funds will be used, the financial performance expected in
+the next few years, and how investors and lenders will recoup their
+money. (See
+
+Figure 2.2i , pp. 157 and 158.)
+
+As you approach the financial plan, be guided by these actions.
+
+Begin with this fact in mind: Nearly al readers wil be keenly interested
+in this section. Those who invest will become owners; those who lend
+funds will become creditors; and those who agree to provide
+
+supplies or other resources on standard terms typically will become
+trade creditors. Other readers will have other reasons for their
+interest in the financial plan. A company that considers making your
+company a supplier will want assurance of its financial
+
+stability: Will your company be able to meet its contractual
+
+commitments? Even if your company possesses the necessary
+
+technical skills and equipment, for example, its reliability as a
+supplier will depend on its ability to obtain raw materials and other
+purchased resources on a timely basis and to finance production and
+shipment of its goods before it receives payment. Readers whom
+
+you recruit for your management team will want assurance as well, both
+of the company’s ability to pay their salaries and of its ability to
+survive and grow. These various readers will focus on different aspects
+of the financial plan, but each of them will use it to assess the
+company’s soundness and evaluate your qualifications to lead it.
+
+Proceed with this fact in mind: Entrepreneurs often produce nancial
+plans that are unrealistic or incomplete. A lack of realism sometimes
+results from the entrepreneur’s upbeat, optimistic attitude toward the
+business idea and his or her skills. Entrepreneurs tend to have
+above-average confidence in their own abilities and insights, and so
+they naturally become excited about the opportunities they have
+uncovered. Thus, unrealistic financial plans partly reflect an honest
+difference of perception between an entrepreneur and unbiased
+
+observers. They also may reflect entrepreneurs’ failure to
+
+understand the competitive requirements or conditions of the
+
+market and industry they intend to enter.
+
+Experienced readers will research these requirements and
+
+conditions, using public information as well as their own sources and
+judgment, with particular attention to financial assumptions or results
+that depart from industry norms.
+
+Keep in mind the fol owing truth: A new company almost never matches,
+let alone surpasses, the operational e ciency and materials costs of
+successful incumbents in its industry. A financial plan that shows your
+company enjoying higher gross margins (lower costs of goods
+
+sold), lower costs of raw materials or manufactured components, or any
+other operating advantage over incumbent firms will cause
+
+skepticism among your readers. At the very least, they will want to know
+exactly why and how your company will be able to achieve
+
+these advantages even as it is learning its way in the industry. Only a
+fundamentally different way of organizing or carrying out
+
+operations has a chance to convince your readers, and even then they
+will see great risks in your proposed innovation.
+
+Unrealistic or incomplete financial plans also result from
+
+entrepreneurs’ lack of financial and accounting skills. Most
+
+entrepreneurs count on their knowledge of a market, personal
+
+contacts or selling abilities, technical acumen, or novel idea; they are
+not often experts in finance or accounting. You should
+
+honestly assess your competence in the latter subjects and, if there is
+any doubt in your mind, hire a professional to assist in
+
+preparing your financial plan.
+
+Another fact to be aware of: Even reasonable nancial plans may meet with
+doubt among readers if you fail to explain the assumptions that underlie
+them. Merely generating detailed, monthly financial projections running
+years into the future will not impress readers: They use spreadsheets,
+too, and know that a computer’s output is only as good as its input data
+and assumptions. Entrepreneurs
+
+frequently project robust growth rates in sales, stable or declining
+unit costs of production, or other optimistic trends that yield
+impressive results when plugged into a spreadsheet program.
+
+Without solid evidence or compelling arguments for the
+
+assumptions you built into the financial plan, experienced readers will
+discount your results and, in all likelihood, reduce their regard for
+your qualifications to lead the venture. You will have lost ground in
+both objectives of convincing them.
+
+Pro Forma Financial Statements
+
+The financial plan should present the following information:
+
+The sources and uses of funds received from investors and lenders Pro
+forma (formal, conventional) statements of sales and income, cash flow,
+balance sheets
+
+Expected returns to investors and coverage of any debt obligations
+Follow these guides, presenting the pro forma statements in two ways to
+satisfy readers’ different needs.
+
+Prepare summaries of yearly results or balances to provide quick access
+to your nancial plans for al readers. These summaries will be sufficient
+for some. Readers will expect at least three years of statements and may
+want more.
+
+Also, prepare monthly statements of the same accounts. This periodic
+reporting satisfies other readers’ need for greater detail, especially
+with respect to the first two years of operation. Their desire for
+monthly data stems from the danger that a young company will run out of
+cash during its slow season or while gearing for rapid
+
+growth, and consequently fail for insolvency before it can achieve the
+satisfactory results projected for the longer period. Your
+
+financial plan should guard against this possibility, for your sake as
+
+well as your investors’ or lenders’. (See Figure 2.2j, pp. 159–62.)
+
+Proposed Deal Structure
+
+In one sense, the business plan has been building to this portion of the
+financial plan ever since its first page. Even after demonstrating the
+existence and extent of an unmet need, the practicality of pursuing this
+opportunity with your particular strategy, and the lucrative returns
+that await the venture, you as the entrepreneur must attract the
+necessary backing. One part of this effort is convincing readers that
+you are the right person to launch the venture. Another key to
+persuading readers to support the venture is offering an acceptable
+deal.
+
+Follow these guides for describing your proposed deal structure.
+
+Describe the deal in terms of its bene ts to the readers who would
+provide the capital. Remember, the business plan is primarily a sales
+document. You are asking them to bear some of the venture’s
+
+financial risk, and in return you must offer payoffs that induce them to
+accept your proposition. The venture’s profitability will mean nothing
+to its investors unless they share in the rewards:
+
+Ο How you structure the financial deal will determine how the
+
+rewards are divided.
+
+Ο The exit strategy you propose for these investors will tell how and
+when they may expect to receive their rewards.
+
+Both parts of the deal—the division of rewards and the method
+
+and timing of their realization—must appeal to investors. (See
+
+Figure 2.2k, pp. 163 and 164.)
+
+State clearly what you o er and the price you ask.
+
+Ο For equity investors, your proposition is to sell them a
+
+proportional stake in the company, represented by ownership of
+
+its stock.
+
+Ο For lenders, your proposition is to borrow funds for a certain period
+in return for their repayment with interest according to a specific
+schedule.
+
+Include concise summary tables of the proposed capital structure,
+because the pro forma financial statements will not spell out the terms
+in sufficient detail to satisfy potential investors or lenders.
+
+Show the several categories of investors and the amounts they
+
+contribute in return for their shares of the company, as illustrated by
+the KidSmartTM plan (Figure 2.2i, Exhibit 12-B, p. 158).
+
+A similar distinction is needed among different types of lenders if the
+proposed capital structure includes debt.
+
+Lay out a plan for converting professional investors’ investments into
+cash.
+
+Professional investors differ in how long they prefer to own the shares
+of companies they back. Because many such investors
+
+specialize in identifying promising young companies rather than in
+holding a portfolio of established companies, they will want to sell
+their stock within a few years of investing in your company.
+
+For these investors the exit strategy is a crucial consideration: Are
+you asking them simply to trust that the company’s strong
+
+performance and rosy prospects will ensure a market for its stock?
+
+Or have you laid out a plan for converting their investment into cash?
+Professional investors will insist on the latter and will expect a
+credible scenario for bringing it about. Possible exit strategies may
+include the following:
+
+Ο the sale of their stock during a subsequent offering of shares to the
+public, or
+
+Ο the sale of the entire company to a larger, established company.
+
+The exit strategy should mesh logically with the venture strategy and
+discussion of the company’s future development that you
+
+have included in earlier sections.
+
+Body: Risks, Contingencies, and Future Development
+
+Any experienced business manager or investor (or military officer, or
+airline passenger) has learned that few projects (or campaigns, or
+vacation itineraries) work out exactly as planned. Simple or routine
+operations may offer a few surprises, but with complexity or novelty
+come complications and unanticipated changes. Earlier in this chapter
+you learned why business plans are helpful even though they will not
+remain unchanged throughout their implementation. Now you will learn
+about how to deal with the reality of changed conditions.
+
+Readers of the business plan will have their own doubts about its
+assumptions or about how smoothly you will be able to implement it.
+Those doubts can prove fatal to your arguments to convince them of the
+plan’s validity and your qualifications to execute it and to persuade
+them to support your efforts. On the other hand, you can neutralize the
+doubts or even turn them to your advantage if you:
+
+Recognize risks your venture will encounter.
+
+Spell out the contingent (that is, conditional or standby) plans for
+dealing with those risks should they materialize.
+
+Lay out further plans for the company’s development beyond the
+
+stage covered in detail by the business plan.
+
+Risks and Contingencies
+
+Readers will look for evidence of your understanding of the venture
+strategy and the conditions the company will face. Your ability to
+distinguish between important and trivial risks will be taken as
+evidence of your readiness to launch and manage the venture, as will
+your insightful and specific explanation of those risks. Readers will
+look for similar evidence in
+
+your contingent plans for limiting or offsetting their impact. If you
+define and explain the risks in specific terms, your plan for dealing
+with each risk can be presented in a paragraph or two. This section is
+not meant to be an alternative version of your business plan. Instead,
+think of each portion as though it were a supplementary “what if”
+comment on some key element of your plan. (See Figure 2.2l, p. 165.)
+
+In preparing to discuss risks and contingencies, you must overcome the
+temptation to imitate the annual reports or prospectuses of other
+companies.
+
+These documents, written to satisfy securities regulations and legal
+precedents, contain much boilerplate (standardized) language on business
+risks that, taken literally, would discourage most investors from owning
+the companies’ stock. Virtually anything that could go wrong is
+presented as a possibility, sometimes softened by a statement that
+management believes the problem can be overcome. Remember that the
+objective of the annual report or prospectus increasingly is to avoid
+lawsuits alleging that management misled stockholders, and that those
+documents never were intended as candid treatments of a company’s
+strategy or the steps that might counter the associated risks and
+problems. (You may want to protect yourself by including an investor’s
+disclaimer as described under Producing and Presenting the Business
+Plan.)
+
+Future Development
+
+Readers will want to know about your venture’s prospects after it
+accomplishes the strategy and objectives laid out in the business plan.
+
+Whether you choose to present this information as part of the “risks and
+contingencies” component or as a separate component will depend on its
+ability to stand alone. If your ideas for future development involve new
+products or some other significant departure from the original plan’s
+strategy, present this material as its own major section of the main
+body.
+
+These guides may prove helpful in writing the future development section
+of your plan.
+
+Explain what milestones or conditions would trigger this new phase of
+your company’s development. Otherwise readers may suspect that you have
+not settled on a primary strategy and are proposing alternatives to be
+trotted out whenever troubles arise.
+
+Describe the opportunities you have in mind, giving basic information on
+their size or the evidence of their existence. (See Figure 2.2m,
+
+pp. 166 and 167.) Note: You should not attempt to project market or
+financial results of the future possibilities, as they are too
+
+speculative at present.
+
+Avoid giving the impression that this next phase would be a clean break
+from the strategy and activities that went before. Otherwise, readers
+will suspect that it would pose the same risks and uncertainties as
+
+starting from scratch while giving up the advantage of early risk-taking
+and achievement. Your discussion of the company’s future development
+should build on the success of your venture to exploit opportunities it
+will create.
+
+Appendices
+
+As noted in Chapter 1, a lengthy or complex report (such as a research
+report or business plan) is likely to include a set of appendices (the
+plural) rather than just one appendix. The distinction emphasizes that
+each appendix stands on its own, has its own title and number, and
+appears on a numbered page so the reader may find it without wading
+through all the others. Note: KidSmart’s business plan in Figure 2.2
+does not include appendices.
+
+Keep these guides in mind when preparing the appendices for your
+business plan.
+
+Include a reference to each appendix in the business plan’s main body at
+the rst point where its material is relevant, and possibly at subsequent
+points where it also applies. Otherwise the reader will never know that
+the appendix exists or where to find it, and the persuasive power of the
+appendix will be lost.
+
+Place supplementary material in appendices. Their contents should deepen
+the reader’s understanding of your business concept and
+
+plan or elaborate on information included in the main body.
+
+Appendices often contain the following items:
+
+Ο résumés of the company’s managers or directors
+
+Ο letters of reference from business associates or satisfied
+
+customers
+
+Ο photos of the company’s facilities
+
+Ο press coverage of the company or its founders
+
+Ο published research
+
+Do NOT use appendices to present charts, graphs, or tables that depict
+data or concepts you present in the body, or to provide photographs that
+are keys to understanding your product or service. The reader does not
+want to flip back and forth between the body and the appendices while
+trying to understand your argument. Place such materials in the body,
+either separately, as in Exhibits 2 and 3, pp. 137 and 139, or sharing a
+page with text, as in Exhibits 1 and 4, pp. 135 and 140.
+
+Producing and Presenting the Business Plan
+
+From your previous report-writing experience, you are likely aware of
+these guides, which also apply to writing a business plan.
+
+Work with an outline to organize your thoughts.
+
+Use notes to prepare your arguments and supporting material.
+
+Write drafts of sections and later tie them together.
+
+Ask knowledgeable associates to criticize the drafts.
+
+Revise your work through multiple drafts; then proofread and edit.
+
+Your aim is to win the readers’ support by demonstrating the
+attractiveness of your business concept and strategy as well as your own
+fitness to lead the venture, and halfway measures are not good enough.
+
+Two more important guides for business plans deserve special emphasis.
+
+Do not use any of the widely distributed, inexpensive business plan
+templates to create your plan. Some entrepreneurs are tempted to avoid
+the hard work of writing their business plan. Vendors of template
+software promise the ease of fill-in-the-blanks to produce your business
+plan. In completing the software’s sentences they exercise little
+imagination and express little innovative potential, leading to
+diminished interest from readers.
+
+Engage someone to coach you if you need help in organizing and polishing
+your business plan. Look for a coach rather than a consultant: someone
+who will share expertise and experience and make
+
+suggestions—but NOT write the business plan for you. When
+
+presenting the plan to potential investors later, you must be
+
+thoroughly familiar with every aspect of the written plan in order to
+
+answer the penetrating questions they will ask.7
+
+Producing the Business Plan
+
+Throughout this chapter you have learned about the contents of a
+business plan and how to argue effectively for your venture and your
+leadership of it.
+
+Now we turn to the business plan’s physical appearance. You will need to
+accomplish a balancing act to make it look professional without being
+too slick.8 To achieve the desired appearance and thereby create the
+desired impression of your business plan, consider the guides in Figure
+2.3.
+
+[]
+
+Figure 2.3 Business plan production guides
+
+Presenting the Plan to Investors and Others
+
+Exercise care and selectivity in distributing your business plan by
+using the following guides.
+
+Take time to learn a venture capitalist or other investor’s interests
+before submitting your plan, and send it only to those whose stated
+investment interests appear to include your type of venture. (Many
+directories of venture capital or angel investor groups state each
+group’s investment criteria by industry, technology, company size, stage
+of development, geography, and so forth.) Professional
+
+investors are a networked community, as are many local investors, and
+your indiscriminate distribution of a business plan may give you an
+unwanted reputation among them. Besides, it unproductively circulates
+more copies of your plan, needlessly increasing the risk of lost
+confidentiality.
+
+If you send a cold (unsolicited) copy of the business plan, include an
+investor disclaimer. This statement is the business plan’s equivalent to
+the boilerplate warnings found in prospectuses, although it is less
+exhaustive or specific. (Such protective language would appear in later
+documents presented during negotiations with interested
+
+investors.) A standard disclaimer prepared by the advisor to
+
+KidSmart appears in Figure 2.4.
+
+[]
+
+Figure 2.4 Standard investors’ disclaimer
+
+The KidSmart team’s faculty advisor authored an epilogue on the KidSmart
+business plan and the team’s experiences in business plan competitions,
+shown in Figure 2.5.
+
+[]
+
+Figure 2.5 Epilogue on the KidSmart business plan
+
+Summary
+
+A business plan describes in detail an entrepreneur’s business concept
+and the resources needed to launch a venture to realize it. The plan
+also presents the expected financial results and proposes a deal to
+prospective backers. In writing a business plan, the entrepreneur has
+two purposes: (1) convincing readers that the business concept is viable
+under his or her leadership and (2) persuading them to provide the
+desired support. A business plan is usually required to obtain outside
+funding but is useful even to the entrepreneur who seeks no investors.
+
+Throughout the business plan, the entrepreneur must present not only
+information but also the arguments to convince and persuade readers.
+
+Though there is no template that all business plans must fit, most
+successful plans include the components on this checklist.
+
+ □ Cover page
+
+Along with the company name, included every type of contact
+
+information available, including the name of a contact person.
+
+Showed the business plan’s completion date and the copy number
+
+for tracking copies you distribute.
+
+Ideally, displayed a professionally designed company logo.
+
+Added a statement of your ownership of the business plan that
+
+prohibits copying all or part of it for any reason.
+
+ □ Table of contents
+
+Included only section (Level 1) headings and the starting page
+
+number of each.
+
+Listed all appendices, identified by label and title and, of course,
+page number.
+
+Inserted a page tab at the beginning of each section to help readers
+skip from place to place easily.
+
+ □ Executive summary
+
+Wrote this component after all other parts were complete.
+
+Did not copy wording used in the body into the executive summary.
+
+Wrote it from scratch.
+
+Limited the summary to two pages, selecting vital points and
+
+omitting minor details.
+
+ □ Discussion of the business concept and product or service
+
+Provided specific information about (1) your company’s product or
+service in terms of the customer needs it will fill, (2) types of
+customers on which your business will focus, (3) benefits customers will
+receive from using your product or service, and (4) how the product or
+service will be distributed.
+
+Described your company’s key customers. How do they differ from other
+buyers of your product or service?
+
+Stated what sets your business apart from its competitors.
+
+ □ Discussion of the industry, market, and competitors
+
+Indicated the size of the industry, its stage of development, and its
+growth potential.
+
+Described the industry’s geographic concentration (if any) and the
+patterns of difference between regions. Provided data to support your
+assertions.
+
+Analyzed and discussed the competitive forces your business will face,
+using Porter’s Five Forces model. Emphasized the industry’s
+
+profit potential and discussed prevalent gross margins in the industry.
+
+ □ Discussion of the venture strategy and plans for marketing,
+
+operations, and management
+
+In the marketing plan, discussed the distribution channels and sales
+methods to be used, the advertising and promotions targeting each
+channel, and the final buyers of your product or service.
+
+In the operations plan, described your manufacturing process (if your
+company manufactures a product) or your organizational
+
+process (if your business performs a service).
+
+ □ Financial plan and proposed deal structure, including an exit
+strategy for investors
+
+Ensured a plan that is realistic and complete.
+
+Always explained the assumptions that underlie your financial plan.
+
+Among your pro forma financial statements, included summaries of annual
+results, covering at least three years.
+
+Prepared monthly statements to show more details.
+
+When describing your proposed deal structure, focused on its
+
+benefits to the investors in your business. Stated exactly what you
+offer the investors and precisely what you are asking of them.
+
+Set forth a clear plan for converting investments to cash.
+
+ □ Discussion of risks, contingencies, and future development of the
+company
+
+Identifed the risks your business will face, differentiating between
+major risks and minor ones.
+
+Devised a contingent plan to control or balance the impact of each major
+risk you identify; then, the minor ones.
+
+Described opportunities for future development in your business and what
+conditions will activate that next phase. Provided
+
+evidence that the opportunities exist.
+
+Showed how these new developments will be a natural extension of your
+venture’s success, not a new beginning.
+
+ □ Appendices containing supporting materials
+
+Included related, but nonessential information. Visuals essential to
+understanding your business concept belong in the body.
+
+Called attention to each appendix by its label at an appropriate place
+in the body of your business plan.
+
+Produce and present the report with the same great care used in creating
+your business plan. Use this checklist to aid your business plan’s
+effectiveness.
+
+ □ Used a size 12 serif font, block paragraphs, single (multiple)
+spacing, and margins of at least 1 in. all around (after binding). Used
+a larger, bold font for headings.
+
+ □ Revised and edited your draft meticulously.
+
+ □ Limited to 25 pages and numbered each page (did not print a
+
+number on the cover).
+
+ □ Marked each section with an index tab and used a simple binding that
+allows the report to lie flat.
+
+ □ Distributed your plan only to investors interested in ventures like
+yours. Included an investors disclaimer, especially if you distribute an
+
+unsolicited business plan.
+
+ □ Became ultra familiar with the details of your business plan before
+meeting with investors.
+
+To create your business plan, follow the guides and KidSmart examples in
+this chapter. Then, in collaboration with associates and, ideally, with
+the guidance of a coach, use sound judgment to design a plan for your
+unique situation.
+
+* This business plan was a global champion in the prestigious MOOTCORP
+Competition of the McCombs School of Business at the University of Texas
+at Austin, dubbed by Business Week “the Super Bowl of world
+business-plan competition.” (The cover page illustration [Figure 2.1a]
+contains some fictitious data and is NOT KidSmart’s original cover.)
+
+APPENDIX A
+
+Business Data Sources on the Web
+
+and in Libraries
+
+Data sources on the web fall into four categories (with some overlap
+among them):
+
+Business and industry directories
+
+Digital libraries
+
+Country profiles
+
+Online databases
+
+In each category, a few websites will likely become your go-to sources,
+saved in your browser’s bookmarks or favorites. In the directories
+category, for example, you may find yourself going to these sources
+repeatedly.
+
+Corporate Affiliations
+
+(http://corporateaffiliations.com/default/index?id=routetohome) Kompass
+(http://us.kompass.com)
+
+The Public Register Online (www.annualreportservice.com)
+
+ThomasNet (www.thomasnet.com)
+
+Digital libraries may contain books, as well as journals and magazines
+and other publishing media. Keep these library websites at the ready.
+
+BPubs (www.bpubs.com)
+
+FindArticles.com (www.findarticles.com) HighBeam Research
+(www.highbeam.com)
+
+International business information will be indispensable to your career.
+
+Top online sources for global business data include these websites.
+
+CIA World Factbook (www.cia.gov/library/publications/the-world-
+
+factbook)
+
+International Data Base
+
+(www.census.gov/population/international/data/idb/informationGate
+
+way.php)
+
+World DataBank (http://databank.worldbank.org/data/home.aspx) Among the
+numerous online databases, you will likely identify several that you go
+to often. Predictably your favorites will include one of more sites on
+this short list.
+
+Bankrate.com (www.bankrate.com) Catalog of U.S. Government Publications
+
+(https://catalog.gpo.gov/F?RN=319705784)
+
+EDGAR Online (www.edgar-online.com) GPO ECONI (economic indicators from
+Government. Publishing
+
+Office) (www.gpo.gov/fdsys/browse/collection.action?
+
+collectionCode=ECONI)
+
+Hoovers (www.hoovers.com)
+
+Mergent OnlineTM (www.mergentonline.com/login.php) For locating
+secondary sources, academic, corporate, and public libraries offer
+advantages not available on the web. For example, proprietary databases
+in libraries provide uncommon flexibility for expanding or narrowing
+searches. Unlike web content, essentially all library content has been
+evaluated for accuracy of facts and expertise of authors. Also, library
+references are constant over months, years, even decades, while websites
+come and go.
+
+The following list includes widely used proprietary databases.
+
+Business Source Complete
+
+CultureGrams
+
+IBISWorld
+
+LexisNexis Academic
+
+Passport
+
+ProQuest
+
+Some classic business references continue to be published in book form
+only. Among them are the following data-rich sources.
+
+Craighead’s International Business …
+
+Mil ion Dol ar Directory
+
+Hoover’s Handbook of World Business
+
+Political Risk Yearbook
+
+Standard and Poor’s Register …
+
+A publication titled Business Periodicals Index is an invaluable tool
+for locating secondary sources in a library. It is organized by author
+name, subject, and article title. Whether a printed or digital version
+of the Index, it will give you the details—article title, journal or
+magazine title, even the page number or numbers—for tracking down the
+articles you decide to read.
+
+For thorough coverage of collecting secondary business data,
+see-Clippinger’s Business Research Reporting.1
+
+Notes
+
+Chapter 1
+
+1. Clippinger (2016, pp. 103–04).
+
+2. Clippinger (2016, pp. 105–06).
+
+3. Clippinger (2016, pp. 107–10).
+
+4. Clippinger (2019, pp. 122–29).
+
+5. Clippinger (2017, pp. 43–47, 136–37).
+
+6. McMurrey (n.d.).
+
+7. Clippinger (2017, pp. 82–86, 90–93).
+
+8. Clippinger (2018, pp. 125–30).
+
+9. American Psychological Association (2010).
+
+10. Clippinger (2018, pp. 131–36).
+
+11. American Psychological Association (2010, pp. 174–79).
+
+12. Clippinger (2018, pp. 153–58).
+
+13. American Psychological Association (2010, p. 180).
+
+14. Modern Language Association of America (2009, pp. 129–35).
+
+15. American Psychological Association (2010, pp. 184–87).
+
+16. Singhal and Anil (2015, p. 1).
+
+17. Balliett (2011); Office of National Statistics (n.d.); Yau (2011).
+
+18. American Psychological Association (2010, p. 101).
+
+19. Shwom and Snyder (2014, p. 328).
+
+20. Shwom and Snyder (2014, p. 359).
+
+21. Shwom and Snyder (2014, pp. 360 and 361).
+
+22. Shwom and Snyder (2014, pp. 359 and 360).
+
+23. McMahon (2014).
+
+24. Kyrnin (2017a); Kyrnin (2017b).
+
+25. World Wide Web Consortium Schools for Web Design (n.d.).
+
+26. World Wide Web Consortium Schools for Web Design (n.d.).
+
+27. Guglieri (2015); Alred, Brusaw, and Oliu (2009); and World Wide Web
+Consortium Schools for Web Design (n.d.).
+
+28. World Wide Web Consortium Schools for Web Design (n.d.); Alred,
+Brusaw, and Oliu (2009); and World Wide Web Consortium (n.d.).
+
+29. World Wide Web Consortium Schools for Web Design (n.d.).
+
+30. “Paper Products Manufacturing Market Global Briefing” (2018).
+
+31. “Will Post-Brexit Britain Hinder a Robo-Revolution?” (2017).
+
+32. Cebr (2017).
+
+Chapter 2
+
+1. Martens, Jennings, and Jennings (2007).
+
+2. Sandberg, Schweiger, and Hofer (1988).
+
+3. Allen (2006).
+
+4. Rouse (n.d.).
+
+5. Porter (1980). Besides this original source, numerous textbooks in
+strategic management and entrepreneurship summarize Porter’s model and
+techniques.
+
+6. Allen (2006, p. 194).
+
+7. Berry (2014).
+
+8. Allen (2006, p. 195).
+
+Appendix A
+
+1. Clippinger (2018, pp. 119–21).
+
+References
+
+Allen, K.R. 2006. Launching New Ventures: An Entrepreneurial Approach,
+4th ed. Chapter 4. Mason, OH: Cengage Learning.
+
+Alred, G.J., C.T. Brusaw, and W.E. Oliu. 2009. Handbook of Technical
+Writing, 9th ed. New York, NY: St. Martin’s Press.
+
+American Psychological Association. 2010. Publication Manual of the
+American Psychological Association, 6th ed. Washington, DC: American
+Psychological Association.
+
+Anders, A. 2016. “Team Communication Platforms and Emergent Social
+Collaboration Practices.”
+
+International Journal of Business Communication, 53(2), 224-261.
+
+Balliett, A. 2011. “The Do’s and Don’ts of Infographic Design.” Smashing
+Magazine.
+
+www.smashingmagazine.com/2011/the-dos-and-donts-of-info graphic-design
+
+Berry, T. 2014. “True Story: Why You Don’t Want a Business Plan Writer.”
+SBA (U.S. Small
+
+Business Administration).
+https://sba.gov/blogs/true-story-why-you-dont-want-business-plan-
+
+writer
+
+CEBR (Centre for Economics and Business Research). 2017. “The Impact of
+Automation: A Report
+
+for
+
+Redwood.”
+
+https://cebr.com/reports/new-study-shows-u-s-is-world-leader-in-robotics-
+
+automation/
+
+Centre for Economics and Business Research. 2017. “Will Post-Brexit
+Britain Hinder a Robo-
+
+Revolution? Research from Redwood Software and Cebr.”
+https://cebr.com/reports/new-study-
+
+shows-u-s-is-world-leader-in-robotics-automation/
+
+Clippinger, D. 2016. Planning and Organizing Business Reports: Written,
+Oral, and Research-Based. New York, NY: Business Expert Press.
+
+Clippinger, D. 2017. Producing Written and Oral Business Reports:
+Formatting, Il ustrating, and Presenting.
+
+New York, NY: Business Expert Press.
+
+Clippinger, D. 2018. Business Research Reporting. New York, NY: Business
+Expert Press.
+
+Clippinger, D. 2019. Business Report Guides: Routine and Nonroutine
+Reports and Policies, Procedures, and Instructions. New York, NY:
+Business Expert Press.
+
+“EBIDTA.  n.d.” Bing Search.
+https://bing.com/search?q=ebitda+definition&qs=HS&sc=8-
+
+0&cvid=5DD29B5497E041348BF8068C8BBC97D2&FORM=QBLH&sp=1 (accessed June
+18,
+
+2018).
+
+Guglieri, C. 2015. “20 Steps to the Perfect Website Layout.” Creative
+Blog.
+
+www.creativebloq.com/web-design/steps-perfect-website-layout-812625
+
+Henry, S.L., and L. McGee, eds. n.d. “World Wide Web Consortium.” W3C.
+
+www.w3.org/standards/webdesign/accessibility (accessed February 27,
+2018).
+
+“Internal Rate of Return—IRR. n.d.” Investopedia.
+https://investopedia.com/terms/i/irr.asp (accessed June 18, 2018).
+
+Kuiper, S., and D. Clippinger. 2013. Contemporary Business Reports, 5th
+edition. Mason, OH: Cengage Learning.
+
+Kyrnin, J. 2017a. “Best Practices for Using PDFs on Web Pages.” About
+Tech.
+
+webdesign.about.com/od/pdf/a/pdfs_and_web_design_best_practices.htm
+(accessed February 10, 2018).
+
+Kyrnin, J. 2017b. “How to Add a PDF Document to a Website.” About Tech.
+
+www.webdesign.about.com/cs/beginninghtml/ht/htaddpdffile.htm
+
+Martens, M.L., J.E. Jennings, and P.D. Jennings. 2007. “Do the Stories
+They Tell Get Them the Money They Need? The Role of Entrepreneurial
+Narratives in Resource Acquisition.” Academy of Management Journal 50,
+no. 5, pp. 1107–32, 1108.
+
+McMahon, F. 2014. “Quit Decking Around: 7 Ways to Use PowerPoint.” Make
+a Powerful Point.
+
+www.makeapowerfulpoint.com/2014/05/28/stop-decking-around-7-ways-use-powerpoint
+
+McMurrey, D. n.d. “Parallelism.” Common Grammar, Usage, and Spelling
+Problems.
+
+https://prismnet.com/~hcexres/textbook/gram2.html#paral
+
+Office
+
+of
+
+National
+
+Statistics.
+
+n.d.
+
+“Infographic
+
+Guidelines.”
+
+http://theidpblog.files.wordpress.com/2013/10/infographic-guidelines-v1-0.pdf
+(accessed February 21, 2018).
+
+“Paper Products Manufacturing Market Global Briefing. 2018.”
+
+e Business Research Company.
+
+https://thebusinessresearchcompany.com
+
+Porter, M.E. 1980. Competitive Strategy. New York, NY: Free Press.
+
+“Price-to-Earnings Ratio (P/E). n.d.” Investing Answers.
+www.investinganswers.com/financial-
+
+dictionary/ratio-analysis/price-earnings-ratio-pe-459 (accessed June 18,
+2018).
+
+Rouse,
+
+M.
+
+n.d.
+
+“Pilot
+
+Program
+
+(pilot
+
+study).”
+
+TechTarget.
+
+https://searchcio.techtarget.com/definition/pilot-program-pilot-study
+(accessed May 16, 2018).
+
+Sandberg, W.R., D.M. Schweiger, and C.W. Hofer. Winter 1988. “The Use of
+Verbal Protocols in Determining Venture Capitalists’ Decision
+Processes.” Entrepreneurship eory and Practice 13, no.
+
+2, pp. 7–20.
+
+Shwom, B., and L.G. Snyder. 2014. Business Communication: Polishing Your
+Professional Presence, 2nd ed. Boston, MA: Pearson.
+
+Singhal, N., and A. Anil. 2015. “Infographics: The Artistic Way to
+Convey Information into Knowledge.” e International Journal of Science &
+Technoledge 3, no. 2, p. 100. ProQuest database.
+
+The Modern Language Association of America. 2009. MLA Handbook for
+Writers of Research Papers, 7th ed. New York, NY: The Modern Language
+Association of America.
+
+World
+
+Wide
+
+Web
+
+Consortium
+
+Schools
+
+for
+
+Web
+
+Design.
+
+n.d.
+
+W3Schools.
+
+www.w3schools.com/website/web_design.asp (accessed February 26, 2018).
+
+Yau, N. 2011. Visualize
+
+is:
+
+e Flowing Data Guide to Design, Visualization, and Statistics.
+
+Indianapolis, IN: Wiley Publishing, Inc.
+
+About the Author
+
+Dr. Dorinda Clippinger earned business education degrees from
+Shippensburg University of Pennsylvania and Indiana
+University-Bloomington; taught information management in Western
+Kentucky University’s College of Business Administration; and managed
+titles and content development teams at South-Western Publishing Co.
+before founding Penworthy Learning Systems, a consultancy for
+instructional materials publishers. As a Lecturer in Management, Darla
+Moore School of Business (University of South Carolina) for 11 years,
+she taught-professional communication, including report writing and
+presentation. For 18 years, she has participated in the Association for
+Business Communication. Dr. Clippinger coauthored with Dr. Shirley
+Kuiper the 5th edition of Contemporary Business Reports. More recently
+she authored Planning and Organizing Business Reports (2016), Producing
+Written and Oral Business Reports (2017), Business Research Reporting
+(2018), and Business Report Guides: Routine, and Nonroutine Reports and
+Policies, Procedures, and Instructions (2019) for Business Expert Press.
+
+Index
+
+Acceptance message, 16–17
+
+Acknowledgments, 19–20
+
+Alternative presentations
+
+combination, 79
+
+online format, 75–78
+
+report deck format, 72–75
+
+Appendix, 33, 128–129
+
+Authorization message, 16–17
+
+Binder, 14
+
+Blank page, 67
+
+Business concept, 105–107, 134
+
+Business data sources, 177–179
+
+Business plan
+
+appendices, 128–129
+
+concept and product, 104–109
+
+de nition of, 95
+
+nancial plan, 120–125, 157–158
+
+industry and the market, 109–114, 141
+
+preliminary components, 100–104
+
+producing and presenting,
+
+168–172
+
+reasons for writing, 98–99
+
+risks, contingencies, and future development, 120–125, 165–167
+
+special chal enges of, 96–97
+
+venture strategy and plans, 115–120, 144–146
+
+Combination method, 79
+
+Conclusions, 29–30
+
+Contents, 18, 37
+
+Cost advantage, 115–116
+
+Cover, 14
+
+Cover page, 100–102, 130
+
+Data col ection
+
+description of, 5–6
+
+needs and sources, 6, 7
+
+primary versus secondary, 6–8
+
+Deductive structure
+
+introduction of report in, 65, 66
+
+report body, 64
+
+Di erentiation, 115–116
+
+Discuss il ustration, 25
+
+Display graphics, 25
+
+Entrepreneurs, 96–99
+
+Executive summary, 20, 39
+
+business plan, 103–104, 132–133
+
+in visual form, 59, 62–64
+
+Financial plan, 120–125, 157–158
+
+Findings, 22–24, 44–50
+
+Flyleaf, 14–15
+
+Formal research report parts
+
+overview of, 12–14
+
+report body, 20–32
+
+report preliminaries, 14–20
+
+report supplements, 32–58
+
+Format guides
+
+for prelims, 66–68
+
+for report body, 68–71
+
+Formatting manuscript, 8, 12
+
+Glossary, 33, 53
+
+Headings Aid discussion of ndings, 22
+
+Headings format, 68–70
+
+HTML tags, 76–78
+
+Il ustrations, 25, 38
+
+Index, 33
+
+Industry and market, 109–114, 141
+
+Insert report cover, 67
+
+Interview guide, 54–55
+
+Introduction, 21, 40–43
+
+Library, business data sources, 177–179
+
+List of il ustrations, 38
+
+Management plan, 118–120, 155–156
+
+Manuscript, formatting, 8, 12
+
+Margins and spacing, 68
+
+Market explanation, 142–143
+
+Marketing plan, 116–117, 147–152
+
+Nonspeci c headings, 22
+
+Nontraditional title page, 59, 60
+
+Number preliminary pages, 66–67
+
+Online format, 75–78
+
+Operational plan, 117–118, 153–154
+
+Page numbering, 70
+
+Planning research
+
+12-part, 1–3
+
+data col ection, 5–8
+
+de ning problem, 4
+
+scope analysis, 4–5
+
+Portable document format (PDF) le, 75–76
+
+Preface, 18–19
+
+Primary data, 6–8
+
+Product explanation, 107–109, 135–140
+
+Pro le of the participants, 57–58
+
+Pro forma nancial statements, 123, 159–162
+
+Proposed deal structure, 124–125
+
+Recommendations, 29–30, 51
+
+References, 30–32, 52
+
+format guides for, 70–71
+
+Report body, 20–32
+
+conclusions and recommendations, 29–30, 51
+
+in deductive structure, 64
+
+description of, 20–21
+
+discuss the il ustration, 25
+
+display the graphic, 25
+
+ndings, 22–24, 44–50
+
+format guides, 68–71
+
+introduce the visual, 24
+
+introduction, 21
+
+references, 30–32, 52
+
+report summary, 28
+
+source citations aid credibility, 26–28
+
+Report cover, 67
+
+Report deck format, 72–75
+
+Report preliminaries, 14–20
+
+acceptance message, 16–17
+
+acknowledgments, 19–20
+
+authorization message, 16–17
+
+contents, 18, 37
+
+cover/binder, 14
+
+executive summary, 20, 39
+
+yleaves, 14–15
+
+preface, 18–19
+
+title page, 15–16
+
+transmittal message, 16
+
+Report summary, 28
+
+Report supplements, 32–58
+
+appendix, 33
+
+glossary, 33, 53
+
+index, 33
+
+Research proposal, 9–11
+
+Risks and contingencies, 126–127, 165
+
+Secondary data, 6–8
+
+Separate transmittal message, 59, 61
+
+Source citations aid credibility, 26–28
+
+Speci c headings, 22
+
+Summary, 79–93
+
+Table of contents, 37, 68, 102–103, 131
+
+Title page, 15–16
+
+Transmittal letter, 36
+
+Transmittal message, 16
+
+Varying report parts
+
+executive summary in visual form, 59, 62–64
+
+nontraditional title page, 59, 60
+
+separate transmittal message, 59, 61
+
+Venture strategy and plans, 115–120, 144–146
+
+di erentiation or cost advantage, 115–116
+
+management plan, 118–120
+
+marketing plan, 116–117
+
+operational plan, 117–118
+
+Visitor’s checklist, 56
+
+Visuals clarify and simplify ndings, 23–24
+
+Web, business data sources, 177–179
+
+OTHER TITLES IN OUR CORPORATE COMMUNICATION
+
+COLLECTION
+
+Debbie DuFrene, Stephen F. Austin State University, Editor
+
+• Producing Written and Oral Business Reports: Formatting, Illustrating,
+and Presenting by Dorinda Clippinger
+
+• Essential Communications Skills for Managers, Volume I: A Practical
+Guide for Communicating Effectively with All People in All Situations by
+Walter St. John and Ben Haskell
+
+• Essential Communications Skills for Managers, Volume II: A Practical
+Guide for Communicating Effectively with All People in All Situations by
+Walter St. John and Ben Haskell
+
+• How to Write Brilliant Business Blogs: The Skills and Techniques You
+Need, Volume I by Suzan St Maur
+
+• How to Write Brilliant Business Blogs: What to Write About, Volume II
+by Suzan St Maur
+
+• English Business Jargon and Slang: How to Use It and What It Really
+Means by Suzan St Maur
+
+Announcing the Business Expert Press Digital
+
+Library
+
+Concise e-books business students need for classroom and research This
+book can also be purchased in an e-book collection by your library as
+
+• a one-time purchase,
+
+• that is owned forever,
+
+• allows for simultaneous readers,
+
+• has no restrictions on printing, and
+
+• can be downloaded as PDFs from within the library community.
+
+Our digital library collections are a great solution to beat the rising
+cost of textbooks. E-books can be loaded into their course management
+systems or onto students’ e-book readers.
+
+The Business Expert Press digital libraries are very affordable, with no
+
+obligation to buy in future years. For more information, please visit
+
+www.businessexpertpress.com/librarians. To set up a trial in the United
+States, please email sales@businessexpertpress.com.
+
+[]
+
+[]
+
+Document Outline
+
+- Preface
+- Acknowledgments
+- Chapter 1 Writing Business Research Reports
+- Chapter 2 Writing Business Plans
+- Appendix A: Business Data Sources on the Web and in Libraries
+- Notes
+- References
+- About the Author
+- Index

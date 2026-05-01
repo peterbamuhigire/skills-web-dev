@@ -2,347 +2,165 @@
 
 ## Overview
 
-### 15. Vibe Security Skill
-
-**Domain:** Web Application Security
-**Purpose:** Secure coding practices for web applications with a bug-hunter mindset
-**Use Cases:** Any web app development, API work, authentication/authorization, file uploads, redirects, and third-party integrations
-**Key Features:** Access control validation, XSS/CSRF/SSRF/SQLi/XXE protection, secure headers, secrets handling, secure error handling
-
-### 16. PHP Security
-
-**Domain:** PHP Application Security
-**Purpose:** Comprehensive PHP security patterns with hardened class implementations
-**Use Cases:** Building secure PHP web applications, session hardening, input validation, output encoding, CSRF protection, file upload security, password hashing, encryption
-**Key Features:** SecureSession, InputValidator, OutputEncoder, CsrfGuard, SecureUpload classes, Argon2id passwords, Libsodium encryption, php.ini security checklist, session hardening reference
-
-### 17. Web Application Security Audit
-
-**Domain:** Security Auditing
-**Purpose:** Systematic 8-layer security audit for PHP/JS/HTML web applications
-**Use Cases:** Pre-deployment security reviews, periodic audits, codebase onboarding, post-feature security validation
-**Key Features:** 8 audit layers (config, auth, authz, input, XSS, API, headers, dependencies), severity classification (CRITICAL to INFO), PHP-specific vulnerability scanning, parallel subagent execution, structured report output
-
-A curated collection of reusable Claude Code skills designed to accelerate development across multiple projects. Each skill provides specialized expertise in specific domains, from web app GUI design to multi-tenant architecture.
+A curated collection of reusable Claude Code and Codex skills designed to accelerate development across multiple projects. The repository now includes a shared engineering and management baseline so skills work together as a system for building production-grade web apps, mobile apps, SaaS platforms, ERP systems, APIs, data architectures, and the delivery workflows around them.
 
 ## Purpose
 
-Provide consistent, battle-tested patterns and workflows that can be seamlessly integrated into any project using Claude Code, eliminating repetitive architectural decisions and ensuring best practices.
+Provide consistent, battle-tested patterns and workflows that can be integrated into any Claude Code project, reducing repeated architectural decisions and raising the quality bar across implementation, review, and planning work.
 
-## Current Skills
+The same repository is now also structured to work as a Codex skills and instruction system without duplicating the skills. The standard repository layout keeps active skills under `skills/<skill-name>/SKILL.md`.
 
-### Full Skill Index
+## Strategic Direction
 
-- ai-assisted-development
-- ai-error-handling
-- ai-error-prevention
-- android-data-persistence
-- android-development
-- android-reports
-- android-saas-planning
-- android-tdd
-- api-error-handling
-- api-pagination
-- custom-sub-agents
-- doc-architect
-- dual-auth-rbac
-- feature-planning
-- gis-mapping
-- google-play-store-review
-- image-compression
-- inventory-management
-- jetpack-compose-ui
-- manual-guide
-- markdown-lint-cleanup
-- modular-saas-architecture
-- multi-tenant-saas-architecture
-- mysql-best-practices
-- orchestration-best-practices
-- photo-management
-- php-modern-standards
-- php-security
-- pos-restaurant-ui-standard
-- pos-sales-ui-design
-- project-requirements
-- report-print-pdf
-- saas-seeder
-- skill-safety-audit
-- skill-writing
-- spec-architect
-- update-claude-documentation
-- vibe-security-skill
-- web-app-security-audit
-- webapp-gui-design
+The repository is being shaped around six goals:
 
-### 1. Multi-Tenant SaaS Architecture
+- define a shared world-class engineering bar instead of isolated skill-specific advice
+- define world-class software development and management, not just implementation detail
+- make architecture, data design, security, UX, and delivery workflow reusable across stacks
+- convert book knowledge into operational workflows and decision rules
+- upgrade skills from reference material into production-grade execution guides
+- support end-to-end system generation for web, mobile, SaaS, ERP, backend, and database work
 
-**Domain:** Backend Architecture
-**Purpose:** Production-grade multi-tenant SaaS platform patterns with security and isolation
-**Use Cases:** Building SaaS platforms, implementing permissions, ensuring tenant isolation
-**Key Features:** Zero-trust security, three-panel architecture, comprehensive audit trails, scalable patterns
+## Core System Skills
 
-### 2. Modular SAAS Architecture
+- `world-class-engineering` - shared release gates and engineering standards
+- `skill-composition-standards` - house-style template + I/O contracts + canonical artifact templates so skills compose as a system
+- `validation-contract` - seven evidence categories every specialist skill declares against + canonical Release Evidence Bundle for ship readiness
+- `capability-matrix` - per-domain Foundation → Implementation → Validation → Companions skill stacks (17 rows); load when starting any new project
+- `system-architecture-design` - decomposition, contracts, ADRs, failure design, scaling tradeoffs
+- `database-design-engineering` - schema design, tenancy, migrations, indexing, retention strategy
+- `saas-erp-system-design` - ERP-grade workflow modeling, controls, approvals, and auditability
+- `git-collaboration-workflow` - Git delivery discipline for branches, review, conflicts, and release
+- `observability-monitoring` - logs, metrics, traces, alerts, SLOs, dashboards, and audit telemetry
+- `reliability-engineering` - retries, timeouts, degradation, incident readiness, and recovery-aware design
+- `advanced-testing-strategy` - risk-based testing depth and release evidence across systems
+- `deployment-release-engineering` - rollout strategy, rollback design, migration-safe shipping, and post-deploy verification
+- `distributed-systems-patterns` - consistency, messaging, outbox, saga, idempotency, and cross-service boundaries
+- `engineering-management-system` - prioritization, delegation, communication, coaching, and team operating rhythm
 
-**Domain:** Backend Architecture & Feature Management
-**Purpose:** Build SAAS platforms with pluggable business modules that can be enabled/disabled per tenant
-**Use Cases:** Modular feature systems, module marketplaces, per-tenant subscriptions, independent module development
-**Key Features:** Module independence, graceful degradation, dynamic navigation, module registry & dependencies, event-driven communication, billing integration
+## Core Workflow
 
-### 3. Writing Plans
+Default loading order for complex engineering work:
 
-**Domain:** Development Workflow
-**Purpose:** Create comprehensive, executable implementation plans for multi-step tasks
-**Use Cases:** Feature planning, technical specifications, TDD workflows
-**Key Features:** Bite-sized tasks, exact file paths, complete code examples, test-driven approach
+1. `world-class-engineering`
+2. `system-architecture-design`, `database-design-engineering`, or `saas-erp-system-design` as needed
+3. platform or framework skills
+4. security, performance, UX, observability, testing, and release companion skills
+5. reliability, distributed-systems, and management skills when system complexity or team scale requires them
 
-### 4. Update Claude Documentation
+## High-Value Existing Skills
 
-**Domain:** Documentation Maintenance
-**Purpose:** Efficiently update project documentation when significant changes occur
-**Use Cases:** Feature additions, architecture changes, tech stack updates, API modifications
-**Key Features:** Documentation dependency mapping, systematic update workflow, cross-reference verification, consistency checking
+### Multi-Tenant SaaS Architecture
 
-### 5. Dual Auth RBAC
+- Domain: backend architecture
+- Purpose: production-grade tenant isolation and audit-aware SaaS structure
+- Use cases: SaaS platforms, tenant-scoped permissions, isolation design
 
-**Domain:** Security & Authentication
-**Purpose:** Dual authentication system (Session + JWT) with role-based access control
-**Use Cases:** Multi-tenant SaaS, web + API authentication, mobile apps, tenant-scoped permissions
-**Key Features:** Session + JWT auth, RBAC, Argon2ID passwords, token revocation, multi-tenant isolation, cross-platform
+### Modular SaaS Architecture
 
-### 6. Web App GUI Design
+- Domain: backend architecture and feature management
+- Purpose: pluggable business modules enabled or disabled per tenant
+- Use cases: modular feature systems, vertical add-ons, per-tenant subscriptions
 
-**Domain:** Frontend Development (Web Applications)
-**Purpose:** Professional web app UIs using commercial templates with established component patterns, with optional bespoke aesthetic direction
-**Use Cases:** CRUD interfaces, admin panels, dashboards, data management UIs, polished aesthetics inside web apps
-**Key Features:** Tabler (Bootstrap 5), mandatory SweetAlert2, DataTables, modular architecture (includes), Flatpickr, Select2, seeder-page.php template pattern, Bootstrap Icons only, optional frontend design direction
+### API Design First
 
-### 7. Skill Creator
+- Domain: backend and contract design
+- Purpose: OpenAPI-first API design with versioning, security, and evolution safety
+- Use cases: REST APIs, public APIs, internal service contracts
 
-**Domain:** Meta-Skill (Skill Development)
-**Purpose:** Guide for creating effective skills with progressive disclosure and proper structure
-**Use Cases:** Creating new skills, updating existing skills, understanding skill best practices
-**Key Features:** Skill creation process (understand, plan, initialize, edit, package, iterate), progressive disclosure (metadata → SKILL.md → bundled resources), resource organization (scripts/, references/, assets/), description field as trigger, no extraneous files
+### Android Development
 
-### 8. API Error Handling
+- Domain: Android engineering
+- Purpose: production-grade Kotlin and Compose standards with testing, security, and release discipline
+- Use cases: new Android apps, feature development, code reviews
 
-**Domain:** Backend Development (REST APIs)
-**Purpose:** Comprehensive, standardized error response system for PHP REST APIs with SweetAlert2 integration
-**Use Cases:** Building REST APIs, consistent error formatting, PDOException parsing, validation error handling, frontend error display
-**Key Features:** Standardized JSON envelopes (success/error), HTTP status code mapping, PDOException message extraction (SQLSTATE 45000, 23000, deadlocks), ApiResponse helper, ExceptionHandler with specific error parsing, custom exception classes, SweetAlert2 integration, business rule extraction, request ID tracking
+### iOS Development
 
-### 9. PHP Modern Standards
+- Domain: iOS engineering
+- Purpose: production-grade Swift and SwiftUI standards with security, testing, and performance rules
+- Use cases: new iOS apps, feature development, code reviews
 
-**Domain:** Backend Development (PHP)
-**Purpose:** Modern PHP 8+ development standards for maintainable, testable, high-performance code
-**Use Cases:** PHP 8+ applications, OOP architecture, performance optimization, TDD workflows, Laravel development
-**Key Features:** Strict typing + PSR compliance, modern features (enums, attributes, match, readonly, Fibers), SOLID principles, generators + OPcache/JIT performance, testing (PestPHP, PHPUnit, AAA pattern), code quality tooling (PHPStan, Pint, Rector, CI/CD), Laravel conventions, security essentials (delegates to php-security for comprehensive patterns)
+### Python (6 skills)
 
-### 10. MySQL Best Practices
+- Domain: Python as sidecar and worker alongside the PHP + mobile SaaS stack
+- Purpose: analytics, document generation (Excel/Word/PDF), predictive ML, OCR, ETL pipelines
+- Skills: `python-modern-standards`, `python-saas-integration`, `python-data-analytics`, `python-document-generation`, `python-ml-predictive`, `python-data-pipelines`
+- Use cases: complex analytics beyond SQL, branded downloadable reports, demand/churn forecasting, receipt OCR, external API syncs (Stripe, payment gateways, bank feeds)
 
-**Domain:** Database Design & Optimization
-**Purpose:** MySQL 8.x best practices for high-performance SaaS applications with 11 deep-dive reference files
-**Use Cases:** Schema design, query optimization, multi-tenant isolation, data integrity, high-concurrency systems
-**Key Features:** UTF8MB4 + InnoDB standards, ESR composite indexing, normalization strategies, stored procedures, triggers, transaction locking, concurrency patterns, security hardening (TDE, SSL, SQL injection prevention), partitioning, server tuning (my.cnf), backup/recovery, high availability, advanced SQL patterns, multi-tenant isolation
+### TypeScript Full-Stack (2 new skills, alongside existing `typescript-mastery` + `typescript-design-patterns`)
 
-### 11. Report Export (PDF + Print)
+- Skills: `typescript-effective` (production idioms + migration), `typescript-full-stack` (Fastify + tRPC + Prisma + turborepo + Zod end-to-end)
+- Use cases: production TypeScript review, greenfield TS apps, end-to-end type safety across FE and BE, monorepo setup
 
-**Domain:** Reporting
-**Purpose:** Clean, consistent report exports for PDF and browser printing
-**Use Cases:** Financial PDFs, inventory reports, audit exports, browser printouts
-**Key Features:** Shared HTML template for PDF/print, compact header/footer, repeating table headers, DejaVu Sans typography, strict date/number formatting
+### Kubernetes (3 skills, greenfield)
 
-### 12. POS & Sales Entry UI Design
+- Skills: `kubernetes-fundamentals`, `kubernetes-production`, `kubernetes-saas-delivery`
+- Use cases: adopting K8s, hardening a cluster to production, running multi-tenant SaaS with GitOps (ArgoCD) and progressive delivery
 
-**Domain:** Frontend UX for Sales Systems
-**Purpose:** POS, checkout, and sales entry UI patterns with API-first workflows and print-ready invoice/receipt standards
-**Use Cases:** POS terminals, sales encoding, invoice/receipt screen design, 80mm/A4 print layouts
-**Key Features:** 8-to-80 usability, 3-level hierarchy, large touch targets, progressive disclosure, attention-grabber focus cues at milestones, API-first UI actions, invoice/receipt output standards
+### GIS Extended (3 skills, alongside existing `gis-mapping`)
 
-### 13. Doc Architect
+- Skills: `gis-postgis-backend`, `gis-maps-integration`, `gis-enterprise-domain`
+- Use cases: PostGIS backend with MVT tiles, Google Maps / Mapbox client integration, ArcGIS Enterprise admin, real-estate GIS patterns (search, catchment, heatmaps)
 
-**Domain:** Documentation Architecture
-**Purpose:** Generate Triple-Layer AGENTS.md documentation (Root, Data, Planning)
-**Use Cases:** Standardizing documentation, generating agent files, establishing project baselines
-**Key Features:** Workspace scanning, tech stack inference, template-driven AGENTS.md generation, reusable domain constraints
+### SaaS Business (2 skills)
 
-### 14. Manual Guide
+- Skills: `saas-sales-organization` (sales org design), `saas-subscription-mastery` (retention, 29-step framework, expansion)
+- Use cases: scaling sales hires, designing commission plans, improving retention, choosing billing providers, designing subscription pricing models
 
-**Domain:** End-User Documentation
-**Purpose:** Produce end-user manuals and module reference guides (distinct from AI agent docs)
-**Use Cases:** Documenting features, writing user manuals, syncing reference guides
-**Key Features:** Contextual discovery (plans/schema/code/docs), dual-workflow structure, edge-case coverage, professional instructional tone
+### Vibe Security Skill
 
-### 15. Custom Sub-Agents
+- Domain: web application security
+- Purpose: secure coding baseline for web-connected applications
+- Use cases: web apps, APIs, auth flows, file uploads, security reviews
 
-**Domain:** AI Agent Architecture & Development
-**Purpose:** Analyze codebases, plan, create, organize, and document custom AI sub-agents for VS Code integration
-**Use Cases:** Codebase analysis for sub-agent needs, planning agent architecture, creating specialized AI assistants, organizing agent code and documentation, establishing agent development standards
-**Key Features:** Codebase analysis framework, decision criteria for sub-agents vs single LLM, complete folder structure per agent, VS Code integration requirements, self-contained agent organization, comprehensive documentation templates, context window optimization, cross-agent integration patterns
+### Skill Writing
 
-### 16. GIS Mapping (Leaflet-First)
+- Domain: meta-skill
+- Purpose: create repository-native Claude Code skills with validation-safe frontmatter and strong execution logic
+- Use cases: creating new skills, upgrading weak skills, enforcing repository standards
 
-**Domain:** GIS & Mapping
-**Purpose:** Leaflet-first mapping, location selection, and geofencing patterns for web apps
-**Use Cases:** Customer/asset/farm mapping, GIS dashboards, boundary enforcement, location selection workflows
-**Key Features:** Leaflet setup, marker/polygon selection, geo-fencing validation, clustering/performance guidance, server-side validation patterns
+### Tabler Email Templates
 
-### 17. Google Play Store Review Readiness
+- Domain: transactional and marketing email
+- Purpose: bundle 80 production Tabler Emails 3.0 HTML templates (light + dark, mobile-responsive, cross-client tested) as a skill so any app can generate branded emails without hand-rolling MJML
+- Use cases: welcome, confirm-email, magic-link, OTP, password reset, invoice, receipt, order, shipped, subscription, newsletter, promotions, security alert, deployment-failed, invitations, surveys
 
-**Domain:** Android Release Compliance
-**Purpose:** Ensure Play Store submissions pass policy and technical checks quickly
-**Use Cases:** Preparing Android releases, validating data safety, permissions, ads, IAP, store listing accuracy, and reviewer notes
-**Key Features:** Policy compliance checklist, Data Safety alignment, permission discipline, target SDK hygiene, ads and monetization checks, review notes template, pre-submission test plan
+## Repository Shape
 
-## Repository Structure
+The repository is organized with root-level project documentation and operational folders, plus a `skills/` catalog. Each active skill lives in `skills/<skill-name>/SKILL.md` with optional `references/`, `scripts/`, or `assets/` directories.
 
-```
-skills/
-├── multi-tenant-saas-architecture/
-│   ├── SKILL.md
-│   ├── references/
-│   │   ├── database-schema.md
-│   │   └── permission-model.md
-│   └── documentation/
-│       └── migration.md
-├── modular-saas-architecture/
-│   ├── SKILL.md
-│   ├── references/
-│   │   └── database-schema.md
-│   ├── documentation/
-│   │   └── implementation-guide.md
-│   └── examples/
-│       └── module-config-example.php
-├── feature-planning/
-│   ├── SKILL.md
-│   ├── references/
-│   ├── templates/
-│   ├── protocols/
-│   └── spec-references/
-├── update-claude-documentation/
-│   └── SKILL.md
-├── doc-architect/
-│   └── SKILL.md
-├── manual-guide/
-│   └── SKILL.md
-├── custom-sub-agents/
-│   ├── SKILL.md
-│   ├── references/
-│   │   └── CUSTOM_SUB_AGENTS_GUIDE.md
-│   └── [agent folders]/
-│       ├── agent-name/
-│       │   ├── agent.js
-│       │   ├── config.json
-│       │   └── README.md
-├── dual-auth-rbac/
-│   ├── SKILL.md
-│   └── references/
-│       └── schema.sql
-├── webapp-gui-design/
-│   └── SKILL.md
-├── report-print-pdf/
-│   └── SKILL.md
-├── pos-sales-ui-design/
-│   ├── SKILL.md
-│   └── references/
-│       └── universal-sales-ui-design.md
-├── api-error-handling/
-│   ├── SKILL.md
-│   ├── references/
-│   │   ├── ApiResponse.php
-│   │   ├── ExceptionHandler.php
-│   │   ├── CustomExceptions.php
-│   │   └── bootstrap.php
-│   └── examples/
-│       ├── InvoicesEndpoint.php
-│       └── ApiClient.js
-├── mysql-best-practices/            # MySQL 8.x (11 reference files)
-│   ├── SKILL.md
-│   ├── references/
-│   │   ├── stored-procedures.sql
-│   │   ├── triggers.sql
-│   │   └── partitioning.sql
-│   └── examples/
-│       └── saas-schema.sql
-├── php-modern-standards/            # PHP 8+ (performance, testing, tooling)
-│   ├── SKILL.md
-│   ├── references/                  # performance, tooling, security cross-ref
-│   └── examples/
-├── php-security/                    # PHP security patterns
-│   ├── SKILL.md
-│   └── references/                  # code patterns, php.ini, sessions, I/O
-├── web-app-security-audit/          # 8-layer web app security audit
-│   ├── SKILL.md
-│   └── references/                  # checklist, headers, report template
-├── skills/
-│   └── skill-writing/
-│       └── SKILL.md
-├── PROJECT_BRIEF.md
-├── README.md
-└── CLAUDE.md
-```
+The root should contain project docs such as `README.md`, `AGENTS.md`, `CLAUDE.md`, `PROJECT_BRIEF.md`, and `doc-standards.md`, plus `docs/`, `skills/`, and `projects/` where relevant.
 
-## Tech Stack
+Examples:
 
-- Framework Agnostic (skills apply across tech stacks)
-- Focus: Patterns, Architecture, Best Practices
-- Compatible with: JavaScript/TypeScript, Python, PHP, Go, etc.
-
-## Target Audience
-
-- Developers using Claude Code across multiple projects
-- Teams wanting consistent architectural patterns
-- Solo developers building multiple products
-- Agencies managing client projects
+- `skills/world-class-engineering/`
+- `skills/system-architecture-design/`
+- `skills/database-design-engineering/`
+- `skills/saas-erp-system-design/`
+- `skills/android-development/`
+- `skills/ios-development/`
+- `skills/api-design-first/`
+- `skills/modular-saas-architecture/`
 
 ## Best Practices
 
-**Structure:**
+- keep each skill focused on one reusable problem space
+- keep `SKILL.md` concise and move depth into `references/`
+- encode judgment, decision rules, and release gates rather than generic tutorials
+- align engineering skills with the shared `world-class-engineering` baseline
+- update top-level docs when a new skill changes repository capabilities materially
 
-- One SKILL.md per skill (500-line hard limit, strictly enforced)
-- Keep skills one level deep in /skills/
-- Use subdirectories: references/, documentation/, examples/
-- Move detailed content to subdirectories
-- Skills are self-contained (no dependencies)
+## Target Audience
 
-**Content:**
-
-- Scannable by AI: clear headings, bullet points, specific commands
-- Focus on core patterns (75-90% of use cases)
-- Avoid generic tasks AI already knows
-- Move verbose content to subdirectories
-
-**Usage:**
-
-- Explicitly mention skills in prompts: "Using skill-name..."
-- Only mentioned skills get loaded (saves tokens)
-- Multiple skills: "Using skill-1 and skill-2..."
-- Document skill usage in CLAUDE.md
-
-**Create Skills For:**
-
-- Repeatable patterns across projects
-- Domain-specific knowledge
-- Complex workflows you re-explain often
-
-**Don't Create Skills For:**
-
-- Generic programming tasks
-- One-off features
-- Frequently changing code
-- Code style rules (use linters)
-
-## Maintenance Status
-
-**Active Development** - New skills are continuously added based on project needs
-
-## Quick Links
-
-- [Full Documentation](README.md)
-- [Claude Code Guide](CLAUDE.md)
-- [Contributing Guidelines](README.md#contributing)
+- developers using Claude Code across multiple projects
+- teams that want shared architecture and implementation standards
+- solo builders creating multiple production systems
+- agencies and product teams shipping client or internal platforms
 
 ## Version
 
-Current Version: 1.0.0
-Last Updated: March 2026
-Maintained By: Peter Bamuhigire
+- Current version: 1.4.0
+- Last updated: April 2026
+- Maintained by: Peter Bamuhigire
+- Changelog 1.4.0: distilled 12 O'Reilly / Manning / Apress technical books into 12 modified skills across three domains — TypeScript/React (`typescript-effective`, `typescript-mastery`, `typescript-full-stack`, `react-development`), Kubernetes (`kubernetes-fundamentals`, `kubernetes-platform`, `kubernetes-production`, `kubernetes-saas-delivery`), GIS/mapping (`gis-mapping`, `gis-maps-integration`, `gis-postgis-backend`, `gis-enterprise-domain`). Added 10 new `references/` files with decision tables, runbooks, and anti-patterns (rendering thresholds, Leaflet plugin matrix, vector tile pipeline, projections deep-dive, ArcGIS Pro workflows, K8s debugging recipes, upgrade runbook, CRD/operators, multi-tenant isolation, service mesh tradeoffs) plus large-scale React+TS and React+TS gotchas.
+- Changelog 1.3.0: added `skill-composition-standards` baseline skill; published 14 canonical artifact templates; first normalisation batch (5 high-traffic skills) upgraded to 19/20 on the house-style checklist

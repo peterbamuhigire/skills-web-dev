@@ -1,6 +1,6 @@
 # SDLC Lifecycle Overview
 
-Master reference that ties together all 4 SDLC documentation phases and their supporting skills. Use this as a navigation guide to understand the complete documentation pipeline.
+Master reference that ties together the SDLC documentation phases and their supporting skills. Use this as a navigation guide and the shared execution model for planning, design, testing, release, post-deploy review, and maintenance.
 
 ## The Complete SDLC Pipeline
 
@@ -28,9 +28,27 @@ PHASE 4: TESTING & QUALITY (5 Documents)
 PHASE 5: DELIVERY & DEPLOYMENT (6 Documents)
     sdlc-user-deploy -> User Manual, Ops Guide, Training,
                         Release Notes, Maintenance, README
+
+PHASE 6: POST-DEPLOYMENT EVALUATION (1 Document)
+    sdlc-post-deployment -> Post-Deployment Evaluation Report
+
+PHASE 7: MAINTENANCE (3 Documents)
+    sdlc-maintenance -> SMP, MR/PR Form, Maintenance Metrics
 ```
 
-**Total: 24 SDLC documents + 4 requirements files = 28 project documents**
+**Total: 28 SDLC documents + 4 requirements files = 32 project documents**
+
+## Shared Execution Model
+
+Every phase should carry these artifacts forward:
+
+- risk class and critical flows
+- traceability to user value, requirements, and release impact
+- validation evidence and residual risk
+- rollout, rollback, and operational ownership notes
+- telemetry and post-release review expectations
+
+Do not treat SDLC documents as static paperwork. They are executable control points for the delivery system.
 
 ## Phase Gate Checklist
 
@@ -72,6 +90,18 @@ Use this to verify readiness before moving to the next phase.
 - [ ] V&V Report shows acceptable pass rates
 - [ ] Peer Reviews completed for critical modules
 - [ ] Test Report includes Go/No-Go recommendation
+
+### Gate 5 to 6: Delivery to Post-Deployment
+
+- [ ] Release notes, runbooks, rollback path, and watch list are complete
+- [ ] Release markers and dashboards exist for the shipped version
+- [ ] Observation owner and review window are defined
+
+### Gate 6 to 7: Post-Deployment to Maintenance
+
+- [ ] PDER completed with actual operational evidence
+- [ ] Maintenance backlog and ownership derived from findings
+- [ ] SMP estimates and maintenance type mix updated from real data
 
 ## Skill Selection Guide
 

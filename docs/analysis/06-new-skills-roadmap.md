@@ -42,7 +42,21 @@ Built as 6 dedicated skills: postgresql-fundamentals through postgresql-ai-platf
 ### ~~4. `vector-databases`~~ ✅ DONE
 Covered by postgresql-ai-platform: pgvector, embeddings, RAG pipeline, HNSW indexes.
 
-### 3. `cicd-pipelines`
+### 3. `kubernetes-platform`
+**What:** Production-grade Kubernetes cluster management
+**Covers:** Cluster setup, Helm, namespaces, RBAC, resource quotas, pod security, workload scaling, HPA/VPA, self-managed VPS-first then cloud-managed
+**Source:** *Kubernetes in Action* (Luksa), *Production Kubernetes* (Rosso et al.)
+**Creates:** Ability to own and operate production K8s environments end-to-end
+**Stack alignment:** Debian/Ubuntu nodes, Helm charts, ArgoCD for GitOps
+
+### 4. `infrastructure-as-code`
+**What:** IaC for consistent, repeatable infrastructure
+**Covers:** Terraform (providers, state, modules, workspaces), Ansible (playbooks, roles, idempotency), GitOps (ArgoCD, Flux), drift detection
+**Source:** *Terraform: Up & Running* (Brikman, 3rd ed.), *Infrastructure as Code* (Morris, O'Reilly)
+**Creates:** Version-controlled, reviewable, auditable infrastructure — no more snowflake servers
+**Stack alignment:** Terraform for cloud resources, Ansible for Debian/Ubuntu server config
+
+### 5. `cicd-pipelines`
 **What:** GitHub Actions CI/CD for web + mobile
 **Covers:** Automated testing, build/deploy pipelines, secrets, environments, Fastlane iOS
 **Source:** *Continuous Delivery* (Humble & Farley), GitHub Actions documentation
@@ -68,11 +82,12 @@ Built as `nodejs-development` — covers Fastify, Prisma, BullMQ, plus 10 refere
 **Source:** *Subscribed* (Tzuo), Stripe Billing deep docs
 **Creates:** Complete billing lifecycle for SaaS products
 
-### 9. `observability-monitoring`
-**What:** Production visibility for SaaS
-**Covers:** Structured JSON logging, Sentry error tracking, OpenTelemetry, Grafana, SLOs
-**Source:** *Observability Engineering* (Majors, Fong-Jones, Miranda)
-**Creates:** Ability to diagnose and fix production issues fast
+### 9. `observability-platform`
+**What:** Production visibility for SaaS and infrastructure
+**Covers:** Structured JSON logging, Prometheus metrics, Grafana dashboards, OpenTelemetry tracing, SigNoz (self-hosted all-in-one), Sentry error tracking, SLO/SLI/error budget tracking
+**Source:** *Observability Engineering* (Majors, Fong-Jones, Miranda); SigNoz docs; Google SRE Book
+**Creates:** Full-stack visibility — from application errors to infrastructure health to SLO compliance
+**Stack alignment:** SigNoz primary (open-source, self-hosted); PHP + Node.js + Android + iOS instrumentation examples
 
 ### 10. `pwa-offline-first`
 **What:** Progressive Web Apps with offline capabilities
@@ -148,18 +163,34 @@ ARKit, ARCore, Apple Vision Pro, spatial UI patterns (2028+).
 
 ---
 
+## Existing Skills to Enhance (No New Directory)
+
+These enhancements happen in parallel with new skill creation — add sections to existing SKILL.md files only:
+
+| Skill | Enhancement |
+|-------|-------------|
+| `cicd-devsecops` | Vault lifecycle, ISO 27001, PCI-DSS controls, Falco/OPA container runtime security |
+| `database-reliability` | Platform SRE — SLO/SLI, error budgets, blameless postmortems |
+| `microservices-architecture-models` | Reverse proxy ops (Nginx/HAProxy), API gateway ops (Kong/Traefik) |
+| `web-app-security-audit` | Network security layer — firewall, WAF, zero-trust, VPN design |
+| `cicd-pipeline-design` | FinOps / cost governance — resource quotas, utilisation targets, budget guardrails |
+| `cicd-jenkins-debian` | Linux hardening — sysctl, cgroups, auditd, network stack tuning |
+| `microservices-communication` | Workflow automation engines — n8n, Temporal, Airflow patterns |
+
+---
+
 ## Summary Timeline
 
-| Period | Skills to Build | Theme |
-|--------|----------------|-------|
-| 2026 Q2–Q3 | cloud-architecture, stripe-payments, cicd-pipelines | Infrastructure (3 remain) |
-| 2026 Q4 | android-ai-ml, subscription-billing, observability-monitoring, pwa-offline-first, e2e-testing | Platform depth |
-| 2027 Q1–Q2 | product-led-growth, event-driven-architecture, graphql-patterns, saas-growth-metrics | Competitive moats |
-| Ongoing | webapp-gui-design, pos-restaurant-ui-standard, inventory-management (3 stubs) | Library maintenance |
-| 2028–2030 | multimodal-ai, edge-computing, react-native-advanced, accessibility-wcag, ar-vr-interfaces | Future-proofing |
+| Period | New Skills | Enhancements | Theme |
+|--------|-----------|--------------|-------|
+| 2026 Q2–Q3 | cloud-architecture, kubernetes-platform, infrastructure-as-code, stripe-payments, cicd-pipelines | cicd-devsecops, database-reliability | Infrastructure |
+| 2026 Q4 | android-ai-ml, subscription-billing, observability-platform, pwa-offline-first, e2e-testing | microservices-architecture-models, web-app-security-audit | Platform depth |
+| 2027 Q1–Q2 | product-led-growth, event-driven-architecture, graphql-patterns, saas-growth-metrics | cicd-pipeline-design, cicd-jenkins-debian, microservices-communication | Competitive moats |
+| Ongoing | — | webapp-gui-design, pos-restaurant-ui-standard, inventory-management stubs | Library maintenance |
+| 2028–2030 | multimodal-ai, edge-computing, react-native-advanced, accessibility-wcag, ar-vr-interfaces | — | Future-proofing |
 
-**Total remaining: 20 skills** — current library: 176 skills.
-*3 critical gaps closed this session: Node.js Backend, PostgreSQL/Vector DB, deprecated skill cleanup.*
+**Total new skills remaining: 22** — current library: 176 skills.
+**Total enhancements remaining: 7** — no new directories, just deeper existing skills.
 
 ---
 

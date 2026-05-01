@@ -1,0 +1,366 @@
+# api-pagination Deep Dive
+
+This file contains the extended guidance moved out of [../SKILL.md](../SKILL.md) so the skill entrypoint stays under the repository size limit.
+
+## Included Sections
+
+- `Android Client Pattern`
+- `Key Compose Imports for Pagination`
+- `iOS Client Pattern`
+- `Important Rules`
+- `Existing Implementations`
+
+## Android Client Pattern
+
+### 1. DTO Layer
+
+```kotlin
+// Wrapper for paginated list
+@JsonClass(generateAdapter = true)
+data class ExampleListResponse(
+    @Json(name = "success") val success: Boolean,
+    @Json(name = "data") val data: ExampleListData? = null,
+    @Json(name = "message") val message: String? = null
+)
+
+@JsonClass(generateAdapter = true)
+data class ExampleListData(
+    @Json(name = "items") val items: List<ExampleDto>? = null,
+    @Json(name = "pagination") val pagination: PaginationDto? = null
+)
+
+// Reuse existing PaginationDto
+@JsonClass(generateAdapter = true)
+data class PaginationDto(
+    @Json(name = "page") val page: Int,
+    @Json(name = "per_page") val perPage: Int,
+    @Json(name = "total") val total: Int,
+    @Json(name = "total_pages") val totalPages: Int
+)
+```
+
+### 2. Domain Model
+
+```kotlin
+data class Pagination(
+    val page: Int,
+    val perPage: Int,
+    val total: Int,
+    val totalPages: Int
+)
+```
+
+### 3. API Service
+
+```kotlin
+@GET("example/list")
+suspend fun getExamples(
+    @Query("status") status: String? = null,
+    @Query("page") page: Int = 1,
+    @Query("per_page") perPage: Int = 30
+): Response<ExampleListResponse>
+```
+
+### 4. Repository
+
+```kotlin
+// Interface
+suspend fun getExamples(
+    status: String? = null,
+    page: Int = 1
+): Result<Pair<List<ExampleModel>, Pagination>>
+
+// Implementation
+override suspend fun getExamples(
+    status: String?,
+    page: Int
+): Result<Pair<List<ExampleModel>, Pagination>> = safeCall {
+    val response = api.getExamples(status = status, page = page)
+    if (!response.isSuccessful) throw httpError(response)
+    val body = response.body() ?: throw Exception("Empty response")
+    if (!body.success) throw Exception(body.message ?: "Failed to load")
+    val items = body.data?.items?.map { it.toDomain() } ?: emptyList()
+    val pagination = body.data?.pagination?.toDomain() ?: Pagination(1, 30, 0, 1)
+    items to pagination
+}
+```
+
+### 5. Use Case
+
+```kotlin
+class GetExamplesUseCase @Inject constructor(
+    private val repository: ExampleRepository
+) {
+    suspend operator fun invoke(
+        status: String? = null,
+        page: Int = 1
+    ): Result<Pair<List<ExampleModel>, Pagination>> {
+        return repository.getExamples(status, page)
+    }
+}
+```
+
+### 6. ViewModel State + loadMore()
+
+```kotlin
+data class ExampleListState(
+    val items: List<ExampleModel> = emptyList(),
+    val isLoading: Boolean = false,
+    val isLoadingMore: Boolean = false,
+    val error: String? = null,
+    val currentPage: Int = 1,
+    val totalPages: Int = 1
+)
+
+@HiltViewModel
+class ExampleListViewModel @Inject constructor(
+    private val getExamplesUseCase: GetExamplesUseCase
+) : ViewModel() {
+
+    private val _uiState = MutableStateFlow(ExampleListState())
+    val uiState: StateFlow<ExampleListState> = _uiState.asStateFlow()
+
+    init { loadItems() }
+
+    fun loadItems() {
+        viewModelScope.launch {
+            _uiState.update { it.copy(isLoading = true, error = null, currentPage = 1) }
+
+            getExamplesUseCase(page = 1).fold(
+                onSuccess = { (items, pagination) ->
+                    _uiState.update {
+                        it.copy(
+                            items = items,     // REPLACE on fresh load
+                            isLoading = false,
+                            currentPage = pagination.page,
+                            totalPages = pagination.totalPages
+                        )
+                    }
+                },
+                onFailure = { e ->
+                    _uiState.update { it.copy(isLoading = false, error = e.message) }
+                }
+            )
+        }
+    }
+
+    fun loadMore() {
+        val state = _uiState.value
+        // Guard: don't load if already loading or on last page
+        if (state.isLoadingMore || state.isLoading
+            || state.currentPage >= state.totalPages) return
+
+        viewModelScope.launch {
+            val nextPage = state.currentPage + 1
+            _uiState.update { it.copy(isLoadingMore = true) }
+
+            getExamplesUseCase(page = nextPage).fold(
+                onSuccess = { (newItems, pagination) ->
+                    _uiState.update {
+                        it.copy(
+                            items = it.items + newItems,  // APPEND on load more
+                            isLoadingMore = false,
+                            currentPage = pagination.page,
+                            totalPages = pagination.totalPages
+                        )
+                    }
+                },
+                onFailure = { e ->
+                    _uiState.update { it.copy(isLoadingMore = false, error = e.message) }
+                }
+            )
+        }
+    }
+}
+```
+
+### 7. Compose Screen — Infinite Scroll
+
+```kotlin
+@Composable
+fun ExampleListScreen(viewModel: ExampleListViewModel = hiltViewModel()) {
+    val state by viewModel.uiState.collectAsStateWithLifecycle()
+    val listState = rememberLazyListState()
+
+    // Trigger loadMore when within 3 items of the end
+    val shouldLoadMore = remember {
+        derivedStateOf {
+            val lastVisible = listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ?: 0
+            val totalItems = listState.layoutInfo.totalItemsCount
+            lastVisible >= totalItems - 3 && !state.isLoading && !state.isLoadingMore
+        }
+    }
+    LaunchedEffect(shouldLoadMore.value) {
+        if (shouldLoadMore.value) viewModel.loadMore()
+    }
+
+    LazyColumn(state = listState) {
+        items(state.items, key = { it.id }) { item ->
+            ItemCard(item)
+        }
+
+        // Loading more spinner
+        if (state.isLoadingMore) {
+            item {
+                Box(
+                    modifier = Modifier.fillMaxWidth().padding(16.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(24.dp),
+                        strokeWidth = 2.dp
+                    )
+                }
+            }
+        }
+    }
+}
+```
+
+## Key Compose Imports for Pagination
+
+```kotlin
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.remember
+```
+
+## iOS Client Pattern
+
+### 1. Model Layer (Codable)
+
+```swift
+struct PaginatedResponse<T: Codable>: Codable {
+    let success: Bool
+    let data: PaginatedData<T>?
+    let message: String?
+}
+
+struct PaginatedData<T: Codable>: Codable {
+    let items: [T]?
+    let pagination: PaginationInfo?
+}
+
+struct PaginationInfo: Codable {
+    let page: Int
+    let perPage: Int
+    let total: Int
+    let totalPages: Int
+
+    enum CodingKeys: String, CodingKey {
+        case page
+        case perPage = "per_page"
+        case total
+        case totalPages = "total_pages"
+    }
+}
+```
+
+### 2. Service + Repository
+
+```swift
+func getExamples(status: String? = nil, page: Int = 1) async throws -> (items: [ExampleModel], pagination: PaginationInfo) {
+    var components = URLComponents(string: "\(baseURL)/example/list")!
+    components.queryItems = [
+        URLQueryItem(name: "page", value: "\(page)"),
+        URLQueryItem(name: "per_page", value: "30")
+    ]
+    if let status { components.queryItems?.append(URLQueryItem(name: "status", value: status)) }
+
+    let (data, _) = try await session.data(from: components.url!)
+    let response = try decoder.decode(PaginatedResponse<ExampleDto>.self, from: data)
+    guard response.success, let body = response.data else { throw APIError.failed(response.message) }
+    return (body.items?.map { $0.toDomain() } ?? [], body.pagination ?? PaginationInfo(page: 1, perPage: 30, total: 0, totalPages: 1))
+}
+```
+
+### 3. ViewModel with loadMore()
+
+```swift
+@Observable
+class ExampleListViewModel {
+    private(set) var items: [ExampleModel] = []
+    private(set) var isLoading = false
+    private(set) var isLoadingMore = false
+    private(set) var currentPage = 1
+    private(set) var totalPages = 1
+
+    private let repository: ExampleRepository
+
+    func loadItems() async {
+        isLoading = true
+        currentPage = 1
+        do {
+            let result = try await repository.getExamples(page: 1)
+            items = result.items  // REPLACE on fresh load
+            totalPages = result.pagination.totalPages
+        } catch { /* handle error */ }
+        isLoading = false
+    }
+
+    func loadMore() async {
+        guard !isLoadingMore, !isLoading, currentPage < totalPages else { return }
+        isLoadingMore = true
+        let nextPage = currentPage + 1
+        do {
+            let result = try await repository.getExamples(page: nextPage)
+            items += result.items  // APPEND on load more
+            currentPage = result.pagination.page
+            totalPages = result.pagination.totalPages
+        } catch { /* handle error */ }
+        isLoadingMore = false
+    }
+}
+```
+
+### 4. SwiftUI Infinite Scroll
+
+```swift
+struct ExampleListView: View {
+    @State private var viewModel = ExampleListViewModel()
+
+    var body: some View {
+        List {
+            ForEach(viewModel.items) { item in
+                ItemRow(item: item)
+                    .onAppear {
+                        // Trigger loadMore within 3 items of end
+                        if item == viewModel.items.suffix(3).first {
+                            Task { await viewModel.loadMore() }
+                        }
+                    }
+            }
+            if viewModel.isLoadingMore {
+                HStack {
+                    Spacer()
+                    ProgressView()
+                    Spacer()
+                }
+            }
+        }
+        .refreshable { await viewModel.loadItems() }
+        .task { await viewModel.loadItems() }
+    }
+}
+```
+
+## Important Rules
+
+1. **`loadItems()` REPLACES** the list (page 1). **`loadMore()` APPENDS** to the list (page 2+).
+2. **Guard `loadMore()`** — check `isLoadingMore`, `isLoading`, and `currentPage >= totalPages` before firing.
+3. **Threshold = 3** — trigger load-more when user is within 3 items of the end. This gives time for the API call to complete before the user reaches the last item.
+4. **Filter changes reset pagination** — when a filter (status, search, warehouse) changes, call `loadItems()` which resets to page 1.
+5. **ON_RESUME refresh** calls `loadItems()` (page 1), not `loadMore()`.
+6. **`derivedStateOf` (Android)** is critical — without it, the LaunchedEffect re-triggers on every scroll frame. **`.onAppear` (iOS)** fires once per item appearance — use the suffix(3) check to trigger near the end.
+7. **Small spinner** for loading-more (24.dp / `ProgressView()`) vs full-page spinner for initial load.
+
+## Existing Implementations
+
+- **Stock Levels (Phase 1):** `InventoryHomeViewModel.kt` — was the first paginated list
+- **Purchase Orders:** `PurchaseOrdersViewModel.kt` + `PurchaseOrdersListScreen.kt`
+- **Stock Transfers:** `StockTransfersViewModel.kt` + `StockTransfersListScreen.kt`
+- **Stock Adjustments:** `StockAdjustmentsViewModel.kt` + `StockAdjustmentsListScreen.kt`
+- **PHP backends:** `purchase-orders/list.php`, `inventory/transfers/list.php`, `inventory/adjustments/list.php`
+
+iOS implementations follow the same patterns with Swift equivalents.

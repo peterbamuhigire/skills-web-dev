@@ -69,6 +69,19 @@ An agent is an LLM that can perceive its environment and take actions. Tools ext
 
 **Core warning:** Write actions (email, database updates, payments) expose your system to severe risk. Always require human approval before irreversible actions.
 
+## Agent Platform Standard
+
+Build agents as production software components with explicit contracts, not as free-form prompts. A reliable agent platform needs:
+
+- A host application that owns identity, tenant context, UI, permissions, budgets, logging, and approval flows.
+- Tool servers or adapters with typed schemas, narrow scopes, deterministic errors, pagination, timeouts, and audit logs.
+- Resource access rules for files, databases, APIs, and knowledge bases.
+- Prompt and policy versioning for planner instructions, tool descriptions, refusal rules, and escalation paths.
+- Execution traces that record plan, tool calls, observations, approvals, final output, model version, and cost.
+- Evaluation cases that cover happy paths, edge cases, adversarial prompts, permission failures, and tool outages.
+
+If using MCP or another tool protocol, treat the protocol boundary as an API boundary: authenticate it, version it, test it, monitor it, and document it.
+
 ---
 
 ## When to Build an Agent
@@ -77,10 +90,12 @@ Build an agent when:
 - The task requires multiple sequential or parallel steps
 - Different steps need different tools or data sources
 - The workflow varies based on the input (not always the same steps)
+- The value of automation exceeds the cost of evaluation, guardrails, monitoring, and incident response
 
 Use a simple LLM call when:
 - The task is a single transformation (summarise, classify, extract)
 - The steps are always the same (use a prompt template instead)
+- A deterministic workflow can express the business process more safely
 
 ---
 
@@ -118,6 +133,29 @@ These modify state. Use with extreme care.
 | Initiate payment | Very High | Always |
 | Delete record | Very High | Always |
 
+### Tool Contract Rules
+
+- Name tools by business action, not implementation detail: `create_invoice_draft`, not `db_write`.
+- Keep tools small. One tool should do one auditable thing.
+- Validate inputs before tool execution and return structured errors the agent can handle.
+- Enforce authorization inside the tool, not only in the prompt.
+- Add idempotency keys for actions that create, update, send, charge, or schedule.
+- Add dry-run/preview modes for destructive or client-facing actions.
+- Return concise observations. Do not dump raw secrets, full tables, or unrelated records into the model context.
+- Log every call with tenant, user, tool name, arguments hash, result status, latency, and approval id where relevant.
+
+## MCP-Style Capability Design
+
+| Capability | Use For | Hardening Rule |
+|---|---|---|
+| Tools | Actions and calculations | Typed schema, permission check, timeout, structured error |
+| Resources | Read-only context such as docs, files, records | Tenant-scoped access, freshness label, source metadata |
+| Prompts | Reusable task instructions | Versioned templates, input validation, review owner |
+| Sampling | Model calls requested by a server | Explicit host approval and cost limits |
+| Roots | Filesystem/project boundaries | Restrict to approved paths and deny path traversal |
+
+Do not expose broad tools such as shell, SQL, email, or browser automation directly to an agent unless a human is in the loop and the scope is strongly constrained.
+
 ---
 
 ## ReAct Pattern (Recommended Loop)
@@ -133,6 +171,14 @@ Act: respond("Chicken spend this month: UGX 450,000")
 ```
 
 Each cycle: Thought → Act → Observation → repeat until done.
+
+## Planning and Control Loop
+
+- Add a max step count and max tool-call budget.
+- Require the agent to explain the next intended action before high-risk tools.
+- Stop and ask for human approval when confidence is low, permissions are missing, or an action is irreversible.
+- Prefer plan -> execute -> verify -> summarize for business workflows.
+- Store traces so failed runs can be replayed against new prompts, tools, or models.
 
 ### ReAct Prompt Template
 

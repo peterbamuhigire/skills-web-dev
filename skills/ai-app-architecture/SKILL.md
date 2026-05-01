@@ -69,6 +69,21 @@ AI-powered apps are built on top of foundation models via APIs. You are NOT trai
 
 **Core principle:** Start with the simplest architecture that works. Evolve deliberately.
 
+## Premier Agency Standard
+
+Design AI systems for measurable economic value, production reliability, and long-term maintainability. Every serious AI application must connect model behavior to a business workflow, revenue lever, cost reduction, risk reduction, or service-quality improvement.
+
+Before selecting a model or framework, define:
+
+- **Business outcome**: the operational metric the AI feature should improve.
+- **User decision/action**: what the user or system will do differently because AI exists.
+- **Data advantage**: which proprietary, local, domain, or workflow data improves the result.
+- **Failure cost**: what happens when the model is wrong, slow, unavailable, biased, or expensive.
+- **Evaluation target**: the minimum acceptable quality, latency, cost, and safety threshold.
+- **Operating owner**: who monitors, tunes, approves, and maintains the feature after launch.
+
+Reject AI features that cannot state their economic value or decision impact.
+
 ---
 
 ## Architecture Styles (Choose One to Start)
@@ -77,10 +92,11 @@ AI-powered apps are built on top of foundation models via APIs. You are NOT trai
 |---|---|---|
 | **Wrap** | Your UI + prompt engineering wraps a commercial LLM API | First project, internal tools, quick wins |
 | **RAG** | Retriever fetches private/fresh data, injected into prompt | Apps needing company-specific or up-to-date knowledge |
+| **Workflow** | Deterministic steps call models only where judgment or language is needed | Business processes with predictable stages and audit requirements |
 | **Agentic** | LLM plans and executes multi-step tasks using tools | Complex automation, multi-step workflows |
 | **Fine-tuned** | Model weights adapted for domain/style | Only when brand voice or jargon cannot be achieved via prompts |
 
-**Default path:** Wrap → RAG → Agents. Only fine-tune when all else fails.
+**Default path:** Wrap -> RAG -> deterministic workflow -> agents. Only fine-tune when prompts, retrieval, examples, routing, and workflow design cannot meet the target.
 
 ---
 
@@ -125,12 +141,15 @@ AI-powered apps are built on top of foundation models via APIs. You are NOT trai
 - Context construction = feature engineering for AI
 - Retrieve relevant chunks (RAG), live data (APIs), user profile
 - This is where most quality improvement happens — invest here
+- Version prompts, retrieval settings, chunking rules, schemas, and tool definitions as production configuration
+- Separate tenant/user context from global knowledge to prevent cross-client data leakage
 
 ### Model Gateway
 - Centralises all LLM provider calls (OpenAI, Anthropic, Google, self-hosted)
 - Centralises: API key management, rate limiting, logging, fallback policies
 - Enables swapping providers without touching application code
 - Tools: Portkey AI Gateway, MLflow AI Gateway, Kong
+- Expose common controls: request id, tenant id, model id, prompt version, timeout, retry policy, budget class, and safety profile
 
 ### Output Guardrail
 - Catch format failures (invalid JSON/schema) → retry automatically
@@ -160,6 +179,34 @@ Step 6 (Agents):     Router → Agent Loop [Plan → Tools → Reflect] → Resp
 Add each layer only when its absence is causing a real problem.
 
 For production AI features, load [references/practical-ai-engineering.md](references/practical-ai-engineering.md) before finalising the architecture. It adds evaluation, RAG, agent, safety, fallback, telemetry, and cost-control gates.
+
+## Production AI Platform Requirements
+
+| Capability | Minimum Standard |
+|---|---|
+| Versioning | Version prompts, models, tools, retrieval indexes, evaluation datasets, and safety policies |
+| Observability | Log quality signals, cost, latency, failures, tool calls, cache hits, and user feedback by tenant and feature |
+| Evaluation | Maintain golden sets, regression tests, adversarial cases, and release thresholds before launch |
+| Governance | Document data flow, retention, PII handling, model/provider choice, human approval points, and audit trail |
+| Resilience | Add timeouts, retries with backoff, fallbacks, degraded UX, queueing for long work, and circuit breakers |
+| Data quality | Treat data pipelines, embeddings, metadata, and retrieval filters as first-class production assets |
+| Explainability | Provide citations, source snippets, confidence bands, or reasoning summaries where users must trust decisions |
+| Maintenance | Assign owners for prompt updates, eval refreshes, model migrations, cost reviews, and incident response |
+
+## Workflow vs Agent Decision
+
+- Use a deterministic workflow when the process steps are known, regulated, auditable, or cost-sensitive.
+- Use an agent when the path genuinely depends on intermediate observations, tool results, or open-ended planning.
+- Keep agents on a short leash: bounded tool set, max steps, scoped memory, explicit approvals, and rollback-safe actions.
+- Do not use agents for simple summarization, extraction, classification, or transformation.
+
+## Data and ML System Design Checks
+
+- Define online/offline data sources, freshness requirements, ownership, quality checks, and missing-data behavior.
+- Choose metrics that reflect the business objective, not only model accuracy.
+- Plan for distribution shift: seasonality, new user behavior, changing regulations, platform algorithm changes, and language mix.
+- Store enough inputs, outputs, versions, and feedback to debug regressions without storing unnecessary sensitive data.
+- Separate training/evaluation data from production data where supervised learning or fine-tuning is used.
 
 ---
 

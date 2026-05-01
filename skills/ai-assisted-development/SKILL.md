@@ -1,10 +1,8 @@
 ---
 name: ai-assisted-development
-description: Orchestrate AI agents (Claude Code and Codex and Codex and Codex and
-  Codex and Codex and Codex and Codex and Codex and Codex and Codex and Codex and
-  Codex and Codex and Codex and Codex, sub-agents, etc.) for software development
-  workflows. Use when coordinating multiple AI assistants or planning AI-driven development
-  processes.
+description: Orchestrate AI coding agents, human reviewers, CI, and delivery workflows
+  for professional software work. Use when coordinating AI-assisted planning,
+  implementation, code review, modernization, documentation, or multi-agent development.
 metadata:
   portable: true
   compatible_with:
@@ -22,7 +20,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 <!-- dual-compat-start -->
 ## Use When
 
-- Orchestrate AI agents (Claude Code and Codex and Codex and Codex and Codex and Codex and Codex and Codex and Codex and Codex and Codex and Codex and Codex and Codex and Codex and Codex, sub-agents, etc.) for software development workflows. Use when coordinating multiple AI assistants or planning AI-driven development processes.
+- Orchestrate AI coding agents, human reviewers, CI, and delivery workflows for professional software work. Use when coordinating AI-assisted planning, implementation, code review, modernization, documentation, or multi-agent development.
 - The task needs reusable judgment, domain constraints, or a proven workflow rather than ad hoc advice.
 
 ## Do Not Use When
@@ -73,6 +71,49 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 Learn to **orchestrate multiple AI agents** (like Claude Code, custom sub-agents, or specialized AI tools) to work together effectively in software development.
 
 This skill bridges **prompting patterns** + **orchestration** + **sub-agent coordination** for real-world AI-assisted development.
+
+## Operating Doctrine
+
+- Treat AI as a force multiplier inside a disciplined engineering system, not as a replacement for requirements, design, review, tests, security, or ownership.
+- Start every AI-assisted task with a concrete outcome, repo constraints, acceptance criteria, and verification command. Do not ask an agent to "improve" broad surfaces without a definition of done.
+- Keep humans accountable for architecture, irreversible data changes, production release, security exceptions, licensing/IP decisions, and client commitments.
+- Prefer small, reviewable AI work packets: one responsibility, one bounded write scope, one expected evidence artifact.
+- Require codebase grounding before edits. The agent must inspect current patterns, interfaces, tests, and failure modes before proposing or changing implementation.
+
+## AI Development Workflow
+
+1. **Frame**: State user value, business value, technical objective, constraints, and acceptance tests.
+2. **Ground**: Read the smallest set of files/docs needed to understand existing behavior.
+3. **Plan**: Split work by ownership boundaries. Identify what can be delegated and what must stay on the critical path.
+4. **Implement**: Make narrow changes that preserve local conventions. Avoid broad rewrites unless requested.
+5. **Verify**: Run focused tests, linters, type checks, migrations, or manual checks that match the blast radius.
+6. **Review**: Inspect diff for hallucinated APIs, over-broad abstractions, hidden state changes, secrets, data leaks, and licensing risks.
+7. **Record**: Capture changed files, commands run, residual risks, and follow-up work.
+
+## Agent Assignment Rules
+
+- Use explorers for bounded codebase questions with clear expected outputs.
+- Use workers for bounded implementation with disjoint file ownership. Tell workers they are not alone in the codebase and must not revert others' edits.
+- Do not delegate the immediate blocking task if the main workflow cannot proceed until it returns.
+- Never let two agents write the same files unless one is explicitly reviewing the other's patch.
+- For generated code, require the same quality bar as human code: tests, readable names, explicit error handling, and no invented dependencies.
+
+## AI Coding Risk Controls
+
+| Risk | Control |
+|---|---|
+| Hallucinated APIs | Compile/typecheck and inspect imports, method names, schemas, and SDK versions |
+| Plausible but wrong logic | Add examples, regression tests, and domain-specific fixtures |
+| Security regression | Run threat review for auth, tenancy, file IO, network calls, secrets, and prompt injection |
+| IP/license exposure | Avoid copying unknown code; check dependency licenses before adding packages |
+| Context leakage | Keep secrets, credentials, client PII, and proprietary data out of prompts unless explicitly approved |
+| Over-automation | Require human approval for production deploys, destructive changes, payments, emails, and client-facing commitments |
+
+## Evidence Required
+
+- For code changes: diff summary, tests/checks run, and known gaps.
+- For architecture or plans: decision record, alternatives considered, evaluation criteria, and economic rationale.
+- For modernization: before/after behavior, migration steps, rollback plan, and compatibility notes.
 
 **What you'll learn:**
 - The 5 orchestration strategies for AI development

@@ -182,6 +182,10 @@ Extends existing `gis-mapping` (Leaflet) with:
 
 | Skill | Purpose |
 |-------|---------|
+| `ai-economic-value-engine` | AI opportunity discovery, ROI, value scoring, and product strategy |
+| `ai-app-architecture` | Production AI application architecture, governance, workflow-vs-agent decisions |
+| `ai-agents-tools` | Agent platforms, MCP-style tool contracts, approvals, and auditability |
+| `ai-evaluation` | Evaluation contracts, release gates, monitoring, and regression control |
 | `ai-web-apps` | AI-enabled web app patterns, budgets, streaming, tool use |
 | `ai-assisted-development` | Multi-agent development workflows |
 | `ai-error-handling` | Validation stacks for AI output |
@@ -196,7 +200,7 @@ Extends existing `gis-mapping` (Leaflet) with:
 - Web application: `world-class-engineering` + `system-architecture-design` + `api-design-first` + `database-design-engineering` + `vibe-security-skill`
 - SaaS or ERP platform: `world-class-engineering` + `saas-erp-system-design` + `modular-saas-architecture` + `multi-tenant-saas-architecture` + `database-design-engineering`
 - Mobile-backed product: `world-class-engineering` + `system-architecture-design` + `android-development` or `ios-development` + security and persistence skills
-- AI-enabled application: `world-class-engineering` + `system-architecture-design` + `ai-web-apps` + `ai-security` + `frontend-performance`
+- AI-enabled application: `world-class-engineering` + `ai-economic-value-engine` + `system-architecture-design` + `ai-app-architecture` + `ai-evaluation` + `ai-security` + `frontend-performance`
 - Production release workflow: `world-class-engineering` + `advanced-testing-strategy` + `observability-monitoring` + `deployment-release-engineering`
 - Distributed workflow or service platform: `world-class-engineering` + `system-architecture-design` + `distributed-systems-patterns` + `reliability-engineering`
 - Engineering leadership and delivery improvement: `world-class-engineering` + `engineering-management-system` + `git-collaboration-workflow`

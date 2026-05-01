@@ -69,6 +69,18 @@ Evaluation is the biggest bottleneck to successful AI deployment. Define evaluat
 
 **Core principle:** Evaluation-driven development. Like TDD for AI — define what "good" means first, then build.
 
+## Evaluation Contract
+
+Every production AI feature needs an evaluation contract before release:
+
+- **Task definition**: what the model must do, for whom, in which workflow.
+- **Business metric**: time saved, revenue influenced, conversion lift, defect reduction, service quality, risk reduction, or cost avoided.
+- **Quality metrics**: correctness, completeness, relevance, tone, actionability, citation quality, and domain compliance.
+- **System metrics**: latency, cost per successful task, availability, retry rate, fallback rate, and tool failure rate.
+- **Safety metrics**: PII exposure, prompt-injection resistance, harmful output, policy violations, and unauthorized action attempts.
+- **Release threshold**: minimum pass rates and maximum regression allowed versus the current production baseline.
+- **Rollback trigger**: metrics or incidents that require disabling the feature or reverting prompt/model/tool versions.
+
 ---
 
 ## Evaluation Dimensions
@@ -96,6 +108,26 @@ Evaluation is the biggest bottleneck to successful AI deployment. Define evaluat
 6. Monitor production: track live metrics + user feedback
 7. Retrain/reprompt when drift detected
 ```
+
+## Evaluation Dataset Design
+
+- Build separate sets for development, release gating, adversarial testing, and production monitoring.
+- Include real examples, expert-created examples, edge cases, multilingual/local examples, low-resource context, and abuse attempts.
+- Version each case with task, tenant/domain, source, expected behavior, rubric, and data sensitivity.
+- Keep leakage out of evals: do not let the same generated examples drive both prompt tuning and final release scoring.
+- Refresh cases after production incidents, new user behavior, platform changes, policy changes, or model migrations.
+
+## Release Gates
+
+| Gate | Required Evidence |
+|---|---|
+| Prompt/model change | Eval comparison against previous version, cost and latency delta |
+| New tool/action | Permission tests, dry-run tests, approval-path tests, failure-mode tests |
+| RAG/index change | Retrieval precision samples, citation checks, stale-data checks, tenant isolation checks |
+| Fine-tune | Baseline comparison showing prompts/RAG were insufficient, holdout eval results, rollback plan |
+| Production launch | Monitoring dashboard, alert thresholds, owner, incident playbook, user feedback channel |
+
+Do not ship an AI feature because a demo looked good. Ship it because it passes the evaluation contract.
 
 ---
 

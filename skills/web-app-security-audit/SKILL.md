@@ -27,31 +27,30 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 
 ## Required Inputs
 
-- Gather relevant project context, constraints, and the concrete problem to solve; load `references` only as needed.
-- Confirm the desired deliverable: design, code, review, migration plan, audit, or documentation.
+- Project context, constraints, and concrete problem; load `references` only as needed.
+- Confirm desired deliverable: audit report, remediation plan, or targeted review.
 
 ## Workflow
 
-- Read this `SKILL.md` first, then load only the referenced deep-dive files that are necessary for the task.
-- Apply the ordered guidance, checklists, and decision rules in this skill instead of cherry-picking isolated snippets.
-- Produce the deliverable with assumptions, risks, and follow-up work made explicit when they matter.
+- Read this `SKILL.md`, then load only the referenced deep-dive files needed for the task.
+- Apply the ordered guidance and decision rules; do not cherry-pick snippets.
+- State assumptions, risks, and follow-ups when they matter.
 
 ## Quality Standards
 
-- Keep outputs execution-oriented, concise, and aligned with the repository's baseline engineering standards.
-- Preserve compatibility with existing project conventions unless the skill explicitly requires a stronger standard.
-- Prefer deterministic, reviewable steps over vague advice or tool-specific magic.
+- Outputs are execution-oriented, concise, and aligned with repository engineering standards.
+- Preserve project conventions unless this skill requires a stronger standard.
 
 ## Anti-Patterns
 
-- Treating examples as copy-paste truth without checking fit, constraints, or failure modes.
-- Loading every reference file by default instead of using progressive disclosure.
+- Treating examples as copy-paste truth without checking fit and failure modes.
+- Loading every reference by default instead of progressive disclosure.
 
 ## Outputs
 
-- A concrete result that fits the task: implementation guidance, review findings, architecture decisions, templates, or generated artifacts.
-- Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
-- References used, companion skills, or follow-up actions when they materially improve execution.
+- A concrete result fitting the task: audit report, remediation plan, or review findings.
+- Explicit assumptions, tradeoffs, or unresolved gaps when context is incomplete.
+- References, companion skills, or follow-ups when they materially improve execution.
 
 ## Evidence Produced
 
@@ -86,24 +85,10 @@ Systematic security audit for PHP/JavaScript/HTML web applications. Scans 8 secu
 
 ### Phase 1: Discovery
 
-Before scanning, understand the application:
-
 ```
-1. Identify app structure:
-   - Glob for entry points: public/*.php, api/*.php, index.php
-   - Find config files: .env, config/*.php, php.ini, .htaccess
-   - Map route definitions and middleware chain
-
-2. Identify authentication flows:
-   - Find login/logout/register endpoints
-   - Identify session management (session_start, JWT)
-   - Find password handling code
-
-3. Identify data flows:
-   - Find database queries (PDO, mysqli, raw SQL)
-   - Find external API calls (curl, file_get_contents)
-   - Find file upload handlers
-   - Find output/rendering points (echo, print, templates)
+1. App structure: entry points (public/*.php, api/*.php), config (.env, config/, php.ini, .htaccess), routes, middleware.
+2. Auth flows: login/logout/register, sessions (session_start, JWT), password handling.
+3. Data flows: DB queries (PDO, mysqli), external APIs (curl), uploads, output points (echo, templates).
 ```
 
 ### Phase 2: Scan (8 Layers)
@@ -438,11 +423,64 @@ Return findings as a structured list sorted by severity.
 - Auditing only new code without reviewing existing patterns
 - Skipping the dependency audit (most common attack vector)
 
-## Network Security Layer
+## Layer 9: Network-Layer Security (Audit View)
 
-Full perimeter and network-hardening reference in [references/network-security-layer.md](references/network-security-layer.md). Covers UFW firewall rules for a SaaS VPS, iptables advanced rate limiting, Cloudflare WAF managed rulesets, self-hosted ModSecurity with the OWASP Core Rule Set, zero-trust principles, WireGuard VPN setup for remote team access, layered DDoS mitigation, and TLS certificate lifecycle with HSTS preloading.
+The auditor is reviewing controls, not building them. Build/operate detail (UFW commands, iptables rate-limit, ModSecurity install, WireGuard setup, TLS lifecycle) lives in [references/network-security-layer.md](references/network-security-layer.md). Audit-focused detail with checklist and severities lives in [references/network-security-audit.md](references/network-security-audit.md).
 
-Load this reference when hardening a new VPS, preparing for a penetration test, or onboarding a remote engineer.
+Stack assumption: Debian/Ubuntu VPS, self-host preferred (Nginx + ModSecurity or Coraza + OWASP CRS), Vault for secrets and PKI, optional managed WAF (Cloudflare, AWS WAF). Out of scope: service mesh, DDoS deep-dive beyond WAF rate-limit basics.
+
+### §N1 Host firewall
+
+```
+Inbound default policy not DROP/deny                → CRITICAL
+SSH exposed without rate-limit                      → HIGH
+Database/admin ports public (not VPN-only or lo)    → CRITICAL
+No egress allow-list                                → MEDIUM (HIGH for regulated)
+Live rules drift from declared rules in source ctrl → HIGH
+```
+
+Tool choice: ufw for simple single-host, nftables for new deployments, iptables only on legacy. Egress allow-list: mirrors, DNS, NTP, egress proxy or API gateway, metrics. Deny everything else to contain lateral movement.
+
+### §N2 Web Application Firewall
+
+```
+No WAF in blocking mode at edge or reverse proxy    → HIGH
+CRS version not pinned, no upgrade cadence          → MEDIUM
+Blanket disables of whole rule categories           → HIGH (need compensating control)
+False-positive log not reviewed in last 30 days     → MEDIUM
+No rate-limit on auth and password-reset endpoints  → HIGH
+```
+
+Managed (AWS WAF, Cloudflare) vs self-hosted (ModSecurity or Coraza + OWASP CRS) matrix in the reference. CRS tuning: paranoia level 1 in detection-only, replay traffic, write targeted exclusions per URI/parameter (never blanket disables), promote to blocking once false positives are under threshold, re-tune each CRS release. Prefer Coraza for new self-hosted deployments; ModSecurity v3 still supported on existing Nginx.
+
+### §N3 Zero-trust architecture (NIST SP 800-207)
+
+```
+Internal service-to-service traffic in plaintext    → HIGH
+Long-lived service credentials in env files         → HIGH
+Internal apps reachable on LAN with no identity check → CRITICAL
+"VPN means trusted" assumption documented anywhere  → HIGH
+No device-posture signal in IdP                     → MEDIUM
+```
+
+Core idea (NIST SP 800-207, August 2020): no implicit trust based on physical or network location, or asset ownership; authn and authz are discrete functions performed before every session. Concrete controls: mTLS service-to-service, identity-aware proxies (Cloudflare Access, Pomerium, Tailscale serve), short-lived workload identities via SPIFFE/SPIRE, WireGuard for the management plane. Seven foundational tenets are in §2.1 of the PDF; quote directly when writing findings.
+
+### §N4 VPN and remote access
+
+```
+Static long-lived WireGuard peer keys, no rotation  → HIGH
+No mapping from peer key to human identity          → HIGH
+Shared admin VPN key used by multiple operators     → CRITICAL
+SSH password auth still permitted on bastion        → HIGH
+Bastion without session recording                   → MEDIUM
+VPN audit log retention < 1 year (or contractual)   → MEDIUM/HIGH
+```
+
+WireGuard is the recommended default. Key distribution is explicitly out of scope of WireGuard itself — solve via Vault PKI (short-lived peer keys) or Ansible (rotated `[Peer]` blocks). Every session must map to a human identity, via an identity-aware proxy or by correlating handshake events with the IdP in the SIEM.
+
+### §N5 Auditor evidence checklist
+
+Verify, with evidence: default-deny inbound on every public host (rule export attached); egress filter present with allow-list in source control; WAF in blocking mode at edge OR ModSecurity/Coraza + CRS at reverse proxy with CRS pinned and upgrade cadence documented; WAF false-positive log reviewed in last 30 days; mTLS between any two services crossing a host boundary OR explicit accepted-risk record; all ops access via identity-aware proxy or session-logged bastion; WireGuard peer keys rotate at least quarterly OR are short-lived from PKI; VPN audit log retention at least one year (or contractual minimum). Full reference, severity rubric, and citations: `references/network-security-audit.md`.
 
 ## Quick Start
 

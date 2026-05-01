@@ -1,9 +1,6 @@
 ---
 name: stripe-payments
-description: Use when integrating Stripe payments, subscriptions, customer portal,
-  and webhook-driven billing workflows in SaaS, web apps, or mobile-backed systems.
-  Covers PaymentIntents, Customers, recurring billing setup, idempotency, webhook
-  verification, and PHP plus Node.js implementation patterns.
+description: Use when integrating Stripe one-time payments, PaymentIntents, SetupIntents, Checkout, and webhook-driven flows in PHP or Node.js. Covers integration-model selection, SCA / 3D Secure handling, multi-currency, Stripe Tax basics, idempotency, and signed-webhook receivers. Recurring subscriptions, dunning, and metered billing live in subscription-billing.
 metadata:
   portable: true
   compatible_with:
@@ -12,169 +9,217 @@ metadata:
 ---
 
 # Stripe Payments
-Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
+
 <!-- dual-compat-start -->
 ## Use When
 
-- Use when integrating Stripe payments, subscriptions, customer portal, and webhook-driven billing workflows in SaaS, web apps, or mobile-backed systems. Covers PaymentIntents, Customers, recurring billing setup, idempotency, webhook verification, and PHP plus Node.js implementation patterns.
-- The task needs reusable judgment, domain constraints, or a proven workflow rather than ad hoc advice.
+- Integrating Stripe for one-time payments, saved-card flows, or webhook receivers in a PHP or Node.js backend.
+- Choosing between Stripe-hosted Checkout, Embedded Checkout, Payment Element, and raw Payment Intents.
+- Hardening webhook handlers for signature verification, idempotency, and retry safety.
+- Charging across currencies, handling SCA / 3D Secure, or wiring Stripe Tax.
 
 ## Do Not Use When
 
-- The task is unrelated to `stripe-payments` or would be better handled by a more specific companion skill.
-- The request only needs a trivial answer and none of this skill's constraints or references materially help.
+- The work is recurring billing, plan changes, dunning, proration, metered usage, or revenue recognition. Use `subscription-billing`.
+- The work is Stripe Connect, marketplaces, or split payments. Out of scope.
+- Tax registration strategy and filing operations. Stripe Tax docs handle this directly.
 
 ## Required Inputs
 
-- Gather relevant project context, constraints, and the concrete problem to solve; load `references` only as needed.
-- Confirm the desired deliverable: design, code, review, migration plan, audit, or documentation.
+- Target stack (PHP, Node.js, or both), runtime versions, deploy target.
+- UX requirements (hosted redirect, embedded form, custom UI) and PCI scope target.
+- Currencies to charge, settlement country, and whether SCA-regulated regions apply.
+- Where secrets live (Vault, AWS Secrets Manager, env files in dev only).
 
 ## Workflow
 
-- Read this `SKILL.md` first, then load only the referenced deep-dive files that are necessary for the task.
-- Apply the ordered guidance, checklists, and decision rules in this skill instead of cherry-picking isolated snippets.
-- Produce the deliverable with assumptions, risks, and follow-up work made explicit when they matter.
+1. Read this `SKILL.md` end-to-end, then load referenced deep-dives only as needed.
+2. Pick an integration model from §3 before writing code.
+3. Implement Customer + PaymentIntent flow, then layer SetupIntent only if saving cards.
+4. Stand up the webhook receiver with SDK signature verification and `event.id` idempotency.
+5. Run through the production checklist before shipping.
 
 ## Quality Standards
 
-- Keep outputs execution-oriented, concise, and aligned with the repository's baseline engineering standards.
-- Preserve compatibility with existing project conventions unless the skill explicitly requires a stronger standard.
-- Prefer deterministic, reviewable steps over vague advice or tool-specific magic.
+- Every Stripe mutation uses an `Idempotency-Key`.
+- Every webhook event is signature-verified against the raw body and deduplicated by `event.id`.
+- Currency amounts are formatted via a `decimal_digits` helper, never hard-coded `* 100`.
+- Card data never touches your servers. Use Checkout, Payment Element, or Elements with iframe isolation.
 
 ## Anti-Patterns
 
-- Treating examples as copy-paste truth without checking fit, constraints, or failure modes.
-- Loading every reference file by default instead of using progressive disclosure.
+- Polling Stripe for state instead of consuming webhooks.
+- Using the legacy `Charge` API for new code instead of `PaymentIntent`.
+- Writing manual HMAC signature verification when an SDK helper exists.
+- Returning `2xx` from the webhook only after heavy work completes (causes retries on timeout).
+- Hard-coding `* 100` for amounts, breaking JPY, KRW, UGX, and other zero-decimal currencies.
 
 ## Outputs
 
-- A concrete result that fits the task: implementation guidance, review findings, architecture decisions, templates, or generated artifacts.
-- Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
-- References used, companion skills, or follow-up actions when they materially improve execution.
-
-## Evidence Produced
-
-| Category | Artifact | Format | Example |
-|----------|----------|--------|---------|
-| Correctness | Stripe webhook + flow test plan | Markdown doc covering checkout, subscription lifecycle, customer portal, and webhook signature verification tests | `docs/billing/stripe-tests.md` |
-| Security | Stripe key handling note | Markdown doc covering API key storage, webhook secret rotation, and per-environment configuration | `docs/billing/stripe-key-handling.md` |
+- Working PHP and/or Node.js code that creates Customers and PaymentIntents.
+- A signed, idempotent webhook receiver.
+- A production checklist mapped to your secrets, observability, and deploy stack.
 
 ## References
 
-- Use the `references/` directory for deep detail after reading the core workflow below.
+- Use the `references/` directory for deep walkthroughs after reading the core workflow below.
 <!-- dual-compat-end -->
-Use this skill when Stripe is the payment and billing backbone. The goal is to make payment flows safe, retriable, webhook-driven, and compatible with recurring SaaS billing instead of treating Stripe as a synchronous charge API.
+
+Use this skill when Stripe is the payment rail. The goal is safe, retriable, webhook-driven payments that survive replays, partial failures, and SCA challenges.
 
 ## Load Order
 
-1. Load `world-class-engineering`.
-2. Load `deployment-release-engineering`, `advanced-testing-strategy`, and `vibe-security-skill` for release, test, and security controls.
-3. Load this skill for Stripe mechanics.
-4. Load `subscription-billing` for pricing tiers, dunning, metering, and revenue operations.
+1. `world-class-engineering`
+2. `web-app-security-audit`, `api-design-first`, `cicd-devsecops` (for HTTPS, idempotent endpoints, Vault-managed keys)
+3. This skill for Stripe mechanics
+4. `subscription-billing` for recurring billing, dunning, metering, and revenue ops
+5. `observability-monitoring` for PaymentIntent dashboards and webhook lag alerts
 
-## Stripe Object Model
+## §1 Why Stripe and How the Platform Is Structured
+
+Stripe documents three primary ways to accept payments on a website:
+
+- **Build a checkout page**: Stripe-hosted page, embedded form, or embedded components.
+- **Accept payments without code**: Payment Links create a custom page without code.
+- **Build an advanced integration**: embed a custom Stripe payment form using Elements.
+
+Stripe's official guidance for new builds: prefer the **Checkout Sessions API with the Payment Element** over direct Payment Intents for most integrations. Use raw Payment Intents only when explicitly required. Source: `docs.stripe.com/payments`, `docs.stripe.com/payments/accept-a-payment`.
+
+## §2 Core API Objects
+
+Only the objects needed for one-time and saved-card flows. Recurring entities live in `subscription-billing`.
+
+- **Customer** — long-lived record with email, name, default PaymentMethod, tax data. Required to save a card for off-session charges.
+- **PaymentMethod** — tokenised card, bank debit, or wallet attachable to a Customer.
+- **PaymentIntent** — modern object that "tracks a payment from creation through checkout, and triggers additional authentication steps when required." Provides automatic authentication handling, no double charges, and explicit SCA support.
+- **SetupIntent** — saves a PaymentMethod for future use without an immediate charge.
+- **Checkout Session** — wraps Hosted or Embedded Checkout; creates a PaymentIntent (or Subscription) under the hood.
+- **Charge** (legacy) — present in the API and referenced from PaymentIntent; do not create directly in new code.
 
 ```text
  Customer ──► PaymentMethod
-    │
-    │   Product ◄── Price ──┐
-    │                       │
-    └── Subscription ── items ──► Invoice ──► PaymentIntent ──► Charge
+    │             │
+    └── PaymentIntent / SetupIntent ──► Charge
+        (Checkout Session wraps either)
 ```
 
-- `Product` is the sellable unit; `Price` is amount, currency, recurrence.
-- `Customer` owns payment methods, subscriptions, invoices, tax IDs.
-- `Subscription` binds a customer to Prices via `subscription_items`.
-- `Invoice` generates per period; `PaymentIntent` settles it.
+## §3 Choosing an Integration Model
 
-## Setup
+| Model | What you build | Card data lives | Complexity | Pick when |
+|-------|----------------|-----------------|------------|-----------|
+| Stripe-hosted Checkout | Redirect link or button | Stripe (lowest PCI scope) | 2/5 | Fastest path, standard pricing pages |
+| Embedded Checkout | Stripe-hosted form mounted in your DOM | Stripe (low PCI scope) | 2/5 | Want Checkout's logic but stay on-domain |
+| Checkout Sessions + Payment Element | Custom form using Stripe UI components | Stripe (PCI SAQ A) | 3/5 | Custom UX, multiple payment methods, design control |
+| Payment Intents API direct | Hand-built confirmation flow | Stripe via Elements | Highest | Only when explicitly required |
 
-Two keys per environment: `publishable` (client-side) and `secret` (server only). Never commit secret keys. Use restricted keys (`rak_*`) for read-only integrations. Env vars: `STRIPE_PUBLISHABLE_KEY`, `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `STRIPE_ACCOUNT_COUNTRY`.
+Source: Stripe "Accept a payment" guide.
+
+## §4 PHP Integration (stripe-php)
+
+Runtime: PHP 7.2+. Install:
 
 ```bash
 composer require stripe/stripe-php
-npm install stripe
 ```
 
 ```php
-<?php
-require __DIR__ . '/vendor/autoload.php';
-\Stripe\Stripe::setApiKey(getenv('STRIPE_SECRET_KEY'));
-\Stripe\Stripe::setApiVersion('2024-06-20');
-\Stripe\Stripe::setAppInfo('MyApp', '1.0.0', 'https://example.com');
+require_once 'vendor/autoload.php';
+$stripe = new \Stripe\StripeClient(getenv('STRIPE_SECRET_KEY'));
 ```
+
+Customer creation (verbatim shape from stripe-php README):
+
+```php
+$customer = $stripe->customers->create([
+    'description' => 'example customer',
+    'email' => 'email@example.com',
+    'payment_method' => 'pm_card_visa',
+]);
+```
+
+PaymentIntent creation. Required: `amount` (smallest currency unit) and `currency`. Common optional: `customer`, `payment_method`, `confirm`, `off_session`, `automatic_payment_methods`, `setup_future_usage`.
+
+```php
+$paymentIntent = $stripe->paymentIntents->create([
+    'amount' => 1999,                   // $19.99 in smallest currency unit
+    'currency' => 'usd',
+    'customer' => $customer->id,
+    'automatic_payment_methods' => ['enabled' => true],
+], ['idempotency_key' => $uuidV4]);
+```
+
+**Save-a-card flow**: create a SetupIntent, confirm it client-side with Elements, then later create a PaymentIntent with `customer`, `payment_method` set to the saved method, plus `off_session: true` and `confirm: true`.
+
+Full integration walkthrough: [references/stripe-php-integration.md](references/stripe-php-integration.md).
+
+## §5 Node.js Integration (stripe-node)
+
+Runtime: all LTS versions of Node.js 18+. Install:
+
+```bash
+npm install stripe
+```
+
+Customer creation, ESM / TypeScript (verbatim from stripe-node README):
 
 ```ts
 import Stripe from 'stripe';
-export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string,
-  { apiVersion: '2024-06-20', maxNetworkRetries: 2 });
+const stripeClient = new Stripe(process.env.STRIPE_SECRET_KEY!);
+
+const customer = await stripeClient.customers.create({
+  email: 'customer@example.com',
+});
 ```
 
-## Products & Prices API
-
-Products are created once per SKU; Prices are versioned amounts attached to that Product. Use `lookup_key` so application code references stable identifiers rather than `price_*` IDs.
+PaymentIntent:
 
 ```ts
-const product = await stripe.products.create({
-  name: 'Pro Plan', metadata: { plan_code: 'pro' },
-});
-await stripe.prices.create({ product: product.id, currency: 'usd', unit_amount: 4900,
-  recurring: { interval: 'month' }, lookup_key: 'pro_monthly_usd' });
-await stripe.prices.create({ product: product.id, currency: 'usd', unit_amount: 49000,
-  recurring: { interval: 'year' }, lookup_key: 'pro_annual_usd' });
-await stripe.prices.create({ product: product.id, currency: 'usd', unit_amount: 9900,
-  lookup_key: 'pro_setup_fee' });
-const resolved = await stripe.prices.list({
-  lookup_keys: ['pro_monthly_usd'], expand: ['data.product'],
-});
+const intent = await stripeClient.paymentIntents.create(
+  {
+    amount: 1999,
+    currency: 'usd',
+    customer: customer.id,
+    automatic_payment_methods: { enabled: true },
+  },
+  { idempotencyKey: crypto.randomUUID() },
+);
 ```
 
-- One-time Prices omit `recurring`; use them for setup fees, credits, add-ons.
-- To change an amount, archive the old Price and create a new one with the same `lookup_key`.
+Full integration walkthrough: [references/stripe-nodejs-integration.md](references/stripe-nodejs-integration.md).
 
-## Checkout Sessions
+## §6 Webhooks
 
-Stripe Checkout is the hosted payment page; it handles SCA, 3DS, and card routing. Use `mode: 'subscription'` for recurring; `mode: 'payment'` for one-time.
+Webhooks are the durable source of truth for payment state. Polling is a bug.
 
-```ts
-const session = await stripe.checkout.sessions.create({
-  mode: 'subscription', customer: customerId,
-  line_items: [{ price: 'price_ABC123', quantity: 1 }],
-  success_url: 'https://app.example.com/billing/success?session_id={CHECKOUT_SESSION_ID}',
-  cancel_url: 'https://app.example.com/billing/cancel',
-  allow_promotion_codes: true, automatic_tax: { enabled: true },
-  subscription_data: { trial_period_days: 14, metadata: { tenant_id: tenantId } },
-  metadata: { tenant_id: tenantId, initiated_by: userId },
-});
-```
+**Endpoint requirements** (per `docs.stripe.com/webhooks`):
 
-- Pre-create the Customer before opening Checkout so the Stripe customer ID is already linked to your tenant.
-- `metadata` propagates to the Subscription and Invoice; webhook handlers resolve the tenant from it.
-- Never pass `customer_email` and `customer` together; Stripe rejects it.
+- Accept POST with JSON event payloads.
+- Return a 2xx **before** executing complex logic that could time out.
+- Register a publicly accessible HTTPS URL per environment (each gets its own `whsec_*`).
 
-## Customer Portal
+**Signature verification.** Use the SDK helper rather than implementing HMAC manually:
 
-Stripe-hosted self-service for plan changes, invoice downloads, payment-method updates, and cancellations. Configure once in Dashboard; reuse configuration IDs for branded variants.
+- PHP: `\Stripe\Webhook::constructEvent($payload, $sigHeader, $endpointSecret)`
+- Node: `stripe.webhooks.constructEvent(payload, sigHeader, endpointSecret)`
 
-```ts
-const portal = await stripe.billingPortal.sessions.create({
-  customer: customerId,
-  return_url: 'https://app.example.com/settings/billing',
-  configuration: 'bpc_1NrXYZ...',
-});
-```
+The verifier needs the **raw request body**. In Express, mount `express.raw({ type: 'application/json' })` only on the webhook route. In Fastify, register a buffer parser. In PHP, read `file_get_contents('php://input')` before any framework body parsing.
 
-- Use separate configurations for self-serve tiers (allow cancel + plan switch) versus enterprise (read-only invoice access).
-- The portal emits the same webhook events as any other surface; no special handling needed.
+**Manual verification reference** (only if no SDK):
 
-## Webhook Architecture
+1. Extract `t=` (timestamp) and `v1=` (signature) from the `Stripe-Signature` header.
+2. Concatenate `timestamp + '.' + raw_body`.
+3. HMAC-SHA256 with the endpoint secret as key.
+4. Constant-time compare against the received `v1` signature.
+5. Reject if timestamp skew exceeds tolerance (default 5 minutes).
 
-Webhooks are the durable source of truth for billing state. Polling is a bug; every state transition must be driven by a verified webhook event.
+**Retry semantics** (Stripe-side):
 
-- Register one HTTPS endpoint per environment; each has its own `whsec_*`.
-- Verify every event using `Stripe-Signature` and the raw request body.
-- Store `event.id` in a `stripe_processed_events` table with a unique index; insert before handling so replays become no-ops.
-- Return `2xx` within 10 seconds; queue heavy work.
+- Live mode: up to 3 days with exponential backoff.
+- Sandbox: 3 retries over a few hours.
+- Manual replay: up to 15 days via dashboard, 30 days via CLI.
+- Manually resending an event does **not** dismiss Stripe's automatic retries.
+
+**Idempotency at the receiver.** Persist `event.id` in MySQL with a unique index. Insert the event row and commit the side effect in the **same transaction** so replays no-op cleanly.
 
 ```sql
 CREATE TABLE stripe_processed_events (
@@ -187,314 +232,166 @@ CREATE TABLE stripe_processed_events (
 );
 ```
 
-## Critical Webhook Events
+Combine `event.type` with `data.object.id` to identify duplicates that span event IDs (e.g. retried charge attempts).
 
-| Event | Action |
-|-------|--------|
-| `customer.subscription.created` | Activate account features; provision entitlements; write plan code to the tenant record. |
-| `customer.subscription.updated` | Compare `previous_attributes.items` vs current items; apply upgrade/downgrade; adjust seat counts. |
-| `customer.subscription.deleted` | Revoke paid features; move tenant to free tier; enqueue retention email and data-export grace notice. |
-| `invoice.payment_succeeded` | Extend billing period; refresh usage quota; emit revenue-recognized event for accounting. |
-| `invoice.payment_failed` | Start dunning sequence; record failure count; schedule Smart Retry; email the billing contact. |
-| `customer.subscription.trial_will_end` | Send upgrade email with payment-method collection link three days before trial expiry. |
+**Idempotency at the sender.** Send an `Idempotency-Key` HTTP header on every POST. Stripe stores the first response's status and body for that key and errors if subsequent requests arrive with mismatched parameters. Use V4 UUIDs (max 255 chars). Stripe may garbage-collect keys after 24 hours.
 
-## Subscription States
+**Common event types** to subscribe to:
 
-```text
-incomplete ──► trialing ──► active ──► paused
-                              │
-                              ▼ (payment fails)
-                           past_due ──► unpaid ──► cancelled
-```
+- `payment_intent.succeeded`, `payment_intent.payment_failed`, `payment_intent.requires_action`, `payment_intent.processing`, `payment_intent.canceled`
+- `checkout.session.completed`
+- `invoice.paid`, `invoice.payment_failed`, `invoice.finalized`, `invoice.upcoming`
+- `customer.subscription.*` (delegate handling to `subscription-billing`)
 
-- `trialing → active`: first `invoice.payment_succeeded` after trial.
-- `active → past_due`: latest invoice `open` after failed payment; usable during grace.
-- `past_due → unpaid`: Smart Retries exhausted with `charge_automatically`.
-- `unpaid → cancelled`: auto-cancel per subscription settings or manual cancel.
-- `active → paused`: administrative pause; no invoices generate until resumed.
+Full event catalogue and handler patterns: [references/webhook-handling.md](references/webhook-handling.md).
 
-## Dunning Management
+## §7 3D Secure / SCA
 
-Enable Smart Retries in Dashboard for `charge_automatically` subscriptions; set max retry window to 21 days for SaaS. Custom Automations schedule: day 0 initial attempt; day 3 retry + failure email; day 7 retry + pause warning; day 14 retry + final notice; day 21 downgrade to free with 30-day data preservation.
+Stripe requires Strong Customer Authentication in regulated regions; SCA "requires customers to use two-factor authentication like 3D Secure to verify their purchase." The Payment Intents API surfaces this via the `requires_action` status.
+
+**PaymentIntent status enum**: `requires_payment_method`, `requires_confirmation`, `requires_action`, `processing`, `succeeded`, `canceled`.
+
+**On-session vs off-session** (Stripe phrasing):
+
+- **On-session**: a payment occurs while the customer is actively in your checkout flow and able to authenticate.
+- **Off-session**: a payment occurs without the customer present, using previously-collected payment information.
+
+Rules:
+
+- For on-session flows where you intend to charge later, set `setup_future_usage: 'off_session'` on the PaymentIntent.
+- For off-session flows, create the PaymentIntent with `off_session: true` and `confirm: true`.
+- If Stripe returns `requires_action` on an off-session attempt, your dunning logic must email the customer back to authenticate. Hand recovery flows to `subscription-billing` when this happens inside a renewal cycle.
+
+## §8 Multi-Currency
+
+Stripe supports charging "in over 135 currencies."
+
+- **Presentment currency**: the currency of the charge.
+- **Settlement currency**: the currency accepted by your destination bank account.
+
+If presentment differs from settlement, Stripe converts at deposit time, typically with a 1% FX spread.
+
+**Zero-decimal currencies** (JPY, KRW, UGX, VND, RWF, and others): the `amount` value is the actual amount, not minor units. To charge 500 JPY, send `amount: 500`. For two-decimal currencies, multiply by 100 (10 USD → `1000`).
+
+Ship a helper that maps ISO currency to its `decimal_digits` rather than hard-coding `* 100`:
 
 ```ts
-function entitlementFor(sub: Stripe.Subscription, graceDays = 7) {
-  if (sub.status === 'active' || sub.status === 'trialing') return 'paid';
-  if (sub.status === 'past_due') {
-    const graceEnd = sub.current_period_end * 1000 + graceDays * 86_400_000;
-    return Date.now() < graceEnd ? 'paid_grace' : 'free';
-  }
-  return 'free';
+const ZERO_DECIMAL = new Set(['BIF','CLP','DJF','GNF','JPY','KMF','KRW','MGA','PYG','RWF','UGX','VND','VUV','XAF','XOF','XPF']);
+export function toMinorUnits(amount: number, currency: string): number {
+  const code = currency.toUpperCase();
+  return ZERO_DECIMAL.has(code) ? Math.round(amount) : Math.round(amount * 100);
 }
 ```
 
-## Tax Handling
+## §9 Stripe Tax Basics
 
-Stripe Tax auto-calculates VAT, GST, and US sales tax based on customer address and product tax code. Enable per Price or on the account default; collect address at Checkout.
+Stripe Tax automates "sales tax, VAT, and GST compliance on all your transactions" and "handles tax obligation monitoring, registrations, calculations, collections, and filings." It also tracks sales against local registration thresholds and alerts when obligations form.
 
-```ts
-await stripe.checkout.sessions.create({
-  mode: 'subscription', customer: customerId,
-  line_items: [{ price: 'price_ABC123', quantity: 1 }],
-  automatic_tax: { enabled: true },
-  customer_update: { address: 'auto', name: 'auto' },
-  tax_id_collection: { enabled: true },
-  success_url: '...', cancel_url: '...',
-});
-await stripe.customers.createTaxId(customerId, { type: 'eu_vat', value: 'DE123456789' });
+Enable on a Checkout Session or Subscription:
+
+```bash
+curl https://api.stripe.com/v1/subscriptions \
+  -u "$STRIPE_SECRET_KEY:" \
+  -d "automatic_tax[enabled]=true"
 ```
 
-- Invoice line items include `tax_amounts` with jurisdiction, rate, and inclusive/exclusive treatment.
-- For B2B customers with a valid tax ID, Stripe applies reverse-charge automatically where applicable.
+Validate customer location at creation: `-d "tax[validate_location]=immediately"`.
 
-## Multi-Currency
+**Tax IDs.** Customers can store country-specific Tax IDs (`eu_vat`, `gb_vat`, `au_abn`, and 200+ types). Collect them at Checkout via `tax_id_collection: { enabled: true }` and persist via `customers.createTaxId`. For B2B with valid IDs, Stripe applies reverse-charge automatically where applicable.
 
-`currency` is immutable on a Price. Presentment currency (customer-facing) is chosen at Checkout; settlement currency is determined by your Stripe account country.
+## §10 Local Testing
 
-```ts
-await stripe.prices.create({ product: pid, currency: 'usd', unit_amount: 4900,
-  recurring: { interval: 'month' }, lookup_key: 'pro_monthly_usd' });
-await stripe.prices.create({ product: pid, currency: 'kes', unit_amount: 650000,
-  recurring: { interval: 'month' }, lookup_key: 'pro_monthly_kes' });
-await stripe.prices.create({ product: pid, currency: 'ugx', unit_amount: 18500000,
-  recurring: { interval: 'month' }, lookup_key: 'pro_monthly_ugx' });
-function resolvePriceFor(country: string) {
-  if (country === 'KE') return 'pro_monthly_kes';
-  if (country === 'UG') return 'pro_monthly_ugx';
-  return 'pro_monthly_usd';
-}
-```
+**Test card matrix** (success cases):
 
-- UGX is zero-decimal in Stripe; `unit_amount` is the actual amount, not cents.
-- USD settlement from non-USD Prices incurs a 1% FX spread.
+| Brand | Number | CVC |
+|-------|--------|-----|
+| Visa | 4242 4242 4242 4242 | any 3 digits |
+| Mastercard | 5555 5555 5555 4444 | any 3 digits |
+| American Express | 3782 822463 10005 | any 4 digits |
+| Discover | 6011 1111 1111 1117 | any 3 digits |
+| Diners Club | 3056 9300 0902 0004 | any 3 digits |
+| JCB | 3566 0020 2036 0505 | any 3 digits |
 
-## Metered Billing
+All accept any future expiration date. Sandbox mode is isolated; test-key transactions don't move funds.
 
-```ts
-const priced = await stripe.prices.create({
-  product: productId, currency: 'usd',
-  recurring: { interval: 'month', usage_type: 'metered', aggregate_usage: 'sum' },
-  billing_scheme: 'tiered', tiers_mode: 'graduated',
-  tiers: [
-    { up_to: 1000, unit_amount: 0 },
-    { up_to: 10000, unit_amount: 5 },
-    { up_to: 'inf', unit_amount: 3 },
-  ],
-  lookup_key: 'api_calls_metered',
-});
+**Decline / authentication cards**: `4000 0025 0000 3155` (3DS required), `4000 0000 0000 0002` (generic decline), `4000 0000 0000 9995` (insufficient funds), `4000 0000 0000 0341` (attach succeeds, first off-session charge fails). Pull the full table from `docs.stripe.com/testing` when authoring decline tests.
 
-await stripe.subscriptionItems.createUsageRecord(subscriptionItemId, {
-  quantity: 1247, timestamp: Math.floor(Date.now() / 1000), action: 'increment',
-});
-
-await stripe.billing.alerts.create({
-  title: 'Usage over 80% of budget', filter: { customer: customerId },
-  usage_threshold_config: { gte: 80000, meter: 'mtr_api_calls', recurrence: 'one_time' },
-});
-```
-
-- Use `action: 'increment'` for append-only usage; `action: 'set'` for absolute snapshots (rarely correct).
-- Batch usage records; a billing cron at 00:05 UTC covers most reporting needs.
-
-## Testing
-
-Test cards: `4242 4242 4242 4242` (success), `4000 0025 0000 3155` (3DS required), `4000 0000 0000 0002` (decline), `4000 0000 0000 9995` (insufficient funds), `4000 0000 0000 0341` (attach succeeds, first charge fails).
+**Stripe CLI** for local webhooks:
 
 ```bash
 stripe login
-stripe listen --forward-to localhost:3000/stripe/webhook
+stripe listen --forward-to localhost:4242/webhook
+stripe trigger payment_intent.succeeded
 stripe trigger invoice.payment_failed
 ```
 
-```ts
-const clock = await stripe.testHelpers.testClocks.create({
-  frozen_time: Math.floor(Date.now() / 1000), name: 'renewal-test' });
-const customer = await stripe.customers.create({ test_clock: clock.id, email: 'c@x.com' });
-await stripe.testHelpers.testClocks.advance(clock.id,
-  { frozen_time: Math.floor(Date.now() / 1000) + 31 * 86400 });
-```
+The CLI prints a webhook signing secret on first run; pass it as the `endpoint_secret` argument to the SDK verification helper.
 
-## Security
+## §11 Production Checklist
 
-Stripe's redirect and hosted-field model keeps card data off your servers, which limits PCI scope to SAQ A.
-
-- Use Stripe Checkout, Payment Links, or Stripe Elements with iframe isolation. Never post raw card numbers to your server.
-- Enforce TLS 1.2+; reject non-HTTPS webhook delivery.
-- Store secret keys in a secrets manager (AWS Secrets Manager, Vault); never in committed `.env`.
-- Rotate webhook secret on suspected leak: create new endpoint secret, deploy both old and new for 24 hours, remove old.
-- Issue restricted API keys for integrations that only read data; scope to specific resources (e.g., `charges:read`).
-- Log every Stripe request ID and signature verification outcome for audit trails.
-- Never log full API keys or full webhook payloads at info level; they contain PAN last-four and email addresses.
-
-## PHP Integration Pattern
-
-Complete runnable example: checkout creation endpoint and webhook handler with signature verification and idempotent DB updates on `invoice.payment_succeeded`.
-
-```php
-<?php
-// public/billing/create-checkout.php
-declare(strict_types=1);
-require __DIR__ . '/../../vendor/autoload.php';
-\Stripe\Stripe::setApiKey(getenv('STRIPE_SECRET_KEY'));
-\Stripe\Stripe::setApiVersion('2024-06-20');
-header('Content-Type: application/json');
-$payload = json_decode(file_get_contents('php://input'), true);
-$tenantId = $payload['tenant_id'] ?? null;
-$lookupKey = $payload['price_lookup_key'] ?? 'pro_monthly_usd';
-if (!$tenantId) { http_response_code(400); exit(json_encode(['error' => 'tenant_id required'])); }
-$db = new PDO(getenv('DB_DSN'), getenv('DB_USER'), getenv('DB_PASS'));
-$stmt = $db->prepare('SELECT stripe_customer_id, email FROM tenants WHERE id = ?');
-$stmt->execute([$tenantId]);
-$tenant = $stmt->fetch(PDO::FETCH_ASSOC);
-if (!$tenant['stripe_customer_id']) {
-    $customer = \Stripe\Customer::create(
-        ['email' => $tenant['email'], 'metadata' => ['tenant_id' => $tenantId]],
-        ['idempotency_key' => 'customer-create-' . $tenantId]);
-    $db->prepare('UPDATE tenants SET stripe_customer_id = ? WHERE id = ?')
-       ->execute([$customer->id, $tenantId]);
-    $tenant['stripe_customer_id'] = $customer->id;
-}
-$prices = \Stripe\Price::all(['lookup_keys' => [$lookupKey], 'limit' => 1]);
-$session = \Stripe\Checkout\Session::create([
-    'mode' => 'subscription', 'customer' => $tenant['stripe_customer_id'],
-    'line_items' => [['price' => $prices->data[0]->id, 'quantity' => 1]],
-    'success_url' => getenv('APP_URL') . '/billing/success?session_id={CHECKOUT_SESSION_ID}',
-    'cancel_url' => getenv('APP_URL') . '/billing/cancel',
-    'automatic_tax' => ['enabled' => true],
-    'subscription_data' => ['metadata' => ['tenant_id' => $tenantId]],
-    'metadata' => ['tenant_id' => $tenantId],
-], ['idempotency_key' => 'checkout-' . $tenantId . '-' . time()]);
-echo json_encode(['url' => $session->url]);
-```
-
-```php
-<?php
-// public/billing/webhook.php
-declare(strict_types=1);
-require __DIR__ . '/../../vendor/autoload.php';
-\Stripe\Stripe::setApiKey(getenv('STRIPE_SECRET_KEY'));
-$payload = file_get_contents('php://input');
-$sig = $_SERVER['HTTP_STRIPE_SIGNATURE'] ?? '';
-try {
-    $event = \Stripe\Webhook::constructEvent($payload, $sig, getenv('STRIPE_WEBHOOK_SECRET'));
-} catch (\Stripe\Exception\SignatureVerificationException $e) {
-    http_response_code(400); exit('invalid signature');
-}
-$db = new PDO(getenv('DB_DSN'), getenv('DB_USER'), getenv('DB_PASS'));
-$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-$ins = $db->prepare('INSERT IGNORE INTO stripe_processed_events (event_id, event_type, payload_hash) VALUES (?, ?, ?)');
-$ins->execute([$event->id, $event->type, hash('sha256', $payload)]);
-if ($ins->rowCount() === 0) { http_response_code(200); exit(json_encode(['duplicate' => true])); }
-if ($event->type === 'invoice.payment_succeeded') {
-    $inv = $event->data->object;
-    $tenantId = $inv->subscription_details->metadata->tenant_id ?? null;
-    if ($tenantId) {
-        $db->prepare('UPDATE tenants SET billing_period_end = FROM_UNIXTIME(?), subscription_status = ?, last_paid_invoice_id = ? WHERE id = ?')
-           ->execute([$inv->lines->data[0]->period->end, 'active', $inv->id, $tenantId]);
-    }
-} elseif ($event->type === 'customer.subscription.deleted') {
-    $sub = $event->data->object;
-    $tenantId = $sub->metadata->tenant_id ?? null;
-    if ($tenantId) {
-        $db->prepare('UPDATE tenants SET subscription_status = ? WHERE id = ?')->execute(['cancelled', $tenantId]);
-    }
-}
-$db->prepare('UPDATE stripe_processed_events SET processed_at = NOW() WHERE event_id = ?')->execute([$event->id]);
-http_response_code(200); echo json_encode(['received' => true]);
-```
-
-## Node.js Integration Pattern
-
-Complete runnable example: Fastify route with raw body for signature verification, idempotency check on `event.id`, and async handler dispatch.
-
-```ts
-// src/server.ts
-import Fastify from 'fastify';
-import Stripe from 'stripe';
-import { Pool } from 'pg';
-import { createHash } from 'crypto';
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string,
-  { apiVersion: '2024-06-20', maxNetworkRetries: 2 });
-const db = new Pool({ connectionString: process.env.DATABASE_URL });
-const fastify = Fastify({ logger: true });
-fastify.addContentTypeParser('application/json', { parseAs: 'buffer' },
-  (_req, body, done) => done(null, body));
-fastify.post('/stripe/webhook', async (request, reply) => {
-  const rawBody = request.body as Buffer;
-  const signature = request.headers['stripe-signature'] as string;
-  let event: Stripe.Event;
-  try {
-    event = stripe.webhooks.constructEvent(rawBody, signature,
-      process.env.STRIPE_WEBHOOK_SECRET as string);
-  } catch (err) {
-    request.log.warn({ err }, 'signature verification failed');
-    return reply.status(400).send('invalid signature');
-  }
-  const hash = createHash('sha256').update(rawBody).digest('hex');
-  const ins = await db.query(
-    `INSERT INTO stripe_processed_events (event_id, event_type, payload_hash)
-     VALUES ($1, $2, $3) ON CONFLICT (event_id) DO NOTHING`,
-    [event.id, event.type, hash]);
-  if (ins.rowCount === 0) return reply.status(200).send({ duplicate: true });
-  reply.status(200).send({ received: true });
-  handleEventAsync(event).catch((err) =>
-    request.log.error({ err, eventId: event.id }, 'handler failed'));
-});
-async function handleEventAsync(event: Stripe.Event) {
-  if (event.type === 'invoice.payment_succeeded') {
-    const inv = event.data.object as Stripe.Invoice;
-    const tenantId = inv.subscription_details?.metadata?.tenant_id;
-    if (!tenantId) return;
-    await db.query(
-      `UPDATE tenants SET subscription_status = 'active',
-         billing_period_end = to_timestamp($1), last_paid_invoice_id = $2 WHERE id = $3`,
-      [inv.lines.data[0]?.period?.end, inv.id, tenantId]);
-  } else if (event.type === 'customer.subscription.deleted') {
-    const sub = event.data.object as Stripe.Subscription;
-    const tenantId = sub.metadata?.tenant_id;
-    if (tenantId) {
-      await db.query(`UPDATE tenants SET subscription_status = 'cancelled' WHERE id = $1`, [tenantId]);
-    }
-  }
-  await db.query('UPDATE stripe_processed_events SET processed_at = NOW() WHERE event_id = $1', [event.id]);
-}
-fastify.listen({ port: 3000, host: '0.0.0.0' });
-```
+- [ ] Live and test secret keys stored only in Vault (or equivalent secrets manager); rotated via the `cicd-devsecops` runbook; never in committed `.env`.
+- [ ] Restricted API keys (`rak_*`) used for read-only or scoped integrations; full secret keys live only in admin operations.
+- [ ] Webhook endpoint verified with the SDK helper; raw body preserved end-to-end.
+- [ ] Webhook handler is idempotent: `event.id` persisted with a unique index in MySQL; side-effect commit in the same transaction.
+- [ ] `Idempotency-Key` (V4 UUID) on every server-side `paymentIntents.create` call.
+- [ ] PaymentIntent status transitions observed via dashboards (cross-ref `observability-monitoring`).
+- [ ] Currency amounts formatted via `toMinorUnits()`, not `* 100`.
+- [ ] Test-mode webhook fixtures committed to repo; Stripe CLI replay wired in CI.
+- [ ] TLS 1.2+ enforced; non-HTTPS webhook delivery rejected.
+- [ ] Webhook secret rotation runbook in place: create new endpoint secret, deploy with both old and new for 24h, remove old.
+- [ ] Stripe request IDs and webhook event IDs logged with internal correlation IDs.
+- [ ] Full API keys and full webhook payloads never logged at info level (PAN last-four and PII).
 
 ## Standards
 
-Security: never store raw card data; use Stripe-hosted collection or Elements; keep secret keys server-side only; verify every webhook signature and reject unsigned payloads.
+**Security.** Never store raw card data; use Stripe-hosted collection or Elements. Keep secret keys server-side only. Verify every webhook signature and reject unsigned payloads. Stripe's redirect and hosted-field model keeps card data off your servers, limiting PCI scope to SAQ A.
 
-Data and state: Stripe object IDs must map to internal customer, plan, and entitlement records; access follows invoice and subscription state derived from verified events; refunds, cancellations, pauses, and plan changes update entitlements through durable state transitions.
+**Data and state.** Stripe object IDs map to internal customer and entitlement records. Access derives from PaymentIntent and Invoice state through verified events. Refunds and cancellations update internal state through durable transitions, never optimistic writes.
 
-UX: tell the user whether payment is pending, requires action, failed, or complete; avoid surprise prorations on upgrade or downgrade; offer self-service payment-method updates and billing history.
+**UX.** Tell the user whether payment is pending, requires action, failed, or complete. Surface SCA prompts immediately. Offer self-service payment-method updates.
 
-Operations: log Stripe request IDs, webhook event IDs, and internal correlation IDs together; keep a replay-safe webhook processor and a manual reprocessing path; emit release markers around billing-flow changes.
+**Operations.** Log Stripe request IDs, webhook event IDs, and internal correlation IDs together. Keep a replay-safe processor and a manual reprocess path. Emit release markers around payment-flow changes.
 
 ## Review Checklist
 
-- [ ] Products, Prices, and internal entitlements are mapped explicitly.
-- [ ] Customers and payment methods are stored by reference, not raw card data.
-- [ ] PaymentIntents handle `requires_action` and asynchronous completion states.
-- [ ] Subscription creation, trialing, and proration behavior are deliberate.
-- [ ] Customer portal settings match the business rules for plan changes and cancellations.
-- [ ] Every Stripe mutation uses idempotency.
-- [ ] Webhooks verify signatures against the raw body and are replay-safe.
-- [ ] Test mode covers SCA, decline, renewal, cancellation, and webhook failure paths.
+- [ ] Integration model in §3 chosen explicitly; PCI-scope target documented.
+- [ ] Customers and payment methods stored by reference, not raw card data.
+- [ ] PaymentIntents handle `requires_action` and async completion.
+- [ ] Save-a-card flows use SetupIntent then off-session PaymentIntent with `confirm: true`.
+- [ ] Every Stripe mutation uses `Idempotency-Key` (V4 UUID).
+- [ ] Webhooks verify signatures against the raw body and are replay-safe via `event.id` + unique index.
+- [ ] Currency math goes through a `decimal_digits` helper.
+- [ ] Test mode covers SCA challenge, decline, insufficient funds, and webhook signature failure.
+- [ ] Stripe Tax enabled where required; tax IDs collected for B2B.
+- [ ] Production checklist completed before promoting to live keys.
 
 ## Companion Skills
 
-- `subscription-billing` — pricing tiers, dunning strategy, revenue recognition, metered billing operations.
-- `saas-accounting-system` — double-entry posting of Stripe settlements, refunds, and FX conversions.
-- `ai-saas-billing` — AI module gating, per-tenant token metering, and overage billing on top of Stripe.
-- `web-app-security-audit` — audit checklist for payment endpoints, webhook handlers, and key-handling posture.
+- `subscription-billing` — recurring billing, plan changes, dunning, proration, metered usage, revenue recognition, customer portal.
+- `saas-accounting-system` — double-entry posting of Stripe settlements, refunds, FX conversions.
+- `ai-saas-billing` — AI module gating and per-tenant token metering on top of Stripe.
+- `web-app-security-audit` — payment endpoints, webhook handlers, key-handling posture.
+- `cicd-devsecops` — Vault-managed key rotation and secret distribution.
+- `observability-monitoring` — PaymentIntent dashboards and webhook lag alerts.
 
 ## Sources
 
-- [references/stripe-php-integration.md](references/stripe-php-integration.md): PHP 8+ integration patterns for Customers, PaymentIntents, subscriptions, and webhooks.
-- [references/stripe-nodejs-integration.md](references/stripe-nodejs-integration.md): Node.js and TypeScript integration patterns for the same Stripe workflows.
-- [references/webhook-handling.md](references/webhook-handling.md): SaaS webhook catalogue, deduplication rules, and idempotent state updates.
-- [../subscription-billing/SKILL.md](../subscription-billing/SKILL.md): Subscription lifecycle, dunning, metered billing, and revenue operations.
-- [../saas-accounting-system/SKILL.md](../saas-accounting-system/SKILL.md): Double-entry accounting integration for Stripe settlements.
-- [../ai-saas-billing/SKILL.md](../ai-saas-billing/SKILL.md): Module gating and billing-pattern alignment for paid add-ons.
-- [../web-app-security-audit/SKILL.md](../web-app-security-audit/SKILL.md): Web application security audit framework covering payment endpoints.
+- [references/stripe-php-integration.md](references/stripe-php-integration.md) — PHP 7.2+ patterns for Customers, PaymentIntents, SetupIntents, and webhooks.
+- [references/stripe-nodejs-integration.md](references/stripe-nodejs-integration.md) — Node.js 18+ / TypeScript patterns for the same flows.
+- [references/webhook-handling.md](references/webhook-handling.md) — event catalogue, dedup rules, idempotent state updates.
+- [../subscription-billing/SKILL.md](../subscription-billing/SKILL.md) — recurring billing, dunning, metered billing, revenue ops.
+- [../saas-accounting-system/SKILL.md](../saas-accounting-system/SKILL.md) — accounting integration for Stripe settlements.
+- [../web-app-security-audit/SKILL.md](../web-app-security-audit/SKILL.md) — security audit for payment endpoints.
+- Stripe Payments overview: `docs.stripe.com/payments`
+- Stripe "Accept a payment": `docs.stripe.com/payments/accept-a-payment`
+- Stripe Payment Intents overview: `docs.stripe.com/payments/payment-intents`
+- Stripe API — Create a PaymentIntent: `docs.stripe.com/api/payment_intents/create`
+- Stripe Webhooks: `docs.stripe.com/webhooks`
+- Stripe API — Idempotent Requests: `docs.stripe.com/api/idempotent_requests`
+- Stripe API — Event Types: `docs.stripe.com/api/events/types`
+- Stripe Currencies: `docs.stripe.com/currencies`
+- Stripe Tax: `docs.stripe.com/tax` and `docs.stripe.com/tax/subscriptions`
+- Stripe Customer Tax IDs: `docs.stripe.com/billing/customer/tax-ids`
+- Stripe Testing: `docs.stripe.com/testing`
+- stripe/stripe-php README: `github.com/stripe/stripe-php`
+- stripe/stripe-node README: `github.com/stripe/stripe-node`

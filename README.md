@@ -94,6 +94,7 @@ Typical baseline choices:
 | `mysql-administration` | Replication, backup, recovery, and operational safety |
 | `database-internals` | Storage engine tradeoffs and core internals |
 | `database-reliability` | SLOs, migrations, backup verification, incident runbooks |
+| `postgresql-patterns` | Postgres-as-second-DB patterns — JSONB, full-text search, pgvector, RLS, PgBouncer, MySQL→PG translations |
 
 ### Web, Mobile, And Frontend
 
@@ -187,6 +188,8 @@ Extends existing `gis-mapping` (Leaflet) with:
 | `ai-error-prevention` | Trust-but-verify workflows |
 | `orchestration-best-practices` | Multi-step AI workflow coordination |
 | `ai-rag-patterns` | Retrieval-augmented generation patterns |
+| `vector-databases` | Embedding model selection, chunking, hybrid search, reranking, engine choice (pgvector/Qdrant/Pinecone/Weaviate) |
+| `rag-implementation` | Naive→Advanced→Modular RAG progression, query transforms, corrective RAG, RAGAS evaluation, multi-tenant isolation, cost levers |
 
 ## Recommended Skill Stacks
 

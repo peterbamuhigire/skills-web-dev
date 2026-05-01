@@ -183,70 +183,47 @@ Use a shape like:
 - [ ] Release markers and telemetry support post-deploy diagnosis.
 - [ ] Pipeline bottlenecks and flaky stages have remediation owners.
 
-## FinOps & Cost Governance
+## FinOps and Cost Governance
 
-### Resource Tagging Strategy
+The pipeline is also a cost surface: build minutes, runner sizing, cache effectiveness, artifact retention, and the clusters the pipeline deploys into all consume budget. Treat cost as a first-class delivery-system metric alongside throughput and stability.
 
-Mandatory tag keys that every cloud resource must carry:
+### F.1 The FinOps Foundation framework
 
-- `Environment` — `dev` / `staging` / `production`
-- `Team` — owning team name (e.g., `payments`, `platform`)
-- `CostCenter` — finance code for chargeback
-- `Project` — logical project or product name
-- `Owner` — primary on-call email
+Source: FinOps Foundation framework page, https://www.finops.org/framework/.
 
-Enforce via Terraform `default_tags` at provider level:
+Stated purpose: "FinOps is an operational framework and cultural practice which maximizes the business value of technology."
 
-```hcl
-provider "aws" {
-  region = "eu-west-1"
-  default_tags {
-    tags = {
-      Environment = var.environment
-      Team        = var.team
-      CostCenter  = var.cost_center
-      Project     = var.project
-      Owner       = var.owner_email
-      ManagedBy   = "terraform"
-    }
-  }
-}
-```
+Four domains and their capabilities:
 
-Enforce at admission time via AWS Config Rule `required-tags` or a Gatekeeper Constraint on K8s.
+1. Understand Usage and Cost — Data Ingestion, Allocation, Reporting and Analytics, Anomaly Management.
+2. Quantify Business Value — Planning and Estimating, Forecasting, Budgeting, KPIs and Benchmarking, Unit Economics.
+3. Optimize Usage and Cost — Architecting and Workload Placement, Usage Optimization, Rate Optimization, Licensing and SaaS, Sustainability.
+4. Manage the FinOps Practice — Executive Strategy Alignment, Practice Operations, Governance, Education and Enablement, Invoicing and Chargeback, Assessment, Automation and Tools, Intersecting Disciplines.
 
-### AWS Cost Explorer & Budgets
+Six principles:
 
-- Cost Explorer: enable granularity by `DAILY`, group by `TAG:Team` and `TAG:Environment`
-- Create a monthly budget via AWS CLI:
+1. Teams need to collaborate.
+2. Business value drives technology decisions.
+3. "Everyone takes ownership for their technology usage."
+4. FinOps data should be accessible, timely, and accurate.
+5. "FinOps should be enabled centrally."
+6. Take advantage of the variable cost model of the cloud.
 
-```bash
-aws budgets create-budget \
-  --account-id 123456789012 \
-  --budget '{
-    "BudgetName": "monthly-cap",
-    "BudgetLimit": {"Amount": "500", "Unit": "USD"},
-    "TimeUnit": "MONTHLY",
-    "BudgetType": "COST"
-  }' \
-  --notifications-with-subscribers '[
-    {
-      "Notification": {
-        "NotificationType": "FORECASTED",
-        "ComparisonOperator": "GREATER_THAN",
-        "Threshold": 80,
-        "ThresholdType": "PERCENTAGE"
-      },
-      "Subscribers": [{"SubscriptionType": "EMAIL", "Address": "finance@example.com"}]
-    }
-  ]'
-```
+Personas — Core: FinOps Practitioner, Engineering, Finance, Leadership, Procurement, Product. Allied: ITAM, ITFM, ITSM, Security, Sustainability.
 
-- Anomaly detection: `AWS Cost Anomaly Detection` — subscribe to a SNS topic for `DAILY` anomaly alerts above threshold.
+### F.2 Inform / Optimize / Operate lifecycle
 
-### Kubernetes Resource Quotas
+The framework's well-known three-phase operating model (confirm exact phase wording on the live page at implementation time):
 
-Per-namespace `ResourceQuota`:
+- Inform — collect cost and usage data; tag resources; build dashboards; surface unit economics.
+- Optimize — rightsize, eliminate waste, negotiate rates, schedule non-prod off-hours.
+- Operate — embed cost into the engineering daily loop; budgets, alerts, automated guardrails.
+
+Identify the team's current phase before recommending tools; skipping Inform produces dashboards no one trusts.
+
+### F.3 Resource quotas — Kubernetes and cloud account
+
+Kubernetes `ResourceQuota` (per-namespace) caps aggregate requests, limits, and object counts. `LimitRange` (per-namespace) sets defaults, mins, and maxes for individual containers. Combined, they prevent one namespace from starving others.
 
 ```yaml
 apiVersion: v1
@@ -262,37 +239,95 @@ spec:
     limits.memory: 80Gi
     persistentvolumeclaims: "10"
     services.loadbalancers: "2"
+---
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: payments-defaults
+  namespace: payments
+spec:
+  limits:
+    - type: Container
+      default:
+        cpu: 500m
+        memory: 512Mi
+      defaultRequest:
+        cpu: 100m
+        memory: 128Mi
+      max:
+        cpu: "2"
+        memory: 2Gi
 ```
 
-Cost per namespace tracking via Kubecost or OpenCost; correlate with CostExplorer via the `kubernetes.io/cluster/<name>` tag.
+Cloud-account level: AWS Service Quotas + IAM policies bounding instance types and regions; GCP quota policies and project-level budgets.
 
-### Utilisation Targets
+### F.4 Tagging / labelling taxonomy
 
-- CPU ≥ 70% average, memory ≥ 60% average across 30-day window
-- Under-utilised = < 40% average CPU for 7+ days → right-size or consolidate
-- Use AWS Compute Optimizer for EC2/RDS recommendations
-- For K8s: VPA recommendations + HPA targets tuned to keep average between 60–80%
+Minimum-viable taxonomy (applies to AWS tags, GCP labels, and K8s labels):
 
-### Spot Instance Strategy
+| Tag / label   | Cardinality | Example                         |
+|---------------|-------------|---------------------------------|
+| `environment` | low         | `prod` / `staging` / `dev` / `preview` |
+| `team`        | medium      | `payments`                      |
+| `service`     | high        | `subscription-renewal-worker`   |
+| `tenant`      | very high   | tenant id or hash (multi-tenant SaaS) |
+| `cost-center` | medium      | `engineering-platform`          |
 
-- CI runners: use `github-actions-runner-controller` on K8s with Spot node pool, `karpenter` provisioner filtering on Spot interruption rate
-- Batch jobs / ML training: `aws ec2 run-instances` with `InstanceMarketOptions.MarketType=spot` and `MaxPrice` at 50% of on-demand
-- Production web: only on Spot with multi-AZ / multi-instance-type diversification and graceful interruption handling (draining on `spot-instance-interruption-warning`)
-- Never Spot for: stateful databases (RDS, Elasticsearch primary), single-replica critical services
+Enforce tag presence at admission time (Gatekeeper constraint — see `cicd-devsecops` policy guidance) and at IaC plan time (Terraform `default_tags`, OPA pre-plan checks). Tags are how every downstream FinOps capability — allocation, anomaly detection, chargeback, unit economics — actually works.
 
-### FinOps Maturity Model
+### F.5 Cost dashboards
 
-Three stages — crawl / walk / run:
+- AWS Cost Explorer and AWS Cost and Usage Report (CUR): hierarchical breakdown by service, account, and tag; CUR exports to S3 for downstream BI. Pin a verified canonical URL from the AWS Cost Management documentation at implementation time.
+- GCP Billing Reports and BigQuery billing export: daily granular billing data piped to BigQuery for SQL analysis. Pin the canonical post-redirect Cloud Billing docs URL at implementation time.
 
-- **Crawl**: monthly manual cost review meeting, tags enforced on new resources, budget alerts wired to Slack. Expected savings: 10–15%.
-- **Walk**: automated anomaly detection, dedicated cost owner per team, reserved instance strategy for steady-state workloads, right-sizing recommendations reviewed monthly. Expected savings: 20–30%.
-- **Run**: chargeback to teams in internal accounting, cost impact reviewed per PR for significant infra changes, automated Spot/Reserved mix optimisation, unit economics dashboard ($/user, $/transaction). Expected savings: 30–45% plus improved decision quality.
+Both clouds support exporting to a warehouse and building unit-economics dashboards (cost per active tenant, cost per request) — this is the framework's Unit Economics capability.
 
-Choose the stage that matches current operational maturity; do not skip stages.
+### F.6 Budgets and alerts
+
+Design against two failure modes:
+
+1. Slow leak — small overspend that compounds over the month. Mitigation: percentage-of-forecast alerts (e.g., 80% of monthly forecast).
+2. Sudden spike — a runaway loop, stuck retry, or accidental large instance. Mitigation: anomaly detection plus hard daily caps where the provider supports them.
+
+Wire both alerts to the same channel that receives pipeline failures so cost regressions get the same response discipline.
+
+### F.7 CI runner cost — self-hosted vs hosted
+
+| Factor              | Hosted runners (GitHub / GitLab.com) | Self-hosted (Debian/Ubuntu VPS)         |
+|---------------------|--------------------------------------|------------------------------------------|
+| Per-minute cost     | Direct spend, $/min                  | Sunk capacity, opportunity cost          |
+| Operational toil    | None                                 | Patching, scaling, security              |
+| Build cache locality| Limited                              | Excellent (local Nexus, shared volumes)  |
+| Egress              | Provider's                           | Yours                                    |
+| Best fit            | Bursty, low-volume                   | High-volume, large-image, cache-sensitive |
+
+Decision rule of thumb: if monthly hosted-runner spend exceeds 2× the cost of running 2–3 always-on self-hosted runners with capacity to spare, switch. Always keep hosted runners as a fallback and for jobs that must run outside your VPC.
+
+For Jenkins / GitLab CE on self-managed Debian/Ubuntu (this repository's default stack), the cost equation is dominated by runner utilisation, cache hit rate, and artifact retention in Nexus — not per-minute billing. Track build-minute budgets per pipeline and cache hit rate per stage.
+
+### F.8 Chargeback vs showback
+
+| Mechanism  | Real money moves? | Cultural pre-requisite      | Accounting maturity        |
+|------------|-------------------|------------------------------|-----------------------------|
+| Showback   | No                | Cost-aware engineering       | Low — a dashboard suffices  |
+| Chargeback | Yes (internal recharges) | Strong cost ownership   | High — internal billing process |
+
+Most organisations should start with showback. Chargeback works only when "Everyone takes ownership for their technology usage" is operationally true.
+
+### Pipeline-specific cost levers
+
+- Build-minute budget per pipeline; alert when a pipeline's 7-day average exceeds its budget.
+- Cache effectiveness target: ≥ 80% hit rate on dependency restore stages; track and alert on regression.
+- Artifact retention: tiered policy in Nexus / S3 — release artifacts retained per compliance, snapshots aged out at 14–30 days, ephemeral PR builds at 7 days.
+- Runner sizing: match runner CPU/memory to the largest stage's actual peak, not its theoretical peak; oversized runners idle most of the time.
+- Schedule non-prod environments off outside business hours where the pipeline owns the lifecycle.
+
+See [references/finops.md](references/finops.md) for worked examples, deeper governance patterns, and acceptance criteria for the FinOps section of a pipeline review.
 
 ## References
 
 - [references/pipeline-governance.md](references/pipeline-governance.md): Pipeline trust, evidence, and stop-the-line response.
+- [references/finops.md](references/finops.md): FinOps deep reference — lifecycle phase rules, tagging enforcement, ResourceQuota + LimitRange examples, runner crossover analysis, budget patterns, showback-to-chargeback transition, and review acceptance criteria.
 - [../deployment-release-engineering/references/deployment-pipeline.md](../deployment-release-engineering/references/deployment-pipeline.md): Canonical release stage model and release packet.
 - [../deployment-release-engineering/references/devops-book-patterns.md](../deployment-release-engineering/references/devops-book-patterns.md): DevOps value-stream, deployment, GitOps, observability, DevSecOps, and PHP runtime delivery patterns.
 - [../world-class-engineering/references/source-patterns.md](../world-class-engineering/references/source-patterns.md): CI/CD and DevOps patterns derived from the supplied books.

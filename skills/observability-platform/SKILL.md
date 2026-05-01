@@ -1,9 +1,6 @@
 ---
 name: observability-platform
-description: Use when building production observability for a SaaS platform — SigNoz self-hosted stack,
-  OpenTelemetry instrumentation for Node.js/PHP/Android/iOS, Prometheus + Grafana RED dashboards,
-  alerting rules, distributed tracing with Jaeger, Sentry for errors, SLO/SLI design, error budget
-  burn-rate alerts, runbooks, and blameless postmortems.
+description: Use when building or operating a production observability platform — SigNoz self-hosted (OTel-native, ClickHouse-backed) primary stack, OpenTelemetry instrumentation for PHP/Node.js/Android/iOS, Prometheus or VictoriaMetrics for metrics with cardinality discipline, Grafana dashboards and notification policies, distributed tracing with head- vs tail-based sampling, Sentry for client and server error monitoring, SLO/SLI/SLA design with multi-window multi-burn-rate alerts, AI-workload signals, runbooks, and blameless postmortems.
 metadata:
   portable: true
   compatible_with:
@@ -17,8 +14,13 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 <!-- dual-compat-start -->
 ## Use When
 
-- Use when building production observability for a SaaS platform — SigNoz self-hosted stack, OpenTelemetry instrumentation for Node.js/PHP/Android/iOS, Prometheus + Grafana RED dashboards, alerting rules, distributed tracing with Jaeger, Sentry for errors, SLO/SLI design, error budget burn-rate alerts, runbooks, and blameless postmortems.
-- The task needs reusable judgment, domain constraints, or a proven workflow rather than ad hoc advice.
+- Building or operating a self-hosted observability platform across web, API, and mobile.
+- Choosing the right pillar (log, metric, trace) for a given diagnostic question and wiring correlation between them.
+- Designing SLOs, error budgets, and multi-window multi-burn-rate alerts that route through Grafana to PagerDuty or OpsGenie.
+- Instrumenting a polyglot stack (PHP, Node.js, Android, iOS) through OpenTelemetry without locking into a vendor SDK.
+- Adding AI-workload signals (embedding latency, retrieval recall, index freshness) to the same backend.
+
+This skill is the platform-build/operate angle; for foundational concepts and day-to-day diagnosis discipline load `observability-monitoring` first.
 
 ## Do Not Use When
 
@@ -128,7 +130,9 @@ services:
     ports: ["4317:4317", "4318:4318"]
 ```
 
-Retention — set ClickHouse TTLs in Settings → Retention: traces `15d`, logs `30d`, metrics `90d`. Disk is the dominant cost; shorter TTL beats sampling. First dashboard: Services → pick `billing-api` → Save Panel → pin to `Service Health`. SigNoz auto-derives RED from spans — do this before writing custom PromQL.
+Retention — set ClickHouse TTLs in Settings → Retention. Defaults are project-specific; size them against SLO query windows and disk budget rather than copying numbers. Common starting points: traces 15 d, logs 30 d, metrics 90 d, but confirm with the platform team before committing. Disk is the dominant cost; shorter TTL beats sampling. First dashboard: Services → pick `billing-api` → Save Panel → pin to `Service Health`. SigNoz auto-derives RED from spans — do this before writing custom PromQL.
+
+Why SigNoz primary — one self-hosted deployable replaces Prometheus + Jaeger + a logs backend, is OpenTelemetry-native end-to-end ("supports OpenTelemetry as the primary way to instrument applications"), and stores everything in ClickHouse. Apps emit OTLP only — SigNoz appears in code as the collector URL, so swapping to Tempo + Loki + VictoriaMetrics later costs zero code change. Keep Prometheus or VictoriaMetrics in parallel only when host/infra metrics need a dedicated TSDB.
 
 ## OpenTelemetry Node.js
 
@@ -182,71 +186,11 @@ Sdk::builder()->setTracerProvider($provider)->setAutoShutdown(true)->buildAndReg
 
 Slim route spans are auto-captured. Use semantic attribute names: `http.method`, `http.route`, `http.status_code`, `db.system`, `db.statement` — Grafana and SigNoz panels key off the spec; do not invent variants.
 
-## OpenTelemetry Android
+## OpenTelemetry Mobile (Android, iOS)
 
-```kotlin
-// build.gradle.kts
-dependencies {
-    implementation(platform("io.opentelemetry:opentelemetry-bom:1.38.0"))
-    implementation("io.opentelemetry.android:android-agent:0.8.0-alpha")
-}
-// MyApp.kt
-class MyApp : Application() {
-    lateinit var rum: OpenTelemetryRum
-    override fun onCreate() {
-        super.onCreate()
-        rum = OpenTelemetryRum.builder(this, OtelRumConfig())
-            .setEndpoint("https://otel.acme.io")
-            .addInstrumentation(AnrInstrumentation())
-            .addInstrumentation(CrashReporterInstrumentation())
-            .build()
-    }
-}
-// Compose screen tracking via CompositionLocal
-val LocalTracer = staticCompositionLocalOf<Tracer> { error("no tracer") }
-@Composable fun ScreenSpan(name: String, content: @Composable () -> Unit) {
-    val tracer = LocalTracer.current
-    DisposableEffect(name) {
-        val span = tracer.spanBuilder("screen.$name").startSpan()
-        onDispose { span.end() }
-    }; content()
-}
-```
+For mobile, OpenTelemetry ships RUM agents — `io.opentelemetry.android:android-agent` and the `opentelemetry-swift` SPM package. Both expose OTLP/HTTP and pair with Sentry mobile SDKs (§ Sentry Setup) for crash capture; OTel handles RUM and the cross-service trace. Bootstrap on the main thread as early as possible (Application.onCreate / didFinishLaunchingWithOptions). The Android agent's ANR detector correlates frozen frames with the active `trace_id`, so a jank spike in Grafana resolves to the Compose frame that blocked the main thread.
 
-ANR detector correlates frozen frames with active `trace_id` — a jank spike in Grafana resolves to the Compose frame that blocked the main thread.
-
-## OpenTelemetry iOS
-
-SPM: add `https://github.com/open-telemetry/opentelemetry-swift` at `1.10.1`.
-
-```swift
-import OpenTelemetryApi
-import OpenTelemetrySdk
-import OpenTelemetryProtocolExporterHttp
-import URLSessionInstrumentation
-
-func bootstrapOtel() {
-    let resource = Resource(attributes: ["service.name": .string("ios-app"), "deployment.environment": .string("prod")])
-    let exporter = OtlpHttpTraceExporter(endpoint: URL(string: "https://otel.acme.io/v1/traces")!)
-    let provider = TracerProviderBuilder()
-        .add(spanProcessor: BatchSpanProcessor(spanExporter: exporter))
-        .with(resource: resource).build()
-    OpenTelemetry.registerTracerProvider(tracerProvider: provider)
-    URLSessionInstrumentation(configuration: URLSessionInstrumentationConfiguration())
-}
-struct TracedScreen<Content: View>: View {
-    let name: String
-    @Environment(\.scenePhase) private var phase
-    @ViewBuilder let content: () -> Content
-    @State private var span: Span?
-    var body: some View {
-        content()
-            .onAppear { span = OpenTelemetry.instance.tracerProvider.get(instrumentationName: "ui").spanBuilder(spanName: "screen.\(name)").startSpan() }
-            .onDisappear { span?.end() }
-            .onChange(of: phase) { if $0 == .background { span?.end(); span = nil } }
-    }
-}
-```
+Verify the latest stable BOM/SPM line at integration time — both lines have shipped on alpha tags. Full bootstrap snippets (Android Application + Compose `ScreenSpan`, iOS `TracedScreen` SwiftUI wrapper, `URLSessionInstrumentation`): `references/mobile-otel-bootstrap.md`.
 
 ## Prometheus Metrics
 
@@ -261,7 +205,11 @@ http_requests_in_flight{service}
 LatencyBuckets = [0.005, 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1, 2.5, 5, 10]
 ```
 
-Never use high-cardinality labels (`user_id`, `request_id`). 10 k tenants × 50 routes = 500 k series = Prometheus OOM.
+Naming rules from `prometheus.io/docs/practices/naming/` — metrics "SHOULD have a suffix describing the unit, in plural form" (e.g. `_seconds`, `_bytes`, `_total`); use base units only ("always use bytes, even where bits appear more common"); differentiate variants by labels, not metric names (`api_http_requests_total{operation="create"}`, never `api_http_requests_total_create`).
+
+Cardinality discipline (same source) — "every unique combination of key-value label pairs represents a new time series, which can dramatically increase the amount of data stored." Never label with `user_id`, `email`, `request_id`, `trace_id`. 10 k tenants x 50 routes = 500 k series = Prometheus OOM. When cardinality breaches 10M active series, switch the metrics tier to VictoriaMetrics — it ships a cardinality explorer and limiter and stays Prometheus-compatible at the query layer.
+
+Recording rules precompute expensive expressions (`job:request_latency_seconds:mean5m`) so dashboards and alerts read cheap series. The alerting `for:` clause holds the alert "pending" through one-bucket noise — use it on every paging rule.
 
 ## Grafana Dashboards
 
@@ -283,6 +231,27 @@ Commit dashboard JSON to `ops/grafana/dashboards/service-health.json`:
 ```
 
 Rule: one RED dashboard per service family, not per instance. Use `$service` so the dashboard scales.
+
+Grafana alerting model — **contact points** specify "where notifications are sent" (email, Slack, webhook, PagerDuty, Grafana IRM); **notification policies** route by "label matching through a tree structure" rooted at the Default policy and decide both contact point and timing. Route critical alerts to PagerDuty, warnings to OpsGenie tickets:
+
+```yaml
+# grafana provisioning/alerting/policies.yaml
+policies:
+  - receiver: default-email
+    group_by: [alertname, service]
+    routes:
+      - { receiver: pagerduty, matchers: ["severity = critical"], continue: false }
+      - { receiver: opsgenie-ticket, matchers: ["severity = warning"], group_wait: 1m }
+contactPoints:
+  - name: pagerduty
+    type: pagerduty
+    settings: { integrationKey: $PD_ROUTING_KEY, severity: critical }
+  - name: opsgenie-ticket
+    type: opsgenie
+    settings: { apiKey: $OG_API_KEY, priority: P3 }
+```
+
+On-call hygiene — rotate weekly with primary + secondary; run a written hand-off ritual (open alerts, in-flight changes, known-broken dashboards). Every page must link to a runbook; pages without runbooks are a defect logged against the alert. Post-incident, ask if the alert was actionable — if not, raise the threshold or delete it.
 
 ## Alerting Rules
 
@@ -383,10 +352,13 @@ SLO — **99.9% availability over a rolling 28-day window**. Error budget: `(1 -
 
 ## Error Budget Burn Rate
 
-Burn rate = (error ratio over window) / (1 − SLO). Multi-window multi-burn-rate (Google SRE Workbook Ch. 5):
+Burn rate = (error ratio over window) / (1 − SLO). Two conditions must hold to fire — error rate exceeds threshold over a long window AND a short window 1/12 the duration. Recommended starting parameters for a 99.9% SLO (Google SRE Workbook, "Alerting on SLOs"):
 
-- **Fast burn** — 1h window, 14.4× rate → 2% of monthly budget burns in 1h → **page on-call**.
-- **Slow burn** — 6h window, 6× rate → 5% in 6h → **ticket**, no page.
+| Severity | Long window | Short window | Burn rate | Budget consumed |
+|----------|-------------|--------------|-----------|-----------------|
+| Page     | 1 hour      | 5 minutes    | 14.4      | 2%              |
+| Page     | 6 hours     | 30 minutes   | 6         | 5%              |
+| Ticket   | 3 days      | 6 hours      | 1         | 10%             |
 
 ```yaml
 - alert: SloFastBurn
@@ -452,40 +424,32 @@ Publish internally. Anonymise and publish externally for customer-impacting SEV1
 
 ## Production Dashboards
 
-Four dashboards every SaaS needs — **Service Health** (RED per service), **Infrastructure** (host CPU/memory/disk/network), **Business KPIs** (MRR, active users, signups, churn), **SLO Tracker** (current SLO % vs target, budget remaining per service). Pin all four to the on-call TV.
+Four dashboards every SaaS needs — **Service Health** (RED per service), **Infrastructure** (host CPU/memory/disk/network), **Business KPIs** (MRR, active users, signups, churn), **SLO Tracker** (current SLO % vs target, budget remaining per service). Pin all four to the on-call TV. During an incident, responders should not hunt dashboards — they should read them. PromQL recipes and recording-rule patterns: `references/dashboards-and-promql.md`.
 
-```promql
-# Service Health
-sum(rate(http_requests_total[5m])) by (service)
-sum(rate(http_requests_total{status=~"5.."}[5m])) by (service) / sum(rate(http_requests_total[5m])) by (service)
-histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket[5m])) by (le, service))
-# Infrastructure
-1 - avg(rate(node_cpu_seconds_total{mode="idle"}[5m])) by (instance)
-node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes
-(node_filesystem_size_bytes - node_filesystem_avail_bytes) / node_filesystem_size_bytes
-# Business KPIs
-sum(business_mrr_usd)
-sum(increase(business_signups_total[1d]))
-sum(active_users_gauge{window="24h"})
-sum(increase(business_churn_total[30d])) / sum(business_customers_gauge offset 30d)
-# SLO Tracker — availability % and budget remaining
-sum(rate(http_requests_total{status!~"5.."}[28d])) by (service)
-  / sum(rate(http_requests_total[28d])) by (service)
-1 - (sum(rate(http_requests_total{status=~"5.."}[28d])) by (service)
-     / sum(rate(http_requests_total[28d])) by (service)) / 0.001
-```
+## AI-Workload Signals
 
-During an incident, responders should not hunt dashboards — they should read them.
+Treat AI features as production services with their own SLIs. Emit through the same OTel pipeline; cross-reference `vector-databases` and `ai-rag-patterns` for measurement methodology.
+
+| Metric | Type | What it measures | Why it matters |
+|--------|------|------------------|----------------|
+| `embedding_write_latency_seconds` | histogram | time to embed + upsert one document | regressions break ingest pipelines silently |
+| `query_recall_at_k` | gauge | fraction of golden-set queries returning the expected chunk in top-K | the only safety net against silent retrieval drift |
+| `index_freshness_seconds` | gauge | `now() - max(doc.indexed_at)` per tenant | tells you when the index has fallen behind |
+| `rag_context_relevance` | gauge (sampled) | RAGAS-style score over a daily golden-set sample | end-to-end answer quality |
+
+Do not hardcode SLO targets — they are workload-specific. Build the golden set with domain experts, run it nightly, and alert on **trend regression** (recall drop ≥ 5 pp week-over-week) rather than absolute thresholds.
 
 ## Companion Skills
 
-- `observability-monitoring` — foundational logs/metrics/traces — load first
+- `observability-monitoring` — foundational logs/metrics/traces and diagnosis discipline — load first
 - `reliability-engineering` — toil elimination, risk quantification, incident response
 - `database-reliability` — database SLIs, replication lag tracking
 - `kubernetes-platform` — K8s pod/node metrics, PodMonitor for Prometheus
 - `cicd-pipelines` — deployment alerts tied to releases
+- `vector-databases`, `ai-rag-patterns` — methodology for the AI-workload signals above
 
 ## Sources
 
-- *Observability Engineering* — Majors, Fong-Jones, Miranda (O'Reilly); *Site Reliability Engineering* — Google (free at `sre.google/books`)
-- SigNoz `signoz.io/docs`; OpenTelemetry `opentelemetry.io/docs`; Prometheus `prometheus.io/docs`; Grafana `grafana.com/docs/grafana`; Sentry `docs.sentry.io`
+- *Observability Engineering* — Majors, Fong-Jones, Miranda (O'Reilly).
+- *Site Reliability Engineering* and *The Site Reliability Workbook* — Google, free at `sre.google/books` (chapters: Service Level Objectives, Implementing SLOs, Alerting on SLOs).
+- SigNoz docs `signoz.io/docs/introduction/`; OpenTelemetry concepts and language guides `opentelemetry.io/docs/`; Prometheus naming + alerting rules `prometheus.io/docs/practices/naming/` and `/configuration/alerting_rules/`; VictoriaMetrics `docs.victoriametrics.com/`; Grafana alerting fundamentals `grafana.com/docs/grafana/latest/alerting/fundamentals/`; Sentry platforms `docs.sentry.io/platforms/`; W3C Trace Context `w3.org/TR/trace-context/`.

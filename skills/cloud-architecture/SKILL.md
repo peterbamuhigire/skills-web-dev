@@ -1,8 +1,6 @@
 ---
 name: cloud-architecture
-description: Use when designing cloud deployments, Dockerising applications, laying
-  out AWS or GCP environments, choosing a deployment pattern, or moving a workload
-  from a single VM to a resilient multi-AZ topology.
+description: Use when designing cloud deployments, Dockerising applications, laying out AWS or GCP environments, choosing a deployment pattern, or moving a workload from a single VM to a resilient multi-AZ topology.
 metadata:
   portable: true
   compatible_with:
@@ -11,6 +9,7 @@ metadata:
 ---
 
 # Cloud Architecture
+
 Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 
 <!-- dual-compat-start -->
@@ -21,63 +20,100 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 
 ## Do Not Use When
 
-- The task is unrelated to `cloud-architecture` or would be better handled by a more specific companion skill.
-- The request only needs a trivial answer and none of this skill's constraints or references materially help.
+- The task is unrelated to cloud architecture or would be better handled by a more specific companion skill (`kubernetes-platform` for K8s ops, `infrastructure-as-code` for IaC tooling depth, `cicd-pipelines` for full pipeline construction).
 
 ## Required Inputs
 
-- Gather relevant project context, constraints, and the concrete problem to solve; load `references` only as needed.
-- Confirm the desired deliverable: design, code, review, migration plan, audit, or documentation.
+- Project context, target users, latency and residency constraints, current stack, and the concrete problem to solve.
+- The desired deliverable: design, Dockerfile, compose stack, deploy plan, migration plan, audit, or runbook.
 
 ## Workflow
 
-- Read this `SKILL.md` first, then load only the referenced deep-dive files that are necessary for the task.
-- Apply the ordered guidance, checklists, and decision rules in this skill instead of cherry-picking isolated snippets.
-- Produce the deliverable with assumptions, risks, and follow-up work made explicit when they matter.
+1. Read this SKILL.md, then load only the referenced deep-dive files relevant to the task.
+2. Apply the ordered guidance, decision rules, and checklists.
+3. Produce the deliverable with assumptions, risks, and follow-up work made explicit.
 
 ## Quality Standards
 
-- Keep outputs execution-oriented, concise, and aligned with the repository's baseline engineering standards.
-- Preserve compatibility with existing project conventions unless the skill explicitly requires a stronger standard.
-- Prefer deterministic, reviewable steps over vague advice or tool-specific magic.
+- Execution-oriented and concise; aligned with `world-class-engineering`.
+- Self-managed Debian/Ubuntu first, cloud-managed second, in line with the repository's engine stack.
+- Deterministic reviewable steps over vague advice or tool-specific magic.
 
 ## Anti-Patterns
 
 - Treating examples as copy-paste truth without checking fit, constraints, or failure modes.
 - Loading every reference file by default instead of using progressive disclosure.
+- Jumping to Kubernetes when EC2 + Compose or ECS Fargate would meet the requirement.
+- Baking secrets or environment-specific URLs into images.
 
 ## Outputs
 
-- A concrete result that fits the task: implementation guidance, review findings, architecture decisions, templates, or generated artifacts.
-- Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
-- References used, companion skills, or follow-up actions when they materially improve execution.
+- Workload classification, compute model choice with rationale, VPC + subnet layout, Dockerfile, Compose file, IAM role inventory, deploy pattern + rollback runbook, cost posture, CDN/TLS/WAF/auto-scaling configuration.
+- Assumptions, tradeoffs, and unresolved gaps when context is incomplete.
 
 ## Evidence Produced
 
 | Category | Artifact | Format | Example |
 |----------|----------|--------|---------|
-| Correctness | Cloud topology decision record | Markdown doc per `skill-composition-standards/references/adr-template.md` covering compute, storage, network, and IAM picks | `docs/cloud/topology-adr.md` |
-| Security | Cloud account hardening checklist | Markdown doc covering root-account, IAM, network, and logging baseline | `docs/cloud/hardening-checklist.md` |
+| Correctness | Cloud topology decision record | Markdown ADR per `skill-composition-standards/references/adr-template.md` | `docs/cloud/topology-adr.md` |
+| Security | Cloud account hardening checklist | Markdown doc covering root, IAM, network, logging baseline | `docs/cloud/hardening-checklist.md` |
 
 ## References
 
-- Use the `references/` directory for deep detail after reading the core workflow below.
+- `references/aws-core-services.md` — EC2, S3, RDS, IAM, ALB, ASG, CloudFront CLI recipes.
+- `references/docker-compose-patterns.md` — Full local-parity stack template.
+- `references/deployment-patterns.md` — Blue-green, rolling, canary runbooks with rollback.
+- `references/github-actions-overview.md` — Workflow file structure and reference pipeline.
+- `references/environment-management.md` — Staging/production parity and promotion flow.
 <!-- dual-compat-end -->
 
 ## Load Order
 
-1. Load `world-class-engineering` for the production bar.
-2. Load `system-architecture-design` for decomposition and contracts.
-3. Load this skill for the cloud runtime shape.
-4. Pair with `cicd-pipelines` for delivery, `cicd-devsecops` for gate policy, `observability-monitoring` for telemetry, `deployment-release-engineering` for rollout, and `reliability-engineering` for failure design.
+1. `world-class-engineering` for the production bar.
+2. `system-architecture-design` for decomposition and contracts.
+3. This skill for the cloud runtime shape.
+4. Pair with `cicd-pipelines` for delivery, `cicd-devsecops` for gate policy, `observability-monitoring` for telemetry, `deployment-release-engineering` for rollout, `reliability-engineering` for failure design, `kubernetes-platform` for clusters, `infrastructure-as-code` for IaC depth.
 
-## Executable Outputs
+## §1 Cloud Foundations & The SaaS-Relevant Subset
 
-For meaningful cloud architecture work produce: workload classification (stateless, stateful, async, batch, scheduled), chosen compute model with rationale, VPC + subnet + routing layout across AZs, Dockerfile (multi-stage, pinned base), `docker-compose.yml` mirroring production, IAM role inventory with least-privilege policies, deployment pattern choice and rollback runbook, cost posture (reserved/on-demand/spot split, Savings Plan assessment), and CDN/TLS/WAF/auto-scaling configuration.
+The AWS Well-Architected Framework defines six pillars: Operational Excellence, Security, Reliability, Performance Efficiency, Cost Optimization, and Sustainability (`aws.amazon.com/architecture/well-architected/`). This skill uses these pillars as the spine of its review checklist (§9).
 
-## Cloud Provider Selection
+### Compute Model Decision Matrix
 
-East African SaaS workloads (Uganda, Kenya, Tanzania) weigh four dimensions: latency to users, data-residency obligations under Uganda DPPA 2019, support hours overlapping EAT (UTC+3), and price-per-workload.
+| Workload pattern | First choice | Second choice | Why |
+|------------------|--------------|---------------|-----|
+| Steady web/API, predictable traffic | Container on Debian/Ubuntu VPS (Compose or systemd) | EC2 / Compute Engine VM | Predictable cost, full control |
+| Bursty / event-driven (webhooks, schedules) | Lambda / Cloud Functions | Containers + autoscaling | Sub-second cold-start tolerable, pay-per-invocation |
+| Long-running background jobs (>15 min) | Container on VM with queue worker | ECS / Cloud Run | Lambda 15-minute hard limit |
+| Stateful data layer (MySQL primary) | Managed RDS / Cloud SQL | Self-hosted on VPS | Backup, failover, patching automation |
+| Object/file storage | S3 / Cloud Storage | Self-hosted MinIO | Eleven-nines durability, lifecycle policies |
+| Multiple services, no platform team | ECS Fargate with ALB | Container on VPS | Managed control plane, ALB integration |
+| Polyglot multi-tenant platform | Kubernetes (`kubernetes-platform`) | ECS Fargate | Workload isolation, per-tenant policies |
+
+Kubernetes is a commitment, not a default.
+
+### SaaS-Relevant AWS Subset
+
+- EC2 — compute primitives. `t3`/`t4g` for steady, `c6i`/`c7i` CPU-bound, `m6i`/`m7i` balanced, `r6i`/`r7i` memory-bound, `i4i` NVMe-heavy.
+- S3 — object store for assets, backups, exports. Lifecycle policies move cold data to S3-IA / Glacier.
+- RDS — managed MySQL/PostgreSQL with Multi-AZ for production.
+- Lambda — event handlers, scheduled jobs, lightweight APIs.
+- IAM — identity and policy: least-privilege roles for services, MFA on humans, OIDC for CI.
+
+### GCP Equivalents Map
+
+| AWS | GCP |
+|-----|-----|
+| EC2 | Compute Engine |
+| S3 | Cloud Storage |
+| RDS | Cloud SQL |
+| Lambda | Cloud Functions / Cloud Run |
+| IAM | Cloud IAM |
+| ALB | HTTPS Load Balancer |
+| CloudFront | Cloud CDN |
+| ACM | Certificate Manager |
+
+### Cloud Provider Selection (East African Workloads)
 
 | Dimension | AWS | GCP | Azure |
 |-----------|-----|-----|-------|
@@ -86,34 +122,15 @@ East African SaaS workloads (Uganda, Kenya, Tanzania) weigh four dimensions: lat
 | Support in EAT | 24/7 Business; EMEA TAM overlap | 24/7 Standard | 24/7 ProDirect; ZA partners |
 | Managed services breadth | Widest | Data/ML led | Microsoft-stack integration |
 
-Default to AWS `af-south-1` for Uganda workloads with S-tier DPPA 2019 data; use Azure `southafricanorth` only for .NET-heavy stacks with an existing EA licence; avoid GCP as primary for DPPA-scoped data until a ZA region is GA.
+Default to AWS `af-south-1` for Uganda workloads with DPPA 2019 data; use Azure `southafricanorth` only for .NET-heavy stacks with an existing EA licence; avoid GCP as primary for DPPA-scoped data until a ZA region is GA.
 
-```bash
-aws configure set region af-south-1 --profile ug-prod
-aws ec2 describe-availability-zones --region af-south-1 --query "AvailabilityZones[].ZoneName"
-```
+## §2 Docker Fundamentals
 
-## Compute Model Decision Rules
-
-1. Single app, low traffic, one region → EC2 + Docker Compose, backed by RDS Multi-AZ and S3.
-2. Multiple services, scaling needs, no Kubernetes skill → ECS Fargate with ALB.
-3. Multiple services, platform-ready team, polyglot runtime, multi-tenant isolation → Kubernetes (defer to `kubernetes-platform`).
-4. Async fan-out, batch, or event pipeline → Lambda + SQS + EventBridge, with state in DynamoDB or RDS.
-
-Kubernetes is a commitment, not a default.
-
-## Docker Fundamentals
-
-Images are immutable, content-addressed layers. Containers are processes isolated by namespaces and cgroups. Disciplined Dockerfile authorship controls image size, cache behaviour, and attack surface.
-
-### Dockerfile Checklist
-
-- Multi-stage: compile/install in `builder`, copy only runtime artifacts to the final stage.
-- Pin base images by version and digest (`node:22.11.0-slim@sha256:...`).
-- Prefer distroless or `alpine` for runtime; target image ≤ 200 MB.
-- Run as non-root (`USER nonroot` or dedicated UID ≥ 10000). Set `WORKDIR`, `EXPOSE`, `HEALTHCHECK` explicitly.
-- Secrets via mounted files or orchestrator env — never baked in. `.dockerignore` excludes `.git`, `node_modules`, logs, fixtures, editor config.
-- Order `COPY` from least-changing (manifests) to most-changing (source) to preserve layer caching.
+- Image vs container — image is the read-only template (layers + manifest); container is the running instance with a writable layer on top.
+- Layers — each Dockerfile instruction creates a layer. Order from least-frequently-changing (base, system deps) to most-frequently-changing (application code) to maximise cache hits.
+- Multi-stage builds — separate `builder` (compilers, dev deps) from `runtime` (slim, no build tools).
+- Registries — Docker Hub, GHCR, AWS ECR, GCP Artifact Registry. Tag with both an environment alias and an immutable `:sha-<git-sha>` tag; never deploy `:latest` to production.
+- Security basics — run as non-root, scan images with Trivy or Grype, pin base image digest, keep images small (≤200 MB), `.dockerignore` excludes `.git`, `node_modules`, logs, fixtures.
 
 ### Production Node.js Dockerfile
 
@@ -138,221 +155,87 @@ HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 CMD ["nod
 CMD ["dist/server.js"]
 ```
 
-## Docker Compose
+## §3 Docker Compose For App + Dependencies
 
-One `docker-compose.yml` in the repo root mirrors production. Named volumes for stateful services; never bind-mount databases. Declare `healthcheck` on every dependency and gate startup with `depends_on.condition: service_healthy`.
+The Compose Specification consolidates legacy 2.x/3.x file formats; the modern format does not require a `version:` top-level key. One `docker-compose.yml` in the repo root mirrors production. Named volumes for stateful services; never bind-mount databases. Declare `healthcheck` on every dependency and gate startup with `depends_on.condition: service_healthy`.
 
 ```yaml
-name: saas-local
 services:
-  web:
+  app:
     build: .
-    env_file: .env
-    ports: ["3000:3000"]
+    environment:
+      DATABASE_URL: mysql://app:${DB_PASSWORD}@db:3306/app
+      REDIS_URL: redis://cache:6379
     depends_on:
       db: { condition: service_healthy }
-      redis: { condition: service_healthy }
+      cache: { condition: service_started }
     healthcheck:
-      test: ["CMD", "node", "dist/healthcheck.js"]
-      interval: 30s
-      timeout: 5s
-      retries: 3
+      test: ["CMD", "wget", "-qO-", "http://localhost:3000/healthz"]
+      interval: 10s
+      retries: 6
+    restart: unless-stopped
+
   db:
-    image: postgres:16.4-alpine
+    image: mysql:8.4
     environment:
-      POSTGRES_USER: app
-      POSTGRES_PASSWORD_FILE: /run/secrets/db_password
-      POSTGRES_DB: app
-    volumes: ["db-data:/var/lib/postgresql/data"]
+      MYSQL_DATABASE: app
+      MYSQL_USER: app
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+    volumes: [dbdata:/var/lib/mysql]
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U app -d app"]
-      interval: 10s
-      timeout: 3s
-      retries: 5
-    secrets: [db_password]
-  redis:
-    image: redis:7.4-alpine
-    command: ["redis-server", "--appendonly", "yes"]
-    volumes: ["redis-data:/data"]
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 10s
-      timeout: 3s
-      retries: 5
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      retries: 10
+
+  cache:
+    image: redis:7-alpine
+    restart: unless-stopped
+
+  proxy:
+    image: caddy:2
+    ports: ["80:80", "443:443"]
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+    depends_on: [app]
+
 volumes:
-  db-data: {}
-  redis-data: {}
-secrets:
-  db_password: { file: ./.secrets/db_password }
+  dbdata: {}
+  caddy_data: {}
 ```
 
-Commit `.env.example`, ignore `.env`, and provide env through the orchestrator in production. See `references/docker-compose-patterns.md` for the full template.
+Caddy is recommended for VPS-first deployments because it automates Let's Encrypt issuance and renewal out of the box (`caddyserver.com/docs/automatic-https`). Commit `.env.example`, ignore `.env`, and provide env through the orchestrator in production. See `references/docker-compose-patterns.md` for the full template.
 
-## AWS Core Services
+## §4 GitHub Actions CI/CD Overview
 
-### Compute
+Workflows live in `.github/workflows/*.yml`. Top-level keys: `name`, `on`, `permissions`, `env`, `defaults`, `concurrency`, `jobs`. Each job needs `runs-on` and `steps`; jobs run in parallel by default.
 
-Instance families: `t3`/`t4g` burstable (dev, low-traffic), `m6i`/`m7i` balanced production, `c6i`/`c7i` CPU-bound, `r6i`/`r7i` memory-bound, `i4i` NVMe-heavy. Place production instances in private subnets; expose only via ALB/NLB. Build AMIs with Packer or EC2 Image Builder; no manual console edits.
+Minimal pattern: `build-test` job builds the image, runs tests, pushes to GHCR with an immutable `sha-<git-sha>` tag; `deploy-vps` job (gated by `environment: production` for required reviewers) SSHes in and runs `docker compose pull && up -d`. Secrets discipline: only short-lived deploy credentials in GitHub Actions secrets; long-lived secrets (DB password, API keys) live in Vault and are pulled at runtime.
 
-```yaml
-LaunchTemplate:
-  Type: AWS::EC2::LaunchTemplate
-  Properties:
-    LaunchTemplateName: app-prod-lt
-    LaunchTemplateData:
-      ImageId: ami-0123456789abcdef0
-      InstanceType: m6i.large
-      IamInstanceProfile: { Name: app-prod-instance-profile }
-      SecurityGroupIds: [sg-app]
-      MetadataOptions: { HttpTokens: required, HttpEndpoint: enabled }
-AppASG:
-  Type: AWS::AutoScaling::AutoScalingGroup
-  Properties:
-    MinSize: 2
-    MaxSize: 10
-    DesiredCapacity: 3
-    HealthCheckType: ELB
-    HealthCheckGracePeriod: 120
-    VPCZoneIdentifier: [subnet-priv-a, subnet-priv-b, subnet-priv-c]
-    LaunchTemplate:
-      LaunchTemplateId: !Ref LaunchTemplate
-      Version: !GetAtt LaunchTemplate.LatestVersionNumber
-    TargetGroupARNs: [!Ref AppTargetGroup]
-```
+Full workflow file, cloud-target variants, and concurrency control: `references/github-actions-overview.md`. Pipeline depth, matrix strategy, reusable workflows: `cicd-pipelines`. DevSecOps gates: `cicd-devsecops`.
 
-### Storage
+## §5 Staging / Production Environment Management
 
-Enable default encryption, block public access, and turn on versioning for any data you cannot reconstruct. Lifecycle: transition > 30 days to Standard-IA, > 90 days to Glacier Instant Retrieval, expire multipart uploads > 7 days. Use presigned URLs for customer uploads/downloads; never hand out credentials. Multipart upload threshold ≥ 100 MB; part size 8–16 MB.
+Four axes of separation:
 
-```bash
-aws s3 presign s3://app-prod-uploads/customer/42/invoice.pdf \
-  --expires-in 900 --region af-south-1
+| Axis | Staging | Production |
+|------|---------|------------|
+| Data | Anonymised production-like fixture; never live PII. | Live data, encrypted at rest, backed up. |
+| Secrets | Separate Vault path; non-production keys only. | Vault production path; rotation enforced. |
+| Traffic | Synthetic + internal users. | Real users; protected by WAF + rate limits. |
+| Observability | Same instrumentation; lower retention; alerts page no one. | Full retention; on-call paging on SLO-linked alerts. |
 
-aws configure set default.s3.multipart_threshold 100MB
-aws configure set default.s3.multipart_chunksize 16MB
-```
+**Build once, deploy many.** The same image SHA that passed staging is the image that runs in production. Configuration differs (env vars, secrets, replica count); the artifact does not. Promotion flow: feature branch → PR + checks → main → staging deploy → smoke + soak → production deploy (same SHA, gated by required reviewers).
 
-```json
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "DenyInsecureTransport",
-      "Effect": "Deny",
-      "Principal": "*",
-      "Action": "s3:*",
-      "Resource": ["arn:aws:s3:::app-prod-uploads", "arn:aws:s3:::app-prod-uploads/*"],
-      "Condition": { "Bool": { "aws:SecureTransport": "false" } }
-    }
-  ]
-}
-```
+Configuration layering, sanitisation script policy, and full promotion checklist: `references/environment-management.md`.
 
-### Database
+## §6 SSL/TLS, CDN, Auto-Scaling
 
-Multi-AZ for every production RDS MySQL/PostgreSQL; synchronous standby in a second AZ. Automated backups retention 7–35 days with PITR. Read replicas for read-heavy paths, never for durability. Parameter groups hold tunings; never edit defaults in place.
+### SSL/TLS Automation
 
-```bash
-aws rds create-db-parameter-group --db-parameter-group-name app-pg16-prod \
-  --db-parameter-group-family postgres16 --description "Prod PG16 params"
-aws rds create-db-instance --db-instance-identifier app-prod \
-  --engine postgres --engine-version 16.4 --db-instance-class db.m6i.large \
-  --allocated-storage 200 --storage-type gp3 --storage-encrypted \
-  --multi-az --backup-retention-period 14 --db-parameter-group-name app-pg16-prod \
-  --monitoring-interval 60 --enable-performance-insights
-```
-
-### Serverless
-
-Lambda triggers: S3 object-created, SQS queue, API Gateway, EventBridge schedule, DynamoDB Streams. Cold-start mitigation: provisioned concurrency for latency-sensitive paths; a 5-minute EventBridge keep-warm rule as a low-cost fallback. Keep deployment package ≤ 50 MB zipped; container images only when native deps demand it.
-
-```bash
-aws lambda put-provisioned-concurrency-config \
-  --function-name order-api --qualifier live \
-  --provisioned-concurrent-executions 5
-```
-
-### IAM
-
-Roles, not users, for workloads — instance profiles on EC2, task roles on ECS. Policy statements scoped to specific ARNs and actions — no `*:*`. CI uses OIDC federation to assume role; no long-lived keys. MFA on every human account; root locked away with hardware MFA.
-
-```json
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "AppReadUploads",
-      "Effect": "Allow",
-      "Action": ["s3:GetObject", "s3:PutObject"],
-      "Resource": "arn:aws:s3:::app-prod-uploads/*"
-    },
-    {
-      "Sid": "AppReadSecrets",
-      "Effect": "Allow",
-      "Action": "secretsmanager:GetSecretValue",
-      "Resource": "arn:aws:secretsmanager:af-south-1:111122223333:secret:app/prod/*"
-    }
-  ]
-}
-```
-
-## Networking
-
-Design the VPC across ≥ 3 AZs for production, 2 for non-production. Allocate a /16 and carve /20 public and /20 private subnets per AZ. One NAT gateway per AZ in production — single-AZ NAT is a SPOF and cross-AZ data charges bite.
-
-| Layer | CIDR example | Routing |
-|-------|--------------|---------|
-| Public subnets | 10.20.0.0/20 per AZ | IGW default route |
-| Private app subnets | 10.20.32.0/20 per AZ | NAT gateway in same AZ |
-| Private data subnets | 10.20.64.0/20 per AZ | No outbound route |
-
-Security groups are stateful instance-level allow-lists — the primary tool. NACLs are stateless subnet-level deny/allow lists — use only for coarse boundaries (blocking known-bad CIDRs). Reserve ≥ /18 headroom for peering or Transit Gateway.
-
-```bash
-aws ec2 create-vpc --cidr-block 10.20.0.0/16 \
-  --tag-specifications 'ResourceType=vpc,Tags=[{Key=Name,Value=ug-prod-vpc}]'
-aws ec2 create-nat-gateway --subnet-id subnet-pub-a --allocation-id eipalloc-aaa
-```
-
-## Load Balancers
-
-| Feature | ALB | NLB |
-|---------|-----|-----|
-| Layer | 7 (HTTP/HTTPS/gRPC) | 4 (TCP/UDP/TLS) |
-| Routing | Host, path, header, query | Port-based |
-| TLS termination | At ALB | Passthrough or at NLB |
-| Sticky sessions | Cookie-based | Source-IP flow hash |
-| Use case | Web APIs, microservices | High-throughput TCP, static IPs, PrivateLink |
-
-Health checks hit a dedicated `/healthz` path on a dedicated port when feasible; verify dependencies shallowly — not deeply, or cascading failures evict healthy targets.
-
-```bash
-aws elbv2 create-target-group --name app-tg-blue --protocol HTTP --port 3000 \
-  --vpc-id vpc-0abc --health-check-path /healthz --health-check-interval-seconds 15 \
-  --healthy-threshold-count 2 --unhealthy-threshold-count 3 --matcher HttpCode=200
-aws elbv2 create-listener --load-balancer-arn $ALB_ARN --protocol HTTPS --port 443 \
-  --certificates CertificateArn=$ACM_ARN \
-  --ssl-policy ELBSecurityPolicy-TLS13-1-2-2021-06 \
-  --default-actions Type=forward,TargetGroupArn=$TG_BLUE
-```
-
-## CDN
-
-CloudFront or Cloudflare in front of every static asset and cacheable API response. Enable Origin Shield in a region close to the origin to cut origin fetches by 60–80%. Attach AWS WAF with the Managed Rules Core Rule Set plus Known Bad Inputs and IP-Reputation lists; add a rate-based rule at 2000 requests per 5 minutes per IP for unauthenticated endpoints.
-
-```bash
-aws cloudfront create-distribution --distribution-config file://cf-dist.json
-aws wafv2 create-web-acl --name app-prod-waf --scope CLOUDFRONT --default-action Allow={} \
-  --visibility-config SampledRequestsEnabled=true,CloudWatchMetricsEnabled=true,MetricName=app-prod-waf \
-  --rules file://waf-managed-rules.json
-```
-
-Invalidate surgically — never `invalidate /*` on every deploy; use versioned asset paths (`/static/v=<build-sha>/`) and cache-bust only HTML.
-
-## SSL/TLS Automation
-
-- AWS ALB, CloudFront, API Gateway → ACM certificates: free, auto-renewed, DNS-validated via Route 53.
-- VPS or single host → Certbot + Let's Encrypt with the installer's systemd timer; nightly cron only when systemd is unavailable.
+- AWS ALB / CloudFront / API Gateway → ACM certificates: free, auto-renewed, DNS-validated via Route 53. ACM-issued certs cannot be exported.
+- VPS-first → Caddy auto-issues and renews from Let's Encrypt with no extra config; nginx + certbot for hosts where Caddy is not viable.
 - Kubernetes → `cert-manager` with a `ClusterIssuer` for Let's Encrypt ACME HTTP-01 or DNS-01.
 
 ```bash
@@ -360,14 +243,22 @@ aws acm request-certificate --domain-name app.example.co.ug \
   --subject-alternative-names "*.app.example.co.ug" \
   --validation-method DNS --key-algorithm RSA_2048
 sudo certbot --nginx -d app.example.co.ug --deploy-hook "systemctl reload nginx"
-kubectl apply -f cert-manager/letsencrypt-prod-issuer.yaml
 ```
 
 TLS 1.2 minimum, prefer 1.3. Enable HSTS `max-age=31536000; includeSubDomains; preload` once the production cert path is stable.
 
-## Auto-Scaling
+### CDN
 
-Target tracking first, step scaling second, predictive third. Scale on request count per target and P95 latency — not CPU alone.
+| Goal | First choice | Notes |
+|------|--------------|-------|
+| AWS-native edge caching | CloudFront | Native ACM integration, Lambda@Edge for request rewrite. |
+| Multi-cloud or VPS in front | Cloudflare | Free tier viable for SaaS MVPs; WAF and bot mitigation included. |
+
+CloudFront or Cloudflare in front of every static asset and cacheable API response. Enable Origin Shield close to origin to cut origin fetches by 60–80%. Attach AWS WAF with the Managed Rules Core Rule Set plus Known Bad Inputs and IP-Reputation; add a rate-based rule at 2000 req/5 min/IP for unauthenticated endpoints. Invalidate surgically — use versioned asset paths (`/static/v=<build-sha>/`); cache-bust HTML only.
+
+### Auto-Scaling
+
+Target tracking first, step scaling second, predictive third. Scale on request count per target and P95 latency — not CPU alone. AWS ASG scales EC2 horizontally on CloudWatch metrics; Lambda concurrency is governed by reserved/provisioned concurrency. For VPS-first with Compose, scale vertically first (bigger VPS), then introduce a load balancer in front of multiple VPS instances. Kubernetes HPA → `kubernetes-platform`.
 
 ```bash
 aws application-autoscaling put-scaling-policy --service-namespace ecs \
@@ -383,20 +274,37 @@ aws application-autoscaling put-scaling-policy --service-namespace ecs \
   }'
 ```
 
-- CPU target 70% for CPU-bound services; never below 40% (wastes capacity). Scheduled scaling for predictable load (EAT business hours 07:00–19:00). Predictive scaling requires ≥ 14 days of CloudWatch history and a regular daily/weekly pattern — otherwise predictions are noise. Warm pools for slow-booting AMIs (> 3 min boot).
+CPU target 70% for CPU-bound services; never below 40% (wastes capacity). Predictive scaling needs ≥14 days of CloudWatch history and a regular pattern. Warm pools for slow-booting AMIs (>3 min boot).
 
-## Zero-Downtime Deployments
+## §7 Zero-Downtime Deployment Patterns
 
-Blue-green via ALB target-group swap for stateful-client apps; ASG instance refresh for stateless fleets. Canary for risky changes (pull weight to zero to rollback); shadow for unproven services receiving mirrored traffic. Automatic rollback triggers on health-check failure, 5xx-rate regression > 0.5% over 5 min, or P95 latency regression beyond SLO budget.
+| Pattern | How it works | When to use | Trade-off |
+|---------|--------------|-------------|-----------|
+| Rolling | Replace instances N at a time, health-check each. | Default for stateless web apps with ≥2 instances. | Mixed-version window during rollout. |
+| Blue/green | Run new version (green) alongside old (blue); flip traffic via load balancer / DNS. | Schema-compatible releases needing instant rollback. | Doubles infra cost during cutover. |
+| Canary | Send a small % of traffic to the new version, expand on green metrics. | High-risk changes with observability fast enough to detect regression. | Requires traffic-splitting layer (ALB weighted target groups, Cloudflare LB, service mesh). |
 
-Blue-green procedure: register green with `app-tg-green`, wait for all targets `healthy` via `aws elbv2 describe-target-health`, then swap the listener:
+Automatic rollback triggers on health-check failure, 5xx-rate regression > 0.5% over 5 min, or P95 latency regression beyond SLO budget. Schema migrations must be backwards-compatible across two application versions (expand → migrate → contract). Every deploy writes a signed record: who, what, when, artifact digest.
+
+### VPS-First Blue/Green With Caddy
+
+1. Deploy `app-green` on port 3001 alongside `app-blue` on port 3000 (`docker compose --profile green up -d`).
+2. Health-check `app-green` for N minutes against `/healthz`.
+3. Update Caddy upstream from `:3000` to `:3001` and reload (`caddy reload --config /etc/caddy/Caddyfile`); Caddy reloads without dropping connections.
+4. Hold blue for a soak window (≥30 minutes) as a hot rollback target.
+5. Stop `app-blue` once error-rate and latency SLOs hold.
+
+### Cloud-Managed Blue/Green With ALB
 
 ```bash
+aws elbv2 create-target-group --name app-tg-green --protocol HTTP --port 3000 \
+  --vpc-id vpc-0abc --health-check-path /healthz --health-check-interval-seconds 15 \
+  --healthy-threshold-count 2 --unhealthy-threshold-count 3 --matcher HttpCode=200
 aws elbv2 modify-listener --listener-arn $LISTENER_ARN \
   --default-actions Type=forward,TargetGroupArn=$TG_GREEN
 ```
 
-Hold blue for 30 minutes as a hot rollback target; deregister only after error-rate and latency SLOs hold. Rolling update via ASG instance refresh:
+Rolling refresh on ASG:
 
 ```bash
 aws autoscaling start-instance-refresh --auto-scaling-group-name app-prod-asg \
@@ -406,32 +314,23 @@ aws autoscaling start-instance-refresh --auto-scaling-group-name app-prod-asg \
   }'
 ```
 
-Rollback: re-point the listener to `app-tg-blue` (blue-green), or `aws autoscaling cancel-instance-refresh` and roll forward with the prior Launch Template version. Schema migrations must be backwards-compatible across two application versions (expand → migrate → contract). Every deploy writes a signed record: who, what, when, artifact digest.
+Rollback: re-point the listener to `app-tg-blue` (blue/green) or `aws autoscaling cancel-instance-refresh` and roll forward with the prior Launch Template version. Full runbooks: `references/deployment-patterns.md`.
 
-## Backup & Disaster Recovery
+## §8 Cost-Aware Architecture Decisions
 
-Define RTO (how fast to recover) and RPO (how much data loss is tolerable) before picking tools. Typical production SaaS targets RTO ≤ 4 h, RPO ≤ 15 min.
+The Cost Optimization pillar of AWS Well-Architected centres on five design principles: implement cloud financial management, adopt a consumption model, measure overall efficiency, stop spending on undifferentiated heavy lifting, and analyse and attribute expenditure (`aws.amazon.com/architecture/well-architected/`).
 
-- RDS: automated backups retention 7–35 days with PITR; weekly manual snapshots retained 90 days; cross-region snapshot copy to `eu-west-1` as a sovereignty-preserving DR site.
-- S3: versioning on every data bucket; lifecycle moves non-current versions to Glacier Deep Archive after 60 days; Cross-Region Replication for critical buckets.
-- EBS: daily snapshots via AWS Backup with a 30-day retention plan.
+### Cost Levers
 
-```bash
-aws rds copy-db-snapshot \
-  --source-db-snapshot-identifier arn:aws:rds:af-south-1:111122223333:snapshot:app-prod-2026-04-15 \
-  --target-db-snapshot-identifier app-prod-2026-04-15-dr \
-  --kms-key-id alias/rds-dr --source-region af-south-1 --region eu-west-1
-aws s3api put-bucket-versioning --bucket app-prod-uploads --versioning-configuration Status=Enabled
-```
-
-Rehearse restore quarterly — an untested backup is a hypothesis, not a backup.
-
-## Cost Optimisation
-
-- Reserved Instances or Savings Plans for steady baseline (70–80% of average compute); on-demand for burst. Prefer Compute Savings Plans (1y no-upfront starting posture; 3y only when headcount and roadmap are certain) — they apply across EC2, Fargate, Lambda.
-- Spot for non-critical async workers and CI runners with a graceful shutdown handler for the 2-minute interruption notice.
-- S3 Intelligent-Tiering on buckets with unpredictable access; tag every resource with `Environment`, `Team`, `CostCenter`, `Project` and activate these as cost-allocation tags in Billing.
-- Cost Explorer, Cost Anomaly Detection, and per-environment budgets on from day one.
+| Lever | Action | Notes |
+|-------|--------|-------|
+| Right-sizing | Match instance class/size to actual CPU+memory profile after ≥2 weeks of metrics. | Measure before resizing; project must confirm savings. |
+| Reserved / Savings Plans | 1- or 3-year commitment for steady-state baseline (70–80% of average compute); spot/preemptible for batch. | Prefer Compute Savings Plans 1y no-upfront initially; 3y only when headcount and roadmap are certain. |
+| S3 lifecycle | Move logs/backups to S3-IA after 30 d, Glacier after 90 d. | Storage-class delta; project must measure. |
+| Egress | Keep traffic intra-AZ where possible; CDN absorbs repeat reads. | NAT GW per AZ avoids cross-AZ data charges. |
+| Right-data-tier | MySQL primary on managed RDS; cold reports → S3 + Athena. | Avoids overprovisioning RDS. |
+| Spot / preemptible | Async workers, CI runners with graceful shutdown handler for interruption notice. | Pair with on-demand fallback. |
+| Tagging | Tag every resource with `Environment`, `Team`, `CostCenter`, `Project`; activate as cost-allocation tags. | Cost Explorer + per-environment budgets from day one. |
 
 ```bash
 aws ce list-cost-allocation-tags --status Active --region us-east-1
@@ -443,56 +342,41 @@ aws budgets create-budget --account-id 111122223333 --budget '{
 }'
 ```
 
-## Multi-Region Considerations
+Verify pricing figures against the current AWS pricing page before publishing — do not quote saving percentages without a fresh source.
 
-- Latency from East Africa: `af-south-1` ~ 30 ms; `eu-west-1` ~ 150 ms; `us-east-1` ~ 220 ms. Place user-facing tiers in `af-south-1` whenever available.
-- Data residency: Uganda DPPA 2019 requires personal data of Ugandan data subjects to be processed in a jurisdiction with adequate protection; `af-south-1` with KMS customer-managed keys is the low-friction default. Log the data-flow and cross-border transfer basis in `_context/compliance.md`.
-- Replication: active-passive (primary `af-south-1`, warm standby `eu-west-1`) is the common starting posture; active-active only when conflict-resolution is designed in (DynamoDB Global Tables, Aurora Global Database with write forwarding). Route 53 health-checked failover records for DR, not client-side retry loops.
+## §9 Architecture Review Checklist (Six Pillars)
 
-```bash
-aws route53 create-health-check --caller-reference "ug-app-$(date +%s)" --health-check-config file://hc.json
-aws dynamodb update-table --table-name orders --replica-updates '[{"Create": {"RegionName": "eu-west-1"}}]'
-```
+Walk each Well-Architected pillar against the deployment under review:
 
-## Security Baseline
+- **Operational Excellence** — runbooks documented, deployments automated, postmortems blameless, observability covers all four golden signals (latency, traffic, errors, saturation), telemetry routed to SigNoz.
+- **Security** — IAM least-privilege, secrets in Vault not env files or images, SSL/TLS everywhere including internal hops, audit log retention defined, MFA on every human, root locked away with hardware MFA, OIDC federation for CI.
+- **Reliability** — VPC spans ≥2 AZs, data stores Multi-AZ, backup + restore tested quarterly, RTO/RPO recorded, error budget defined, dependency timeouts and retries explicit.
+- **Performance Efficiency** — instance sizing measured, caching tier present, database indexed for top queries, CDN in front of static assets, P95 latency tracked.
+- **Cost Optimization** — billing alerts on, untagged resources rejected, reserved-vs-on-demand reviewed quarterly, Spot use paired with shutdown handling.
+- **Sustainability** — over-provisioning eliminated, cold storage tiering on, idle dev environments shut down outside work hours, regional choice considers carbon intensity.
 
-Enable these on the management account and every member account on day one. All commands are idempotent — safe to re-run.
+## Backup, Multi-Region, Security Baseline
 
-```bash
-aws cloudtrail create-trail --name org-trail --s3-bucket-name org-cloudtrail-logs \
-  --is-multi-region-trail --is-organization-trail --enable-log-file-validation \
-  --kms-key-id alias/cloudtrail
-aws cloudtrail start-logging --name org-trail
-aws s3api put-bucket-versioning --bucket org-cloudtrail-logs --versioning-configuration Status=Enabled
-aws configservice start-configuration-recorder --configuration-recorder-name default
-aws guardduty create-detector --enable --finding-publishing-frequency FIFTEEN_MINUTES
-aws securityhub enable-security-hub --enable-default-standards
-aws accessanalyzer create-analyzer --analyzer-name org-analyzer --type ORGANIZATION
-```
+These cross-cutting concerns are summarised below; deep CLI is in `references/aws-core-services.md`.
 
-- CloudTrail: all regions, S3 bucket with versioning, log-file validation, KMS-encrypted.
-- AWS Config: enable the AWS Foundational Security Best Practices conformance pack.
-- GuardDuty: detector in every region with S3 and EKS protection on.
-- Security Hub: aggregate findings in a delegated admin account; resolve Critical/High within team SLO. IAM Access Analyzer: organization-level, reviewed weekly.
+- **Backup & DR** — typical SaaS targets RTO ≤ 4 h, RPO ≤ 15 min. RDS automated backups 7–35 days with PITR; weekly manual snapshots retained 90 days; cross-region snapshot copy to `eu-west-1` as a sovereignty-preserving DR site. S3 versioning + Cross-Region Replication for critical buckets. EBS daily snapshots via AWS Backup. Rehearse restore quarterly.
+- **Multi-Region** — `af-south-1` ~30 ms; `eu-west-1` ~150 ms; `us-east-1` ~220 ms from East Africa. Active-passive (primary `af-south-1`, warm standby `eu-west-1`) is the common starting posture; active-active only when conflict-resolution is designed in.
+- **Account Security Baseline** — CloudTrail multi-region with log-file validation and KMS, AWS Config with the Foundational Security Best Practices conformance pack, GuardDuty in every region with S3 and EKS protection, Security Hub aggregating in a delegated admin account, IAM Access Analyzer at organization level reviewed weekly.
 
-## Review Checklist
+## Networking & Load Balancers (Quick Reference)
 
-- [ ] Workload classified; compute model justified in writing.
-- [ ] VPC spans ≥ 2 AZs; data stores Multi-AZ.
-- [ ] No credentials in images, committed files, or Git history; IAM uses roles + OIDC, not long-lived keys.
-- [ ] Deployment pattern chosen with rollback runbook validated; TLS, CDN, WAF posture documented.
-- [ ] Auto-scaling signal is request- or latency-driven, not CPU-only.
-- [ ] CloudTrail, Config, GuardDuty, Security Hub enabled across all regions; backups tested with a quarterly restore rehearsal (RTO/RPO documented); billing alerts active, Cost Explorer tags applied, Spot use paired with shutdown handling.
+Design VPC across ≥3 AZs for production, 2 for non-production. Allocate /16; carve /20 public and /20 private subnets per AZ. NAT gateway per AZ in production — single-AZ NAT is a SPOF and cross-AZ data charges bite. Security groups (stateful, instance-level) are the primary tool; NACLs (stateless, subnet-level) only for coarse boundaries.
+
+| Feature | ALB | NLB |
+|---------|-----|-----|
+| Layer | 7 (HTTP/HTTPS/gRPC) | 4 (TCP/UDP/TLS) |
+| Routing | Host, path, header, query | Port-based |
+| TLS termination | At ALB | Passthrough or at NLB |
+| Use case | Web APIs, microservices | High-throughput TCP, static IPs, PrivateLink |
+
+Health checks hit a dedicated `/healthz` path; verify dependencies shallowly — deep checks cause cascading failures evicting healthy targets. Full networking and AWS-core CLI: `references/aws-core-services.md`.
 
 ## Platform Notes
 
 - Claude Code: `aws` CLI and `docker` CLI are the primary surface. Configure profiles with `aws configure sso`; use named profiles per environment.
 - Codex: treat every command as a patch candidate; keep commands in shell blocks so they stay portable.
-
-## References
-
-- [references/aws-core-services.md](references/aws-core-services.md): EC2, S3, RDS, IAM, ALB, ASG, CloudFront CLI recipes.
-- [references/docker-compose-patterns.md](references/docker-compose-patterns.md): Full local-parity stack template.
-- [references/deployment-patterns.md](references/deployment-patterns.md): Blue-green and canary runbooks with rollback steps.
-- AWS Well-Architected Framework: [aws.amazon.com/architecture/well-architected](https://aws.amazon.com/architecture/well-architected/)
-- *Docker Deep Dive* — Nigel Poulton (reading programme, Phase 01 priority 1).

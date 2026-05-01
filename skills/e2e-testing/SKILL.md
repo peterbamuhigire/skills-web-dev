@@ -1,9 +1,6 @@
 ---
 name: e2e-testing
-description: Use when writing end-to-end browser tests for production web apps — Playwright
-  with TypeScript, Page Object Model, network interception, visual regression, accessibility
-  assertions, CI integration (GitHub Actions), parallel execution, and flaky test
-  triage.
+description: Use when writing end-to-end browser tests for production web apps — Playwright with TypeScript, locator strategy, Page Object and component-object patterns, fixtures and worker model, network interception, storageState auth reuse, visual regression, flake mitigation, sharded CI, and a Cypress decision aid.
 metadata:
   portable: true
   compatible_with:
@@ -72,6 +69,10 @@ test('home page renders and primary CTA works', async ({ page }) => {
   await expect(page).toHaveURL(/\/signup/);
 });
 ```
+
+## Isolation Model
+
+Each test gets its own `Page`, which lives inside its own `BrowserContext` (an isolated cookie and localStorage jar), which shares an underlying `Browser` instance across tests for performance. That hierarchy is why two tests can run in parallel against the same site without leaking auth or state — never share contexts manually unless a test deliberately exercises cross-tab behaviour.
 
 ## Playwright Setup
 
@@ -150,13 +151,17 @@ test('user signs in successfully', async ({ page }) => {
 
 ## Locator Strategy
 
-Prefer locators that match how a real user finds elements. Priority order:
+Prefer locators that match how a real user finds elements. All `getBy*` locators auto-wait and retry. Priority order from the official docs:
 
-1. `getByRole` — canonical accessibility query.
-2. `getByLabel` — form inputs with associated labels.
-3. `getByPlaceholder` — inputs without labels (fix the a11y bug later).
-4. `getByText` — static copy and headings.
-5. `getByTestId` — last resort when semantics cannot express the target.
+1. `getByRole` — canonical accessibility query: `page.getByRole('button', { name: 'Sign in' }).click()`.
+2. `getByText` — static copy and headings: `expect(page.getByText('Welcome, John!')).toBeVisible()`.
+3. `getByLabel` — form controls by associated label: `page.getByLabel('Password').fill('secret')`.
+4. `getByPlaceholder` — inputs without labels (fix the a11y bug later): `page.getByPlaceholder('name@example.com').fill('test@example.com')`.
+5. `getByAltText` — images and other elements with text alternatives: `page.getByAltText('playwright logo').click()`.
+6. `getByTitle` — elements identified by `title` attribute: `expect(page.getByTitle('Issues count')).toHaveText('25 issues')`.
+7. `getByTestId` — last resort when semantics cannot express the target: `page.getByTestId('directions').click()`.
+
+Prefer role/text/label because they encode the user's mental model and survive layout refactors. Reach for `data-testid` only when an element has no semantic identity (icon-only buttons, third-party widgets).
 
 ```typescript
 // Good — survives CSS refactors, signals intent
@@ -168,6 +173,29 @@ await page.locator('#root > div > form > div:nth-child(2) > input').fill('3');
 ```
 
 Chain to scope: `page.getByRole('row', { name: 'Invoice #42' }).getByRole('button', { name: 'Delete' })`.
+
+## Page Object vs Component Objects
+
+POM gives one class per page. Use it when flows are long, shared across many tests, and the page surface is stable. It hurts when the page changes fast and the abstraction lags — every refactor touches both the page object and the test.
+
+A *component object* is a fixture-backed class per UI component (login form, search bar, invoice row). Smaller blast radius, easier to compose across pages, and aligns naturally with `test.extend`. Reach for component objects when the same widget appears on many pages or when tests are organised by feature rather than route.
+
+```typescript
+// tests/e2e/components/SearchBar.ts
+import type { Page, Locator } from '@playwright/test';
+export class SearchBar {
+  readonly input: Locator;
+  readonly submit: Locator;
+  constructor(public page: Page, root: Locator = page.getByRole('search')) {
+    this.input = root.getByRole('searchbox');
+    this.submit = root.getByRole('button', { name: 'Search' });
+  }
+  async search(term: string) {
+    await this.input.fill(term);
+    await this.submit.click();
+  }
+}
+```
 
 ## Test Fixtures
 
@@ -192,6 +220,12 @@ test('dashboard loads for authed user', async ({ authedPage }) => {
   await expect(authedPage.getByRole('heading', { name: 'Dashboard' })).toBeVisible();
 });
 ```
+
+Built-in fixtures: `page`, `context`, `browser`, `browserName`, `request`. Custom fixtures support three scopes:
+
+- **test-scoped** (default) — recreated for every test; safe for stateful objects like a seeded record.
+- **worker-scoped** — `{ scope: 'worker' }` — created once per worker process; use for expensive shared resources (DB pool, prebuilt tenant) where the cost of per-test setup dominates.
+- **automatic** — `{ auto: true }` — runs even if a test never references it; use for tracing setup, console-error guards, or per-test cleanup hooks.
 
 ## Authentication in E2E Tests
 
@@ -245,6 +279,19 @@ await page.route('**/api/reports/*', async (route) => {
 
 Full throttling (CPU + bandwidth) uses CDP: `const client = await page.context().newCDPSession(page); await client.send('Network.emulateNetworkConditions', { offline: false, latency: 400, downloadThroughput: 500_000, uploadThroughput: 500_000 });`.
 
+Use `page.waitForResponse` to assert on the network shape that produced the UI state — this catches regressions where the UI looks right but the request payload silently changed:
+
+```typescript
+const [response] = await Promise.all([
+  page.waitForResponse((r) => r.url().endsWith('/api/orders') && r.request().method() === 'POST'),
+  page.getByRole('button', { name: 'Place order' }).click(),
+]);
+expect(response.status()).toBe(201);
+expect(await response.json()).toMatchObject({ status: 'pending' });
+```
+
+The `request` fixture exposes an `APIRequestContext` that hits endpoints directly without a browser — use it for setup, teardown, and pure backend assertions that would be wasteful to drive through the UI. See `api-testing-verification` for contract and schema-level coverage that complements browser flows.
+
 ## Form Submission Testing
 
 Cover three states per form: valid submit, field-level validation, server-side error. Use `getByRole('alert')` to read validation messages.
@@ -277,13 +324,23 @@ test('dashboard matches visual baseline', async ({ page }) => {
   await page.goto('/dashboard');
   await page.waitForLoadState('networkidle');
   await expect(page).toHaveScreenshot('dashboard.png', {
-    maxDiffPixelRatio: 0.01,
+    maxDiffPixels: 100,
     mask: [page.getByTestId('current-time'), page.getByRole('img', { name: 'Avatar' })],
   });
 });
+
+// playwright.config.ts — global tolerance + injected stylesheet that hides volatile UI
+export default defineConfig({
+  expect: {
+    toHaveScreenshot: {
+      maxDiffPixels: 100,
+      stylePath: './tests/e2e/screenshot.css', // hides clocks, spinners, avatars
+    },
+  },
+});
 ```
 
-Regenerate baselines with `npx playwright test --update-snapshots`; images land under `tests/e2e/<spec>.spec.ts-snapshots/dashboard-chromium-linux.png`. *Mask every dynamic region* — clocks, randomised charts, avatar URLs — or snapshots flake.
+Snapshot filenames follow `<name>-<index>-<browser>-<platform>.png`. Regenerate baselines with `npx playwright test --update-snapshots`; images land under `tests/e2e/<spec>.spec.ts-snapshots/dashboard-chromium-linux.png`. *Mask every dynamic region* — clocks, randomised charts, avatar URLs — or use `stylePath` to hide them globally; otherwise snapshots flake. For non-image artifacts (JSON, text), use `expect(value).toMatchSnapshot('name.json')`.
 
 ## Accessibility Testing
 
@@ -370,49 +427,7 @@ Shared state (DB rows, uploaded files) requires serial mode, per-worker isolatio
 
 ## CI Integration (GitHub Actions)
 
-Install deps, cache npm and browsers, run tests in a shard matrix, upload the HTML report on failure.
-
-```yaml
-# .github/workflows/e2e.yml
-name: E2E
-on:
-  pull_request:
-  push:
-    branches: [main]
-jobs:
-  e2e:
-    timeout-minutes: 20
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        shard: [1/4, 2/4, 3/4, 4/4]
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: npm
-      - run: npm ci
-      - name: Cache Playwright browsers
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/ms-playwright
-          key: pw-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-      - run: npx playwright install --with-deps
-      - run: npx playwright test --shard=${{ matrix.shard }}
-        env:
-          BASE_URL: http://localhost:3000
-          E2E_USER_EMAIL: ${{ secrets.E2E_USER_EMAIL }}
-          E2E_USER_PASSWORD: ${{ secrets.E2E_USER_PASSWORD }}
-      - name: Upload HTML report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: playwright-report-${{ strategy.job-index }}
-          path: playwright-report/
-          retention-days: 14
-```
+Three jobs to wire up: install deps, cache npm and browsers, run tests in a shard matrix, upload the HTML report on failure. Use `npx playwright install --with-deps` so Linux system libraries land alongside the browser binaries. Combine `strategy.matrix.shard: [1/4, 2/4, 3/4, 4/4]` with `npx playwright test --shard=${{ matrix.shard }}` to scale wall-clock; cache `~/.cache/ms-playwright` keyed on `package-lock.json` so browser downloads only re-run on version bumps. Upload `playwright-report/` with `if: always()` so failed shards are inspectable from the PR. Full workflow YAML (production sharded + minimal scaffolder variant) lives in `references/github-actions-shard.md`.
 
 ## Debugging
 
@@ -445,15 +460,27 @@ reporter: [
 
 Catch flakes early: `retries: 2` tolerates transient issues while reporting them. Run `npx playwright test --repeat-each=20 flaky.spec.ts` locally to prove determinism. Tests failing at least once in 20 runs are quarantined via `test.fixme()` with a ticket inside 24 h.
 
+## Choosing Playwright vs Cypress
+
+Default to Playwright for new suites: cross-browser parity (WebKit), out-of-process Node-driven tests, first-class multi-tab and multi-origin, native mobile device emulation, free sharding without a paid dashboard. Pick Cypress only when the team already has it, the app is a single-origin SPA, and the live time-travel debugger is the highest-value feature. See `references/cypress-comparison.md` for the full decision table and migration notes.
+
 ## Companion Skills
 
-- `advanced-testing-strategy` — test pyramid, quality gates, coverage strategy
+- `advanced-testing-strategy` — test pyramid, risk-based depth, release evidence
+- `api-testing-verification` — contract, schema, and API-level assertions to pair with the `request` fixture
+- `sdlc-testing` — where E2E sits across plan, build, verify, release stages
 - `cicd-pipelines` — GitHub Actions workflow patterns
 - `webapp-testing` (Anthropic) — Playwright-driven verification of local apps
 
 ## Sources
 
-- Playwright documentation — `playwright.dev/docs`
-- Playwright CI guide — `playwright.dev/docs/ci-github`
-- *Testing JavaScript Applications* — Lucas da Costa (Manning)
+- Playwright getting started — `playwright.dev/docs/intro`
+- Playwright locators — `playwright.dev/docs/locators`
+- Playwright fixtures — `playwright.dev/docs/test-fixtures`
+- Playwright parallelism and sharding — `playwright.dev/docs/test-parallel`
+- Playwright network — `playwright.dev/docs/network`
+- Playwright auth — `playwright.dev/docs/auth`
+- Playwright visual comparisons — `playwright.dev/docs/test-snapshots`
+- Playwright CI intro — `playwright.dev/docs/ci-intro`
+- Cypress documentation — `docs.cypress.io` (comparison only)
 - `@axe-core/playwright` — `github.com/dequelabs/axe-core-npm`

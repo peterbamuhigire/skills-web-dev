@@ -175,3 +175,115 @@ Ship the audit log to a tamper-evident store (S3 with Object Lock, or an append-
 - DB dynamic creds fail to create → `database/config` admin credentials are wrong (did you `rotate-root` before updating the config?).
 - PKI cert issuance fails → role's `allowed_domains` or `max_ttl` rejects the request.
 - Token renew loop → application forgot to renew before `token_ttl`; increase TTL or implement proper renew.
+
+## Auth Method Examples (Moved from SKILL.md)
+
+### Kubernetes auth method
+
+```bash
+vault auth enable kubernetes
+vault write auth/kubernetes/config \
+  kubernetes_host="https://kubernetes.default.svc" \
+  token_reviewer_jwt="$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)" \
+  kubernetes_ca_cert=@/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+
+vault write auth/kubernetes/role/app \
+  bound_service_account_names=app-sa \
+  bound_service_account_namespaces=prod \
+  policies=app-read ttl=1h
+```
+
+### JWT/OIDC for GitHub Actions
+
+```bash
+vault auth enable jwt
+vault write auth/jwt/config \
+  oidc_discovery_url="https://token.actions.githubusercontent.com" \
+  bound_issuer="https://token.actions.githubusercontent.com"
+
+vault write auth/jwt/role/gha-deploy - <<EOF2
+{
+  "role_type": "jwt",
+  "user_claim": "sub",
+  "bound_audiences": ["vault"],
+  "bound_claims": { "repository": "acme/app", "ref": "refs/heads/main" },
+  "policies": "deploy",
+  "ttl": "15m"
+}
+EOF2
+```
+
+GitHub Actions consumer:
+
+```yaml
+permissions:
+  id-token: write
+  contents: read
+steps:
+  - uses: hashicorp/vault-action@v3
+    with:
+      url: https://vault.example.com
+      method: jwt
+      role: gha-deploy
+      secrets: |
+        secret/data/app/prod password | DB_PASSWORD ;
+```
+
+## Engine Examples (Moved from SKILL.md)
+
+### AWS dynamic IAM
+
+```bash
+vault secrets enable aws
+vault write aws/config/root access_key=$AWS_ACCESS_KEY secret_key=$AWS_SECRET_KEY region=eu-west-1
+vault write aws/roles/s3-readonly credential_type=iam_user policy_document=@s3-readonly.json
+vault read aws/creds/s3-readonly
+```
+
+### Transit (encryption-as-a-service)
+
+```bash
+vault secrets enable transit
+vault write -f transit/keys/orders
+vault write transit/encrypt/orders plaintext=$(base64 <<< "card-tok-42")
+vault write transit/decrypt/orders ciphertext="vault:v1:..."
+```
+
+### Two-tier PKI bootstrap
+
+```bash
+# Root CA (offline after setup)
+vault secrets enable -path=pki_root pki
+vault secrets tune -max-lease-ttl=87600h pki_root
+vault write -field=certificate pki_root/root/generate/internal \
+  common_name="example-root" ttl=87600h > root_ca.crt
+
+# Intermediate CA (online issuer)
+vault secrets enable -path=pki_int pki
+vault secrets tune -max-lease-ttl=43800h pki_int
+vault write -format=json pki_int/intermediate/generate/internal \
+  common_name="example-intermediate" | jq -r '.data.csr' > pki_int.csr
+vault write -format=json pki_root/root/sign-intermediate csr=@pki_int.csr \
+  format=pem_bundle ttl=43800h | jq -r '.data.certificate' > pki_int.crt
+vault write pki_int/intermediate/set-signed certificate=@pki_int.crt
+
+# Role + issue leaf cert
+vault write pki_int/roles/my-role allowed_domains="example.com" \
+  allow_subdomains=true max_ttl="72h"
+vault write pki_int/issue/my-role common_name="api.example.com" ttl="24h"
+```
+
+### Vault Agent Injector (Kubernetes pod annotations)
+
+```yaml
+metadata:
+  annotations:
+    vault.hashicorp.com/agent-inject: "true"
+    vault.hashicorp.com/role: "app"
+    vault.hashicorp.com/agent-inject-secret-db: "database/creds/app-ro"
+    vault.hashicorp.com/agent-inject-template-db: |
+      {{- with secret "database/creds/app-ro" -}}
+      DB_USER={{ .Data.username }}
+      DB_PASS={{ .Data.password }}
+      {{- end }}
+```

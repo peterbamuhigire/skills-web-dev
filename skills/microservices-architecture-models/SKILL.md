@@ -344,53 +344,6 @@ Check cache hit rate via `X-Cache-Status` header (`HIT` / `MISS` / `BYPASS` / `E
 - Binary upgrade with no downtime: `kill -USR2 <master-pid>` to start a new master alongside, `kill -QUIT <old-master-pid>` once new workers are healthy
 - Verify: `curl -I https://api.example.com` during reload; expect 100% success
 
-### Kong API Gateway
-
-Kong follows a service → route → plugin model. Declarative config (`deck` / `kong.yaml` format):
-
-```yaml
-_format_version: "3.0"
-services:
-  - name: user-service
-    url: http://user-service:3000
-    routes:
-      - name: user-api
-        paths:
-          - /api/users
-        strip_path: false
-    plugins:
-      - name: jwt
-        config:
-          claims_to_verify: [exp]
-      - name: rate-limiting
-        config:
-          minute: 60
-          policy: redis
-          redis_host: redis
-      - name: prometheus
-```
-
-Apply: `deck sync --state kong.yaml --kong-addr http://kong-admin:8001`.
-
-### Traefik as Alternative
-
-Traefik is Docker-native with automatic TLS. Example `docker-compose.yml` labels on a service:
-
-```yaml
-services:
-  api:
-    image: myorg/api:latest
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.api.rule=Host(`api.example.com`)"
-      - "traefik.http.routers.api.entrypoints=websecure"
-      - "traefik.http.routers.api.tls.certresolver=letsencrypt"
-      - "traefik.http.middlewares.api-ratelimit.ratelimit.average=50"
-      - "traefik.http.routers.api.middlewares=api-ratelimit"
-```
-
-Choice: Kong for full plugin ecosystem and enterprise features; Traefik for Docker/K8s-native auto-discovery; Nginx for raw throughput and low memory.
-
 ### HAProxy for TCP/HTTP Load Balancing
 
 Example `haproxy.cfg` backend with health checks and sticky sessions:
@@ -414,6 +367,91 @@ listen stats
 ```
 
 Stats page at `:8404/stats` shows live backend state — put it behind auth and a firewall.
+
+### HAProxy Sections, ACLs, and Stick Tables
+
+Per `docs.haproxy.org/3.0/configuration.html` (fetched 2026-05-01), HAProxy uses `frontend`, `backend`, and `listen` (a frontend + backend in one block). The `global` section "must be placed before other sections, though it may be repeated if necessary."
+
+Balance algorithms named in the manual: `roundrobin`, `leastconn`, `source`, `url_param` (also `uri`, `hdr(...)`, `random`, `first`, `static-rr` — confirm defaults from the manual section directly).
+
+ACLs select traffic conditionally; stick tables hold counters keyed by source IP or another extractor and back rate-limit and circuit-breaker patterns:
+
+```
+frontend fe_main
+    bind *:443 ssl crt /etc/haproxy/certs/
+    acl is_api path_beg /api/
+    use_backend be_api    if is_api
+    default_backend be_web
+
+backend be_api
+    stick-table type ip size 1m expire 10m store http_req_rate(10s)
+    http-request track-sc0 src
+    http-request deny if { sc_http_req_rate(0) gt 100 }
+    server api1 10.0.1.10:3000 check
+    server api2 10.0.1.11:3000 check
+```
+
+Hitless reload: HAProxy 2.x+ uses the master-worker model with `-sf` (soft-stop existing PIDs) and `-x` (transfer listening sockets via stat socket). Quote exact flag syntax from `docs.haproxy.org/3.0/management.html` before shipping a runbook.
+
+### Kong — Entities and Declarative Config
+
+Per `developer.konghq.com/gateway/entities/service/` (fetched 2026-05-01): "Gateway Services represent the upstream services in your system. Services are the business logic components of your system that are responsible for processing and responding to requests."
+
+Core entity model:
+
+| Entity | Purpose |
+|--------|---------|
+| Service | Upstream API; holds `url`, timeouts, retries, TLS |
+| Route | Match rules (paths, methods, hosts) selecting a Service |
+| Plugin | Behaviour attached to Service / Route / Consumer / global |
+| Consumer | Authenticated client identity |
+| Upstream / Target | Load-balanced pool behind a Service |
+
+Plugin families (re-verify against the Kong Hub at authoring time):
+
+- Auth: `key-auth`, `jwt`, `oauth2`, `basic-auth`, `ldap-auth`, `openid-connect`.
+- Traffic control: `rate-limiting`, `request-size-limiting`, `request-termination`, `response-ratelimiting`.
+- Transformations: `request-transformer`, `response-transformer`.
+- Observability: `prometheus`, `opentelemetry`, `file-log`, `http-log`.
+- Security: `acl`, `bot-detection`, `cors`, `ip-restriction`.
+
+Modes:
+
+- DB-less — gateway loads `kong.yml` at startup; reconfigure via SIGHUP / admin endpoint. Best fit for git-ops.
+- DB-backed — state in PostgreSQL; mutate through the Admin API.
+- `deck sync --state kong.yaml --kong-addr http://kong-admin:8001` synchronises a Git-stored `kong.yml` against either mode.
+
+### Traefik — Middlewares, Providers, ACME
+
+HTTP middlewares per `doc.traefik.io/traefik/reference/routing-configuration/http/middlewares/overview/` (fetched 2026-05-01):
+
+`AddPrefix, BasicAuth, Buffering, Chain, CircuitBreaker, Compress, ContentType, DigestAuth, Errors, ForwardAuth, GrpcWeb, Headers, IPAllowList, InFlightReq, PassTLSClientCert, RateLimit, RedirectScheme, RedirectRegex, ReplacePath, ReplacePathRegex, Retry, StripPrefix, StripPrefixRegex.`
+
+Rename note: the legacy `IPWhiteList` middleware has been renamed to `IPAllowList` in current Traefik. Use the new name in all new configs. Premium (Traefik Hub) middlewares add `APIKey`, `Distributed RateLimit`, `HMAC`, `JWT`, `LDAP`, `Token Introspection`, `Client Credentials`, `OIDC`, `OPA`, `WAF`. Per the same page, "middlewares that use the same protocol can be combined into chains to fit every scenario."
+
+Providers: `file`, `KubernetesIngress`, `KubernetesCRD` (IngressRoute), `Docker`, `Consul`. Confirm provider names and CRD versions from the providers page before authoring CRDs.
+
+ACME / Let's Encrypt is a built-in resolver. Quote the `certificatesResolvers.<name>.acme` block (`email`, `storage`, `httpChallenge.entryPoint`) verbatim from `doc.traefik.io/traefik/https/acme/` before including it in shipped configs.
+
+### Decision Matrix — Kong vs Traefik vs Nginx-as-Gateway
+
+| Concern | Nginx (as gateway) | Kong | Traefik |
+|---------|--------------------|------|---------|
+| Native dynamic config | Limited (modules / OpenResty) | Yes (Admin API + DB-less hot reload) | Yes (provider watch) |
+| Plugin ecosystem | Lua via OpenResty | Large official + community | Built-in middlewares; Hub for premium |
+| Auth (JWT / OAuth) out-of-box | Needs Lua module | Plugin | Built-in BasicAuth / DigestAuth / ForwardAuth + Hub for OIDC / JWT |
+| Kubernetes ingress | nginx-ingress-controller | Kong Ingress Controller | Native (CRD / IngressRoute) |
+| ACME built-in | No (use certbot) | Plugin | Built-in |
+| Observability | Stub status / 3rd-party exporters | `prometheus` + `opentelemetry` plugins | Built-in Prometheus / OTel |
+| Operator familiarity | Highest in industry | High in Kong shops | Growing in K8s shops |
+
+Sizing rules:
+
+- Single Debian VPS terminating TLS in front of a small SaaS app: Nginx wins on familiarity and footprint.
+- Multi-team SaaS exposing many services with auth, rate-limit, transformation needs: Kong (DB-less + deck) wins on plugin maturity.
+- Kubernetes-first deployment with cert-manager-style automation: Traefik wins on providers and ACME.
+
+Deeper material — verbatim doc extracts, full HAProxy stick-table syntax, Kong DB-less reload mechanics, and Traefik ACME blocks — lives in `references/proxy-gateway-ops.md`.
 
 ---
 

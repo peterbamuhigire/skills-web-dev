@@ -55,7 +55,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 
 ## References
 
-- Use the `references/` directory for deep detail after reading the core workflow below.
+- `references/tooling-and-tests.md` — full Vite + next-pwa configs, Lighthouse CI workflow, Playwright offline test scaffold.
 <!-- dual-compat-end -->
 
 ## Why Offline-First for East Africa
@@ -100,7 +100,53 @@ Connectivity in Uganda, Kenya, and Tanzania is bimodal: urban fibre and 4G in Ka
 
 Link from head: `<link rel="manifest" href="/manifest.webmanifest">`.
 
+## App Install Criteria
+
+Chromium browsers gate the install prompt on a fixed set of conditions (`web.dev/articles/install-criteria`):
+
+- App is served over HTTPS.
+- Manifest includes `short_name` or `name`.
+- Icons include a 192px and a 512px icon.
+- Manifest declares `start_url`.
+- `display` is one of `fullscreen`, `standalone`, `minimal-ui`, or `window-controls-overlay`.
+- `prefer_related_applications` is absent or `false`.
+- User has clicked or tapped the page at least once and spent at least 30 seconds viewing it.
+- The web app is not already installed.
+
+Other browsers apply similar criteria with minor differences. Capture and defer the prompt so you can fire it from your own UI:
+
+```javascript
+let deferredPrompt = null;
+window.addEventListener('beforeinstallprompt', (event) => {
+  event.preventDefault();
+  deferredPrompt = event;
+  showInstallButton();
+});
+
+document.querySelector('#install-app').addEventListener('click', async () => {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  const { outcome } = await deferredPrompt.userChoice; // 'accepted' | 'dismissed'
+  analytics.track('pwa_install_prompt', { outcome });
+  deferredPrompt = null;
+});
+
+window.addEventListener('appinstalled', () => hideInstallButton());
+```
+
 ## Service Worker Lifecycle
+
+A Service Worker observes three lifecycle phases: Download, Install, Activate. Per MDN: "If this is the first time a service worker has been made available, installation is attempted, then after a successful installation, it is activated." The activate event "is generally a good time to clean up old caches and other things associated with the previous version." Functional events (`fetch`, `push`) wait on promises passed to `event.waitUntil()`. The browser checks for an updated worker on in-scope navigation, or on any worker event if it has not been downloaded in the last 24 hours.
+
+Minimum registration:
+
+```javascript
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js', { scope: '/' });
+  });
+}
+```
 
 States: `installing` -> `installed (waiting)` -> `activating` -> `activated`. A new version waits until all old-worker tabs close, unless `skipWaiting()` is called.
 
@@ -138,43 +184,17 @@ navigator.serviceWorker.register('/sw.js').then((reg) => {
 
 ## Workbox Setup
 
-`vite-plugin-pwa` for Vite, `next-pwa` for Next.js. Default to `generateSW`; switch to `injectManifest` only when custom Service Worker logic is required.
-
-```typescript
-// vite.config.ts
-import { defineConfig } from 'vite';
-import { VitePWA } from 'vite-plugin-pwa';
-
-export default defineConfig({
-  plugins: [VitePWA({
-    registerType: 'autoUpdate',
-    strategies: 'generateSW',
-    includeAssets: ['favicon.svg', 'robots.txt', 'offline.html'],
-    manifest: { /* see Web App Manifest section */ },
-    workbox: {
-      globPatterns: ['**/*.{js,css,html,woff2,svg,png}'],
-      navigateFallback: '/offline.html',
-      runtimeCaching: [
-        { urlPattern: ({ url }) => url.pathname.startsWith('/api/catalog'),
-          handler: 'NetworkFirst',
-          options: { cacheName: 'api-catalog', networkTimeoutSeconds: 10, expiration: { maxAgeSeconds: 3600 } } },
-        { urlPattern: ({ request }) => request.destination === 'image',
-          handler: 'CacheFirst',
-          options: { cacheName: 'images', expiration: { maxAgeSeconds: 2592000, maxEntries: 200 } } }
-      ]
-    }
-  })]
-});
-```
+`vite-plugin-pwa` for Vite, `next-pwa` for Next.js. Default to `generateSW`; switch to `injectManifest` only when custom Service Worker logic is required. Full Vite and Next.js configurations live in `references/tooling-and-tests.md`.
 
 ## Caching Strategies
 
 | Strategy | Use Case | TTL |
 |---|---|---|
-| NetworkFirst | Catalog, user profile, dashboards | 10 min |
-| CacheFirst | Fonts, hashed JS/CSS, versioned images | 30 days |
-| StaleWhileRevalidate | Help docs, blog, release notes | 24 hours |
-| NetworkOnly | POST/PUT/DELETE, payment, auth | Never cached |
+| CacheOnly | Static, versioned assets that don't refresh until the SW updates | Until next deploy |
+| NetworkOnly | Content requiring freshness (HTML, mutations) where offline is not a priority | Never cached |
+| CacheFirst | Immutable assets — fonts, hashed JS/CSS, versioned images | 30 days |
+| NetworkFirst | HTML or APIs needing the latest version online with offline fallback | 10 min |
+| StaleWhileRevalidate | Occasionally-updated content (avatars, help docs) where speed beats freshness | 24 hours |
 
 ```javascript
 import { registerRoute } from 'workbox-routing';
@@ -193,6 +213,10 @@ registerRoute(({ url }) => url.pathname.startsWith('/api/payments'),
 ```
 
 Never cache mutation verbs. Workbox caches POST responses only when asked; doing so is almost always a bug.
+
+## Cache Invalidation
+
+Bump the precache manifest revision on every deploy; for runtime caches, embed a build hash in the `cacheName` so a deploy invalidates everything in one step. Workbox precaching ships `cleanupOutdatedCaches()` which "Adds an activate event listener which will clean up incompatible precaches that were created by older versions of Workbox." Call it once from your service worker entry. Use `workbox-expiration`'s `ExpirationPlugin({ maxEntries, maxAgeSeconds })` on each runtime route to bound disk usage on low-end Android devices.
 
 ## App Shell Architecture
 
@@ -217,7 +241,23 @@ registerRoute(new NavigationRoute(handler, { denylist: [/^\/api\//] }));
 
 ## IndexedDB with Dexie.js
 
-Raw IndexedDB is verbose and transaction-leaky. Dexie wraps it with promises, typed tables, and migrations. Install with `npm install dexie`.
+IndexedDB is "a low-level API for client-side storage of significant amounts of structured data, including files/blobs" — a "transactional database system" with asynchronous reads and writes scoped to read-only or readwrite transactions. Schema migrations run inside an `IDBVersionChangeEvent` fired on `IDBOpenDBRequest.onupgradeneeded`. Same-origin policy applies.
+
+| Storage | Use For | Limit | Notes |
+|---|---|---|---|
+| IndexedDB | Large or structured data, blobs, indexed queries | Browser-managed quota (often hundreds of MB) | Asynchronous, transactional |
+| localStorage | Tiny key-value pairs, feature flags, last-route | ~5 MB per origin | Synchronous, blocks main thread |
+| Cache Storage | HTTP request/response pairs (Workbox runtime caches) | Browser-managed | Owned by Service Worker |
+
+Raw IndexedDB is verbose and transaction-leaky. Dexie wraps it with promises, typed tables, and migrations. Install with `npm install dexie`. Minimum example:
+
+```javascript
+import { Dexie } from 'dexie';
+const db = new Dexie('MyDatabase');
+db.version(1).stores({ friends: '++id, name, age' });
+```
+
+For schema evolution declare additional `db.version(N).stores(...)` blocks; Dexie auto-runs the diff.
 
 ```typescript
 // src/db/index.ts
@@ -334,6 +374,20 @@ async function handleConflict(db: IDBDatabase, row: PendingSync, server: any) {
 
 Money defaults to server-authoritative: the ledger is the single source of truth.
 
+## Offline-First UX Patterns
+
+- Connection-aware UI: read `navigator.onLine` and listen for `online`/`offline` events to toggle a banner. For coarse bandwidth detection inspect `navigator.connection.effectiveType` (`'2g'`, `'3g'`, `'4g'`); fall back gracefully where the Network Information API is unavailable.
+- Optimistic updates: write to IndexedDB and reflect in the UI immediately; queue the network sync via Background Sync; mark the row `pending` until the SW confirms server ack.
+- Sync indicator: a single cross-app component showing `idle | syncing | offline | conflict`, driven by Background Sync events plus an outbox-count selector on the Dexie `pendingSyncs` table.
+- Save-Data awareness: respect the `Save-Data: on` request header by skipping autoplay video, deferring large image prefetch, and trimming list pages.
+- Treat any non-2xx response from a captive portal or flaky DNS as a retryable sync failure, not a hard error.
+
+```javascript
+window.addEventListener('online', () => updateBanner('online'));
+window.addEventListener('offline', () => updateBanner('offline'));
+db.pendingSyncs.count().then((n) => setSyncBadge(n));
+```
+
 ## Push Notifications
 
 Generate a VAPID keypair once per environment (`npx web-push generate-vapid-keys`) and store the private key on the server.
@@ -370,62 +424,9 @@ self.addEventListener('notificationclick', (event) => {
 });
 ```
 
-## Testing PWAs
+## Testing and CI
 
-```yaml
-# .github/workflows/lighthouse.yml
-name: Lighthouse CI
-on: [pull_request]
-jobs:
-  lhci:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with: { node-version: '20' }
-      - run: npm ci && npm run build
-      - run: npx @lhci/cli@0.13.x autorun --collect.staticDistDir=./dist
-```
-
-Playwright offline test:
-
-```typescript
-import { test, expect } from '@playwright/test';
-
-test('visit saves offline then syncs', async ({ page, context }) => {
-  await page.goto('/');
-  await context.setOffline(true);
-  await page.getByRole('button', { name: 'New Visit' }).click();
-  await page.getByLabel('Notes').fill('Boda delivered 12 kg matooke');
-  await page.getByRole('button', { name: 'Save' }).click();
-  await expect(page.getByText('Saved offline')).toBeVisible();
-  await context.setOffline(false);
-  await expect(page.getByText('Synced')).toBeVisible({ timeout: 15000 });
-});
-```
-
-## Next.js PWA Integration
-
-```javascript
-// next.config.js
-const withPWA = require('next-pwa')({
-  dest: 'public',
-  register: true,
-  skipWaiting: true,
-  disable: process.env.NODE_ENV === 'development',
-  runtimeCaching: [
-    { urlPattern: /^\/api\/payments\/.*$/, handler: 'NetworkOnly' },
-    { urlPattern: /^\/api\/catalog\/.*$/, handler: 'NetworkFirst',
-      options: { cacheName: 'api-catalog', networkTimeoutSeconds: 10, expiration: { maxAgeSeconds: 3600 } } },
-    { urlPattern: /\.(?:png|jpg|jpeg|svg|webp)$/, handler: 'CacheFirst',
-      options: { cacheName: 'images', expiration: { maxEntries: 200, maxAgeSeconds: 60 * 60 * 24 * 30 } } }
-  ]
-});
-
-module.exports = withPWA({ reactStrictMode: true });
-```
-
-Payment and authentication routes must be `NetworkOnly`; a cached 200 on `/api/payments/confirm` is a double-spend waiting to happen.
+Run Lighthouse CI on every PR (`@lhci/cli` against the static build) and a Playwright offline test that asserts the "save offline then sync on reconnect" round-trip. Workflow YAML and Playwright scaffold are in `references/tooling-and-tests.md`. Payment and authentication routes must be `NetworkOnly`; a cached 200 on `/api/payments/confirm` is a double-spend waiting to happen.
 
 ## Performance Budget
 
@@ -439,9 +440,10 @@ Enforce via Lighthouse CI assertions; a red budget fails the build rather than w
 
 ## Companion Skills
 
-- `nextjs-app-router` — Next.js App Router patterns, layouts, server/client components.
-- `frontend-performance` — Core Web Vitals, bundle budget, render-path analysis.
-- `image-compression` — Client-side image compression before offline upload queueing.
+- `nextjs-app-router` — Next.js App Router patterns, layouts, server/client components, route handlers used as the offline-aware API surface.
+- `react-development` — component patterns and state for the optimistic-update / sync-indicator UI.
+- `frontend-performance` — Core Web Vitals, bundle budget, render-path analysis; do not duplicate budgets here.
+- `image-compression` — client-side image compression before offline upload queueing.
 
 ## Sources
 

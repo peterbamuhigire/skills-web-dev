@@ -203,6 +203,58 @@ Implementation detail: [references/container-runtime-security.md](references/con
 - [ ] Compliance control mapping is current and evidence collection is continuous.
 - [ ] Container runtime policy (admission + detection) is enforced, not just image scanning.
 
+## Vault Cluster Architecture
+
+Production-grade single-region Vault topology on Debian/Ubuntu:
+
+- 3 or 5 Vault nodes with the integrated Raft storage backend; odd node count for quorum.
+- Auto-unseal via cloud KMS or HSM. Manual unseal is operator toil and unsafe in production.
+- TLS on the listener; mTLS between Raft peers; storage traffic on a private subnet.
+- Audit devices configured before any secret is written. File plus syslog at minimum. Loss of all audit devices halts Vault by design, so always run two.
+- Namespaces (Vault Enterprise) for tenant isolation when the cluster is multi-tenant; verify edition before relying on this.
+
+Reference Debian/Ubuntu install snippet:
+
+```bash
+curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp.gpg
+echo "deb [signed-by=/usr/share/keyrings/hashicorp.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | \
+  sudo tee /etc/apt/sources.list.d/hashicorp.list
+sudo apt update && sudo apt install -y vault
+sudo systemctl enable --now vault
+vault audit enable file file_path=/var/log/vault_audit.log
+vault audit enable syslog tag="vault" facility="AUTH"
+```
+
+Policies are HCL documents binding paths to capabilities (`create`, `read`, `update`, `delete`, `list`, `sudo`) under default-deny. Every request is recorded by audit devices in append-only form. Encryption at rest is supplied by the KMS-backed seal or by disk encryption — they are not interchangeable substitutes; document which one the cluster relies on.
+
+Key rotation:
+
+- `vault operator rotate` rotates the encryption key for storage.
+- `vault operator rekey` rotates root and recovery keys; requires a quorum of unseal-key holders.
+- Transit keys rotate with `vault write -f transit/keys/<name>/rotate`; old versions remain available for decryption until explicitly trimmed.
+
+Deeper deployment, HA, DR, and engine reference: [references/vault-secrets-lifecycle.md](references/vault-secrets-lifecycle.md). AppRole, dynamic credentials, and rotation runbooks: [references/vault-operations.md](references/vault-operations.md).
+
+## PKI Lifecycle
+
+Two-tier CA with Vault PKI:
+
+- Root CA generated once, then taken offline. Long lifetime (10+ years). Root key material exported to an HSM or air-gapped store after issuing the intermediate.
+- Intermediate CA online inside the Vault PKI engine. Lifetime 1 to 5 years. This is the only issuer pods and services see.
+- Leaf certificates short-lived (24h to a few weeks for service-to-service mTLS). Issuance and renewal are automated through Vault Agent or cert-manager.
+
+Rotation cadence:
+
+- root: planned re-issuance well before expiry, with overlap; the new root is distributed to trust stores months ahead of cutover.
+- intermediate: rotate annually or when staff with key access depart; signed by the offline root, then `set-signed` on the engine.
+- leaf: rotate every TTL window; set `max_ttl` on the role so misconfigured clients cannot keep a cert alive indefinitely.
+
+Revocation:
+
+- `vault write pki_int/revoke serial_number=<sn>` revokes a leaf and updates the CRL.
+- Publish the CRL through `pki_int/crl/pem` and serve it from a stable URL referenced by the issued certs (`crl_distribution_points`).
+- Run an OCSP responder when client libraries require it; otherwise CRL plus short TTLs is the lower-toil option.
+
 ## Advanced Security Operations
 
 ### HashiCorp Vault
@@ -235,77 +287,19 @@ vault write database/roles/app-ro \
 vault read database/creds/app-ro
 ```
 
-- AWS engine for dynamic IAM credentials scoped to a policy:
+- AWS engine — dynamic IAM users scoped to a policy document.
+- Transit engine — encryption-as-a-service so the app never holds the key.
+- PKI engine — short-lived leaf certs from a two-tier CA (root offline, intermediate online).
 
-```bash
-vault secrets enable aws
-vault write aws/config/root access_key=$AWS_ACCESS_KEY secret_key=$AWS_SECRET_KEY region=eu-west-1
-vault write aws/roles/s3-readonly credential_type=iam_user policy_document=@s3-readonly.json
-vault read aws/creds/s3-readonly
-```
+Auth methods to know:
 
-- Transit engine for encryption-as-a-service (the app never holds the key):
+- AppRole — `role_id` plus short-lived `secret_id`; suits static workloads with secure secret_id delivery.
+- Kubernetes — pods authenticate via the projected ServiceAccount token; Vault validates against the K8s API. No static tokens in the pod.
+- JWT/OIDC — federates GitHub Actions, GitLab CI, or any OIDC provider; eliminates long-lived CI credentials.
 
-```bash
-vault secrets enable transit
-vault write -f transit/keys/orders
-vault write transit/encrypt/orders plaintext=$(base64 <<< "card-tok-42")
-vault write transit/decrypt/orders ciphertext="vault:v1:..."
-```
+Auto-rotation on a database role uses `default_ttl` (lease TTL) plus `rotation_period` (root-credential rotation). The Vault Agent Injector renders dynamic credentials into pods via annotations without code changes in the app.
 
-PKI infrastructure issues short-lived leaf certificates from a root plus intermediate CA.
-
-```bash
-# Root CA (offline after setup)
-vault secrets enable -path=pki_root pki
-vault secrets tune -max-lease-ttl=87600h pki_root
-vault write -field=certificate pki_root/root/generate/internal \
-  common_name="example-root" ttl=87600h > root_ca.crt
-
-# Intermediate CA (online issuer)
-vault secrets enable -path=pki_int pki
-vault secrets tune -max-lease-ttl=43800h pki_int
-vault write -format=json pki_int/intermediate/generate/internal \
-  common_name="example-intermediate" | jq -r '.data.csr' > pki_int.csr
-vault write -format=json pki_root/root/sign-intermediate csr=@pki_int.csr \
-  format=pem_bundle ttl=43800h | jq -r '.data.certificate' > pki_int.crt
-vault write pki_int/intermediate/set-signed certificate=@pki_int.crt
-
-# Role + issue leaf cert
-vault write pki_int/roles/my-role allowed_domains="example.com" \
-  allow_subdomains=true max_ttl="72h"
-vault write pki_int/issue/my-role common_name="api.example.com" ttl="24h"
-```
-
-Kubernetes auth method binds Vault to ServiceAccounts so pods fetch secrets without static tokens.
-
-```bash
-vault auth enable kubernetes
-vault write auth/kubernetes/config \
-  kubernetes_host="https://kubernetes.default.svc" \
-  token_reviewer_jwt="$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)" \
-  kubernetes_ca_cert=@/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
-
-vault write auth/kubernetes/role/app \
-  bound_service_account_names=app-sa \
-  bound_service_account_namespaces=prod \
-  policies=app-read ttl=1h
-```
-
-Auto-rotation on the database role sets `default_ttl` (lease TTL) and `rotation_period` (root-credential rotation). Reference the Vault Agent Injector through pod annotations:
-
-```yaml
-metadata:
-  annotations:
-    vault.hashicorp.com/agent-inject: "true"
-    vault.hashicorp.com/role: "app"
-    vault.hashicorp.com/agent-inject-secret-db: "database/creds/app-ro"
-    vault.hashicorp.com/agent-inject-template-db: |
-      {{- with secret "database/creds/app-ro" -}}
-      DB_USER={{ .Data.username }}
-      DB_PASS={{ .Data.password }}
-      {{- end }}
-```
+Working examples for AWS, Transit, the two-tier PKI bootstrap, the Kubernetes auth method, the JWT/OIDC auth method (with the GitHub Actions consumer step), and the Vault Agent Injector annotation pattern are in [references/vault-operations.md](references/vault-operations.md).
 
 ### ISO 27001 Controls Mapping
 
@@ -318,6 +312,15 @@ Annex A controls most relevant to a SaaS pipeline with their 2022 IDs:
 - A.8.24 Cryptography — TLS 1.2+, KMS-managed keys, approved cipher suites, rotation schedule.
 - A.8.25 Secure development lifecycle — threat modelling, peer review, gated merges, tracked design decisions.
 - A.8.28 Secure coding — SAST in CI, dependency scanning, secure coding training records.
+
+ISO/IEC 27001:2022 reorganised Annex A into four control themes. Use this mapping pattern instead of paraphrasing clause numbers from secondary sources — quote clause IDs only from the official catalogue.
+
+| Annex A theme | Engine artefacts that supply evidence |
+|---------------|----------------------------------------|
+| Organizational | `CODEOWNERS`, `SECURITY.md`, on-call rota, supplier register, ISMS scope statement |
+| People | Onboarding/offboarding runbook, access-review log, training records, NDA register |
+| Physical | Cloud or co-lo provider attestations, data-centre access reports, asset disposal records |
+| Technological | Vault audit log, GitHub Actions logs, Falco alerts, Trivy/Grype scan reports, Kubernetes audit log, signed artefacts and SBOMs |
 
 Evidence collection checklist — CI/CD must automatically capture:
 
@@ -338,144 +341,57 @@ Requirement snapshot for a SaaS that redirects card capture to Stripe (reduces s
 - Req 10 Log and monitor access — centralised audit log of admin and data access, retained 12 months minimum.
 - Req 11 Regular testing — quarterly external vulnerability scans by an ASV, annual third-party penetration test.
 
+For the canonical list of the 12 PCI-DSS v4.0 requirement categories, download the official "PCI DSS v4.0 At A Glance" PDF from the PCI Security Standards Council document library and paste the categories verbatim into your engagement's compliance dossier — do not paraphrase clause titles.
+
+Scope-reduction patterns:
+
+- Tokenisation through Stripe, Adyen, or another PCI-validated payment gateway with hosted fields. Cardholder data never enters engine systems, so most of the 12 categories drop out and the assessment moves toward SAQ A or SAQ A-EP.
+- Network segmentation: keep any cardholder-data environment (CDE) on a dedicated VLAN or VPC with explicit, tested firewall rules. Out-of-CDE systems do not need to satisfy CDE-only controls.
+- Choose the lightest applicable SAQ based on integration model; document the eligibility argument so an assessor can validate it without re-deriving the integration.
+
 SAQ A scope reduction explanation: Stripe-hosted Checkout loads the card form inside an iframe served from Stripe's domain. Card data never enters your DOM, your servers, or your logs. That limits you to SAQ A (around 22 controls) instead of SAQ D (~329 controls). What still applies: TLS on your redirect page, MFA for staff, logging, vulnerability scans of any page that redirects to Stripe, written policies, and vendor management of Stripe itself.
 
 ### Falco Runtime Threat Detection
 
-Install on Kubernetes via Helm with the eBPF driver (no kernel module required):
+Falco supports three driver types: the modern eBPF probe (default on supported kernels), the legacy eBPF probe (deprecated), and a kernel module. Verify the driver default for the version you pin before deploying. Alerts can be sent to stdout, files, syslog, HTTP endpoints, or spawned programs; route through Falcosidekick to fan out to Slack, PagerDuty, and Loki.
 
-```bash
-helm repo add falcosecurity https://falcosecurity.github.io/charts
-helm install falco falcosecurity/falco \
-  --namespace falco --create-namespace \
-  --set driver.kind=ebpf \
-  --set falcosidekick.enabled=true \
-  --set falcosidekick.webui.enabled=true
-```
+Rule-tuning workflow:
 
-Sample rule that detects a shell spawned inside a container:
+1. Start with the upstream `falco_rules.yaml` defaults; never edit that file in place.
+2. Run for one to two weeks and capture every alert to a triage queue.
+3. Allow-list legitimate noise in `falco_rules.local.yaml` with a justification comment per exception.
+4. Add custom rules for engine-specific concerns (for example, flag execution of the `vault` binary outside the Vault namespace, or any process writing to `/etc/cron.d` inside an app container).
 
-```yaml
-- rule: Shell spawned in container
-  desc: A shell was spawned inside a container
-  condition: container.id != host and proc.name in (shell_binaries)
-  output: "Shell started (user=%user.name container=%container.id command=%proc.cmdline)"
-  priority: WARNING
-  tags: [container, shell]
-```
+Install on Kubernetes via the `falcosecurity/falco` Helm chart with `driver.kind=ebpf` and `falcosidekick.enabled=true`. Route alerts through Falcosidekick to Slack (warning+), PagerDuty (critical only), and Loki (informational+) so high-signal events page on-call while low-priority events stay queryable.
 
-Alert routing through Falcosidekick forwards detections to Slack, PagerDuty, and Loki simultaneously:
+A custom rule pack should at minimum cover: shell spawned in a container that should have none, reads of `/etc/shadow`, writes to `/etc/cron.d`, execution of the `vault` binary outside the Vault namespace, and outbound connections to IPs not on the egress allow-list.
 
-```yaml
-falcosidekick:
-  config:
-    slack:
-      webhookurl: "https://hooks.slack.com/services/XXX/YYY/ZZZ"
-      minimumpriority: warning
-    pagerduty:
-      routingkey: "$PAGERDUTY_ROUTING_KEY"
-      minimumpriority: critical
-    loki:
-      hostport: "http://loki:3100"
-      minimumpriority: informational
-```
+Install commands, the shell-in-container rule, and the Falcosidekick routing config: [references/container-runtime-security.md](references/container-runtime-security.md).
 
 ### OPA/Gatekeeper Admission Policies
 
-Install Gatekeeper from the upstream release manifest:
+Gatekeeper is a validating and mutating admission webhook that enforces CRD-based policies executed by Open Policy Agent. Its primitives:
 
-```bash
-kubectl apply -f https://raw.githubusercontent.com/open-policy-agent/gatekeeper/release-3.15/deploy/gatekeeper.yaml
-```
+- Constraint Templates — CRDs that extend the policy library with new Rego logic.
+- Constraints — CRDs that instantiate a template against specific resources and namespaces.
+- Audit — periodically examines existing resources and reports violations without blocking.
+- Mutation — modifies resources during admission (for example, injecting `securityContext` defaults).
 
-ConstraintTemplate requiring `runAsNonRoot: true`:
+Ship at least three concrete Gatekeeper constraints in any production cluster: required image registry (only `registry.example.com/*` allowed), required CPU and memory resource limits on every container, and disallowed `hostPath` volumes outside an explicit allow-list of operator namespaces. Enable API-server audit logging with `--audit-policy-file` capturing `RequestResponse` on `admissionregistration.k8s.io` resources so denials are reviewable.
 
-```yaml
-apiVersion: templates.gatekeeper.sh/v1
-kind: ConstraintTemplate
-metadata:
-  name: k8srequirednonroot
-spec:
-  crd:
-    spec:
-      names:
-        kind: K8sRequiredNonRoot
-  targets:
-    - target: admission.k8s.gatekeeper.sh
-      rego: |
-        package k8srequirednonroot
-        violation[{"msg": msg}] {
-          input.review.object.spec.securityContext.runAsNonRoot == false
-          msg := "Containers must runAsNonRoot: true"
-        }
-```
+Install manifest, a `runAsNonRoot` ConstraintTemplate, and a deploy-time Constraint example: [references/container-runtime-security.md](references/container-runtime-security.md).
 
-Constraint manifest applying the template to all pods in production namespaces:
+### Trivy and Grype Container Scanning
 
-```yaml
-apiVersion: constraints.gatekeeper.sh/v1beta1
-kind: K8sRequiredNonRoot
-metadata:
-  name: pods-must-run-as-nonroot
-spec:
-  enforcementAction: deny
-  match:
-    kinds:
-      - apiGroups: [""]
-        kinds: ["Pod"]
-    namespaces: ["prod", "prod-eu", "prod-us"]
-```
+CVE threshold policy for the engine:
 
-Violation reporting and audit:
+- block pipeline on `CRITICAL` or `HIGH` with a known upstream fix available
+- allow known-unfixable findings only via `.trivyignore` (or Grype equivalent) with a mandatory `exp:YYYY-MM-DD` annotation, an owner, and a review date
+- fail the nightly scan when any ignore entry expires; CI rejects unannotated entries on commit
 
-```bash
-kubectl get constraints
-kubectl get k8srequirednonroot pods-must-run-as-nonroot -o yaml
-kubectl logs -n gatekeeper-system -l control-plane=audit-controller
-```
+Pick Trivy or Grype as the primary build-time gate to keep results deterministic; both produce CVE reports against OS packages and language ecosystems and can be paired with `cosign attest` to bind a CycloneDX SBOM to the image digest.
 
-Enable audit logging on the API server to capture admission denials with `--audit-policy-file` referencing a policy that records `RequestResponse` on `admissionregistration.k8s.io` resources.
-
-### Trivy Container Scanning
-
-GitHub Action snippet that fails the build on unfixed CRITICAL or HIGH findings and uploads SARIF to GitHub Security:
-
-```yaml
-- name: Trivy image scan
-  uses: aquasecurity/trivy-action@master
-  with:
-    image-ref: ${{ steps.build.outputs.image }}
-    severity: CRITICAL,HIGH
-    exit-code: 1
-    ignore-unfixed: true
-    format: sarif
-    output: trivy-results.sarif
-- uses: github/codeql-action/upload-sarif@v3
-  with:
-    sarif_file: trivy-results.sarif
-```
-
-SBOM generation in CycloneDX format (attach to the image digest via `cosign attest`):
-
-```bash
-trivy image --format cyclonedx --output sbom.json "$IMAGE"
-cosign attest --predicate sbom.json --type cyclonedx "$IMAGE"
-```
-
-CVE threshold policy:
-
-- block pipeline on CRITICAL or HIGH with a known fix available
-- allow known-unfixable findings only through `.trivyignore` with an expiry annotation
-
-Example `.trivyignore`:
-
-```text
-# CVE-2024-12345 — no upstream fix as of 2026-03-01
-# Owner: platform-sec; Review: 2026-06-01
-CVE-2024-12345 exp:2026-06-01
-```
-
-CI should reject any `.trivyignore` entry without an `exp:YYYY-MM-DD` annotation and fail the nightly scan when an entry expires.
+Trivy GitHub Action with SARIF upload, SBOM attestation command, and the `.trivyignore` template are in [references/container-runtime-security.md](references/container-runtime-security.md).
 
 ## References
 

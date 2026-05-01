@@ -1,9 +1,9 @@
 ---
 name: subscription-billing
-description: Use when designing or reviewing subscription billing strategy, plan lifecycle,
-  dunning, metered billing, tax handling, churn recovery, and SaaS revenue metrics.
-  Covers trial-to-paid conversion, upgrades, downgrades, pauses, cancellations, usage
-  pricing, and revenue recognition fundamentals.
+description: Use when designing or reviewing recurring subscription lifecycle on
+  Stripe Billing — plans/Prices, trials, proration, upgrades/downgrades, cancel/pause,
+  Smart Retries dunning, metered usage, automatic tax, multi-currency, and the
+  strategy choice between subscription vs perpetual and monthly vs annual.
 metadata:
   portable: true
   compatible_with:
@@ -12,57 +12,69 @@ metadata:
 ---
 
 # Subscription Billing
-Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 
 <!-- dual-compat-start -->
 
 ## Use When
 
-- Use when designing or reviewing subscription billing strategy, plan lifecycle, dunning, metered billing, tax handling, churn recovery, and SaaS revenue metrics. Covers trial-to-paid conversion, upgrades, downgrades, pauses, cancellations, usage pricing, and revenue recognition fundamentals.
-- The task needs reusable judgment, domain constraints, or a proven workflow rather than ad hoc advice.
+- The system charges customers on a recurring schedule and you need to model the subscription lifecycle (create, trial, upgrade, downgrade, cancel, pause, resume, dunning) on Stripe Billing.
+- You are choosing proration behaviour, Smart Retries policy, end-of-dunning disposition, metered pricing, automatic tax, or multi-currency Prices.
+- You need a defensible recommendation on subscription vs perpetual licence, or monthly vs annual billing cadence.
 
 ## Do Not Use When
 
-- The task is unrelated to `subscription-billing` or would be better handled by a more specific companion skill.
-- The request only needs a trivial answer and none of this skill's constraints or references materially help.
+- The work is one-time payments, webhook signature verification, or 3DS/SCA primitives — use `stripe-payments`.
+- The work is revenue recognition, deferred-revenue ledger entries, or ASC-606 categorisation — use `saas-accounting-system`.
+- The work is cohort retention dashboards, MRR/ARR analytics, or growth experimentation — use `saas-growth-metrics`.
 
 ## Required Inputs
 
-- Gather relevant project context, constraints, and the concrete problem to solve; load `references` only as needed.
-- Confirm the desired deliverable: design, code, review, migration plan, audit, or documentation.
+- Plan catalogue intent: tier names, included features, billing intervals, target currencies.
+- Lifecycle policy: trial length, upgrade/downgrade timing, cancellation grace, pause allowance.
+- Recovery policy: retry window, end-of-dunning disposition (cancel / unpaid / past_due).
+- Tax footprint: jurisdictions where the business has nexus and registration status.
 
 ## Workflow
 
-- Read this `SKILL.md` first, then load only the referenced deep-dive files that are necessary for the task.
-- Apply the ordered guidance, checklists, and decision rules in this skill instead of cherry-picking isolated snippets.
-- Produce the deliverable with assumptions, risks, and follow-up work made explicit when they matter.
+1. Read this `SKILL.md` end-to-end; load `stripe-payments` for primitives the lifecycle relies on (PaymentIntents, webhook signatures, 3DS).
+2. Decide plan catalogue and Price strategy (§1, §9, §11) before writing API calls.
+3. Implement creation, trial, mid-cycle change, and cancel paths against the Stripe contracts (§3–§6).
+4. Configure Smart Retries and end-of-dunning disposition (§7) before launch; wire all webhook events.
+5. Add tax (§10) and metered pricing (§8) only when scope demands them.
+6. Validate against §13 production checklist; load `references/` only for the specific deep dive needed.
 
 ## Quality Standards
 
-- Keep outputs execution-oriented, concise, and aligned with the repository's baseline engineering standards.
-- Preserve compatibility with existing project conventions unless the skill explicitly requires a stronger standard.
-- Prefer deterministic, reviewable steps over vague advice or tool-specific magic.
+- Stripe is the system of record for subscription state; the local mirror is eventual.
+- Every `subscriptions.update` call sets `proration_behavior` explicitly — never rely on defaults silently.
+- Plan catalogue is reproducible across environments (Terraform Stripe provider or seed scripts); Prices are append-only by convention.
+- Webhooks are the only trustworthy state-transition signal; UI optimism does not replace `customer.subscription.updated`.
 
 ## Anti-Patterns
 
-- Treating examples as copy-paste truth without checking fit, constraints, or failure modes.
-- Loading every reference file by default instead of using progressive disclosure.
+- Editing a Price to change its amount instead of creating a new Price and migrating subscriptions.
+- Treating `incomplete` as failure — the subscription has 23 hours to complete first payment.
+- Cancelling immediately when the customer paid through period end (use `cancel_at_period_end`).
+- Inventing meter aggregation enums or endpoint names instead of pulling them from Stripe's reference before coding.
+- Duplicating revenue-recognition logic here instead of delegating to `saas-accounting-system`.
 
 ## Outputs
 
-- A concrete result that fits the task: implementation guidance, review findings, architecture decisions, templates, or generated artifacts.
-- Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
-- References used, companion skills, or follow-up actions when they materially improve execution.
+- Plan and Price catalogue captured as code, with currency and interval matrix.
+- Documented lifecycle policy mapping each transition to a `proration_behavior` choice.
+- Smart Retries configuration record, including end-of-dunning disposition.
+- Webhook handler inventory covering the lifecycle events listed in §7.
 
 ## Evidence Produced
 
 | Category | Artifact | Format | Example |
 |----------|----------|--------|---------|
-| Release evidence | Subscription billing configuration record | Markdown doc capturing plans, dunning policy, metered billing, tax handling, and chargeback procedure | `docs/billing/subscription-config-2026-04-16.md` |
+| Release evidence | Subscription billing configuration record | Markdown doc capturing plans, Prices, dunning policy, metered config, tax handling, and webhook map | `docs/billing/subscription-config-2026-04-16.md` |
 
 ## References
 
-- Use the `references/` directory for deep detail after reading the core workflow below.
+- `references/dunning-management.md`, `references/metered-billing.md`, `references/revenue-recognition.md` for deep detail.
+- Companion skills: `stripe-payments` (primitives), `saas-subscription-mastery` (broader lifecycle/retention playbook), `saas-accounting-system` (revenue recognition), `saas-growth-metrics` (MRR cohorting).
 
 <!-- dual-compat-end -->
 
@@ -71,378 +83,291 @@ Use this skill when recurring revenue must be intentional rather than incidental
 ## Load Order
 
 1. Load `world-class-engineering`.
-2. Load `stripe-payments` for Stripe mechanics and webhook integration.
-3. Load this skill for plan design, lifecycle, dunning, metering, tax, and reporting.
+2. Load `stripe-payments` for Stripe payment primitives, webhook verification, and SCA flow.
+3. Load this skill for plan design, lifecycle, dunning, metering, tax, and reporting on Stripe Billing.
+4. Load `saas-accounting-system` and `saas-growth-metrics` when the task crosses into revenue recognition or growth analytics.
 
-## Subscription Economy Fundamentals
+## §1 The Subscription Data Model
 
-Recurring revenue compounds where one-time transactions cannot: a customer acquired in month 1 produces revenue in months 2 through N until churn, so small retention gains compound. Lifetime value (LTV) exceeds transactional margin because acquisition cost amortises across many cycles.
+Stripe Billing's core entities, with one-line gloss from the Stripe Billing subscriptions overview:
 
-- Predictable revenue enables hiring plans, multi-year infrastructure commitments, and defensible capital raises.
-- Net Revenue Retention (NRR) above 100% means the installed base grows faster than new-logo churn.
-- A 5% monthly churn rate caps the business below a finite revenue ceiling regardless of acquisition spend.
-- Payback period (months to recover CAC from gross margin) determines whether growth is self-funding.
+- **Customer** — stores the information needed for recurring charges (default payment method, billing address, tax IDs).
+- **Product** — the offering customers subscribe to. The SKU. Example: "Pro plan".
+- **Price** — the pricing configuration for a Product: amount, currency, billing interval, billing scheme. Example: `$29 USD / month`.
+- **Subscription** — the recurring payment agreement between a Customer and the business.
+- **SubscriptionItem** — an individual line item within a Subscription. One per billable component (base seat, add-on, metered usage).
+- **Invoice** — the billing document generated for each subscription cycle.
 
-## Subscription States State Machine
+Modelling rule: a Product is the SKU; a Price is the price-point + currency + interval. To raise the price, create a new Price and migrate subscriptions onto it — Prices are append-only by convention. Each SubscriptionItem references one Price; mixed billing schemes (flat seat fee + metered overage) live in the same Subscription as separate items.
 
-Every subscription occupies exactly one state. Transitions are driven by explicit events and recorded in an audit log.
+## §2 Subscription Statuses
 
-```text
-     none
-      |
-      | checkout w/ trial
-      v
-   trialing ----------------------------+
-      |                                 |
-      | trial ends & card charged       | trial ends & card fails
-      v                                 v
-    active <------- reactivate ----- past_due
-      |  ^                               |
-      |  | resume                        | retries exhausted
-      v  |                               v
-    paused                             unpaid
-      |                                 |
-      | cancel from pause               | cancel after grace
-      v                                 v
-    cancelled <---------------------- cancelled
+The full enum (verbatim meaning from the Stripe Billing overview):
+
+| Status | Meaning |
+|--------|---------|
+| `trialing` | Subscription is in a trial period; safe to provision the product. |
+| `active` | Subscription is in good standing. |
+| `incomplete` | Customer must make a successful payment within 23 hours to activate. |
+| `incomplete_expired` | Payment failed and the customer didn't complete payment within 23 hours. |
+| `past_due` | Payment on the latest finalized invoice failed or wasn't attempted. |
+| `unpaid` | Latest invoice hasn't been paid but the subscription remains in place. |
+| `canceled` | Terminal state; cannot be updated. |
+| `paused` | Trial ended without a payment method; awaiting payment details to resume. |
+
+Entitlement rules: `trialing`, `active`, `past_due` grant full access; `paused` and `unpaid` degrade access according to dunning policy; `canceled` ends access at period end. Wire each status to a webhook path in §7.
+
+## §3 Creating a Subscription
+
+Required parameters on `POST /v1/subscriptions`:
+
+- `customer` — the Customer ID being subscribed.
+- `items` — a list of up to 20 subscription items, each with an attached `price` (or `price_data` for ad-hoc).
+
+Key optional parameters:
+
+- `trial_period_days` — days before the first charge.
+- `payment_behavior` — one of `allow_incomplete`, `default_incomplete`, `error_if_incomplete`.
+- `automatic_tax` — object enabling automatic tax calculation.
+- `proration_behavior` — defaults to `create_prorations`.
+- `cancel_at_period_end` — boolean, defaults to `false`.
+- `collection_method` — `charge_automatically` (default) or `send_invoice`.
+
+cURL:
+
+```bash
+curl https://api.stripe.com/v1/subscriptions \
+  -u "<<YOUR_SECRET_KEY>>:" \
+  -d customer={{CUSTOMER_ID}} \
+  -d "items[0][price]={{PRICE_ID}}"
 ```
 
-Allowed transitions:
+PHP (`stripe-php`):
 
-- `none -> trialing` on checkout with trial days; `none -> active` on immediate paid checkout.
-- `trialing -> active` on first successful charge; `trialing -> past_due` on failed charge; `trialing -> cancelled` on user cancel during trial.
-- `active -> past_due` on failed renewal; `active -> paused` on user pause; `active -> cancelled` on user cancel (effective period end).
-- `past_due -> active` on successful retry; `past_due -> unpaid` after retries exhausted.
-- `unpaid -> active` on card update; `unpaid -> cancelled` after unpaid grace expires.
-- `paused -> active` on resume (user or auto-date); `paused -> cancelled` on cancel while paused.
-- `cancelled -> trialing` or `cancelled -> active` on reactivation (new subscription, preserved customer history).
-
-Entitlement rules: `trialing`, `active`, `past_due` grant full access; `paused` degrades to read-only; `unpaid` blocks writes; `cancelled` ends access at period end.
-
-## Trial-to-Paid Conversion
-
-Trial length rules:
-
-- B2C consumer apps: 7-14 days. Short trials pressure activation and reduce leakage.
-- B2B SaaS: 14-30 days. Buyers need time to involve teammates and secure budget.
-- Enterprise: prefer a CSM-led pilot over a time-boxed self-serve trial.
-
-Email sequence during trial:
-
-- Day 1: welcome + fastest-path-to-first-value checklist; one primary CTA, no upsell.
-- Day 7 (or midpoint): usage summary, social proof, feature spotlight tailored to what is unused.
-- Day (end minus 2): "Your trial ends in 2 days" with plan comparison and one-click payment capture.
-- Day 0 (trial end): conversion confirmation and receipt, or retention offer if lapsed.
-
-Paywall strategy:
-
-- Soft paywall (feature-gate): account stays; premium features disabled with inline upgrade prompts. Preserves data and relationship.
-- Hard paywall (full lockout): account read-only or locked until payment. Higher pressure; damages goodwill when value is already proven.
-- Default to soft paywall for B2B and collaborative tools; hard paywall only when trial abuse is a material revenue leak.
-
-## Plan Upgrade Flow
-
-Proration formula for an immediate mid-cycle upgrade:
-
-```text
-credit_from_old = old_plan_amount * (days_remaining / days_in_cycle)
-charge_for_new  = new_plan_amount * (days_remaining / days_in_cycle)
-immediate_charge = charge_for_new - credit_from_old
+```php
+$subscription = $stripe->subscriptions->create([
+    'customer' => $customer->id,
+    'items' => [['price' => $priceId]],
+    'payment_behavior' => 'default_incomplete',
+    'expand' => ['latest_invoice.payment_intent'],
+]);
 ```
 
-Offer two timing options explicitly:
+Node.js (`stripe-node`):
 
-- Immediate with proration: new entitlements unlock now; prorated difference charged today; next invoice resets to full plan on the next anchor.
-- Next cycle: new plan takes effect on renewal; no immediate charge; no entitlement change until the anchor date.
-
-Upgrade confirmation UI copy must disclose the immediate charge, the new recurring amount, and the next billing date. Example: "You'll be charged USD 42.33 today to upgrade to Pro. Starting 2026-05-01 you'll be billed USD 99.00 per month."
-
-Emit a `subscription.upgraded` event with previous plan, new plan, proration amount, effective date, and actor. Finance uses it for expansion-MRR classification; product uses it to trigger new-tier onboarding.
-
-## Plan Downgrade Flow
-
-Downgrades are scheduled for end-of-cycle by default. The customer keeps the paid-for entitlement until the anchor date, no refund is issued, and the new plan activates on renewal. Immediate-with-refund is reserved for explicit support exceptions.
-
-Retention offer at the point of downgrade:
-
-- Present "Save 50% for 3 months to stay" before confirming the downgrade.
-- Offer pause as an alternative when the reason is "too expensive right now" or "not using it lately".
-- Accept the downgrade without friction if the user declines.
-
-Feature-loss warning must enumerate exactly what will be lost and when: "On 2026-05-01 your plan changes to Starter. You will lose API access, 3 team seats (keeping 1), and CSV export. Your data and projects are preserved."
-
-Log the downgrade reason code. Emit `subscription.downgrade_scheduled` for contraction-MRR accounting at the anchor date.
-
-## Cancellation Flow
-
-The cancellation flow is the single highest-leverage retention surface. Design it as a conversation.
-
-Exit intent modal structure:
-
-1. Acknowledge the decision without guilt-tripping.
-2. Ask a structured reason-code question (radio list + optional free text).
-3. Present one targeted save offer conditional on the reason code.
-4. Confirm cancellation or accept the save offer.
-5. Send a confirmation email with reactivation link and data-export instructions.
-
-Save offers matched to reason codes:
-
-- "Too expensive" -> 30-50% discount for 3 months, or downgrade suggestion.
-- "Not using it" -> pause for 1-3 months with auto-resume.
-- "Missing feature X" -> record the feature request, notify when shipped, extend higher-tier trial.
-- "Found alternative" -> accept gracefully, ask optional "what did they do better".
-- "Project ended" -> accept, offer archive-mode or low-cost maintenance plan.
-
-Reason codes must be a closed list so the data is analyzable. Free text is always optional. Cancellation is effective at period end; entitlement continues until then; a "Resume subscription" button stays visible through the remaining period.
-
-## Pause & Resume
-
-Pause is a first-class lifecycle state. In Stripe, set `pause_collection.behavior: keep_as_draft` to stop invoice generation while preserving the subscription.
-
-- Allowed pause durations: 1, 2, or 3 months (cap at 3 to force a resume/cancel decision).
-- Auto-resume date is computed at pause time and stored on the subscription.
-- No charges occur while paused; the period does not advance; the anchor is preserved on resume.
-
-Paused UI state: a persistent dashboard banner "Your subscription is paused until 2026-07-01" with a primary "Resume now" button and secondary "Cancel instead" link. Premium features are visibly disabled with the same banner copy, not silent failures.
-
-Resume notifications: email 3 days before auto-resume ("resumes on 2026-07-01; card ending 4242 will be charged USD 99.00") and a second email on the resume day with the invoice receipt.
-
-## Billing Anchors
-
-Cycle anchor day determines when each subscription renews:
-
-- Anniversary billing: anchor is the calendar day the subscription started. Spreads renewal load evenly; matches customer expectations.
-- Calendar billing: anchor is the 1st of every month regardless of signup day. Simplifies finance reconciliation but prorates every first partial period.
-
-Proration implications: anniversary billing prorates only on mid-cycle plan changes; calendar billing prorates every new subscription's first period. Annual plans anchor to signup anniversary unless enterprise terms set a fiscal-year anchor. Document the chosen model in the billing configuration record.
-
-## Revenue Recognition
-
-Cash collection and revenue recognition are separate ledgers. An annual plan paid in advance generates cash on day 1 but must be recognised ratably across 12 months (ASC 606 / IFRS 15).
-
-Deferred revenue for a USD 1,200 annual plan invoiced on 2026-01-01:
-
-| Month | Cash Received | Revenue Recognised | Deferred Balance |
-|-------|---------------|-------------------|------------------|
-| 2026-01 | 1,200 | 100 | 1,100 |
-| 2026-02 | 0 | 100 | 1,000 |
-| 2026-06 | 0 | 100 | 600 |
-| 2026-12 | 0 | 100 | 0 |
-
-Rules: monthly plans recognise in the month of service; annual plans recognise 1/12 per month for 12 months; mid-cycle cancellation stops future recognition but does not reverse recognised revenue; refunds reverse recognised revenue in the period issued.
-
-## MRR Calculation
-
-Normalise annual subscriptions to a monthly equivalent to produce a single MRR across intervals:
-
-```sql
-SELECT
-  SUM(
-    CASE billing_interval
-      WHEN 'year' THEN plan_amount_cents / 12.0
-      ELSE plan_amount_cents
-    END
-  ) / 100.0 AS mrr_usd
-FROM subscriptions
-WHERE status IN ('active', 'trialing', 'past_due')
-  AND (cancelled_at IS NULL OR cancelled_at > CURRENT_DATE);
+```javascript
+const subscription = await stripeClient.subscriptions.create({
+  customer: customer.id,
+  items: [{ price: priceId }],
+  payment_behavior: 'default_incomplete',
+  expand: ['latest_invoice.payment_intent'],
+});
 ```
 
-MRR movements (report each separately for a full waterfall):
+Use `payment_behavior: 'default_incomplete'` when the front-end must confirm the first PaymentIntent (and handle 3DS) before the subscription transitions out of `incomplete`. The expanded `latest_invoice.payment_intent.client_secret` is what the browser SDK confirms; see `stripe-payments` for the SCA flow.
 
-- New MRR: subscriptions that moved from `none` to `active` this period.
-- Expansion MRR: net increase from upgrades, seat additions, or metered overage.
-- Contraction MRR: net decrease from downgrades, seat removals, or discounts.
-- Churn MRR: MRR lost from subscriptions that transitioned to `cancelled`.
-- Reactivation MRR: MRR recovered from previously cancelled customers starting new subscriptions.
+## §4 Trials
 
-Net New MRR = New + Expansion + Reactivation - Contraction - Churn. NRR = (Starting + Expansion + Reactivation - Contraction - Churn) / Starting; target above 100%.
+**Classic trial.** Pass `trial_period_days` on create. When the trial ends, the subscription moves to `active` and Stripe charges the customer's default payment method.
 
-## Cohort Retention Analysis
+**Modern trial offers** (configured via `trial_settings` and trial offer objects):
 
-Group customers by signup month and track active status in each subsequent month. The curve reveals product-market fit stability and onboarding effectiveness.
+- `duration.type = relative` — trial length is set in billing intervals.
+- `duration.type = timestamp` — trial ends on an absolute date.
+- `end_behavior` — controls the price the subscription transitions to at trial end (the regular price or another configured price).
+- If a subscription contains only trial offers and all trial offer prices are `0`, the subscription status is `trialing`. Paid trials result in `active`, `incomplete`, or `past_due`.
+- Constraint: trial offers cannot be combined with Stripe Checkout or the legacy `trial_end` parameter — pick one path.
 
-```sql
-WITH cohorts AS (
-  SELECT customer_id, DATE_TRUNC('month', created_at) AS cohort_month
-  FROM subscriptions
-  WHERE started_at IS NOT NULL
-),
-activity AS (
-  SELECT
-    c.customer_id,
-    c.cohort_month,
-    DATE_TRUNC('month', m.month_date) AS active_month,
-    EXTRACT(MONTH FROM AGE(m.month_date, c.cohort_month)) AS months_since_signup
-  FROM cohorts c
-  CROSS JOIN (
-    SELECT generate_series(
-      DATE_TRUNC('month', NOW()) - INTERVAL '12 months',
-      DATE_TRUNC('month', NOW()),
-      '1 month'
-    ) AS month_date
-  ) m
-  JOIN subscriptions s
-    ON s.customer_id = c.customer_id
-   AND s.status IN ('active', 'trialing', 'past_due')
-   AND s.started_at <= m.month_date
-   AND (s.cancelled_at IS NULL OR s.cancelled_at > m.month_date)
-)
-SELECT cohort_month, months_since_signup, COUNT(DISTINCT customer_id) AS active_customers
-FROM activity
-GROUP BY cohort_month, months_since_signup
-ORDER BY cohort_month, months_since_signup;
+**Trial-end notification.** The `customer.subscription.trial_will_end` webhook is sent 3 days before the trial ends (or immediately if the trial is shorter than 3 days). Wire it to the transactional email pipeline so the customer sees a reminder with a one-click payment-method capture link.
+
+**Trial length defaults.**
+
+- B2C: 7–14 days. Short trials force activation.
+- B2B self-serve: 14 days, no card up-front.
+- Sales-assisted POCs: longer custom durations driven by a CSM.
+
+## §5 Mid-Cycle Changes — Proration
+
+Worked example from Stripe's prorations documentation: upgrading from a `$10/month` plan to a `$20/month` plan halfway through the cycle generates `-5 USD` for unused time on the initial price and `+10 USD` for remaining time on the new price.
+
+`proration_behavior` enum:
+
+1. `create_prorations` (default) — creates proration invoice items when applicable; only invoiced immediately under specific conditions.
+2. `always_invoice` — calculates the proration and immediately generates an invoice.
+3. `none` — no proration; customers are billed the full new amount when the next invoice generates.
+
+Direction rules:
+
+- Upgrades generate positive prorations (additional charges).
+- Downgrades create credit prorations.
+- Negative prorations are not automatically refunded — handle manually depending on classic vs flexible billing mode.
+
+Decision table:
+
+| Transition | Recommended `proration_behavior` | Rationale |
+|------------|----------------------------------|-----------|
+| Upgrade (immediate value delivered) | `always_invoice` | Bill the difference now while the new entitlement unlocks. |
+| Downgrade (effective at period end) | `none` + `cancel_at_period_end`-style swap | Avoid issuing an unintended credit. |
+| Quantity bump on a metered seat | `create_prorations` | Roll prorations into the next invoice. |
+| Plan rename only (same price) | `none` | Nothing to charge. |
+
+Upgrade confirmation copy must disclose the immediate charge, the new recurring amount, and the next billing date. Example: "You'll be charged USD 42.33 today to upgrade to Pro. Starting 2026-05-01 you'll be billed USD 99.00 per month."
+
+Downgrade copy must enumerate exactly what will be lost and when: "On 2026-05-01 your plan changes to Starter. You will lose API access, 3 team seats (keeping 1), and CSV export. Your data and projects are preserved."
+
+## §6 Cancel, Pause, Resume
+
+**Cancellation timing.**
+
+- Default — immediate: cancellation takes effect immediately and invoices are no longer generated for canceled subscriptions.
+- At period end: set `cancel_at_period_end = true`; the subscription completes the duration the customer has already paid for.
+- Mid-cycle proration: pass `prorate` to prorate the cancellation. If you set a custom cancellation date, you cannot provide a refund — a credit proration is always generated.
+- Period-end cancels: any pending prorations are left in place and still collected at the end of the period.
+
+The cancellation flow is the highest-leverage retention surface. Design an exit-intent modal that (1) acknowledges without guilt-tripping, (2) asks a structured reason-code question, (3) presents one targeted save offer matched to the reason code, (4) confirms the cancellation, and (5) sends a confirmation email with reactivation link and data-export instructions. Reason codes must be a closed list so the data is analyzable.
+
+**Pause and resume.** The Stripe-managed `paused` status is the state when a trial ends without a payment method. Programmatic pause is performed via the `pause_collection` parameter on subscription update. Confirm the exact `pause_collection.behavior` enum (e.g. `keep_as_draft`, `mark_uncollectible`, `void`) against the Stripe subscription update reference before publishing handler code.
+
+Operational rules for self-serve pause:
+
+- Allow 1, 2, or 3 months; cap at 3 to force a resume/cancel decision.
+- Compute and store the auto-resume date at pause time.
+- Email 3 days before auto-resume and again on the resume day with the invoice receipt.
+- Surface a persistent dashboard banner ("Your subscription is paused until 2026-07-01") with a primary "Resume now" action.
+
+## §7 Dunning with Smart Retries
+
+Smart Retries uses AI to choose the best times to retry failed payment attempts and increase the chance of successful collection.
+
+**Schedule options.** Retry within a chosen window: 1 week, 2 weeks, 3 weeks, 1 month, or 2 months. Stripe's recommended default is **8 tries within 2 weeks**. Disabling Smart Retries lets you set custom rules with up to three retries, each with a specific number of days after the previous attempt.
+
+**End-of-dunning disposition** — pick one when configuring revenue recovery:
+
+1. **Cancel** — subscription transitions to `canceled` after the maximum number of days defined in the retry schedule.
+2. **Mark unpaid** — subscription transitions to `unpaid` after the maximum number of days; invoices continue to be generated and stay in draft.
+3. **Leave past_due** — subscription remains in `past_due` after the maximum number of days.
+
+Pick `cancel` for self-serve B2C, `unpaid` for B2B where collections will follow up out-of-band, and `past_due` only when finance has a manual intervention process.
+
+**Webhook events to wire** (verbatim event names): `invoice.payment_failed` (each failed attempt), `customer.subscription.updated` (transitions to `past_due` / `unpaid` / `canceled`), `invoice.paid` (recovery success). Handlers must be idempotent — see `stripe-payments`.
+
+**Dunning email cadence** is captured in `references/dunning-management.md`. Standard pattern: notification on Day 0, soft reminder on Day 3, warning on Day 7, degradation at Day 10, final warning at Day 14, end-of-dunning action at Day 21 with a winback message.
+
+## §8 Metered / Usage-Based Pricing
+
+Usage-based billing charges customers based on their consumption of the product or service. Three operational components:
+
+1. Record customer usage data into Stripe so the right amount is billed.
+2. Apply billing credits for prepaid or promotional usage.
+3. Set up alerts when a customer exceeds a usage threshold.
+
+Recording methods:
+
+1. The Stripe API (meter events).
+2. Dashboard CSV upload.
+3. Amazon S3 bulk submission.
+
+Stripe processes meter events asynchronously, so aggregated usage in meter event summaries and on upcoming invoices may not immediately reflect recently received events. Reconcile at end-of-cycle, not mid-cycle.
+
+Until the exact endpoint and payload shape (`event_name`, `payload.stripe_customer_id`, `payload.value`, `timestamp`) are confirmed against the Stripe Billing meter-event API reference, this skill keeps §8 narrative-only — do not invent endpoint names, parameter keys, or aggregation enum strings in code samples. The aggregation modes are configured on the meter (not on each event); confirm the canonical enum on the meter object reference before publishing the comparison table.
+
+Usage rules that hold regardless:
+
+- Meter the unit the customer can predict and audit (seats, API calls, storage GB, messages, reports).
+- Threshold alerts: 50% informational, 80% warning, 100% degrade or block, 120% escalate to account owner with overage projection.
+- Never rely on in-memory counters — meter events must be persisted before being submitted to Stripe.
+
+Operational depth lives in `references/metered-billing.md`.
+
+## §9 Pricing Models
+
+Stripe Prices support several recurring billing schemes. The named families: `per_unit`, `tiered` (with `tiers_mode` of `graduated` or `volume`). Confirm the exact `billing_scheme` and `tiers_mode` enum strings on the Stripe Price object reference before publishing code that branches on them.
+
+Decision matrix:
+
+| Scheme | When to use | Example |
+|--------|-------------|---------|
+| Flat recurring (per_unit, quantity 1) | Single-tier SaaS plan | "Pro: $29/month" |
+| Per-seat (per_unit, quantity N) | B2B seat-based plans | "$10/seat × 12 seats" |
+| Graduated tiers | Per-unit price drops as usage grows, only above each tier's threshold | "First 1k API calls free, next 9k @ $0.001, then $0.0005" |
+| Volume tiers | One unit price applies across all units, based on the highest tier reached | "If usage > 10k, every call billed @ $0.0005" |
+| Metered + tiered | Pay-as-you-go with quantity discounts | OpenAI-style API billing |
+
+Use a small, understandable set of plan tiers (Freemium / Starter / Pro / Enterprise). Tie pricing to delivered value, not internal implementation cost. Keep feature gates explicit and machine-enforceable.
+
+## §10 Tax on Subscriptions
+
+Enable automatic tax on a subscription:
+
+```bash
+curl https://api.stripe.com/v1/subscriptions \
+  -u "<<YOUR_SECRET_KEY>>:" \
+  -d "automatic_tax[enabled]=true"
 ```
 
-Output pivots into a triangular table (cohort month rows, months-since-signup columns). A healthy SaaS curve flattens at or above 80% by month 6; a continuous decline signals a product or onboarding problem.
+Validate customer location at the moment of the call by adding `-d "tax[validate_location]=immediately"`.
 
-## Dunning Email Sequences
+**Tax IDs on the Customer.** Stripe supports over 200 specific tax ID types organised by country code (`eu_vat`, `gb_vat`, `au_abn`, etc.). To update a tax ID, delete the old one and create another — tax IDs are not edited in place.
 
-When a renewal charge fails, treat the event as recoverable. Standard 21-day dunning timeline:
+**Strategy note.** Stripe Tax tracks sales against local registration thresholds and alerts when tax obligations may exist. This does not absolve the merchant of registering in jurisdictions where required; treat threshold alerts as input into a finance and legal workflow, not as compliance itself. East Africa VAT and withholding tax are finance and legal controls, not just API fields.
 
-```text
-Day 0 (payment fails) -> soft email: "Update your card"
-Day 3                 -> reminder email with 1-click card update link
-Day 7                 -> warning email: "Service will be limited in 3 days"
-Day 10                -> subscription paused: feature access degraded
-Day 14                -> final warning: "Subscription will cancel in 7 days"
-Day 21                -> subscription cancelled; retention email with winback offer
-```
+## §11 Multi-Currency Subscriptions
 
-Email content rules:
+A Subscription's currency is fixed at creation, and a Price has a single currency, so a multi-currency catalogue means **multiple Prices per Product** — one per currency. Stripe supports charging in over 135 currencies. Presentment-vs-settlement and zero-decimal rules from `stripe-payments` apply identically.
 
-- Day 0 is a notification, not an accusation. Assume an expired card, not a deadbeat.
-- Day 3 and Day 7 include a secure 1-click link that opens the billing portal pre-authenticated.
-- Day 10 degradation matches the `past_due` entitlement rules; communicate it explicitly.
-- Day 14 states the exact cancellation date and the exact action required to prevent it.
-- Day 21 winback preserves the email relationship after cancellation; include reactivation discount and data-preservation assurance.
+Confirm the shape of `currency_options` on the Price object (which lets a single Price ID present in multiple currencies) against the Stripe Price object reference before relying on it as an alternative to one-Price-per-currency.
 
-Payment retry schedule aligns with the timeline: retry on days 1, 3, 5, 7, 14. Stripe Smart Retries adapts this via decline-code machine learning; override only when business policy demands exact predictability.
+## §12 Strategy — Subscription vs Perpetual, Monthly vs Annual
 
-## Refund & Dispute Handling
+Strategic framing only; the technical guidance above stands on Stripe documentation.
 
-Refund policy matrix:
+Durable software companies treat the **customer relationship**, not the transaction, as the primary asset. The implications:
 
-- Full refund: billing error, double charge, confirmed outage covering the billed period.
-- Partial refund: mid-cycle cancellation with support approval; unused metered overage.
-- Prorated refund: downgrade-with-refund exceptions; unused days on an annual plan per contract terms.
+- Subscription pricing aligns vendor and customer incentives by making churn (not point-of-sale resistance) the primary loss mechanism.
+- Annual prepay reduces churn frequency and accelerates cash-in, but costs revenue if discounted aggressively.
+- Monthly billing exposes more frequent retention signals; pair it with cohort analysis from `saas-growth-metrics`.
 
-Stripe refund API flow: confirm charge ID and amount in cents; call `POST /v1/refunds` with `charge`, `amount`, `reason`; record the refund in the internal ledger before success; reverse recognised revenue if the refund spans already-recognised months; send a confirmation email with the 5-10 business-day settlement window.
+Recommendation table:
 
-Chargeback process: a chargeback is a network dispute, not a refund. The merchant loses by default if no evidence is submitted before the issuer deadline. Collect evidence immediately (signed terms, usage logs, IPs, communication history, refund-offer records) and submit through Stripe Dashboard or the Disputes API within 7-21 days. Above 1% dispute rate triggers network monitoring programs.
+| Decision | Default | Trigger to revisit |
+|----------|---------|--------------------|
+| Subscription vs perpetual licence | Subscription for SaaS | Specialised on-prem or regulated deployments. |
+| Monthly vs annual | Offer both; default new customers to monthly | Sales-led B2B with negotiated annual terms. |
+| Discount on annual | Offered to incentivise prepayment | Specific percentage is a pricing decision; do not assert a typical range without a sourced benchmark. A/B test via experiment-engineering. |
+| Trials | 14 days, no card up-front for self-serve | Sales-assisted POCs use longer custom durations. |
 
-Fraud prevention:
+## §13 Production Checklist & Cross-References
 
-- Enable Stripe Radar defaults; tune from real false-positive and false-negative data over the first 90 days.
-- Velocity checks: block more than N signup attempts from the same IP, email domain, or card BIN within a window.
-- 3D Secure 2 on high-risk markets; accept the conversion drop for liability shift.
-- Manual review queue for borderline transactions; never auto-reject without a clear signal.
-
-## Billing Portal Customisation
-
-Stripe Customer Portal is the default self-serve billing surface. Configure deliberately rather than accepting defaults.
-
-Features to enable:
-
-- Cancel subscription (with the configured cancellation reason survey).
-- Update payment method (card, bank debit where applicable).
-- View and download invoice history.
-- Update billing address and tax ID.
-- Switch plan only if self-serve upgrade/downgrade is safe.
-
-Branding: logo at production resolution; primary and secondary colours matching product brand tokens; custom domain for the portal URL to preserve brand trust.
-
-Legal and policy: terms of service required for every jurisdiction served; privacy policy required where applicable (GDPR, DPPA, CCPA); support email or help-centre link visible on every portal page. Audit quarterly; feature toggles drift as Stripe ships new capabilities.
-
-## Usage-Based Billing
-
-Usage pricing works only when the customer understands and can predict the billed unit. Seats, API calls, storage GB, messages, and reports generated are good candidates; opaque composite units are not.
-
-Pricing structures:
-
-- Pure metered: zero base fee, pay per unit. High discovery friction, low low-usage friction.
-- Tiered with included units: base fee covers N units; overage billed above N. Standard SaaS pattern.
-- Volume-discounted tiers: per-unit price decreases at higher brackets. Rewards expansion.
-- Commit-and-burn: customer prepays a discounted unit bucket that decrements with usage.
-
-Threshold alerts: 50% informational; 80% warning (in-app banner + email with upgrade path); 100% degrade gracefully to overage or block when overage is not permitted; 120% escalate to account owner with overage-cost projection.
-
-End-of-cycle reconciliation: aggregate usage records for the closed period; append overage as invoice line items with a usage-summary link; reset counters at the cycle anchor; preserve raw usage logs for audit. Stripe Metered Billing automates this when configured; never rely on in-memory counters across restarts.
-
-## Multi-Tenant Billing
-
-Multi-tenant SaaS requires billing architecture that matches tenant isolation.
-
-Per-seat pricing via Stripe Subscription Items: one subscription per tenant; one subscription item per billable add-on (seats, storage, premium modules); quantity changes on the seat item trigger prorated charges on the next invoice; each item has its own price object and metered behaviour.
-
-Per-tenant billing accounts: one Stripe Customer per tenant, not per user. The tenant is the legal payer. The tenant admin is the billing contact; other users have read-only invoice access through the app UI. Customer metadata stores the internal tenant ID for webhook reconciliation.
-
-Consolidated invoicing for enterprise: some tenants require one invoice covering multiple workspaces or subsidiaries. Use Stripe Invoice Items with a single Customer across workspaces, generated at month close rather than per-subscription. Include a line-item breakdown by workspace with seat counts and metered usage. Terms: Net 30 or contract-specified; collection method `send_invoice`.
-
-Isolation rules: never share a Stripe Customer across tenants even when the same human administers multiple tenants; webhook handlers must resolve the internal tenant ID from customer metadata before touching tenant data; every billing-event log line must include the tenant ID for multi-tenant compliance review.
-
-## Billing Workflow
-
-### 1. Design the Plan Hierarchy
-
-Use a small, understandable set of tiers: Freemium, Starter, Pro, Enterprise. Tie pricing to delivered value, not internal implementation cost; keep downgrade paths real; keep feature gates explicit and machine-enforceable; avoid too many tiers.
-
-### 2. Model the Subscription Lifecycle
-
-Support these transitions deliberately: free trial to paid, paid renewal, immediate upgrade, downgrade now or at renewal, pause or grace period, cancel at period end, reactivate or win-back. Keep entitlement state aligned to subscription state and billing dates.
-
-### 3. Choose Proration and Change Timing
-
-- Prorate upgrades when the user expects immediate extra value.
-- Avoid surprise charges on downgrades or plan experimentation.
-- Offer "upgrade now" versus "switch at next renewal" when that choice matters.
-
-### 4. Design Dunning and Recovery
-
-- Treat payment failure as a recoverable lifecycle step, not instant cancellation.
-- Define grace periods, retries, in-app warnings, and account restrictions.
-- Support, product, and finance must agree on exact suspension and cancellation thresholds.
-
-### 5. Add Metered Billing Only When It Matches Value
-
-Use usage pricing only when the customer understands and can monitor the unit (seats, API calls, storage, messages, reports). Never meter units the customer cannot predict or audit.
-
-### 6. Handle Currency and Tax Deliberately
-
-Keep the account billing currency explicit; use per-currency Prices rather than undocumented guessing; choose between Stripe Tax and controlled manual tax rates by footprint and compliance maturity; treat East Africa VAT and withholding tax as finance and legal controls, not just API fields.
-
-### 7. Measure Revenue Health
-
-Track MRR, ARR, churn rate, NRR, trial conversion rate, and failed-payment recovery rate with definitions that are consistent over time.
+- [ ] Webhook subscriptions for the full lifecycle event set (§7) wired to idempotent handlers (cross-ref `stripe-payments`).
+- [ ] Plan catalogue stored as code (Terraform Stripe provider or seed scripts) so Prices are reproducible across environments.
+- [ ] `proration_behavior` chosen explicitly on every `subscriptions.update` call — no defaults left implicit.
+- [ ] Smart Retries configured; end-of-dunning disposition matches the account-recovery playbook.
+- [ ] `automatic_tax[enabled]=true` on every subscription where the business has nexus; Tax IDs collected in supported regions.
+- [ ] `customer.subscription.trial_will_end` triggers the transactional email pipeline.
+- [ ] Subscription state mirror in MySQL is eventual — Stripe is the source of truth; reconciliation job runs nightly.
+- [ ] Revenue recognition handled in `saas-accounting-system`, not duplicated here.
+- [ ] Cohort retention dashboards live in `saas-growth-metrics`.
+- [ ] Plan tiers tied to value, not to internal implementation cost.
+- [ ] Cancellation flow uses a closed reason-code list with one save offer per code.
+- [ ] Multi-currency catalogue uses one Price per currency unless `currency_options` has been verified for the use case.
 
 ## Standards
 
-- Billing transitions must be understandable before the charge happens.
+- Billing transitions must be understandable to the customer **before** the charge happens.
 - Cancelled users must not keep paid access beyond the billed period unless policy says so explicitly.
-- Separate cash collection from revenue recognition; subscription, invoice, and entitlement ledgers must reconcile.
+- Cash collection and revenue recognition are separate ledgers; subscription, invoice, and entitlement state must reconcile.
 - Revenue metrics must be reproducible from raw billing data, not spreadsheet folklore.
-
-## Review Checklist
-
-- [ ] Plan tiers are understandable and tied to value.
-- [ ] Subscription lifecycle transitions are explicit and entitlement-safe.
-- [ ] Proration behavior matches user expectations and business policy.
-- [ ] Failed-payment dunning and grace periods are encoded clearly.
-- [ ] Metered billing uses units customers can understand and monitor.
-- [ ] Currency and tax handling are explicit for each target market.
-- [ ] MRR, ARR, churn, and NRR definitions are documented consistently.
 
 ## Companion Skills
 
-- [../stripe-payments/SKILL.md](../stripe-payments/SKILL.md): Stripe integration, PaymentIntents, subscriptions, portal, and webhooks.
+- [../stripe-payments/SKILL.md](../stripe-payments/SKILL.md): Stripe primitives — PaymentIntents, webhook signature verification, 3DS / SCA, idempotency.
+- [../saas-subscription-mastery/SKILL.md](../saas-subscription-mastery/SKILL.md): Broader subscription lifecycle, retention strategy, and cancellation playbooks.
 - [../saas-accounting-system/SKILL.md](../saas-accounting-system/SKILL.md): Double-entry accounting, deferred revenue ledgers, and billing-to-GL reconciliation.
-- [../saas-business-metrics/SKILL.md](../saas-business-metrics/SKILL.md): SaaS metrics framework covering MRR/ARR, CAC/LTV, cohort retention, and growth efficiency.
-- [../software-pricing-strategy/SKILL.md](../software-pricing-strategy/SKILL.md): Value-based pricing, B2B vs B2C differences, and plan architecture decisions.
+- [../saas-growth-metrics/SKILL.md](../saas-growth-metrics/SKILL.md): MRR/ARR, NRR, cohort retention, churn analysis.
+- [../software-pricing-strategy/SKILL.md](../software-pricing-strategy/SKILL.md): Value-based pricing, B2B vs B2C plan architecture.
 
 ## References
 
-- [references/dunning-management.md](references/dunning-management.md): Payment-failure recovery flows and suspension logic.
-- [references/metered-billing.md](references/metered-billing.md): Usage pricing models, reporting patterns, and billing-cycle resets.
-- [references/revenue-recognition.md](references/revenue-recognition.md): Deferred revenue, ratable recognition, and ASC 606 or IFRS 15 basics.
-- [../stripe-payments/SKILL.md](../stripe-payments/SKILL.md): Stripe integration, PaymentIntents, subscriptions, portal, and webhooks.
-- [../ai-saas-billing/SKILL.md](../ai-saas-billing/SKILL.md): Module-gating and add-on billing alignment for paid capabilities.
+- [references/dunning-management.md](references/dunning-management.md): Failed-payment recovery flows, retry cadence, suspension logic.
+- [references/metered-billing.md](references/metered-billing.md): Usage pricing models, recording patterns, billing-cycle resets.
+- [references/revenue-recognition.md](references/revenue-recognition.md): Deferred revenue mechanics handed off to `saas-accounting-system`.

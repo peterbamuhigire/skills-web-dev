@@ -403,15 +403,91 @@ To restore: stop Jenkins, restore JENKINS_HOME contents, start Jenkins.
 
 ---
 
-## Linux Systems Hardening
+## 8. Linux Hardening and Performance Tuning
 
-Full hardening reference moved to [references/linux-systems-hardening.md](references/linux-systems-hardening.md). Covers sysctl hardening parameters, cgroups v2 service limits, auditd rules, AppArmor profiles for Nginx/MySQL/Node.js, fail2ban jails for SSH and Nginx, and TCP stack tuning (BBR, keepalive).
+The Jenkins controller and a build agent share the same Debian/Ubuntu base but have different load shapes — keep two profiles. The generic OS baseline lives in `references/linux-systems-hardening.md` and the sibling `linux-security-hardening` skill; this section is the Jenkins-specific overlay. Full depth in `references/jenkins-host-tuning.md`.
 
-Load this reference when hardening a Jenkins host, a production application server, or any Debian/Ubuntu box exposed to the internet.
+### 8.1 CIS Benchmark baseline
+
+Pick the CIS Benchmark version matching the deployed OS (Debian 13/12/11/10 or Ubuntu 24.04/22.04/20.04 LTS — page: https://www.cisecurity.org/cis-benchmarks). Treat it as the baseline; record every intentional deviation in `docs/ci/hardening-deviations.md` with owner and review date. Do not paraphrase clause numbers from secondary sources.
+
+### 8.2 sysctl profiles — controller vs agent
+
+Common to both: `vm.swappiness=10`, `kernel.dmesg_restrict=1`, `kernel.kptr_restrict=2`, `net.ipv4.tcp_syncookies=1`, `net.ipv4.conf.all.rp_filter=1`.
+
+- Controller — long-lived TCP to UI clients, SCM webhooks, agents. Conservative `somaxconn`/`tcp_max_syn_backlog` aligned to the configured Jenkins thread pool; higher TCP keepalive cadence so dead agent connections are reaped.
+- Agent — short-lived heavy I/O across many parallel artefact pulls. Larger `net.core.{rmem,wmem}_max`, larger `tcp_{rmem,wmem}`, raised `net.netfilter.nf_conntrack_max`, raised `fs.file-max` and per-process `nofile`.
+
+Pattern, not values. Exact numbers come from the CIS benchmark and observed traffic. See `references/jenkins-host-tuning.md` §2 for concrete drop-in files.
+
+### 8.3 cgroups v2 resource isolation
+
+Debian 12+ / Ubuntu 22.04+ default to unified hierarchy. Bound CPU and memory per agent service so a runaway compiler fork cannot starve siblings:
+
+```ini
+# /etc/systemd/system/jenkins-agent.service.d/limits.conf
+[Service]
+CPUQuota=400%
+MemoryMax=8G
+MemoryHigh=6G
+IOWeight=200
+TasksMax=4096
+```
+
+Verify with `systemctl show jenkins-agent.service` and `cat /sys/fs/cgroup/system.slice/jenkins-agent.service/{cpu.max,memory.max}`. Pair every limit change with a load test that confirms enforcement.
+
+### 8.4 systemd unit hardening and ulimits
+
+Drop-in `/etc/systemd/system/jenkins.service.d/hardening.conf`: `LimitNOFILE=65536`, `LimitNPROC=8192`, `NoNewPrivileges=true`, `ProtectSystem=strict`, `ProtectHome=true`, `PrivateTmp=true`, `ProtectKernelTunables=true`, `ProtectKernelModules=true`, `ProtectControlGroups=true`, `RestrictSUIDSGID=true`, `LockPersonality=true`, `SystemCallArchitectures=native`. Always pair `ProtectSystem=strict` with `ReadWritePaths=/var/lib/jenkins /var/log/jenkins /var/cache/jenkins` or Jenkins will fail to write `JENKINS_HOME`. Score with `systemd-analyze security jenkins`.
+
+### 8.5 AppArmor / seccomp
+
+Confirm enforcement with `aa-status`. Docker build agents inherit `docker-default` AppArmor + seccomp; never run `--privileged` for normal builds. If native build tooling runs on the host, write a profile that denies write outside `/home/jenkins`, `/tmp`, and `/var/lib/jenkins`. Test in `complain` mode before promoting to `enforce`.
+
+### 8.6 auditd — evidence trail
+
+Rule pack `/etc/audit/rules.d/50-jenkins.rules` watches `/etc/passwd`, `/etc/shadow`, `/etc/sudoers{,.d}`, `/var/lib/jenkins/{config.xml,credentials.xml,secrets/}`, `/etc/default/jenkins`, and the Vault binary. Buffer `-b 8192`; failure mode `-f 1` for normal hosts (`-f 2` panic only for the strictest evidence regimes). Rotate via `auditd.conf` (`max_log_file=50`, `num_logs=10`, `max_log_file_action=ROTATE`). Forward to a SIEM — local logs alone are insufficient for evidence integrity. Cross-ref the §C/§D evidence sections in `cicd-devsecops`.
+
+### 8.7 Network stack tuning — agents under load
+
+Tune these keys for agents pulling many artefacts in parallel; verify with the listed command:
+
+| Key | Why | Verify |
+|---|---|---|
+| `net.core.somaxconn` | Accept-queue length for inbound agent connections | `ss -lnt` |
+| `net.ipv4.tcp_max_syn_backlog` | Half-open connection backlog under SYN bursts | `sysctl <key>` |
+| `net.core.{rmem,wmem}_max`, `net.ipv4.tcp_{rmem,wmem}` | Throughput on high-bandwidth links | `ss -tmi` shows socket buffers |
+| `net.netfilter.nf_conntrack_max` | Conntrack table — default often too small for thousands of short-lived connections | `dmesg | grep nf_conntrack` (no "table full") |
+
+Justify every tuned key from observed traffic, not folklore.
+
+### 8.8 journald, fail2ban, unattended-upgrades
+
+- journald: `SystemMaxUse=2G`, `SystemKeepFree=1G`, `MaxRetentionSec=2week` so a runaway agent cannot fill the disk. Ship build logs to the SIEM via the agent log shipper, not journald.
+- fail2ban: jails for `sshd` and `nginx-jenkins-auth` (401/403 on the login URL); whitelist the agent subnet under `ignoreip`.
+- unattended-upgrades: enable `-security` origins; blacklist `jenkins` and `openjdk-17-jdk` so surprise restarts do not interrupt builds — patch them on the change window.
+
+### 8.9 Verification harness
+
+Every hardening change pairs with a deterministic check, run as a CI job that fails on drift:
+
+| Change | Check |
+|---|---|
+| sysctl key | `sysctl <key>` matches expected; persisted in `/etc/sysctl.d/` |
+| auditd rule | `auditctl -l` shows the rule; test event produces a record |
+| cgroup limit | `systemctl show <unit>` + load test confirms enforcement |
+| TCP buffers | `ss -tmi` confirms tuned socket buffer values |
+| systemd hardening | `systemd-analyze security <unit>` within target band |
+| AppArmor | `aa-status` shows profile in enforce |
+| CIS deviation | Documented row in the hardening deviation register |
+
+Pick one tool — `lynis`, OpenSCAP SSG, or a custom asserter — and pin it. Do not run all three.
 
 ## References
 
 - `references/nginx-reverse-proxy.md` — Nginx TLS config for Jenkins
 - `references/multibranch-pipeline.md` — Multibranch pipeline setup for GitLab/GitHub
 - `references/shared-library.md` — Jenkins shared library for cross-repo pipeline patterns
-- `references/linux-systems-hardening.md` — sysctl, cgroups v2, auditd, AppArmor, fail2ban, BBR
+- `references/linux-systems-hardening.md` — generic sysctl, cgroups v2, auditd, AppArmor, fail2ban, BBR
+- `references/jenkins-host-tuning.md` — controller vs agent profiles, CIS baseline, verification harness
+- Companion skill `linux-security-hardening` — OS-wide baseline; this skill is the Jenkins-specific overlay

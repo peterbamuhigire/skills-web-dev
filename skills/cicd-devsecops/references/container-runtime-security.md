@@ -261,3 +261,123 @@ spec:
 - [ ] Images are signed with Cosign and verified at admission.
 - [ ] Network policies default-deny and explicitly allow required flows.
 - [ ] Runbooks exist for every Falco rule that can page oncall.
+
+## Falco, Gatekeeper, and Trivy Examples (Moved from SKILL.md)
+
+### Falco install (Helm + eBPF)
+
+```bash
+helm repo add falcosecurity https://falcosecurity.github.io/charts
+helm install falco falcosecurity/falco \
+  --namespace falco --create-namespace \
+  --set driver.kind=ebpf \
+  --set falcosidekick.enabled=true \
+  --set falcosidekick.webui.enabled=true
+```
+
+### Falco rule — shell in container
+
+```yaml
+- rule: Shell spawned in container
+  desc: A shell was spawned inside a container
+  condition: container.id != host and proc.name in (shell_binaries)
+  output: "Shell started (user=%user.name container=%container.id command=%proc.cmdline)"
+  priority: WARNING
+  tags: [container, shell]
+```
+
+### Falcosidekick alert routing
+
+```yaml
+falcosidekick:
+  config:
+    slack:
+      webhookurl: "https://hooks.slack.com/services/XXX/YYY/ZZZ"
+      minimumpriority: warning
+    pagerduty:
+      routingkey: "$PAGERDUTY_ROUTING_KEY"
+      minimumpriority: critical
+    loki:
+      hostport: "http://loki:3100"
+      minimumpriority: informational
+```
+
+### Gatekeeper install + ConstraintTemplate + Constraint
+
+```bash
+kubectl apply -f https://raw.githubusercontent.com/open-policy-agent/gatekeeper/release-3.15/deploy/gatekeeper.yaml
+```
+
+```yaml
+apiVersion: templates.gatekeeper.sh/v1
+kind: ConstraintTemplate
+metadata:
+  name: k8srequirednonroot
+spec:
+  crd:
+    spec:
+      names:
+        kind: K8sRequiredNonRoot
+  targets:
+    - target: admission.k8s.gatekeeper.sh
+      rego: |
+        package k8srequirednonroot
+        violation[{"msg": msg}] {
+          input.review.object.spec.securityContext.runAsNonRoot == false
+          msg := "Containers must runAsNonRoot: true"
+        }
+```
+
+```yaml
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sRequiredNonRoot
+metadata:
+  name: pods-must-run-as-nonroot
+spec:
+  enforcementAction: deny
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+    namespaces: ["prod", "prod-eu", "prod-us"]
+```
+
+Audit:
+
+```bash
+kubectl get constraints
+kubectl get k8srequirednonroot pods-must-run-as-nonroot -o yaml
+kubectl logs -n gatekeeper-system -l control-plane=audit-controller
+```
+
+### Trivy in CI + SBOM
+
+```yaml
+- name: Trivy image scan
+  uses: aquasecurity/trivy-action@master
+  with:
+    image-ref: ${{ steps.build.outputs.image }}
+    severity: CRITICAL,HIGH
+    exit-code: 1
+    ignore-unfixed: true
+    format: sarif
+    output: trivy-results.sarif
+- uses: github/codeql-action/upload-sarif@v3
+  with:
+    sarif_file: trivy-results.sarif
+```
+
+```bash
+trivy image --format cyclonedx --output sbom.json "$IMAGE"
+cosign attest --predicate sbom.json --type cyclonedx "$IMAGE"
+```
+
+`.trivyignore` with mandatory expiry annotation:
+
+```text
+# CVE-2024-12345 — no upstream fix as of 2026-03-01
+# Owner: platform-sec; Review: 2026-06-01
+CVE-2024-12345 exp:2026-06-01
+```
+
+CI rejects entries without `exp:YYYY-MM-DD` and fails the nightly scan when an entry expires.

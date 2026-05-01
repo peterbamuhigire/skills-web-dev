@@ -1,8 +1,11 @@
 ---
 name: database-reliability
-description: 'Database reliability engineering: SLOs for databases, operational runbooks,
-  change management, capacity planning, backup verification, incident response, and
-  monitoring strategies for production MySQL. Use when setting up production database...'
+description: 'Database reliability engineering: SLI/SLO design and error-budget policy
+  for the data tier, blameless postmortems, escalation tiers and on-call hand-off,
+  game days for MySQL/PostgreSQL, operational runbooks, change management, capacity
+  planning, and backup verification. Use when setting up production database SRE
+  practice, defining database SLOs/error budgets, running database postmortems, or
+  hardening on-call for MySQL/PostgreSQL.'
 metadata:
   portable: true
   compatible_with:
@@ -111,6 +114,16 @@ FROM downtime_log WHERE week_start = CURDATE() - INTERVAL WEEKDAY(CURDATE()) DAY
 
 ## Platform SRE for Databases
 
+### SRE — overview and positioning
+
+SRE applies the SLO / error-budget / postmortem loop to operations work. This section turns database operations from "best effort" into a measurable, budgeted activity. Read it after the existing content on backups, replication, and query tuning, because the SLIs reference those subsystems. For application-tier SRE mechanics (alert routing, multi-burn-rate alerting, instrumentation), cross-reference the `observability-monitoring` and `reliability-engineering` skills rather than duplicating that material here.
+
+Per Google SRE Book ch. 4 (Jones, Wilkes, Murphy, Smith — sre.google/sre-book/service-level-objectives/):
+
+- An SLI is "a carefully defined quantitative measure of some aspect of the level of service that is provided".
+- An SLO is "a target value or range of values for a service level that is measured by an SLI".
+- An SLA "includes consequences of meeting (or missing) the SLOs".
+
 ### Database SLIs
 
 Concrete SLIs a production DB must track:
@@ -130,13 +143,28 @@ Example SLO targets for a production SaaS DB:
 - Replication lag P95 ≤ 5 seconds over 28d
 - Error budget: `(1 - 0.995) × 28d = 3h 22min` of query-latency-breach allowed per 28d
 
-### Error Budget Tracking
+### Error Budget Tracking and Policy
 
-How to track against the budget:
+Per Google SRE Workbook, "Implementing SLOs" (Thurgood, Ferguson, Hidalgo, Beyer — sre.google/workbook/implementing-slos/):
+
+> the error budget is 100% minus the SLO
+
+A 99.9% availability SLO yields a 0.1% budget — about 43 m 12 s per 30 days. The error budget policy is "a policy outlining what to do when your service runs out of budget" (same source). For a database tier, the typical policy actions are:
+
+| Budget state | Action |
+|--------------|--------|
+| ≥ 50% remaining | normal change cadence |
+| 25–50% remaining | review every change for SLO impact; high-risk changes require sign-off |
+| < 25% remaining | freeze schema changes and config changes; permit only reliability fixes |
+| Exhausted | full freeze; postmortem the incident(s) that consumed the budget; resume only after the budget recovers above threshold |
+
+Approval: per the SRE workbook, the policy must be agreed by product, dev, and SRE — for the data tier this means the application owner, the database team, and the platform team.
+
+Tracking mechanics:
 
 - Replication lag budget: allow max 1 hour of lag > 30 seconds per month. Alert at 50% burn.
-- Query latency budget: alert at 2% budget burn in 1 hour (fast burn) or 10% in 6 hours (slow burn)
-- Publish a weekly SLO report (Grafana snapshot) to the engineering channel
+- Query latency budget: alert at 2% budget burn in 1 hour (fast burn) or 10% in 6 hours (slow burn). For multi-window multi-burn-rate alerting mechanics, see `observability-monitoring`.
+- Publish a weekly SLO report (Grafana snapshot) to the engineering channel.
 
 Sample SLO definition YAML (Sloth-compatible):
 
@@ -173,7 +201,31 @@ Controlled drills to run quarterly in staging (never prod without a rollback pla
 
 Record every drill in a runbook with observed RTO/RPO.
 
-### Blameless Database Postmortem Template
+### Blameless Database Postmortem
+
+Per Google SRE Book "Postmortem Culture" (Lunney, Lueder, O'Connor — sre.google/sre-book/postmortem-culture/):
+
+> For a postmortem to be truly blameless, it must focus on identifying the contributing causes of the incident without indicting any individual or team for bad or inappropriate behavior.
+
+Required template sections (synthesised from the same chapter):
+
+- Title and date
+- Authors and reviewers
+- Status (draft / review / final)
+- Summary (one paragraph)
+- Impact (customers affected, duration, financial impact if quantifiable)
+- Timeline (UTC, machine-readable)
+- Root cause and contributing factors
+- Detection (how the incident was detected; was there an alert; lead time)
+- Response (what worked, what didn't)
+- Lessons learned (what went well / poorly / where we got lucky)
+- Action items (owner, due date, ticket link)
+
+Anti-patterns: blaming an individual; "human error" as a root cause without a system-level contributing factor; action items without owners or dates; postmortems that never close.
+
+Facilitation rules: one facilitator (not the on-call who handled the incident); recorded timeline before discussion; all participants agree to "we acted in good faith with the information available at the time".
+
+#### Worked example template
 
 ```markdown
 # Postmortem: <incident title>
@@ -253,6 +305,51 @@ Every DB runbook must follow this structure:
 - Recent postmortem links
 - Vendor docs
 ```
+
+### Escalation Policies
+
+Severity definitions, PagerDuty Incident Response (response.pagerduty.com/before/severity_levels/):
+
+- SEV-1: "Critical issue that warrants public notification and liaison with executive teams."
+- SEV-2: "Critical system issue actively impacting many customers' ability to use the product."
+- SEV-3: "Stability or minor customer-impacting issues that require immediate attention from service owners."
+- SEV-4: "Minor issues requiring action, but not affecting customer ability to use the product."
+- SEV-5: "Cosmetic issues or bugs, not affecting customer ability to use the product."
+
+PagerDuty also notes that when in doubt during an active incident, "treat it as the more urgent level rather than debating the distinction" (same source).
+
+Paging tiers for the database tier:
+
+- SEV-1/2: page primary on-call DBA + platform on-call + incident commander; open war-room channel.
+- SEV-3: ticket primary on-call; respond within business hours unless aging breaches SLO.
+- SEV-4/5: backlog.
+
+Runbook hand-off:
+
+- Every page links to a runbook URL.
+- Hand-off between on-call rotations: written status of open incidents, in-flight changes, and known noisy alerts. Verbal hand-off without a written record is a defect.
+
+War-room conventions:
+
+- One channel per incident, named with the incident ID.
+- Roles assigned: Incident Commander, Communications, Operations (per PagerDuty's role definitions on response.pagerduty.com).
+- Decisions logged in-channel; chat history is the source of truth for the postmortem timeline.
+
+### Game Days and DB-tier Chaos (lightweight)
+
+Lightweight scope: only what applies directly to MySQL/PostgreSQL operations. Generic chaos-engineering platforms (Chaos Mesh, Litmus, etc.) belong in the Kubernetes platform skill, not here.
+
+| Scenario | What it tests |
+|----------|---------------|
+| Promote a replica (planned failover drill) | replication health, app reconnection, DNS / proxy switchover |
+| Kill primary (SIGKILL mysqld / postgres) | failover automation, runbook accuracy, alert fan-out |
+| Disk-full on primary | monitoring of disk SLI, runbook for emergency cleanup |
+| Slow network (10% packet loss between primary and replica) | replication-lag SLO, alert thresholds |
+| Restore from backup to a scratch host | RTO measurement; backup integrity (links to existing backup section) |
+
+Cadence: quarterly minimum. Every game day produces a written report in the same template as a postmortem. Tooling: `mysqladmin`, `pg_ctl`, `iptables`, and `tc` (traffic control) cover the scenarios above; derive command sequences per environment.
+
+For deeper SRE / SLO theory and burn-rate alerting math, see [references/sre-slo.md](references/sre-slo.md) and the `reliability-engineering` and `observability-monitoring` skills.
 
 ---
 

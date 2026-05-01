@@ -1,6 +1,6 @@
 # Gap Analysis — What Is Still Missing & How to Fill It
 
-**May 2026 (Updated) | All previously-flagged Critical/High gaps closed. New priority order below.**
+**2026-05-01 (Post Spec-Closure) | All Critical/High content gaps closed in commit `b5a6251`. Residual gaps are operational discipline, book-grounding, and a small set of frontier skills.**
 
 ---
 
@@ -9,20 +9,22 @@
 | Gap | Was | Now |
 |-----|-----|-----|
 | AI/LLM Integration | Critical — zero skills | 32 skills, enterprise-grade |
+| AI Data Layer (RAG + Vector + Postgres) | High — 1 skill | 4 skills, cohort complete (post 2026-05-01 PM) |
 | React/Next.js/TypeScript | Critical — 27-line stub | 14 dedicated skills |
 | Real-time systems | High — nothing | `realtime-systems` |
 | API Design | Partial | `api-design-first` |
-| Microservices | None | 5 skills |
-| Cloud / IaC | Critical | `cloud-architecture`, `infrastructure-as-code`, `network-security` |
-| Kubernetes | Critical | `kubernetes-fundamentals`, `kubernetes-production`, `kubernetes-saas-delivery`, `kubernetes-platform` |
-| CI/CD | Critical | `cicd-pipelines`, `cicd-pipeline-design`, `cicd-jenkins-debian`, `cicd-devsecops` |
-| Payment systems | Critical | `stripe-payments`, `subscription-billing`, `saas-accounting-system` |
-| Observability | High | `observability-monitoring`, `reliability-engineering`, `database-reliability`, `observability-platform` |
-| Testing (e2e) | High | `e2e-testing`, `advanced-testing-strategy` |
-| PWA / offline-first | High | `pwa-offline-first` (closes East-Africa connectivity gap) |
+| Microservices | None | 5 skills with HAProxy/Kong/Traefik + n8n/Temporal/Airflow |
+| Cloud / IaC | Critical | `cloud-architecture`, `infrastructure-as-code`, `network-security` (reconciled to spec 2026-05-01) |
+| Kubernetes | Critical | 4 skills, `kubernetes-platform` reconciled (135 → 447 lines) |
+| CI/CD + DevSecOps | Critical | 4 skills with Vault PKI, ISO 27001, PCI-DSS, Falco/Gatekeeper/Trivy, FinOps, Linux hardening (post 2026-05-01) |
+| Payment systems | Critical | `stripe-payments`, `subscription-billing` reconciled to spec, `saas-accounting-system` |
+| Observability / SRE | High | 4 skills, `database-reliability` enhanced with SLO/error-budget/postmortem/escalation/game days |
+| Testing (e2e) | High | `e2e-testing` reconciled, `advanced-testing-strategy` |
+| PWA / offline-first | High | `pwa-offline-first` reconciled — East-Africa connectivity patterns shipped |
 | Email infrastructure | High | `tabler-email-templates` (80 production templates) |
-| Design fundamentals | Medium | 11 skills (every-layout, color-theory, design-by-nature, grid-systems, motion-design, interaction-design-patterns, cognitive-ux-framework, etc.) |
-| Growth / experimentation | Medium | 5 skills (product-discovery, product-led-growth, experiment-engineering, growth-telemetry-pipeline, saas-growth-metrics) |
+| Android AI/ML | High | `android-ai-ml` reconciled — parity with iOS |
+| Design fundamentals | Medium | 11 skills |
+| Growth / experimentation | Medium | 5 skills |
 | Apple macOS / Xcode | Medium | 10 skills |
 
 ---
@@ -80,9 +82,9 @@ You keep MySQL. You add a vector service alongside it. No migration required.
 
 ---
 
-## GAP 1: Cloud Architecture & Deployment (CRITICAL)
+## GAP 1: Cloud Architecture & Deployment — CLOSED ✅ (2026-05-01 PM)
 
-**Severity:** Critical | **Impact:** Cannot deploy or scale SaaS without this
+**Severity:** ~~Critical~~ → CLOSED | `cloud-architecture`, `infrastructure-as-code`, K8s family of 4 reconciled to Depth-2 spec in commit `b5a6251`. Detail preserved below for traceability.
 
 **What's missing:**
 - AWS/GCP core services (EC2, S3, RDS, Lambda, IAM)
@@ -108,9 +110,9 @@ You keep MySQL. You add a vector service alongside it. No migration required.
 
 ---
 
-## GAP 2: Payment Systems & Subscription Billing (CRITICAL)
+## GAP 2: Payment Systems & Subscription Billing — CLOSED ✅ (2026-05-01 PM)
 
-**Severity:** Critical | **Impact:** No billing = no SaaS
+**Severity:** ~~Critical~~ → CLOSED | `stripe-payments` and `subscription-billing` reconciled to Depth-2 spec; `saas-accounting-system` provides the double-entry engine. Detail preserved below for traceability.
 
 **What's missing:**
 - Stripe integration (PHP + Node.js)
@@ -135,9 +137,9 @@ You keep MySQL. You add a vector service alongside it. No migration required.
 
 ---
 
-## GAP 3: PostgreSQL & pgvector (HIGH — AI-enabling)
+## GAP 3: PostgreSQL & pgvector — CLOSED ✅ (2026-05-01 PM)
 
-**Severity:** High | **Impact:** Needed for pgvector RAG pipelines and Supabase projects
+**Severity:** ~~High~~ → CLOSED | 7 PostgreSQL skills now exist, including the new `postgresql-patterns` (Postgres-as-second-DB: JSONB, FTS, pgvector, RLS, PgBouncer, MySQL→PG translations). Detail preserved below.
 
 **Important:** You do NOT migrate from MySQL. You add PostgreSQL knowledge for
 AI vector search and Supabase projects. MySQL remains your primary transactional DB.
@@ -167,9 +169,9 @@ AI vector search and Supabase projects. MySQL remains your primary transactional
 
 ---
 
-## GAP 4: Vector Databases & Embeddings (HIGH — AI-enabling)
+## GAP 4: Vector Databases & Embeddings — CLOSED ✅ (2026-05-01 PM)
 
-**Severity:** High | **Impact:** RAG pipelines need a retrieval layer — this is it
+**Severity:** ~~High~~ → CLOSED | `vector-databases` skill ships with engine-selection matrix (pgvector / Qdrant / Pinecone / Weaviate), embedding model choice, chunking, hybrid search, reranking. Detail preserved below.
 
 **What this is:** You generate embeddings (numerical vectors representing meaning) from text
 using an API (OpenAI `text-embedding-3-small`, Cohere embed, etc.), then store and query
@@ -212,9 +214,9 @@ User query
 
 ---
 
-## GAP 5: AI RAG Patterns (Deep Implementation) (HIGH)
+## GAP 5: AI RAG Patterns (Deep Implementation) — CLOSED ✅ (2026-05-01 PM)
 
-**Severity:** High | **Impact:** Your ai-rag-patterns skill has the theory; it needs the implementation depth
+**Severity:** ~~High~~ → CLOSED | `rag-implementation` skill ships with naive → advanced → modular progression, query transforms (HyDE, multi-query), corrective RAG, RAGAS evaluation, multi-tenant isolation, and cost levers. Detail preserved below.
 
 **Note:** The existing `ai-rag-patterns` skill covers RAG architecture at a conceptual level.
 This gap is about the *production implementation* — the code, the failure modes, the cost patterns.
@@ -274,9 +276,9 @@ or create `rag-implementation` as a companion skill.
 
 ---
 
-## GAP 7: Android AI/ML (HIGH)
+## GAP 7: Android AI/ML — CLOSED ✅ (2026-05-01 PM)
 
-**What's missing:** ML Kit, TensorFlow Lite, MediaPipe, Gemini Nano, Compose streaming
+**Severity:** ~~High~~ → CLOSED | `android-ai-ml` reconciled to spec — ML Kit, TensorFlow Lite, MediaPipe, Gemini Nano, Compose streaming. Parity reached with `ios-ai-ml`.
 
 **Materials:**
 
@@ -290,7 +292,9 @@ or create `rag-implementation` as a companion skill.
 
 ---
 
-## GAP 8: E2E Testing (MEDIUM)
+## GAP 8: E2E Testing — CLOSED ✅ (2026-05-01 PM)
+
+**Severity:** ~~Medium~~ → CLOSED | `e2e-testing` reconciled to spec — Playwright + Cypress with Page Object Model, network mocking, visual regression, CI integration, quarantine + flake budgets.
 
 **Materials:**
 
@@ -303,9 +307,11 @@ or create `rag-implementation` as a companion skill.
 
 ---
 
-## GAP 9: Observability & Monitoring (MEDIUM → HIGH for platform role)
+## GAP 9: Observability & Monitoring — CLOSED ✅ (2026-05-01 PM)
 
-**What's missing:**
+**Severity:** ~~High~~ → CLOSED | `observability-platform` reconciled to spec; `database-reliability` enhanced with SLO/SLI, error budgets, blameless postmortems, escalation matrix, game-day playbook.
+
+**What was missing (now shipped):**
 - Structured logging (JSON logs, log levels, log correlation)
 - Metrics collection and storage (Prometheus, VictoriaMetrics)
 - Dashboards and alerting (Grafana, alert rules, PagerDuty/OpsGenie integration)
@@ -331,7 +337,9 @@ or create `rag-implementation` as a companion skill.
 
 ---
 
-## GAP 10: Infrastructure & Platform Engineering Depth (HIGH)
+## GAP 10: Infrastructure & Platform Engineering Depth — CLOSED ✅ (2026-05-01 PM)
+
+**Severity:** ~~High~~ → CLOSED | All 7 enhancements shipped in commit `b5a6251`: `cicd-devsecops` (Vault PKI, ISO 27001 Annex A, PCI-DSS scope reduction, Falco/Gatekeeper/Trivy), `database-reliability` (SLO/error-budget/postmortem/escalation/game days), `microservices-architecture-models` (HAProxy/Kong/Traefik), `web-app-security-audit` (network layer), `cicd-pipeline-design` (FinOps Foundation), `cicd-jenkins-debian` (Linux hardening), `microservices-communication` (n8n/Temporal/Airflow). Plus the 2 new skills: `kubernetes-platform` reconciled (135 → 447 lines), `infrastructure-as-code` reconciled.
 
 **Context:** Mapped against the Head of Infrastructure & Platform Engineering role at NSANO.
 These are not new skill directories — they are targeted enhancements to existing skills.
@@ -405,31 +413,46 @@ If you were buying books today, in order of ROI:
 
 ---
 
-## Summary: Remaining Skills to Create by Priority
+## Residual Gaps After 2026-05-01 PM Closure
 
-| Priority | Skill | Key Resource |
-|----------|-------|--------------|
-| 1 | `cloud-architecture` | *Docker Deep Dive* + AWS Well-Architected |
-| 2 | `kubernetes-platform` | *Kubernetes in Action* + *Production Kubernetes* |
-| 3 | `infrastructure-as-code` | *Terraform: Up & Running* + *Infrastructure as Code* |
-| 4 | `stripe-payments` | Stripe docs (free) |
-| 5 | `cicd-pipelines` | *Continuous Delivery* + GitHub Actions docs |
-| 6 | `observability-platform` | *Observability Engineering* + SigNoz docs |
-| 7 | `android-ai-ml` | ML Kit docs (free) |
-| 8 | `e2e-testing` | Playwright docs (free) |
-| 9 | `subscription-billing` | *Subscribed* + Stripe Billing docs |
-| 10 | `pwa-offline-first` | Workbox docs (free) |
+All Critical/High content gaps from prior audits are closed. Residual gaps fall into
+three categories: operational discipline, content depth (book grounding), and frontier
+positioning skills.
 
-## Summary: Existing Skills to Enhance (No New Directory)
+### A. Operational Discipline (Path to 9.3+)
 
-| Skill | What to Add |
-|-------|-------------|
-| `cicd-devsecops` | Vault lifecycle, ISO 27001, PCI-DSS controls, container runtime security |
-| `database-reliability` | Platform SRE section — SLO/SLI, error budgets, postmortems |
-| `microservices-architecture-models` | Reverse proxy ops, API gateway ops (Kong/Traefik) |
-| `web-app-security-audit` | Network security layer (firewall, WAF, zero-trust, VPN) |
-| `cicd-pipeline-design` | FinOps / cost governance section |
-| `cicd-jenkins-debian` | Linux hardening & performance tuning (sysctl, cgroups, auditd) |
-| `microservices-communication` | Workflow automation engines (n8n, Temporal, Airflow) |
+| Gap | Action |
+|---|---|
+| `## Evidence Produced` rollout | 7 reconciled production-readiness skills (`rag-implementation`, `kubernetes-platform`, `infrastructure-as-code`, `observability-platform`, `stripe-payments`, `e2e-testing`, `pwa-offline-first`) plus 11 carry-overs from the AM review still missing the section. Once cleared, promote `MISSING_SECTION_SEVERITY` from `warning` to `error` in `contract_gate.py`. |
+| `## Inputs Contract` / `## Outputs Contract` schema | Define table schema in `skill-composition-standards`; activate the `contract_gate.py` stub checker. |
+| Quarterly contract-gate sweep | Schedule a recurring agent that runs `contract_gate.py` and opens a PR if warnings or errors return to non-zero. |
+
+### B. Content Depth — Book Grounding (Path to 9.4+)
+
+| Family | Skills | Key Books |
+|---|---|---|
+| Python | 6 | *Fluent Python*, *Architecture Patterns with Python*, *Effective Python*, *Python for Data Analysis*, *Designing Data-Intensive Applications* |
+| Kubernetes | 4 | *Kubernetes in Action* (Luksa), *Production Kubernetes* (Rosso et al.), *Kubernetes Best Practices* (Burns et al.) |
+| TypeScript | 4 | *Effective TypeScript* (Vanderkam), *Programming TypeScript* (Cherny), *TypeScript Quickly* (Fain & Moiseev) |
+| GIS | 4 | *PostGIS in Action*, *Mastering PostGIS*, *GIS Tutorial for ArcGIS Pro*, *Web Mapping Illustrated* |
+
+Per-skill plan in [`docs/superpowers/specs/`](../superpowers/specs/).
+
+### C. Frontier / Positioning Skills (Path to ceiling lift)
+
+| Skill | Why | Priority |
+|---|---|---|
+| `react-native-advanced` | Cross-platform mobile (KMP covered, RN not) | Medium |
+| `compliance-control-mapping` | ISO 27001 / SOC 2 / PCI-DSS / HIPAA control catalogue mapping (DevSecOps skill carries the controls but not the mapping) | Medium |
+| `rust-systems` (optional) | Performance-critical backend services | Low |
+| `edge-runtimes-wasm` (optional) | Cloudflare Workers / Vercel Edge / Fastly Compute | Low |
+| `growth-experimentation` baseline | Lock in cross-references and decision rules across the 5 specialist growth skills | Low |
+
+### D. Stub / Thin-Coverage Promotions
+
+| Skill | Lines | Action |
+|---|---|---|
+| `enterprise-ux-process` | 96 | Promote to peer length or fold into `cognitive-ux-framework` |
+| `demand-forecasting` | 35 | Add `references/forecast-methods.md`, `references/backtesting-evidence.md`, `references/sql-templates.md` |
 
 *Full roadmap: [06-new-skills-roadmap.md](06-new-skills-roadmap.md)*

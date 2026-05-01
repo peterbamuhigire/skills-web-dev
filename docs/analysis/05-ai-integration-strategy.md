@@ -1,7 +1,7 @@
 # AI Integration Strategy
 
 **How AI is now integrated across every layer of your product stack**
-**May 2026 (Updated) | 32 AI skills built + agentic UI primitives — ecosystem is complete plus agentic depth**
+**2026-05-01 (Post Spec-Closure) | 32 AI skills + 4-skill AI Data Layer cohort complete — ecosystem fully closed, including the retrieval/eval/multi-tenant production layer**
 
 ---
 
@@ -11,15 +11,25 @@ Since the first audit identified AI/LLM integration as the single biggest gap,
 **32 AI skills have been built** covering every layer from API integration to cost
 billing to safety to evaluation. The gap has been closed.
 
-**New since 2026-04-16 (+4 skills):**
+**AI Data Layer cohort completed 2026-05-01 PM (+3 skills):**
 
-- `ai-agentic-ui` — checkpoint primitives, permission framework, and progress tiers for long-running agent flows in product UIs
-- `ai-output-design` — output schema, content shape, and presentation patterns for AI-generated UI sections (closes the "what does AI rendering actually look like in a SaaS product" gap)
-- `deepseek-integration` — provider-specific integration for DeepSeek models, useful for cost-sensitive workloads
-- `openai-agents-sdk` — production patterns for the OpenAI Agents SDK alongside Claude/Anthropic and provider-agnostic patterns
+- `postgresql-patterns` — Postgres-as-second-DB patterns: JSONB, full-text search, pgvector, RLS, PgBouncer, MySQL→PG translations
+- `vector-databases` — engine selection across pgvector / Qdrant / Pinecone / Weaviate, embedding model choice, chunking strategies, hybrid search, reranking
+- `rag-implementation` — Naive → Advanced → Modular RAG progression, query transforms (HyDE, multi-query), corrective RAG, RAGAS evaluation framework, multi-tenant isolation, cost levers
 
-The next phase is **applying this ecosystem to products** plus filling the
-agentic-product layer — not building more foundational skills.
+These three new skills sit alongside the existing `ai-rag-patterns` to form a
+content-complete AI Data Layer cohort: choice of engine → embedding pipeline →
+retrieval architecture → evaluation framework → multi-tenant isolation.
+
+**Earlier additions (2026-04-16+):**
+
+- `ai-agentic-ui` — checkpoint primitives, permission framework, and progress tiers for long-running agent flows
+- `ai-output-design` — output schema, content shape, and presentation patterns for AI-generated UI sections
+- `deepseek-integration` — DeepSeek V3/R1 provider-specific integration for cost-sensitive workloads
+- `openai-agents-sdk` — production patterns for the OpenAI Agents SDK
+
+The next phase is **applying this ecosystem to products** — the foundational and
+data-layer skills are now complete.
 
 ---
 
@@ -86,8 +96,9 @@ At query time: embed the query → search vector DB
 │  ai-predictive-analytics, ai-nlp-analytics  │
 │  ai-analytics-strategy                      │
 ├─────────────────────────────────────────────┤
-│       RAG / KNOWLEDGE LAYER                 │
-│  ai-rag-patterns, vector-databases (TODO)   │
+│       AI DATA LAYER (cohort complete)       │
+│  ai-rag-patterns, vector-databases,         │
+│  rag-implementation, postgresql-patterns    │
 │  ai-web-apps                                │
 ├─────────────────────────────────────────────┤
 │       LLM INTEGRATION LAYER                 │
@@ -163,11 +174,9 @@ capability, cost, latency, and compliance region.
 streaming Claude/GPT responses in SwiftUI, privacy-preserving on-device processing.
 **Action:** Extend `ios-ai-ml` when Apple Intelligence APIs stabilise.
 
-### Android — Gap
-`android-ai-ml` skill does not exist yet.
-**Needs:** ML Kit, TensorFlow Lite, MediaPipe, Gemini Nano (on-device, Android 14+),
-streaming AI responses in Compose UI.
-**Action:** Create `android-ai-ml` — this is GAP 5 in the gap analysis.
+### Android — Closed (2026-05-01 PM)
+`android-ai-ml` reconciled to spec — ML Kit, TensorFlow Lite, MediaPipe, Gemini Nano,
+streaming AI responses in Compose UI. Parity reached with `ios-ai-ml`.
 
 ---
 
@@ -203,12 +212,16 @@ These justify higher tier pricing per `ai-saas-billing` module gating:
 
 ## Next Actions — AI Is Now Feature Work, Not Skill Building
 
-1. **Pick one SaaS product** and apply the ai-opportunity-canvas skill to identify AI features
-2. **Use ai-feature-spec** to design the first AI feature end-to-end
-3. **Build it with ai-llm-integration** — streaming response in the UI
-4. **Apply ai-cost-modeling** — price the feature into a tier
-5. **Create `vector-databases` skill** — the one remaining AI infrastructure gap
-6. **Create `android-ai-ml` skill** — close the mobile AI parity gap
+The AI Data Layer cohort, mobile parity, and agentic-UI primitives are all closed.
+Remaining actions are application-level:
+
+1. **Pick one SaaS product** and apply the `ai-opportunity-canvas` skill to identify AI features
+2. **Use `ai-feature-spec`** to design the first AI feature end-to-end
+3. **Build it with `ai-llm-integration`** — streaming response in the UI
+4. **Apply `ai-cost-modeling`** — price the feature into a tier
+5. **Use `rag-implementation`** for retrieval-grounded features, with RAGAS evaluation set up from day 1
+6. **Choose vector engine** using the decision matrix in `vector-databases`
+7. **Add the `## Evidence Produced` section** to `rag-implementation` (residual gap from 2026-05-01 PM closure)
 
 ---
 

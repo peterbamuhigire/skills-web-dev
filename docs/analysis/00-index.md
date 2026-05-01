@@ -1,4 +1,4 @@
-# Skills Engine Analysis — April 2026 (Updated)
+# Skills Engine Analysis — May 2026 (Post Spec-Closure)
 ## Master Index
 
 **Purpose:** Comprehensive audit of the skills repository as a development engine for world-class,
@@ -7,9 +7,9 @@ wealth-generating web, mobile, and AI-powered software products.
 **Business Context:** Building an independent technology business that accumulates wealth through
 consulting, SaaS products, and AI-powered platforms — targeting relevance through the 2040s.
 
-**Date:** May 2026 (Revised) | **Skills Audited:** 245 | **Analyst:** Claude Opus 4.7 (1M ctx) — building on prior Sonnet 4.6 / Opus 4.6 passes
+**Date:** 2026-05-01 (post spec-closure) | **Skills Audited:** 248 | **Analyst:** Claude Opus 4.7 (1M ctx) — building on prior Sonnet 4.6 / Opus 4.6 / Opus 4.7 passes
 
-**Current overall score: 9.1 / 10** (2026-05-01) — see [`2026-05-01-thorough-review.md`](2026-05-01-thorough-review.md) for the latest 8-dimension breakdown and the regression list. Score history: 7.1 (2026-04-12) → 8.4 → 8.9 → 9.0 (2026-04-16) → **9.1 (2026-05-01)**.
+**Current overall score: 9.2 / 10** (2026-05-01 PM) — see [`2026-05-01-post-spec-closure.md`](2026-05-01-post-spec-closure.md) for the latest 8-dimension breakdown after the 20-spec backlog closure. Score history: 7.1 (2026-04-12) → 8.4 → 8.9 → 9.0 (2026-04-16) → 9.1 (2026-05-01 AM) → **9.2 (2026-05-01 PM)**.
 
 ---
 
@@ -17,14 +17,15 @@ consulting, SaaS products, and AI-powered platforms — targeting relevance thro
 
 | # | Document | What It Covers |
 |---|----------|----------------|
-| 01 | [Executive Summary](01-executive-summary.md) | Overall verdict, strategic position, top 10 actions |
-| 02 | [Current Skills Map](02-current-skills-map.md) | Domain-by-domain inventory of all 176 skills |
-| 03 | [Quality & Compliance](03-quality-compliance.md) | Over-limit files (fixed), stubs, overlaps, deprecations |
+| 01 | [Executive Summary](01-executive-summary.md) | Overall verdict, strategic position, top actions |
+| 02 | [Current Skills Map](02-current-skills-map.md) | Domain-by-domain inventory of all 248 skills |
+| 03 | [Quality & Compliance](03-quality-compliance.md) | Over-limit files, stubs, overlaps, contract-gate state |
 | 04 | [Gap Analysis](04-gap-analysis.md) | What is still missing + best books/resources to fill each gap |
 | 05 | [AI Integration Strategy](05-ai-integration-strategy.md) | How AI is now integrated across every product layer |
 | 06 | [New Skills Roadmap](06-new-skills-roadmap.md) | Remaining skills to create, re-prioritised by current state |
 | 07 | [Wealth Accumulation Engine](07-wealth-accumulation-engine.md) | Business model, revenue streams, 2040s strategy |
-| 08 | [2026-05-01 Thorough Review](2026-05-01-thorough-review.md) | **Latest pass — 245 skills, score 9.1, regression list, top-10 priorities** |
+| 08 | [2026-05-01 Thorough Review (AM)](2026-05-01-thorough-review.md) | Morning pass — 245 skills, score 9.1, regression list |
+| 09 | [2026-05-01 Post Spec-Closure (PM)](2026-05-01-post-spec-closure.md) | **Latest pass — 248 skills, score 9.2, the 20 closures, residual list, top-5 priorities** |
 
 ---
 
@@ -32,52 +33,66 @@ consulting, SaaS products, and AI-powered platforms — targeting relevance thro
 
 ### Strengths (World-Class)
 - **iOS development** — 23 skills, expert depth from architecture to monetisation
-- **AI/LLM ecosystem** — 28 skills, comprehensive from integration to safety to billing
-- **Web frontend** — React, Next.js, TypeScript, Tailwind — modern stack fully covered
+- **AI/LLM ecosystem** — 32 skills, comprehensive from integration to safety to billing
+- **AI Data Layer** — `postgresql-patterns` + `vector-databases` + `rag-implementation` + `ai-rag-patterns` form a complete cohort (newly closed)
+- **Web frontend** — React, Next.js, TypeScript, Tailwind — modern stack fully covered (14 skills)
 - **MySQL** — 7 skills, expert-level from data modeling to cluster administration
-- **PostgreSQL/Vector DB** — 6 skills, pgvector + RAG pipeline ready (newly added)
-- **Node.js Backend** — nodejs-development with Fastify, Prisma, BullMQ (newly added)
-- **UI/UX design** — 15+ skills, psychology to microcopy to AI slop prevention
+- **PostgreSQL** — 7 skills, fundamentals through pgvector + Postgres-as-second-DB patterns
+- **Node.js Backend** — `nodejs-development` with Fastify, Prisma, BullMQ
+- **Cloud / Containers / IaC** — `cloud-architecture`, `kubernetes-platform`, `infrastructure-as-code` reconciled to spec
+- **Payments** — `stripe-payments`, `subscription-billing`, `saas-accounting-system` (newly reconciled)
+- **CI/CD + DevSecOps** — `cicd-pipelines`, `cicd-pipeline-design`, `cicd-jenkins-debian`, `cicd-devsecops` (with Vault PKI, ISO 27001, PCI-DSS, Falco/Gatekeeper/Trivy, Linux hardening, FinOps)
+- **Observability / SRE** — `observability-monitoring`, `reliability-engineering`, `database-reliability` (with SLO/error-budget/postmortem/escalation/game days), `observability-platform`
+- **UI/UX design** — 19 skills, psychology to microcopy to AI slop prevention
+- **Design fundamentals** — 11 skills (every-layout, color-theory, design-by-nature, grid-systems, motion-design, etc.)
+- **Growth / experimentation** — 5 skills (product-discovery, product-led-growth, experiment-engineering, growth-telemetry-pipeline, saas-growth-metrics)
 - **SDLC documentation** — 12 skills, ISO-compliant full lifecycle
-- **Security** — 9 skills covering web, PHP, LLM, GraphQL, and RBAC
-- **Microservices** — 5 skills, fundamentals through AI integration
+- **Security** — 11 skills covering web, PHP, LLM, GraphQL, RBAC, network layer
+- **Microservices** — 5 skills, fundamentals through AI integration with HAProxy/Kong/Traefik ops + n8n/Temporal/Airflow async patterns
 
-### Closed Since First Audit (2026-04-16)
-- **Cloud / infrastructure** — `cloud-architecture` ✅
-- **Payment systems** — `stripe-payments`, `subscription-billing`, `saas-accounting-system` ✅
-- **CI/CD pipelines** — `cicd-pipelines`, `cicd-pipeline-design`, `cicd-jenkins-debian`, `cicd-devsecops` ✅
-- **Stub skills** — `webapp-gui-design` rewritten (React + Next.js + TS + Tailwind), `pos-restaurant-ui-standard` and `inventory-management` filled out ✅
-- **E2E testing** — `api-testing-verification`, `advanced-testing-strategy`, plus platform-specific TDD skills (`ios-tdd`, `android-tdd`, `kmp-tdd`) ✅
-- **Observability stack** — `observability-monitoring`, `reliability-engineering`, `database-reliability` ✅
-- **Android AI/ML** — `android-ai-ml` ✅ (parity with `ios-ai-ml`)
-- **Cross-skill output contract** — `skill-composition-standards` (Standards 1 + 2) ✅
-- **Validation evidence contract** — `validation-contract` (Standard 3, seven categories + Release Evidence Bundle) ✅
-- **Per-domain skill stack lookup** — `capability-matrix` (17 rows: Foundation → Implementation → Validation → Companions) ✅
-- **Mechanical contract enforcement** — `contract_gate.py` validator script (210 specialists scanned, 0 errors, 0 warnings) ✅
-- **Normalisation rollout** — every one of 210 non-exempt specialists declares `## Evidence Produced` with canonical category names ✅
+### Closed Since Prior Audits
 
-### Remaining Gaps (Non-Blocking; Path to 9.5+)
-- **PWA / offline-first** — East Africa connectivity patterns still uncovered
-- **Book-verbatim grounding for new families** — Python (6 skills), Kubernetes (3), TypeScript (4), GIS (4) still cite no books; full audit + plan in the parent backlog as item 4
-- **Structured `## Inputs Contract` / `## Outputs Contract` tables** — `contract_gate.py` has a stub for these; awaiting `skill-composition-standards` to define the table schema
+**On 2026-05-01 PM (commit `b5a6251` — 20 closures):**
+
+- 3 new skills: `postgresql-patterns`, `vector-databases`, `rag-implementation`
+- 10 reconciliations: `cloud-architecture`, `kubernetes-platform`, `infrastructure-as-code`, `cicd-pipelines`, `observability-platform`, `stripe-payments`, `subscription-billing`, `android-ai-ml`, `e2e-testing`, `pwa-offline-first`
+- 7 enhancements: `cicd-devsecops`, `database-reliability`, `microservices-architecture-models`, `web-app-security-audit`, `cicd-pipeline-design`, `cicd-jenkins-debian`, `microservices-communication`
+- ~40 new `references/` files; all 20 touched skills validate clean and stay under the 500-line ceiling (max 493 on `cicd-jenkins-debian`)
+
+**Closed earlier:**
+
+- AI/LLM ecosystem (32 skills); React/Next/TS/Tailwind (14); microservices (5); MySQL (7); PostgreSQL (7); Node.js backend (1); design fundamentals (11); growth/experimentation (5); macOS+Xcode (10); PWA/offline-first; e2e testing; email infrastructure (Tabler 80 templates); cross-skill output contract (`skill-composition-standards`); validation evidence contract (`validation-contract`); per-domain stack lookup (`capability-matrix`); mechanical contract enforcement (`contract_gate.py`)
+
+### Remaining Gaps (Non-Blocking; Path to 9.4+)
+
+- **Contract-gate floor not fully restored.** 6 of the 13 reconciled/new production-readiness skills still lack `## Evidence Produced` (`rag-implementation`, `kubernetes-platform`, `infrastructure-as-code`, `observability-platform`, `stripe-payments`, `e2e-testing`, `pwa-offline-first`). Plus 11 design / growth / AI / email skills carried forward from the AM review.
+- **Book-verbatim grounding for new families** — Python (6), Kubernetes (4), TypeScript (4), GIS (4) families still cite no books in `references/`.
+- **Structured `## Inputs Contract` / `## Outputs Contract` table schema** — `contract_gate.py` has a stub for these; awaiting `skill-composition-standards` to define the table schema.
+- **`enterprise-ux-process`** still 96 lines; **`demand-forecasting`** still 35-line stub.
+- **International compliance control mapping** — ISO 27001 / SOC 2 / PCI-DSS / HIPAA control catalogue absent (Uganda DPPA + DPIA covered).
+- **`react-native-advanced`** — cross-platform mobile (KMP covered, RN not).
 
 ### Business Model Verdict
-The skills now reflect a **world-class AI-differentiated execution engine with mechanical
-contract enforcement**. Cloud, payments, CI/CD, observability, and AI/ML are all covered.
-The repository can now produce production-grade output structurally rather than depending
-on operator discipline. The 2026–2040 strategic position is fully supported on the engineering
-side; the only remaining wedge is content depth (book grounding) and offline-first patterns.
+
+The wealth-accumulation thesis is now fully supported on the engineering side without
+caveat. SaaS Stream 2 (recurring revenue) needed Stripe + subscription-billing + cloud +
+K8s + observability — all closed. AI-differentiated product layer needed RAG + vector +
+evaluation — all closed. The 2026–2040 strategic position is supported. The remaining
+wedges are operational discipline (Evidence Produced rollout, quarterly contract-gate
+sweeps), content depth (book grounding for recent families), and a small set of
+positioning skills (RN, edge, Rust, compliance mapping).
 
 ---
 
 ## Priority Action List
 
-All 10 items from the prior audit are closed. Remaining priorities:
-
-1. **Item 4 (book-verbatim grounding)** — acquire and ground the Python / K8s / TypeScript / GIS family reference files in their canonical books. Audit + per-skill plan in [`docs/superpowers/specs/`](../superpowers/specs/) and the prior message thread.
-2. **Create `pwa-offline-first` skill** — Workbox, Service Workers, IndexedDB; East Africa connectivity patterns.
-3. **Define `## Inputs Contract` / `## Outputs Contract` table schema** in `skill-composition-standards` so `contract_gate.py`'s stub checker can be activated.
-4. **Promote `MISSING_SECTION_SEVERITY` from `warning` to `error`** in `contract_gate.py` now that the rollout is complete.
+1. **Finish the `## Evidence Produced` rollout** for the 6 reconciled production-readiness skills + 11 design/growth/AI/email skills from the AM review. Then promote `MISSING_SECTION_SEVERITY: warning → error` in `contract_gate.py`. Score gate to 9.3+.
+2. **Book-verbatim grounding** for Python / K8s / TypeScript / GIS families. Per-skill plan in [`docs/superpowers/specs/`](../superpowers/specs/). Score gate to 9.4+.
+3. **Define `## Inputs Contract` / `## Outputs Contract` table schema** in `skill-composition-standards`; activate `contract_gate.py`'s stub checker.
+4. **Promote `enterprise-ux-process`** (96 lines) to peer length or fold into `cognitive-ux-framework`.
+5. **Expand `demand-forecasting`** with the three reference files in its banner.
+6. **New skill `react-native-advanced`** — cross-platform mobile gap.
+7. **New skill `compliance-control-mapping`** — ISO 27001 / SOC 2 / PCI-DSS / HIPAA.
 
 ---
 
@@ -85,29 +100,37 @@ All 10 items from the prior audit are closed. Remaining priorities:
 
 | Area | Before | After | Status |
 |------|--------|-------|--------|
-| AI/LLM integration | 5 skills, zero LLM | 28 skills, complete ecosystem | ✅ DONE |
-| React/Next.js/TypeScript | None (27-line stub) | 6 dedicated skills | ✅ DONE |
-| Microservices | 0 skills | 5 skills | ✅ DONE |
-| Security | 4 skills | 9 skills | ✅ DONE |
-| Real-time systems | 0 | 1 skill (realtime-systems) | ✅ DONE |
-| API Design | Partial | api-design-first added | ✅ DONE |
-| PostgreSQL/Vector DB | 0 skills | 6 skills (incl. pgvector) | ✅ DONE |
-| Node.js Backend | 0 skills | nodejs-development (Fastify + Prisma + BullMQ) | ✅ DONE |
-| Deprecated Android skills | 4 stale duplicates | Deleted (mobile-* supersede) | ✅ DONE |
-| Over-limit files | 3 violations | All fixed | ✅ DONE |
-| Cloud architecture | Missing | Still missing | ❌ TODO |
-| Payment systems | Missing | Still missing | ❌ TODO |
-| CI/CD pipelines | Missing | Still missing | ❌ TODO |
+| AI/LLM integration | 5 skills, zero LLM | 32 skills, complete ecosystem | DONE |
+| AI Data Layer (RAG + Vector + Postgres) | 1 skill | 4 skills (cohort complete) | DONE |
+| React/Next.js/TypeScript | None (27-line stub) | 14 dedicated skills | DONE |
+| Microservices | 0 skills | 5 skills (with HAProxy/Kong/Traefik + n8n/Temporal/Airflow) | DONE |
+| Security | 4 skills | 11 skills (with network layer) | DONE |
+| Real-time systems | 0 | 1 skill | DONE |
+| API Design | Partial | `api-design-first` added | DONE |
+| PostgreSQL/Vector DB | 0 skills | 7 skills (incl. pgvector + RAG) | DONE |
+| Node.js Backend | 0 skills | `nodejs-development` (Fastify + Prisma + BullMQ) | DONE |
+| Deprecated Android skills | 4 stale duplicates | Deleted (mobile-* supersede) | DONE |
+| Over-limit files | 3 violations | All fixed; 0 over 500 | DONE |
+| Cloud / IaC / K8s | Missing | `cloud-architecture`, `infrastructure-as-code`, K8s family of 4 | DONE |
+| Payment systems | Missing | `stripe-payments`, `subscription-billing`, `saas-accounting-system` | DONE |
+| CI/CD + DevSecOps | Missing | 4 skills with Vault, ISO 27001, PCI-DSS, Falco, FinOps, Linux hardening | DONE |
+| Observability / SRE | Missing | 4 skills with SLO/error-budget/postmortem | DONE |
+| E2E testing | Missing | `e2e-testing` reconciled | DONE |
+| PWA / offline-first | Missing | `pwa-offline-first` reconciled | DONE |
+| Android AI/ML | Missing | `android-ai-ml` (parity with iOS) | DONE |
+| Email infrastructure | Missing | `tabler-email-templates` (80 templates) | DONE |
+| Contract-gate floor | Clean (210/0/0) | 17 warnings AM → ~16 PM (6 of 13 healed) | PARTIAL |
 
 ---
 
 ## Reading Programme (Priority Order)
 
-1. *Docker Deep Dive* — Nigel Poulton — cloud/infrastructure gap is now the priority
-2. *Stripe Billing documentation* — revenue collection infrastructure (free, online)
-3. *Continuous Delivery* — Humble & Farley — CI/CD pipelines
-4. *AI Engineering* — Chip Huyen — RAG depth (already partially covered)
-5. *Full details in [04-gap-analysis.md](04-gap-analysis.md)*
+1. *AI Engineering* — Chip Huyen — RAG + vector grounding for the new AI Data Layer cohort
+2. *PostgreSQL: Up and Running* — Obe & Hsu — grounding for `postgresql-patterns`
+3. *Kubernetes in Action* — Luksa — book grounding for the K8s family of 4
+4. *Effective TypeScript* + *Programming TypeScript* — grounding for the TS family of 4
+5. *Observability Engineering* — Majors et al. — depth for `observability-platform`
+6. *Full details in [04-gap-analysis.md](04-gap-analysis.md)*
 
 ---
 

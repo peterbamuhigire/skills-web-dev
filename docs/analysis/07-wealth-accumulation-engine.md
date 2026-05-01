@@ -1,15 +1,18 @@
 # Wealth Accumulation Engine
 ## How Your Skills Library Translates to Financial Independence
 
-**May 2026 (Updated) | 245 skills | AI + infrastructure + payments + design + growth all shipped | Score 9.1/10**
+**2026-05-01 (Post Spec-Closure) | 248 skills | AI + AI Data Layer + infrastructure + payments + observability + design + growth all shipped | Score 9.2/10**
 
-> **Status update (2026-05-01):** The infrastructure gap (cloud, K8s, IaC, CI/CD,
-> payments, observability, e2e, PWA, email) flagged in earlier revisions is closed.
-> The growth/experimentation layer needed for SaaS Stream 2 (`product-discovery`,
-> `product-led-growth`, `experiment-engineering`, `growth-telemetry-pipeline`,
-> `saas-growth-metrics`) is also shipped. The wealth-accumulation thesis below is
-> now fully supported on the engineering side. The remaining wedge is operational
-> discipline, not capability — see [`2026-05-01-thorough-review.md`](2026-05-01-thorough-review.md).
+> **Status update (2026-05-01 PM):** The 20-spec backlog from `webdevskills-engine-completion-2026`
+> closed in commit `b5a6251`. SaaS Stream 2 (recurring revenue) needed Stripe +
+> subscription-billing + cloud + K8s + observability — all reconciled to spec.
+> AI-differentiated product layer needed RAG + vector + evaluation — `vector-databases`,
+> `rag-implementation`, `postgresql-patterns` shipped, completing the AI Data Layer
+> cohort alongside `ai-rag-patterns`. The wealth-accumulation thesis below is now
+> supported on the engineering side without caveat. The remaining wedge is operational
+> discipline (Evidence Produced rollout, quarterly contract-gate sweeps), book grounding
+> for recently-added families, and a small set of frontier skills (RN, edge, Rust,
+> compliance mapping). See [`2026-05-01-post-spec-closure.md`](2026-05-01-post-spec-closure.md).
 
 ---
 
@@ -48,10 +51,11 @@ Your current 174 skills make you **immediately competitive** in:
 - Security audits — 9 skills
 
 ### What Will Command Premium Rates
-- **AI integration** — you now have 28 AI skills; most developers have zero
-- **React/Next.js + TypeScript** — now covered; position actively
-- **Cloud architecture + Stripe** — still gaps; filling these by 2026 Q3 triples rate ceiling
-- **iOS + AI combination** — virtually nobody has `ios-ai-ml` depth + `ai-llm-integration` depth
+- **AI integration with production RAG** — 32 AI skills + AI Data Layer cohort (RAGAS evaluation, multi-tenant isolation, engine choice on real tradeoffs); virtually nobody has this depth
+- **React/Next.js + TypeScript** — covered; position actively
+- **Cloud + K8s + IaC + Stripe + observability + DevSecOps** — all closed; rate ceiling now lifted (Vault PKI, ISO 27001, PCI-DSS, FinOps in the DevSecOps skill alone is unusual depth for a solo operator)
+- **iOS + AI combination** — `ios-ai-ml` depth + `ai-llm-integration` depth (also Android via reconciled `android-ai-ml`)
+- **SRE-grade database operations** — `database-reliability` with SLO/error-budget/postmortem/escalation/game days; rare on consulting market
 
 ### Consulting Positioning Strategy
 > *"I build AI-powered, world-class mobile and web SaaS products — products that users love,
@@ -78,19 +82,21 @@ This positioning is now **credible**. You have the skills to back it.
 5. **React/Next.js frontend** — premium UI that wins against legacy web apps
 6. **17+ UI/UX skills** — design quality that justifies premium pricing
 
-### Vertical SaaS Opportunities (Updated)
+### Vertical SaaS Opportunities (Updated 2026-05-01 PM)
 
 | Vertical | Your Skills | Remaining Gap |
 |----------|-------------|---------------|
-| Healthcare SaaS | healthcare-ui-design, ai-llm-integration, dual-auth-rbac | Cloud deploy + Stripe |
-| Restaurant POS | pos-sales-ui-design, saas-accounting-system | Complete stub, add Stripe |
-| Pharmacy management | saas-accounting-system, api-design-first | inventory-management stub |
-| Logistics/Delivery | gis-mapping, realtime-systems, mobile-reports | Cloud + Stripe |
-| Construction ERP | modular-saas-architecture, accounting | Cloud + Stripe |
-| School management | modular-saas-architecture, rbac, ai-analytics-saas | Cloud + Stripe |
+| Healthcare SaaS | healthcare-ui-design, ai-llm-integration, dual-auth-rbac, stripe-payments, cloud-architecture | None — ship-ready |
+| Restaurant POS | pos-sales-ui-design, saas-accounting-system, stripe-payments | Complete `pos-restaurant-ui-standard` stub |
+| Pharmacy management | saas-accounting-system, api-design-first, stripe-payments | Complete `inventory-management` stub |
+| Logistics/Delivery | gis-mapping, realtime-systems, mobile-reports, stripe-payments | None — ship-ready |
+| Construction ERP | modular-saas-architecture, accounting, stripe-payments | None — ship-ready |
+| School management | modular-saas-architecture, rbac, ai-analytics-saas, stripe-payments | None — ship-ready |
+| AI SaaS (any vertical) | rag-implementation, vector-databases, postgresql-patterns, ai-saas-billing | None — ship-ready |
 
-**The pattern is clear:** Every vertical is blocked by the same two gaps — cloud deployment
-and payment collection. Fill those two gaps in 2026 Q2–Q3 and all verticals unlock.
+**The pattern has changed:** The cloud + payments gap that blocked every vertical is now
+closed. Only `pos-restaurant-ui-standard` and `inventory-management` stubs remain as
+soft blockers for two verticals. The other verticals are ship-ready end to end.
 
 ### SaaS Pricing Architecture
 - **Freemium → Paid:** Free tier with real limits, paid removes them
@@ -175,16 +181,21 @@ Build once with `modular-saas-architecture`, deploy for multiple clients:
 
 ---
 
-## The Single Insight That Changes Everything
+## The Single Insight That Changes Everything (Updated 2026-05-01 PM)
 
-> In the first audit, the gap was AI. You filled it — 28 skills, enterprise-grade ecosystem.
-> Now the gap is infrastructure: cloud + payments. This is a smaller, faster fill.
+> The cloud + payments + CI/CD + observability + AI Data Layer gaps are all closed.
+> You can now build world-class AI-powered products *and* deploy them to paying
+> customers at scale, with measurable SaaS economics, SRE-grade operations, and
+> compliance evidence.
 >
-> You can build world-class AI-powered products. You cannot yet deploy them to paying
-> customers at scale. Fix that in the next 90 days.
+> The new bottleneck is not skill creation — it is **picking a vertical and shipping
+> a paid product**. The library is ready. Pick one of the seven ship-ready verticals,
+> apply `ai-opportunity-canvas` to find an AI feature, and use the now-complete
+> stack to ship it.
 
-Cloud deployment + Stripe + CI/CD = the three skills that convert your execution depth
-into recurring revenue. Everything else is already there.
+The path from skill library to recurring revenue is now: vertical choice →
+`ai-feature-spec` → build → `stripe-payments` + `subscription-billing` → cloud deploy →
+`observability-platform` instrumentation → growth via the 5-skill growth cohort.
 
 ---
 

@@ -1,6 +1,6 @@
 # New Skills Roadmap — Revised Priority
 
-**Re-prioritised after May 2026 thorough review | All Critical/High roadmap items shipped**
+**Re-prioritised after 2026-05-01 PM spec-closure pass | All Critical/High roadmap items shipped, including the 20-spec backlog from `webdevskills-engine-completion-2026`**
 
 ---
 
@@ -28,52 +28,59 @@ The following Phase 1, 2, and 3 skills from prior roadmaps now exist:
 | 19 | growth/experimentation | ✅ 5 skills (product-discovery, product-led-growth, experiment-engineering, growth-telemetry, saas-growth-metrics) |
 | 20 | macOS / Xcode | ✅ 10 skills |
 | Bonus | microservices-* | ✅ 5 skills |
-| Bonus | postgresql-patterns | ✅ 6 skills incl. pgvector |
-| Bonus | vector-databases | ✅ Covered by postgresql-ai-platform |
+| Bonus | postgresql-patterns | ✅ Built (2026-05-01 PM) — Postgres-as-second-DB patterns |
+| Bonus | vector-databases | ✅ Built (2026-05-01 PM) — engine selection across pgvector/Qdrant/Pinecone/Weaviate |
+| Bonus | rag-implementation | ✅ Built (2026-05-01 PM) — Naive→Advanced→Modular, RAGAS, multi-tenant isolation |
 | Bonus | nodejs-typescript-backend | ✅ Built as nodejs-development |
 
 ---
 
-## Phase 1 (May 2026 reset) — Mechanical Floor + Stub Cleanup
+## Phase 1 (2026-05-01 PM reset) — Finish Floor + Frontier Skills
 
-These are the May 2026 priorities. The roadmap below this section is preserved from
-prior phases for traceability but most items have shipped.
+These are the post spec-closure priorities. The roadmap below this section is preserved
+from prior phases for traceability but most items have shipped.
 
-### 1. Restore the contract-gate floor (URGENT)
-Add `## Evidence Produced` to the 17 flagged skills (see `03-quality-compliance.md`),
-then promote `MISSING_SECTION_SEVERITY: warning → error` in `contract_gate.py`.
+### 1. Finish the `## Evidence Produced` rollout (URGENT)
+Add the section to the 7 reconciled production-readiness skills still missing it
+(`rag-implementation`, `kubernetes-platform`, `infrastructure-as-code`,
+`observability-platform`, `stripe-payments`, `e2e-testing`, `pwa-offline-first`) plus
+the 11 carry-over design / growth / AI / email skills from the 2026-05-01 AM review.
+Then promote `MISSING_SECTION_SEVERITY: warning → error` in `contract_gate.py`.
 
-### 2. Consolidate the K8s family
-Decide whether `kubernetes-platform` is merged into `kubernetes-fundamentals` /
-`kubernetes-production` / `kubernetes-saas-delivery` or expanded to peer length.
+### 2. Promote `enterprise-ux-process` (96 lines) and `demand-forecasting` (35 lines)
+Either expand to peer length or merge into adjacent skills. (`kubernetes-platform`
+was already reconciled to 447 lines on 2026-05-01 PM, so it drops off this list.)
 
-### 3. Promote `enterprise-ux-process` (96 lines) and `demand-forecasting` (35 lines)
-Either expand to peer length or merge into adjacent skills.
-
-### 4. Define `## Inputs Contract` / `## Outputs Contract` table schema
+### 3. Define `## Inputs Contract` / `## Outputs Contract` table schema
 In `skill-composition-standards`, then activate the gate's stub checker.
 
-### 5. Book-grounding pass for newly-added families
+### 4. Book-grounding pass for newly-added families
 Python (6), TypeScript (4), GIS (4), Kubernetes (4), Design (11), Growth (5),
-Apple-macOS (10) families have shipped without full book grounding in their
+Apple-macOS (10) families still ship without full book grounding in their
 `references/`. Run the per-skill plan in `docs/superpowers/specs/`.
 
-### 6. New skill: `react-native-advanced`
+### 5. New skill: `react-native-advanced`
 The cross-platform mobile gap. KMP is covered; RN is not.
 
-### 7. New skill: `compliance-control-mapping`
+### 6. New skill: `compliance-control-mapping`
 ISO 27001 / SOC 2 / PCI-DSS / HIPAA control catalogue mapping. Local DPPA + DPIA
-already covered.
+already covered. (Note: `cicd-devsecops` now carries ISO 27001 Annex A and
+PCI-DSS scope reduction sections, but a dedicated control-catalogue mapping
+skill is still warranted.)
 
-### 8. New skill: `rust-systems` (optional, evaluate)
+### 7. New skill: `rust-systems` (optional, evaluate)
 For performance-critical backend services. Track Rust adoption signal through 2026.
 
-### 9. New skill: `edge-runtimes-wasm`
+### 8. New skill: `edge-runtimes-wasm` (optional)
 Cloudflare Workers / Vercel Edge / Fastly Compute@Edge / WASM. Track adoption signal.
 
-### 10. New baseline skill: `growth-experimentation` (optional)
+### 9. New baseline skill: `growth-experimentation` (optional)
 With 5 specialist growth skills now shipped, a baseline-tier skill in the spirit of
 `world-class-engineering` would lock in cross-references and decision rules.
+
+### 10. Schedule a quarterly contract-gate sweep
+A recurring agent that runs `contract_gate.py` and opens a PR if warnings or errors
+return to non-zero. Prevents regression of the kind seen on 2026-05-01 AM.
 
 ---
 
@@ -97,25 +104,10 @@ Built as 6 dedicated skills: postgresql-fundamentals through postgresql-ai-platf
 ### ~~4. `vector-databases`~~ ✅ DONE
 Covered by postgresql-ai-platform: pgvector, embeddings, RAG pipeline, HNSW indexes.
 
-### ~~3. `kubernetes-platform`~~ ✅ SHIPPED (consolidate — see Phase 1 May 2026 reset above)
-**What:** Production-grade Kubernetes cluster management
-**Covers:** Cluster setup, Helm, namespaces, RBAC, resource quotas, pod security, workload scaling, HPA/VPA, self-managed VPS-first then cloud-managed
-**Source:** *Kubernetes in Action* (Luksa), *Production Kubernetes* (Rosso et al.)
-**Creates:** Ability to own and operate production K8s environments end-to-end
-**Stack alignment:** Debian/Ubuntu nodes, Helm charts, ArgoCD for GitOps
+### ~~3. `kubernetes-platform`~~ ✅ SHIPPED (reconciled 2026-05-01 PM, 135 → 447 lines)
 
-### 4. `infrastructure-as-code`
-**What:** IaC for consistent, repeatable infrastructure
-**Covers:** Terraform (providers, state, modules, workspaces), Ansible (playbooks, roles, idempotency), GitOps (ArgoCD, Flux), drift detection
-**Source:** *Terraform: Up & Running* (Brikman, 3rd ed.), *Infrastructure as Code* (Morris, O'Reilly)
-**Creates:** Version-controlled, reviewable, auditable infrastructure — no more snowflake servers
-**Stack alignment:** Terraform for cloud resources, Ansible for Debian/Ubuntu server config
-
-### 5. `cicd-pipelines`
-**What:** GitHub Actions CI/CD for web + mobile
-**Covers:** Automated testing, build/deploy pipelines, secrets, environments, Fastlane iOS
-**Source:** *Continuous Delivery* (Humble & Farley), GitHub Actions documentation
-**Creates:** Fast, repeatable, safe delivery on every commit
+### ~~4. `infrastructure-as-code`~~ ✅ SHIPPED (reconciled 2026-05-01 PM)
+### ~~5. `cicd-pipelines`~~ ✅ SHIPPED (reconciled 2026-05-01 PM)
 
 ### ~~4. `nodejs-typescript-backend`~~ ✅ DONE
 Built as `nodejs-development` — covers Fastify, Prisma, BullMQ, plus 10 reference files
@@ -123,38 +115,15 @@ Built as `nodejs-development` — covers Fastify, Prisma, BullMQ, plus 10 refere
 
 ---
 
-## Phase 2 — Platform Depth (Build in 2026 Q4)
+## Phase 2 — Platform Depth (SHIPPED 2026-05-01 PM)
 
-### 7. `android-ai-ml`
-**What:** Android AI and ML integration
-**Covers:** ML Kit, TensorFlow Lite, MediaPipe, Gemini Nano (on-device), Compose streaming
-**Source:** Android ML Kit docs, TFLite Android guide
-**Creates:** Parity with ios-ai-ml for Android projects
+All five Phase 2 skills shipped via the 20-spec closure in commit `b5a6251`:
 
-### 8. `subscription-billing`
-**What:** Full subscription lifecycle management beyond basic Stripe setup
-**Covers:** Dunning, metered billing, upgrade/downgrade flows, multi-currency, revenue recognition
-**Source:** *Subscribed* (Tzuo), Stripe Billing deep docs
-**Creates:** Complete billing lifecycle for SaaS products
-
-### 9. `observability-platform`
-**What:** Production visibility for SaaS and infrastructure
-**Covers:** Structured JSON logging, Prometheus metrics, Grafana dashboards, OpenTelemetry tracing, SigNoz (self-hosted all-in-one), Sentry error tracking, SLO/SLI/error budget tracking
-**Source:** *Observability Engineering* (Majors, Fong-Jones, Miranda); SigNoz docs; Google SRE Book
-**Creates:** Full-stack visibility — from application errors to infrastructure health to SLO compliance
-**Stack alignment:** SigNoz primary (open-source, self-hosted); PHP + Node.js + Android + iOS instrumentation examples
-
-### 10. `pwa-offline-first`
-**What:** Progressive Web Apps with offline capabilities
-**Covers:** Workbox, Service Workers, IndexedDB (Dexie.js), background sync, PWA manifest
-**Source:** Workbox docs, *Building Progressive Web Apps* (Ater)
-**Creates:** Web apps that work in East Africa's variable connectivity
-
-### 11. `e2e-testing`
-**What:** End-to-end testing with Playwright
-**Covers:** Page Object Model, network mocking, visual regression, CI integration
-**Source:** Playwright documentation, *Testing JavaScript Applications* (da Costa)
-**Creates:** Delivery confidence without slowing down
+- ~~7. `android-ai-ml`~~ ✅ SHIPPED (reconciled to spec — ML Kit, TFLite, MediaPipe, Gemini Nano)
+- ~~8. `subscription-billing`~~ ✅ SHIPPED (reconciled to spec — dunning, metered billing, upgrade/downgrade, revenue recognition)
+- ~~9. `observability-platform`~~ ✅ SHIPPED (reconciled to spec — SigNoz/Prometheus/Grafana/OpenTelemetry/Jaeger/Sentry)
+- ~~10. `pwa-offline-first`~~ ✅ SHIPPED (reconciled to spec — Workbox, Service Workers, IndexedDB, East-Africa connectivity patterns)
+- ~~11. `e2e-testing`~~ ✅ SHIPPED (reconciled to spec — Playwright + Cypress, POM, network mocking, visual regression, quarantine + flake budgets)
 
 ---
 
@@ -218,19 +187,19 @@ ARKit, ARCore, Apple Vision Pro, spatial UI patterns (2028+).
 
 ---
 
-## Existing Skills to Enhance (No New Directory)
+## Existing Skills Enhanced (SHIPPED 2026-05-01 PM)
 
-These enhancements happen in parallel with new skill creation — add sections to existing SKILL.md files only:
+All seven enhancements shipped in commit `b5a6251`:
 
-| Skill | Enhancement |
-|-------|-------------|
-| `cicd-devsecops` | Vault lifecycle, ISO 27001, PCI-DSS controls, Falco/OPA container runtime security |
-| `database-reliability` | Platform SRE — SLO/SLI, error budgets, blameless postmortems |
-| `microservices-architecture-models` | Reverse proxy ops (Nginx/HAProxy), API gateway ops (Kong/Traefik) |
-| `web-app-security-audit` | Network security layer — firewall, WAF, zero-trust, VPN design |
-| `cicd-pipeline-design` | FinOps / cost governance — resource quotas, utilisation targets, budget guardrails |
-| `cicd-jenkins-debian` | Linux hardening — sysctl, cgroups, auditd, network stack tuning |
-| `microservices-communication` | Workflow automation engines — n8n, Temporal, Airflow patterns |
+| Skill | Enhancement | Status |
+|-------|-------------|--------|
+| `cicd-devsecops` | Vault PKI lifecycle, ISO 27001 Annex A, PCI-DSS scope reduction, Falco/Gatekeeper/Trivy runtime defence | ✅ |
+| `database-reliability` | Platform SRE — SLO/SLI definitions, error budgets, blameless postmortem template, escalation matrix, game-day playbook | ✅ |
+| `microservices-architecture-models` | Reverse proxy ops (Nginx/HAProxy) + API gateway ops (Kong/Traefik) + decision matrix | ✅ |
+| `web-app-security-audit` | Network security layer — firewall, WAF, segmentation, zero-trust, VPN | ✅ |
+| `cicd-pipeline-design` | FinOps Foundation framework — resource quotas, utilisation targets, cost allocation, budget guardrails | ✅ |
+| `cicd-jenkins-debian` | Linux hardening — sysctl, cgroups, auditd, network stack tuning | ✅ |
+| `microservices-communication` | Workflow automation engines — n8n / Temporal / Airflow + retry-policy table | ✅ |
 
 ---
 
@@ -244,12 +213,14 @@ These enhancements happen in parallel with new skill creation — add sections t
 | Ongoing | — | webapp-gui-design, pos-restaurant-ui-standard, inventory-management stubs | Library maintenance |
 | 2028–2030 | multimodal-ai, edge-computing, react-native-advanced, accessibility-wcag, ar-vr-interfaces | — | Future-proofing |
 
-**Current library:** 245 skills (was 176 in the previous roadmap revision; +69 net adds).
-**Remaining new-skill candidates (May 2026 reset):** 4 — `react-native-advanced`,
-`compliance-control-mapping`, `rust-systems` (optional), `edge-runtimes-wasm`.
-**Remaining enhancements:** contract-gate floor restore, K8s family consolidation,
-stub promotion (`enterprise-ux-process`, `demand-forecasting`), book-grounding pass
-for new families.
+**Current library:** 248 skills (was 245 on 2026-05-01 AM; +3 from spec closure).
+**Remaining new-skill candidates (post 2026-05-01 PM):** 4 — `react-native-advanced`,
+`compliance-control-mapping`, `rust-systems` (optional), `edge-runtimes-wasm` (optional);
+plus optional `growth-experimentation` baseline.
+**Remaining mechanical work:** finish `## Evidence Produced` rollout (~16 skills),
+promote `MISSING_SECTION_SEVERITY` to `error`, define I/O contract table schema,
+schedule quarterly contract-gate sweep, promote `enterprise-ux-process` and
+`demand-forecasting`, book-grounding pass for Python/K8s/TS/GIS families.
 
 ---
 

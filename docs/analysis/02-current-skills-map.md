@@ -1,13 +1,58 @@
 # Current Skills Map — Complete Inventory
 
-**245 skills across 25 domains | May 2026 (Updated)**
+**248 skills across 26 domains | 2026-05-01 (Post Spec-Closure)**
 
 > **Note:** The per-domain detail below was written when the library was at 176 skills.
 > The cluster-by-cluster narrative remains accurate for the older domains, but the
 > following domains have been added or materially expanded since. Counts reflect the
-> 2026-05-01 inventory.
+> 2026-05-01 PM inventory after closing the 20-spec backlog (commit `b5a6251`).
 
-## Delta since 2026-04-16 (+69 skills)
+## Delta since 2026-05-01 AM (+3 skills, 17 reconciled or enhanced)
+
+| Skill | Type | Domain |
+|---|---|---|
+| `postgresql-patterns` | NEW | Database |
+| `vector-databases` | NEW | AI Data Layer |
+| `rag-implementation` | NEW | AI Data Layer |
+| `cloud-architecture` | Reconciled | Cloud |
+| `kubernetes-platform` | Reconciled (135 → 447 lines) | Kubernetes |
+| `infrastructure-as-code` | Reconciled | Cloud / IaC |
+| `cicd-pipelines` | Reconciled | CI/CD |
+| `observability-platform` | Reconciled | Observability |
+| `stripe-payments` | Reconciled | Payments |
+| `subscription-billing` | Reconciled | Payments |
+| `android-ai-ml` | Reconciled | Android |
+| `e2e-testing` | Reconciled | Testing |
+| `pwa-offline-first` | Reconciled | PWA |
+| `cicd-devsecops` | Enhanced (Vault PKI, ISO 27001, PCI-DSS, Falco/Gatekeeper/Trivy) | CI/CD |
+| `database-reliability` | Enhanced (SLO/SLI, error budgets, postmortems, escalation, game days) | Observability |
+| `microservices-architecture-models` | Enhanced (HAProxy/Kong/Traefik ops + decision matrix) | Microservices |
+| `web-app-security-audit` | Enhanced (network-layer audit) | Security |
+| `cicd-pipeline-design` | Enhanced (FinOps Foundation framework) | CI/CD |
+| `cicd-jenkins-debian` | Enhanced (Linux hardening + perf tuning) | CI/CD |
+| `microservices-communication` | Enhanced (n8n/Temporal/Airflow + retry-policy table) | Microservices |
+
+~40 new `references/` files added across these skills. All 20 validate clean and stay under the 500-line ceiling (max 493 lines on `cicd-jenkins-debian`).
+
+## Delta since 2026-04-16 (+72 skills total)
+
+| Domain | Was | Now | New Skills |
+|---|---:|---:|---|
+| AI / LLM | 28 | 32 | `ai-agentic-ui`, `ai-output-design`, `deepseek-integration`, `openai-agents-sdk` |
+| AI Data Layer (RAG + Vector + Postgres) | 1 | 4 | `postgresql-patterns`, `vector-databases`, `rag-implementation` (joining `ai-rag-patterns`) |
+| Apple macOS / Xcode | 0 | 10 | `macos-appkit-interop`, `macos-app-sandbox-security`, `macos-git-libgit2`, `xcode-cloud-testflight`, `xcode-instruments-performance`, `xcode-project-engineering`, `swift-concurrency-macos`, `swiftui-pro-patterns`, `ios-bluetooth-printing` (+1 misc) |
+| Design fundamentals | 0 | 11 | `every-layout`, `color-theory`, `design-by-nature`, `grid-systems`, `motion-design`, `interaction-design-patterns`, `practical-ui-design`, `cognitive-ux-framework`, `enterprise-ux-process`, `frontend-performance`, `habit-forming-products` |
+| Growth / experimentation | 0 | 5 | `product-discovery`, `product-led-growth`, `experiment-engineering`, `growth-telemetry-pipeline`, `saas-growth-metrics` |
+| Platform tier | 3 | 8 | `pwa-offline-first`, `e2e-testing`, `kubernetes-platform`, `observability-platform`, `infrastructure-as-code`, `network-security`, `orchestration-best-practices` |
+| Email infrastructure | 0 | 1 | `tabler-email-templates` (80 production HTML templates) |
+| Document generation | 1 | 3 | `professional-word-output`, `excel-spreadsheets` |
+| SaaS business / pricing | 5 | 8 | `software-business-models`, `software-pricing-strategy`, `saas-accounting-system` |
+| Reporting / forecasting | 2 | 3 | `demand-forecasting` (stub-marked) |
+| Compliance (regional) | 0 | 3 | `uganda-dppa-compliance`, `dpia-generator`, `east-african-english` |
+| Content / blogging | 0 | 3 | `blog-writer`, `blog-idea-generator`, `content-writing` |
+| Misc | — | — | `code-safety-scanner`, `ai-slop-prevention`, `image-compression`, `photo-management`, `feature-planning`, `competitive-analysis-pm`, `technology-grant-writing` |
+
+See [`2026-05-01-post-spec-closure.md`](2026-05-01-post-spec-closure.md) for the latest heat map and residual list, and [`2026-05-01-thorough-review.md`](2026-05-01-thorough-review.md) for the morning review.
 
 | Domain | Was | Now | New Skills |
 |---|---:|---:|---|
@@ -167,7 +212,7 @@ with Fastify* (Spigolon), *Node.js Recipes* (Gackenheimer), *Fullstack Node.js* 
 
 ---
 
-## PostgreSQL / Vector DB — 6 Skills (Expert)
+## PostgreSQL — 7 Skills (Expert)
 
 | Skill | Coverage |
 |-------|----------|
@@ -177,9 +222,26 @@ with Fastify* (Spigolon), *Node.js Recipes* (Gackenheimer), *Fullstack Node.js* 
 | postgresql-performance | EXPLAIN ANALYZE, B-tree/GIN/GiST/BRIN/partial indexes, MVCC, VACUUM |
 | postgresql-administration | pg_dump, WAL/PITR, streaming/logical replication, monitoring, cloud PaaS |
 | postgresql-ai-platform | pgvector, embeddings, RAG pipeline, AI fault lines, sovereign data platform |
+| postgresql-patterns | **NEW (2026-05-01)** — Postgres-as-second-DB patterns: JSONB, FTS, pgvector, RLS, PgBouncer, MySQL→PG translations |
 
-**Assessment:** Complete PostgreSQL stack from fundamentals through pgvector RAG.
-Enables Supabase projects, vector search, and PostgreSQL-native client work.
+**Assessment:** Complete PostgreSQL stack from fundamentals through pgvector RAG and
+explicit MySQL-coexistence patterns. Enables Supabase projects, vector search, and
+hybrid MySQL+Postgres SaaS architectures.
+
+---
+
+## AI Data Layer — 4 Skills (Cohort Complete, Post Spec-Closure)
+
+| Skill | Coverage |
+|-------|----------|
+| ai-rag-patterns | Architectural RAG patterns: chunking, hybrid search, re-ranking, contextual retrieval |
+| postgresql-patterns | **NEW** — Postgres + pgvector + JSONB + FTS as a second DB alongside MySQL |
+| vector-databases | **NEW** — Engine selection (pgvector / Qdrant / Pinecone / Weaviate), embedding model choice, chunking strategy, hybrid search, reranking |
+| rag-implementation | **NEW** — Naive → Advanced → Modular RAG progression, query transforms (HyDE, multi-query), corrective RAG, RAGAS evaluation, multi-tenant isolation, cost levers |
+
+**Assessment:** The AI Data Layer cohort is now content-complete — engine choice,
+embedding pipeline, retrieval architecture, evaluation framework, and multi-tenant
+isolation are all addressed with explicit decision tables.
 
 ---
 
@@ -215,18 +277,37 @@ superseded by mobile-* equivalents.*
 
 ---
 
-## DevOps / Infrastructure — 3 Skills (Partial — Gaps Exist)
+## DevOps / Infrastructure — 4 CI/CD + Cloud + IaC + K8s family (World-Class, Post Spec-Closure)
+
+### CI/CD + DevSecOps (4 skills)
 
 | Skill | Coverage |
 |-------|----------|
-| cicd-pipeline-design | 14-stage CI/CD methodology, DORA metrics, blue-green/canary, branching strategy |
-| cicd-jenkins-debian | Jenkins on Debian/Ubuntu: install, Declarative Jenkinsfile, Docker agents, RBAC, backup |
-| cicd-devsecops | Vault basics, OWASP Dependency Check, SonarQube, Trivy image scanning, UFW, container hardening |
+| cicd-pipeline-design | 14-stage CI/CD methodology, DORA metrics, blue-green/canary, branching strategy, **FinOps Foundation framework (NEW 2026-05-01)** |
+| cicd-pipelines | **Reconciled (2026-05-01)** — GitHub Actions + GitLab CI templates, environments, secrets, fast-feedback loops |
+| cicd-jenkins-debian | Jenkins on Debian/Ubuntu: install, Declarative Jenkinsfile, Docker agents, RBAC, backup, **Linux hardening + perf tuning (NEW 2026-05-01)** |
+| cicd-devsecops | Vault basics, OWASP Dependency Check, SonarQube, Trivy, UFW, container hardening, **Vault PKI lifecycle, ISO 27001 Annex A, PCI-DSS scope reduction, Falco/Gatekeeper/Trivy runtime defence (NEW 2026-05-01)** |
 
-**Assessment:** Foundational CI/CD and DevSecOps covered. Critical gaps: Kubernetes (zero coverage),
-Infrastructure as Code (zero coverage), Observability stack (zero coverage), full secrets lifecycle,
-Linux hardening depth, network security architecture. See `04-gap-analysis.md` GAP 10 for the full
-enhancements and new skills plan.
+### Cloud + IaC (3 skills)
+
+| Skill | Coverage |
+|-------|----------|
+| cloud-architecture | **Reconciled (2026-05-01)** — AWS/GCP core services, IAM, networking, cost, well-architected pillars |
+| infrastructure-as-code | **Reconciled (2026-05-01)** — Terraform (state, modules, workspaces), Ansible, GitOps (ArgoCD/Flux), drift detection |
+| network-security | Firewall, WAF, segmentation, zero-trust, VPN |
+
+### Kubernetes (4 skills)
+
+| Skill | Coverage |
+|-------|----------|
+| kubernetes-fundamentals | Core objects, kubectl, probes, ingress, when K8s is right vs alternatives |
+| kubernetes-production | Helm, autoscaling, StatefulSets, external-secrets, observability, RBAC + PSS, NetworkPolicies, Velero, cost control |
+| kubernetes-saas-delivery | Multi-tenancy models, namespace isolation, ArgoCD GitOps, progressive delivery, tenant onboarding/offboarding |
+| kubernetes-platform | **Reconciled (2026-05-01, 135 → 447 lines)** — cluster topology, node pools, multi-region, zero-downtime upgrades, Helm chart governance |
+
+**Assessment:** Cloud / Containers / IaC / CI/CD is now world-class with explicit
+compliance evidence (ISO 27001, PCI-DSS), runtime defence (Falco/Gatekeeper/Trivy),
+FinOps cost governance, and Linux hardening built in.
 
 ---
 
@@ -235,17 +316,54 @@ enhancements and new skills plan.
 | Skill | Coverage |
 |-------|----------|
 | microservices-fundamentals | Monolith vs micro, decomposition, 12-Factor App, bounded contexts |
-| microservices-architecture-models | NGINX MRA: Proxy/Router Mesh/Fabric, API gateway, discovery |
+| microservices-architecture-models | NGINX MRA: Proxy/Router Mesh/Fabric, API gateway, discovery, **HAProxy/Kong/Traefik ops + decision matrix (NEW 2026-05-01)** |
 | microservices-resilience | Circuit breaker, health endpoints, retry, bulkhead, timeout |
-| microservices-communication | Sync vs async, inter-service auth, data isolation, API contracts |
+| microservices-communication | Sync vs async, inter-service auth, data isolation, API contracts, **n8n/Temporal/Airflow async orchestration + retry-policy table (NEW 2026-05-01)** |
 | microservices-ai-integration | AI as a microservice, async AI jobs, Kubeflow/Seldon, metering |
 
 ---
 
-## Security — 9 Skills
+## Security — 11 Skills
 
-dual-auth-rbac, vibe-security-skill, php-security, web-app-security-audit,
-code-safety-scanner, skill-safety-audit, graphql-security, llm-security, ai-security.
+dual-auth-rbac, vibe-security-skill, php-security, web-app-security-audit (with
+**network-layer audit section (NEW 2026-05-01)**), code-safety-scanner, skill-safety-audit,
+graphql-security, llm-security, ai-security, network-security, cicd-devsecops.
+
+## Payments — 3 Skills (Post Spec-Closure)
+
+| Skill | Coverage |
+|---|---|
+| stripe-payments | **Reconciled (2026-05-01)** — Products, prices, subscriptions, webhooks (idempotency), customer portal, tax, multi-currency |
+| subscription-billing | **Reconciled (2026-05-01)** — Dunning, metered billing, upgrade/downgrade flows, revenue recognition |
+| saas-accounting-system | Double-entry accounting engine patterns |
+
+## Observability / SRE — 4 Skills (Post Spec-Closure)
+
+| Skill | Coverage |
+|---|---|
+| observability-monitoring | Logs, metrics, traces, alerts, SLOs, diagnosis-first telemetry |
+| reliability-engineering | Retries, timeouts, degradation, incident readiness, recovery-aware design |
+| database-reliability | SLOs, expand-contract migrations, backup verification, chaos engineering, **SLO/SLI definitions, error budgets, blameless postmortem template, escalation matrix, game-day playbook (NEW 2026-05-01)** |
+| observability-platform | **Reconciled (2026-05-01)** — SigNoz/Prometheus/Grafana/OpenTelemetry/Jaeger/Sentry instrumentation patterns |
+
+## Mobile AI/ML — 2 Skills (Parity Reached)
+
+| Skill | Coverage |
+|---|---|
+| ios-ai-ml | CoreML, Vision, NaturalLanguage, CreateML |
+| android-ai-ml | **Reconciled (2026-05-01)** — ML Kit, TensorFlow Lite, MediaPipe, Gemini Nano, Compose streaming |
+
+## Testing — Reconciliations
+
+| Skill | Coverage |
+|---|---|
+| e2e-testing | **Reconciled (2026-05-01)** — Playwright + Cypress, Page Object Model, network mocking, visual regression, CI integration, quarantine + flake budgets |
+
+## PWA / Offline-First — 1 Skill (Reconciled)
+
+| Skill | Coverage |
+|---|---|
+| pwa-offline-first | **Reconciled (2026-05-01)** — Workbox, Service Workers, IndexedDB (Dexie.js), background sync, PWA manifest, East-Africa connectivity patterns |
 
 ---
 

@@ -1,36 +1,91 @@
 # New Skills Roadmap — Revised Priority
 
-**Re-prioritised after AI, iOS, and web frontend enhancements | April 2026**
+**Re-prioritised after May 2026 thorough review | All Critical/High roadmap items shipped**
 
 ---
 
 ## What Has Been Built (No Longer Needed)
 
-The following Phase 1 and Phase 2 skills from the original roadmap now exist:
+The following Phase 1, 2, and 3 skills from prior roadmaps now exist:
 
 | Original Priority | Skill | Status |
 |-------------------|-------|--------|
-| 1 | ai-llm-integration | ✅ Built (+ 27 more AI skills) |
-| 2 | react-nextjs | ✅ Built as react-development + react-patterns |
-| 3 | typescript-modern | ✅ Built as typescript-mastery + typescript-design-patterns |
+| 1 | ai-llm-integration | ✅ Built (+ 31 more AI skills) |
+| 2 | react-nextjs | ✅ Built as react-development + react-patterns + nextjs-app-router |
+| 3 | typescript-modern | ✅ 4 skills (mastery, design-patterns, effective, full-stack) |
 | 7 | realtime-systems | ✅ Built |
 | 8 | api-design-first | ✅ Built |
-| Bonus | microservices-* | ✅ 5 skills built |
-| Bonus | postgresql-patterns | ✅ Built as 6 postgresql-* skills incl. pgvector |
-| Bonus | vector-databases | ✅ Covered by postgresql-ai-platform (pgvector RAG) |
-| Bonus | nodejs-typescript-backend | ✅ Built as nodejs-development (Fastify + Prisma + BullMQ) |
+| 9 | cloud-architecture | ✅ Built |
+| 10 | stripe-payments | ✅ Built (+ subscription-billing, saas-accounting-system) |
+| 11 | cicd-pipelines | ✅ 4 skills (pipelines, pipeline-design, jenkins-debian, devsecops) |
+| 12 | observability-monitoring | ✅ 4 skills (monitoring, reliability, db-reliability, platform) |
+| 13 | e2e-testing | ✅ Built (Playwright + Cypress) |
+| 14 | pwa-offline-first | ✅ Built (Workbox + IndexedDB; East-Africa connectivity patterns) |
+| 15 | infrastructure-as-code | ✅ Built (+ kubernetes 4-skill family) |
+| 16 | network-security | ✅ Built |
+| 17 | tabler-email-templates | ✅ Built (80 production HTML templates) |
+| 18 | design fundamentals | ✅ 11-skill family (every-layout, color-theory, design-by-nature, etc.) |
+| 19 | growth/experimentation | ✅ 5 skills (product-discovery, product-led-growth, experiment-engineering, growth-telemetry, saas-growth-metrics) |
+| 20 | macOS / Xcode | ✅ 10 skills |
+| Bonus | microservices-* | ✅ 5 skills |
+| Bonus | postgresql-patterns | ✅ 6 skills incl. pgvector |
+| Bonus | vector-databases | ✅ Covered by postgresql-ai-platform |
+| Bonus | nodejs-typescript-backend | ✅ Built as nodejs-development |
 
 ---
 
-## Phase 1 — Critical Infrastructure (Build in 2026 Q2–Q3)
+## Phase 1 (May 2026 reset) — Mechanical Floor + Stub Cleanup
 
-### 1. `cloud-architecture`
+These are the May 2026 priorities. The roadmap below this section is preserved from
+prior phases for traceability but most items have shipped.
+
+### 1. Restore the contract-gate floor (URGENT)
+Add `## Evidence Produced` to the 17 flagged skills (see `03-quality-compliance.md`),
+then promote `MISSING_SECTION_SEVERITY: warning → error` in `contract_gate.py`.
+
+### 2. Consolidate the K8s family
+Decide whether `kubernetes-platform` is merged into `kubernetes-fundamentals` /
+`kubernetes-production` / `kubernetes-saas-delivery` or expanded to peer length.
+
+### 3. Promote `enterprise-ux-process` (96 lines) and `demand-forecasting` (35 lines)
+Either expand to peer length or merge into adjacent skills.
+
+### 4. Define `## Inputs Contract` / `## Outputs Contract` table schema
+In `skill-composition-standards`, then activate the gate's stub checker.
+
+### 5. Book-grounding pass for newly-added families
+Python (6), TypeScript (4), GIS (4), Kubernetes (4), Design (11), Growth (5),
+Apple-macOS (10) families have shipped without full book grounding in their
+`references/`. Run the per-skill plan in `docs/superpowers/specs/`.
+
+### 6. New skill: `react-native-advanced`
+The cross-platform mobile gap. KMP is covered; RN is not.
+
+### 7. New skill: `compliance-control-mapping`
+ISO 27001 / SOC 2 / PCI-DSS / HIPAA control catalogue mapping. Local DPPA + DPIA
+already covered.
+
+### 8. New skill: `rust-systems` (optional, evaluate)
+For performance-critical backend services. Track Rust adoption signal through 2026.
+
+### 9. New skill: `edge-runtimes-wasm`
+Cloudflare Workers / Vercel Edge / Fastly Compute@Edge / WASM. Track adoption signal.
+
+### 10. New baseline skill: `growth-experimentation` (optional)
+With 5 specialist growth skills now shipped, a baseline-tier skill in the spirit of
+`world-class-engineering` would lock in cross-references and decision rules.
+
+---
+
+## Phase 1 (legacy — most items shipped) — Critical Infrastructure
+
+### ~~1. `cloud-architecture`~~ ✅ SHIPPED
 **What:** AWS/GCP core services for SaaS deployment
 **Covers:** Compute, storage, RDS, CDN, IAM, auto-scaling, Docker, cost optimisation
 **Source:** AWS Well-Architected Framework (free) + *Docker Deep Dive* (Poulton)
 **Creates:** Ability to deploy and scale production SaaS without DevOps help
 
-### 2. `stripe-payments`
+### ~~2. `stripe-payments`~~ ✅ SHIPPED
 **What:** Stripe integration for SaaS billing — the revenue layer
 **Covers:** Products, prices, subscriptions, webhooks, dunning, customer portal, tax
 **Source:** Stripe documentation (stripe.com/docs/billing)
@@ -42,7 +97,7 @@ Built as 6 dedicated skills: postgresql-fundamentals through postgresql-ai-platf
 ### ~~4. `vector-databases`~~ ✅ DONE
 Covered by postgresql-ai-platform: pgvector, embeddings, RAG pipeline, HNSW indexes.
 
-### 3. `kubernetes-platform`
+### ~~3. `kubernetes-platform`~~ ✅ SHIPPED (consolidate — see Phase 1 May 2026 reset above)
 **What:** Production-grade Kubernetes cluster management
 **Covers:** Cluster setup, Helm, namespaces, RBAC, resource quotas, pod security, workload scaling, HPA/VPA, self-managed VPS-first then cloud-managed
 **Source:** *Kubernetes in Action* (Luksa), *Production Kubernetes* (Rosso et al.)
@@ -189,8 +244,12 @@ These enhancements happen in parallel with new skill creation — add sections t
 | Ongoing | — | webapp-gui-design, pos-restaurant-ui-standard, inventory-management stubs | Library maintenance |
 | 2028–2030 | multimodal-ai, edge-computing, react-native-advanced, accessibility-wcag, ar-vr-interfaces | — | Future-proofing |
 
-**Total new skills remaining: 22** — current library: 176 skills.
-**Total enhancements remaining: 7** — no new directories, just deeper existing skills.
+**Current library:** 245 skills (was 176 in the previous roadmap revision; +69 net adds).
+**Remaining new-skill candidates (May 2026 reset):** 4 — `react-native-advanced`,
+`compliance-control-mapping`, `rust-systems` (optional), `edge-runtimes-wasm`.
+**Remaining enhancements:** contract-gate floor restore, K8s family consolidation,
+stub promotion (`enterprise-ux-process`, `demand-forecasting`), book-grounding pass
+for new families.
 
 ---
 

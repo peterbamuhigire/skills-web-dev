@@ -1,18 +1,25 @@
 # Executive Summary — Skills Engine Audit (Revised)
 
-**April 2026 (Updated) | Skills Repository: C:\Users\Peter\.claude\skills**
+**May 2026 (Updated) | Skills Repository: C:\Users\Peter\.claude\skills**
 
 ---
 
-## Overall Verdict: AI-Differentiated Engine, Infrastructure Gaps Remain
+## Overall Verdict: World-Class Engine With A Contract-Floor Regression To Fix
 
-Since the first audit, the skills library has grown from 131 to **174 skills** — a 33% expansion —
-with the most significant upgrades in AI/LLM (5 → 28 skills), web frontend (stub → 14 skills),
-and microservices (0 → 5 skills). The over-limit compliance violations have all been resolved.
+Since the first audit, the skills library has grown from 131 to **245 skills** — an 87%
+expansion — with the most significant upgrades in AI/LLM (5 → 32), web frontend
+(stub → 14), microservices (0 → 5), design fundamentals (0 → 11), growth/experimentation
+(0 → 5), Apple ecosystem (iOS only → 23 iOS + 10 macOS/Xcode), platform tier (cloud,
+IaC, K8s, observability, e2e, PWA), and email infrastructure (0 → 1 skill with 80
+production templates).
 
-**The 2026–2040 market will be won by AI-differentiated, cloud-native products.**
-You now have the AI differentiation layer. What remains: the cloud deployment and
-revenue collection infrastructure to take products from localhost to paying customers.
+**Score history:** 7.1 → 8.4 → 8.9 → 9.0 (2026-04-16) → **9.1 (2026-05-01)**.
+
+The infrastructure gaps flagged in the original audit (cloud, payments, CI/CD,
+observability, e2e) are all closed. The 2026-05-01 review surfaced one regression: 17
+of the 35 skills added in the last two weeks shipped without an `## Evidence Produced`
+section, breaking the contract-gate floor that earned the 9.0 score. See
+[`2026-05-01-thorough-review.md`](2026-05-01-thorough-review.md) for the full list.
 
 ---
 
@@ -55,15 +62,22 @@ Based on your book collection, you are building:
 | Product Management | 5 | Solid | High | Low |
 | Business/Monetisation | 5 | Good | Medium | Medium |
 | Real-time Systems | 1 | Foundational | Medium | Medium |
-| DevOps / CI/CD (Jenkins, DevSecOps) | 3 | Foundational | Medium | High |
-| Cloud/Infrastructure | 0 | None | None | **Critical** |
-| Kubernetes & Container Platforms | 0 | None | None | **Critical** |
-| Infrastructure as Code | 0 | None | None | **Critical** |
-| Payment Systems | 0 | None | None | **Critical** |
+| DevOps / CI/CD (Jenkins, DevSecOps, Pipelines) | 4 | Strong | High | Low |
+| Cloud/Infrastructure | 1 | Solid | High | Low |
+| Kubernetes & Container Platforms | 4 | World-class | High | Low (consolidate `kubernetes-platform`) |
+| Infrastructure as Code | 1 | Strong | High | Low (missing Evidence Produced) |
+| Payment Systems | 2 | Strong | High | Low |
 | PostgreSQL/Vector DB | 6 | Expert | High | Low |
 | Node.js Backend | 1 | Strong | High | Low |
-| CI/CD Pipelines (GitHub Actions) | 0 | None | None | **Critical** |
-| Observability & Monitoring | 0 | None | None | **High** |
+| CI/CD Pipelines | 4 | Strong | High | Low |
+| Observability & Monitoring | 4 | World-class | High | Low (`observability-platform` missing Evidence Produced) |
+| Design fundamentals | 11 | World-class | High | Low (several missing Evidence Produced) |
+| Growth / experimentation | 5 | World-class | High | Low |
+| Apple macOS / Xcode | 10 | Strong | High | Low |
+| PWA / offline-first | 1 | Strong | High | Low (missing Evidence Produced) |
+| E2E Testing | 1 | Strong | High | Low (missing Evidence Produced) |
+| Email infrastructure | 1 | World-class | High | Low (missing Evidence Produced) |
+| Document generation | 3 | Strong | High | Low |
 
 ---
 
@@ -85,16 +99,12 @@ Based on your book collection, you are building:
 
 ## What You Still Cannot Build Yet (Excellently)
 
-- **Production Kubernetes environments** — no K8s skill (cluster mgmt, Helm, RBAC, pod security)
-- **Infrastructure as Code** — no Terraform/Ansible/GitOps skill (no repeatable, auditable infra)
-- **Cloud-native deployments** — no AWS/GCP architecture skill, no GitHub Actions CI/CD
-- **Full secrets lifecycle** — cicd-devsecops has basics; Vault deep-dive, PKI, key rotation absent
-- **Compliance-ready infrastructure** — no ISO 27001 or PCI-DSS controls mapping
-- **Network security architecture** — firewall design, WAF, zero-trust, VPN patterns absent
-- **Production observability** — no SigNoz/Prometheus/Grafana/OpenTelemetry stack, no SLO tracking
-- **Subscription billing** — no Stripe, no webhook handling, no dunning
-- **E2E automated testing** — no Playwright/Cypress framework coverage
-- **Offline-first PWAs** — no Service Workers, IndexedDB, background sync
+- **React Native cross-platform mobile** — KMP is covered; RN is not.
+- **Rust systems programming** — no skill. Worth adding for performance-critical backend services.
+- **WebAssembly / edge runtime products** — no skill. Track through 2026-2027 as Cloudflare/Fastly/Vercel edge usage grows.
+- **International compliance control mapping** — Uganda DPPA + DPIA covered; ISO 27001 / SOC 2 / PCI-DSS / HIPAA absent.
+- **High-frequency / hard-real-time systems** — `realtime-systems` is foundational only. Intentionally out of scope for product engineering.
+- **Compiler / language internals** — intentionally out of scope.
 
 ---
 
@@ -121,15 +131,17 @@ Your products and consulting engagements become the reference.
 
 ---
 
-## The Single Most Important Insight
+## The Single Most Important Insight (2026-05-01)
 
-> The gap has shifted. You went from "cannot build AI features" to "cannot deploy them
-> to paying customers at scale." Execution depth is excellent. The missing layer is
-> infrastructure: cloud + payments + CI/CD.
+> The infrastructure gap has closed. You can now build, deploy, and bill. The new
+> bottleneck is **discipline at intake** — 17 of the 35 most recent skills shipped
+> without the contract-gate's required `## Evidence Produced` section, which means
+> the floor regressed even as the ceiling rose.
 
-A product you cannot deploy to production cannot generate revenue.
-A product that cannot collect payment cannot compound.
-Close the infrastructure gap in 2026 Q2–Q3 and everything else follows.
+The fix is mechanical: add the evidence section to the 17 flagged skills, then promote
+`MISSING_SECTION_SEVERITY` from `warning` to `error` in `contract_gate.py` so a future
+skill cannot bypass this. Once that lands, the score moves from 9.1 toward 9.3+ without
+any new content work.
 
 ---
 

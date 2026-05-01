@@ -1,7 +1,15 @@
 # Wealth Accumulation Engine
 ## How Your Skills Library Translates to Financial Independence
 
-**April 2026 (Updated) | 174 skills | AI ecosystem complete | Infrastructure gaps remain**
+**May 2026 (Updated) | 245 skills | AI + infrastructure + payments + design + growth all shipped | Score 9.1/10**
+
+> **Status update (2026-05-01):** The infrastructure gap (cloud, K8s, IaC, CI/CD,
+> payments, observability, e2e, PWA, email) flagged in earlier revisions is closed.
+> The growth/experimentation layer needed for SaaS Stream 2 (`product-discovery`,
+> `product-led-growth`, `experiment-engineering`, `growth-telemetry-pipeline`,
+> `saas-growth-metrics`) is also shipped. The wealth-accumulation thesis below is
+> now fully supported on the engineering side. The remaining wedge is operational
+> discipline, not capability — see [`2026-05-01-thorough-review.md`](2026-05-01-thorough-review.md).
 
 ---
 

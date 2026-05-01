@@ -1,6 +1,35 @@
 # Current Skills Map — Complete Inventory
 
-**176 skills across 18 domains | April 2026 (Updated)**
+**245 skills across 25 domains | May 2026 (Updated)**
+
+> **Note:** The per-domain detail below was written when the library was at 176 skills.
+> The cluster-by-cluster narrative remains accurate for the older domains, but the
+> following domains have been added or materially expanded since. Counts reflect the
+> 2026-05-01 inventory.
+
+## Delta since 2026-04-16 (+69 skills)
+
+| Domain | Was | Now | New Skills |
+|---|---:|---:|---|
+| AI / LLM | 28 | 32 | `ai-agentic-ui`, `ai-output-design`, `deepseek-integration`, `openai-agents-sdk` |
+| Apple macOS / Xcode | 0 | 10 | `macos-appkit-interop`, `macos-app-sandbox-security`, `macos-git-libgit2`, `xcode-cloud-testflight`, `xcode-instruments-performance`, `xcode-project-engineering`, `swift-concurrency-macos`, `swiftui-pro-patterns`, `ios-bluetooth-printing` (+1 misc) |
+| Design fundamentals | 0 | 11 | `every-layout`, `color-theory`, `design-by-nature`, `grid-systems`, `motion-design`, `interaction-design-patterns`, `practical-ui-design`, `cognitive-ux-framework`, `enterprise-ux-process`, `frontend-performance`, `habit-forming-products` |
+| Growth / experimentation | 0 | 5 | `product-discovery`, `product-led-growth`, `experiment-engineering`, `growth-telemetry-pipeline`, `saas-growth-metrics` |
+| Platform tier | 3 | 8 | `pwa-offline-first`, `e2e-testing`, `kubernetes-platform`, `observability-platform`, `infrastructure-as-code`, `network-security`, `orchestration-best-practices` |
+| Email infrastructure | 0 | 1 | `tabler-email-templates` (80 production HTML templates) |
+| Document generation | 1 | 3 | `professional-word-output`, `excel-spreadsheets` |
+| SaaS business / pricing | 5 | 8 | `software-business-models`, `software-pricing-strategy`, `saas-accounting-system` |
+| Reporting / forecasting | 2 | 3 | `demand-forecasting` (stub-marked) |
+| Compliance (regional) | 0 | 3 | `uganda-dppa-compliance`, `dpia-generator`, `east-african-english` |
+| Content / blogging | 0 | 3 | `blog-writer`, `blog-idea-generator`, `content-writing` |
+| Misc | — | — | `code-safety-scanner`, `ai-slop-prevention`, `image-compression`, `photo-management`, `feature-planning`, `competitive-analysis-pm`, `technology-grant-writing` |
+
+See [`2026-05-01-thorough-review.md`](2026-05-01-thorough-review.md) for the per-domain heat map and regression list.
+
+---
+
+## Original Per-Domain Inventory (April 2026 baseline — preserved below)
+
 
 ---
 

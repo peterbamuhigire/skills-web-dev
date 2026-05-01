@@ -1,17 +1,25 @@
 # AI Integration Strategy
 
 **How AI is now integrated across every layer of your product stack**
-**April 2026 (Updated) | 28 AI skills built — ecosystem is complete**
+**May 2026 (Updated) | 32 AI skills built + agentic UI primitives — ecosystem is complete plus agentic depth**
 
 ---
 
 ## The Core Achievement
 
 Since the first audit identified AI/LLM integration as the single biggest gap,
-**28 AI skills have been built** covering every layer from API integration to cost billing
-to safety to evaluation. The gap has been closed.
+**32 AI skills have been built** covering every layer from API integration to cost
+billing to safety to evaluation. The gap has been closed.
 
-The next phase is **applying this ecosystem to products** — not building more foundational skills.
+**New since 2026-04-16 (+4 skills):**
+
+- `ai-agentic-ui` — checkpoint primitives, permission framework, and progress tiers for long-running agent flows in product UIs
+- `ai-output-design` — output schema, content shape, and presentation patterns for AI-generated UI sections (closes the "what does AI rendering actually look like in a SaaS product" gap)
+- `deepseek-integration` — provider-specific integration for DeepSeek models, useful for cost-sensitive workloads
+- `openai-agents-sdk` — production patterns for the OpenAI Agents SDK alongside Claude/Anthropic and provider-agnostic patterns
+
+The next phase is **applying this ecosystem to products** plus filling the
+agentic-product layer — not building more foundational skills.
 
 ---
 

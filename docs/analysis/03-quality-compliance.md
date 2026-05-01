@@ -1,12 +1,10 @@
 # Quality & Compliance Audit
 
-**April 2026 (Updated) | Standards: doc-standards.md (500-line hard limit)**
+**May 2026 (Updated) | Standards: doc-standards.md (500-line hard limit) | Skills: 245**
 
 ---
 
 ## Over-Limit Files — Status: All Fixed ✅
-
-The three over-limit violations from the first audit have been resolved:
 
 | Skill | Before | After | Status |
 |-------|--------|-------|--------|
@@ -18,38 +16,86 @@ No new over-limit files detected. Compliance rate: **100% within hard limit**.
 
 ---
 
-## Stub Skills (Must Complete or Deprecate)
+## Contract-Gate Status — Regression to Fix ⚠️
 
-These three stubs remain unchanged from the first audit. All are blocking business value.
+**Last clean run:** 2026-04-16 → `210 scanned | 0 errors | 0 warnings | 10 exempt`
+**Current run (2026-05-01):** `226 scanned | 0 errors | 17 warnings | 10 exempt`
 
-### 1. webapp-gui-design — 27 lines (CRITICAL)
-**Status:** Still 27 lines. React, Next.js, Tailwind, and TypeScript skills now exist,
-making this stub even more embarrassing by contrast.
-**Action:** Either write a comprehensive React + Tailwind + component architecture guide,
-or deprecate and point to `react-development`, `nextjs-app-router`, and `tailwind-css`.
+The 17 newly-added skills missing the canonical `## Evidence Produced` section:
 
-### 2. pos-restaurant-ui-standard — 39 lines (HIGH)
-**Status:** Still 39 lines. Blocking the restaurant POS vertical SaaS opportunity.
-**Action:** Write complete patterns for: order entry, kitchen display, receipt printing,
-table management, modifier selection, split billing, and staff management flows.
+| Skill | Family | Severity |
+|---|---|---|
+| `pwa-offline-first` | Platform tier | High — closes a flagged gap; should set the example |
+| `e2e-testing` | Testing | High — production-readiness skill |
+| `kubernetes-platform` | K8s | High — production-readiness; also 135-line stub |
+| `observability-platform` | SRE | High — production-readiness skill |
+| `infrastructure-as-code` | Cloud | High — production-readiness skill |
+| `tabler-email-templates` | Email | Medium |
+| `ai-agentic-ui` | AI | Medium |
+| `ai-output-design` | AI | Medium |
+| `experiment-engineering` | Growth | Medium |
+| `growth-telemetry-pipeline` | Growth | Medium |
+| `product-discovery` | Growth | Medium |
+| `product-led-growth` | Growth | Medium |
+| `saas-growth-metrics` | Growth | Medium |
+| `color-theory` | Design | Low — qualitative skill, may need new evidence category |
+| `every-layout` | Design | Low — same |
+| `design-by-nature` | Design | Low — same |
+| `enterprise-ux-process` | Design | Low — also 96-line stub |
 
-### 3. inventory-management — 40 lines (HIGH)
-**Status:** Still 40 lines. Blocking pharmacy, logistics, and warehouse SaaS verticals.
-**Action:** Write complete patterns for: stock levels, reorder triggers, barcode scanning,
-batch operations, supplier management, stock-take, and FIFO/LIFO tracking.
+**Action:** Add `## Evidence Produced` to each, then promote
+`MISSING_SECTION_SEVERITY` from `warning` to `error` in `contract_gate.py`.
 
 ---
 
-## Deprecated Skills (Not Yet Marked)
+## Stub Skills
 
-| Skill | Status | Superseded By |
-|-------|--------|---------------|
-| android-reports | Unmarked | mobile-reports |
-| android-saas-planning | Unmarked | mobile-saas-planning |
-| android-report-tables | Unmarked | mobile-report-tables |
-| android-custom-icons | Unmarked | mobile-custom-icons |
+The three blockers from prior audits are closed (`webapp-gui-design`,
+`pos-restaurant-ui-standard`, `inventory-management` are all rewritten). New stubs
+identified on 2026-05-01:
 
-**Action:** Add `DEPRECATED: Use [skill-name] instead` as the first line of each.
+### 1. demand-forecasting — 35 lines (LOW, marked)
+**Status:** Moved into `skills/` and explicitly stub-marked on 2026-05-01.
+**Action:** Add `references/forecast-methods.md`, `references/backtesting-evidence.md`,
+`references/sql-templates.md`. Skill remains usable as a baseline workflow.
+
+### 2. kubernetes-platform — 135 lines (MEDIUM)
+**Status:** Half the length of the existing 3-skill K8s family
+(`kubernetes-fundamentals`, `kubernetes-production`, `kubernetes-saas-delivery`).
+**Action:** Decide: merge content into one of the three peer skills, OR expand to
+match (cluster topology, node pools, multi-region, zero-downtime upgrades).
+
+### 3. enterprise-ux-process — 96 lines (MEDIUM)
+**Status:** Markedly thinner than peers like `ux-principles-101`, `ux-psychology`,
+`web-usability-krug`, `cognitive-ux-framework`.
+**Action:** Promote to peer length or fold into `cognitive-ux-framework`.
+
+---
+
+## Repository-Root Pollution — Cleared 2026-05-01 ✅
+
+The catalog migration left orphan directories at the repo root. Cleaned:
+
+- `cicd-devsecops/` — empty, deleted (canonical lives in `skills/cicd-devsecops/`)
+- `cicd-jenkins-debian/` — empty, deleted
+- `cicd-pipeline-design/` — empty, deleted
+- `demand-forecasting/` → moved to `skills/demand-forecasting/`
+
+Note: a few non-skill helpers still live at root (`00-meta-initialization/`,
+`professional-word-output/`, `saas-accounting-system/`, `code-safety-scanner.skill`,
+`blog-posts/`, `claude-guides/`, `scripts/`). Some of these are skills that are
+loaded directly by the harness; verify whether they should live under `skills/` or stay
+at root. `code-safety-scanner.skill` (a single file, not a directory) is the most
+unusual and should probably be moved into `skills/code-safety-scanner/SKILL.md`.
+
+---
+
+## Deprecated Skills — Status: Resolved ✅
+
+The four `android-*` skills flagged in the prior audit
+(`android-reports`, `android-saas-planning`, `android-report-tables`,
+`android-custom-icons`) are no longer present in `skills/`. The `mobile-*` versions
+are canonical.
 
 ---
 
@@ -60,14 +106,14 @@ batch operations, supplier management, stock-take, and FIFO/LIFO tracking.
 - `ios-rbac` — iOS-specific (PermissionGate ViewModifier)
 - `mobile-rbac` — Cross-platform Android + iOS
 
-Keep all three. Add cross-references in each.
+Keep all three.
 
 ### AI Billing/Metering — 3 skills serve different scopes
 - `ai-cost-modeling` — Strategy: token economics and margin modeling
 - `ai-metering-billing` — Implementation: ledger schema and metering middleware
 - `ai-saas-billing` — Product: module gating and tenant quota management
 
-Keep all three. They are genuinely different levels of abstraction.
+Keep all three.
 
 ### Planning Skills — 4 skills at different scopes
 - `mobile-saas-planning` — App-level planning
@@ -75,22 +121,37 @@ Keep all three. They are genuinely different levels of abstraction.
 - `project-requirements` — Requirements gathering
 - `sdlc-planning` — Full SDLC phase
 
-Keep all four. Scopes do not overlap.
+Keep all four.
+
+### Kubernetes — 4 skills (review)
+- `kubernetes-fundamentals`, `kubernetes-production`, `kubernetes-saas-delivery`,
+  `kubernetes-platform`. The fourth duplicates content from the first three at
+  half the depth. Recommend consolidation.
+
+### Design fundamentals — 11 skills (acceptable, sweep)
+The new design family (`every-layout`, `color-theory`, `design-by-nature`,
+`grid-systems`, `motion-design`, `interaction-design-patterns`, `practical-ui-design`,
+`cognitive-ux-framework`, `enterprise-ux-process`, `frontend-performance`,
+`habit-forming-products`) overlaps with existing `ux-*` skills. None are clear
+duplicates but a sweep is warranted to confirm scope boundaries are documented.
 
 ---
 
 ## Thin Coverage Skills (< 200 lines)
 
-These exist but provide minimal guidance. Acceptable as checklists/references.
-
 | Skill | Lines | Verdict |
 |-------|-------|---------|
-| google-play-store-review | ~84 | Acceptable as checklist |
-| android-custom-icons | ~96 | Acceptable as enforcement rules |
-| skill-safety-audit | ~121 | Acceptable as meta-skill |
-| laws-of-ux | ~124 | Acceptable as quick reference |
-| image-compression | ~109 | Consider expanding or merging |
-| gis-mapping | ~199 | Acceptable, Leaflet focus |
+| `enterprise-ux-process` | 96 | **Promote or merge** |
+| `kubernetes-platform` | 135 | **Consolidate** |
+| `product-discovery` | 129 | Acceptable as decision framework |
+| `tabler-email-templates` | 177 | Acceptable as catalog index |
+| `ai-agentic-ui` | 184 | Acceptable as pattern library |
+| `experiment-engineering` | 178 | Acceptable as decision-rule skill |
+| `growth-telemetry-pipeline` | 167 | Acceptable as architectural pattern |
+| `color-theory` | 167 | Acceptable as reference skill |
+| `every-layout` | 186 | Acceptable as reference skill |
+| `design-by-nature` | 186 | Acceptable as reference skill |
+| `demand-forecasting` | 35 | **Stub-marked, expand** |
 
 ---
 
@@ -98,21 +159,24 @@ These exist but provide minimal guidance. Acceptable as checklists/references.
 
 | Category | Count | Percentage |
 |----------|-------|------------|
-| Fully compliant (< 500 lines) | 174 | 100% |
+| Fully compliant (< 500 lines) | 245 | 100% |
 | Over-limit (> 500 lines) | 0 | 0% |
-| Stub / incomplete | 3 | 1.7% |
-| Deprecated (not yet marked) | 4 | 2.3% |
-| Thin coverage (< 200 lines) | 6 | 3.4% |
+| Stub / incomplete | 3 | 1.2% |
+| Deprecated (not yet marked) | 0 | 0% |
+| Thin coverage (< 200 lines) | 11 | 4.5% |
+| Missing `## Evidence Produced` | 17 | 7.5% (regression) |
 
 ---
 
 ## Immediate Action Priority
 
-1. **Deprecate 4 android-\* skills** — add DEPRECATED line to each
-2. **Complete webapp-gui-design** or write deprecation pointing to React skills
-3. **Complete pos-restaurant-ui-standard** — POS vertical is blocked
-4. **Complete inventory-management** — pharmacy/logistics verticals are blocked
-5. **Review image-compression** — expand or merge into frontend-performance
+1. **Add `## Evidence Produced` to the 17 flagged skills**, then promote
+   `MISSING_SECTION_SEVERITY: warning → error` in `contract_gate.py`.
+2. **Decide on `kubernetes-platform`** — merge into the existing K8s trio or expand.
+3. **Promote `enterprise-ux-process`** to peer length, or fold into `cognitive-ux-framework`.
+4. **Expand `demand-forecasting`** with the three reference files listed in its stub banner.
+5. **Move `code-safety-scanner.skill`** into a proper `skills/code-safety-scanner/SKILL.md`
+   directory if it is intended to be a real skill.
 
 ---
 

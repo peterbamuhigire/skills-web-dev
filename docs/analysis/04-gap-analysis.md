@@ -1,6 +1,6 @@
 # Gap Analysis — What Is Still Missing & How to Fill It
 
-**April 2026 (Updated) | Gaps 1–3 from first audit now closed. New priority order below.**
+**May 2026 (Updated) | All previously-flagged Critical/High gaps closed. New priority order below.**
 
 ---
 
@@ -8,11 +8,22 @@
 
 | Gap | Was | Now |
 |-----|-----|-----|
-| AI/LLM Integration | Critical — zero skills | 28 skills, enterprise-grade |
-| React/Next.js/TypeScript | Critical — 27-line stub | 6 dedicated skills |
-| Real-time systems | High — nothing | realtime-systems skill added |
-| API Design | Partial | api-design-first added |
-| Microservices | None | 5 new skills |
+| AI/LLM Integration | Critical — zero skills | 32 skills, enterprise-grade |
+| React/Next.js/TypeScript | Critical — 27-line stub | 14 dedicated skills |
+| Real-time systems | High — nothing | `realtime-systems` |
+| API Design | Partial | `api-design-first` |
+| Microservices | None | 5 skills |
+| Cloud / IaC | Critical | `cloud-architecture`, `infrastructure-as-code`, `network-security` |
+| Kubernetes | Critical | `kubernetes-fundamentals`, `kubernetes-production`, `kubernetes-saas-delivery`, `kubernetes-platform` |
+| CI/CD | Critical | `cicd-pipelines`, `cicd-pipeline-design`, `cicd-jenkins-debian`, `cicd-devsecops` |
+| Payment systems | Critical | `stripe-payments`, `subscription-billing`, `saas-accounting-system` |
+| Observability | High | `observability-monitoring`, `reliability-engineering`, `database-reliability`, `observability-platform` |
+| Testing (e2e) | High | `e2e-testing`, `advanced-testing-strategy` |
+| PWA / offline-first | High | `pwa-offline-first` (closes East-Africa connectivity gap) |
+| Email infrastructure | High | `tabler-email-templates` (80 production templates) |
+| Design fundamentals | Medium | 11 skills (every-layout, color-theory, design-by-nature, grid-systems, motion-design, interaction-design-patterns, cognitive-ux-framework, etc.) |
+| Growth / experimentation | Medium | 5 skills (product-discovery, product-led-growth, experiment-engineering, growth-telemetry-pipeline, saas-growth-metrics) |
+| Apple macOS / Xcode | Medium | 10 skills |
 
 ---
 

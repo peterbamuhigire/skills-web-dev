@@ -69,6 +69,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 
 ## References
 
+- Use companion skill `premium-product-positioning` when the UI/UX work must connect to premium offer architecture, affluent or executive buyer psychology, high-ticket pricing, sales proof, onboarding, or service design.
 - `references/premium-visual-principles.md` - hierarchy, layout, typography, perceived value, and pleasantness.
 - `references/color-emotion-brand-systems.md` - color choice, palette systems, emotion, hierarchy, and accessibility.
 - `references/data-visualization-dashboard-ux.md` - chart, table, KPI, and dashboard rules.

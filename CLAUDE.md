@@ -139,6 +139,14 @@ When the request involves architecture, production implementation, or repository
 
 Do not jump straight to framework-level implementation when architecture or data-shape decisions are still open.
 
+### Premium Default
+
+For this skills engine, premium is the default. Web, SaaS, product, UX, architecture, proposal-support, and client-facing outputs should be designed for world-class quality and premium positioning unless a narrower technical task explicitly excludes product or buyer experience.
+
+- Use `premium-product-positioning` and `premium-ui-ux-design` whenever perceived value, trust, buyer quality, pricing power, or high-ticket positioning matters.
+- Do not dilute outputs to fit commodity, low-budget, or sub-premium work. If a buyer expects cheap execution without proper discovery, quality gates, or value logic, treat that as a poor-fit engagement and recommend a smaller premium scope or a no-bid/no-build decision.
+- Premium means measurable quality, product depth, trust, supportability, proof, polish, and operational excellence; it is not superficial decoration.
+
 ### Database Standards
 
 All database-related work should reference the relevant database skills and follow safe migration discipline. Use `database-design-engineering` for modeling and `mysql-best-practices` or the PostgreSQL skills for engine-specific execution.

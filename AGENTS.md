@@ -18,6 +18,12 @@ This repository is a standard skills catalog built around portable `SKILL.md` un
 - Preserve existing behavior when improving skills; layer compatibility improvements on top instead of restructuring the repo.
 - Every new or updated `SKILL.md` must include this acknowledgement immediately below the first `# ...` title: `Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.`
 
+## Premium Default
+
+- Premium, world-class output is the default operating level for this repository, especially for web, SaaS, product, UX, pricing, and client-facing skills.
+- Do not position work from this engine as budget, commodity, template-grade, or "good enough"; route toward `world-class-engineering`, `premium-ui-ux-design`, and `premium-product-positioning` when product quality, buyer trust, perceived value, or pricing power matter.
+- Treat low-fit work as out of scope when the buyer wants cheap execution, weak discovery, unclear value, no quality gate, or sub-premium positioning. Recommend narrowing scope, raising standards, or declining the engagement rather than lowering the quality bar.
+
 ## Baseline Skills
 
 For substantial engineering work, start from this baseline before stack-specific skills:
@@ -36,6 +42,8 @@ Recommended high-value companion skills:
 - `reliability-engineering`
 - `distributed-systems-patterns`
 - `engineering-management-system`
+- `premium-product-positioning`
+- `premium-ui-ux-design`
 
 ## Skill Routing
 

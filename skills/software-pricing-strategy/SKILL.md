@@ -61,6 +61,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 ## References
 
 - Use the links and companion skills already referenced in this file when deeper context is needed.
+- Use companion skill `premium-product-positioning` when pricing must support premium buyers, executive/enterprise sales, high-ticket services, affluent/luxury positioning, or value-based packages with stronger proof and service layers.
 <!-- dual-compat-end -->
 Based on Dash (2025) *Mastering Software Product Management*, Chapter 5: Pricing.
 

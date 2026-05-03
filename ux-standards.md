@@ -149,6 +149,7 @@ $params[] = $offset;
         max-width: 100%;
     }
 }
+```
 
 ### 8. Menu Design Rules (Mandatory)
 
@@ -162,7 +163,20 @@ $params[] = $offset;
 - If more items are needed, add **one** extra submenu level (no deeper).
 - Use Bootstrap Icons on **all** menu headings and entries (`bi-*`).
 - Prefer fewer pages by grouping related functions on a single page with permissioned sections/tabs/cards.
-```
+
+### 9. Premium UI/UX Gate (Mandatory For User-Facing Products)
+
+**Trigger:** Any web, Android, iOS, dashboard, report, form-heavy, revenue-critical, or executive-facing interface.
+
+**Auto-apply:**
+
+- Load `premium-ui-ux-design` before finalizing UX requirements or screen implementation.
+- Define the product's visual voice and connect it to the user, domain, and business model.
+- Require tokenized color, typography, spacing, radius, elevation, icon, chart, and motion decisions.
+- Require complete states: loading, empty, error, success, disabled, offline, permission denied, and destructive confirmation.
+- Require platform fit: web responsive behavior, Android Material 3/mobile ergonomics, or iOS SwiftUI/native interaction rules.
+- Require dashboard and report quality: charts must support a real decision, include context, and avoid decorative distortion.
+- Block sign-off unless premium gate categories score at least 8/10.
 
 ---
 
@@ -192,6 +206,10 @@ Can the list be empty?
 Can the list have > 50 items?
 ├─ YES → Add pagination
 └─ NO → Continue
+
+Is the interface user-facing or premium/revenue-critical?
+├─ YES → Apply premium-ui-ux-design gate
+└─ NO → Continue
 ```
 
 ---
@@ -208,6 +226,7 @@ Before marking code complete, verify:
 - [ ] All lists > 50 items are paginated
 - [ ] Responsive on mobile (320px width)
 - [ ] Keyboard navigation works
+- [ ] Premium/revenue-critical screens pass the premium UI/UX gate
 
 ---
 

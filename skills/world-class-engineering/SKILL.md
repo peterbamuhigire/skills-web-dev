@@ -35,6 +35,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 - Read this `SKILL.md` first, then load only the referenced deep-dive files that are necessary for the task.
 - Apply the ordered guidance, checklists, and decision rules in this skill instead of cherry-picking isolated snippets.
 - Produce the deliverable with assumptions, risks, and follow-up work made explicit when they matter.
+- For premium, commercial, executive-facing, website, SaaS, ERP, POS, dashboard, or agency-delivery work, pair with `premium-software-product-execution` before locking scope, pricing, UX, reporting, or proof assets.
 
 ## Quality Standards
 
@@ -211,6 +212,7 @@ Use the release gates in [references/world-class-gates.md](references/world-clas
 ### Product and Commercial Quality
 
 - Solve an expensive problem, remove meaningful friction, or create a clearly superior experience.
+- Make premium value visible through packaging, proof, onboarding, service design, reporting, controls, and sales assets; quality that buyers cannot inspect or understand does not support premium pricing.
 - Make the core workflow easy to understand, easy to trust, and hard to misuse.
 - Reduce time-to-value for first use, repeated use, and recovery from mistakes.
 - Treat product quality, writing, and system behavior as one user experience.
@@ -309,6 +311,7 @@ Use these prompts while working:
 - Load `engineering-management-system` for delivery operating rhythm, delegation, communication, and team scaling.
 - Load platform and security skills relevant to the stack after this baseline is established.
 - Load `validation-contract` when authoring a specialist skill or assembling a Release Evidence Bundle for ship; it is the canonical source for what evidence ship readiness requires.
+- Load `premium-software-product-execution` when the software itself must support premium pricing, executive trust, sales enablement, website/content authority, or refusal of commodity work.
 
 ## References
 

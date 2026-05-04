@@ -34,7 +34,7 @@ The target surface (dashboard, CRUD table, form, settings), the auth/tenant mode
 
 ## Workflow
 
-0. For premium, revenue-critical, dashboard-heavy, or executive-facing products, load `premium-ui-ux-design` before choosing layout or visual direction.
+0. For premium, revenue-critical, dashboard-heavy, or executive-facing products, load `premium-software-product-execution` and `premium-ui-ux-design` before choosing layout or visual direction.
 1. Place the screen in the app shell (sidebar + topbar + content area).
 2. Pick the layout primitive (dashboard grid, table, form, detail-with-tabs).
 3. Wire data with React Query; never call `fetch` inside components.
@@ -57,6 +57,7 @@ The target surface (dashboard, CRUD table, form, settings), the auth/tenant mode
 - Destructive actions use a dedicated danger variant and explicit confirmation or undo when the action is high impact.
 - Touch targets are at least 44x44 CSS pixels, including icon-only buttons.
 - Premium screens must pass the `premium-ui-ux-design` gate: business clarity, visual quality, usability, content, accessibility, data quality, and production fit all at 8/10 or better.
+- Premium application screens must also show product value: buyer-relevant metrics, proof, clear next action, polished states, trustworthy copy, and support or escalation paths where the user may feel risk.
 
 ## Anti-Patterns
 
@@ -78,6 +79,7 @@ App shell component, route-level layout files, reusable primitives (`DataTable`,
 
 - Companion skills: `react-development`, `nextjs-app-router`, `tailwind-css`, `responsive-design`, `form-ux-design`, `frontend-performance`, `ux-principles-101`.
 - Load `premium-ui-ux-design` for premium SaaS, dashboards, high-ticket products, and any screen where perceived quality affects trust or conversion.
+- Load `premium-software-product-execution` when the UI must help justify premium pricing through reporting, controls, onboarding, sales proof, website/content authority, or executive decision support.
 - Use `references/interface-consistency.md` when a new module risks drifting from the established UI language.
 - Free: Shadcn/ui (`ui.shadcn.com`), TanStack Table (`tanstack.com/table`), Atomic Design (`atomicdesign.bradfrost.com`), React Hook Form (`react-hook-form.com`), Zod (`zod.dev`).
 - For the Bootstrap/Tabler/PHP seeder stack, load `sections/01-overview.md` and onwards.

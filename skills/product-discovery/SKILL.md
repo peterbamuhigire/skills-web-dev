@@ -34,6 +34,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 - Read this `SKILL.md` first, then load only the referenced deep-dive files that are necessary for the task.
 - Use the four risks to decide what needs evidence, then choose the cheapest prototype or test that can answer the risk.
 - End with a concrete recommendation and the evidence supporting it.
+- For premium products, test willingness to pay, proof threshold, perceived quality, decision process, and buyer commitment before treating positive feedback as demand.
 
 ## Quality Standards
 
@@ -68,6 +69,8 @@ Every product must clear four risks before full delivery investment:
 | Usability | Can customers figure out how to use it? | Prototype testing |
 | Feasibility | Can we build it with our team, tech, and time? | Engineering spike |
 | Business Viability | Does it work for the business? | Stakeholder review |
+
+For premium offers, add a fifth commercial proof question: will the right buyer pay a premium now, and what proof, risk reduction, service layer, or authority asset is required for that decision?
 
 ## Opportunity Assessment
 

@@ -41,6 +41,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 - Keep outputs execution-oriented, concise, and aligned with the repository's baseline engineering standards.
 - Preserve compatibility with existing project conventions unless the skill explicitly requires a stronger standard.
 - Prefer deterministic, reviewable steps over vague advice or tool-specific magic.
+- Premium UX writing must reduce perceived risk: name consequences, show recovery, confirm progress, explain controls, and make support paths visible without sounding anxious.
 
 ## Anti-Patterns
 
@@ -72,6 +73,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 | `content-writing` | Long-form copywriting (articles, blogs) |
 | `language-standards` | Multi-language standards (EN/FR/SW) |
 | `ai-slop-prevention` | Catch generic AI copy patterns |
+| `premium-software-product-execution` | Premium product reassurance, support, onboarding, and sales-proof language |
 
 **Scope:** This skill covers **interface microcopy** — the short text inside apps. For long-form content (articles, blogs, marketing pages), use `content-writing` instead.
 
@@ -87,6 +89,8 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 | **Human** | Write as a helpful colleague, not a robot or a lawyer |
 | **Helpful** | Every piece of text should help the user take their next step |
 | **Consistent** | Same term for the same concept everywhere in the product |
+
+For premium products, microcopy is also proof of service quality. Empty states, errors, onboarding, confirmations, and billing messages should make the product feel controlled, supported, and worth trusting with money, data, or executive decisions.
 
 ---
 

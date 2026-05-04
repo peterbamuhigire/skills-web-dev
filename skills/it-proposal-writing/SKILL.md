@@ -35,6 +35,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 - Read this `SKILL.md` first, then load only the referenced deep-dive files that are necessary for the task.
 - Apply the ordered guidance, checklists, and decision rules in this skill instead of cherry-picking isolated snippets.
 - Produce the deliverable with assumptions, risks, and follow-up work made explicit when they matter.
+- For premium software or website proposals, load `premium-software-product-execution` and show how value, proof, risk reduction, delivery process, controls, content/SEO, UX, and support justify the fee.
 
 ## Quality Standards
 
@@ -62,6 +63,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 ## References
 
 - Use the links and companion skills already referenced in this file when deeper context is needed.
+- Use `premium-software-product-execution` when proposing premium software, websites, SaaS, ERP/POS, dashboards, or agency delivery.
 <!-- dual-compat-end -->
 Based on Coombs, P. (2005). *IT Project Proposals: Writing to Win*. Cambridge University Press.
 
@@ -134,6 +136,8 @@ A USP must be:
 - **Relevant to this client:** Connect your strength to their specific need.
 - **Credible:** Backed by evidence (case study, reference, data).
 - **Differentiated:** Something the competition cannot honestly say.
+- **Value-defending:** Makes the invisible parts of software quality visible: discovery, controls,
+  architecture, UX, content, SEO, security, testing, support, onboarding, reporting, and change control.
 
 *If your USP is "we are experienced, professional, and client-focused," you have no USP.
 Every proposal says this. None of it persuades.*

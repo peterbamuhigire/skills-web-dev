@@ -35,6 +35,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 - Read this `SKILL.md` first, then load only the referenced deep-dive files that are necessary for the task.
 - Apply the ordered guidance, checklists, and decision rules in this skill instead of cherry-picking isolated snippets.
 - Produce the deliverable with assumptions, risks, and follow-up work made explicit when they matter.
+- For premium or enterprise offers, align the sales motion with account research, executive problem framing, proof assets, business case, stakeholder mapping, and concrete next-step commitments.
 
 ## Quality Standards
 
@@ -84,6 +85,8 @@ Deal size $100k+ ARR, complex evaluation, procurement      -> Enterprise (field 
 ```
 
 Rule: your motion is determined by the customer, not by preference. If buyers research and decide solo, self-service works. If buyers need help articulating value to a buying committee, enterprise is the only motion.
+
+Premium sales rule: do not ask high-value buyers for time with generic outreach. Use trigger events, role-specific pains, relevant proof, a diagnostic point of view, and a clear reason the meeting is worth executive attention.
 
 See `references/sales-motions-picker.md`.
 
@@ -207,9 +210,10 @@ Onboarding curriculum (weeks 1–4):
 
 1. Product + value — pitch, demo script, objection handling.
 2. Industry + personas — who buys, why, typical pain.
-3. Process + tools — CRM, stage definitions, forecasting, cadence tools.
-4. Shadow + role-play — with peers + manager.
-5. First calls + first demos — supervised.
+3. Proof assets — case studies, calculators, diagnostics, implementation roadmaps, objection handling, and premium positioning.
+4. Process + tools — CRM, stage definitions, forecasting, cadence tools.
+5. Shadow + role-play — with peers + manager.
+6. First calls + first demos — supervised.
 
 Rule: protect ramp. Don't throw accounts at an unfinished AE; outcomes hurt the AE, the customer, and the brand.
 

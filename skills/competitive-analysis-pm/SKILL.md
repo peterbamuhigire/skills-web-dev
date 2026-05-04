@@ -35,6 +35,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 - Read this `SKILL.md` first, then load only the referenced deep-dive files that are necessary for the task.
 - Apply the ordered guidance, checklists, and decision rules in this skill instead of cherry-picking isolated snippets.
 - Produce the deliverable with assumptions, risks, and follow-up work made explicit when they matter.
+- For premium products, compare against cheap substitutes and premium alternatives separately. Identify what makes buyers believe the higher price is safer, smarter, faster, or more prestigious.
 
 ## Quality Standards
 
@@ -215,6 +216,11 @@ Use this template when evaluating a direct competitor's product.
 - Onboarding: [Easy / Moderate / Hard — evidence]
 - Learning curve: [Low / Medium / High]
 - Mobile experience: [Native app / Responsive / None]
+
+### Premium / Cheap Signals
+- Premium signals: [proof, support, onboarding, reporting, controls, brand trust, executive usefulness]
+- Cheap signals: [discount-led copy, clutter, weak docs, generic claims, poor states, hidden support]
+- Price-premium justification: [Why a buyer would pay more, or why they would not]
 
 ### Strengths (honest assessment)
 -

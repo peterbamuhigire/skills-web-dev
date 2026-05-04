@@ -21,7 +21,8 @@ This repository is a standard skills catalog built around portable `SKILL.md` un
 ## Premium Default
 
 - Premium, world-class output is the default operating level for this repository, especially for web, SaaS, product, UX, pricing, and client-facing skills.
-- Do not position work from this engine as budget, commodity, template-grade, or "good enough"; route toward `world-class-engineering`, `premium-ui-ux-design`, and `premium-product-positioning` when product quality, buyer trust, perceived value, or pricing power matter.
+- Do not position work from this engine as budget, commodity, template-grade, or "good enough"; route toward `world-class-engineering`, `premium-software-product-execution`, `premium-ui-ux-design`, and `premium-product-positioning` when product quality, buyer trust, perceived value, or pricing power matter.
+- Premium execution must make value visible through packaging, simple usable UX, proof, content/SEO authority, service quality, pricing discipline, and high-value sales assets. A premium claim without visible proof and a clear next action is not acceptable.
 - Treat low-fit work as out of scope when the buyer wants cheap execution, weak discovery, unclear value, no quality gate, or sub-premium positioning. Recommend narrowing scope, raising standards, or declining the engagement rather than lowering the quality bar.
 
 ## Baseline Skills
@@ -42,6 +43,7 @@ Recommended high-value companion skills:
 - `reliability-engineering`
 - `distributed-systems-patterns`
 - `engineering-management-system`
+- `premium-software-product-execution`
 - `premium-product-positioning`
 - `premium-ui-ux-design`
 
@@ -57,7 +59,7 @@ Route work to skills by problem type:
 - iOS: `ios-development`, `ios-data-persistence`, `ios-swiftdata`, `ios-tdd`, `swiftui-design`
 - AI-enabled systems: `ai-web-apps`, `ai-llm-integration`, `ai-rag-patterns`, `ai-security`, `llm-security`
 - Security review and hardening: `vibe-security-skill`, `web-app-security-audit`, `php-security`, `network-security`, `linux-security-hardening`
-- Product, UX, and content: `product-discovery`, `ux-writing`, `practical-ui-design`, `interaction-design-patterns`, `design-audit`
+- Product, UX, and content: `premium-software-product-execution`, `product-discovery`, `ux-writing`, `practical-ui-design`, `interaction-design-patterns`, `design-audit`
 - Skill authoring and maintenance: `skill-writing`, `skill-safety-audit`, `update-claude-documentation`
 
 ## Working Model

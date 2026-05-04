@@ -34,6 +34,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 - Read this `SKILL.md` first, then load only the referenced deep-dive files that are necessary for the task.
 - Apply the ordered guidance, checklists, and decision rules in this skill instead of cherry-picking isolated snippets.
 - Produce the deliverable with assumptions, risks, and follow-up work made explicit when they matter.
+- For premium offers, validate buyer credibility signals, willingness to pay, proof requirements, sales-cycle friction, and next-step commitment before building the full product.
 
 ## Quality Standards
 
@@ -120,6 +121,8 @@ Observe 5 people in your target market doing the tasks your product will address
 
 ### Landing Page Test
 Build a one-page site advertising the product as if it exists. Add a Buy or Pre-order button. Drive cheap ad traffic. Measure click-through. No clicks = no market. Cost: near zero. Validates both market and product framing simultaneously.
+
+For premium products, the test should not only count clicks. Measure qualified meetings, diagnostic requests, budget-fit form completions, reply quality, stakeholder introductions, or paid pilot commitments.
 
 ### Fake Button / Feature Stub Test
 Before building a feature, put a placeholder button where the feature would live. Count clicks. If even the users loudly demanding the feature won't click a stub button to show intent, do not build it. Every unbuilt bad feature saves real money.

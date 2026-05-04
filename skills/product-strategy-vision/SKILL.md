@@ -63,6 +63,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 
 - Use the links and companion skills already referenced in this file when deeper context is needed.
 - Use companion skill `premium-product-positioning` when the product must justify premium pricing, serve executive/enterprise/affluent buyers, support high-ticket services, or express luxury/premium brand positioning through product strategy and requirements.
+- Use companion skill `premium-software-product-execution` when premium positioning must become concrete software requirements, website/content expectations, proof assets, onboarding, controls, reporting, or sales enablement.
 <!-- dual-compat-end -->
 Based on Cagan (2017) *INSPIRED: How to Create Tech Products Customers Love* (2nd ed.)
 and Dash (2025) *Mastering Software Product Management*.
@@ -135,6 +136,8 @@ achieve your vision. It is not a list of features. It is a series of bets.
 
 3. **Strategy must define what you will *not* do.** Every "yes" to a market or feature is implicitly
    a "no" to alternatives. Make the trade-offs explicit or you will not hold them.
+   For premium products, this includes refusing low-fit customers, unsupported discounting, weak discovery,
+   and feature requests that make the product feel cheaper or harder to trust.
 
 4. **Strategy is a living document.** Revisit quarterly. Update when market conditions, competitive
    moves, or discovery findings change the bet. A strategy written once and never touched is a
@@ -145,6 +148,16 @@ achieve your vision. It is not a list of features. It is a series of bets.
 
 6. **Communicate the strategy to the whole team.** Engineers who understand the strategy make
    better architectural decisions. Designers who understand the strategy make better UX trade-offs.
+
+### Premium Strategy Addendum
+
+For premium software, SaaS, ERP/POS, websites, or high-ticket agency products, strategy must also define:
+
+- the buyer proof threshold: what evidence the executive, investor, affluent buyer, or procurement team must see before trusting the offer
+- the price-premium logic: value created, risk removed, cost of inaction, and why cheaper alternatives are inferior
+- the packaging standard: name, demo, screenshots, onboarding, support, reporting, implementation plan, and handover assets
+- the service experience: senior access, review cadence, support path, escalation, training, and success reporting
+- the refusal policy: which customers, budgets, deadlines, or quality compromises are out of scope
 
 ---
 

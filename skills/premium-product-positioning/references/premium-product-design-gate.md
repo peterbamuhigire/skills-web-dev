@@ -24,6 +24,15 @@ Use this gate for software, SaaS, apps, websites, dashboards, strategy deliverab
 - Trust: security, privacy, reliability, auditability, source evidence, testimonials, case studies, and support paths are visible.
 - Control: executives can see progress, performance, risks, approvals, spend, and outcomes without chasing staff.
 - Personalisation: the product can reflect the buyer's industry, role, company, brand, workflow, and reporting needs.
+- Simplicity: premium products reduce effort before adding features. Navigation, onboarding, forms, dashboards, reports, and support flows must feel obvious without hiding serious buyer proof.
+
+## 3A. Packaging And Perceived Value
+
+- Treat packaging as the first proof of quality: name, onboarding, pricing page, screenshots, proposal, demo, documentation, support experience, and handover assets.
+- Align packaging with the price tier. A high-ticket product needs premium copy, visual restraint, proof, risk reduction, and service evidence before the buyer sees the full product.
+- Use premium signals honestly: scarcity, customisation, senior access, private review, implementation support, and priority service only when the operation can deliver them.
+- Avoid cheap signals: discount-led positioning, generic templates, cluttered UI, vague claims, thin documentation, and sloppy support responses.
+- For software and websites, the "package" includes performance, security, SEO, analytics, accessibility, and account ownership, not only what the screen looks like.
 
 ## 4. Pricing Power
 
@@ -38,6 +47,7 @@ Use this gate for software, SaaS, apps, websites, dashboards, strategy deliverab
 - Use evidence the buyer respects: executive case studies, before/after metrics, audited process, named methodology, screenshots, demos, references, pilot results, credentials, certifications, or governance artefacts.
 - For service and software that is hard to inspect before purchase, make the invisible visible: process map, timeline, sample deliverables, reporting cadence, risk controls, and escalation path.
 - Every big claim needs proof or a softer phrasing.
+- Build authority assets for high-value buyers: diagnostic, checklist, benchmark, comparison guide, implementation roadmap, case study, calculator, or executive briefing. These assets support SEO, outreach, proposal quality, and sales follow-up.
 
 ## 6. Enterprise Selling Support
 

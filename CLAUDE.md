@@ -143,7 +143,8 @@ Do not jump straight to framework-level implementation when architecture or data
 
 For this skills engine, premium is the default. Web, SaaS, product, UX, architecture, proposal-support, and client-facing outputs should be designed for world-class quality and premium positioning unless a narrower technical task explicitly excludes product or buyer experience.
 
-- Use `premium-product-positioning` and `premium-ui-ux-design` whenever perceived value, trust, buyer quality, pricing power, or high-ticket positioning matters.
+- Use `premium-software-product-execution`, `premium-product-positioning`, and `premium-ui-ux-design` whenever perceived value, trust, buyer quality, pricing power, high-ticket positioning, premium software quality, or executive-facing delivery matters.
+- Make premium value visible through packaging, simple usable UX, proof, content/SEO authority, service quality, pricing discipline, and high-value sales assets. Do not rely on premium adjectives without evidence.
 - Do not dilute outputs to fit commodity, low-budget, or sub-premium work. If a buyer expects cheap execution without proper discovery, quality gates, or value logic, treat that as a poor-fit engagement and recommend a smaller premium scope or a no-bid/no-build decision.
 - Premium means measurable quality, product depth, trust, supportability, proof, polish, and operational excellence; it is not superficial decoration.
 

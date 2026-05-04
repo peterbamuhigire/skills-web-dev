@@ -34,6 +34,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 - Read this `SKILL.md` first, then load only the referenced deep-dive files that are necessary for the task.
 - Apply the ordered guidance, checklists, and decision rules in this skill instead of cherry-picking isolated snippets.
 - Produce the deliverable with assumptions, risks, and follow-up work made explicit when they matter.
+- For premium products, websites, proposals, or sales assets, write content that proves authority, qualifies buyers, supports SEO/GEO and digital PR, explains value in business terms, and leads to a concrete next action.
 
 ## Quality Standards
 
@@ -61,6 +62,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.
+- Pair with `premium-software-product-execution` when copy must support premium pricing, buyer trust, service packaging, sales follow-up, or website-as-marketing-asset requirements.
 <!-- dual-compat-end -->
 Professional copywriting standards for website copy, blog posts, articles, and all written content. This is a cross-cutting skill — apply these principles whenever creating or editing text for any page.
 
@@ -70,6 +72,8 @@ Every word exists for the reader, not the writer. Before writing anything, answe
 - **Who** is the reader? What do they already know?
 - **What** are they looking for? What problem brought them here?
 - **Why** should they care? What benefit do they gain?
+- **What proof** would make them believe us?
+- **What action** should a qualified buyer take next?
 
 Write for the reader all the time. That is what separates content that converts from content that gets ignored.
 

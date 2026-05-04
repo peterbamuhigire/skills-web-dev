@@ -62,6 +62,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 
 - Use the links and companion skills already referenced in this file when deeper context is needed.
 - Use companion skill `premium-product-positioning` when pricing must support premium buyers, executive/enterprise sales, high-ticket services, affluent/luxury positioning, or value-based packages with stronger proof and service layers.
+- Use companion skill `premium-software-product-execution` when pricing must be defended by software depth, onboarding, support, documentation, controls, reporting, website/content authority, and sales assets.
 <!-- dual-compat-end -->
 Based on Dash (2025) *Mastering Software Product Management*, Chapter 5: Pricing.
 
@@ -221,6 +222,10 @@ to pay even when pricing is correct.
 
 5. **Avoid too many tiers.** More than 4 tiers creates decision paralysis. Hick's Law: the more
    options presented, the longer the decision takes and the higher the abandonment rate.
+
+### Premium Packaging Discipline
+
+Premium software packaging includes more than feature lists. Price must be supported by the demo, onboarding, implementation plan, documentation, support path, reporting cadence, screenshots, proof assets, proposal, website copy, and post-launch review. Entry tiers should create qualified demand without satisfying the whole premium job. A discount is acceptable only when traded for reduced scope, longer commitment, upfront payment, slower timeline, or lower seller risk.
 
 ---
 

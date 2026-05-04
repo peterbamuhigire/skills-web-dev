@@ -35,6 +35,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 - Read this `SKILL.md` first, then load only the referenced deep-dive files that are necessary for the task.
 - Apply the ordered guidance, checklists, and decision rules in this skill instead of cherry-picking isolated snippets.
 - Produce the deliverable with assumptions, risks, and follow-up work made explicit when they matter.
+- For premium products, add a premium-readiness pass: buyer proof, service cues, pricing confidence, executive clarity, support visibility, SEO/content authority, and product packaging.
 
 ## Quality Standards
 
@@ -77,6 +78,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 | `frontend-performance` | Performance measurement targets |
 | `laws-of-ux` | UX law compliance |
 | `ux-principles-101` | Accessibility and usability principles |
+| `premium-software-product-execution` | Premium readiness, proof, service packaging, and buyer-trust audit |
 
 ---
 
@@ -118,6 +120,8 @@ Follow the report structure (Section 3). Prioritise findings by severity.
 | Content | "Submit" buttons, "Loading..." text, corporate AI jargon |
 
 **Verdict**: PASS (distinctive, intentional) / BORDERLINE (some generic choices) / FAIL (immediately recognisable as AI-generated)
+
+Premium audit red flags include generic screenshots, unsupported premium claims, vague pricing CTAs, weak empty states, no proof, no support path, no business outcome, and polish that is not backed by speed, accessibility, data quality, or controls.
 
 ### Dimension 2: Visual Hierarchy
 

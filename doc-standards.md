@@ -444,3 +444,67 @@ See `prompting-patterns-reference.md` for complete guide and examples.
 ## Additional Reference
 
 Markdown portability and Pandoc-focused formatting rules were moved to [docs/markdown-portability-reference.md](docs/markdown-portability-reference.md) to keep this repository entrypoint concise.
+
+## Required UX declarations in every document (added 2026-05-06)
+
+Source: synthesis of `book-extractions/branson-ux-ui-design-extraction.md` (personas + affordance), `book-extractions/deacon-ux-ui-strategy-extraction.md` (scope levels), `book-extractions/enterprise-ux-financial-insurance-extraction.md` (maturity).
+
+Every doc-emitting skill must satisfy four short rules. Each rule has an explicit "N/A" escape hatch for cases where the rule does not apply.
+
+### Rule 1 — Persona declaration (Branson)
+
+Every document must name its target persona using Branson's discipline:
+- Essential Persona named (single primary persona per role)
+- Branson Mechanics floor: name, demographics, goals, environment, pain points, stress points
+
+**N/A escape hatch:** for internal infrastructure documents with no user-facing surface (e.g., a database migration log, a CI configuration), declare explicitly: "Persona: N/A — internal infrastructure document. No user-facing surface."
+
+### Rule 2 — Scope-level declaration (Deacon)
+
+Every document declares which of Deacon's 3 levels of UX scope applies:
+- **Single Interaction** — one product/device for one specific task
+- **Journey** — multiple channels/devices to achieve a goal over time
+- **Relationship** — overall organization-wide experience
+
+**N/A escape hatch:** "Scope: N/A — non-UX document" (e.g., a contract template).
+
+### Rule 3 — Maturity-level declaration (Synechron)
+
+For documents tied to premium-priced engagements, declare the target UX maturity level:
+- **Level 3 (UX Design)** — standard premium
+- **Level 4 (Experience Design)** — top-tier premium
+
+**N/A escape hatch:** "Maturity: N/A — non-premium engagement" or "Maturity: N/A — non-UX deliverable".
+
+### Rule 4 — Affordance audit (Branson) — UI-emitting docs only
+
+For any document that emits UI (wireframes, screen specs, prototype briefs), declare a 4-stage affordance audit on every primary CTA:
+1. **Presence** — does the affordance exist? Yes/No
+2. **Visibility / Perceivability** — can it be seen at first glance? Yes/No
+3. **Recognizability** — can it be detected without searching? Yes/No
+4. **Intelligibility** — is the meaning clear once read? Yes/No
+
+Any No on any stage = redesign required before sign-off.
+
+**N/A escape hatch:** "Affordance audit: N/A — non-UI document".
+
+### Where to place the declarations
+
+Place all four declarations in a **single block at the top of the document**, immediately under the title and before the body. Format:
+
+```
+**UX declarations:**
+- Persona: [Essential Persona name + Mechanics floor confirmation OR N/A reason]
+- Scope: [Single Interaction / Journey / Relationship / N/A reason]
+- Maturity: [Level 3 / Level 4 / N/A reason]
+- Affordance audit: [Yes — passes 4 stages / No — flagged for redesign / N/A reason]
+```
+
+This block is auditable, machine-readable (for skill chains downstream), and visible to every reader.
+
+### Cross-references
+
+- `book-extractions/branson-ux-ui-design-extraction.md` — persona discipline + 4-stage affordance
+- `book-extractions/deacon-ux-ui-strategy-extraction.md` — 3 levels of UX scope
+- `book-extractions/enterprise-ux-financial-insurance-extraction.md` — maturity model
+- `enterprise-ux-process/SKILL.md` — operational skill that produces these declarations as part of its 9-phase workflow

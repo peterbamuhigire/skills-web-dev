@@ -220,3 +220,35 @@ These skills provide cross-cutting standards referenced by all phases:
 **Back to:** [Skills Repository](CLAUDE.md)
 **Related:** sdlc-planning | sdlc-design | sdlc-testing | sdlc-user-deploy
 **Last Updated:** 2026-02-20
+
+## UX maturity gate (added 2026-05-06 from Synechron Enterprise UX)
+
+Source: `book-extractions/enterprise-ux-financial-insurance-extraction.md` Parts VIII + IX.
+
+**Premium-priced engagements require Level 3 (UX Design) minimum across the SDLC.** Top-tier engagements (regulated, mission-critical) require Level 4 (Experience Design). Standard-tier engagements are unaffected by this gate.
+
+### Phase-by-phase mapping
+
+| SDLC phase | Level 3 minimum activities | Level 4 additional activities |
+|---|---|---|
+| **Discovery** | User research, stakeholder interviews, success criteria signed | Experience maps |
+| **Requirements** | Personas (Essential Persona declared), user journeys, IA, navigation flows | Mood boards |
+| **Design** | Wireframes (low-fi + high-fi), clickable prototype, visual mockups, heuristic evaluation | — |
+| **Implementation** | ADA / Section 508 / WCAG 2.1 AA (required at all levels) | — |
+| **Verification** | Heuristic evaluation report | Usability testing + test cases & scenarios |
+| **Deployment** | 5-outcomes pre-launch declaration (Useful/Easy/Efficient/Pleasing/Accessible) | — |
+| **Maintenance** | — | Experience-map updates per major release |
+
+### Drop-tier rule
+
+If any phase fails to clear the Level 3 activities for a premium-tier engagement, drop the engagement to standard tier. Do not paper over the gap with stronger marketing — premium claims fail credibility on first audit when the activities are missing.
+
+### Operational skill
+
+For full enterprise engagements, invoke `enterprise-ux-process/SKILL.md` — operationalizes the 9-phase process with full evidence pack. Quick-use checklist at `enterprise-ux-process/references/maturity-checklist.md`.
+
+### Cross-references
+
+- `book-extractions/enterprise-ux-financial-insurance-extraction.md` — canonical source
+- `website-skills/skills/design-quality-score/references/rubric.md` Category 8 — engine-level scoring
+- `srs-skills/01-strategic-vision/07-premium-product-positioning/SKILL.md` — premium positioning gate

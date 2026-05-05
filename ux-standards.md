@@ -6,6 +6,41 @@
 
 ---
 
+## Section 0 — Foundational UX philosophy (added 2026-05-06)
+
+The bulk of this file (Sections 1+) is SaaS implementation patterns. The philosophy that grounds those patterns lives in the canonical book extractions at `book-extractions/`. Read this section first when evaluating whether a project needs the implementation patterns at all.
+
+### The 5 canonical book extractions
+
+- `book-extractions/levy-ux-strategy-extraction.md` — UX strategy as upstream gate (Four Tenets, Top-10 anti-patterns, Funnel Matrix, landing-page experiments)
+- `book-extractions/enterprise-ux-financial-insurance-extraction.md` — enterprise process (5-level maturity, 5 outcomes, activity-by-level matrix)
+- `book-extractions/branson-ux-ui-design-extraction.md` — psychology (Three HCI Paradigms, working memory, 4-stage cognitive affordance, persona discipline)
+- `book-extractions/deacon-ux-ui-strategy-extraction.md` — UX history + 3 levels of UX scope
+- `book-extractions/fekeshazi-pm-ux-guide-extraction.md` — PM collaboration rules and design-as-ongoing-process
+
+### The four cross-cutting rules
+
+1. **Validated user research is non-negotiable** (Levy). No "Field of Dreams" launches. Confront target customers with an MVP/landing page before scaling.
+2. **All 5 outcomes must hit, not 4 of 5** (Synechron). Useful + Easy + Efficient + Pleasing + Accessible. One No = no premium launch.
+3. **Recognition over recall + 4-stage cognitive affordance** (Branson). Show, don't make users remember. Every interactive element must pass Presence → Visibility → Recognizability → Intelligibility.
+4. **Design is ongoing, not a project** (Fekeshazi). Plan for continuous design alongside continuous dev.
+
+### Operational skill
+
+For premium-priced enterprise engagements, invoke `enterprise-ux-process/SKILL.md` — operationalizes the Synechron process into 9 phases with declared maturity-level + 5-outcomes evidence pack.
+
+### Cross-engine consumption map
+
+- `website-skills/` — consumes Levy + Synechron + Branson + Deacon + Fekeshazi (5 skills upgraded; see `website-skills/universal-guidelines/`)
+- `social-media-skills/` — consumes Branson personas + Levy tenets + Synechron 5 outcomes (Persona + Strategy clusters; see `social-media-skills/docs/ux-foundations.md`)
+- `srs-skills/` — consumes all 5 (UX-spec + Strategic-vision clusters; see `srs-skills/docs/ux-foundations.md`)
+
+### When to apply Sections 1+ (the implementation patterns)
+
+The implementation patterns below (searchable dropdowns, etc.) apply when (a) the project is web SaaS AND (b) the philosophy gate above has been cleared. Don't apply patterns to a project that hasn't yet validated user research.
+
+---
+
 ## Auto-Apply Rules
 
 When generating or modifying web UI code, AUTOMATICALLY:

@@ -55,7 +55,7 @@ Route work to skills by problem type:
 - Engineering strategy, policy, operating cadence: `engineering-strategy`, `continuous-improvement-system`
 - Data modeling, migrations, query safety: `database-design-engineering`, engine-specific database skills
 - APIs and backend contracts: `api-design-first`, `api-error-handling`, `api-pagination`, backend stack skills
-- Web and frontend implementation: `react-development`, `nextjs-app-router`, `webapp-gui-design`, `form-ux-design`, `frontend-performance`
+- Web and frontend implementation: `react-development`, `nextjs-app-router`, `webapp-gui-design`, `form-ux-design`, `no-json-in-ui`, `frontend-performance`
 - Android: `android-development`, `android-data-persistence`, `android-room`, `android-tdd`, `jetpack-compose-ui`
 - iOS: `ios-development`, `ios-data-persistence`, `ios-swiftdata`, `ios-tdd`, `swiftui-design`
 - AI-enabled systems: `ai-web-apps`, `ai-llm-integration`, `ai-rag-patterns`, `ai-security`, `llm-security`

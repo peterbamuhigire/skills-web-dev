@@ -100,7 +100,7 @@ Typical baseline choices:
 
 | Area | Key Skills |
 |------|------------|
-| Web frontend | `webapp-gui-design`, `premium-ui-ux-design`, `form-ux-design`, `responsive-design`, `frontend-performance` |
+| Web frontend | `webapp-gui-design`, `premium-ui-ux-design`, `form-ux-design`, `no-json-in-ui`, `responsive-design`, `frontend-performance` |
 | Web backend | `php-modern-standards`, `api-design-first`, `docker-development`, `php-security`, `nodejs-development`, `nextjs-app-router` |
 | Android | `android-development`, `android-ui-ux-design`, `android-data-persistence`, `android-tdd`, `jetpack-compose-ui` |
 | iOS | `ios-development`, `ios-ui-ux-design`, `ios-data-persistence`, `ios-tdd`, `swiftui-design` |

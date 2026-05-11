@@ -82,6 +82,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 
 - `references/trace-schema.md` — span names, attributes, examples.
 - Companion: `ai-on-saas-architecture`, `ai-model-gateway`, `ai-eval-harness`, `ai-prompt-injection-and-tenant-safety`, `observability-monitoring`, `saas-admin-backoffice-tooling`.
+- Incident-mode: during a paged AI incident, the trace and replay tooling must support a one-command **evidence bundle export** (`ai-evidence-export --signal <id> --window <range> --output <dir>`) that snapshots state-at-window-end (prompt/model/index/price registries), pulls a stratified sample of failing traces, and generates reproduce scripts. See `ai-incident-evidence-capture/references/evidence-bundle-spec.md` for the schema and `ai-incident-evidence-capture/references/reproduce-script-template.md` for the script generator. The replay tooling must support a "show me everything from <time> for <tenant> on <feature>" mode usable by an on-call engineer at T+5 of an incident.
 
 <!-- dual-compat-end -->
 
@@ -192,8 +193,31 @@ Each panel filterable by time, tenant, region, model, prompt version.
 - Replay tool that uses the current price table to compute cost on historical replays. Misleading.
 - Sampling at < 10% on AI requests. AI volume is usually small enough to keep 100%.
 
-## §8 Read Next
+## §8 Agent Trace Patterns
 
+Single-request AI observability is insufficient for agentic features. An agent task is **one trace** spanning many LLM calls and tool calls, often running for minutes or hours. The trace schema, replay tooling, and task-level dashboards live in `ai-agent-observability-and-replay`.
+
+Key differences from request-level traces:
+
+| Dimension | Request | Agent task |
+|---|---|---|
+| Trace lifetime | seconds | seconds to days |
+| Spans per trace | 5-20 | 50-500+ |
+| Replay | re-call with same inputs | re-run loop with mocked tool I/O |
+| Failure modes | latency, content, cost | + step-loop, hallucinated tool args, off-script irreversibles, deadlock |
+| Dashboards | per-request metrics | per-task metrics: success rate, intervention rate, step efficiency |
+
+Required schema additions when agents are in scope — root span `agent.task` with attributes for `agent.task.id`, `agent.feature`, `agent.prompt.version`, `agent.tool_set.version`, `agent.task.steps.used/budget`, `agent.task.usd.total`, `agent.task.terminal.state`. Per-step child spans `agent.step.N`. Per-LLM-call and per-tool-call sub-spans. Special spans: `agent.handoff`, `agent.approval`. Full schema: `ai-agent-observability-and-replay/references/trace-schema-agent.md`.
+
+Required dashboards: per-feature task success rate, intervention rate, irreversible-action rate, step efficiency, median cost per completed task; per-tenant agent task volume, agent cost share, wasted-spend share; top-10 tasks by cost in last hour; failure-mode distribution.
+
+Required replay surface: per-task replay re-running a recorded task with candidate prompt/model/tool version; side-by-side step diff; never call live tools in replay.
+
+## §9 Read Next
+
+- `ai-agent-observability-and-replay` — the **agent-specific** complement with full trace schema, replay tooling, task viewer, and "what would the agent do differently" debugger.
+- `ai-agent-runtime-architecture` — emits the task-level trace events.
+- `ai-agent-eval` — consumes traces for replay-based eval.
 - `ai-on-saas-architecture` — control-plane positioning.
 - `ai-model-gateway` — instrumented from.
 - `ai-eval-harness` — surfaces quality signal to dashboards.

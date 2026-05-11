@@ -85,6 +85,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 - `references/grounding-and-citation-ux.md` — design patterns + accessibility for citations.
 - `references/slo-and-error-budget-math.md` — windowed SLO math + burn-rate alerts for AI.
 - Companion: `ai-eval-harness`, `ai-rag-multi-tenant`, `ai-output-design`, `ai-prompt-injection-and-tenant-safety`, `ai-on-saas-architecture`, `observability-monitoring`, `reliability-engineering`.
+- Incident handoff: a burn-rate alert is the **start** of an incident, not the end. See `ai-incident-detection-and-triage` for triage, `ai-incident-response-runbook` (failure class `hallucination-spike`) for first / second mitigations, `ai-incident-evidence-capture` for the evidence bundle, and `ai-incident-postmortem` for the postmortem. The burn-rate alert payload must include `runbook` link and `failure_class_hint: hallucination-spike`.
 
 <!-- dual-compat-end -->
 

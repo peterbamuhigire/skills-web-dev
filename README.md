@@ -81,7 +81,13 @@ Typical baseline choices:
 | `dual-auth-rbac` | Session and JWT authentication with role-based access control |
 | `api-design-first` | OpenAPI-first REST design, versioning, auth, caching, rate limiting |
 | `api-error-handling` | Standardized API errors and response formatting |
-| `saas-accounting-system` | Double-entry accounting engine patterns |
+| `accounting-engine` | Canonical embedded accounting engine: one append-only ledger, one posting service, mappings, reversals, integrity jobs |
+| `saas-accounting-system` | Legacy double-entry accounting engine patterns; prefer `accounting-engine` for new money-handling SaaS |
+| `chart-of-accounts-templates` | IFRS-aligned CoA templates and default mappings by industry |
+| `inventory-costing` | IAS 2 inventory costing, COGS posting, landed cost, NRV write-downs |
+| `payroll-postings-uganda` | Uganda payroll journal shapes for PAYE, NSSF, LST, advances, loans, remittances |
+| `fixed-assets-and-depreciation` | IAS 16 fixed asset register, depreciation, disposal, revaluation |
+| `multicurrency-and-fx` | IAS 21 functional currency, transaction currency, FX gains/losses, revaluation |
 | `inventory-management` | Inventory, stock movement, valuation, and multi-location patterns |
 
 ### Database

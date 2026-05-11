@@ -87,6 +87,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 - `references/prompt-injection-threat-model.md` — full STRIDE-style threat model template.
 - `references/red-team-test-suite.md` — taxonomy, sample tests, CI wiring.
 - Companion: `ai-security`, `ai-tenant-isolation-patterns`, `ai-model-gateway`, `ai-on-saas-architecture`, `ai-hallucination-slo-and-grounding`, `ai-observability-and-debugging`, `vibe-security-skill`.
+- Incident handoff: safety events (jailbreak hits, PII in output, cross-tenant leak, indirect injection markers, action-approval bypass) are detection signals in `ai-incident-detection-and-triage`. Severity mapping: any confirmed jailbreak with data exfil, cross-tenant leak, or action-approval bypass = sev-1 (always). See `ai-incident-response-runbook` (failure class `jailbreak`) for first mitigation (classifier-tighten, deny-list, feature kill-switch if exfil confirmed). Regulator clocks (GDPR Art. 33 72h, EU AI Act Art. 73) start at the detection timestamp documented in the incident channel — see `ai-incident-customer-comms/references/regulator-notification-templates.md`.
 
 <!-- dual-compat-end -->
 
@@ -217,8 +218,46 @@ Alerts: page on `ai.jailbreak.suspected`; aggregate by feature on `ai.injection.
 - No logging of denied requests — can't analyse attack patterns.
 - Storing raw prompts/responses unencrypted in logs that ops can read.
 
-## §9 Read Next
+## §9 Agent-Specific Section — Indirect Prompt Injection and the Tool-Data Perimeter
 
+Direct prompt injection (the user types "ignore previous instructions") is half the story. Agentic features expose a much larger attack surface: any data the agent **reads** can carry instructions. This includes retrieved KB chunks, tool responses, web pages, customer-supplied notes, and emails the agent summarises.
+
+This section is the bridge to `ai-agent-safety-and-red-team`, where the full agent-specific threat model, defences, and CI red-team suite live. The summary:
+
+**Indirect injection defences (three layers, all required):**
+
+1. **Provenance tagging.** Every tool observation is added to the LLM context wrapped with `BEGIN UNTRUSTED CONTENT / END UNTRUSTED CONTENT` markers and a defensive scaffold instructing the model to treat the content as data, not directives. The wrapper is configured per-tool in the registry (`ai-agent-tool-catalogue-and-action-gating` §6).
+2. **Output classifier.** A small classifier scans tool output for known injection markers ("ignore all previous", "[INST]", "<\|im_start\|>", base64-encoded payloads, multilingual variants). On detection: log `agent.injection.detected`, wrap with extra scaffolding; on high confidence drop the observation.
+3. **Plan alignment check.** After the LLM emits a plan, classify it against the user's original goal. If the plan suddenly aligns with a recently-observed injection target (not the user's goal), block and escalate.
+
+**Action escalation defences:**
+
+- The runtime tracks arg **provenance** — every tool arg knows which observation(s) it derived from. If an arg derived from `untrusted` sources is fed into a tool whose `blast_radius='external'` or whose reversibility is `irreversible`, force a JIT approval with explicit "this argument came from untrusted source X" highlight.
+
+**Exfiltration defences:**
+
+- Before any tool call with `blast_radius='external'`, run an exfil classifier on the args. Patterns: emails-in-URLs, long query-string payloads, base64 blobs, JSON-in-string-value. On match: block + force HITL approval.
+
+**Recursive self-modification:**
+
+- The agent cannot read its own system prompt, list its own tools, or modify the tool registry through any tool call. Reflection is not exposed.
+
+**Red-team CI suite (agent-specific):**
+
+- KB chunks with embedded injections (50+).
+- Web pages with hidden injections in HTML comments / display:none divs / alt text.
+- Tool responses with injections in free-text fields (notes, descriptions).
+- Multi-turn injections (planted at turn N, intended to fire at turn N+1).
+- Encoded variants (base64, ROT13, leetspeak, homoglyphs, zero-width).
+- Multilingual injections.
+
+Full corpus and CI wiring in `ai-agent-safety-and-red-team` and its `references/indirect-prompt-injection-test-suite.md`.
+
+## §10 Read Next
+
+- `ai-agent-safety-and-red-team` — the **agent-specific** complement to this skill, with full indirect-injection threat model, provenance graph, escalation guard, exfil classifier, and CI red-team suite.
+- `ai-agent-tool-catalogue-and-action-gating` — provenance tagging at the tool registry level.
+- `ai-agent-observability-and-replay` — tracing the injection / escalation / exfil events for forensics.
 - `ai-tenant-isolation-patterns` — the storage-side complement.
 - `ai-model-gateway` — where filters run.
 - `ai-security` — broader baseline.

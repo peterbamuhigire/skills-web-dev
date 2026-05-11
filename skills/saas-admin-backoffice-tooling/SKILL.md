@@ -86,6 +86,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 - `references/bulk-operations.md` — dry-run + approval + rollback patterns.
 - `references/internal-roles-and-permissions.md` — typical role matrix.
 - Companion: `saas-control-plane-engineering`, `multi-tenant-saas-architecture`, `dual-auth-rbac`, `vibe-security-skill`, `saas-sso-scim-enterprise-auth`.
+- AI incident console: when the platform ships AI features, the back-office must include an **AI incident console** with: feature kill-switch, agent task kill-switch, model-pin, prompt-pin, retrieval index-pin, tool-pin / tool-disable, gateway routing pin, per-tenant feature pause, quota cap, and the evidence-bundle exporter. Each control writes to `ai_incident_mitigation_log` with `(actor, ts, primitive, scope, reason, ticket_id)`. The reason field is mandatory. See `ai-incident-response-runbook` §3 for the primitive contract and `ai-incident-recovery-and-rollback/references/rollback-patterns.md` for the un-pin path.
 
 <!-- dual-compat-end -->
 
@@ -236,7 +237,69 @@ Depending on the SaaS stack:
 
 Regardless of UI tool, **the API surface is the contract** — UI is just one client; CLI / Slack-bot / scripts are equally valid clients of the back-office API.
 
-## §10 Read Next
+## §10 Agent Ops Console
+
+When agentic features ship, the back-office gains a new surface: the **Agent Ops Console**. Without it, operating live agents in a multi-tenant SaaS is impossible — a runaway task or a tenant-specific safety incident has no fast remediation.
+
+### Required views
+
+| View | Purpose |
+|---|---|
+| **Live agent tasks** (per-tenant + global) | All in-flight tasks: tenant, feature, state, age, cost so far, last activity |
+| **Pending approvals** (per-tenant + global) | All awaiting-approval tasks; staff can override on behalf of tenant admin |
+| **Task viewer** (drill-down) | Per-task trace + step list + tool I/O (redacted) + replay link — see `ai-agent-observability-and-replay` |
+| **Tenant agent config** | View / edit per-tenant tool allow-list, budgets, entitlement overrides; see audit |
+| **Tenant kill-switch panel** | Pause / resume agent for a tenant; per-feature pause; reason required |
+| **Agent budget overrides** | Time-boxed overrides with `expires_at`, `reason`, `actor` |
+| **Safety incidents** | Live feed of `agent.injection.detected`, `agent.exfil.attempt`, `agent.cross_tenant.attempt`, `agent.escalation.blocked` |
+| **Stuck tasks / Abandonment queue** | Tasks that exceeded stall thresholds; resume / abandon / kill |
+| **Agent cost dashboard** | Per-tenant cost per completed task; wasted spend share; outliers |
+
+### Required actions
+
+| Action | What it does | Audit + safeguards |
+|---|---|---|
+| **Kill task** | Transitions one task to `KILLED`; runs reversibility compensations | Reason required; emits `agent.task.killed`; tenant notified |
+| **Force-pause task** | Transitions to `AWAITING_APPROVAL` (paused-by-staff); resumes when staff or tenant resumes | Reason required; tenant notified |
+| **Tenant-wide agent kill-switch** | Sets agent_enabled=false; in-flight tasks complete current step and stop | Reason; tenant notified; expires unless made permanent |
+| **Feature-specific kill-switch** | Pauses one agent feature for one tenant | Reason; auto-expire default 24h |
+| **Approval override** | Approve / reject an approval on behalf of a tenant admin | Co-sign required for irreversible; visible to tenant |
+| **Resume abandoned task** | Restart from last persisted step | Audit |
+| **Re-run with new config** | Replay task with candidate prompt/model/tools | Sandbox only — never re-execute side effects in prod |
+| **Memory inspection / forget** | Surface per-tenant or per-user agent memories; force-forget on legal request | GDPR audit row written |
+| **Tool registry view** | See which tools each tenant has, which versions pinned, deprecations | Read-only here; mutations via control-plane API |
+
+### Kill-Switch Speed Requirement
+
+Per-tenant agent kill-switch must flip in **< 5 seconds** wall-time from staff click to runtime enforcement. Implementation: write to a Redis key the runtime checks before each step; DB updated asynchronously for audit.
+
+```python
+# Runtime check before each step
+def check_kill_switch(tenant_id):
+    if redis.get(f"agent:killed:{tenant_id}") == "1":
+        return KillSwitch("tenant_kill_switch")
+    return None
+```
+
+The kill-with-rollback runbook (`ai-agent-reversibility-and-blast-radius` §4) describes the compensation cascade. The console wires the button.
+
+### Required co-signs
+
+- Tenant-wide agent kill-switch on Enterprise: 2 staff (support engineer + tenant CSM or higher).
+- Approval override of irreversible: 2 staff.
+- Bulk kill of > 10 tasks: 2 staff + dry-run.
+- Memory force-forget: 1 staff + legal ticket reference.
+
+### Cross-references
+
+- `ai-agent-runtime-architecture` — provides the task list + state machine the console drives.
+- `ai-agent-observability-and-replay` — provides the task viewer + replay link.
+- `ai-agent-action-approval-and-hitl` — approval objects the staff override.
+- `ai-agent-safety-and-red-team` — safety incident feed.
+- `ai-agent-reversibility-and-blast-radius` — kill-with-rollback procedure.
+- `ai-agent-memory` — memory inspection / forget surface.
+
+## §11 Read Next
 
 - `saas-control-plane-engineering` — the services this console drives.
 - `multi-tenant-saas-architecture` — tenant data model + cross-tenant access rules.
@@ -244,3 +307,5 @@ Regardless of UI tool, **the API surface is the contract** — UI is just one cl
 - `saas-tenant-data-portability-and-erasure` — GDPR workflows this console initiates.
 - `dual-auth-rbac` — internal auth + MFA underpinning.
 - `vibe-security-skill` — security baseline for the back-office app.
+- `ai-agent-runtime-architecture` — agent task control-plane.
+- `ai-agent-observability-and-replay` — task viewer + replay surfaces.

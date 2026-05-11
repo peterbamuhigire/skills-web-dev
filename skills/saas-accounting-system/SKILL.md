@@ -71,6 +71,17 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 <!-- dual-compat-end -->
 ## Overview
 
+## Deprecation Note
+
+For new products that handle money, prefer the stricter companion skill `accounting-engine`. This file remains useful as legacy implementation detail, but any guidance here must be read subject to these hard rules:
+
+- All ledger writes go through one `LedgerPostingService`.
+- Posted journal lines are append-only and are never updated, deleted, or soft-deleted.
+- Corrections use reversing journals.
+- Materialized balances are rebuildable caches, not authoritative records.
+- Business modules never hardcode account codes or write ledger tables directly.
+- IFRS/IFRS for SMEs tenants never use LIFO.
+
 This skill implements a **hidden accounting engine** inside business applications. End users never see debits, credits, or journal entries — they enter sales, record payments, move inventory. Under the hood, every transaction auto-posts balanced journal entries that accountants and auditors can query at any time.
 
 **Philosophy:** Users think in business terms. The system thinks in double-entry.

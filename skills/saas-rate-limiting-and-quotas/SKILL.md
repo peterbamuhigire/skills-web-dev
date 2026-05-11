@@ -324,9 +324,65 @@ Where enforced:
 - **Agent runtime** enforces step caps and concurrent agent sessions.
 - **KB service** enforces ingestion-rate and total-pages caps.
 
+## Agent Quotas (Detailed)
+
+Agentic features need a richer quota set than single-shot AI. The dimensions:
+
+| Quota | Algorithm | Default — Pro | Default — Enterprise | Enforcement |
+|---|---|---|---|---|
+| Concurrent agent sessions per tenant | concurrency counter (atomic INCR/DECR in Redis) | 3 | 20 | Runtime task-create handler |
+| Agent steps per tenant per day | sliding window | 500 | 10,000 | Runtime step-enter handler |
+| Agent tasks per user per hour | token bucket | 20 | 100 | Runtime task-create handler |
+| Long-running tasks (wallclock > 5 min) in-flight per tenant | concurrency counter | 1 | 10 | Runtime task-create handler |
+| Per-task wallclock cap | budget (`ai-agent-cost-and-step-budgets`) | 5 min | 30 min | Runtime budget check |
+| Per-task cost cap (USD) | budget | $1 | $10 | Runtime budget check |
+| Standing approvals invocations per tenant per day | counter | 100 | unlimited | Approval runtime |
+
+### Concurrency Counter Pattern
+
+```python
+def claim_agent_session(tenant_id: int, max_concurrent: int) -> bool:
+    key = f"agent:concurrent:{tenant_id}"
+    val = redis.incr(key)
+    redis.expire(key, 86400, nx=True)
+    if val > max_concurrent:
+        redis.decr(key)
+        return False
+    return True
+
+def release_agent_session(tenant_id: int):
+    redis.decr(f"agent:concurrent:{tenant_id}")
+```
+
+`release` is called on every task terminal transition (`COMPLETED`, `FAILED`, `KILLED`, `BUDGET_EXCEEDED`, `ABANDONED`). A janitor reconciles drift by counting actual in-flight tasks vs counter every 5 minutes.
+
+### Response on Limit Hit
+
+```json
+{
+  "error": "agent_concurrency_limit",
+  "code": "AGENT_CONCURRENCY_LIMIT",
+  "current": 3,
+  "limit": 3,
+  "plan": "pro",
+  "retry_after_seconds": 60,
+  "upgrade_url": "/billing/upgrade?plan=enterprise&context=agent_concurrency"
+}
+```
+
+The user sees: "You've reached your concurrent-agent limit (3). Wait for an active task to finish, or upgrade for 20 concurrent."
+
+### Cross-Plane Quotas
+
+Quotas are declared in `ai-entitlements-and-feature-gating` (catalogue) and enforced in the agent runtime (this skill's runtime layer). The two skills hold the contract:
+- Entitlements: which keys exist, per-plan values, per-tenant overrides.
+- Rate limiting: which algorithms enforce them, which storage, which response shape.
+
 Cross-references:
+- `ai-agent-runtime-architecture` — where agent quotas are enforced.
+- `ai-agent-cost-and-step-budgets` — per-task budgets (the inner quota layer).
+- `ai-entitlements-and-feature-gating` — agent quota catalogue.
 - `ai-model-gateway` — implements per-tenant token+USD caps.
 - `ai-cost-per-tenant-attribution` — soft/hard ceilings with comms.
-- `ai-entitlements-and-feature-gating` — declares the per-plan values.
 - `ai-rag-multi-tenant` — KB-side caps.
 - `ai-on-saas-architecture` — overall architecture.

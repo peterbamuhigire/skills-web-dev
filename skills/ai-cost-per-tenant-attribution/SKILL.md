@@ -85,6 +85,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 - `references/token-accounting-pipeline.md` — the data flow.
 - `references/model-price-table-template.md` — price table format + ops.
 - Companion: `ai-model-gateway`, `ai-usage-metering-and-billing`, `ai-cost-modeling`, `ai-on-saas-architecture`, `ai-entitlements-and-feature-gating`, `observability-monitoring`, `saas-rate-limiting-and-quotas`.
+- Incident handoff: cost-anomaly signals (`tenant_cost_anomaly_z3`, `feature_cost_runaway`) are detection signals in `ai-incident-detection-and-triage`. Anomaly alert payload must include `runbook` and `failure_class_hint: cost-runaway`. See `ai-incident-response-runbook` (class `cost-runaway`) for first mitigation (per-tenant or per-feature quota cap via `ai-model-gateway`) and `ai-rca-taxonomy` for cost-class root-cause categories (commercial.provider-price-change, infra.gateway-routing-change, agent.runaway-loop, model.prompt-regression with cost lens).
 
 <!-- dual-compat-end -->
 
@@ -193,8 +194,68 @@ Acceptable drift: < 1% at month close. Beyond, root-cause and re-run the daily a
 - Anomaly detector that only looks at platform totals. Misses single-tenant runaway agents.
 - Reconciliation done by exporting CSV from Stripe and adding columns in Excel. Drift never fixed at root cause.
 
-## §9 Read Next
+## §9 Agent-Step Cost Attribution
 
+A request-level cost view is insufficient for agentic features. A single user goal ("send the invoice") may fan out into 6-30 LLM calls and 4-20 tool calls. The unit the business actually charges (and the unit cost-per-tenant should reflect) is the **completed agent task**, not the individual LLM call.
+
+### Required additions when agents are in scope
+
+**Per-task rollup table** (populated by `ai-agent-cost-and-step-budgets` enforcement):
+
+```sql
+CREATE TABLE agent_task_cost_ledger (
+  task_id          BIGINT PRIMARY KEY,
+  tenant_id        BIGINT NOT NULL,
+  feature          VARCHAR(64) NOT NULL,
+  model_pin        VARCHAR(64) NOT NULL,
+  terminal_state   VARCHAR(32) NOT NULL,
+  step_used        INT NOT NULL,
+  tokens_in        BIGINT NOT NULL,
+  tokens_out       BIGINT NOT NULL,
+  usd_llm_cost     DECIMAL(10,4) NOT NULL,
+  usd_tool_cost    DECIMAL(10,4) NOT NULL,
+  usd_total        DECIMAL(10,4) NOT NULL,
+  wallclock_seconds INT NOT NULL,
+  created_at       DATETIME NOT NULL,
+  completed_at     DATETIME NOT NULL,
+  INDEX (tenant_id, completed_at, feature)
+);
+```
+
+**Daily rollup includes agent metrics:**
+
+| Metric | Definition |
+|---|---|
+| `tenant_id, agent_tasks_attempted` | Count of agent tasks started |
+| `tenant_id, agent_tasks_completed` | Count reaching `COMPLETED` |
+| `tenant_id, usd_per_completed_task_p50` | Median cost per completed task |
+| `tenant_id, usd_per_completed_task_p90` | p90 cost per completed task |
+| `tenant_id, agent_cost_share` | sum(agent task cost) / sum(all AI cost) |
+| `tenant_id, task_success_rate` | completed / attempted |
+| `tenant_id, usd_wasted_on_failed_or_abandoned` | sum of cost on non-completed terminal states |
+
+The "USD wasted" metric is the key insight: paying tenants are charged for the value of completed tasks; the platform absorbs the cost of failures. High waste → product / agent design issue → COGS drift.
+
+### Dashboards add
+
+- **Cost-per-completed-task by feature × plan** (replaces "cost-per-request" for agentic features).
+- **Top-10 tasks by cost in last hour** — surfaces runaway tasks before the daily report.
+- **Wasted spend share per tenant** — agents that fail too often.
+
+### Anomaly rules add
+
+- **Task budget breach rate** for a feature > 10% in 15 min → page product.
+- **Single task cost > 10× feature median** → page platform.
+- **Tenant's `usd_wasted_on_failed_or_abandoned` > 30% of their AI cost** → product investigation.
+
+### Cross-link
+
+The runtime + enforcement is `ai-agent-cost-and-step-budgets`. This skill consumes its `agent.task.cost_recorded` events into the per-tenant pipeline.
+
+## §10 Read Next
+
+- `ai-agent-cost-and-step-budgets` — the per-task enforcement layer (step / token / wallclock / tool-cost budgets) that feeds the agent-task cost ledger.
+- `ai-agent-runtime-architecture` — where the cost events originate.
 - `ai-model-gateway` — upstream emitter.
 - `ai-usage-metering-and-billing` — downstream commercial billing.
 - `ai-entitlements-and-feature-gating` — defines the caps.

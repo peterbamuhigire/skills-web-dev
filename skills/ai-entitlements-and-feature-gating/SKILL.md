@@ -224,8 +224,103 @@ Rules:
 - Per-tenant overrides with no audit. Compliance gap.
 - Different entitlement results between gateway and back-office display. Source-of-truth split.
 
-## §7 Read Next
+## §7 Agent Entitlements — First-Class Keys
 
+Agentic features need entitlement keys distinct from single-shot AI. The minimum set:
+
+| Key | Type | Meaning | Default by tier (illustrative) |
+|---|---|---|---|
+| `ai.agent.enabled` | bool | Tenant can use agents at all | Free: false, Pro: true, Ent: true |
+| `ai.agent.features` | list[string] | Agent features unlocked (`support_copilot`, `log_investigator`, ...) | per tier |
+| `ai.agent.allowed_tools` | list[string] | Tool names this tenant's agents may use | per tier |
+| `ai.agent.max_steps` | int | Step budget per task | Pro: 12, Ent: 25 |
+| `ai.agent.max_wallclock_minutes` | int | Wallclock budget per task | Pro: 5, Ent: 30 |
+| `ai.agent.max_cost_usd_per_task` | float | Cost budget per task | Pro: 1.00, Ent: 10.00 |
+| `ai.agent.max_concurrent_sessions` | int | Concurrent in-flight agent tasks per tenant | Pro: 3, Ent: 20 |
+| `ai.agent.max_steps_per_day` | int | Aggregate step quota | Pro: 500, Ent: 10000 |
+| `ai.agent.memory_mode` | enum | `off` / `prompt` / `auto` (`ai-agent-memory` §6) | Free: off, Pro: prompt, Ent: auto |
+| `ai.agent.multi_agent_enabled` | bool | Can spawn supervisor/worker topologies | Ent only |
+| `ai.agent.standing_approvals_enabled` | bool | Power-user pre-approvals | Ent only |
+| `ai.agent.long_running_enabled` | bool | Tasks longer than 5 min allowed | Pro + Ent |
+
+### Enforcement points
+
+| Key | Enforced by |
+|---|---|
+| `ai.agent.enabled`, `ai.agent.features` | API / UI — feature cannot be launched |
+| `ai.agent.allowed_tools` | Tool registry resolution (`ai-agent-tool-catalogue-and-action-gating` §3) |
+| `ai.agent.max_steps`, `max_wallclock_minutes`, `max_cost_usd_per_task` | Runtime budgets (`ai-agent-cost-and-step-budgets`) |
+| `ai.agent.max_concurrent_sessions` | Runtime task queue + `saas-rate-limiting-and-quotas` agent section |
+| `ai.agent.max_steps_per_day` | Rate-limiting counter, per-tenant per-day |
+| `ai.agent.memory_mode` | `ai-agent-memory` write-gate |
+| `ai.agent.multi_agent_enabled` | Runtime — supervisor task creation refused |
+| `ai.agent.standing_approvals_enabled` | Approval UX — standing-approval form hidden if disabled |
+| `ai.agent.long_running_enabled` | Runtime — refuse task creation with `wallclock_budget > 300s` if disabled |
+
+### Catalogue example
+
+```yaml
+plans:
+  free:
+    ai.agent.enabled: false
+  pro:
+    ai.agent.enabled: true
+    ai.agent.features: [support_copilot]
+    ai.agent.allowed_tools: [kb_search, customer_lookup, invoice_create_draft, invoice_send_for_approval]
+    ai.agent.max_steps: 12
+    ai.agent.max_wallclock_minutes: 5
+    ai.agent.max_cost_usd_per_task: 1.00
+    ai.agent.max_concurrent_sessions: 3
+    ai.agent.max_steps_per_day: 500
+    ai.agent.memory_mode: prompt
+    ai.agent.multi_agent_enabled: false
+    ai.agent.long_running_enabled: false
+  enterprise:
+    ai.agent.enabled: true
+    ai.agent.features: [support_copilot, log_investigator, deal_drafter]
+    ai.agent.allowed_tools: ["*"]
+    ai.agent.max_steps: 25
+    ai.agent.max_wallclock_minutes: 30
+    ai.agent.max_cost_usd_per_task: 10.00
+    ai.agent.max_concurrent_sessions: 20
+    ai.agent.max_steps_per_day: 10000
+    ai.agent.memory_mode: auto
+    ai.agent.multi_agent_enabled: true
+    ai.agent.standing_approvals_enabled: true
+    ai.agent.long_running_enabled: true
+```
+
+### Sales-grantable overrides
+
+Common Sales / Customer Success overrides:
+- Grant `log_investigator` to a Pro tenant for 30 days (POV).
+- Raise `max_steps_per_day` to 5,000 for a Pro tenant for one billing cycle.
+- Enable `multi_agent_enabled` for Pro for a contract pilot.
+
+All overrides written through the back-office with `reason`, `expires_at`, `actor`.
+
+### Upgrade page contract for agent-blocked requests
+
+```json
+{
+  "error": "upgrade_required",
+  "blocked_key": "ai.agent.max_concurrent_sessions",
+  "current_value": 3,
+  "current_plan": "pro",
+  "upgrade_path": [
+    { "plan": "enterprise", "would_allow": 20, "upgrade_url": "/billing/upgrade?plan=enterprise&context=agent_concurrency" }
+  ]
+}
+```
+
+Block pages show the specific reason and which plan unblocks it.
+
+## §8 Read Next
+
+- `ai-agent-runtime-architecture` — the runtime that consumes agent entitlements.
+- `ai-agent-cost-and-step-budgets` — runtime budgets derived from entitlements.
+- `ai-agent-tool-catalogue-and-action-gating` — per-tenant tool allow-list resolution.
+- `saas-rate-limiting-and-quotas` — agent quotas (concurrent sessions, steps/day) enforcement.
 - `saas-entitlements-and-plan-gating` — the platform-wide engine and the catalogue.
 - `ai-on-saas-architecture` — where this fits.
 - `ai-model-gateway` — enforces this.

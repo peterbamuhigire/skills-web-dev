@@ -1,8 +1,6 @@
 ---
 name: ai-agents-tools
-description: Use when building AI features that need to take actions, use multiple
-  tools, or execute multi-step workflows — agent patterns, tool integration, ReAct
-  loop, planning, multi-agent systems, and human approval gates
+description: Use when learning the **fundamentals** of LLM agents and tool use — the ReAct loop, tool contract rules, compound-accuracy problem, single-agent design, when to build an agent at all. For production agent product engineering in multi-tenant SaaS, route to the agent-* family of skills (runtime, tool catalogue, approval, reversibility, memory, multi-agent coordination, cost budgets, eval, observability, safety, long-running, mobile UX).
 metadata:
   portable: true
   compatible_with:
@@ -10,58 +8,126 @@ metadata:
   - codex
 ---
 
-# AI Agents and Tool Use
+# AI Agents and Tool Use — Fundamentals
 Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 
 <!-- dual-compat-start -->
 ## Use When
 
-- Use when building AI features that need to take actions, use multiple tools, or execute multi-step workflows — agent patterns, tool integration, ReAct loop, planning, multi-agent systems, and human approval gates
-- The task needs reusable judgment, domain constraints, or a proven workflow rather than ad hoc advice.
+- Learning the agent paradigm — what an agent is, the ReAct loop, when to build one.
+- Understanding the **tool contract** at the conceptual level — what a tool is, naming, schemas, idempotency, error contracts.
+- Understanding the **compound-accuracy** problem and the **when-not-to-build-an-agent** decision.
+- Onboarding an engineer to agentic features before they touch production code.
 
 ## Do Not Use When
 
-- The task is unrelated to `ai-agents-tools` or would be better handled by a more specific companion skill.
-- The request only needs a trivial answer and none of this skill's constraints or references materially help.
+- Building a production agent inside a multi-tenant SaaS — load the **agent-product stack** (see map below).
+- Designing the agent runtime, durable execution, or state machine → `ai-agent-runtime-architecture`.
+- Building the tool registry with per-tenant allow-lists and reversibility classification → `ai-agent-tool-catalogue-and-action-gating`.
+- Designing the approval flow / plan preview / undo window → `ai-agent-action-approval-and-hitl`.
+- Engineering reversibility (dry-run, staged commit, saga) → `ai-agent-reversibility-and-blast-radius`.
+- Designing memory tiers → `ai-agent-memory`.
+- Multi-agent topologies (supervisor/worker, debate, handoff) → `ai-agent-multi-agent-coordination`.
+- Step / token / wallclock / cost budgets → `ai-agent-cost-and-step-budgets`.
+- Task-level evaluation → `ai-agent-eval`.
+- Trace, replay, task viewer → `ai-agent-observability-and-replay`.
+- Indirect prompt injection, action escalation, exfil, red-team → `ai-agent-safety-and-red-team`.
+- Long-running (minutes-to-days) agents → `ai-agent-async-and-long-running-tasks`.
+- Agent inbox, plan preview UI, mobile approval → `ai-agent-mobile-and-web-ux-patterns`.
+
+## The Agent Product Stack — Map
+
+When building an agentic feature in a multi-tenant SaaS, load these in order:
+
+1. **Architecture & deciding to build an agent**
+   - This skill (fundamentals).
+   - `ai-on-saas-architecture` — agent runtime as the 6th AI control-plane service.
+   - `ai-agent-runtime-architecture` — agent vs workflow vs cron decision, state machine, durable execution.
+
+2. **Tools & gating**
+   - `ai-agent-tool-catalogue-and-action-gating` — registry, schemas, allow-lists, reversibility, side-effect budgets.
+   - `ai-agent-reversibility-and-blast-radius` — dry-run, staged commits, saga, blast caps.
+
+3. **HITL & UX**
+   - `ai-agent-action-approval-and-hitl` — approval patterns, plan preview, JIT, undo, bulk.
+   - `ai-agent-mobile-and-web-ux-patterns` — inbox, mobile push, persona.
+
+4. **Memory & coordination**
+   - `ai-agent-memory` — short / working / long-term + GDPR cascade.
+   - `ai-agent-multi-agent-coordination` — supervisor/worker, handoff, conflict resolution.
+
+5. **Cost, safety, eval, observability**
+   - `ai-agent-cost-and-step-budgets`
+   - `ai-agent-safety-and-red-team`
+   - `ai-agent-eval`
+   - `ai-agent-observability-and-replay`
+
+6. **Long-running**
+   - `ai-agent-async-and-long-running-tasks`
+
+7. **Ops & commercial**
+   - `ai-entitlements-and-feature-gating` (agent entitlements).
+   - `saas-rate-limiting-and-quotas` (agent quotas).
+   - `saas-admin-backoffice-tooling` (agent ops console).
+   - `ai-cost-per-tenant-attribution` (agent-step cost rollup).
+   - `ai-prompt-injection-and-tenant-safety` (agent-specific section).
+   - `ai-observability-and-debugging` (agent trace section).
+   - `ai-eval-harness` (agent eval section).
 
 ## Required Inputs
 
-- Gather relevant project context, constraints, and the concrete problem to solve.
-- Confirm the desired deliverable: design, code, review, migration plan, audit, or documentation.
+- The feature spec or business outcome the agent is meant to deliver.
+- The multi-tenant context: tenancy model, plan tiers, region.
+- Whether the deliverable is a learning artifact, a single-agent prototype, or a production agent.
 
 ## Workflow
 
-- Read this `SKILL.md` first, then load only the referenced deep-dive files that are necessary for the task.
-- Apply the ordered guidance, checklists, and decision rules in this skill instead of cherry-picking isolated snippets.
-- Produce the deliverable with assumptions, risks, and follow-up work made explicit when they matter.
+1. Read this `SKILL.md`.
+2. Apply the **when-to-build-an-agent** decision (§ When to Build an Agent below). If the answer is workflow, route to a workflow design.
+3. Understand the **ReAct loop** (§ ReAct Pattern) and the **tool contract** (§ Tool Contract Rules).
+4. Note the **compound-accuracy problem** and design for short chains + verification.
+5. Route to the **agent product stack** above for any production work — do not implement runtime, approval, safety, etc. from this skill alone.
 
 ## Quality Standards
 
-- Keep outputs execution-oriented, concise, and aligned with the repository's baseline engineering standards.
-- Preserve compatibility with existing project conventions unless the skill explicitly requires a stronger standard.
-- Prefer deterministic, reviewable steps over vague advice or tool-specific magic.
+- An agent decision is documented with rationale; "agent by default" is rejected.
+- Tools follow the contract: typed schemas, authorisation inside the tool, idempotency, structured errors, concise observations.
+- Every production agent task has a step budget, a tool budget, a wallclock budget, and a kill-switch.
+- Every irreversible action passes through human approval.
+- Every agent feature has goldens, eval thresholds, and a red-team suite.
 
 ## Anti-Patterns
 
-- Treating examples as copy-paste truth without checking fit, constraints, or failure modes.
-- Loading every reference file by default instead of using progressive disclosure.
+- Building an agent because "agents are cool". See `ai-agent-runtime-architecture` §1.
+- A `tools` array hard-coded in feature code. Use the registry (`ai-agent-tool-catalogue-and-action-gating`).
+- No step cap, no token cap, no wallclock cap. Runaway loops, surprise bills.
+- Irreversible actions auto-executed.
+- One generic `db_query(sql)` tool. The agent will write `DROP TABLE`.
+- Tool descriptions that say "use this to do anything with X".
+- Treating retrieved KB chunks as trusted instructions. Indirect injection.
 
 ## Outputs
 
-- A concrete result that fits the task: implementation guidance, review findings, architecture decisions, templates, or generated artifacts.
-- Clear assumptions, tradeoffs, or unresolved gaps when the task cannot be completed from available context alone.
-- References used, companion skills, or follow-up actions when they materially improve execution.
+- A clear decision: agent / workflow / cron, with rationale.
+- A tool list with classifications (read-only / reversible / irreversible).
+- A pointer to the agent product stack for downstream implementation.
 
 ## Evidence Produced
 
 | Category | Artifact | Format | Example |
 |----------|----------|--------|---------|
-| Correctness | Agent tool contract tests | CI log or recorded report covering tool definitions, dispatch, and handoff scenarios | `docs/ai/agent-tool-tests-2026-04-16.md` |
-| Security | Tool-use guardrail note | Markdown doc covering tool whitelisting, scope limits, and per-tool authorisation | `docs/ai/agent-tool-guardrails.md` |
+| Architecture | Agent-vs-workflow decision record | Markdown | `docs/ai/agent-decision-<feature>.md` |
+| Correctness | Tool contract tests | CI log | `tests/ai/tools/` |
+| Security | Tool reversibility classification | CSV / Markdown | `docs/ai/tool-reversibility.csv` |
+| Release evidence | Agent product stack handoff checklist | Markdown | `docs/ai/agent-stack-checklist-<feature>.md` |
 
 ## References
 
-- Use the links and companion skills already referenced in this file when deeper context is needed.
+- `ai-agent-runtime-architecture` and its references for the runtime.
+- `ai-agent-tool-catalogue-and-action-gating` and its references for the tool registry.
+- Each agent-* skill carries its own reference files.
+- Companion: `ai-on-saas-architecture`, `ai-llm-integration`, `ai-prompt-engineering`, `ai-rag-multi-tenant`, `ai-evaluation`, `ai-security`.
+- Agent incident handoff: irreversible-action surprises, action-approval bypass, indirect prompt injection via tool output, and runaway loops are detection signals in `ai-incident-detection-and-triage`. See `ai-incident-response-runbook` failure class `agent-action` for first mitigation and `ai-rca-taxonomy` domain `tool-agent` for RCA categories.
 <!-- dual-compat-end -->
 ## Overview
 

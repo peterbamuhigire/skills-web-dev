@@ -90,6 +90,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 - `references/llm-gateway-design.md` — full design (canonical copy lives in `ai-on-saas-architecture/references/`).
 - `references/token-accounting-pipeline.md` — how token-in / token-out / cost rolls up.
 - Companion: `ai-on-saas-architecture`, `ai-cost-per-tenant-attribution`, `ai-usage-metering-and-billing`, `ai-entitlements-and-feature-gating`, `ai-prompt-injection-and-tenant-safety`, `ai-observability-and-debugging`, `saas-rate-limiting-and-quotas`.
+- Incident primitives: the gateway is the surface that exposes the **operator primitives** an on-call uses during an incident — kill-switch (feature/agent task), model-pin, prompt-pin, gateway routing pin, per-tenant feature pause, quota cap. Each primitive must propagate in < 60s, log to `ai_incident_mitigation_log` with `(actor, ts, primitive, scope, reason, ticket_id)`, and be invocable from a back-office UI **without writing code or SQL**. See `ai-incident-response-runbook` §3 for the full primitive contract and `ai-incident-recovery-and-rollback/references/rollback-patterns.md` for the un-pin contract.
 
 <!-- dual-compat-end -->
 

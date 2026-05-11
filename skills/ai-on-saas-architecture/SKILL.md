@@ -38,7 +38,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 
 1. Read this `SKILL.md` end-to-end before any architecture decision.
 2. Apply the **AI two-halves model** (§1): split AI services into control plane vs application plane.
-3. Inventory the **five AI control-plane services** (§2): LLM gateway, prompt registry, knowledge-base service, eval harness, AI audit log. Mark each `v1 / v2 / v3 / not-needed`.
+3. Inventory the **six AI control-plane services** (§2): LLM gateway, prompt registry, knowledge-base service, eval harness, AI audit log, agent runtime. Mark each `v1 / v2 / v3 / not-needed`.
 4. Define the **per-tenant AI binding** (§3): `tenant_ai_binding` table — model tier, prompt version pin, KB partition id, eval dataset id, region.
 5. Define the **AI request envelope** (§4): the tenant-tagged, cost-attributed, traceable shape every AI request takes inside the SaaS.
 6. Wire the **AI lifecycle events** (§5): `ai.request.started`, `ai.request.completed`, `ai.cost.recorded`, `ai.eval.failed`, `ai.injection.detected`, `ai.kill_switched`.
@@ -87,7 +87,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 
 - `references/llm-gateway-design.md` — full design of the LLM gateway as a control-plane service.
 - `references/control-plane-ai-services.md` — the five AI control-plane services in detail.
-- Companion: `ai-model-gateway`, `ai-tenant-isolation-patterns`, `ai-rag-multi-tenant`, `ai-eval-harness`, `ai-cost-per-tenant-attribution`, `ai-usage-metering-and-billing`, `ai-entitlements-and-feature-gating`, `ai-hallucination-slo-and-grounding`, `ai-prompt-injection-and-tenant-safety`, `ai-feature-rollout-and-experimentation`, `ai-observability-and-debugging`, `saas-control-plane-engineering`, `multi-tenant-saas-architecture`.
+- Companion: `ai-model-gateway`, `ai-tenant-isolation-patterns`, `ai-rag-multi-tenant`, `ai-eval-harness`, `ai-cost-per-tenant-attribution`, `ai-usage-metering-and-billing`, `ai-entitlements-and-feature-gating`, `ai-hallucination-slo-and-grounding`, `ai-prompt-injection-and-tenant-safety`, `ai-feature-rollout-and-experimentation`, `ai-observability-and-debugging`, `ai-agent-runtime-architecture`, `ai-agent-tool-catalogue-and-action-gating`, `ai-agent-cost-and-step-budgets`, `ai-agent-observability-and-replay`, `ai-agent-safety-and-red-team`, `saas-control-plane-engineering`, `multi-tenant-saas-architecture`.
 
 <!-- dual-compat-end -->
 
@@ -100,7 +100,7 @@ Golding's control-plane / application-plane split applies one level deeper for A
 
 Skipping the AI control plane regresses to **AI sprawl**: every feature picks its own model, hard-codes its own prompts, builds its own retrieval, audits nothing. The first enterprise prospect's security questionnaire kills the deal.
 
-## §2 The Five AI Control-Plane Services
+## §2 The Six AI Control-Plane Services
 
 | # | Service | Owns | Minimum v1 surface |
 |---|---|---|---|
@@ -109,8 +109,11 @@ Skipping the AI control plane regresses to **AI sprawl**: every feature picks it
 | 3 | **Knowledge-Base Service** | per-tenant ingestion, chunking, embedding, vector storage, retrieval | API + ingestion workers; see `ai-rag-multi-tenant` |
 | 4 | **Eval Harness** | golden datasets, prompt regression, judge runs, CI gate, drift detection | Service + CLI + CI integration; see `ai-eval-harness` |
 | 5 | **AI Audit Log** | every prompt, model, retrieval, output, cost, decision, denial | Append-only ledger; see §5 + `ai-observability-and-debugging` |
+| 6 | **Agent Runtime** | agent loop state machine, durable execution, per-task budgets, tool registry, approval workflow, replay | Workflow engine + tool registry; see `ai-agent-runtime-architecture`, `ai-agent-tool-catalogue-and-action-gating`, `ai-agent-cost-and-step-budgets` |
 
-`v1` for an early-stage SaaS adding AI: services 1, 2, 5 minimum. Add 3 when launching RAG. Add 4 before the first enterprise eval.
+`v1` for an early-stage SaaS adding AI: services 1, 2, 5 minimum. Add 3 when launching RAG. Add 4 before the first enterprise eval. Add 6 when the first agentic feature ships.
+
+The **Agent Runtime** deserves status as its own control-plane service for the same reasons as the LLM Gateway: it owns cross-cutting concerns (budgets, idempotency, kill-switches, durable execution, audit) that every agentic feature otherwise re-implements badly. Treating "agent code" as feature-plane code produces the same sprawl the gateway prevents at the provider boundary.
 
 ## §3 Per-Tenant AI Binding
 

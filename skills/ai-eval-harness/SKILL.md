@@ -231,8 +231,54 @@ Recorded in the prompt registry as `tenant_prompt_pin.eval_passed_at`.
 - CI runs goldens only against a single example. Statistically noisy.
 - Drift alerts that page on noise. Tune thresholds; require persistence.
 
-## §8 Read Next
+## §8 Agent Eval Section
 
+Single-shot prompt eval is insufficient for agentic features. An agent's "answer" is a **trajectory** — a sequence of plans, tool calls, observations, and a final response. The metrics, goldens, and replay pipeline differ.
+
+The full agent eval skill is `ai-agent-eval`. This section is the bridge.
+
+### Metrics specific to agents
+
+| Metric | Definition |
+|---|---|
+| Task success rate | % of tasks reaching `COMPLETED` with the expected outcome |
+| Step efficiency | (steps used) / (optimal step count) |
+| Tool-choice quality | % of steps where the agent picked an allowed, sensible tool |
+| Hallucinated tool args rate | % of tool calls with invalid args or phantom IDs |
+| Irreversible-action rate (off-script) | Count of irreversibles taken not in the golden's expected set — target exactly 0 |
+| Intervention rate | % of tasks requiring HITL approval |
+| Time-to-complete | Median wallclock seconds |
+| Cost per successful task | USD / completed task |
+| Approval edit rate | % of approvals where the user edited args before approving |
+
+### Goldens are scenarios, not (prompt, answer) pairs
+
+An agent golden defines: starting state, fixtures (mocked tool responses), the user goal, the expected trajectory bounds (allowed tools, required irreversibles, forbidden irreversibles, step-count range, intervention required, final-response assertions). Full anatomy in `ai-agent-eval/references/golden-tasks-construction.md`.
+
+### Replay-based eval
+
+For agents, **replay** is a primary eval mechanism: take a recorded production trace, substitute the candidate prompt / model / tool registry, mock the tools with recorded observations, re-run the loop, and diff. Lets you test changes against thousands of real scenarios without authoring goldens. Full pipeline in `ai-agent-eval/references/replay-based-eval.md`.
+
+### CI gate additions
+
+Thresholds (defaults):
+- `task_success_rate ≥ 0.80`
+- `tool_choice_quality ≥ 0.90`
+- `hallucinated_args ≤ 0.01`
+- `off_script_irreversibles = 0` (exact)
+- `step_efficiency ≤ 1.5`
+
+Replay CI: `same_terminal_rate ≥ 0.92`, `off_script_irreversibles_rate ≤ 0.005`, `unmatched_tool_calls_rate ≤ 0.05`.
+
+### Per-tenant agent gate
+
+Before promoting a new agent version to a flagship tenant, run both the tenant-specific agent goldens (the tenant's representative tasks) and a replay of the tenant's recent production traces. Sign-off attaches to the rollout PR.
+
+## §9 Read Next
+
+- `ai-agent-eval` — the **agent-specific** complement covering goldens, trajectory scoring, replay-based eval, CI gates, and per-tenant promotion gates.
+- `ai-agent-observability-and-replay` — provides the traces eval consumes.
+- `ai-agent-runtime-architecture` — the system under test.
 - `ai-evaluation` — broader concepts.
 - `ai-prompt-engineering` — what changes get evaluated.
 - `ai-hallucination-slo-and-grounding` — uses these metrics.

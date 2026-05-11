@@ -85,6 +85,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 ## References
 
 - Companion: `ai-eval-harness`, `ai-hallucination-slo-and-grounding`, `ai-cost-per-tenant-attribution`, `ai-on-saas-architecture`, `ai-observability-and-debugging`, `deployment-release-engineering`, `saas-entitlements-and-plan-gating`.
+- Incident handoff: an auto-rollback is the **opening** of an incident, not a silent revert. The rollback action must (a) flip the flag, (b) open an incident in the incident tracker with `failure_class_hint` derived from the breaching guardrail, (c) page the AI on-call. See `ai-incident-detection-and-triage` for severity, `ai-incident-response-runbook` for the playbook, and `ai-incident-recovery-and-rollback` for the eval-gated re-promotion path that brings the new variant back safely.
 
 <!-- dual-compat-end -->
 

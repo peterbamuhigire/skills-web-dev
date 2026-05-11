@@ -64,6 +64,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.
+- AI incidents: AI-specific failures (hallucination spike, prompt drift, model regression, retrieval drift, jailbreak, cost runaway, agent-action, tool-vendor outage, eval drift) need AI-shaped detection, mitigation, evidence capture, and postmortems. Do not extend this skill's generic runbook to cover them. See the AI incident stack: `ai-incident-detection-and-triage`, `ai-incident-response-runbook`, `ai-incident-evidence-capture`, `ai-incident-customer-comms`, `ai-incident-postmortem`, `ai-rca-taxonomy`, `ai-incident-recovery-and-rollback`, `ai-incident-drill-and-game-day`.
 <!-- dual-compat-end -->
 Use this skill when correctness under ideal conditions is not enough. The goal is to keep important workflows safe, available enough, diagnosable, and recoverable under load, dependency failure, stale state, and operator error.
 

@@ -218,3 +218,33 @@ When applying a skill:
 This repository exists to make Claude Code more consistent and more capable across production engineering work. Use the baseline skills first, keep documentation concise, and make every skill encode real execution logic rather than generic advice.
 
 Maintained by Peter Bamuhigire.
+
+
+## Finance & Accounting Trigger
+
+Load `doctrine/accounting-finance-doctrine.md` (submodule: peterbamuhigire/chwezi-accounting-doctrine) whenever the user's request, the artefact being generated, or the code being edited touches **any** of:
+
+- Money flows: sales, purchases, payments, refunds, credit notes, expenses
+- Stock and inventory
+- Payroll
+- Tax (VAT, PAYE, WHT, NSSF, income tax, customs, excise, EFRIS, eTIMS)
+- Grants, donations, donor restrictions
+- Banking, mobile money, POS, card settlement, cash drawer
+- Fixed assets
+- Financial reports, management accounts, statutory returns
+- Chart of Accounts, journals, ledger, posting services, period state, audit trail
+- Reconciliation, close, migration, opening balances
+- Internal controls, audit, evidence packs
+- Any IFRS or IFRS for SMEs section
+
+When the trigger fires:
+
+1. Read `doctrine/accounting-finance-doctrine.md`.
+2. Read the relevant doctrine reference file under `doctrine/references/`.
+3. Read the relevant skill `SKILL.md` under `skills/finance/` or `doctrine/skills/`.
+4. Apply the **finance & accounting quality gate** from `doctrine/governance/finance-accounting-quality-gate.md`.
+5. Record the gate run in the artefact manifest.
+
+The `finance-module-audit` skill (under `skills/finance/finance-module-audit/`) auto-runs whenever the user asks to analyse, review, audit, build, propose, or replace any software system with even a slight finance element. See its `SKILL.md` for the trigger detail.
+
+First-time clone: `git submodule update --init --recursive` to populate `doctrine/`.

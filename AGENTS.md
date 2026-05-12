@@ -98,3 +98,11 @@ When using this repository in Codex or Claude Code:
 - Keep `SKILL.md` entrypoints and top-level repository guidance under 500 lines. Split or trim deeper reference docs when they are actively maintained.
 - Update root docs when repository-wide behavior or routing changes materially.
 - Add nested `AGENTS.md` files only when a subdomain needs local routing rules that the root guide cannot express cleanly.
+
+
+## Finance & Accounting Trigger (for Codex / generic agents)
+
+Identical trigger conditions to the CLAUDE.md block. Load the doctrine
+submodule at `doctrine/` (peterbamuhigire/chwezi-accounting-doctrine)
+when the artefact touches money, tax, inventory, payroll, banking,
+mobile money, POS, statutory compliance, or accounting records.

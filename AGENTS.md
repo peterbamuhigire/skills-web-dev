@@ -54,6 +54,7 @@ Route work to skills by problem type:
 - Architecture and system boundaries: `system-architecture-design`, `modular-saas-architecture`, `multi-tenant-saas-architecture`, `saas-architecture-strategy`
 - Engineering strategy, policy, operating cadence: `engineering-strategy`, `continuous-improvement-system`
 - Data modeling, migrations, query safety: `database-design-engineering`, engine-specific database skills
+- Web projects with live databases: include a root pull-time migration script that reads environment DB settings, applies only missing tracked migrations, and excludes seeds unless a separate explicit seed command is requested
 - APIs and backend contracts: `api-design-first`, `api-error-handling`, `api-pagination`, backend stack skills
 - Web and frontend implementation: `react-development`, `nextjs-app-router`, `webapp-gui-design`, `form-ux-design`, `no-json-in-ui`, `frontend-performance`
 - Android: `android-development`, `android-data-persistence`, `android-room`, `android-tdd`, `jetpack-compose-ui`

@@ -160,6 +160,8 @@ For this skills engine, premium is the default. Web, SaaS, product, UX, architec
 
 All database-related work should reference the relevant database skills and follow safe migration discipline. Use `database-design-engineering` for modeling and `mysql-best-practices` or the PostgreSQL skills for engine-specific execution.
 
+For web development projects with a live database, include or maintain a root pull-time migration script that reads the app's normal database environment, compares tracked migrations against live migration history, and applies only missing migrations. Seeds, demo data, fixtures, and bootstrap seed bundles must stay on a separate explicit command.
+
 ### Skill Quality Standards
 
 Every skill should:

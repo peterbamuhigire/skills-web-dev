@@ -130,6 +130,18 @@ Use the simplest safe option:
 - Never tie rollback to a destructive schema assumption unless explicitly planned.
 - Separate deployment rollback from business-data correction when side effects have already escaped.
 
+### Pull-Time Migration Wrapper
+
+For web applications with a live database, include a repo-root script that can be run after `git pull` on demo, staging, and similar shared environments. The script must:
+
+- read database connection details from the project's normal environment configuration;
+- inspect tracked migration files and the live database migration history;
+- apply only missing migrations through the project's checksum-aware migration runner;
+- exclude all seed files, seed directories, demo data, fixtures, and production seed bundles by default;
+- support a dry-run or status mode before applying changes.
+
+Treat this wrapper as deployment plumbing, not application seed setup. Seeds require an explicit, separate operator action.
+
 ### 6. Verify The Release
 
 Post-deploy verification should confirm:

@@ -219,7 +219,7 @@ Extends existing `gis-mapping` (Leaflet) with:
 
 ## Recommended Skill Stacks
 
-- Web application: `world-class-engineering` + `system-architecture-design` + `api-design-first` + `database-design-engineering` + `docker-development` + `vibe-security-skill`
+- Web application: `world-class-engineering` + `system-architecture-design` + `api-design-first` + `database-design-engineering` + `deployment-release-engineering` + `docker-development` + `vibe-security-skill`; include a root pull-time migration script for shared environments and keep seeds on a separate explicit command.
 - SaaS or ERP platform: `world-class-engineering` + `saas-erp-system-design` + `modular-saas-architecture` + `multi-tenant-saas-architecture` + `database-design-engineering`
 - Mobile-backed product: `world-class-engineering` + `system-architecture-design` + `android-development` or `ios-development` + security and persistence skills
 - AI-enabled application: `world-class-engineering` + `ai-economic-value-engine` + `system-architecture-design` + `ai-app-architecture` + `ai-evaluation` + `ai-security` + `frontend-performance`

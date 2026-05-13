@@ -1,98 +1,134 @@
 ---
 name: enterprise-ux-process
-description: Enterprise product-discovery and feature-definition workflow for web, Android, and iOS teams. Use when a feature is fuzzy, politically noisy, or requirement-heavy and the team needs fast user context, low-fidelity prototyping, stakeholder alignment, and evidence-based go / refine / drop decisions before delivery.
-metadata:
-  portable: true
-  compatible_with:
-  - claude-code
-  - codex
+description: Operationalize Synechron's enterprise UX process for premium-priced enterprise engagements (financial services, insurance, regulated industries, large internal apps, B2B SaaS). Produces maturity-level declaration + activity evidence pack + heuristic evaluation + 5-outcomes pre-launch declaration. Cite when scoping, executing, or auditing premium enterprise UX work.
 ---
 
-# Enterprise UX Process
-Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
+# Enterprise UX Process Skill
+**Source:** Operationalizes `book-extractions/enterprise-ux-financial-insurance-extraction.md` (Synechron, 2018; derived from The Design Ladder + Natalie Hanson's UX Maturity Model).
 
-<!-- dual-compat-start -->
-## Use When
+---
 
-- The team is defining a new feature or major change but the problem, requirements, or success criteria are still fuzzy.
-- Stakeholders are arguing about solutions before the user task, risk, or evidence is clear.
-- Product, design, and engineering need a fast discovery loop that produces testable requirements instead of speculative tickets.
+## Use when
 
-## Do Not Use When
+- Scoping or executing a premium-priced enterprise UX engagement (financial services, insurance, healthcare, regulated industries, large internal apps, B2B SaaS)
+- Auditing whether an enterprise project is positioned correctly on the maturity scale
+- Defending a premium-pricing claim against an internal or external review
+- Bridging strategy (Levy) and tactical UX work (Branson, Deacon, Fekeshazi) into a single enterprise-grade process
 
-- The work is already well defined and ready for implementation planning.
-- The request is a narrow UI polish task with no discovery ambiguity.
-- The team only needs delivery sequencing; use `feature-planning`.
+## Do not use when
 
-## Required Inputs
+- The work is consumer-grade (single-interaction, low-stakes) — use simpler skills
+- The artifact is a prototype or experiment, not a production deliverable
+- The project is explicitly priced as standard tier and the team has agreed not to pursue premium positioning
 
-- Current feature idea, pressure or business ask, and the target user or operator.
-- Access to any existing screens, flows, tickets, complaints, research, or stakeholder notes.
-- A decision owner who can accept go / refine / drop outcomes.
+## Required inputs
 
-## Workflow
+Before invoking this skill, the following must be available or generated:
 
-- Read this `SKILL.md` first, then load only the references required for the exact discovery gap.
-- Build context fast, prototype early, and derive requirements from evidence rather than committee language.
-- End every cycle with an explicit recommendation and evidence bundle.
+- Problem definition statement (what is the need; why now; for whom)
+- Stakeholder list with roles (funder, owner, executor)
+- Business objective (what success means in measurable terms)
+- Success criteria (signed off by stakeholders)
+- Target maturity level: **3 (UX Design)** for standard premium, **4 (Experience Design)** for top-tier
 
-## Quality Standards
+## Workflow — 9 phases
 
-- Discovery outputs must reduce uncertainty, not decorate it.
-- Requirements must describe user success, system behavior, and acceptance evidence.
-- Features that remain fuzzy after repeated discovery loops should be tabled or killed.
+The process maps directly to Synechron's Activity-by-Level matrix. All 9 phases must produce documented evidence at Level 3+; the additional Level 4 activities are noted inline.
 
-## Anti-Patterns
+### Phase 1 — Problem Definition + Business Objective
+- UX team meets with business stakeholders and product owners
+- Answer: What is the need? Why now? For whom? How does this make life easier for the end user?
+- Document vision, hopes, aspirations, and fears from the business perspective
+- Output: signed problem-definition document
 
-- Writing polished user stories before the team understands the workflow.
-- Treating stakeholder opinion as a substitute for user context or prototype evidence.
-- Continuing discovery indefinitely without a go / refine / drop decision.
+### Phase 2 — Stakeholder Discussions / Interviews
+- Identify funders, owners, executors
+- Conduct focused-group discussions OR individual interviews
+- Capture: roles, expectations from UX, problem perception, end-user identification, collective goals, organizational/competitive/scope context
+- Output: stakeholder-interview transcripts + summary brief
+
+### Phase 3 — Success Criteria sign-off
+- Checklist of measures the deliverable must hit to be successful
+- Documented and agreed by all stakeholders
+- Treat as non-negotiable acceptance criteria
+- Output: signed success-criteria document
+
+### Phase 4 — User Research (qualitative + quantitative)
+- Methodologies: interviews, contextual inquiries, eye tracking, surveys, A/B testing, web analytics, field studies
+- Quantitative: how many, what %
+- Qualitative: why behaviors occur, what users notice
+- Output: user-research report with both data types
+
+### Phase 5 — Competitor Analysis
+- Use Levy's 19-column competitive matrix (cite `book-extractions/levy-ux-strategy-extraction.md` Part VII or, in `website-skills`, `skills/design-reference/references/levy-competitive-matrix.md`)
+- Minimum: 5 direct + 3 indirect competitors
+- Output: filled matrix + 1-page distilled brief
+
+### Phase 6 — Personas + User Journeys + Information Architecture
+- Personas: apply Branson's discipline (Essential Persona declared, Mechanics floor — name, demographics, goals, environment, pain points, stress points)
+- User Journeys: chronological touch-point sequence per primary persona
+- Information Architecture: organization, structure, labelling of all content; navigation strategy/flow; site map; content buckets; intuitive labels
+- **Level 4 also requires:** Experience Maps
+- Output: persona deck + journey deck + IA deck
+
+### Phase 7 — Wireframes + Clickable Prototype + Visual Design Mockups
+- Wireframes: low-fidelity (paper) + high-fidelity (no color, focus on flow)
+- Clickable prototype: stitched screens behaving like the real product per crucial user scenarios
+- Visual design mockups: full-scale static representation with colors, branding, graphics
+- **Level 4 also requires:** Mood Boards
+- Output: wireframe pack + interactive prototype + mockup set
+
+### Phase 8 — Heuristic Evaluation
+- UX expert reviews against Nielsen-style heuristics:
+  1. Visibility of System Status
+  2. Match Between System and the Real World
+  3. User Control and Freedom
+  4. Consistency and Standards
+  5. Error Prevention & Error Handling
+  6. Recognizing Rather than Recall
+  7. Flexibility and Efficiency of Use
+  8. Aesthetic and Minimal Design
+  9. Help and Documentation
+- Plus Branson's 4-stage cognitive affordance audit per primary CTA (Presence → Visibility → Recognizability → Intelligibility)
+- Output: heuristic evaluation report listing flaws + improvements
+
+### Phase 9 — Usability Testing + ADA / Section 508 verification (Level 4 + all-levels accessibility)
+- Usability testing: moderated in-person, moderated remote, OR unmoderated remote
+- Test scenarios derived from actual use cases and task flows
+- ADA / Section 508 / WCAG 2.1 AA verification — required at ALL maturity levels
+- Output: usability test report + accessibility audit
 
 ## Outputs
 
-- Discovery brief, contextual scenario, low-fidelity flow, evidence-based requirements, risk register, and go / refine / drop recommendation.
+A complete enterprise-ux-process engagement produces:
 
-## References
+1. **Maturity-level declaration** — single sentence at the top of the engagement summary: "This engagement operates at UX Maturity Level [3 / 4], per Synechron's 5-level model."
+2. **Activity-by-level evidence pack** — see `references/maturity-checklist.md` for the matrix and required evidence per activity
+3. **Heuristic evaluation report** — Phase 8 output
+4. **Five-outcomes pre-launch declaration** — Yes/No with evidence per outcome:
+   - Useful (persona-validated)
+   - Easy to use (first-task success without coaching)
+   - Efficient (task time benchmarked)
+   - Pleasing (≥ 4/5 first-impression rating)
+   - Accessible (ADA/Section 508/WCAG 2.1 AA)
+   - **Rule:** 4-of-5 disqualifies premium pricing. One No = no launch.
 
-- Use `references/natoli-enterprise-playbook.md` for the core process and decision rules.
-- Use `references/discovery-evidence-bundle.md` for the artifact contract and evidence expectations.
-<!-- dual-compat-end -->
+## Cross-references
 
-## Workflow
+### Canonical extraction (source-of-truth)
+- `book-extractions/enterprise-ux-financial-insurance-extraction.md`
 
-1. Frame the problem in one page.
-   Capture the trigger, target user, task, environmental constraints, and the business reason this matters now.
-2. Replace abstract personas with context.
-   Use real user situations, recent examples, support patterns, or operator constraints.
-3. Prototype before formal requirements.
-   Build the lowest-fidelity flow that can expose information gaps, action gaps, and stakeholder disagreement.
-4. Validate with the right people.
-   Prefer target users; if unavailable, validate task realism with proximate operators and record the limitation.
-5. Convert findings into requirements.
-   Write only what the prototype and task evidence justify.
-6. If the feature will ship as a polished web, Android, iOS, or dashboard surface, load `premium-ui-ux-design` before visual direction and acceptance criteria are finalized.
-7. Decide.
-   Recommend `go`, `refine`, or `drop`. If the feature is still vague after two serious cycles, stop spending time on it.
+### Related skills in this engine
+- `book-extractions/levy-ux-strategy-extraction.md` — strategy framing (Four Tenets) that should sit upstream of this process
+- `book-extractions/branson-ux-ui-design-extraction.md` — persona discipline + working memory + 4-stage affordance applied within phases 6 and 8
+- `book-extractions/deacon-ux-ui-strategy-extraction.md` — 3 levels of UX scope; declare in Phase 1
+- `book-extractions/fekeshazi-pm-ux-guide-extraction.md` — PM collaboration rules and the "design is ongoing" stance
 
-## Companion Skills
+### Operational skills in other engines
+- `website-skills/skills/design-quality-score/` — Category 8 (UX Maturity) scores the same artifacts independently
+- `website-skills/skills/premium-ui-ux-design/references/enterprise-five-outcomes.md` — same 5-outcomes gate applied to website templates
+- `srs-skills/01-strategic-vision/07-premium-product-positioning/` — premium-positioning gate using the same 5+5 model
+- `srs-skills/03-design-documentation/05-ux-specification/` — UX spec produced under this process
 
-- `product-discovery` for broader opportunity and risk framing.
-- `feature-planning` after discovery is resolved.
-- `webapp-gui-design`, `jetpack-compose-ui`, or `swiftui-design` for platform execution after the flow is defined.
-- `premium-ui-ux-design` when the discovered flow must become a beautiful, pleasant, efficient, commercially credible product experience.
----
-
-## ARRIVE — Six-stage framework for established firms
-
-For multi-dimensional innovation projects (where business model + technology + user experience all change), the ARRIVE framework is the strongest fit. Load `references/arrive-framework.md` for the full method. Summary:
-
-- **A**udit — environmental scan across user/market/technology/firm; produces the Initial Project Outline and the **Firm's Strategic Innovation Profile** (the load-bearing artefact most enterprise discovery skills miss).
-- **R**esearch — deep ethnographic user understanding, kept separate from synthesis.
-- **R**eframe — explicit reframing stage with the Reframed Project Vision; the "secret sauce" that distinguishes ARRIVE from Lean UX and Design Sprint.
-- **I**deate — diverge then converge to 1–2 strategically-outlined concepts on Concept Boards (A); FVS Sanity Index runs at least monthly.
-- **V**alidate — Lean Canvas + Assumption Map (importance × evidence); high-importance / low-evidence assumptions get tested first.
-- **E**xecute — proves *capacity* to earn revenue at limited scale; produces Concept Board (B), Business Case Dashboard, Execute Test Plan.
-
-The decisive contribution to enterprise UX: **Strategic Suitability** is added to the classic Desirability/Viability/Feasibility triple, addressing the most common late-stage failure mode (the project is desirable, viable, and feasible — but does not fit the firm's portfolio, risk appetite, or executive championship).
-
-Use ARRIVE alongside the existing enterprise-ux-process when the project crosses business-model and technology dimensions, not just UI/UX.
+### Quick-use checklist
+- `references/maturity-checklist.md` — standalone activity-by-level checklist for use in project workspaces

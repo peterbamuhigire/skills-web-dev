@@ -97,6 +97,16 @@ Markdown source (structured content)
 Final .docx → PDF export
 ```
 
+### Project export contract
+
+Every project that generates `.docx` deliverables must include these project-root paths:
+
+- `projects/<ProjectName>/export/`
+- `projects/<ProjectName>/export-docs.ps1`
+- `projects/<ProjectName>/export-docs.sh`
+
+Build `.docx` files in their canonical phase folders first. Then run the project export script so `export/` contains a flat copy of every generated Word deliverable, excluding files already inside `export/`.
+
 ### Build commands
 
 ```bash

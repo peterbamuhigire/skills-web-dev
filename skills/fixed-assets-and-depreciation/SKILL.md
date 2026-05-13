@@ -1,11 +1,15 @@
 ---
 name: fixed-assets-and-depreciation
-description: Use when designing or reviewing fixed asset accounting under IAS 16/IFRS for SMEs: asset register, capitalization, directly attributable costs, asset categories, depreciation methods, monthly depreciation journals, accumulated depreciation, impairment indicators, disposals, gains/losses, revaluation policy, custody, and asset-register-to-GL reconciliation.
+description: >-
+  Use when designing or reviewing fixed asset accounting under IAS 16/IFRS for SMEs:
+  asset register, capitalization, directly attributable costs, depreciation, disposals,
+  revaluation policy, custody, and asset-register-to-GL reconciliation.
 metadata:
   portable: true
 ---
 
 # Fixed Assets And Depreciation
+Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 
 ## Use When
 

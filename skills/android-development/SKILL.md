@@ -66,6 +66,9 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.
+- `references/android-ai-ml.md` for on-device Android AI/ML, ML Kit, LiteRT, MediaPipe, AICore, and Gemini Nano.
+- `references/android-biometric-login.md` for AndroidX Biometric launch gates and CryptoObject-backed authentication.
+- `references/android-pdf-export.md` for native `PdfDocument` export and Android report PDF generation.
 <!-- dual-compat-end -->
 ## Load Order
 
@@ -173,7 +176,7 @@ com.company.app/
 - Use `painterResource(R.drawable.<name>)` or `@drawable/<name>`
 - Maintain `PROJECT_ICONS.md` in the project root
 
-Follow the `android-custom-icons` skill for naming, directory rules, and tracking.
+Follow `mobile-platform-operations` and `references/mobile-custom-icons.md` for naming, directory rules, and tracking.
 
 ### Charting (Vico Standard)
 
@@ -185,7 +188,7 @@ Follow the `android-custom-icons` skill for naming, directory rules, and trackin
 ### Report Tables (25+ Rows)
 
 - Any report that can exceed 25 rows must render as a table, not cards
-- Follow the `android-report-tables` skill for table-first patterns
+- Follow `mobile-reports` and `references/mobile-report-tables.md` for table-first patterns.
 
 ### Three Build Variants (Mandatory)
 
@@ -304,7 +307,7 @@ Before calling an Android feature production-ready:
 
 ### Google Play Review Readiness
 
-- Use the google-play-store-review skill before Play Console submission.
+- Use `mobile-platform-operations` and `references/google-play-store-review.md` before Play Console submission.
 - Keep targetSdk current and background work compliant.
 - Ensure Data Safety form matches SDKs and permissions.
 - Provide a public privacy policy and link it in-app.
@@ -398,7 +401,7 @@ See `android-saas-planning` skill for the complete Phase 1 plan template.
 If this is a **Kotlin Multiplatform** project, this skill governs the
 `composeApp/` module (Android UI and platform integration). The `shared/`
 module is governed by the `kmp-development` skill. Use Hilt for DI in
-`composeApp/` and Koin in `shared/`. Use `kmp-tdd` for shared module tests.
+`composeApp/` and Koin in `shared/`. Use `kmp-development` and `references/kmp-tdd.md` for shared module tests.
 
 ## Anti-Patterns
 
@@ -425,7 +428,7 @@ android-development        -> Kotlin/Compose implementation
   |
 android-ui-ux-design       -> premium Material 3 UX and screen quality
   |
-google-play-store-review   -> Play policy and submission readiness
+mobile-platform-operations -> Play policy and submission readiness
   |
 api-error-handling         -> Backend API error patterns
   |
@@ -435,7 +438,7 @@ vibe-security-skill        -> Security review
 ```
 
 **Always apply `vibe-security-skill`** alongside this skill for web-connected Android apps.
-Use google-play-store-review when preparing Play Console submissions.
+Use `mobile-platform-operations` when preparing Play Console submissions.
 
 ## Reference Implementations
 

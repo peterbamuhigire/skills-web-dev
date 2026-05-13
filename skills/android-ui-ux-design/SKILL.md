@@ -69,4 +69,5 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 - `../premium-ui-ux-design/references/mobile-android-ios-premium-ux.md`
 - `../premium-ui-ux-design/references/premium-ui-ux-gate.md`
 - `../android-development/references/ui-design-system.md`
+- `references/jetpack-compose-ui.md` for Compose-specific Material 3, layout, animation, navigation, and component patterns.
 <!-- dual-compat-end -->

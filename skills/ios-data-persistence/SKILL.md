@@ -63,12 +63,13 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.
+- `references/ios-swiftdata.md` for SwiftData `@Model`, relationships, model actors, migrations, CloudKit, and testing.
 <!-- dual-compat-end -->
 ## Required Companion Skills
 
 | Skill | When to Apply |
 |---|---|
-| `ios-swiftdata` | Deep SwiftData API — @Attribute, @Relationship, ModelActor, migrations, 10 anti-patterns |
+| `references/ios-swiftdata.md` | Deep SwiftData API — @Attribute, @Relationship, ModelActor, migrations, 10 anti-patterns |
 | `dual-auth-rbac` | JWT/refresh-token storage and rotation |
 | `api-pagination` | Paginated data fetching with local caching |
 | `vibe-security-skill` | Security baseline for all web/API calls |

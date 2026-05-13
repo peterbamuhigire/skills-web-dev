@@ -73,9 +73,9 @@ TDD is a development process where you write tests **before** feature code, foll
 
 **Core Principle:** No production code without a failing test first.
 
-**Icon Policy:** If UI code is generated as part of TDD, use custom PNG icons and maintain `PROJECT_ICONS.md` (see `android-custom-icons`).
+**Icon Policy:** If UI code is generated as part of TDD, use custom PNG icons and maintain `PROJECT_ICONS.md` (see `mobile-platform-operations`).
 
-**Report Table Policy:** If UI tests cover reports that can exceed 25 rows, the UI must use table layouts (see `android-report-tables`).
+**Report Table Policy:** If UI tests cover reports that can exceed 25 rows, the UI must use table layouts (see `mobile-reports`).
 
 ## Quick Reference
 

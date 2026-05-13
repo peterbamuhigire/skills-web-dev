@@ -493,3 +493,7 @@ Cross-references:
 - `ai-prompt-injection-and-tenant-safety` — gateway safety-in / safety-out stages.
 
 Use this skill for the bare-metal SDK exploration; promote to `ai-model-gateway` before production traffic.
+## Consolidated Child References
+
+- Load [references/routing.md](references/routing.md) to map retired AI child skill slugs to their reference modules.
+

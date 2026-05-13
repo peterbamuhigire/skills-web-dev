@@ -64,6 +64,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.
+- Load `references/observability-platform.md` when the task is platform buildout, SigNoz/OpenTelemetry stack design, collector topology, storage, retention, or dashboard infrastructure.
 <!-- dual-compat-end -->
 Use this skill when a system must be diagnosable in production. It covers operational telemetry, not just analytics. The goal is to make failures understandable, actionable, and bounded.
 

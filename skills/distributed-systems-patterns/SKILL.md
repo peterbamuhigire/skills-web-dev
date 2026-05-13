@@ -62,6 +62,8 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.
+- Load `references/event-driven-architecture.md` for event choreography, event contracts, brokers, and asynchronous workflow design.
+- Load `references/realtime-systems.md` for WebSocket, SSE, pub/sub, and realtime delivery concerns.
 <!-- dual-compat-end -->
 Use this skill when a design crosses process, service, queue, or region boundaries. The goal is to keep distributed complexity deliberate and bounded rather than accidental.
 

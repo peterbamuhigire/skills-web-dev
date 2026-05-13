@@ -334,3 +334,7 @@ function checkAiQuota(int $tenantId): void {
 
 ## Sources
 Chip Huyen — *AI Engineering* (2025); David Spuler — *Generative AI Applications* (2024); Andrea De Mauro — *AI Applications Made Easy* (2024)
+## Consolidated Child References
+
+- Load [references/routing.md](references/routing.md) to map retired AI child skill slugs to their reference modules.
+

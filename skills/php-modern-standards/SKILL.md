@@ -82,11 +82,13 @@ Production-grade PHP patterns for maintainable, testable, secure, high-performan
 - `references/attack-prevention.md` — SQL injection, XSS, CSRF, CSP, brute force, least privilege
 - `references/world-class-php-oop-clean-architecture.md` — PHP 8 OOP, SOLID, clean architecture, repositories, adapters, and framework-independent domain rules
 - `references/source-register-dev-engine.md` — local EPUB sources used for this development-engine upgrade
-
+- `references/php-security.md` - absorbed PHP-specific security hardening, sessions, validation, crypto, upload, and deployment guidance
+- `references/php-vs-nextjs.md` - absorbed PHP vs Next.js architecture decision guidance
+- `references/javascript-php-integration.md` - absorbed integration patterns for PHP-rendered pages and JavaScript modules
 **Examples:** `examples/modern-php-patterns.php`, `examples/laravel-patterns.php`
-**Security:** Use **php-security** skill for comprehensive security patterns.
+**Security:** Load `references/php-security.md` for comprehensive security patterns.
 
-✅ PHP 8+ ✅ OOP ✅ Security ✅ Testing ✅ Performance ✅ Laravel | ❌ Legacy PHP (<7.4) ❌ WordPress
+✅ PHP 8+ ✅ OOP ✅ Security ✅ Testing ✅ Performance ✅ Laravel | âŒ Legacy PHP (<7.4) âŒ WordPress
 
 ---
 
@@ -153,3 +155,4 @@ Use that deep dive for:
 - `PSR Standards`
 - `Anti-Patterns`
 - `Checklist`
+

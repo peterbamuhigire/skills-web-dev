@@ -2,8 +2,8 @@
 name: typescript-effective
 description: Use when writing production TypeScript — clean code idioms, effective-TS
   items, strict tsconfig, migration from JS, build performance, testing, and anti-patterns.
-  Complements typescript-mastery (type system depth) and typescript-design-patterns
-  (GoF).
+  Load references/typescript-mastery.md for type-system depth and references/typescript-design-patterns.md
+  for GoF patterns.
 metadata:
   portable: true
   compatible_with:
@@ -17,7 +17,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 <!-- dual-compat-start -->
 ## Use When
 
-- Use when writing production TypeScript — clean code idioms, effective-TS items, strict tsconfig, migration from JS, build performance, testing, and anti-patterns. Complements typescript-mastery (type system depth) and typescript-design-patterns (GoF).
+- Use when writing production TypeScript — clean code idioms, effective-TS items, strict tsconfig, migration from JS, build performance, testing, and anti-patterns. Load `references/typescript-mastery.md` for type-system depth and `references/typescript-design-patterns.md` for GoF patterns.
 - The task needs reusable judgment, domain constraints, or a proven workflow rather than ad hoc advice.
 
 ## Do Not Use When
@@ -65,7 +65,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 <!-- dual-compat-end -->
 Production-grade TypeScript beyond the type system. Every rule here lifts real code quality, not just appeases the compiler.
 
-**Prerequisite:** Load `typescript-mastery` for type-system depth. Use this skill for day-to-day production idioms.
+**Prerequisite:** Load `references/typescript-mastery.md` for type-system depth. Use this skill for day-to-day production idioms.
 
 ## When this skill applies
 
@@ -271,8 +271,8 @@ vitest run --coverage --coverage.thresholds.lines=80
 
 ## Read next
 
-- `typescript-mastery` — deep type system when you need it.
-- `typescript-design-patterns` — GoF patterns in TS.
+- `references/typescript-mastery.md` — deep type system when you need it.
+- `references/typescript-design-patterns.md` — GoF patterns in TS.
 - `typescript-full-stack` — shared types FE↔BE, Zod everywhere.
 - `react-development` / `nextjs-app-router` — framework-specific.
 

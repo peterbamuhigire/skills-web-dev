@@ -198,3 +198,7 @@ Tools that cannot accept an idempotency key (legacy APIs) must be wrapped in an 
 - Tool-call idempotency keys derived from `random.uuid()`.
 - Logging the plan but not persisting it — replay is impossible.
 - The agent loop process is the same process as the web app — runaway OOM crashes API.
+## Consolidated Child References
+
+- Load [references/routing.md](references/routing.md) to map retired AI child skill slugs to their reference modules.
+

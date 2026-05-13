@@ -1,11 +1,15 @@
 ---
 name: multicurrency-and-fx
-description: Use when implementing IAS 21 multicurrency accounting: functional currency, presentation currency, transaction currency, exchange-rate tables, transaction-date rates, settlement, realised forex gains/losses, month-end revaluation of monetary items, unrealised forex gains/losses, foreign currency invoices, USD/EUR/ZAR/UGX tenants, and currency-safe ledger design.
+description: >-
+  Use when implementing IAS 21 multicurrency accounting: functional currency,
+  presentation currency, transaction currency, exchange-rate tables, settlement,
+  realised and unrealised forex gains or losses, revaluation, and currency-safe ledger design.
 metadata:
   portable: true
 ---
 
 # Multicurrency And FX
+Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 
 ## Use When
 

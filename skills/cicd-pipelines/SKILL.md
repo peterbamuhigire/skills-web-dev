@@ -19,9 +19,9 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 
 ## Do Not Use When
 
-- Jenkins-on-Debian operations, plugin governance, or controller hardening — load `cicd-jenkins-debian`.
-- Vault server architecture, PKI, exception governance, or compliance controls — load `cicd-devsecops`.
-- High-level pipeline shape and stage-boundary design from a blank slate — start with `cicd-pipeline-design`, then return here for the engine-specific implementation.
+- Jenkins-on-Debian operations, plugin governance, or controller hardening — load `references/cicd-jenkins-debian.md`.
+- Vault server architecture, PKI, exception governance, or compliance controls — load `references/cicd-devsecops.md`.
+- High-level pipeline shape and stage-boundary design from a blank slate — start with `references/cicd-pipeline-design.md`, then return here for the engine-specific implementation.
 
 ## Required Inputs
 
@@ -74,9 +74,9 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 ## Load Order
 
 1. Load `world-class-engineering` and `git-collaboration-workflow` for the baseline.
-2. Load `cicd-pipeline-design` for the high-level pipeline shape.
+2. Load `references/cicd-pipeline-design.md` for the high-level pipeline shape.
 3. Load this skill for engine-specific implementation (GitHub Actions primary, GitLab CI secondary).
-4. Pair with `cicd-devsecops` for secrets policy, `cicd-jenkins-debian` when the engine is Jenkins, `deployment-release-engineering` for rollout, `observability-monitoring` for post-deploy verification, `cloud-architecture` for traffic-shifting plumbing.
+4. Pair with `references/cicd-devsecops.md` for secrets policy, `references/cicd-jenkins-debian.md` when the engine is Jenkins, `deployment-release-engineering` for rollout, `observability-monitoring` for post-deploy verification, `cloud-architecture` for traffic-shifting plumbing.
 
 ## §1 What a CI/CD pipeline is and is not
 
@@ -324,11 +324,11 @@ Pick one per repo and document in `CONTRIBUTING.md`. Conventional commits drive 
 
 ## Companion Skills
 
-- `cicd-pipeline-design` — high-level pipeline shape, stage boundaries, gate design, FinOps.
-- `cicd-devsecops` — secrets policy, Vault server architecture, scan thresholds, exception governance.
-- `cicd-jenkins-debian` — when the CI server is Jenkins, not GitHub Actions or GitLab CI.
+- `references/cicd-pipeline-design.md` — high-level pipeline shape, stage boundaries, gate design, FinOps.
+- `references/cicd-devsecops.md` — secrets policy, Vault server architecture, scan thresholds, exception governance.
+- `references/cicd-jenkins-debian.md` — when the CI server is Jenkins, not GitHub Actions or GitLab CI.
 - `deployment-release-engineering` — rollout, canary, blue/green, post-deploy verification.
-- `kubernetes-saas-delivery` — ArgoCD GitOps for multi-tenant SaaS.
+- `kubernetes-platform` reference `references/kubernetes-saas-delivery.md` — ArgoCD GitOps for multi-tenant SaaS.
 - `observability-monitoring` — deploy markers, SLO burn, MTTR, dashboards.
 - `cloud-architecture` — traffic-shifting plumbing for the deployment strategies invoked here.
 - `ios-development`, `android-development` — app build config upstream of the mobile pipelines.
@@ -341,3 +341,4 @@ Pick one per repo and document in `CONTRIBUTING.md`. Conventional commits drive 
 - Automatic token authentication: [docs.github.com/en/actions/security-guides/automatic-token-authentication](https://docs.github.com/en/actions/security-guides/automatic-token-authentication).
 - GitLab CI docs: [docs.gitlab.com/ci](https://docs.gitlab.com/ci); Docker Build cache: [docs.docker.com/build/cache](https://docs.docker.com/build/cache).
 - Trivy: [aquasecurity.github.io/trivy](https://aquasecurity.github.io/trivy); semantic-release: [semantic-release.gitbook.io](https://semantic-release.gitbook.io); Fastlane: [docs.fastlane.tools](https://docs.fastlane.tools).
+

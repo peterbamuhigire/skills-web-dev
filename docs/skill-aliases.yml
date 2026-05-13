@@ -1,0 +1,250 @@
+version: 1
+source: docs/skills-trimminhg.md
+updated: 2026-05-13
+active_skill_policy:
+  active_roots:
+    - skills
+    - doctrine/skills
+    - 00-meta-initialization
+  hard_cap: 200
+  target_range: 150-170
+  finance_doctrine_canonical: true
+  do_not_move_or_delete_skill_directories_from_registry_work: true
+finance_canonical_duplicates:
+  skills/finance/audit-ready-reporting-pack: doctrine/skills/audit-ready-reporting-pack
+  skills/finance/bank-and-mobile-money-reconciliation: doctrine/skills/bank-and-mobile-money-reconciliation
+  skills/finance/finance-ui-pattern-library: doctrine/skills/finance-ui-pattern-library
+  skills/finance/finance-ux-for-non-accountants: doctrine/skills/finance-ux-for-non-accountants
+  skills/finance/ias-agriculture: doctrine/skills/ias-agriculture
+  skills/finance/ias-government-grants: doctrine/skills/ias-government-grants
+  skills/finance/ias-impairment: doctrine/skills/ias-impairment
+  skills/finance/ias-income-tax-deferred-tax: doctrine/skills/ias-income-tax-deferred-tax
+  skills/finance/ias-provisions-contingencies: doctrine/skills/ias-provisions-contingencies
+  skills/finance/ifrs-financial-instruments: doctrine/skills/ifrs-financial-instruments
+  skills/finance/ifrs-for-smes-equivalents: doctrine/skills/ifrs-for-smes-equivalents
+  skills/finance/ifrs-leases: doctrine/skills/ifrs-leases
+  skills/finance/ifrs-revenue-recognition: doctrine/skills/ifrs-revenue-recognition
+  skills/finance/internal-controls-library: doctrine/skills/internal-controls-library
+  skills/finance/management-accounting-dimensions: doctrine/skills/management-accounting-dimensions
+  skills/finance/month-end-and-year-end-close-playbook: doctrine/skills/month-end-and-year-end-close-playbook
+  skills/finance/opening-balances-and-migration-playbook: doctrine/skills/opening-balances-and-migration-playbook
+planned_routes:
+  doctrine/skills/ifrs-standards-suite:
+    domain: finance
+    status: planned
+    absorb:
+      - fixed-assets-and-depreciation
+      - multicurrency-and-fx
+      - ias-agriculture
+      - ias-government-grants
+      - ias-impairment
+      - ias-income-tax-deferred-tax
+      - ias-provisions-contingencies
+      - ifrs-financial-instruments
+      - ifrs-for-smes-equivalents
+      - ifrs-leases
+      - ifrs-revenue-recognition
+  doctrine/skills/reconciliation-and-cash-control:
+    domain: finance
+    status: planned
+    absorb:
+      - bank-and-mobile-money-reconciliation
+      - pos-cash-drawer
+      - card-settlements
+      - clearing-accounts
+  doctrine/skills/reporting-close-and-audit-pack:
+    domain: finance
+    status: planned
+    absorb:
+      - audit-ready-reporting-pack
+      - month-end-and-year-end-close-playbook
+      - statutory-packs
+      - retained-earnings-close
+  doctrine/skills/controls-and-governance:
+    domain: finance
+    status: planned
+    absorb:
+      - internal-controls-library
+      - approval-thresholds
+      - maker-checker
+      - fraud-indicators
+  doctrine/skills/management-accounting:
+    domain: finance
+    status: planned
+    absorb:
+      - management-accounting-dimensions
+      - budgeting
+      - variance-analysis
+      - grants
+      - allocations
+  doctrine/skills/migration-and-opening-balances:
+    domain: finance
+    status: planned
+    absorb:
+      - opening-balances-and-migration-playbook
+      - cutover
+      - legacy-mapping
+      - suspense
+  doctrine/skills/inventory-payroll-pos:
+    domain: finance
+    status: planned
+    absorb:
+      - inventory-costing
+      - inventory-management
+      - payroll-postings-uganda
+      - pos-restaurant-ui-standard
+      - pos-sales-ui-design
+  doctrine/skills/finance-ux-ui:
+    domain: finance
+    status: planned
+    absorb:
+      - finance-ui-pattern-library
+      - finance-ux-for-non-accountants
+  ai-app-architecture:
+    domain: ai
+    status: planned
+    absorb:
+      - ai-architecture-patterns
+      - ai-on-saas-architecture
+  ai-rag-patterns:
+    domain: ai
+    status: planned
+    absorb:
+      - rag-implementation
+      - ai-rag-multi-tenant
+      - vector-databases
+  ai-security:
+    domain: ai
+    status: planned
+    absorb:
+      - llm-security
+      - ai-prompt-injection-and-tenant-safety
+  ai-analytics:
+    domain: ai
+    status: planned
+    absorb:
+      - ai-analytics-dashboards
+      - ai-analytics-saas
+      - ai-analytics-strategy
+      - ai-nlp-analytics
+      - ai-predictive-analytics
+  ai-agent-runtime-architecture:
+    domain: ai-agent
+    status: planned
+    absorb:
+      - ai-agent-async-and-long-running-tasks
+      - ai-agent-memory
+  ai-agent-tooling-and-hitl:
+    domain: ai-agent
+    status: planned
+    absorb:
+      - ai-agent-tool-catalogue-and-action-gating
+      - ai-agents-tools
+      - ai-agent-action-approval-and-hitl
+  ai-agent-observability-evaluation:
+    domain: ai-agent
+    status: planned
+    absorb:
+      - ai-agent-eval
+      - ai-agent-task-success-tracking
+      - ai-agent-observability-and-replay
+      - ai-agent-evidence-automation
+  android-development:
+    domain: mobile
+    status: planned
+    absorb:
+      - android-ai-ml
+      - android-biometric-login
+      - android-pdf-export
+  ios-development:
+    domain: mobile
+    status: planned
+    absorb:
+      - ios-project-setup
+      - ios-swift-recipes
+  ios-platform-capabilities:
+    domain: mobile
+    status: planned
+    absorb:
+      - ios-biometric-login
+      - ios-bluetooth-printing
+      - ios-push-notifications
+      - ios-pdf-export
+      - ios-networking-advanced
+  tailwind-css:
+    domain: frontend
+    status: planned
+    absorb:
+      - responsive-design
+      - every-layout
+      - grid-systems
+  ux-foundations:
+    domain: ux
+    status: planned
+    absorb:
+      - ux-principles-101
+      - ux-psychology
+      - laws-of-ux
+      - web-usability-krug
+      - cognitive-ux-framework
+  postgresql-engineering:
+    domain: database
+    status: planned
+    absorb:
+      - postgresql-fundamentals
+      - postgresql-patterns
+      - postgresql-advanced-sql
+      - postgresql-server-programming
+  mysql-engineering:
+    domain: database
+    status: planned
+    absorb:
+      - mysql-best-practices
+      - mysql-data-modeling
+      - mysql-advanced-sql
+  microservices-architecture:
+    domain: backend
+    status: planned
+    absorb:
+      - microservices-fundamentals
+      - microservices-architecture-models
+      - microservices-communication
+      - microservices-resilience
+  api-design-first:
+    domain: backend
+    status: planned
+    absorb:
+      - api-error-handling
+      - api-pagination
+      - api-testing-verification
+  cicd-pipelines:
+    domain: devops
+    status: planned
+    absorb:
+      - cicd-pipeline-design
+      - cicd-devsecops
+      - cicd-jenkins-debian
+  kubernetes-platform:
+    domain: devops
+    status: planned
+    absorb:
+      - kubernetes-fundamentals
+      - kubernetes-production
+      - kubernetes-saas-delivery
+  sdlc-documentation:
+    domain: sdlc
+    status: planned
+    absorb:
+      - sdlc-design
+      - sdlc-maintenance
+      - sdlc-planning
+      - sdlc-post-deployment
+      - sdlc-testing
+      - sdlc-user-deploy
+  gis-platform-engineering:
+    domain: gis
+    status: planned
+    absorb:
+      - gis-mapping
+      - gis-maps-integration
+      - gis-postgis-backend

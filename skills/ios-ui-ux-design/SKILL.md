@@ -68,4 +68,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 - `../premium-ui-ux-design/references/mobile-android-ios-premium-ux.md`
 - `../premium-ui-ux-design/references/premium-ui-ux-gate.md`
 - `../ios-development/references/skill-deep-dive.md`
+- `references/swiftui-design.md` for SwiftUI-native layout, navigation, forms, accessibility, and visual polish.
+- `references/swiftui-pro-patterns.md` for advanced SwiftUI layout, identity, animation, and performance patterns.
+- `references/ios-uikit-advanced.md` for UIKit diffable data sources, compositional layout, custom transitions, and UIKit interop.
 <!-- dual-compat-end -->

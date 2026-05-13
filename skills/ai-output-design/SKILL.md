@@ -209,3 +209,7 @@ If a section has no content, omit it.
 - `ai-agentic-ui` — long-running agent surfaces.
 - `ai-feature-spec` — output schema design.
 - `ux-for-ai` — trust and transparency principles.
+## Consolidated Child References
+
+- Load [references/routing.md](references/routing.md) to map retired AI child skill slugs to their reference modules.
+

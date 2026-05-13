@@ -71,7 +71,7 @@ Use this skill when schema choices will shape correctness, performance, or futur
 
 1. Load `world-class-engineering`.
 2. Load this skill to design the data model and lifecycle.
-3. Load engine-specific skills such as `mysql-best-practices` or PostgreSQL skills afterward.
+3. Load engine-specific parent skills afterward: `mysql-engineering`, `mysql-operations`, `postgresql-engineering`, or `postgresql-operations`.
 
 ## Database Workflow
 

@@ -1,6 +1,6 @@
 ---
 name: api-design-first
-description: Use when designing or building HTTP APIs — spec-first OpenAPI workflow, REST conventions, versioning, auth model, rate limiting, idempotency keys, error envelope, and observability notes. Produces the OpenAPI contract plus error/auth/idempotency/observability artifacts that frontend, mobile, security, and reliability skills consume. For endpoint-level security review load `vibe-security-skill`; for GraphQL-specific hardening load `graphql-security`.
+description: Use when designing or building HTTP APIs — spec-first OpenAPI workflow, REST conventions, versioning, auth model, rate limiting, idempotency keys, error envelope, and observability notes. Produces the OpenAPI contract plus error/auth/idempotency/observability artifacts that frontend, mobile, security, and reliability skills consume. For endpoint-level security review load `vibe-security-skill`; for GraphQL-specific hardening load `graphql-patterns` reference `references/graphql-security.md`.
 metadata:
   portable: true
   compatible_with:
@@ -26,7 +26,7 @@ Design APIs as contracts before code. This skill produces the OpenAPI 3.1 contra
 
 - The task is purely client-side consumption of a third-party API (load the relevant SDK or integration skill).
 - The task is full threat modelling — load `vibe-security-skill`; this skill only records the auth model.
-- GraphQL-specific hardening is needed — load `graphql-security`.
+- GraphQL-specific hardening is needed — load `graphql-patterns` reference `references/graphql-security.md`.
 
 ## Required Inputs
 
@@ -85,6 +85,9 @@ Design APIs as contracts before code. This skill produces the OpenAPI 3.1 contra
 - [references/practical-api-architecture.md](references/practical-api-architecture.md) — book-distilled API product-contract checks, lifecycle/versioning policy, idempotency map, and error semantics.
 - [references/api-you-wont-hate-rules.md](references/api-you-wont-hate-rules.md) — consumer-first API action planning, resource shape, pagination, versioning, and endpoint test rules.
 - [references/source-register-api-you-wont-hate.md](references/source-register-api-you-wont-hate.md) — local EPUB source register for the API-design upgrade.
+- [references/api-error-handling.md](references/api-error-handling.md) - absorbed API error envelope and failure-response guidance.
+- [references/api-pagination.md](references/api-pagination.md) - absorbed pagination, cursor, and collection-response guidance.
+- [references/api-testing-verification.md](references/api-testing-verification.md) - absorbed API contract testing and verification guidance.
 - Companion skill: `graphql-patterns` — schema-first Apollo Server + TypeScript patterns when choosing GraphQL over REST for client-shaped reads.
 <!-- dual-compat-end -->
 
@@ -99,7 +102,7 @@ Load these skills first:
 Load alongside:
 
 - `vibe-security-skill` for threat modelling of the auth model produced here.
-- `graphql-security` whenever building or auditing a GraphQL API.
+- `graphql-patterns` reference `references/graphql-security.md` whenever building or auditing a GraphQL API.
 
 ## When this skill applies
 
@@ -258,3 +261,5 @@ Detail, status-code mapping, and pagination mechanics live in `references/rest-c
 - [references/api-you-wont-hate-rules.md](references/api-you-wont-hate-rules.md) — API action plan, resource design, JSON ergonomics, pagination, embedding, versioning, and endpoint tests.
 - [references/source-register-api-you-wont-hate.md](references/source-register-api-you-wont-hate.md) — local EPUB source register for the API-design upgrade.
 - [references/skill-deep-dive.md](references/skill-deep-dive.md) — index redirect for the legacy deep-dive; kept for backward compatibility.
+- [references/api-error-handling.md](references/api-error-handling.md), [references/api-pagination.md](references/api-pagination.md), and [references/api-testing-verification.md](references/api-testing-verification.md) - absorbed API specialist entrypoints.
+

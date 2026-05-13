@@ -23,19 +23,19 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 
 ## Do Not Use When
 
-- Authoring the application architecture inside the cluster — use `microservices-architecture-models` and `microservices-communication`.
+- Authoring the application architecture inside the cluster — use `microservices-architecture` reference `references/microservices-architecture-models.md` and `microservices-architecture` reference `references/microservices-communication.md`.
 - Provisioning the cluster's underlying VMs, VPC, or DNS through code — use `infrastructure-as-code` and `cloud-architecture`.
-- Building CI/CD pipelines that deploy into Kubernetes — use `cicd-pipelines` or `cicd-pipeline-design`.
-- Cluster-level observability deep-dives — use `observability-platform` (SigNoz primary).
+- Building CI/CD pipelines that deploy into Kubernetes — use `cicd-pipelines` or `cicd-pipelines` reference `references/cicd-pipeline-design.md`.
+- Cluster-level observability deep-dives — use `observability-monitoring` reference `references/observability-platform.md` (SigNoz primary).
 - Service mesh design (Istio, Linkerd, Cilium service mesh) — out of scope.
 
 ## Sibling Kubernetes Skills
 
 This skill is the platform-team angle. Cross-reference rather than duplicate:
 
-- `kubernetes-fundamentals` — first cluster, mental model of core objects, kubectl workflow, debug triage.
-- `kubernetes-production` — Helm release patterns, HPA/VPA, observability stack, troubleshooting playbook.
-- `kubernetes-saas-delivery` — multi-tenant isolation models, GitOps with ArgoCD, progressive delivery.
+- `references/kubernetes-fundamentals.md` — first cluster, mental model of core objects, kubectl workflow, debug triage.
+- `references/kubernetes-production.md` — Helm release patterns, HPA/VPA, observability stack, troubleshooting playbook.
+- `references/kubernetes-saas-delivery.md` — multi-tenant isolation models, GitOps with ArgoCD, progressive delivery.
 
 Load the sibling that owns a specific topic. This skill owns the bootstrap, governance, security, and lifecycle layer that those skills assume is in place.
 
@@ -49,12 +49,12 @@ Load the sibling that owns a specific topic. This skill owns the bootstrap, gove
 ## Prerequisite Skills
 
 - `cloud-architecture` — for the network substrate.
-- `cicd-jenkins-debian` — for the Linux operations baseline on Debian/Ubuntu hosts.
+- `cicd-pipelines` reference `references/cicd-jenkins-debian.md` — for the Linux operations baseline on Debian/Ubuntu hosts.
 - `web-app-security-audit` — for baseline application security posture.
 
 ## Workflow
 
-1. Confirm scope: bootstrap, governance, security, lifecycle, or platform-component install. Route topics owned by sibling skills (`kubernetes-fundamentals`, `kubernetes-production`, `kubernetes-saas-delivery`) to those skills before starting here.
+1. Confirm scope: bootstrap, governance, security, lifecycle, or platform-component install. Route topics owned by sibling skills (`references/kubernetes-fundamentals.md`, `references/kubernetes-production.md`, `references/kubernetes-saas-delivery.md`) to those skills before starting here.
 2. Capture inputs: host inventory, CIDR plan, tenant list, compliance constraints.
 3. Apply §1–§10 of this skill in order for a green-field cluster, or jump to the relevant section for a targeted change.
 4. Load the matching `references/<topic>.md` file only when the depth is needed.
@@ -124,7 +124,7 @@ CNI choice (Cilium, Calico, Flannel) is left to the implementing team — pick o
 
 ## §3 Workloads — Minimum-Viable Manifests
 
-Authoring core workloads is owned by `kubernetes-fundamentals`. The platform team still needs a reference for what "compliant by default" looks like, because every tenant manifest is reviewed against it. A Deployment + Service + Ingress that satisfies the `restricted` Pod Security profile:
+Authoring core workloads is owned by `references/kubernetes-fundamentals.md`. The platform team still needs a reference for what "compliant by default" looks like, because every tenant manifest is reviewed against it. A Deployment + Service + Ingress that satisfies the `restricted` Pod Security profile:
 
 ```yaml
 apiVersion: apps/v1
@@ -176,7 +176,7 @@ spec:
       http: { paths: [{ path: /, pathType: Prefix, backend: { service: { name: web, port: { number: 80 } } } }] }
 ```
 
-Probe and lifecycle detail → see `kubernetes-fundamentals` §"Probes — Get Them Right". Mental model of Deployments, StatefulSets, Services → `kubernetes-fundamentals` §"Core Objects".
+Probe and lifecycle detail → see `references/kubernetes-fundamentals.md` §"Probes — Get Them Right". Mental model of Deployments, StatefulSets, Services → `references/kubernetes-fundamentals.md` §"Core Objects".
 
 ## §4 Helm
 
@@ -205,7 +205,7 @@ helm rollback web 1 -n app
 helm uninstall web -n app
 ```
 
-Chart authoring patterns (named templates, subchart values overrides, chart testing, schema-validated values) → see `references/helm-charts.md`. Helm-vs-Kustomize tradeoff → `kubernetes-production` §"Helm vs Kustomize".
+Chart authoring patterns (named templates, subchart values overrides, chart testing, schema-validated values) → see `references/helm-charts.md`. Helm-vs-Kustomize tradeoff → `references/kubernetes-production.md` §"Helm vs Kustomize".
 
 ## §5 RBAC
 
@@ -290,7 +290,7 @@ spec:
       max:            { cpu: "2",    memory: "4Gi" }
 ```
 
-Per-tenant quota sizing, PriorityClass design for system vs workload tiers, and HPA interaction with quotas → `kubernetes-production` §"Resource Management".
+Per-tenant quota sizing, PriorityClass design for system vs workload tiers, and HPA interaction with quotas → `references/kubernetes-production.md` §"Resource Management".
 
 ## §7 Pod Security
 
@@ -357,7 +357,7 @@ ETCDCTL_API=3 etcdctl \
 
 Schedule the snapshot with cron and ship it to off-host storage. Restore with `etcdctl snapshot restore` per the upstream etcd docs.
 
-Drain ordering, PodDisruptionBudgets, version-skew rules between kubelet and apiserver, and add-on upgrade order → `references/cluster-lifecycle.md`. Production-side rolling upgrade playbook → `kubernetes-production` §"Cluster and Node Upgrades".
+Drain ordering, PodDisruptionBudgets, version-skew rules between kubelet and apiserver, and add-on upgrade order → `references/cluster-lifecycle.md`. Production-side rolling upgrade playbook → `references/kubernetes-production.md` §"Cluster and Node Upgrades".
 
 ## §9 Cluster-Managed Components
 
@@ -404,13 +404,13 @@ If two or more "cloud-managed" rows apply, do not self-manage — the operationa
 
 ## Companion Skills
 
-- `kubernetes-fundamentals` — core objects, kubectl, debug triage.
-- `kubernetes-production` — Helm release patterns, scaling, observability stack.
-- `kubernetes-saas-delivery` — multi-tenant isolation, GitOps, progressive delivery.
+- `references/kubernetes-fundamentals.md` — core objects, kubectl, debug triage.
+- `references/kubernetes-production.md` — Helm release patterns, scaling, observability stack.
+- `references/kubernetes-saas-delivery.md` — multi-tenant isolation, GitOps, progressive delivery.
 - `cloud-architecture` — VPC, load balancers, DNS substrate.
 - `infrastructure-as-code` — Terraform modules that provision the VMs and network.
-- `cicd-pipelines`, `cicd-pipeline-design`, `cicd-jenkins-debian` — pipelines that build and deploy into the cluster.
-- `observability-platform` — SigNoz-led observability above the cluster.
+- `cicd-pipelines`, `cicd-pipelines` reference `references/cicd-pipeline-design.md`, `cicd-pipelines` reference `references/cicd-jenkins-debian.md` — pipelines that build and deploy into the cluster.
+- `observability-monitoring` reference `references/observability-platform.md` — SigNoz-led observability above the cluster.
 - `web-app-security-audit` — application-layer security for workloads inside the cluster.
 
 ## References
@@ -445,3 +445,4 @@ Deep-dives in `references/`:
 - `cluster-lifecycle.md` — upgrade ordering, version skew, etcd restore drill.
 - `cluster-managed-components.md` — ingress, cert-manager, metrics-server install patterns.
 <!-- dual-compat-end -->
+

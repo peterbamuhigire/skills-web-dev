@@ -327,3 +327,7 @@ Cross-references:
 - `ai-tenant-isolation-patterns` — storage-side complement.
 - `ai-model-gateway` — where filters run.
 - `ai-observability-and-debugging` — forensic traces.
+## Consolidated Child References
+
+- Load [references/routing.md](references/routing.md) to map retired AI child skill slugs to their reference modules.
+

@@ -66,6 +66,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.
+- Load `references/plan-implementation.md` when audit findings need to become a phased implementation plan.
 <!-- dual-compat-end -->
 ## Overview
 
@@ -133,7 +134,7 @@ Cross-reference database schemas against project documentation.
 - [ ] Soft-delete support where documented
 - [ ] Character set/collation consistency (utf8mb4_unicode_ci)
 
-**Cross-reference with:** `mysql-best-practices` skill for schema standards.
+**Cross-reference with:** `mysql-engineering` reference `references/mysql-best-practices.md` for schema standards.
 
 #### Pillar 2: Implementation vs. Plan Gap Analysis
 
@@ -164,7 +165,7 @@ Evaluate API contracts and data flow between systems.
 - [ ] Webhook/callback endpoints documented and implemented
 - [ ] Data sync mechanisms between platforms verified
 
-**Cross-reference with:** `api-pagination`, `api-error-handling`, `dual-auth-rbac` skills.
+**Cross-reference with:** `api-design-first` reference `references/api-pagination.md`, `api-design-first` reference `references/api-error-handling.md`, `dual-auth-rbac` skills.
 
 #### Pillar 4: Technical Risk & Debt Assessment
 
@@ -288,18 +289,18 @@ This auditor leverages other skills for both analysis and recommended actions:
 
 | Audit Area | Analysis Skill | Action Skill |
 |------------|---------------|--------------|
-| Database schema gaps | `mysql-best-practices` | `mysql-best-practices` |
+| Database schema gaps | `mysql-engineering` reference `references/mysql-best-practices.md` | `mysql-engineering` reference `references/mysql-best-practices.md` |
 | Missing features | `feature-planning` | `feature-planning` |
-| API gaps | `api-error-handling` | `api-pagination`, `dual-auth-rbac` |
+| API gaps | `api-design-first` reference `references/api-error-handling.md` | `api-design-first` reference `references/api-pagination.md`, `dual-auth-rbac` |
 | Multi-tenant issues | `multi-tenant-saas-architecture` | `multi-tenant-saas-architecture` |
 | Documentation gaps | `doc-architect` | `update-claude-documentation` |
-| Testing gaps | `sdlc-testing` | `sdlc-testing` |
-| Planning gaps | `sdlc-planning` | `sdlc-planning` |
+| Testing gaps | `sdlc-documentation` reference `references/sdlc-testing.md` | `sdlc-documentation` reference `references/sdlc-testing.md` |
+| Planning gaps | `sdlc-documentation` reference `references/sdlc-planning.md` | `sdlc-documentation` reference `references/sdlc-planning.md` |
 | UI issues | `webapp-gui-design` | `jetpack-compose-ui` |
 | Mobile integration | `android-development` | `android-saas-planning` |
 | Security concerns | `vibe-security-skill` | `web-app-security-audit` |
 | Code quality tooling | `php-modern-standards` | `php-modern-standards` |
-| User docs missing | `manual-guide` | `sdlc-user-deploy` |
+| User docs missing | `manual-guide` | `sdlc-documentation` reference `references/sdlc-user-deploy.md` |
 | Module architecture | `modular-saas-architecture` | `modular-saas-architecture` |
 
 ## Iterative Drilling
@@ -308,7 +309,7 @@ After the initial audit, the user can request deep dives:
 
 - **"Drill into {module}"** — Generate detailed `06-module-details/{module}-status.md`
 - **"Show me the API payloads for {feature}"** — Extract expected JSON from schema
-- **"What tests are missing for {module}"** — Cross-reference with `sdlc-testing`
+- **"What tests are missing for {module}"** — Cross-reference with `sdlc-documentation` reference `references/sdlc-testing.md`
 - **"Generate the completion plan for {phase}"** — Expand blueprint phase into tasks
 
 ## Anti-Patterns
@@ -335,3 +336,4 @@ After the initial audit, the user can request deep dives:
 - `references/audit-checklist.md` — Complete pre-flight checklist
 - `references/gap-analysis-patterns.md` — Classification methodology
 - `references/drill-down-templates.md` — Templates for iterative deep dives
+

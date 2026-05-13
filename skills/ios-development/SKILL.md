@@ -66,6 +66,8 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.
+- `references/ios-project-setup.md` for Xcode project structure, SPM, schemes, build settings, and environment configuration.
+- `references/ios-swift-recipes.md` for production Swift recipes, safe conversions, dates, Codable, hashing, and validation.
 <!-- dual-compat-end -->
 ## Load Order
 
@@ -73,7 +75,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 2. Load `system-architecture-design` when the app participates in broader service or module architecture.
 3. Load this skill for iOS implementation details.
 4. Load `ios-ui-ux-design` for every user-facing iOS/iPadOS screen, especially premium, dashboard, onboarding, reporting, form, or revenue-critical flows.
-5. Load `ios-app-security`, `ios-networking-advanced`, or other focused skills as needed.
+5. Load `ios-security-and-rbac`, `ios-platform-capabilities`, or other focused parent skills as needed.
 
 Production-grade iOS development standards for AI-assisted implementation. Swift-first with SwiftUI, following modern Apple platform best practices.
 

@@ -328,7 +328,7 @@ pip-audit
 
 When the task requires it, load:
 
-- `python-saas-integration` — how Python plugs into PHP + mobile SaaS.
+- `references/python-saas-integration.md` — how Python plugs into PHP + mobile SaaS.
 - `python-data-analytics` — pandas, KPI computation, financial math.
 - `python-document-generation` — Excel, Word, PDF output.
 - `python-ml-predictive` — forecasting, classification, anomaly detection.
@@ -347,3 +347,4 @@ When the task requires it, load:
 - `references/security-baseline.md`
 - `references/anti-patterns.md`
 - `references/api-container-sidecar-engineering.md`
+

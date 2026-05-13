@@ -61,6 +61,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.
+- `references/mobile-report-tables.md` for the mandatory table-first pattern when mobile reports can exceed 25 rows.
 <!-- dual-compat-end -->
 ## Platform Notes
 
@@ -72,7 +73,7 @@ Mobile reports require different design considerations than desktop reports due 
 
 - **Android:** 10+ required. Use custom PNG icons only (`painterResource(R.drawable.<name>)`).
 - **iOS:** iOS 16+ required. Use SF Symbols or custom assets.
-- **Report Table Policy:** If a report can exceed 25 rows, use a table layout (see `android-report-tables`).
+- **Report Table Policy:** If a report can exceed 25 rows, use a table layout (see `references/mobile-report-tables.md`).
 
 ## Core Principles
 

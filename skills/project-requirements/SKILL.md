@@ -65,6 +65,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 ## References
 
 - Use the links and companion skills already referenced in this file when deeper context is needed.
+- Load `references/spec-architect.md` when requirements must become feature specifications, acceptance criteria, or implementation-ready spec packages.
 <!-- dual-compat-end -->
 Create comprehensive requirements documentation for a new SaaS project through a guided AI-assisted interview process.
 
@@ -284,10 +285,10 @@ AI: "For each feature, let's capture:
 
 ### Red Flags
 
-❌ **Too vague:** "The system should be user-friendly"
-❌ **Missing details:** "User can edit data" (which data? which users?)
-❌ **Assumptions:** "Obviously students can't delete grades" (document it!)
-❌ **No examples:** Formula without sample calculation
+âŒ **Too vague:** "The system should be user-friendly"
+âŒ **Missing details:** "User can edit data" (which data? which users?)
+âŒ **Assumptions:** "Obviously students can't delete grades" (document it!)
+âŒ **No examples:** Formula without sample calculation
 
 ## Template Usage
 
@@ -443,10 +444,10 @@ Ready to bootstrap? Use:
 
 | Skill | Relationship |
 |-------|-------------|
-| `sdlc-planning` | Takes this skill's output (requirements.md, business-rules.md, user-types.md, workflows.md) as input for Feasibility Study, Vision & Scope, SRS, and other planning documents. **This is the primary next step.** |
-| `sdlc-design` | Uses the SRS (produced via `sdlc-planning`) to generate System Design Document, Database Design, API Documentation, and Technical Specifications. |
-| `sdlc-testing` | Uses the SRS and SDD to create test plans, test cases, and V&V documentation. |
-| `sdlc-user-deploy` | Uses all prior SDLC outputs to create user manuals, deployment guides, training materials, and release notes. |
+| `sdlc-documentation` reference `references/sdlc-planning.md` | Takes this skill's output (requirements.md, business-rules.md, user-types.md, workflows.md) as input for Feasibility Study, Vision & Scope, SRS, and other planning documents. **This is the primary next step.** |
+| `sdlc-documentation` reference `references/sdlc-design.md` | Uses the SRS (produced via `sdlc-documentation` reference `references/sdlc-planning.md`) to generate System Design Document, Database Design, API Documentation, and Technical Specifications. |
+| `sdlc-documentation` reference `references/sdlc-testing.md` | Uses the SRS and SDD to create test plans, test cases, and V&V documentation. |
+| `sdlc-documentation` reference `references/sdlc-user-deploy.md` | Uses all prior SDLC outputs to create user manuals, deployment guides, training materials, and release notes. |
 | `feature-planning` | For individual feature specs and implementation plans after project-level requirements are established. |
 | `android-saas-planning` | For Android companion app planning (PRD, SDS, API Contract). Uses SRS as input. |
 | `saas-seeder` | Bootstrap the SaaS template using requirements from this skill's output. |
@@ -456,12 +457,12 @@ Ready to bootstrap? Use:
 ```
 project-requirements (THIS SKILL)
     ↓ requirements.md, business-rules.md, user-types.md, workflows.md
-sdlc-planning
+sdlc-documentation/references/sdlc-planning.md
     ↓ SRS, Vision & Scope, SDP, Feasibility Study, QA Plan, Risk Plan, SCMP
-sdlc-design
+sdlc-documentation/references/sdlc-design.md
     ↓ SDD, Database Design, Tech Spec, API Docs, ICD, Code Standards
-sdlc-testing
+sdlc-documentation/references/sdlc-testing.md
     ↓ Test Plan, Test Cases, V&V Plan, Test Report, Peer Reviews
-sdlc-user-deploy
+sdlc-documentation/references/sdlc-user-deploy.md
     ↓ User Manual, Ops Guide, Training, Release Notes, Maintenance, README
 ```

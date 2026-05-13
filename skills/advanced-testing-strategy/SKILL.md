@@ -63,6 +63,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.
+- Load `references/e2e-testing.md` when browser, API journey, Playwright/Cypress, or full workflow end-to-end coverage is required.
 <!-- dual-compat-end -->
 Use this skill when testing must be designed as an engineering system rather than appended as a final step. The goal is to match test depth to business risk, failure modes, and release confidence.
 

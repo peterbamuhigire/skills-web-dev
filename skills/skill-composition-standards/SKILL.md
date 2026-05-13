@@ -57,6 +57,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 ## References
 
 - Use the `references/` directory for deep detail after reading the core workflow below.
+- Load `references/orchestration-best-practices.md` when coordinating multi-skill workflows, handoffs, routing, or agent orchestration policy.
 <!-- dual-compat-end -->
 The rules that make every skill in this repository compose cleanly with every other skill. Two concerns in one skill, because they are two faces of the same question: "what does this skill promise, and what is it allowed to expect?"
 

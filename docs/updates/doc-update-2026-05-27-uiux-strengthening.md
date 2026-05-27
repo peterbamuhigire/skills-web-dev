@@ -13,6 +13,8 @@ distilled into self-contained local references rather than external dependencies
   `premium-ui-ux-design`.
 - Added SaaS web-app pattern selection rules to `interaction-design-patterns`.
 - Added generative-AI UI/UX patterns to `ai-agent-ux`.
+- Added mobile navigation, onboarding, dashboard, and mobile app quality guidance to
+  `premium-ui-ux-design`.
 
 ## Source Notes
 

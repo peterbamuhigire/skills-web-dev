@@ -75,6 +75,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 - `references/data-visualization-dashboard-ux.md` - chart, table, KPI, and dashboard rules.
 - `references/production-quality-handoff.md` - production polish, asset quality, handoff, and implementation QA.
 - `references/mobile-android-ios-premium-ux.md` - platform-specific Android and iOS UX guidance.
+- `references/mobile-dashboard-ux-patterns.md` - mobile navigation, onboarding, dashboard, and mobile app quality patterns.
 - `references/saas-ux-scope-costing.md` - SaaS UX scope, Uganda-calibrated fee bands, cost drivers, and SRS handoff requirements.
 - `references/premium-ui-ux-gate.md` - scoring rubric and blocking checks.
 - `references/premium-ui-ux-specification-rules.md` - SRS/UX-specification rules: how to translate premium UI/UX into testable, traceable requirements and acceptance criteria.

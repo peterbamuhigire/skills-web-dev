@@ -6,7 +6,7 @@ description: Use when designing or building AI-powered application systems — c
 metadata:
   portable: true
   compatible_with:
-  - Codex
+  - claude-code
   - codex
 ---
 
@@ -61,7 +61,8 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 ## References
 
 - Use the links and companion skills already referenced in this file when deeper context is needed.
-- [references/practical-ai-engineering.md](references/practical-ai-engineering.md) - evaluation-first AI engineering, RAG quality checks, agentic workflow controls, guardrails, telemetry, and cost discipline.
+- `references/practical-ai-engineering.md` - evaluation-first AI engineering, RAG quality checks, agentic workflow controls, guardrails, telemetry, and cost discipline.
+- `references/ai-transformation-operating-model.md` - operating-model, adoption, governance, human-centred design, and sustainability gates distilled from supplied AI transformation source material.
 <!-- dual-compat-end -->
 ## Overview
 
@@ -178,7 +179,7 @@ Step 6 (Agents):     Router → Agent Loop [Plan → Tools → Reflect] → Resp
 
 Add each layer only when its absence is causing a real problem.
 
-For production AI features, load [references/practical-ai-engineering.md](references/practical-ai-engineering.md) before finalising the architecture. It adds evaluation, RAG, agent, safety, fallback, telemetry, and cost-control gates.
+For production AI features, load `references/practical-ai-engineering.md` before finalising the architecture. It adds evaluation, RAG, agent, safety, fallback, telemetry, and cost-control gates.
 
 ## Production AI Platform Requirements
 
@@ -336,5 +337,5 @@ function checkAiQuota(int $tenantId): void {
 Chip Huyen — *AI Engineering* (2025); David Spuler — *Generative AI Applications* (2024); Andrea De Mauro — *AI Applications Made Easy* (2024)
 ## Consolidated Child References
 
-- Load [references/routing.md](references/routing.md) to map retired AI child skill slugs to their reference modules.
+- Load `references/routing.md` to map retired AI child skill slugs to their reference modules.
 

@@ -1,10 +1,10 @@
-﻿---
+---
 name: ai-agent-runtime-architecture
 description: Use when designing the runtime that hosts agentic LLM features in a multi-tenant SaaS â€” the agent loop as a control-plane service, formal state machine (PERCEIVE â†’ PLAN â†’ ACT â†’ OBSERVE), retries, idempotency, max-step caps, deterministic resumability, and the "agent vs workflow vs cron" decision. Distinct from `ai-agents-tools` (agent fundamentals) and `ai-on-saas-architecture` (overall AI architecture).
 metadata:
   portable: true
   compatible_with:
-  - Codex
+  - claude-code
   - codex
 ---
 
@@ -88,6 +88,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 
 - `references/agent-loop-state-machine.md` â€” formal state machine, transitions, idempotency contract.
 - `references/agent-vs-workflow-vs-cron-decision.md` â€” decision matrix with worked examples.
+- `references/agentic-ai-operating-model-source-synthesis.md` - autonomy ladder, production spine, tool contracts, memory/RAG discipline, multi-agent roles, deployment stages, and human-agent operating model distilled from supplied agentic AI source material.
 - Companion: `ai-agents-tools`, `ai-agent-tool-catalogue-and-action-gating`, `ai-agent-cost-and-step-budgets`, `ai-agent-observability-and-replay`, `ai-agent-async-and-long-running-tasks`, `ai-on-saas-architecture`, `distributed-systems-patterns`, `reliability-engineering`.
 
 <!-- dual-compat-end -->
@@ -226,5 +227,5 @@ Every event carries `policy_version` so historical authority checks resolve corr
 Cross-links: `ai-agent-audit-log-integrity`, `ai-agent-soc2-controls`, `ai-agent-evidence-automation`, `ai-agent-approval-audit-completeness`.
 ## Consolidated Child References
 
-- Load [references/routing.md](references/routing.md) to map retired AI child skill slugs to their reference modules.
+- Load `references/routing.md` to map retired AI child skill slugs to their reference modules.
 

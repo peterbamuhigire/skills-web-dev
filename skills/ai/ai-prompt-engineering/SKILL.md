@@ -6,7 +6,7 @@ description: Use when writing, refining, or structuring prompts for AI-powered a
 metadata:
   portable: true
   compatible_with:
-  - Codex
+  - claude-code
   - codex
 ---
 
@@ -62,6 +62,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 ## References
 
 - Use the links and companion skills already referenced in this file when deeper context is needed.
+- `references/power-prompt-operating-system.md` - prompt order forms, prompt matrix, team prompt libraries, meeting/email/document workflows, adoption cycle, and prompt evaluation distilled from supplied prompt source material.
 <!-- dual-compat-end -->
 ## Overview
 

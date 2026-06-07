@@ -159,6 +159,18 @@ target instead.
 | SDLC docs | `sdlc-documentation` | `sdlc-design`, `sdlc-maintenance`, `sdlc-planning`, `sdlc-post-deployment`, `sdlc-testing`, `sdlc-user-deploy` |
 | GIS | `gis-platform-engineering` | `gis-mapping`, `gis-maps-integration`, `gis-postgis-backend` |
 
+## Quality Guardrails (always-on, cross-cutting)
+
+These two skills under `skills/sdlc-meta/` apply to every artefact type the catalogue
+produces (website, web/mobile app, business plan, SRS/spec, proposal, blog/article,
+social post, marketing copy, document, image/video, codebase). They are not routed by
+domain — they sit above domain skills.
+
+| Skill | Role | When it fires |
+|---|---|---|
+| `skills/sdlc-meta/anti-ai-slop` | Real-time production guardrail | Continuously while generating ANY output, and at the pre-ship gate. Load first; overrides stylistic preferences. |
+| `skills/sdlc-meta/ai-slop-audit` | Detection / scoring auditor | After EACH major iteration of work (logs a verdict; blocks progression on grade F), as the final gate, and auto-runs when the user asks to analyse/review/evaluate/audit/critique/de-slop ANY project, app, website, plan, spec, document, image, or codebase, or asks "does this look AI-generated?". |
+
 ## Registry Maintenance
 
 - Update this file when a retained parent skill changes.

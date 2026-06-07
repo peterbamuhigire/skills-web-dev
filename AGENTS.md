@@ -66,6 +66,20 @@ Known baseline as of 2026-05-30 (verify with the script; do not trust this prose
   reports near-duplicate skills. Add a fixture when you add a skill a neighbour
   could steal traffic from.
 
+## Quality Guardrails (always-on)
+
+Two cross-cutting skills under `skills/sdlc-meta/` govern output quality for every
+artefact type, above any domain skill:
+
+- `anti-ai-slop` — real-time guardrail. Apply continuously while generating ANY
+  output (text, document, UI, code, image brief, social post) and at the pre-ship
+  gate. Load first; it overrides stylistic preferences.
+- `ai-slop-audit` — detection/scoring auditor. Run after EACH major iteration of
+  work (log the verdict; block progression on grade F), as the final gate, and
+  auto-run whenever the user asks to analyse, review, evaluate, audit, critique, or
+  de-slop any project, app, website, plan, spec, document, image, or codebase, or
+  asks "does this look AI-generated?".
+
 ## Cross-Platform Context
 
 | Environment | Role | Notes |

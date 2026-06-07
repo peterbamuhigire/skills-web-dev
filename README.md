@@ -37,7 +37,7 @@ Current guardrail baseline:
 
 | Metric | Value |
 | --- | ---: |
-| Active `SKILL.md` files | 173 |
+| Active `SKILL.md` files | 175 |
 | Target active catalog size | 150-170 |
 | Guardrail hard cap | 200 |
 | Duplicate frontmatter names | 0 |
@@ -72,6 +72,7 @@ python -X utf8 scripts\skill_catalog_guardrails.py --report-only
 | Mobile | Android, iOS, Kotlin Multiplatform, mobile persistence, mobile UX, platform capabilities, app quality, and release workflows. |
 | Finance doctrine | Accounting engines, finance audits, bank and mobile money reconciliation, close, controls, reporting, IFRS, payroll, inventory, and finance UI patterns. |
 | Documentation and operations | SDLC documentation, project requirements, professional document output, catalog maintenance, skill writing, and update records. |
+| Quality guardrails (cross-cutting) | `anti-ai-slop` is a real-time guardrail applied continuously on every generated output. `ai-slop-audit` runs after each major iteration and auto-runs on any request to analyse/review/audit/de-slop any artefact type (app, website, business plan, SRS/spec, proposal, blog, social post, document, image, or codebase); a grade-F verdict blocks progression. |
 
 ## How To Use The Catalog
 

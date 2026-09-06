@@ -13,7 +13,7 @@ Use it for engineering implementation and SDLC quality; bring in companion engin
 | AI applications, agents, RAG, gateways, evaluations, and AI safety | `skills/ai/` |
 | Architecture, APIs, distributed systems, and contracts | `skills/architecture/` |
 | Databases, persistence, migrations, and data reliability | `skills/backend-databases/` |
-| Frontend, mobile, TypeScript, Python, PHP, and .NET implementation | `skills/frontend-ux/`, `skills/android/`, `skills/ios/`, `skills/languages/` |
+| Frontend, mobile, TypeScript, Python, PHP, .NET, and enterprise Java/JVM implementation | `skills/frontend-ux/`, `skills/android/`, `skills/ios/`, `skills/languages/` |
 | SaaS, billing, tenancy, entitlements, SSO, and admin tooling | `skills/saas/` |
 | Security, cloud, deployment, observability, reliability, and testing | `skills/security/`, `skills/devops-cloud/`, `skills/sdlc-meta/` |
 | Product, documents, spreadsheets, and delivery control | `skills/product-business/` |
@@ -21,15 +21,15 @@ Use it for engineering implementation and SDLC quality; bring in companion engin
 
 ## Current status
 
-Last verified: 2026-09-04.
+Last verified: 2026-09-05.
 
 | Measure | Result |
 |---|---:|
-| Active `SKILL.md` files | 178 |
+| Active `SKILL.md` files | 179 |
 | Guardrail maximum | 200 |
-| Routing fixtures | 129 |
-| Routing precision@1 | 92% (119/129) |
-| Routing precision@3 | 100% (128/128) |
+| Routing fixtures | 157 |
+| Routing precision@1 | 91% (143/157) |
+| Routing precision@3 | 100% (157/157) |
 | Catalog guardrail findings | 0 |
 | July portfolio audit baseline | 63/100, capped |
 | Improvement-plan target | 95/100 |
@@ -55,7 +55,7 @@ The active count is produced by the guardrail script. Do not update this table a
 | CI/CD, cloud, containers, Kubernetes, deployment, observability, SLOs and reliability | `skills/devops-cloud/` |
 | React, Next.js, Tailwind, frontend performance, content UX and web implementation | `skills/frontend-ux/` |
 | Android, iOS, Kotlin Multiplatform, PWA and mobile operations | `skills/android/`, `skills/ios/`, `skills/mobile-cross/` |
-| TypeScript, JavaScript, Python, PHP, C#/.NET and other language-specific work | `skills/languages/` |
+| TypeScript, JavaScript, Python, PHP, C#/.NET, and enterprise Java/JVM work | `skills/languages/` |
 | SaaS tenancy, pricing, billing, entitlements, SSO/SCIM, portability and administration | `skills/saas/` |
 | Threat modelling, secure coding, privacy, DPIA, Linux hardening and network security | `skills/security/` |
 | Product discovery, metrics, delivery control, proposals, documents and spreadsheets | `skills/product-business/` |
@@ -155,12 +155,12 @@ python -X utf8 scripts\skill_catalog_guardrails.py --report-only
 python -X utf8 scripts\routing_smoke_test.py --report-only
 ```
 
-Expected current results are 178 active skills, zero catalog findings, 129 fixtures, 119/129 routing precision@1, 129/129 precision@3, and no routing failures. Also run the relevant domain tests, anti-slop gate, evidence-pack checks, and `git diff --check` for the changed workstream.
+Expected counts and routing results must be taken from the current validator output, not this prose. Also run the relevant domain tests, anti-slop gate, evidence-pack checks, and `git diff --check` for the changed workstream.
 
 ## Honest limitations
 
 - Routing precision@1 is 91%; precision@3 is 100%. The engine still requires human review for close domain collisions.
-- The 178 active skills remain below the hard cap of 200, but catalogue size alone is not proof of quality or production readiness.
+- The 179 active skills remain below the hard cap of 200, but catalogue size alone is not proof of quality or production readiness.
 - Some book inputs are historical, partial early releases, or have unusable extraction. They inform patterns only where the available text supports them; current claims require independent verification.
 - `AI for Game Developers` contains durable algorithmic foundations but dated APIs and production assumptions. Treat it as conceptual input, not current platform documentation.
 - Game and design guidance does not replace hands-on playtesting, visual review, accessibility testing, security testing, or production telemetry.

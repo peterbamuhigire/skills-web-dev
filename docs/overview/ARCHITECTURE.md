@@ -10,7 +10,7 @@ docs describe routing, consolidation, planning, and maintenance policy.
 
 | Component | Responsibility |
 | --- | --- |
-| `skills/` | Main skill catalog for engineering, AI, SaaS, mobile, game development, security, UX, product, and operations, including language entrypoints such as C#/.NET. |
+| `skills/` | Main skill catalog for engineering, AI, SaaS, mobile, game development, security, UX, product, and operations, including C#/.NET and consolidated enterprise Java/JVM entrypoints. |
 | External `chwezi-accounting-doctrine` checkout | Canonical finance doctrine; kept outside the runtime skill catalog. |
 | `00-meta-initialization/` | Entry-point workflow for SDLC documentation setup. |
 | `docs/skill-routing-index.md` | Human routing map for consolidated and legacy skill names. |
@@ -26,6 +26,7 @@ docs describe routing, consolidation, planning, and maintenance policy.
 | `.github/workflows/skill-guardrails.yml` | CI: runs both gates on every push and PR touching skills, doctrine, aliases, fixtures, or the scripts. |
 | `skills/sdlc-meta/skill-composition-standards/references/` | Artifact templates (ADR, entity model, threat model, release/rollback plan, runbook, test plan) and the closing Delivery Definition of Done pack. |
 | `skills/languages/python-modern-standards/scripts/desktop_suite_packager.py` | Model-neutral project generator for a committed desktop-suite manifest, generated launcher/spec/installer/CI files, stale-generation check, and release evidence. |
+| `skills/languages/java-enterprise-development/` | One active Java/JVM implementation route with progressively loaded references for Spring, Jakarta EE, Oracle, persistence, build/test/security, production operations, and modernisation. |
 | `skills/ios/` and `skills/mobile-cross/` | Apple/mobile implementation guidance, including WWDC26-era Xcode, Swift, Foundation Models/Core AI, App Intents, StoreKit, PWA/Safari, KMP, release, and security references. |
 | `skills/game-development/` | Game orchestration, lean experiments, design, mathematics/simulation, graphics, Unity/Godot/Unreal, Apple delivery, multiplayer/backend, security, 2D/3D content, audio, performance, build/release, testing, data/live economy, accessibility/player safety, studio operations, and live operations. |
 | `claude-guides/` | Skill authoring and Claude-specific usage guidance. |

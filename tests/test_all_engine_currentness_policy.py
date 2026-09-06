@@ -38,7 +38,7 @@ class PortfolioCurrentnessPolicyTests(unittest.TestCase):
             self.assertTrue(router.is_file(), router)
             text = router.read_text(encoding="utf-8").lower()
             self.assertIn(MARKER.lower(), text, router)
-            self.assertIn("digital-research-skills", text, router)
+            self.assertIn("digital-research-engine", text, router)
 
     def test_every_kaizen_owner_points_to_digital_research(self):
         for skill in KAIZEN_SKILLS:

@@ -114,6 +114,62 @@ fixtures:
     expect: typescript-effective
   - task: "Build an ASP.NET Core API in C# with EF Core, async handlers, tests and production logging"
     expect: csharp-dotnet-development
+  - task: "Build a production Spring Boot REST API with validated configuration, transactions, tests and runtime evidence"
+    expect: java-enterprise-development
+  - task: "Upgrade a Java 17 service to Java 25 with compatibility stages and rollback checkpoints"
+    expect: java-enterprise-development
+  - task: "Diagnose Java heap exhaustion and distinguish heap, native memory and container OOM kill"
+    expect: java-enterprise-development
+  - task: "Fix Hibernate N+1 queries using query evidence, projections and explicit fetch planning"
+    expect: java-enterprise-development
+  - task: "Migrate javax.persistence code and deployment descriptors to modern jakarta.persistence safely"
+    expect: java-enterprise-development
+  - task: "Deploy a Spring Boot JVM service on Kubernetes with memory budgets, probes and graceful termination"
+    expect: java-enterprise-development
+  - task: "Build a Quarkus Java service and decide whether JVM or GraalVM Native Image fits the workload"
+    expect: java-enterprise-development
+  - task: "Deploy and diagnose an enterprise Java application on Oracle WebLogic with JTA and managed data sources"
+    expect: java-enterprise-development
+  - task: "Connect a Java service to Oracle RAC using Oracle JDBC and evaluate UCP application continuity"
+    expect: java-enterprise-development
+  - task: "Implement an OIDC resource server with Spring Security and external enterprise identity"
+    expect: java-enterprise-development
+  - task: "Tune a slow Java service using JFR, GC, allocation and before-after workload evidence"
+    expect: java-enterprise-development
+  - task: "Create a Maven multi-module enterprise Java application with toolchains, Enforcer and reproducible release gates"
+    expect: java-enterprise-development
+  - task: "Implement a Kafka transactional outbox and idempotent Java consumer with replay and duplicate tests"
+    expect: java-enterprise-development
+  - task: "Decide between Spring WebFlux and Spring MVC with virtual threads for an I/O-heavy Java API"
+    expect: java-enterprise-development
+  - task: "Migrate a Spring Boot 3 service to Spring Boot 4 without combining every dependency change"
+    expect: java-enterprise-development
+  - task: "Build and measure a GraalVM Native Image for a Java service without assuming native is faster"
+    expect: java-enterprise-development
+  - task: "Create a restartable Spring Batch reconciliation pipeline for tens of millions of records"
+    expect: java-enterprise-development
+  - task: "Analyse a recurring Java thread deadlock using timestamped thread dumps and lock ownership"
+    expect: java-enterprise-development
+  - task: "Design a modular Java ERP and reject premature microservices while preserving domain boundaries"
+    expect: java-enterprise-development
+  - task: "Implement a PostgreSQL-heavy Java reporting service with jOOQ and database-specific integration tests"
+    expect: java-enterprise-development
+  - task: "Design relational data architecture, tenancy, indexing, migrations, integrity and retention for a SaaS platform"
+    expect: database-design-engineering
+  - task: "Set up a generic Kubernetes cluster with namespaces, network policies, ingress and platform autoscaling"
+    expect: kubernetes-platform
+  - task: "Design AWS accounts, VPC networking, subnets, routing and cloud landing zones without application code"
+    expect: cloud-architecture
+  - task: "Turn an approved design system into frontend component, content, state and delivery architecture"
+    expect: frontend-architecture
+  - task: "Threat-model a language-neutral payment API and produce abuse cases, authorization matrix and secret plan"
+    expect: vibe-security-skill
+  - task: "Build a Python FastAPI service with type checking, pytest and packaging"
+    expect: python-modern-standards
+  - task: "Build an Android application in Kotlin with Compose, lifecycle and platform integrations"
+    expect: android-development
+  - task: "Define double-entry accounting policy for invoice posting, reversals and financial statements"
+    expect: accounting-engine
 
   # --- Meta / SDLC ---
   - task: "Use skill-writing to author a new skill that follows the repository house style and contracts"

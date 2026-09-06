@@ -6,6 +6,9 @@ This is a documentation and skills repository. Most source files are Markdown
 and YAML, with a small amount of Python and PowerShell for maintenance.
 The catalog now includes C#/.NET implementation guidance, but .NET is not a
 runtime dependency of this repository.
+It includes enterprise Java/JVM guidance, but the JDK, Maven, Gradle, Spring,
+Jakarta runtimes, application servers, and databases are downstream project
+toolchains rather than repository dependencies.
 It also includes WWDC26-era Apple development guidance, but Xcode, Swift, and
 Apple SDKs are downstream project toolchains rather than runtime dependencies
 of this repository.

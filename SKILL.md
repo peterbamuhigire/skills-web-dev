@@ -22,7 +22,7 @@ Always apply these before domain work:
    book-driven improvement, and post-iteration learning cycle. Published audits are capped at
    65/100; improvement plans target 95/100 and require evidence.
 
-When a task requires external research, use the Digital Research Skills Engine at `C:\wamp64\www\digital-research-skills`, beginning with its `source-evaluation` and `source-verification` skills.
+When a task requires external research, use the Digital Research Engine at `C:\wamp64\www\digital-research-engine`, beginning with its `source-evaluation` and `source-verification` skills.
 
 ## Route by intent
 
@@ -34,7 +34,7 @@ When a task requires external research, use the Digital Research Skills Engine a
 | CI/CD, cloud, containers, Kubernetes, release engineering, observability, reliability | `skills/devops-cloud/*` |
 | React, Next.js, Tailwind implementation, frontend performance, image compression, content UX | `skills/frontend-ux/*` |
 | Android, iOS, Kotlin Multiplatform, PWA, mobile operations | `skills/android/*`, `skills/ios/*`, `skills/mobile-cross/*` |
-| TypeScript, JavaScript, Python, PHP, C#/.NET | `skills/languages/*` |
+| TypeScript, JavaScript, Python, PHP, C#/.NET, Java/JVM, Spring, Jakarta EE, Hibernate, Maven, Gradle, WebLogic, Quarkus, Micronaut, Helidon, GraalVM | `skills/languages/*` |
 | SaaS tenancy, pricing, billing, entitlements, SSO/SCIM, portability, admin tooling | `skills/saas/*` |
 | Security audit, code safety, DPIA, Linux hardening, network security | `skills/security/*` |
 | Product discovery, business metrics, documents, spreadsheets, proposal readiness, delivery control | `skills/product-business/*` |

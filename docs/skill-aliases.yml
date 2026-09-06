@@ -12,7 +12,7 @@ active_skill_policy:
     - chwezi-accounting-doctrine
   hard_cap: 200
   target_range: 150-170
-  current_active_skill_count: 177
+  current_active_skill_count: 179
   finance_doctrine_external: true
   local_doctrine_reference_only: true
   do_not_move_or_delete_skill_directories_from_registry_work: true

@@ -91,9 +91,9 @@ measure the assembled runtime metadata budget.
 
 Known baseline as of 2026-08-11 (verify with the script; do not trust this prose):
 
-- Active `SKILL.md` files: 177.
-- Target active catalog size: 150-170. The managed-visual-assets and engine-control-plane additions leave the catalogue
-  two skills above that soft target and well under the enforced 200 cap; the next safe alias or
+- Active `SKILL.md` files: 179.
+- Target active catalog size: 150-170. Intentional capability additions leave the catalogue
+  nine skills above that soft target and well under the enforced 200 cap; the next safe alias or
   consolidation review should return it to range without deleting knowledge.
 - Hard cap tracked by the guardrail script: 200.
 - Duplicate frontmatter names: 0; near-duplicate pairs (collision-checked): 0.

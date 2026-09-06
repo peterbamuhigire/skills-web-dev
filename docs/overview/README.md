@@ -7,6 +7,13 @@ documentation templates, and catalog maintenance tooling.
 
 ## Latest Update
 
+The 2026-09-05 enterprise Java addition established one consolidated Java/JVM
+route for language and runtime engineering, Spring and Jakarta EE, persistence,
+Oracle integration, build/test/security, production diagnostics, deployment,
+and staged modernisation. Current platform facts live in a dated source register;
+generic architecture, data, security, cloud, SaaS, AI, and finance decisions
+remain with their existing owners.
+
 The 2026-08-16 seeding retrospective strengthened full-coverage SaaS seeding
 with explicit run classes, schema-compatibility gates, controlled writer-gap
 exceptions, branch/facility scope, deterministic time windows, hierarchy
@@ -67,10 +74,10 @@ presentation-layer Apple UI guidance lives in the external
 - The guardrail hard cap is 200 active `SKILL.md` files.
 - Finance doctrine is canonical in the external <a href="https://github.com/peterbamuhigire/chwezi-accounting-doctrine" target="_blank" rel="noopener noreferrer">Chwezi Accounting Doctrine</a>
   engine; reference-only checkouts stay outside the runtime skill catalog.
-- Current active catalog size is 177 skills. This is seven above the 150-170 soft target after the
-  intentional managed-visual-assets and engine-control-plane additions and remains below the enforced hard cap of 200.
-- Current routing smoke-test suite contains 128 fixtures, with 91% precision@1
-  (117/128) and 100% precision@3 (128/128).
+- Current active catalog size is 179 skills. This is nine above the 150-170 soft target after intentional
+  capability additions and remains below the enforced hard cap of 200.
+- Current routing smoke-test suite contains 157 fixtures, with 91% precision@1
+  (143/157) and 100% precision@3 (157/157).
 - Inactive aliases are retained as `ALIAS.md` and routed through
   `docs/skill-aliases.yml`.
 - Duplicate finance entrypoints under `skills/finance/` have been deactivated

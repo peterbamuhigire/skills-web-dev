@@ -6,7 +6,7 @@ This file tracks the next practical work for the skills repository.
 
 | Work | Why | Start Point |
 | --- | --- | --- |
-| Return the active catalogue to its soft target | The current count is 177 after the intentional managed-visual-assets, full-coverage SaaS seeding, engine-control-plane, electronic-fiscal-taxing, and Kaizen additions. CI enforces the 200 hard cap; the next safe alias or consolidation review should return the catalogue to 150-170 without deleting knowledge. | Use `docs/skill-routing-index.md`, collision evidence, and `docs/skill-aliases.yml` before adding another active entrypoint. |
+| Return the active catalogue to its soft target | The current count is 179 after the intentional enterprise-Java and other capability additions. CI enforces the 200 hard cap; the next safe alias or consolidation review should return the catalogue to 150-170 without deleting knowledge. | Use `docs/skill-routing-index.md`, collision evidence, and `docs/skill-aliases.yml` before adding another active entrypoint. |
 
 ## High Priority
 
@@ -28,6 +28,7 @@ This file tracks the next practical work for the skills repository.
 
 | Date | Work | Summary |
 | --- | --- | --- |
+| 2026-09-05 | Enterprise Java engineering capability | Added one consolidated Java/JVM route with currentness register, deep decision references, evidence templates, production diagnostics, Oracle integration, routing fixtures, and an enterprise reference scenario. |
 | 2026-08-20 | Eleven-engine control plane | Registered `windows-admin-engine-skills` as the eleventh canonical engine, added its adoption contract, and extended deterministic registry validation. |
 | 2026-08-16 | ERP POS sales operations | Added the live engineering route for tenant defaults, three POS surfaces, product-to-finished-stock identity, stock timing, canonical posting, permissions, idempotency, and reconciliation. |
 | 2026-08-16 | Phased seeding retrospective | Added operational seeding guidance for schema-compatibility gates, controlled persistence exceptions, branch/facility scope, temporal determinism, hierarchy closure, partial failure, and per-runner contract tests. |

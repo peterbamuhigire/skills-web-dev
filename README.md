@@ -36,6 +36,23 @@ Last verified: 2026-09-07.
 
 The active count is produced by the guardrail script. Do not update this table after adding or removing skills without rerunning the validators.
 
+### Cross-harness workflow update — 2026-09-07
+
+The coding-agent optimisation skill now carries a provider-neutral operating
+pattern distilled from Affaan Mustafa's shorthand, longform, and agentic
+security guides. It requires research → plan → bounded implementation →
+read-only review → checkpoint verification and handoff; it also covers fresh
+context, worktree ownership, disposable memory, untrusted-content
+sanitisation, least-agency approvals, observability, heartbeat/kill recovery,
+and README refresh. Claude Code and Codex map the contract to their native
+surfaces through separate adapters, so neither runtime loses capabilities or
+inherits the other's configuration syntax.
+
+Source record: `https://github.com/affaan-m/ECC` (the three guides linked from
+the referenced Affaan posts; accessed 2026-09-07). The source's empirical
+performance and security figures are treated as claims requiring independent
+verification; only the workflow principles are adopted here.
+
 ### September 2026 Kaizen execution update
 
 The first engineering implementation wave corrected two purpose-critical

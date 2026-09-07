@@ -4,7 +4,7 @@ description: Use when generating or validating professional Excel workbooks, for
 metadata:
   portable: true
   compatible_with:
-  - Codex
+  - claude-code
   - codex
 ---
 
@@ -180,8 +180,12 @@ Read `references/formulas-functions.md` for full formula patterns. Core rules:
 ```excel
 =FILTER(Sales[#All], (Sales[Region]="East")*(Sales[Month]=B2))
 =SORT(UNIQUE(Sales[Category]))
-=SEQUENCE(12, 1, DATE(2026,1,1), 30)  ← 12 monthly dates
+=SEQUENCE(12, 1, DATE(2026,1,1), 30)
 ```
+
+The last example generates dates 30 days apart, not calendar-month dates.
+For monthly schedules, use a calendar-aware formula and verify February,
+month-end and year-boundary results in the target spreadsheet application.
 
 **LET for complex formulas (readability + performance):**
 ```excel

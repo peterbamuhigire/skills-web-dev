@@ -1,0 +1,124 @@
+....................................................................s..s [ 30%]
+........................................................................ [ 60%]
+........................................................................ [ 91%]
+.....................                                                    [100%]
+=============================== tests coverage ================================
+______________ coverage: platform win32, python 3.12.10-final-0 _______________
+
+Name                                                    Stmts   Miss  Cover   Missing
+-------------------------------------------------------------------------------------
+engine\__init__.py                                          1      0   100%
+engine\__main__.py                                          3      3     0%   2-5
+engine\artifact_graph.py                                   50      0   100%
+engine\baseline.py                                         51      0   100%
+engine\checks\__init__.py                                   0      0   100%
+engine\checks\adr_catalog.py                               64      9    86%   44, 47-54, 59-66, 77, 80
+engine\checks\baseline_delta.py                            25      3    88%   22-29
+engine\checks\change_impact.py                             43      1    98%   40
+engine\checks\compliance_evidence.py                       49      2    96%   59-66
+engine\checks\controls.py                                  37      0   100%
+engine\checks\design_sufficiency.py                        25      3    88%   36, 40-47
+engine\checks\glossary_registry.py                         52      3    94%   126-127, 129
+engine\checks\hybrid_traces.py                             23      0   100%
+engine\checks\identifier_registry.py                       19      0   100%
+engine\checks\legacy_paths.py                              23      0   100%
+engine\checks\markers.py                                   14      1    93%   21
+engine\checks\nfr_smart.py                                 21      0   100%
+engine\checks\nfr_threshold_dedup.py                       68      1    99%   79
+engine\checks\obligations.py                               33      1    97%   42
+engine\checks\requirement_semantics.py                     29      0   100%
+engine\checks\sign_off.py                                  44      4    91%   40, 43-50
+engine\checks\stimulus_response.py                         15      0   100%
+engine\checks\test_oracles.py                              37      3    92%   15, 22, 62
+engine\checks\traceability.py                              28      1    96%   15
+engine\cli.py                                             217     35    84%   98, 102, 125-127, 140-153, 184-197, 221, 227, 265, 276, 296
+engine\doctor.py                                           48      8    83%   26-30, 46-48, 71-72
+engine\findings.py                                         33      0   100%
+engine\gates\__init__.py                                    0      0   100%
+engine\gates\_shared.py                                    11      0   100%
+engine\gates\base.py                                       25      3    88%   22, 24, 31
+engine\gates\hybrid.py                                     27      0   100%
+engine\gates\phase01.py                                    33      1    97%   50
+engine\gates\phase02.py                                    50      2    96%   58, 73
+engine\gates\phase03.py                                   122      4    97%   42-45
+engine\gates\phase04.py                                    78      6    92%   42-45, 110, 114
+engine\gates\phase05.py                                    79      1    99%   147
+engine\gates\phase06.py                                   128      0   100%
+engine\gates\phase07.py                                   135      1    99%   74
+engine\gates\phase08.py                                    77      0   100%
+engine\gates\phase09.py                                   256     36    86%   55-59, 81, 217, 253, 262, 269, 273-278, 289, 296, 304, 310, 317, 330, 338, 344, 351, 360, 367, 376, 383, 392, 399, 408, 415, 425-427, 437-438
+engine\idscan.py                                           19      0   100%
+engine\pack.py                                             30      0   100%
+engine\parsers\__init__.py                                  0      0   100%
+engine\parsers\frontmatter.py                              17      2    88%   14, 19
+engine\parsers\markers.py                                  33      3    91%   46-47, 49
+engine\registry\__init__.py                                 0      0   100%
+engine\registry\glossary.py                                44      1    98%   34
+engine\registry\identifiers.py                             44      1    98%   33
+engine\reporters\__init__.py                                0      0   100%
+engine\reporters\junit.py                                  19      0   100%
+engine\reporters\markdown.py                               22      3    86%   26-28
+engine\reporters\sarif.py                                  13      0   100%
+engine\scaffold.py                                         56      4    93%   81, 86, 93, 119
+engine\sdd_boundaries.py                                  164     29    82%   45, 62-63, 71, 78-79, 81, 83, 91, 94, 99, 103, 108-111, 115, 126, 130, 137-143, 169, 186, 209
+engine\sdd_handoff.py                                      22      3    86%   17, 19, 21
+engine\sync.py                                             36      1    97%   47
+engine\tests\__init__.py                                    0      0   100%
+engine\tests\conftest.py                                    8      0   100%
+engine\tests\test_artifact_graph.py                        18      0   100%
+engine\tests\test_baseline.py                              28      0   100%
+engine\tests\test_check_adr_catalog.py                     43      0   100%
+engine\tests\test_check_baseline_delta.py                  30      0   100%
+engine\tests\test_check_change_impact.py                   32      0   100%
+engine\tests\test_check_controls.py                        36      0   100%
+engine\tests\test_check_glossary_registry.py               79      0   100%
+engine\tests\test_check_hybrid_traces.py                   30      0   100%
+engine\tests\test_check_identifier_registry.py             45      5    89%   8-12
+engine\tests\test_check_legacy_paths.py                    21      0   100%
+engine\tests\test_check_markers.py                         25      0   100%
+engine\tests\test_check_nfr_smart.py                       22      0   100%
+engine\tests\test_check_nfr_threshold_dedup.py             33      0   100%
+engine\tests\test_check_obligations.py                     48      0   100%
+engine\tests\test_check_sign_off.py                        35      0   100%
+engine\tests\test_check_stimulus_response.py               20      0   100%
+engine\tests\test_check_traceability.py                    30      0   100%
+engine\tests\test_cli.py                                   70      0   100%
+engine\tests\test_cli_sabotage.py                          26      0   100%
+engine\tests\test_cli_sync.py                              57      0   100%
+engine\tests\test_cli_waive.py                             62      0   100%
+engine\tests\test_doctor.py                                25      5    80%   13-17
+engine\tests\test_examples_validate.py                     11      2    82%   14-18
+engine\tests\test_findings.py                              18      0   100%
+engine\tests\test_gate_hybrid.py                           39      0   100%
+engine\tests\test_gates_base.py                            23      0   100%
+engine\tests\test_gates_shared.py                           6      0   100%
+engine\tests\test_negative_fixture_contract.py             22      0   100%
+engine\tests\test_pack.py                                  38      0   100%
+engine\tests\test_parsers.py                               22      0   100%
+engine\tests\test_phase01_gate.py                          28      0   100%
+engine\tests\test_phase02_gate.py                          60      2    97%   84-85
+engine\tests\test_phase03_gate.py                         150      0   100%
+engine\tests\test_phase04_gate.py                          88      0   100%
+engine\tests\test_phase05_gate.py                          78      0   100%
+engine\tests\test_phase06_gate.py                         103      0   100%
+engine\tests\test_phase07_gate.py                         104      0   100%
+engine\tests\test_phase08_gate.py                          82      0   100%
+engine\tests\test_phase09_gate.py                         116      0   100%
+engine\tests\test_registry_glossary.py                     25      0   100%
+engine\tests\test_registry_identifiers.py                  23      0   100%
+engine\tests\test_reporters.py                             28      0   100%
+engine\tests\test_scaffold.py                              28      0   100%
+engine\tests\test_sdd_boundaries.py                        17      0   100%
+engine\tests\test_sdd_handoff.py                           12      0   100%
+engine\tests\test_skill_engine_tools.py                    69      0   100%
+engine\tests\test_traceability_behavioural_fixture.py      67      0   100%
+engine\tests\test_waivers.py                               41      0   100%
+engine\tests\test_workspace.py                             16      0   100%
+engine\waivers.py                                          65      8    88%   19-22, 36, 40, 67-68
+engine\workspace.py                                        20      0   100%
+-------------------------------------------------------------------------------------
+TOTAL                                                    4814    201    96%
+Required test coverage of 90% reached. Total coverage: 95.82%
+235 passed, 2 skipped in 14.45s
+
+STDERR:

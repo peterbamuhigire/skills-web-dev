@@ -1,0 +1,20 @@
+
+STDERR:
+test_privileged_linux_actions_are_l3 (test_approval_adapter.ApprovalAdapterTests.test_privileged_linux_actions_are_l3) ... ok
+test_authority_and_exact_target_boundaries_are_present (test_bootstrap_safety_static.BootstrapSafetyStaticTests.test_authority_and_exact_target_boundaries_are_present) ... ok
+test_bootstrap_static_audit_is_clean (test_bootstrap_safety_static.BootstrapSafetyStaticTests.test_bootstrap_static_audit_is_clean) ... ok
+test_ci_runner_bypass_is_rejected_by_static_gate (test_bootstrap_safety_static.BootstrapSafetyStaticTests.test_ci_runner_bypass_is_rejected_by_static_gate) ... ok
+test_dry_run_precedes_external_actions_and_recovery_is_explicit (test_bootstrap_safety_static.BootstrapSafetyStaticTests.test_dry_run_precedes_external_actions_and_recovery_is_explicit) ... ok
+test_malformed_remote_install_bypass_is_rejected_by_static_gate (test_bootstrap_safety_static.BootstrapSafetyStaticTests.test_malformed_remote_install_bypass_is_rejected_by_static_gate) ... ok
+test_pinned_ci_and_platform_matrix_contract_are_static (test_bootstrap_safety_static.BootstrapSafetyStaticTests.test_pinned_ci_and_platform_matrix_contract_are_static) ... ok
+test_unsafe_key_and_existing_checkout_bypasses_are_absent (test_bootstrap_safety_static.BootstrapSafetyStaticTests.test_unsafe_key_and_existing_checkout_bypasses_are_absent) ... ok
+test_duplicate_scenario_identity_is_rejected (test_safe_operation_fixture.SafeOperationFixtureTests.test_duplicate_scenario_identity_is_rejected) ... ok
+test_fixture_is_valid_and_covers_representative_domains (test_safe_operation_fixture.SafeOperationFixtureTests.test_fixture_is_valid_and_covers_representative_domains) ... ok
+test_host_mutation_is_rejected (test_safe_operation_fixture.SafeOperationFixtureTests.test_host_mutation_is_rejected) ... ok
+test_invalid_identity_types_are_rejected (test_safe_operation_fixture.SafeOperationFixtureTests.test_invalid_identity_types_are_rejected) ... ok
+test_system_and_production_evidence_remain_unassessed (test_safe_operation_fixture.SafeOperationFixtureTests.test_system_and_production_evidence_remain_unassessed) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.014s
+
+OK

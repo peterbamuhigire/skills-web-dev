@@ -1,0 +1,8 @@
+engine-control-plane-validator:
+- registry: C:\wamp64\www\skills-web-dev\docs\engine-control-plane.json
+- engines: 12
+- installed checkout scope: accounting, business-plan, design, digital-research, linux, political, proposal, skills-web-dev, social-media, srs, website, windows-admin
+- findings: 1
+[FAIL] political: no candidate contains router and adoption document (C:\wamp64\www\political-essay-skills, D:\political-skills)
+
+STDERR:

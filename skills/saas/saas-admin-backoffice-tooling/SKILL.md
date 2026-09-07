@@ -110,7 +110,7 @@ If production access, policy, telemetry, or authoritative records are unavailabl
 
 | Category | Artifact | Format | Example |
 |----------|----------|--------|---------|
-| Architecture | Back-office app spec | Markdown doc with routes + role map | `docs/saas/backoffice-app.md` |
+| Correctness | Back-office app spec | Markdown doc with routes + role map | `docs/saas/backoffice-app.md` |
 | Security | Privileged-access workflow | Markdown doc | `docs/saas/privileged-access.md` |
 | Operability | Bulk-operations playbook | Markdown doc | `docs/saas/bulk-ops-playbook.md` |
 

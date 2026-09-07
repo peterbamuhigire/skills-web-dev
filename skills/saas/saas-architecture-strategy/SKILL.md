@@ -4,7 +4,7 @@ description: Use when architecting or evaluating a cloud SaaS product — includ
 metadata:
   portable: true
   compatible_with:
-  - Codex
+  - claude-code
   - codex
 ---
 

@@ -7,6 +7,10 @@ documentation templates, and catalog maintenance tooling.
 
 ## Latest Update
 
+The [2026-09-06 Kaizen cycle](../audits/2026-09-06-kaizen/portfolio-progress.md)
+repairs portfolio path resolution, evidence-gate coverage and portable
+contract checks. Its evidence distinguishes structural checks from product proof.
+
 The 2026-09-05 enterprise Java addition established one consolidated Java/JVM
 route for language and runtime engineering, Spring and Jakarta EE, persistence,
 Oracle integration, build/test/security, production diagnostics, deployment,
@@ -76,8 +80,8 @@ presentation-layer Apple UI guidance lives in the external
   engine; reference-only checkouts stay outside the runtime skill catalog.
 - Current active catalog size is 179 skills. This is nine above the 150-170 soft target after intentional
   capability additions and remains below the enforced hard cap of 200.
-- Current routing smoke-test suite contains 157 fixtures, with 91% precision@1
-  (143/157) and 100% precision@3 (157/157).
+- Current routing smoke-test suite contains 158 fixtures, with 91% precision@1
+  (144/158) and 100% precision@3 (158/158).
 - Inactive aliases are retained as `ALIAS.md` and routed through
   `docs/skill-aliases.yml`.
 - Duplicate finance entrypoints under `skills/finance/` have been deactivated

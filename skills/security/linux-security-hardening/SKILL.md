@@ -4,7 +4,7 @@ description: Use when hardening or auditing Debian and Ubuntu hosts for identity
 metadata:
   portable: true
   compatible_with:
-  - Codex
+  - claude-code
   - codex
 ---
 

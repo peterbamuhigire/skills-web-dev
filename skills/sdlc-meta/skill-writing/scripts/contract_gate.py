@@ -15,7 +15,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable
 
-REPO_ROOT = Path(__file__).resolve().parents[2]
+REPO_ROOT = Path(__file__).resolve().parents[4]
+ACTIVE_ROOTS = ("skills", "00-meta-initialization")
 
 EXEMPT_SKILLS = {
     "world-class-engineering",
@@ -305,29 +306,30 @@ def check_inputs_outputs(skill_dir: Path) -> list[Finding]:
 
 
 def iter_skill_dirs() -> Iterable[Path]:
-    for path in sorted(REPO_ROOT.iterdir()):
-        if not path.is_dir():
-            continue
-        if path.name.startswith("."):
-            continue
-        if not (path / "SKILL.md").is_file():
-            continue
-        yield path
+    for relative in ACTIVE_ROOTS:
+        root = REPO_ROOT / relative
+        for skill_md in sorted(root.rglob("SKILL.md")):
+            if skill_md.is_file() and not any(part.startswith(".") for part in skill_md.relative_to(root).parts):
+                yield skill_md.parent
 
 
 def run_evidence_check(skill_filter: str | None) -> tuple[list[Finding], int, int]:
     findings: list[Finding] = []
     scanned = 0
     exempt = 0
+    matched = 0
     for skill_dir in iter_skill_dirs():
         name = skill_dir.name
-        if skill_filter and name != skill_filter:
+        if skill_filter and skill_filter not in (name, skill_dir.relative_to(REPO_ROOT).as_posix(), str(skill_dir)):
             continue
+        matched += 1
         if name in EXEMPT_SKILLS:
             exempt += 1
             continue
         scanned += 1
         findings.extend(check_evidence_produced(skill_dir))
+    if not matched:
+        findings.append(Finding("error", REPO_ROOT, 1, f"no active skills matched {skill_filter!r}" if skill_filter else "no active skills discovered; check active roots"))
     return findings, scanned, exempt
 
 

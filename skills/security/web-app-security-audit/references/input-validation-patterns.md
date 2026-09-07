@@ -174,16 +174,14 @@ Always set a depth limit to prevent stack exhaustion. Validate against a JSON sc
 
 ### XML
 
-XML is a security hazard. Disable external entities before parsing:
-
-```php
-$prev = libxml_disable_entity_loader(true); // PHP <8.0
-$dom = new DOMDocument();
-$dom->loadXML($raw, LIBXML_NONET | LIBXML_DTDLOAD | LIBXML_NOENT);
-// PHP 8+: libxml_disable_entity_loader is a no-op; the default is already safe.
-```
-
-Prefer JSON over XML for new APIs. If you must parse XML, disable DTDs, external entities and network access.
+Treat untrusted XML as a parser-security boundary. The former sample combined
+entity/DTD-related flags with a blanket claim that runtime defaults were safe;
+that sample is withdrawn rather than offered as a hardened configuration.
+Before enabling XML intake, verify the actual PHP/libxml versions and parser
+options against their primary documentation, bound input size/depth, and test
+external-file, network-entity and expansion payloads in an isolated fixture.
+If that verification is unavailable, mark XML intake NOT ASSESSED and do not
+ship it as hardened. Prefer JSON when the interface does not require XML.
 
 ### File Uploads
 
@@ -448,5 +446,5 @@ final class Validator
 - `audit-checklist-detailed.md` — parent skill's master audit checklist
 - `php-security` skill — PHP-specific input handling and session hardening
 - `vibe-security-skill` — general secure coding baseline
-- OWASP Top 10: A03 Injection, A05 Security Misconfiguration
+- OWASP Top 10:2021: A03 Injection, A05 Security Misconfiguration (historical identifiers). For the 2025 edition use A05 Injection and A02 Security Misconfiguration; pin the edition in findings. [OWASP 2025 category list](https://owasp.org/Top10/2025/0x00_2025-Introduction/).
 - OWASP Cheat Sheet Series: Input Validation, Cross-Site Scripting Prevention

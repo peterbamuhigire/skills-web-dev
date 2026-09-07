@@ -27,7 +27,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 | Category | Artifact | Format | Example |
 |----------|----------|--------|---------|
 | Correctness | Test plan | Markdown doc per `skill-composition-standards/references/test-plan-template.md` covering pytest layout, type checks, and coverage targets | `docs/python/test-plan.md` |
-| Release | Desktop distribution evidence | Manifest, generated build files, artifact inventory, hashes, smoke results, and signing status | `release/desktop-suite-evidence.json` |
+| Release evidence | Desktop distribution evidence | Manifest, generated build files, artifact inventory, hashes, smoke results, and signing status | `release/desktop-suite-evidence.json` |
 
 ## References
 

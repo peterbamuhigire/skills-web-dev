@@ -1,0 +1,13 @@
+
+STDERR:
+test_claim_release_requires_human_evidence_gate (test_approval_adapter.ApprovalAdapterTests.test_claim_release_requires_human_evidence_gate) ... ok
+test_all_visual_adapters_declare_hard_bans_integration (test_machine_error_gate.MachineErrorGateCoverageTests.test_all_visual_adapters_declare_hard_bans_integration) ... ok
+test_local_contract_and_explicit_scope_fail_closed (test_machine_error_gate.MachineErrorGateCoverageTests.test_local_contract_and_explicit_scope_fail_closed) ... ok
+test_overlay_pressure_fixture_covers_each_overlay_and_exceptions (test_machine_error_gate.MachineErrorGateCoverageTests.test_overlay_pressure_fixture_covers_each_overlay_and_exceptions) ... ok
+test_pressure_fixture_covers_each_machine_error_and_exceptions (test_machine_error_gate.MachineErrorGateCoverageTests.test_pressure_fixture_covers_each_machine_error_and_exceptions) ... ok
+test_shared_reference_and_all_engine_adapters_expose_every_check (test_machine_error_gate.MachineErrorGateCoverageTests.test_shared_reference_and_all_engine_adapters_expose_every_check) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.053s
+
+OK

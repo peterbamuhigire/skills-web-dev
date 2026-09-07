@@ -108,7 +108,7 @@ If production access, policy, telemetry, or authoritative records are unavailabl
 
 | Category | Artifact | Format | Example |
 |----------|----------|--------|---------|
-| Architecture | Six-sequence catalogue | Markdown doc with branch diagrams | `docs/email/lifecycle-sequences.md` |
+| Correctness | Six-sequence catalogue | Markdown doc with branch diagrams | `docs/email/lifecycle-sequences.md` |
 | Release evidence | Trigger-event contract | Markdown table | `docs/email/trigger-contract.md` |
 | Operability | Email revenue attribution dashboard | Dashboard link | `docs/email/attribution-dashboard.md` |
 

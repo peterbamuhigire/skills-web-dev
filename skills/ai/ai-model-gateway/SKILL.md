@@ -122,8 +122,8 @@ When the gateway is part of a wider AI data foundation, load [AI data foundation
 
 | Category | Artifact | Format | Example |
 |----------|----------|--------|---------|
-| Architecture | Gateway contract | OpenAPI doc | `docs/ai/gateway-api.yaml` |
-| Architecture | Provider capability matrix | Markdown table | `docs/ai/provider-matrix.md` |
+| Correctness | Gateway contract | OpenAPI doc | `docs/ai/gateway-api.yaml` |
+| Correctness | Provider capability matrix | Markdown table | `docs/ai/provider-matrix.md` |
 | Release evidence | Fallback policy per tier | Markdown doc | `docs/ai/fallback-policy.md` |
 | Operability | Gateway SLO + on-call runbook | Markdown runbook | `docs/runbooks/llm-gateway.md` |
 

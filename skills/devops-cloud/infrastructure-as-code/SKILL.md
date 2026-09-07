@@ -4,7 +4,7 @@ description: Use when provisioning or changing cloud infrastructure with Terrafo
 metadata:
   portable: true
   compatible_with:
-  - Codex
+  - claude-code
   - codex
 ---
 

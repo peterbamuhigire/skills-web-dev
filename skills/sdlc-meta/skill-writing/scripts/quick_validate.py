@@ -117,8 +117,10 @@ def validate_frontmatter(frontmatter: dict, skill_dir: Path, errors: list[str]) 
             errors.append("`description` must not be empty.")
         if "<" in stripped or ">" in stripped:
             errors.append("`description` cannot contain angle brackets.")
-        if len(stripped) > 1024:
-            errors.append("`description` exceeds 1024 characters.")
+        if len(stripped) > 350:
+            errors.append("`description` exceeds the repository limit of 350 characters.")
+        if not stripped.lower().startswith("use when"):
+            errors.append("`description` must start with 'Use when'.")
 
     metadata = frontmatter.get("metadata")
     if not isinstance(metadata, dict):
@@ -129,8 +131,13 @@ def validate_frontmatter(frontmatter: dict, skill_dir: Path, errors: list[str]) 
         errors.append("`metadata.portable` must be `true`.")
 
     compatible = metadata.get("compatible_with")
-    if compatible != ["claude-code", "codex"]:
-        errors.append("`metadata.compatible_with` must equal ['claude-code', 'codex'].")
+    if not (
+        isinstance(compatible, list)
+        and all(isinstance(item, str) and item.strip() for item in compatible)
+        and len(compatible) == len(set(compatible))
+        and {"claude-code", "codex"} <= set(compatible)
+    ):
+        errors.append("`metadata.compatible_with` must list unique runtime names including 'claude-code' and 'codex'.")
 
 
 def validate_portable_sections(frontmatter: dict, body: str, errors: list[str]) -> None:

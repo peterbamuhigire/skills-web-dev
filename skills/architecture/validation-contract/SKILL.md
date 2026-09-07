@@ -4,7 +4,7 @@ description: Use when authoring or normalising a specialist skill, or preparing 
 metadata:
   portable: true
   compatible_with:
-  - Codex
+  - claude-code
   - codex
 ---
 

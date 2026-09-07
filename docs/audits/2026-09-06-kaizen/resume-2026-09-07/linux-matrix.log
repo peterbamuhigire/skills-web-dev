@@ -1,0 +1,49 @@
+== Distro-matrix invariant ==
+  [SKIP] linux-sysadmin (exempt: routing hub)
+  [PASS] linux-cloud-init
+  [PASS] linux-config-management
+  [PASS] linux-package-management
+  [PASS] linux-server-provisioning
+  [PASS] linux-access-control
+  [PASS] linux-secrets
+  [PASS] linux-dns-server
+  [PASS] linux-network-admin
+  [PASS] linux-mail-server
+  [PASS] linux-site-deployment
+  [PASS] linux-webstack
+  [PASS] linux-service-management
+  [PASS] linux-virtualization
+  [PASS] linux-disk-storage
+  [PASS] linux-firewall-ssl
+  [PASS] linux-intrusion-detection
+  [PASS] linux-ngo-cyber-resilience
+  [PASS] linux-security-analysis
+  [PASS] linux-server-hardening
+  [PASS] linux-log-management
+  [PASS] linux-observability
+  [PASS] linux-system-monitoring
+  [PASS] linux-disaster-recovery
+  [PASS] linux-troubleshooting
+  [PASS] linux-bash-scripting
+  [PASS] linux-repo-sync
+  [PASS] linux-inmemory-stores
+  [PASS] linux-mysql-mariadb
+  [PASS] linux-postgresql
+  [PASS] linux-container-deployment
+  [PASS] linux-container-engine
+  [PASS] linux-image-hygiene
+  [PASS] linux-archive-integrity
+  [PASS] linux-filesystem-snapshots
+  [PASS] linux-rsync-sync
+  [PASS] linux-kernel-modules
+  [PASS] linux-perf-profiling
+  [PASS] linux-sysctl-tuning
+  [PASS] linux-auditd-rules
+  [PASS] linux-benchmark-scanning
+  [PASS] linux-file-integrity
+
+-- summary --
+  passed: 41
+  failed: 0
+
+STDERR:

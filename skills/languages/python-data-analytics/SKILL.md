@@ -4,7 +4,7 @@ description: Use when computing complex analytics, KPIs, cohort/funnel/retention
 metadata:
   portable: true
   compatible_with:
-  - Codex
+  - claude-code
   - codex
 ---
 

@@ -4,7 +4,7 @@ description: Use when generating or repairing layered AGENTS.md project guidance
 metadata:
   portable: true
   compatible_with:
-  - Codex
+  - claude-code
   - codex
 ---
 

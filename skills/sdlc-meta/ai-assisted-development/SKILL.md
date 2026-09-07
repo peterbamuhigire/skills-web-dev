@@ -4,7 +4,7 @@ description: Use when coordinating AI-assisted planning, implementation, review,
 metadata:
   portable: true
   compatible_with:
-  - Codex
+  - claude-code
   - codex
 ---
 

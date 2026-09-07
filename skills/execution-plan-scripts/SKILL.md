@@ -1,6 +1,6 @@
 ---
 name: execution-plan-scripts
-description: Author multi-prompt execution scripts for long-running plans across sessions and subagents. Use when a plan must be split into self-contained prompts. Refer to required skills by name, never a hardcoded path, so each environment can resolve its own library.
+description: Use when converting an approved long-running plan into self-contained execution prompts across sessions or workers. Covers dependency order, checkpoints, capability fallback and evidence handoff; use world-class-engineering for a single implementation slice.
 metadata:
   portable: true
   compatible_with:
@@ -8,6 +8,64 @@ metadata:
   - codex
   - gemini-cli
 ---
+
+# Execution Plan Scripts
+
+<!-- dual-compat-start -->
+
+## Required Inputs
+
+| Input | Owner | If absent |
+|---|---|---|
+| Approved plan, current task states and acceptance criteria | Task owner | Draft the plan before generating execution prompts |
+| Repository instructions, actual skill inventory and supported capabilities | Executing environment | Discover them; do not assume a named plugin or tool exists |
+| Dependency edges, file ownership and last verified checkpoint | Coordinator | Sequence dependent work and resolve overlapping writes |
+| Existing authorisation and external-action limits | User and host policy | Carry forward the existing scope; stop only for work outside it |
+
+## Capability contract
+
+Authoring needs read/search access to the plan and skill catalogue. Editing
+requires the user's plan-authoring scope. Execution and delegation are optional:
+produce sequential prompts when workers are unavailable. A process plugin may
+refine the workflow when installed; its absence does not block the same approved
+workflow through available tools. Keep vendor-specific invocations in an adapter.
+
+## Degraded mode
+
+When an optional tool or process skill is unavailable, preserve the task and
+substitute its documented capability equivalent. When a required source, test
+environment or credential is unavailable, mark the affected acceptance evidence
+NOT ASSESSED and continue independent work. Never convert a missing required test
+into an expected failure solely to obtain a green suite.
+
+## Decision rules
+
+| Condition | Prompt design | Evidence required |
+|---|---|---|
+| A task consumes another task's output | Run after the producer's acceptance gate | Producer artefact and result |
+| Independent tasks have disjoint write sets and delegation is available | Assign one owner per write set | Reconciled diffs and worker results |
+| Delegation or a named process plugin is unavailable | Execute the same tasks sequentially | Same acceptance criteria and checkpoint |
+| A session is resumed or compacted | Read the checkpoint and inspect current state | Remaining work, prior results and user corrections |
+| A requested action exceeds existing authority | Complete independent preparation, then request that specific authority | Reviewable proposed action and scope boundary |
+
+## Workflow
+
+1. Read the plan, user corrections and repository instructions; enumerate the
+   actual skills and capabilities.
+2. Partition by dependencies and file ownership. Keep the coordinator's next
+   blocking task local; delegate independent work only where supported.
+3. Write self-contained prompts using the anatomy below. Use available process
+   skills when they add value; never prescribe unavailable vendor tools.
+4. Record exact acceptance commands, expected behaviour, negative cases,
+   unresolved prerequisites and the recovery point.
+5. Verify the prompts against the plan: every task has an owner, required inputs,
+   output, acceptance evidence and a checkpoint.
+
+## Quality Standards
+
+Prompts must preserve existing authorisation, user corrections and incomplete
+work across sessions. Completion requires observed acceptance evidence; a tool
+invocation, a generated file or an unexecuted test is not completion.
 
 ## About this skill (self-awareness)
 
@@ -30,13 +88,13 @@ Because it lives inside the engine, this skill MUST:
 
 ## Do Not Use When
 
-- The task fits in a single session — use the plan directly with `superpowers:executing-plans` or `plan-implementation`.
-- The work is open-ended research or design — use `superpowers:brainstorming` or `feature-planning` first.
-- You don't have a written plan yet — write it first with `superpowers:writing-plans` or `feature-planning`.
+- The task is a single implementation slice: use `world-class-engineering` with the applicable domain skill.
+- The work is open-ended discovery: use `product-discovery` before writing execution prompts.
+- No written plan exists: define scope, dependencies and acceptance criteria first.
 
 ## The Two-Engine Skills Model
 
-Every prompt in an execution-plan script names skills from **two engines**:
+Each prompt distinguishes domain guidance from optional process guidance:
 
 | Engine | Purpose | How to enumerate |
 |---|---|---|
@@ -45,7 +103,7 @@ Every prompt in an execution-plan script names skills from **two engines**:
 
 Author-time discipline:
 
-1. **List both engines** before writing the script — do not work from memory of "what skills exist."
+1. **Discover the domain catalogue and any installed process guidance** before writing the script; do not assume plugins exist.
 2. **Pick by name** — the author session quotes only the names that apply to each prompt.
 3. **Re-quote in subagent prompts** — subagents do not inherit the parent session's skill state, so each subagent prompt repeats the names it needs.
 4. **Never path** — a name in this script is a contract that the executor will resolve to a path on its own machine.
@@ -97,30 +155,29 @@ You are <doing what> in <repo>. Read these files first, in this order:
 4. <phase>/README.md
 5. <phase>/plan.md (focus: lines A–B if a sub-range)
 
-Then invoke these skills in order, before any code:
+Then load the available skills in order, before implementation:
 
-  Skill tool (process engine):
-    - superpowers:<process-skill-1>
-    - superpowers:<process-skill-2>
-    - superpowers:verification-before-completion   ← always last in the list
+  Process guidance (only skills verified as available):
+    - <applicable-process-skill>
+    - <applicable-verification-skill or explicit evidence-check procedure>
 
   Read these domain skills in full (resolve paths from your environment):
     - <domain-skill-1>
     - <domain-skill-2>
     - <healthcare-ui-design or other PRIMARY skill, re-read per page Task>
 
-Track each Task with TaskCreate.
+Track each task with the host's task facility or the plan's status register.
 
 Work plan:
 
 A. <serial pre-requisite tasks the parent session owns>
 
-B. <fan-out section> — dispatch in a single message with N Agent calls,
-   subagent_type: general-purpose. Each subagent prompt MUST include:
+B. <independent work> — delegate through the available worker capability,
+   or execute sequentially. Each worker prompt MUST include:
      - The Task IDs and plan.md line ranges it owns
      - The exact list of domain skills to read first (by NAME)
      - The file scope it is allowed to touch
-     - The RED-GREEN-COMMIT discipline sentence
+     - Acceptance checks and the existing commit/publication boundary
      - Subagents do NOT inherit the parent's skill state — re-state every skill name.
 
 C. Verification gate (no claim without evidence):
@@ -138,7 +195,7 @@ phase's final prompt.
 ## Fan-Out Rules
 
 - **Bucket subagents by file scope.** Two subagents must never write to the same file. If they would, fold them into one subagent or split the file first.
-- **One message, N tool calls.** Parallel subagents are dispatched in one assistant message containing N `Agent` tool uses. Sequential dispatch wastes time.
+- **Batch independent work where supported.** Use the host's available worker capability; execute sequentially when it is unavailable.
 - **State the file scope explicitly.** `Allowed: src/Imaging/Services/*, tests/Unit/Imaging/*. Forbidden: anything else.` Subagents will respect a clear scope.
 - **Re-inject skills.** Every subagent prompt repeats the skill names it must read. They do not inherit parent skill state.
 - **Cap fan-out at ~7.** Beyond that, results are hard for the parent session to review. Split into two prompts.
@@ -160,8 +217,9 @@ Run and capture output verbatim:
     <static-analysis command>
     <linter command>
     <multi-tenant / leak / parity grep>
-Every command must be green. If anything is red, fix in this session —
-do NOT defer to a later prompt.
+Fix failed checks within the authorised scope. If blocked by a missing source,
+environment or new authority, preserve the failure, continue independent work
+and leave the dependent task incomplete with a recovery checkpoint.
 ```
 
 A "done" claim without the output pasted is forbidden.
@@ -170,9 +228,12 @@ A "done" claim without the output pasted is forbidden.
 
 Some work needs human-only steps (signing keys, cloud accounts, real-device tests, App Store / Play Console). The script must:
 
-1. Surface the prerequisite at the **top** of the prompt that needs it.
-2. Tell the executor: "STOP and ask if absent."
-3. If the answer is "skip", leave the affected test `@Ignore`d / `xfail`ed and surface it in the final report.
+1. Surface the prerequisite at the top of the prompt that needs it.
+2. Use existing authorisation and capabilities; ask only when a required input
+   cannot be recovered or a materially different action needs new authority.
+3. If unavailable, record NOT ASSESSED with its release consequence. Keep real
+   failures failing; do not insert `xfail` or ignored-test annotations to hide
+   missing evidence. Continue work that does not depend on the prerequisite.
 
 Never silently skip operator actions.
 
@@ -198,7 +259,7 @@ Never silently skip operator actions.
 
 Before handing the script to the operator, verify:
 
-- [ ] Every prompt names process skills (`superpowers:*`) AND domain skills (by name only).
+- [ ] Every prompt names verified domain skills and any available process skills it needs.
 - [ ] No absolute path to a skill file appears anywhere in the script.
 - [ ] Every fan-out subagent prompt re-injects the skill names it needs.
 - [ ] Every fan-out has explicit, non-overlapping file scope.
@@ -230,3 +291,20 @@ The companions below are the *kinds* of skill you will most often pair with this
   - A "Skills Engine" section that names the two engines and lists which skills apply where.
   - N self-contained prompts (each runnable in a fresh session, never assuming prior conversation context).
   - Operator notes (run order, no-push rule, prerequisite list, deferred-test policy).
+
+## References
+
+Use the companion skills above only after confirming their names in the current
+catalogue. The local `world-class-engineering` skill owns implementation gates;
+`implementation-status-auditor` checks plan evidence. Illustrative plugin names
+above are not installation requirements.
+
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|---|---|---|---|
+| Correctness | Task-to-prompt coverage with dependencies and acceptance checks | Markdown table | Each approved task maps to one owner and a verification command |
+| Operability | Resume checkpoint and capability fallback | Markdown | Completed task evidence, remaining tasks and sequential worker fallback |
+| Release evidence | Verification results and unresolved prerequisites | Markdown | Failed or unavailable checks remain visible with their release consequence |
+
+<!-- dual-compat-end -->

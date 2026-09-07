@@ -1,0 +1,8 @@
+routing-smoke-test:
+- active skills indexed: 179
+- fixtures: 158
+- precision@1: 144/158 (91%)
+- precision@3: 158/158 (100%)
+- failures: 0
+
+STDERR:

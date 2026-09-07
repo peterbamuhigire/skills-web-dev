@@ -4,7 +4,7 @@ description: Use when building or reviewing Node.js servers, APIs, CLI tools, st
 metadata:
   portable: true
   compatible_with:
-  - Codex
+  - claude-code
   - codex
 ---
 

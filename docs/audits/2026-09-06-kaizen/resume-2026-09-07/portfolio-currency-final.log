@@ -1,0 +1,7 @@
+source-currency-validator:
+- manifest: ..\skills-web-dev\docs\source-registers\skills-engine-currentness-2026-09.json
+- as-of: 2026-09-07
+- findings: 0
+PASS: metadata/date checks only; claim support NOT ASSESSED
+
+STDERR:

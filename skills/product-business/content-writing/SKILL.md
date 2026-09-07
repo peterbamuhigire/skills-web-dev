@@ -4,7 +4,7 @@ description: Use when writing or reviewing website copy, articles, headlines, le
 metadata:
   portable: true
   compatible_with:
-  - Codex
+  - claude-code
   - codex
 ---
 
@@ -62,7 +62,7 @@ If evidence, stakeholder decisions, specialist tooling, or authoritative commerc
 
 ## References
 
-- [English output standard](../../docs/continuous-improvement/english-output-standard-2026-09-02.md) for collocation, register, precise vocabulary, idiom restraint, and anti-slop revision.
+- [English output standard](../../../docs/continuous-improvement/english-output-standard-2026-09-02.md) for collocation, register, precise vocabulary, idiom restraint, and anti-slop revision.
 
 - Use the `references/` directory for deep detail after reading the core workflow below.
 - Pair with `premium-software-product-execution` when copy must support premium pricing, buyer trust, service packaging, sales follow-up, or website-as-marketing-asset requirements.

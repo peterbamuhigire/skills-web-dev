@@ -62,6 +62,7 @@ Unsupported filter fields return `400 unsupported_filter_field`; they do not sil
 
 ```json
 {
+  "success": false,
   "error": {
     "code": "visit_conflict",
     "message": "Visit version 7 is no longer current.",

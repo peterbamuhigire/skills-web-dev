@@ -81,8 +81,8 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 | Category | Artifact | Format | Example |
 |----------|----------|--------|---------|
 | Correctness | .NET verification log | Markdown or terminal summary with restore/build/test/analyzer/runtime smoke results | `docs/dotnet/verification.md` |
-| Architecture | Boundary map | Markdown table of projects, responsibilities, dependencies, and forbidden references | `docs/dotnet/project-boundaries.md` |
-| Operations | Release readiness checklist | Markdown checklist for config, health, telemetry, packaging, rollback, and owner | `docs/dotnet/release-readiness.md` |
+| Correctness | Boundary map | Markdown table of projects, responsibilities, dependencies, and forbidden references | `docs/dotnet/project-boundaries.md` |
+| Operability | Release readiness checklist | Markdown checklist for config, health, telemetry, packaging, rollback, and owner | `docs/dotnet/release-readiness.md` |
 
 ## References
 

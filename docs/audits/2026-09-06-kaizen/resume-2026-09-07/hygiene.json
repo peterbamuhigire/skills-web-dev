@@ -1,0 +1,167 @@
+[
+  {
+    "repository": "skills-web-dev",
+    "command": [
+      "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\wamp64\\www\\skills-web-dev\\scripts\\source_ingestion_guardrail.py",
+      "--root",
+      "C:\\wamp64\\www\\skills-web-dev"
+    ],
+    "cwd": "C:\\wamp64\\www\\skills-web-dev",
+    "exit_code": 0,
+    "log": "skills-web-dev-ingestion.log"
+  },
+  {
+    "repository": "business-plan-skills",
+    "command": [
+      "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\wamp64\\www\\business-plan-skills\\scripts\\source_ingestion_guardrail.py",
+      "--root",
+      "C:\\wamp64\\www\\business-plan-skills"
+    ],
+    "cwd": "C:\\wamp64\\www\\business-plan-skills",
+    "exit_code": 0,
+    "log": "business-plan-skills-ingestion.log"
+  },
+  {
+    "repository": "chwezi-accounting-doctrine",
+    "command": [
+      "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\wamp64\\www\\chwezi-accounting-doctrine\\scripts\\source_ingestion_guardrail.py",
+      "--root",
+      "C:\\wamp64\\www\\chwezi-accounting-doctrine"
+    ],
+    "cwd": "C:\\wamp64\\www\\chwezi-accounting-doctrine",
+    "exit_code": 0,
+    "log": "chwezi-accounting-doctrine-ingestion.log"
+  },
+  {
+    "repository": "proposal-skills",
+    "command": [
+      "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\wamp64\\www\\proposal-skills\\scripts\\source_ingestion_guardrail.py",
+      "--root",
+      "C:\\wamp64\\www\\proposal-skills"
+    ],
+    "cwd": "C:\\wamp64\\www\\proposal-skills",
+    "exit_code": 0,
+    "log": "proposal-skills-ingestion.log"
+  },
+  {
+    "repository": "social-media-skills",
+    "command": [
+      "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\wamp64\\www\\social-media-skills\\scripts\\source_ingestion_guardrail.py",
+      "--root",
+      "C:\\wamp64\\www\\social-media-skills"
+    ],
+    "cwd": "C:\\wamp64\\www\\social-media-skills",
+    "exit_code": 0,
+    "log": "social-media-skills-ingestion.log"
+  },
+  {
+    "repository": "linux-skills",
+    "command": [
+      "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\wamp64\\www\\linux-skills\\scripts\\source_ingestion_guardrail.py",
+      "--root",
+      "C:\\wamp64\\www\\linux-skills"
+    ],
+    "cwd": "C:\\wamp64\\www\\linux-skills",
+    "exit_code": 0,
+    "log": "linux-skills-ingestion.log"
+  },
+  {
+    "repository": "srs-skills",
+    "command": [
+      "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\wamp64\\www\\srs-skills\\scripts\\source_ingestion_guardrail.py",
+      "--root",
+      "C:\\wamp64\\www\\srs-skills"
+    ],
+    "cwd": "C:\\wamp64\\www\\srs-skills",
+    "exit_code": 0,
+    "log": "srs-skills-ingestion.log"
+  },
+  {
+    "repository": "digital-research-skills",
+    "command": [
+      "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\wamp64\\www\\digital-research-skills\\scripts\\source_ingestion_guardrail.py",
+      "--root",
+      "C:\\wamp64\\www\\digital-research-skills"
+    ],
+    "cwd": "C:\\wamp64\\www\\digital-research-skills",
+    "exit_code": 0,
+    "log": "digital-research-skills-ingestion.log"
+  },
+  {
+    "repository": "website-skills",
+    "command": [
+      "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\wamp64\\www\\website-skills\\scripts\\source_ingestion_guardrail.py",
+      "--root",
+      "C:\\wamp64\\www\\website-skills"
+    ],
+    "cwd": "C:\\wamp64\\www\\website-skills",
+    "exit_code": 0,
+    "log": "website-skills-ingestion.log"
+  },
+  {
+    "repository": "design-system-skills",
+    "command": [
+      "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\wamp64\\www\\skills-web-dev\\scripts\\source_ingestion_guardrail.py",
+      "--root",
+      "C:\\wamp64\\www\\design-system-skills"
+    ],
+    "cwd": "C:\\wamp64\\www\\design-system-skills",
+    "exit_code": 0,
+    "log": "design-system-skills-ingestion.log"
+  },
+  {
+    "repository": "windows-admin-engine-skills",
+    "command": [
+      "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\wamp64\\www\\windows-admin-engine-skills\\scripts\\source_ingestion_guardrail.py",
+      "--root",
+      "C:\\wamp64\\www\\windows-admin-engine-skills"
+    ],
+    "cwd": "C:\\wamp64\\www\\windows-admin-engine-skills",
+    "exit_code": 0,
+    "log": "windows-admin-engine-skills-ingestion.log"
+  }
+]

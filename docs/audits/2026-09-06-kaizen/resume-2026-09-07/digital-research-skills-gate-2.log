@@ -1,0 +1,18 @@
+skill-contract-validator: C:\wamp64\www\digital-research-skills
+- active skills: 59
+- template skills: 1
+- fully compliant: 59
+- failure counts: {}
+routing-smoke-test: 29/29 top-3 precision=1.000 threshold=1.000
+Engine doctor OK.
+Running: C:\Users\Peter\AppData\Local\Programs\Python\Python312\python.exe -X utf8 scripts/skill_contract_validator.py --baseline tests/skill-engine/quality-baseline.json
+Running: C:\Users\Peter\AppData\Local\Programs\Python\Python312\python.exe -X utf8 scripts/routing_smoke_test.py
+Running: C:\Users\Peter\AppData\Local\Programs\Python\Python312\python.exe -m engine doctor
+Running: C:\Users\Peter\AppData\Local\Programs\Python\Python312\python.exe -m unittest discover -s engine/tests
+
+STDERR:
+......................
+----------------------------------------------------------------------
+Ran 22 tests in 0.978s
+
+OK

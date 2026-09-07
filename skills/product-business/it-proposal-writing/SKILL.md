@@ -4,7 +4,7 @@ description: Use when planning, drafting, reviewing, or strengthening an IT prop
 metadata:
   portable: true
   compatible_with:
-  - Codex
+  - claude-code
   - codex
 ---
 

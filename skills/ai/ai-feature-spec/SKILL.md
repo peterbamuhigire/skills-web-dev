@@ -4,7 +4,7 @@ description: Use when specifying one AI-powered feature end to end, including mo
 metadata:
   portable: true
   compatible_with:
-  - Codex
+  - claude-code
   - codex
 ---
 

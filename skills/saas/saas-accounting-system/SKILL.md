@@ -4,7 +4,7 @@ description: Use when designing double-entry accounting inside SaaS, including a
 metadata:
   portable: true
   compatible_with:
-  - Codex
+  - claude-code
   - codex
 ---
 

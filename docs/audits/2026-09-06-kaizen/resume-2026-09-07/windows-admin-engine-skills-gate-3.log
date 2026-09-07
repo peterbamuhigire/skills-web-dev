@@ -1,0 +1,4 @@
+fleet_targets=1 findings=0 contact_attempted=false
+scope=manifest-shape-and-expiry-only approval-authenticity-and-fleet-readiness=NOT_ASSESSED
+
+STDERR:

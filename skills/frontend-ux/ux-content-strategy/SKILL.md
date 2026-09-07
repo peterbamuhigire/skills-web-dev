@@ -4,7 +4,7 @@ description: Use when planning, governing, or upgrading product content as a sys
 metadata:
   portable: true
   compatible_with:
-  - Codex
+  - claude-code
   - codex
 ---
 

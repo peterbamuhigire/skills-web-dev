@@ -4,7 +4,7 @@ description: Use when designing tenant isolation, panel boundaries, zero-trust a
 metadata:
   portable: true
   compatible_with:
-  - Codex
+  - claude-code
   - codex
 ---
 

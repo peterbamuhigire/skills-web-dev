@@ -1,0 +1,10 @@
+
+STDERR:
+test_ledger_close_tax_and_payment_actions_are_l3 (test_approval_adapter.ApprovalAdapterTests.test_ledger_close_tax_and_payment_actions_are_l3) ... ok
+test_colon_requires_quoting_and_identity_must_match (test_frontmatter_yaml.FrontmatterTests.test_colon_requires_quoting_and_identity_must_match) ... ok
+test_empty_catalogue_fails (test_frontmatter_yaml.FrontmatterTests.test_empty_catalogue_fails) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.030s
+
+OK

@@ -1,0 +1,4 @@
+
+STDERR:
+usage: validate_safe_operation_fixture.py [-h] fixture
+validate_safe_operation_fixture.py: error: the following arguments are required: fixture

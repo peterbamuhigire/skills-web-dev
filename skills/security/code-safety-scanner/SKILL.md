@@ -4,7 +4,7 @@ description: Use when scanning a codebase before deployment for critical vulnera
 metadata:
   portable: true
   compatible_with:
-  - Codex
+  - claude-code
   - codex
 ---
 

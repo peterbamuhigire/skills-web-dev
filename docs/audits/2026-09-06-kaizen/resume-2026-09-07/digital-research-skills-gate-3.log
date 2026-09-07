@@ -1,0 +1,7 @@
+source-currency-validator:
+- manifest: tests\fixtures\source-currency.json
+- as-of: 2026-09-07
+- findings: 0
+PASS: metadata/date checks only; claim support NOT ASSESSED
+
+STDERR:

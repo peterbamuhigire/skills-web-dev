@@ -44,6 +44,14 @@ architecture review.
 - Edge-case and correctness test matrix.
 - Benchmark evidence on representative and adversarial inputs, or an explicit `NOT ASSESSED` record.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|---|---|---|---|
+| Correctness | Decision record | Markdown record: selected algorithm and rejected alternatives are traceable to constraints | `docs/algorithms/pathfinding-decision.md` |
+| Correctness | Correctness matrix | Markdown matrix: edge and failure cases are covered or marked open | `docs/algorithms/pathfinding-correctness.md` |
+| Performance | Benchmark record | Markdown record: inputs, environment, result, and threshold are retained | `docs/algorithms/pathfinding-benchmark.md` |
+
 ## Non-negotiables
 
 - Start with a clear, correct baseline before optimising.
@@ -115,11 +123,3 @@ Editing is allowed only within the authorised implementation scope.
 
 Without representative inputs or execution, return the decision, assumptions,
 complexity analysis, and an explicit `NOT ASSESSED` benchmark requirement.
-
-## Evidence Produced
-
-| Evidence | Acceptance condition |
-|---|---|
-| Decision record | Selected algorithm and rejected alternatives are traceable to constraints |
-| Correctness matrix | Edge and failure cases are covered or marked open |
-| Benchmark record | Inputs, environment, result, and threshold are retained |

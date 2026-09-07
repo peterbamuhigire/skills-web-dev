@@ -155,13 +155,13 @@ Support evidence/review date:
 
 ## Evidence Produced
 
-| Category | Evidence | Acceptance condition |
-|---|---|---|
-| Correctness | Compile, test, integration, migration, and business-invariant results | Exact command/task, environment, result, and failures retained |
-| Security | Dependency/SAST/configuration findings plus threat-model linkage | Java-specific findings and specialist disposition are traceable |
-| Performance | Workload, runtime, profile, before/after measurements | Same controlled workload; no claim from a single unqualified number |
-| Operability | Packaged smoke, telemetry, termination, recovery, and ownership evidence | Runtime identity and failure path are exercised or marked `NOT ASSESSED` |
-| Release | Artefact/SBOM/provenance, migration, rollout, rollback or roll-forward evidence | Immutable identity and accountable owner are recorded |
+| Category | Artifact | Format | Example |
+|---|---|---|---|
+| Correctness | Compile, test, integration, migration, and business-invariant results | Verification log: exact command/task, environment, result, and failures retained | `docs/java/verification.md` |
+| Security | Dependency/SAST/configuration findings plus threat-model linkage | Findings register: Java-specific findings and specialist disposition are traceable | `docs/java/security-findings.md` |
+| Performance | Workload, runtime, profile, before/after measurements | Experiment record: same controlled workload; no claim from a single unqualified number | `docs/java/performance-evidence.md` |
+| Operability | Packaged smoke, telemetry, termination, recovery, and ownership evidence | Runtime check log: runtime identity and failure path are exercised or marked `NOT ASSESSED` | `docs/java/runtime-checks.md` |
+| Release evidence | Artefact/SBOM/provenance, migration, rollout, rollback or roll-forward evidence | Release record: immutable identity and accountable owner are recorded | `docs/java/release-evidence.md` |
 
 ## Anti-Patterns
 

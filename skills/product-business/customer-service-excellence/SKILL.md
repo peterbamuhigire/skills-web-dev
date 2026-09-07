@@ -4,7 +4,7 @@ description: Use when handling service recovery, escalations, complaints, apolog
 metadata:
   portable: true
   compatible_with:
-  - Codex
+  - claude-code
   - codex
 ---
 

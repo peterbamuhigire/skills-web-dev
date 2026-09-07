@@ -9,7 +9,7 @@ metadata:
   anti_patterns: Do not approve from prose claims, mix doctrine with unverified implementation, or hide unresolved control failures.
   outputs: Produce the controller assessment, routed workstreams, evidence gaps, remediation priorities, and release verdict.
   compatible_with:
-  - Codex
+  - claude-code
   - codex
 ---
 

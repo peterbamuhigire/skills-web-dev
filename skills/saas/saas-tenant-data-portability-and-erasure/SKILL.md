@@ -109,10 +109,10 @@ If production access, policy, telemetry, or authoritative records are unavailabl
 
 | Category | Artifact | Format | Example |
 |----------|----------|--------|---------|
-| Compliance | Data store + erasure capability matrix | Markdown table | `docs/compliance/data-store-erasure-matrix.md` |
+| Data safety | Data store + erasure capability matrix | Markdown table | `docs/compliance/data-store-erasure-matrix.md` |
 | Release evidence | Export workflow spec | Markdown doc + sample export | `docs/compliance/export-workflow.md` |
 | Release evidence | Erasure workflow spec | Markdown doc | `docs/compliance/erasure-workflow.md` |
-| Compliance | Retention exceptions document | Markdown doc | `docs/compliance/retention-exceptions.md` |
+| Data safety | Retention exceptions document | Markdown doc | `docs/compliance/retention-exceptions.md` |
 
 ## References
 

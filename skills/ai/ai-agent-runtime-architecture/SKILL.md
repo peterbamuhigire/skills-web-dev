@@ -109,7 +109,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 
 | Category | Artifact | Format | Example |
 |----------|----------|--------|---------|
-| Architecture | Agent runtime service spec | Markdown + diagram | `docs/ai/agent-runtime.md` |
+| Correctness | Agent runtime service spec | Markdown + diagram | `docs/ai/agent-runtime.md` |
 | Correctness | State-machine transition test suite | CI report | `tests/ai/agent_state_machine_test.py` |
 | Release evidence | Resumability drill report | Markdown | `docs/runbooks/agent-resumability-drill.md` |
 | Operability | Task lifecycle event taxonomy | YAML | `ops/events/agent-task-events.yaml` |

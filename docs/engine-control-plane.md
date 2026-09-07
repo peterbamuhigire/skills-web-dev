@@ -81,6 +81,32 @@ python scripts/validate_engine_control_plane.py --workspace-root C:\wamp64\www
 This is intentionally a small control plane. It prevents duplicated persona
 catalogues while making missing controls visible and testable.
 
+### Repository checks and installed portfolio checks
+
+With no `--workspace-root`, the validator checks the full registry's structure
+and reports installed checkouts as NOT ASSESSED. This is the portable repository
+gate declared in `.skills-engine/engine-manifest.yaml`; catalogue and routing
+checks are separate declared gates.
+
+With a workspace root, checkout checks are strict. `SKILL_ENGINE_ROOT_<ID>`
+(hyphens replaced with underscores, uppercase) selects one authoritative
+checkout. An invalid override fails rather than silently falling back. Without
+an override, use the supplied workspace's engine directory. The research
+directory is `digital-research-skills`. Home-directory duplicates are excluded.
+Router and adoption files must resolve inside the selected checkout. Internal
+links are accepted; external or broken contract links fail. An explicit
+checkout override may itself be a link, with its resolved root as the boundary.
+
+The user's 2026-09-06 scope contains eleven engines under `C:/wamp64/www`.
+The registry additionally describes `political`, which is outside this local
+operation. Repeated `--engine <id>` options limit installed-checkout validation
+without omitting any registry-shape checks. Default installed validation still
+checks every registry entry and fails on absent contracts.
+
+Unit tests use temporary checkout fixtures, including missing contracts,
+invalid overrides and path-traversal inputs. Set `SKILL_ENGINE_LIVE_TESTS=1`
+to additionally check this host's confirmed eleven-engine installation.
+
 ## Human approval enforcement
 
 Side-effecting tools must also use the versioned policy and executable gate in

@@ -1,0 +1,10 @@
+ENGINE CONTRACT: PASS
+- Canonical pathing and alias semantics are documented.
+- Deterministic gate docs exist for phases 01-09.
+- Standards clause registry is complete.
+- Hybrid operating model is documented.
+- Regulated evidence model is documented.
+
+NOTE: For per-project validation, use `python -m engine validate <projects/<Name>>`.
+
+STDERR:

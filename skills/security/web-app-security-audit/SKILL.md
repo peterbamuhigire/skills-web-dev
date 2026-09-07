@@ -4,7 +4,7 @@ description: Use when auditing a PHP/JavaScript/HTML web application for securit
 metadata:
   portable: true
   compatible_with:
-  - Codex
+  - claude-code
   - codex
 ---
 

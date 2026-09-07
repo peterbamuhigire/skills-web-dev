@@ -4,7 +4,7 @@ description: Use when implementing or reviewing React components, hooks, state o
 metadata:
   portable: true
   compatible_with:
-  - Codex
+  - claude-code
   - codex
 ---
 

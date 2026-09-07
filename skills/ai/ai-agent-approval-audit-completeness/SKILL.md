@@ -111,12 +111,12 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 
 | Category | Artifact | Format | Example |
 |----------|----------|--------|---------|
-| Compliance | Approval completeness report | JSON + signed PDF | `evidence/soc2/PI1.1/2026-Q2/completeness-report.json` |
-| Compliance | Gap rows (per irreversible action without approval) | JSONL | `.../gaps.jsonl` |
-| Compliance | Sample of approvals (auditor sample) | JSONL | `.../approvals-sample.jsonl` |
-| Compliance | Integrity-chain witness for the window | JSON | `.../chain-witness.json` |
-| Compliance | Quarterly rollup | tar.gz pack | `.../PI1.1-2026Q2.tar.gz` |
-| Compliance | Exception entries (open / closed during window) | JSONL | `.../exceptions.jsonl` |
+| Security | Approval completeness report | JSON + signed PDF | `evidence/soc2/PI1.1/2026-Q2/completeness-report.json` |
+| Security | Gap rows (per irreversible action without approval) | JSONL | `.../gaps.jsonl` |
+| Security | Sample of approvals (auditor sample) | JSONL | `.../approvals-sample.jsonl` |
+| Security | Integrity-chain witness for the window | JSON | `.../chain-witness.json` |
+| Security | Quarterly rollup | tar.gz pack | `.../PI1.1-2026Q2.tar.gz` |
+| Security | Exception entries (open / closed during window) | JSONL | `.../exceptions.jsonl` |
 
 ## References
 

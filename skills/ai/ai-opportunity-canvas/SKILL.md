@@ -4,7 +4,7 @@ description: Use when discovering and ranking AI use cases for a project or modu
 metadata:
   portable: true
   compatible_with:
-  - Codex
+  - claude-code
   - codex
 ---
 

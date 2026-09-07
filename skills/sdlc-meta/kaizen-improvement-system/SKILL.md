@@ -107,12 +107,12 @@ and source verification. Record scope, dates, freshness class, support status,
 uncertainty, and review date for current standards, APIs, frameworks, packages,
 security, platform, and lifecycle claims; quarantine unsupported claims as
 `NOT_ASSESSED`. Apply the currentness gate at
-`C:/wamp64/www/digital-research-engine/docs/continuous-improvement/kaizen-currentness-gate.md`.
+`C:/wamp64/www/digital-research-skills/docs/continuous-improvement/kaizen-currentness-gate.md`.
 
 ## References
 
 - `docs/continuous-improvement/kaizen-adoption-2026-08.md` - local adoption plan.
-- `C:/wamp64/www/digital-research-engine/docs/continuous-improvement/portfolio-kaizen-standard-2026-08.md` - cross-engine standard.
+- `C:/wamp64/www/digital-research-skills/docs/continuous-improvement/portfolio-kaizen-standard-2026-08.md` - cross-engine standard.
 - `skills/sdlc-meta/skill-engine-audit/` - audit dimensions, scoring, and report structure.
 - `skills/sdlc-meta/skill-safety-audit/` - safety and source-ingestion gate.
 <!-- dual-compat-end -->

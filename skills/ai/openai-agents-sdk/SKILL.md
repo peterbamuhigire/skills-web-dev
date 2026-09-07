@@ -4,7 +4,7 @@ description: Use when building Python agents with the OpenAI Agents SDK, includi
 metadata:
   portable: true
   compatible_with:
-  - Codex
+  - claude-code
   - codex
 ---
 

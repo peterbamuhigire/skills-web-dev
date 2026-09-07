@@ -65,12 +65,12 @@ Load `world-class-engineering`, `gameplay-systems-engineering`, `level-world-and
 
 ## Evidence Produced
 
-| Category | Evidence |
-|---|---|
-| Correctness | Transition, perception, path, reservation, save/load and recovery traces. |
-| Performance | Per-agent and simultaneous worst-case CPU, memory and path-query evidence. |
-| UX/fairness | Reaction, telegraph, knowledge-boundary and difficulty playtests. |
-| Release | Engine/plugin version, feature status, known failure states and regression suite. |
+| Category | Artifact | Format | Example |
+|---|---|---|---|
+| Correctness | Transition, perception, path, reservation, save/load and recovery traces. | Trace log with build, seed, scenario and state transitions | `docs/game-ai/navigation-traces.jsonl` |
+| Performance | Per-agent and simultaneous worst-case CPU, memory and path-query evidence. | Profiling report with scenario, target hardware and measured costs | `docs/game-ai/navigation-profile.md` |
+| UX quality | Reaction, telegraph, knowledge-boundary and difficulty playtests. | Playtest report with fairness/readability observations and findings | `docs/game-ai/fairness-playtests.md` |
+| Release evidence | Engine/plugin version, feature status, known failure states and regression suite. | Release record with version identity, limitations and regression results | `docs/game-ai/release-evidence.md` |
 <!-- dual-compat-end -->
 
 ## Capability and Degraded Mode

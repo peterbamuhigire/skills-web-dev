@@ -4,7 +4,7 @@ description: Use when designing tenant-selectable SaaS modules, dependency contr
 metadata:
   portable: true
   compatible_with:
-  - Codex
+  - claude-code
   - codex
 ---
 

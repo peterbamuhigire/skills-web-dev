@@ -113,7 +113,7 @@ If production access, policy, telemetry, or authoritative records are unavailabl
 
 | Category | Artifact | Format | Example |
 |----------|----------|--------|---------|
-| Architecture | Enterprise auth ADR | ADR markdown | `docs/adr/0015-enterprise-auth.md` |
+| Security | Enterprise auth ADR | ADR markdown | `docs/adr/0015-enterprise-auth.md` |
 | Security | Per-tenant IdP config schema | Markdown doc + SQL | `docs/saas/tenant-idp-config.md` |
 | Release evidence | SCIM endpoint spec | Markdown doc with example payloads | `docs/saas/scim-spec.md` |
 

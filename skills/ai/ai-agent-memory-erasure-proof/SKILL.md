@@ -114,12 +114,12 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 
 | Category | Artifact | Format | Example |
 |----------|----------|--------|---------|
-| Compliance | Erasure request record | DB row + JSON snapshot | `evidence/erasure/{request_id}/request.json` |
-| Compliance | Step records (×9) | JSONL | `.../steps.jsonl` |
-| Compliance | Verification probe results | JSON | `.../verification.json` |
-| Compliance | Subprocessor receipts | JSONL | `.../subprocessor-receipts.jsonl` |
-| Compliance | Proof-of-erasure pack | tar.gz + signature | `.../proof.tar.gz` |
-| Compliance | Audit-log redaction record | JSON | `.../audit-log-redaction.json` |
+| Data safety | Erasure request record | DB row + JSON snapshot | `evidence/erasure/{request_id}/request.json` |
+| Data safety | Step records (×9) | JSONL | `.../steps.jsonl` |
+| Data safety | Verification probe results | JSON | `.../verification.json` |
+| Data safety | Subprocessor receipts | JSONL | `.../subprocessor-receipts.jsonl` |
+| Data safety | Proof-of-erasure pack | tar.gz + signature | `.../proof.tar.gz` |
+| Data safety | Audit-log redaction record | JSON | `.../audit-log-redaction.json` |
 
 ## References
 

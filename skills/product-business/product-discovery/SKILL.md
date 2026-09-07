@@ -4,7 +4,7 @@ description: Use when testing whether a product, feature, or workflow deserves i
 metadata:
   portable: true
   compatible_with:
-  - Codex
+  - claude-code
   - codex
 ---
 

@@ -118,7 +118,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 | Release evidence | Rollout plan per change | Markdown | `docs/ai/rollouts/<change>.md` |
 | Release evidence | A/B experiment design | Markdown + JSON | `docs/ai/experiments/<exp>.md` |
 | Operability | Auto-rollback rules | YAML | `ops/alerts/ai-rollback.yaml` |
-| Compliance | Consent records | DB rows | `tenant_ai_consents` table |
+| Data safety | Consent records | DB rows | `tenant_ai_consents` table |
 
 ## References
 

@@ -1,0 +1,27 @@
+
+STDERR:
+test_adapter_declares_human_gate_for_outbound_actions (test_approval_adapter.ApprovalAdapterTests.test_adapter_declares_human_gate_for_outbound_actions) ... ok
+test_approval_campaign_mismatch_blocks_at_approval_gate (test_campaign_behaviour.CampaignBehaviourTests.test_approval_campaign_mismatch_blocks_at_approval_gate) ... ok
+test_complete_case_traces_each_stage (test_campaign_behaviour.CampaignBehaviourTests.test_complete_case_traces_each_stage) ... ok
+test_fixture_is_explicitly_fictional (test_campaign_behaviour.CampaignBehaviourTests.test_fixture_is_explicitly_fictional) ... ok
+test_malformed_brief_does_not_crash_and_is_blocked (test_campaign_behaviour.CampaignBehaviourTests.test_malformed_brief_does_not_crash_and_is_blocked) ... ok
+test_missing_approval_blocks_report (test_campaign_behaviour.CampaignBehaviourTests.test_missing_approval_blocks_report) ... ok
+test_missing_evidence_blocks_at_evidence_gate (test_campaign_behaviour.CampaignBehaviourTests.test_missing_evidence_blocks_at_evidence_gate) ... ok
+test_report_calendar_mismatch_blocks_at_report_gate (test_campaign_behaviour.CampaignBehaviourTests.test_report_calendar_mismatch_blocks_at_report_gate) ... ok
+test_active_routes_do_not_advertise_absent_deck_taxonomy (test_engine_quality.EngineQualityTests.test_active_routes_do_not_advertise_absent_deck_taxonomy) ... ok
+test_all_repository_markdown_links_resolve_or_are_external (test_engine_quality.EngineQualityTests.test_all_repository_markdown_links_resolve_or_are_external) ... ok
+test_capability_assets_cover_the_closed_gaps (test_engine_quality.EngineQualityTests.test_capability_assets_cover_the_closed_gaps) ... ok
+test_fixture_types_cover_release_paths (test_engine_quality.EngineQualityTests.test_fixture_types_cover_release_paths) ... ok
+test_router_catalogue_matches_active_catalogue (test_engine_quality.EngineQualityTests.test_router_catalogue_matches_active_catalogue) ... ok
+test_source_register_rejects_overdue_records (test_engine_quality.EngineQualityTests.test_source_register_rejects_overdue_records) ... ok
+test_source_register_window_at_observed_audit_date (test_engine_quality.EngineQualityTests.test_source_register_window_at_observed_audit_date) ... ok
+test_zero_debt_baseline_has_no_waivers (test_engine_quality.EngineQualityTests.test_zero_debt_baseline_has_no_waivers) ... ok
+test_malformed_fields_reject_without_crashing (test_source_freshness_negative.SourceFreshnessNegativeTests.test_malformed_fields_reject_without_crashing) ... ok
+test_nonobject_root_and_duplicate_id_reject (test_source_freshness_negative.SourceFreshnessNegativeTests.test_nonobject_root_and_duplicate_id_reject) ... ok
+test_url_authority_validation_and_cli_exit (test_source_freshness_negative.SourceFreshnessNegativeTests.test_url_authority_validation_and_cli_exit) ... ok
+test_valid_window_and_future_verification (test_source_freshness_negative.SourceFreshnessNegativeTests.test_valid_window_and_future_verification) ... ok
+
+----------------------------------------------------------------------
+Ran 20 tests in 1.497s
+
+OK

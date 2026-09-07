@@ -4,7 +4,7 @@ description: Use when designing, hardening, or auditing network security for sel
 metadata:
   portable: true
   compatible_with:
-  - Codex
+  - claude-code
   - codex
 ---
 

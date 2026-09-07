@@ -20,12 +20,13 @@ of this repository.
 | Git | Version control. |
 | PowerShell | Primary local shell on Windows. |
 | Python 3 | Catalog guardrail and routing smoke test execution. |
+| pytest | Repository validator tests, including temporary portfolio fixtures and malformed-input cases. Live installed-portfolio checks are opt-in and report unavailable execution separately. |
 | PyYAML | YAML parsing for `scripts/skill_catalog_guardrails.py` and `scripts/routing_smoke_test.py`. |
 | GitHub Actions | CI: runs both gates on every push and PR (`.github/workflows/skill-guardrails.yml`). |
 | ripgrep | Fast file and text search. |
 | Markdown | Skill bodies, plans, references, guides, and docs. |
 | YAML | Skill frontmatter, alias registry, and routing fixtures. |
-| JSON | Machine-readable eleven-engine control-plane registry. |
+| JSON | Machine-readable twelve-entry control-plane registry; local checkout validation can target an explicit subset. |
 | PyInstaller/Inno Setup guidance | Downstream Windows executable-suite generation; neither tool is a runtime dependency of this repository. |
 
 ## Important Commands

@@ -1,0 +1,9 @@
+skill-catalog-guardrails:
+- repo: C:\wamp64\www\skills-web-dev
+- active roots:
+  - skills
+  - 00-meta-initialization
+- retained reference roots:
+- active SKILL.md files: 179
+- max active SKILL.md files: 200
+- findings: 0

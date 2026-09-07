@@ -1,0 +1,113 @@
+[
+  {
+    "name": "research-final",
+    "repository": "digital-research-skills",
+    "command": [
+      "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "-m",
+      "pytest",
+      "-q",
+      "-p",
+      "no:cacheprovider"
+    ],
+    "cwd": "C:\\wamp64\\www\\digital-research-skills",
+    "observed_at": "2026-09-07T09:18:44.432931+03:00",
+    "exit_code": 0,
+    "log": "research-final.log"
+  },
+  {
+    "name": "research-native-final",
+    "repository": "digital-research-skills",
+    "command": [
+      "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "scripts/validate_engine.py"
+    ],
+    "cwd": "C:\\wamp64\\www\\digital-research-skills",
+    "observed_at": "2026-09-07T09:18:46.475081+03:00",
+    "exit_code": 0,
+    "log": "research-native-final.log"
+  },
+  {
+    "name": "portfolio-currency-final",
+    "repository": "digital-research-skills",
+    "command": [
+      "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "scripts/validate_source_currency.py",
+      "../skills-web-dev/docs/source-registers/skills-engine-currentness-2026-09.json"
+    ],
+    "cwd": "C:\\wamp64\\www\\digital-research-skills",
+    "observed_at": "2026-09-07T09:18:46.566221+03:00",
+    "exit_code": 0,
+    "log": "portfolio-currency-final.log"
+  },
+  {
+    "name": "accounting-native",
+    "repository": "chwezi-accounting-doctrine",
+    "command": [
+      "powershell.exe",
+      "-NoProfile",
+      "-ExecutionPolicy",
+      "Bypass",
+      "-File",
+      "tools/validate-doctrine.ps1",
+      "-Strict"
+    ],
+    "cwd": "C:\\wamp64\\www\\chwezi-accounting-doctrine",
+    "observed_at": "2026-09-07T09:18:56.348288+03:00",
+    "exit_code": 0,
+    "log": "accounting-native.log"
+  },
+  {
+    "name": "linux-fixture",
+    "repository": "linux-skills",
+    "command": [
+      "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "scripts/validate_safe_operation_fixture.py",
+      "tests/fixtures/safe-operation-evidence.json"
+    ],
+    "cwd": "C:\\wamp64\\www\\linux-skills",
+    "observed_at": "2026-09-07T09:18:56.437909+03:00",
+    "exit_code": 0,
+    "log": "linux-fixture.log"
+  },
+  {
+    "name": "linux-matrix",
+    "repository": "linux-skills",
+    "command": [
+      "C:/Program Files/Git/bin/bash.exe",
+      "scripts/tests/check-distro-matrix.sh"
+    ],
+    "cwd": "C:\\wamp64\\www\\linux-skills",
+    "observed_at": "2026-09-07T09:19:06.394391+03:00",
+    "exit_code": 0,
+    "log": "linux-matrix.log"
+  },
+  {
+    "name": "engineering-evidence",
+    "repository": "skills-web-dev",
+    "command": [
+      "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "skills/sdlc-meta/skill-writing/scripts/contract_gate.py",
+      "--all"
+    ],
+    "cwd": "C:\\wamp64\\www\\skills-web-dev",
+    "observed_at": "2026-09-07T09:19:06.633089+03:00",
+    "exit_code": 0,
+    "log": "engineering-evidence.log"
+  }
+]

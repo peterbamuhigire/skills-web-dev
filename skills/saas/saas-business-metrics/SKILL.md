@@ -4,7 +4,7 @@ description: Use when defining or reviewing SaaS revenue, growth, retention, eng
 metadata:
   portable: true
   compatible_with:
-  - Codex
+  - claude-code
   - codex
 ---
 

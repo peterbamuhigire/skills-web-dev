@@ -172,6 +172,9 @@ fixtures:
     expect: accounting-engine
 
   # --- Meta / SDLC ---
+  - task: "Convert an approved long-running plan into self-contained execution prompts with session checkpoints and worker file ownership"
+    expect: execution-plan-scripts
+    top_n: 1
   - task: "Use skill-writing to author a new skill that follows the repository house style and contracts"
     expect: skill-writing
   - task: "Initialise documentation and a methodology roadmap for a brand new project"

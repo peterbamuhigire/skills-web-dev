@@ -1,0 +1,22 @@
+PASS full-proposal: skills | top3=skills, skills/meta/kaizen-improvement-system, skills/domain-delivery/risk-management
+PASS cover-letter: skills/pipeline/01-cover-letter | top3=skills/pipeline/01-cover-letter, skills/saas-proposals/saas-objection-handling-and-competitive-displacement, skills/pipeline/02-executive-summary
+PASS executive-summary: skills/pipeline/02-executive-summary | top3=skills/pipeline/01-cover-letter, skills/pipeline/02-executive-summary, skills/ai-agent-proposals/ai-agent-team-composition
+PASS methodology: skills/pipeline/06-methodology | top3=skills/pipeline/06-methodology, skills/ai-on-saas-proposals/ai-on-saas-combined-methodology, skills/domain-delivery/consulting-frameworks
+PASS financial: skills/pipeline/10-financial-proposal | top3=skills/pipeline/10-financial-proposal, skills/domain-delivery/project-management, skills/pipeline/07-team-composition
+PASS giz-local: skills/domain-delivery/giz-eu-local-procurement-response | top3=skills/domain-delivery/giz-eu-local-procurement-response, skills/meta/kaizen-improvement-system, skills/domain-delivery/sustainability-planning
+PASS retail: skills/domain-delivery/retail-transformation-proposal | top3=skills/domain-delivery/retail-transformation-proposal, skills/domain-delivery/accounting-finance-advisory, skills/strategy-positioning/embedded-accounting-engine-proposal
+PASS civil-society-cyber: skills/profiles-sectors/sectors/civil-society-cyber-resilience | top3=skills/profiles-sectors/sectors/civil-society-cyber-resilience, skills/strategy-positioning/customer-service-and-maintenance-proposals, skills/ai-agent-proposals/ai-agent-risk-and-responsible-ai
+PASS saas-method: skills/saas-proposals/saas-implementation-methodology | top3=skills/ai-on-saas-proposals/ai-on-saas-combined-methodology, skills/saas-proposals/saas-implementation-methodology, skills/saas-proposals/saas-multi-tenant-architecture-credibility-block
+PASS ai-saas-method: skills/ai-on-saas-proposals/ai-on-saas-combined-methodology | top3=skills/ai-on-saas-proposals/ai-on-saas-combined-methodology, skills/meta/kaizen-improvement-system, skills/saas-proposals/saas-implementation-methodology
+PASS agent-method: skills/ai-agent-proposals/ai-agent-methodology | top3=skills/ai-agent-proposals/ai-agent-procurement-and-questionnaire, skills/ai-agent-proposals/ai-agent-methodology, skills/ai-agent-proposals/ai-agent-poc-and-pilot-scoping
+PASS agent-sla: skills/ai-agent-commercial/ai-agent-sla-and-credit-schedule | top3=skills/ai-agent-commercial/ai-agent-intervention-credit-and-abort-refund, skills/ai-agent-commercial/ai-agent-sla-and-credit-schedule, skills/ai-agent-commercial/ai-agent-commercial-packaging
+PASS profile: skills/profiles-sectors/profiles | top3=skills/profiles-sectors/profiles, skills/pipeline/04-firm-profile, skills/profiles-sectors/sectors
+PASS ppda: skills/profiles-sectors/sectors/ppda-uganda | top3=skills/profiles-sectors/sectors/ppda-uganda, skills/profiles-sectors/sectors/afdb, skills/profiles-sectors/sectors/undp
+PASS anti-slop: skills/meta/anti-ai-slop | top3=skills/meta/anti-ai-slop, skills/meta/ai-slop-audit, skills/ai-on-saas-proposals/ai-on-saas-pricing-and-packaging-proposal
+PASS slop-audit: skills/meta/ai-slop-audit | top3=skills/saas-proposals/saas-trust-and-compliance-credentials-section, skills/meta/ai-slop-audit, skills/meta/anti-ai-slop
+PASS website: skills/strategy-positioning/website-design-proposal-strategy | top3=skills/strategy-positioning/website-design-proposal-strategy, skills/domain-delivery/data-management, skills/language/east-african-english
+PASS critical-logic: skills/strategy-positioning/critical-analysis-business-logic | top3=skills/strategy-positioning/critical-analysis-business-logic, skills/domain-delivery/consulting-frameworks, skills/saas-proposals/saas-business-case-and-roi-modeling
+PASS premium-writing: skills/writing-content/premium-commercial-writing | top3=skills/saas-proposals/saas-vertical-positioning, skills/writing-content/premium-commercial-writing, skills/strategy-positioning/proposal-storytelling-and-evaluator-journey
+routing fixtures: 19; top-three precision: 100.0%; threshold: 100.0%
+
+STDERR:

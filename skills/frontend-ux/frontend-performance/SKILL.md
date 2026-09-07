@@ -4,7 +4,7 @@ description: Use when defining, implementing, or auditing frontend performance f
 metadata:
   portable: true
   compatible_with:
-  - Codex
+  - claude-code
   - codex
 ---
 

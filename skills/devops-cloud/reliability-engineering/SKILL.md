@@ -4,7 +4,7 @@ description: Use when designing or reviewing production reliability for APIs, Sa
 metadata:
   portable: true
   compatible_with:
-  - Codex
+  - claude-code
   - codex
 ---
 

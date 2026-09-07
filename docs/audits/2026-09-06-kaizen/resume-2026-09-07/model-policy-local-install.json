@@ -1,0 +1,12 @@
+[
+  {
+    "action": "--check",
+    "exit_code": 2,
+    "output": "ERROR: managed agents.default has an existing custom config_file\n"
+  },
+  {
+    "action": "--apply",
+    "exit_code": 2,
+    "output": "ERROR: managed agents.default has an existing custom config_file\n"
+  }
+]

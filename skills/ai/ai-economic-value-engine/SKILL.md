@@ -4,7 +4,7 @@ description: Use when discovering, designing, prioritizing, or auditing AI-power
 metadata:
   portable: true
   compatible_with:
-  - Codex
+  - claude-code
   - codex
 ---
 

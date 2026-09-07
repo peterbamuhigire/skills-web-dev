@@ -4,7 +4,7 @@ description: Use when generating or validating a professionally structured and v
 metadata:
   portable: true
   compatible_with:
-  - Codex
+  - claude-code
   - codex
 ---
 
@@ -58,7 +58,7 @@ If evidence, stakeholder decisions, specialist tooling, or authoritative commerc
 
 ## References
 
-- [English output standard](../../docs/continuous-improvement/english-output-standard-2026-09-02.md) for human-facing prose, collocation, register, terminology, and proof.
+- [English output standard](../../../docs/continuous-improvement/english-output-standard-2026-09-02.md) for human-facing prose, collocation, register, terminology, and proof.
 
 - Use the `references/` directory for deep detail after reading the core workflow below.
 <!-- dual-compat-end -->

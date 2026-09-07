@@ -1,0 +1,8 @@
+design-delivery-evidence-validator:
+- manifest: tests\fixtures\design-delivery\manifest.json
+- findings: 0
+- delivery verdict: CONDITIONAL
+- stages: accessibility=NOT ASSESSED, generation=NOT ASSESSED, render=NOT ASSESSED, reopen=NOT ASSESSED, visual_qa=NOT ASSESSED
+PASS: manifest structure is valid; delivery verdict is reported above
+
+STDERR:

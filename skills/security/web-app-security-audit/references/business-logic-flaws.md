@@ -337,5 +337,5 @@ An append-only audit log on every critical action (actor, target, before, after,
 - `saas-accounting-system` skill — double-entry accounting provides natural invariants
 - `database-reliability` skill — transactions, expand-contract migrations, backup verification
 - `dual-auth-rbac` skill — authorization patterns that back up logic checks
-- OWASP Top 10: A04 Insecure Design
+- OWASP Top 10:2021: A04 Insecure Design (historical identifier); Top 10:2025: A06 Insecure Design. Pin the edition rather than mixing category numbers. [OWASP 2025 category list](https://owasp.org/Top10/2025/0x00_2025-Introduction/).
 - OWASP Web Security Testing Guide: Business Logic Testing

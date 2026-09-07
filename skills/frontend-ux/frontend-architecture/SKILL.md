@@ -1,10 +1,16 @@
 ---
 name: frontend-architecture
 description: Use when turning a design system, product requirement, or frontend codebase into a maintainable component, content, state, and delivery architecture with measurable quality gates.
+metadata:
+  portable: true
+  compatible_with:
+  - claude-code
+  - codex
 ---
 
 # Frontend Architecture
 
+<!-- dual-compat-start -->
 ## Use when
 
 - A website or application needs component boundaries, composition rules, a source of truth, or a sustainable design-system implementation.
@@ -59,7 +65,7 @@ description: Use when turning a design system, product requirement, or frontend 
 - Validating only the happy path or desktop screenshot.
 - Increasing the published audit above 65 before the initial evidence-backed improvement cycle.
 
-## Cross-references
+## References
 
 - `frontend-ux/frontend-performance`
 - `frontend-ux/accessibility`
@@ -67,3 +73,19 @@ description: Use when turning a design system, product requirement, or frontend 
 - `frontend-ux/practical-ui-design`
 - `sdlc-meta/kaizen-improvement-system`
 - website-skills `skills/build/design-reference` and `skills/build/design-system`
+
+## Capability contract
+
+Read/search of the frontend, requirements and design source is required. Code
+edits need an implementation request; architecture review alone is read-only.
+Use the available build, test and browser tools for the selected flow. Do not
+deploy, publish or replace the design source as an incidental architecture step.
+
+## Degraded mode
+
+Without the target runtime or browser, deliver the ownership map and proposed
+migration slice, with interaction, accessibility, visual and performance checks
+marked NOT ASSESSED. A static component inspection cannot establish rendered
+behaviour. Retain the current implementation until required acceptance checks
+can support the migration decision.
+<!-- dual-compat-end -->

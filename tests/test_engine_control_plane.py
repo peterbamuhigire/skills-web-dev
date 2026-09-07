@@ -1,6 +1,11 @@
 import importlib.util
 import re
 import sys
+import os
+import json
+import pytest
+import subprocess
+from contextlib import contextmanager
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -95,18 +100,115 @@ def count_surface_mismatches(surface_texts: dict[str, str], expected: str) -> di
     return mismatches
 
 
-def test_control_plane_registry_has_all_eleven_engines():
+def test_control_plane_registry_has_all_twelve_engines():
     assert VALIDATE_MODULE.validate_registry() == []
 
 
+@pytest.mark.skipif(os.environ.get("SKILL_ENGINE_LIVE_TESTS") != "1", reason="NOT ASSESSED: opt in to installed-portfolio checks with SKILL_ENGINE_LIVE_TESTS=1")
 def test_control_plane_registry_resolves_local_routers():
     workspace_root = Path(__file__).resolve().parents[2]
-    assert VALIDATE_MODULE.validate_registry(workspace_root) == []
+    # This host's confirmed portfolio comprises eleven installed engines.
+    # The full twelve-entry registry is independently checked above.
+    assert VALIDATE_MODULE.validate_registry(workspace_root, VALIDATE_MODULE.EXPECTED_ENGINES - {"political"}) == []
 
 
-def test_control_plane_registry_resolves_local_adoption_documents():
-    workspace_root = Path(__file__).resolve().parents[2]
-    assert VALIDATE_MODULE.validate_registry(workspace_root) == []
+def test_control_plane_registry_resolves_fixture_and_reports_missing_contract(tmp_path, monkeypatch):
+    data = json.loads(VALIDATE_MODULE.REGISTRY.read_text(encoding="utf-8"))
+    for engine in data["engines"]:
+        checkout = tmp_path / engine["id"]
+        monkeypatch.setenv(f"SKILL_ENGINE_ROOT_{engine['id'].upper().replace('-', '_')}", str(checkout))
+        for key in ("router", "adoption_doc"):
+            target = checkout / engine[key]
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_text("Fixture contract\n", encoding="utf-8")
+    assert VALIDATE_MODULE.validate_registry(tmp_path) == []
+    political = next(engine for engine in data["engines"] if engine["id"] == "political")
+    (tmp_path / "political" / political["adoption_doc"]).unlink()
+    errors = VALIDATE_MODULE.validate_registry(tmp_path)
+    assert len(errors) == 1
+    assert errors[0].startswith("political: no candidate")
+    assert VALIDATE_MODULE.validate_registry(tmp_path, VALIDATE_MODULE.EXPECTED_ENGINES - {"political"}) == []
+    assert VALIDATE_MODULE.validate_registry(tmp_path, {"unknown"})
+
+
+@pytest.mark.parametrize("engine_id", ["business-plan", "proposal", "social-media", "accounting"])
+def test_workspace_checkout_precedes_home_duplicate(tmp_path, monkeypatch, engine_id):
+    monkeypatch.delenv(f"SKILL_ENGINE_ROOT_{engine_id.upper().replace('-', '_')}", raising=False)
+    monkeypatch.setattr(Path, "home", classmethod(lambda cls: tmp_path / "user"))
+    canonical = tmp_path / "workspace" / VALIDATE_MODULE.ENGINE_DIRS[engine_id]
+    duplicate = tmp_path / "user" / "source" / "repos" / VALIDATE_MODULE.ENGINE_DIRS[engine_id]
+    for checkout in (canonical, duplicate):
+        checkout.mkdir(parents=True)
+        (checkout / "AGENTS.md").write_text("Fixture\n", encoding="utf-8")
+        (checkout / "adoption.md").write_text("Fixture\n", encoding="utf-8")
+    assert VALIDATE_MODULE.resolve_engine_dir(tmp_path / "workspace", engine_id, "AGENTS.md", "adoption.md") == canonical
+    (canonical / "adoption.md").unlink()
+    assert VALIDATE_MODULE.resolve_engine_dir(tmp_path / "workspace", engine_id, "AGENTS.md", "adoption.md") is None
+
+
+def test_invalid_override_does_not_fall_back(tmp_path, monkeypatch):
+    duplicate = tmp_path / "digital-research-skills"
+    duplicate.mkdir()
+    for name in ("AGENTS.md", "adoption.md"):
+        (duplicate / name).write_text("Fixture\n", encoding="utf-8")
+    monkeypatch.setenv("SKILL_ENGINE_ROOT_DIGITAL_RESEARCH", str(tmp_path / "absent"))
+    assert VALIDATE_MODULE.resolve_engine_dir(tmp_path, "digital-research", "AGENTS.md", "adoption.md") is None
+
+
+@pytest.mark.parametrize("payload", [[], {"engines": [None]}, {"engines": [{"id": []}]}, {"engines": [{"id": "unknown"}]}])
+def test_malformed_registry_reports_errors_without_crashing(tmp_path, monkeypatch, payload):
+    registry = tmp_path / "registry.json"
+    registry.write_text(json.dumps(payload), encoding="utf-8")
+    monkeypatch.setattr(VALIDATE_MODULE, "REGISTRY", registry)
+    assert VALIDATE_MODULE.validate_registry(tmp_path)
+
+
+@pytest.mark.parametrize("unsafe", ["../AGENTS.md", "..\\AGENTS.md", "/AGENTS.md", "C:/AGENTS.md", "", None])
+def test_registry_rejects_unsafe_paths(tmp_path, monkeypatch, unsafe):
+    data = json.loads(VALIDATE_MODULE.REGISTRY.read_text(encoding="utf-8"))
+    data["engines"][0]["router"] = unsafe
+    registry = tmp_path / "registry.json"
+    registry.write_text(json.dumps(data), encoding="utf-8")
+    monkeypatch.setattr(VALIDATE_MODULE, "REGISTRY", registry)
+    assert any("router must be" in error for error in VALIDATE_MODULE.validate_registry())
+
+
+@contextmanager
+def directory_link(link, target):
+    """Create a link inside the caller's temporary fixture, without admin rights."""
+    if os.name == "nt":
+        quoted_link = str(link).replace("'", "''")
+        quoted_target = str(target).replace("'", "''")
+        subprocess.run([
+            "powershell", "-NoProfile", "-NonInteractive", "-Command",
+            f"New-Item -ItemType Junction -Path '{quoted_link}' -Target '{quoted_target}' -ErrorAction Stop | Out-Null",
+        ], check=True, capture_output=True, creationflags=subprocess.CREATE_NO_WINDOW)
+    else:
+        link.symlink_to(target, target_is_directory=True)
+    try:
+        yield
+    finally:
+        # Remove only this fixture link; never recurse into its target.
+        if os.name == "nt":
+            link.rmdir()
+        else:
+            link.unlink()
+
+
+@pytest.mark.parametrize("external", [False, True])
+def test_contract_links_must_stay_inside_selected_checkout(tmp_path, monkeypatch, external):
+    checkout = tmp_path / "checkout"
+    checkout.mkdir()
+    target = (tmp_path if external else checkout) / "actual"
+    target.mkdir()
+    for filename in ("AGENTS.md", "adoption.md"):
+        (target / filename).write_text("Fixture\n", encoding="utf-8")
+    monkeypatch.setenv("SKILL_ENGINE_ROOT_SKILLS_WEB_DEV", str(checkout))
+    with directory_link(checkout / "linked", target):
+        result = VALIDATE_MODULE.resolve_engine_dir(tmp_path, "skills-web-dev", "linked/AGENTS.md", "linked/adoption.md")
+        assert result == (None if external else checkout)
+        target.rename(target.with_name("moved"))
+        assert VALIDATE_MODULE.resolve_engine_dir(tmp_path, "skills-web-dev", "linked/AGENTS.md", "linked/adoption.md") is None
 
 
 def test_governing_skills_meet_current_authoring_contract():

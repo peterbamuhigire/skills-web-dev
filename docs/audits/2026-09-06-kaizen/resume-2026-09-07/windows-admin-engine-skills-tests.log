@@ -1,0 +1,26 @@
+
+STDERR:
+test_high_leverage_skills_link_the_reference (test_book_wave_kaizen_contract.BookWaveKaizenContractTests.test_high_leverage_skills_link_the_reference) ... ok
+test_reference_exists_and_covers_operating_contract (test_book_wave_kaizen_contract.BookWaveKaizenContractTests.test_reference_exists_and_covers_operating_contract) ... ok
+test_catalogue_has_unique_existing_skills (test_catalog.CatalogTests.test_catalogue_has_unique_existing_skills) ... ok
+test_risk_classes_are_explicit (test_catalog.CatalogTests.test_risk_classes_are_explicit) ... ok
+test_skills_use_public_semantic_paths (test_catalog.CatalogTests.test_skills_use_public_semantic_paths) ... ok
+test_command_categories_use_semantic_names (test_commands.CommandTreeTests.test_command_categories_use_semantic_names) ... ok
+test_every_direct_powershell_command_has_cmd_launcher (test_commands.CommandTreeTests.test_every_direct_powershell_command_has_cmd_launcher) ... ok
+test_generated_catalog_has_unique_commands (test_commands.CommandTreeTests.test_generated_catalog_has_unique_commands) ... ok
+test_either_duplicate_identity_blocks (test_fleet_manifest.FleetManifestTests.test_either_duplicate_identity_blocks) ... ok
+test_empty_canonical_hostname_is_rejected (test_fleet_manifest.FleetManifestTests.test_empty_canonical_hostname_is_rejected) ... ok
+test_exact_expiry_is_expired (test_fleet_manifest.FleetManifestTests.test_exact_expiry_is_expired) ... ok
+test_malformed_roots_and_fields (test_fleet_manifest.FleetManifestTests.test_malformed_roots_and_fields) ... ok
+test_unknown_risk_and_blank_target_fields (test_fleet_manifest.FleetManifestTests.test_unknown_risk_and_blank_target_fields) ... ok
+test_unrepresentable_utc_expiry_fails_function_and_cli (test_fleet_manifest.FleetManifestTests.test_unrepresentable_utc_expiry_fails_function_and_cli) ... ok
+test_valid_fixture (test_fleet_manifest.FleetManifestTests.test_valid_fixture) ... ok
+test_all_fixtures_route_in_top_three (test_router.RouterTests.test_all_fixtures_route_in_top_three) ... ok
+test_blank_prompt_has_no_route (test_router.RouterTests.test_blank_prompt_has_no_route) ... ok
+test_invalid_status_and_target_fail (test_schemas.SchemaTests.test_invalid_status_and_target_fail) ... ok
+test_minimal_operation_contract (test_schemas.SchemaTests.test_minimal_operation_contract) ... ok
+
+----------------------------------------------------------------------
+Ran 19 tests in 0.011s
+
+OK

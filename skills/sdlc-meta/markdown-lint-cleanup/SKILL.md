@@ -4,7 +4,7 @@ description: Use when fixing Markdown lint failures, heading structure, list spa
 metadata:
   portable: true
   compatible_with:
-  - Codex
+  - claude-code
   - codex
 ---
 

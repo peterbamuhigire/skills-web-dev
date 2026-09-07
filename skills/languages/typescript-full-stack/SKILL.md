@@ -4,7 +4,7 @@ description: Use when building end-to-end TypeScript applications — Node backe
 metadata:
   portable: true
   compatible_with:
-  - Codex
+  - claude-code
   - codex
 ---
 

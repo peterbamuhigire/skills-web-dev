@@ -4,7 +4,7 @@ description: Use when bootstrapping a multi-tenant SaaS Seeder Template, includi
 metadata:
   portable: true
   compatible_with:
-  - Codex
+  - claude-code
   - codex
 ---
 ## Platform Notes

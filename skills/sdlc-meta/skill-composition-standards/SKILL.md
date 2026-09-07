@@ -70,6 +70,10 @@ Every skill must declare the artifacts it consumes (inputs) and the artifacts it
 
 ### Required frontmatter
 
+The local boolean/list metadata contract is an engine extension, not proof of
+public interchange conformance or tested host support. Follow `skill-writing`
+for export boundaries and preserve additional declared runtime names.
+
 ```yaml
 ---
 name: <skill-slug>
@@ -103,7 +107,7 @@ A normalised SKILL.md must have these sections; each may be short, but none may 
 
 Rules:
 
-- Runtime gate: keep the parsed description at or below 400 characters; the aggregate runtime budget is checked separately.
+- Repository gate: keep the parsed description at or below 350 characters; the aggregate runtime budget is checked separately.
 - Discovery metadata contains triggers and boundaries, not procedures, examples, or full policy text.
 
 - SKILL.md **≤ 500 lines**. Overflow goes into `references/`.

@@ -1,0 +1,26 @@
+
+STDERR:
+test_submission_and_pricing_actions_are_gated (test_approval_adapter.ApprovalAdapterTests.test_submission_and_pricing_actions_are_gated) ... ok
+test_bad_encoding_is_the_only_reported_mutation (test_encoding_link_gate.EncodingLinkGateTests.test_bad_encoding_is_the_only_reported_mutation) ... ok
+test_gate_rejects_invalid_encoding_stale_route_and_broken_link (test_encoding_link_gate.EncodingLinkGateTests.test_gate_rejects_invalid_encoding_stale_route_and_broken_link) ... ok
+test_stale_route_is_the_only_reported_mutation (test_encoding_link_gate.EncodingLinkGateTests.test_stale_route_is_the_only_reported_mutation) ... ok
+test_approval_needs_named_owner (test_proposal_behaviour.ProposalFixtureBehaviourTests.test_approval_needs_named_owner) ... ok
+test_complete_fixture_is_traceable_and_separated (test_proposal_behaviour.ProposalFixtureBehaviourTests.test_complete_fixture_is_traceable_and_separated) ... ok
+test_duplicate_identifiers_cannot_overwrite_records (test_proposal_behaviour.ProposalFixtureBehaviourTests.test_duplicate_identifiers_cannot_overwrite_records) ... ok
+test_empty_requirement_set_blocks_fixture (test_proposal_behaviour.ProposalFixtureBehaviourTests.test_empty_requirement_set_blocks_fixture) ... ok
+test_envelope_file_leakage_blocks_for_location_reason (test_proposal_behaviour.ProposalFixtureBehaviourTests.test_envelope_file_leakage_blocks_for_location_reason) ... ok
+test_envelope_file_overlap_blocks_for_separation_reason (test_proposal_behaviour.ProposalFixtureBehaviourTests.test_envelope_file_overlap_blocks_for_separation_reason) ... ok
+test_evidence_owners_require_nonblank_strings (test_proposal_behaviour.ProposalFixtureBehaviourTests.test_evidence_owners_require_nonblank_strings) ... ok
+test_malformed_shapes_return_findings (test_proposal_behaviour.ProposalFixtureBehaviourTests.test_malformed_shapes_return_findings) ... ok
+test_missing_evidence_cannot_bypass_owner_control (test_proposal_behaviour.ProposalFixtureBehaviourTests.test_missing_evidence_cannot_bypass_owner_control) ... ok
+test_missing_mandatory_flag_is_not_optional (test_proposal_behaviour.ProposalFixtureBehaviourTests.test_missing_mandatory_flag_is_not_optional) ... ok
+test_missing_mandatory_requirement_blocks (test_proposal_behaviour.ProposalFixtureBehaviourTests.test_missing_mandatory_requirement_blocks) ... ok
+test_parent_traversal_is_rejected_in_all_fixture_paths (test_proposal_behaviour.ProposalFixtureBehaviourTests.test_parent_traversal_is_rejected_in_all_fixture_paths) ... ok
+test_thin_claude_bridge_preserves_generic_routing_surface (test_proposal_behaviour.ProposalFixtureBehaviourTests.test_thin_claude_bridge_preserves_generic_routing_surface) ... ok
+test_unavailable_evidence_cannot_support_response (test_proposal_behaviour.ProposalFixtureBehaviourTests.test_unavailable_evidence_cannot_support_response) ... ok
+test_wrong_evidence_owner_blocks_for_owner_reason (test_proposal_behaviour.ProposalFixtureBehaviourTests.test_wrong_evidence_owner_blocks_for_owner_reason) ... ok
+
+----------------------------------------------------------------------
+Ran 19 tests in 0.022s
+
+OK

@@ -63,11 +63,19 @@ Do not label every role Markdown file an agent. State whether the artefact is a 
 - Keep `SKILL.md` under 500 lines. Keep deeper markdown references lean and split them when they become hard to load or maintain.
 - Use only validator-approved frontmatter keys: `name`, `description`, `license`, `allowed-tools`, `metadata`.
 - Make `description` the trigger: what the skill does and when to use it.
-- Keep the discovery description concise: at most 400 characters, with only the user goal, trigger conditions, and a neighbour boundary.
+- Keep the discovery description concise: at most 350 characters under this repository's catalogue policy, with only the user goal, trigger conditions, and a neighbour boundary.
 - Put deep detail in `references/`; keep `SKILL.md` focused on execution logic.
 - Do not add meta-docs inside skills such as `README.md` or `CHANGELOG.md`.
 - Keep shared expertise in one canonical, model-neutral source. Adapters may point to it but must not copy its full content.
 - Keep project-wide instruction files short: project rules, routing, safety, and links belong there; specialist bodies do not.
+
+The boolean `metadata.portable` and list-valued `metadata.compatible_with` are
+this repository's local authoring contract. They do not establish conformance
+to another interchange schema or prove that a host has loaded the skill.
+Require unique runtime names including `claude-code` and `codex`; preserve
+additional declared runtimes. Before export, inspect the destination schema
+and test a representative adapter and task. Report unavailable host checks as
+NOT ASSESSED. See the [current audit's metadata finding](../../../docs/audits/2026-09-06-kaizen/06-standards-benchmark.md).
 
 ## Five-Part Instruction Contract
 
@@ -99,7 +107,7 @@ Skill names and descriptions are discovery metadata exposed before the model
 chooses which full instruction body to load. Treat this metadata as a shared
 runtime budget across local engines and plugins:
 
-- Keep each description at or below 400 characters; prefer one or two direct sentences.
+- Keep each description at or below the repository's 350-character limit; prefer one or two direct sentences. A host's separate runtime budget does not relax this limit.
 - Put procedures, output contracts, examples, policy detail, and long trigger lists in the body or `references/`.
 - Keep one canonical `SKILL.md` entrypoint per capability. Use `ALIAS.md` and the routing index for absorbed or renamed topics.
 - Do not expose ignored, archived, or reference-only trees as runtime skill roots.

@@ -1,0 +1,613 @@
+[
+  {
+    "repository": "skills-web-dev",
+    "command": [
+      "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "scripts/skill_catalog_guardrails.py",
+      "--report-only"
+    ],
+    "cwd": "C:\\wamp64\\www\\skills-web-dev",
+    "observed_at": "2026-09-07T09:15:18.522655+03:00",
+    "exit_code": 0,
+    "expected_exit": 0,
+    "log": "skills-web-dev-gate-1.log"
+  },
+  {
+    "repository": "skills-web-dev",
+    "command": [
+      "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "scripts/routing_smoke_test.py",
+      "--report-only"
+    ],
+    "cwd": "C:\\wamp64\\www\\skills-web-dev",
+    "observed_at": "2026-09-07T09:15:18.992421+03:00",
+    "exit_code": 0,
+    "expected_exit": 0,
+    "log": "skills-web-dev-gate-2.log"
+  },
+  {
+    "repository": "skills-web-dev",
+    "command": [
+      "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "scripts/validate_engine_control_plane.py"
+    ],
+    "cwd": "C:\\wamp64\\www\\skills-web-dev",
+    "observed_at": "2026-09-07T09:15:19.082531+03:00",
+    "exit_code": 0,
+    "expected_exit": 0,
+    "log": "skills-web-dev-gate-3.log"
+  },
+  {
+    "repository": "skills-web-dev",
+    "command": [
+      "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "scripts/validate_engine_control_plane.py",
+      "--workspace-root",
+      "C:/wamp64/www",
+      "--engine",
+      "srs",
+      "--engine",
+      "business-plan",
+      "--engine",
+      "website",
+      "--engine",
+      "social-media",
+      "--engine",
+      "linux",
+      "--engine",
+      "proposal",
+      "--engine",
+      "accounting",
+      "--engine",
+      "design",
+      "--engine",
+      "digital-research",
+      "--engine",
+      "skills-web-dev",
+      "--engine",
+      "windows-admin"
+    ],
+    "cwd": "C:\\wamp64\\www\\skills-web-dev",
+    "observed_at": "2026-09-07T09:15:19.166556+03:00",
+    "exit_code": 0,
+    "expected_exit": 0,
+    "log": "skills-web-dev-gate-4.log"
+  },
+  {
+    "repository": "skills-web-dev",
+    "command": [
+      "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "scripts/validate_engine_control_plane.py",
+      "--workspace-root",
+      "C:/wamp64/www"
+    ],
+    "cwd": "C:\\wamp64\\www\\skills-web-dev",
+    "observed_at": "2026-09-07T09:15:19.276646+03:00",
+    "exit_code": 1,
+    "expected_exit": 1,
+    "log": "skills-web-dev-gate-5.log"
+  },
+  {
+    "repository": "business-plan-skills",
+    "command": [
+      "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "scripts/validate_skill_engine.py",
+      "--baseline",
+      "docs/quality/skill-quality-baseline.json"
+    ],
+    "cwd": "C:\\wamp64\\www\\business-plan-skills",
+    "observed_at": "2026-09-07T09:15:21.004432+03:00",
+    "exit_code": 0,
+    "expected_exit": 0,
+    "log": "business-plan-skills-gate-1.log"
+  },
+  {
+    "repository": "business-plan-skills",
+    "command": [
+      "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "scripts/routing_smoke_test.py",
+      "--threshold",
+      "1.0"
+    ],
+    "cwd": "C:\\wamp64\\www\\business-plan-skills",
+    "observed_at": "2026-09-07T09:15:21.386872+03:00",
+    "exit_code": 0,
+    "expected_exit": 0,
+    "log": "business-plan-skills-gate-2.log"
+  },
+  {
+    "repository": "proposal-skills",
+    "command": [
+      "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "scripts/validate_skills.py",
+      "--baseline",
+      "quality-baseline.json"
+    ],
+    "cwd": "C:\\wamp64\\www\\proposal-skills",
+    "observed_at": "2026-09-07T09:15:22.074682+03:00",
+    "exit_code": 0,
+    "expected_exit": 0,
+    "log": "proposal-skills-gate-1.log"
+  },
+  {
+    "repository": "proposal-skills",
+    "command": [
+      "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "scripts/routing_smoke_test.py"
+    ],
+    "cwd": "C:\\wamp64\\www\\proposal-skills",
+    "observed_at": "2026-09-07T09:15:22.277044+03:00",
+    "exit_code": 0,
+    "expected_exit": 0,
+    "log": "proposal-skills-gate-2.log"
+  },
+  {
+    "repository": "proposal-skills",
+    "command": [
+      "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "scripts/encoding_link_gate.py"
+    ],
+    "cwd": "C:\\wamp64\\www\\proposal-skills",
+    "observed_at": "2026-09-07T09:15:22.690919+03:00",
+    "exit_code": 0,
+    "expected_exit": 0,
+    "log": "proposal-skills-gate-3.log"
+  },
+  {
+    "repository": "proposal-skills",
+    "command": [
+      "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "scripts/proposal_fixture_check.py"
+    ],
+    "cwd": "C:\\wamp64\\www\\proposal-skills",
+    "observed_at": "2026-09-07T09:15:22.786703+03:00",
+    "exit_code": 0,
+    "expected_exit": 0,
+    "log": "proposal-skills-gate-4.log"
+  },
+  {
+    "repository": "social-media-skills",
+    "command": [
+      "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "scripts/validate_skill_engine.py",
+      "--baseline",
+      "quality-baseline.json"
+    ],
+    "cwd": "C:\\wamp64\\www\\social-media-skills",
+    "observed_at": "2026-09-07T09:15:23.398034+03:00",
+    "exit_code": 0,
+    "expected_exit": 0,
+    "log": "social-media-skills-gate-1.log"
+  },
+  {
+    "repository": "social-media-skills",
+    "command": [
+      "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "scripts/routing_smoke_test.py"
+    ],
+    "cwd": "C:\\wamp64\\www\\social-media-skills",
+    "observed_at": "2026-09-07T09:15:23.650564+03:00",
+    "exit_code": 0,
+    "expected_exit": 0,
+    "log": "social-media-skills-gate-2.log"
+  },
+  {
+    "repository": "social-media-skills",
+    "command": [
+      "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "scripts/check_source_freshness.py"
+    ],
+    "cwd": "C:\\wamp64\\www\\social-media-skills",
+    "observed_at": "2026-09-07T09:15:23.738127+03:00",
+    "exit_code": 0,
+    "expected_exit": 0,
+    "log": "social-media-skills-gate-3.log"
+  },
+  {
+    "repository": "linux-skills",
+    "command": [
+      "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "scripts/validate_skills.py",
+      "--baseline",
+      "quality-baseline.json"
+    ],
+    "cwd": "C:\\wamp64\\www\\linux-skills",
+    "observed_at": "2026-09-07T09:15:24.037751+03:00",
+    "exit_code": 0,
+    "expected_exit": 0,
+    "log": "linux-skills-gate-1.log"
+  },
+  {
+    "repository": "linux-skills",
+    "command": [
+      "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "scripts/routing_smoke_test.py"
+    ],
+    "cwd": "C:\\wamp64\\www\\linux-skills",
+    "observed_at": "2026-09-07T09:15:24.234466+03:00",
+    "exit_code": 0,
+    "expected_exit": 0,
+    "log": "linux-skills-gate-2.log"
+  },
+  {
+    "repository": "linux-skills",
+    "command": [
+      "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "scripts/validate_safe_operation_fixture.py"
+    ],
+    "cwd": "C:\\wamp64\\www\\linux-skills",
+    "observed_at": "2026-09-07T09:15:24.324937+03:00",
+    "exit_code": 2,
+    "expected_exit": 0,
+    "log": "linux-skills-gate-3.log"
+  },
+  {
+    "repository": "srs-skills",
+    "command": [
+      "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "scripts/validate_skill_engine.py",
+      "--baseline",
+      "tests/skill-quality-baseline.json"
+    ],
+    "cwd": "C:\\wamp64\\www\\srs-skills",
+    "observed_at": "2026-09-07T09:15:25.305053+03:00",
+    "exit_code": 0,
+    "expected_exit": 0,
+    "log": "srs-skills-gate-1.log"
+  },
+  {
+    "repository": "srs-skills",
+    "command": [
+      "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "scripts/routing_smoke_test.py"
+    ],
+    "cwd": "C:\\wamp64\\www\\srs-skills",
+    "observed_at": "2026-09-07T09:15:25.718698+03:00",
+    "exit_code": 0,
+    "expected_exit": 0,
+    "log": "srs-skills-gate-2.log"
+  },
+  {
+    "repository": "srs-skills",
+    "command": [
+      "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "scripts/validate_engine.py"
+    ],
+    "cwd": "C:\\wamp64\\www\\srs-skills",
+    "observed_at": "2026-09-07T09:15:25.797020+03:00",
+    "exit_code": 0,
+    "expected_exit": 0,
+    "log": "srs-skills-gate-3.log"
+  },
+  {
+    "repository": "srs-skills",
+    "command": [
+      "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "-m",
+      "engine",
+      "validate-skills"
+    ],
+    "cwd": "C:\\wamp64\\www\\srs-skills",
+    "observed_at": "2026-09-07T09:15:26.129995+03:00",
+    "exit_code": 0,
+    "expected_exit": 0,
+    "log": "srs-skills-gate-4.log"
+  },
+  {
+    "repository": "digital-research-skills",
+    "command": [
+      "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "-m",
+      "pytest",
+      "-q",
+      "-p",
+      "no:cacheprovider"
+    ],
+    "cwd": "C:\\wamp64\\www\\digital-research-skills",
+    "observed_at": "2026-09-07T09:15:30.786689+03:00",
+    "exit_code": 0,
+    "expected_exit": 0,
+    "log": "digital-research-skills-gate-1.log"
+  },
+  {
+    "repository": "digital-research-skills",
+    "command": [
+      "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "scripts/validate_engine.py"
+    ],
+    "cwd": "C:\\wamp64\\www\\digital-research-skills",
+    "observed_at": "2026-09-07T09:15:32.896243+03:00",
+    "exit_code": 0,
+    "expected_exit": 0,
+    "log": "digital-research-skills-gate-2.log"
+  },
+  {
+    "repository": "digital-research-skills",
+    "command": [
+      "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "scripts/validate_source_currency.py",
+      "tests/fixtures/source-currency.json"
+    ],
+    "cwd": "C:\\wamp64\\www\\digital-research-skills",
+    "observed_at": "2026-09-07T09:15:32.975948+03:00",
+    "exit_code": 0,
+    "expected_exit": 0,
+    "log": "digital-research-skills-gate-3.log"
+  },
+  {
+    "repository": "digital-research-skills",
+    "command": [
+      "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "scripts/validate_source_currency.py",
+      "../skills-web-dev/docs/source-registers/skills-engine-currentness-2026-09.json"
+    ],
+    "cwd": "C:\\wamp64\\www\\digital-research-skills",
+    "observed_at": "2026-09-07T09:15:33.094009+03:00",
+    "exit_code": 1,
+    "expected_exit": 0,
+    "log": "digital-research-skills-gate-4.log"
+  },
+  {
+    "repository": "website-skills",
+    "command": [
+      "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "scripts/validate-skill-contracts.py",
+      "--baseline",
+      "quality/skill-contract-baseline.json"
+    ],
+    "cwd": "C:\\wamp64\\www\\website-skills",
+    "observed_at": "2026-09-07T09:15:33.649786+03:00",
+    "exit_code": 0,
+    "expected_exit": 0,
+    "log": "website-skills-gate-1.log"
+  },
+  {
+    "repository": "website-skills",
+    "command": [
+      "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "scripts/routing-smoke-test.py"
+    ],
+    "cwd": "C:\\wamp64\\www\\website-skills",
+    "observed_at": "2026-09-07T09:15:33.837064+03:00",
+    "exit_code": 0,
+    "expected_exit": 0,
+    "log": "website-skills-gate-2.log"
+  },
+  {
+    "repository": "website-skills",
+    "command": [
+      "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "scripts/validate-skill-registry.py"
+    ],
+    "cwd": "C:\\wamp64\\www\\website-skills",
+    "observed_at": "2026-09-07T09:15:33.963017+03:00",
+    "exit_code": 0,
+    "expected_exit": 0,
+    "log": "website-skills-gate-3.log"
+  },
+  {
+    "repository": "website-skills",
+    "command": [
+      "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "scripts/validate-search-doctrine.py"
+    ],
+    "cwd": "C:\\wamp64\\www\\website-skills",
+    "observed_at": "2026-09-07T09:15:34.057573+03:00",
+    "exit_code": 0,
+    "expected_exit": 0,
+    "log": "website-skills-gate-4.log"
+  },
+  {
+    "repository": "website-skills",
+    "command": [
+      "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "scripts/website_fixture_benchmark.py"
+    ],
+    "cwd": "C:\\wamp64\\www\\website-skills",
+    "observed_at": "2026-09-07T09:15:34.152899+03:00",
+    "exit_code": 0,
+    "expected_exit": 0,
+    "log": "website-skills-gate-5.log"
+  },
+  {
+    "repository": "design-system-skills",
+    "command": [
+      "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "scripts/validate_engine.py",
+      "--baseline",
+      "tests/quality-baseline.json"
+    ],
+    "cwd": "C:\\wamp64\\www\\design-system-skills",
+    "observed_at": "2026-09-07T09:15:34.534464+03:00",
+    "exit_code": 0,
+    "expected_exit": 0,
+    "log": "design-system-skills-gate-1.log"
+  },
+  {
+    "repository": "design-system-skills",
+    "command": [
+      "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "scripts/routing_smoke_test.py"
+    ],
+    "cwd": "C:\\wamp64\\www\\design-system-skills",
+    "observed_at": "2026-09-07T09:15:34.787181+03:00",
+    "exit_code": 0,
+    "expected_exit": 0,
+    "log": "design-system-skills-gate-2.log"
+  },
+  {
+    "repository": "design-system-skills",
+    "command": [
+      "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "scripts/validate_cross_engine_routes.py",
+      "--workspace-root",
+      "C:/wamp64/www"
+    ],
+    "cwd": "C:\\wamp64\\www\\design-system-skills",
+    "observed_at": "2026-09-07T09:15:34.898844+03:00",
+    "exit_code": 0,
+    "expected_exit": 0,
+    "log": "design-system-skills-gate-3.log"
+  },
+  {
+    "repository": "design-system-skills",
+    "command": [
+      "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "scripts/validate_design_delivery_evidence.py",
+      "tests/fixtures/design-delivery/manifest.json"
+    ],
+    "cwd": "C:\\wamp64\\www\\design-system-skills",
+    "observed_at": "2026-09-07T09:15:34.998790+03:00",
+    "exit_code": 0,
+    "expected_exit": 0,
+    "log": "design-system-skills-gate-4.log"
+  },
+  {
+    "repository": "windows-admin-engine-skills",
+    "command": [
+      "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "scripts/validate_engine.py"
+    ],
+    "cwd": "C:\\wamp64\\www\\windows-admin-engine-skills",
+    "observed_at": "2026-09-07T09:15:35.110359+03:00",
+    "exit_code": 0,
+    "expected_exit": 0,
+    "log": "windows-admin-engine-skills-gate-1.log"
+  },
+  {
+    "repository": "windows-admin-engine-skills",
+    "command": [
+      "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "scripts/routing_smoke_test.py"
+    ],
+    "cwd": "C:\\wamp64\\www\\windows-admin-engine-skills",
+    "observed_at": "2026-09-07T09:15:35.200068+03:00",
+    "exit_code": 0,
+    "expected_exit": 0,
+    "log": "windows-admin-engine-skills-gate-2.log"
+  },
+  {
+    "repository": "windows-admin-engine-skills",
+    "command": [
+      "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "scripts/validate_fleet_manifest.py",
+      "tests/fixtures/fleet-manifest.valid.json"
+    ],
+    "cwd": "C:\\wamp64\\www\\windows-admin-engine-skills",
+    "observed_at": "2026-09-07T09:15:35.280138+03:00",
+    "exit_code": 0,
+    "expected_exit": 0,
+    "log": "windows-admin-engine-skills-gate-3.log"
+  }
+]

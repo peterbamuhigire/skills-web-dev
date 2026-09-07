@@ -136,7 +136,7 @@ or permission semantics are ambiguous, stop mutation and resolve the contract fi
 
 | Category | Artifact | Format | Example |
 |---|---|---|---|
-| Architecture | Managed visual-asset contract | Markdown/API schema | `docs/platform/managed-visual-assets.md` |
+| Correctness | Managed visual-asset contract | Markdown/API schema | `docs/platform/managed-visual-assets.md` |
 | Security | Image ingest threat model and policy | Threat model + test evidence | `docs/security/visual-assets.md` |
 | Correctness | Lifecycle and concurrency test record | Test matrix/results | `docs/testing/visual-assets.md` |
 | Operability | Audit/metrics/cleanup runbook | Runbook | `docs/runbooks/visual-assets.md` |

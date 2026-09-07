@@ -4,7 +4,7 @@ description: Use when containerizing PHP, Python, JavaScript, or API services wi
 metadata:
   portable: true
   compatible_with:
-  - Codex
+  - claude-code
   - codex
 ---
 

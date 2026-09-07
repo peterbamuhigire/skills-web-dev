@@ -121,8 +121,8 @@ target instead.
 | `skills/saas/saas-subscription-mastery` | `skills/saas/subscription-billing` |
 | `skills/saas/saas-tenant-onboarding-automation` | `skills/product-business/product-led-growth` |
 | `skills/security/uganda-dppa-compliance` | `skills/security/dpia-generator` |
-| `skills/ai/ux-for-ai` | `skills/ai/ai-agent-ux` |
-| `skills/frontend-ux/ux-principles-101` | `skills/frontend-ux/practical-ui-design` |
+| `skills/ai/ux-for-ai` | `design-system/skills/ai-ux` (external alias; resolve through the design engine router) |
+| `skills/frontend-ux/ux-principles-101` | `design-system/skills/ux-foundations` (external alias; resolve through the design engine router) |
 | `skills/backend-databases/vector-databases` | `skills/ai/ai-rag-patterns` |
 
 ## Broad Routing Groups

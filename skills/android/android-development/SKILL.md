@@ -4,7 +4,7 @@ description: Use when building or reviewing native Android applications with Kot
 metadata:
   portable: true
   compatible_with:
-  - Codex
+  - claude-code
   - codex
 ---
 

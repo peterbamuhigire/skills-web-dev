@@ -1,0 +1,37 @@
+
+STDERR:
+test_external_and_bankability_actions_are_gated (test_approval_adapter.ApprovalAdapterTests.test_external_and_bankability_actions_are_gated) ... ok
+test_overdue_entry_fails (test_evidence_register.EvidenceRegisterTests.test_overdue_entry_fails) ... ok
+test_repository_register_is_current (test_evidence_register.EvidenceRegisterTests.test_repository_register_is_current) ... ok
+test_complete_packs (test_exemplar_packs.ExemplarPackTests.test_complete_packs) ... ok
+test_release_bundles_are_structurally_valid_and_blocked (test_exemplar_packs.ExemplarPackTests.test_release_bundles_are_structurally_valid_and_blocked) ... ok
+test_broken_reference_fails (test_formula_map.FormulaMapTests.test_broken_reference_fails) ... ok
+test_output_alias_matches_json_out (test_formula_map.FormulaMapTests.test_output_alias_matches_json_out) ... ok
+test_repository_workbooks_have_no_broken_links (test_formula_map.FormulaMapTests.test_repository_workbooks_have_no_broken_links) ... ok
+test_blocker_precedes_score (test_investment_committee.CommitteeTests.test_blocker_precedes_score) ... ok
+test_complete_pack_progresses_to_real_review (test_investment_committee.CommitteeTests.test_complete_pack_progresses_to_real_review) ... ok
+test_missing_evidence_is_invalid (test_investment_committee.CommitteeTests.test_missing_evidence_is_invalid) ... ok
+test_complete_bundle_releases (test_release_bundle.ReleaseBundleTests.test_complete_bundle_releases) ... ok
+test_malformed_nested_fields_reject_without_crashing (test_release_bundle.ReleaseBundleTests.test_malformed_nested_fields_reject_without_crashing) ... ok
+test_missing_render_blocks_release (test_release_bundle.ReleaseBundleTests.test_missing_render_blocks_release) ... ok
+test_non_applicable_handoff_needs_reason (test_release_bundle.ReleaseBundleTests.test_non_applicable_handoff_needs_reason) ... ok
+test_non_object_payloads_are_findings (test_release_bundle.ReleaseBundleTests.test_non_object_payloads_are_findings) ... ok
+test_required_flags_cannot_be_omitted (test_release_bundle.ReleaseBundleTests.test_required_flags_cannot_be_omitted) ... ok
+test_bounded_ai_skill_has_one_contract_heading_each (test_routing_links.RoutingLinkTests.test_bounded_ai_skill_has_one_contract_heading_each) ... ok
+test_high_use_surfaces_resolve_route_references (test_routing_links.RoutingLinkTests.test_high_use_surfaces_resolve_route_references) ... ok
+test_route_link_cannot_escape_repository_root (test_routing_links.RoutingLinkTests.test_route_link_cannot_escape_repository_root) ... ok
+test_repository_gate_contract (test_sector_gates.SectorGateTests.test_repository_gate_contract) ... ok
+test_unknown_sector_fails (test_sector_gates.SectorGateTests.test_unknown_sector_fails) ... ok
+test_book_extraction_synthesis_path_is_not_blocked_by_name_alone (test_source_ingestion_guardrail.SourceIngestionGuardrailTests.test_book_extraction_synthesis_path_is_not_blocked_by_name_alone) ... ok
+test_large_full_text_renamed_outside_raw_path_is_still_blocked (test_source_ingestion_guardrail.SourceIngestionGuardrailTests.test_large_full_text_renamed_outside_raw_path_is_still_blocked) ... ok
+test_raw_ebook_is_blocked_regardless_of_directory (test_source_ingestion_guardrail.SourceIngestionGuardrailTests.test_raw_ebook_is_blocked_regardless_of_directory) ... ok
+test_raw_extraction_directory_is_blocked_even_when_fixture_is_small (test_source_ingestion_guardrail.SourceIngestionGuardrailTests.test_raw_extraction_directory_is_blocked_even_when_fixture_is_small) ... ok
+test_raw_extractions_variant_is_blocked_case_insensitively (test_source_ingestion_guardrail.SourceIngestionGuardrailTests.test_raw_extractions_variant_is_blocked_case_insensitively) ... ok
+test_wave_2_syntheses_are_attributed_and_independently_written (test_source_ingestion_guardrail.SourceIngestionGuardrailTests.test_wave_2_syntheses_are_attributed_and_independently_written) ... ok
+test_independent_synthesis_contains_operating_loop_and_currentness_gate (test_wood_marketing_plan_kaizen_contract.WoodMarketingPlanKaizenContractTests.test_independent_synthesis_contains_operating_loop_and_currentness_gate) ... ok
+test_kaizen_owner_links_the_synthesis (test_wood_marketing_plan_kaizen_contract.WoodMarketingPlanKaizenContractTests.test_kaizen_owner_links_the_synthesis) ... ok
+
+----------------------------------------------------------------------
+Ran 30 tests in 1.452s
+
+OK

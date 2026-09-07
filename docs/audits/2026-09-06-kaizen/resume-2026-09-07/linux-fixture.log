@@ -1,0 +1,8 @@
+[PASS] TEST-PACKAGE-DRY-RUN: dry-run and rollback fields are safe fixture evidence
+[PASS] TEST-SERVICE-DRY-RUN: dry-run and rollback fields are safe fixture evidence
+[PASS] TEST-FIREWALL-DRY-RUN: dry-run and rollback fields are safe fixture evidence
+[PASS] TEST-STORAGE-DRY-RUN: dry-run and rollback fields are safe fixture evidence
+[PASS] TEST-RECOVERY-DRY-RUN: dry-run and rollback fields are safe fixture evidence
+[PASS] fixture-only validation completed; no host action was executed
+
+STDERR:

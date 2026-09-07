@@ -4,7 +4,7 @@ description: Use when building ETL jobs, document intelligence pipelines, OCR, P
 metadata:
   portable: true
   compatible_with:
-  - Codex
+  - claude-code
   - codex
 ---
 

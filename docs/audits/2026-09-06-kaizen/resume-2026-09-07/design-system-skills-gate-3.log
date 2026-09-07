@@ -1,0 +1,6 @@
+cross-engine-route-validator:
+- workspace: C:\wamp64\www
+- findings: 0
+PASS: all declared cross-engine handoffs resolve in the inspected workspace
+
+STDERR:

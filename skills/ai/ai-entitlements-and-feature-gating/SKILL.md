@@ -108,9 +108,9 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 
 | Category | Artifact | Format | Example |
 |----------|----------|--------|---------|
-| Commercial | AI entitlements catalogue | Markdown table | `docs/ai/ai-entitlements.md` |
-| Architecture | Gateway entitlement check spec | Markdown / code | `docs/ai/entitlement-enforcement.md` |
-| UX | Upgrade UX patterns | Markdown + screenshots | `docs/ai/upgrade-ux.md` |
+| Correctness | AI entitlements catalogue | Markdown table | `docs/ai/ai-entitlements.md` |
+| Security | Gateway entitlement check spec | Markdown / code | `docs/ai/entitlement-enforcement.md` |
+| UX quality | Upgrade UX patterns | Markdown + screenshots | `docs/ai/upgrade-ux.md` |
 
 ## References
 

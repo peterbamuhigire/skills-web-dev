@@ -116,9 +116,9 @@ Maintenance documents must define:
 
 ## Standards Basis
 
-The SMP structure is governed by **ISO/IEC/IEEE 14764:2022** (Software Engineering — Software Life Cycle Processes — Maintenance), specifically **Clause 9** (Software Maintenance Plan), which mandates 13 numbered subsections. This standard is a process standard within the **ISO/IEC/IEEE 12207:2017** framework; Clause 6.4.13 of 12207 defines the maintenance process outcomes that the SMP must satisfy.
+Select and record the project's governing maintenance and lifecycle editions before drafting. This reference uses ISO/IEC/IEEE 14764:2022 and a legacy ISO/IEC/IEEE 12207:2017 context. The outline below is a local working template: its exact clause labels, section count and normative completeness are NOT ASSESSED against an authorised full standard. Do not claim a mandatory subsection count from a public abstract.
 
-**Relationship to ISO 12207:** 14764 is the dedicated maintenance elaboration of 12207. When a project is governed by 12207, the SMP produced under 14764 Clause 9 fulfills the 12207 §6.4.13 process documentation requirement.
+**Relationship to ISO 12207:** record the edition required by the actual contract. Producing this template does not itself demonstrate fulfilment of a lifecycle process. A compliance assertion requires an authorised normative locator, requirement-to-section mapping and reviewer acceptance. See the [benchmark and evidence limits](../../../../docs/audits/2026-09-06-kaizen/06-standards-benchmark.md).
 
 ## Five Maintenance Types
 
@@ -134,9 +134,9 @@ ISO/IEC/IEEE 14764:2022 defines five maintenance types. Every SMP must declare w
 
 **Empirical Distribution (Lientz & Swanson baseline):** Corrective 20% / Adaptive 25% / Perfective 50% / Preventive 5%. Use this as the planning benchmark when no project-specific history exists. Track actual mix in the Maintenance Metrics Report and adjust future estimates accordingly.
 
-## SMP Required Sections (ISO 14764 Clause 9)
+## SMP Working Sections (normative mapping unverified)
 
-The SMP must include all 13 subsections below. Flag `[CONTEXT-GAP]` for any section where project context is absent.
+Use the sections below as a completeness aid, tailoring them to the approved project baseline. Retained clause-style labels require normative verification before citation. Flag `[CONTEXT-GAP]` where project context is absent.
 
 **9.1.2 — Identification and control of the plan**
 Document identifier, version, date, approval authority, and revision history. Links to the parent SDP and SRS.
@@ -219,7 +219,7 @@ Two of Lehman's eight laws are directly relevant to maintenance planning and ser
 ## Quality Checklist
 
 - [ ] All 3 documents generated (or justified why one was skipped)
-- [ ] SMP covers all 13 ISO 14764 Clause 9 subsections
+- [ ] SMP covers the approved project outline; any normative compliance assertion has an authorised clause mapping and reviewer acceptance
 - [ ] All five maintenance types declared in scope (or explicitly excluded with rationale)
 - [ ] Process model selected (Quick-Fix / Iterative Enhancement / Osborne's) and justified
 - [ ] MR/PR 10-step workflow defined with role assigned to each step

@@ -1,0 +1,2 @@
+routing fixtures: 26/26 passed; top_k=3; precision=1.000
+fixture kinds: collision=5, failure-path=4, limited-capability=3, negative=4, positive=10

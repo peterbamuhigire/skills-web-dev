@@ -1,0 +1,57 @@
+[
+  {
+    "repository": "skills-web-dev",
+    "exit_code": 0,
+    "log": "skills-web-dev-model-ingestion.log"
+  },
+  {
+    "repository": "business-plan-skills",
+    "exit_code": 0,
+    "log": "business-plan-skills-model-ingestion.log"
+  },
+  {
+    "repository": "chwezi-accounting-doctrine",
+    "exit_code": 0,
+    "log": "chwezi-accounting-doctrine-model-ingestion.log"
+  },
+  {
+    "repository": "proposal-skills",
+    "exit_code": 0,
+    "log": "proposal-skills-model-ingestion.log"
+  },
+  {
+    "repository": "social-media-skills",
+    "exit_code": 0,
+    "log": "social-media-skills-model-ingestion.log"
+  },
+  {
+    "repository": "linux-skills",
+    "exit_code": 0,
+    "log": "linux-skills-model-ingestion.log"
+  },
+  {
+    "repository": "srs-skills",
+    "exit_code": 0,
+    "log": "srs-skills-model-ingestion.log"
+  },
+  {
+    "repository": "digital-research-skills",
+    "exit_code": 0,
+    "log": "digital-research-skills-model-ingestion.log"
+  },
+  {
+    "repository": "website-skills",
+    "exit_code": 0,
+    "log": "website-skills-model-ingestion.log"
+  },
+  {
+    "repository": "design-system-skills",
+    "exit_code": 0,
+    "log": "design-system-skills-model-ingestion.log"
+  },
+  {
+    "repository": "windows-admin-engine-skills",
+    "exit_code": 0,
+    "log": "windows-admin-engine-skills-model-ingestion.log"
+  }
+]

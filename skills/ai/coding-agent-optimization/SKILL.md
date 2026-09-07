@@ -49,6 +49,15 @@ multi-agent protocol, or a provider gateway. Route those tasks to
 - The task is application-agent architecture, provider gateway design, or a
   generic multi-agent protocol; route to the neighbouring skills named above.
 
+## Evidence Produced
+
+| Category | Artifact | Format | Example |
+|---|---|---|---|
+| Correctness | Device and runner assessment | JSON plus concise Markdown summary | `docs/agent-optimisation/device-assessment.json` |
+| Security | Permission and secret-handling review | Findings with inspected paths | `docs/agent-optimisation/permission-review.md` |
+| Operability | Applied delta and rollback record | File/key diff and backup path | `docs/agent-optimisation/rollback-record.md` |
+| Correctness | Live runner checks | Commands, results, and unassessed gaps | `docs/agent-optimisation/runner-verification.md` |
+
 <!-- dual-compat-end -->
 
 ## Inputs
@@ -194,15 +203,6 @@ containers, emulators, or databases.
   model catalogues, and fresh-context checks.
 - [Claude Code adapter](references/claude-code.md) for `CLAUDE.md`, settings,
   agents, permissions, and session limits.
-
-## Evidence Produced
-
-| Category | Artifact | Format |
-|---|---|---|
-| Correctness | Device and runner assessment | JSON plus concise Markdown summary |
-| Security | Permission and secret-handling review | Findings with inspected paths |
-| Operability | Applied delta and rollback record | File/key diff and backup path |
-| Verification | Live runner checks | Commands, results, and unassessed gaps |
 
 ## Portable runner rule
 

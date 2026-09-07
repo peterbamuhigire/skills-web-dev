@@ -4,7 +4,7 @@ description: Use when designing CI/CD pipelines, stage gates, reusable workflows
 metadata:
   portable: true
   compatible_with:
-  - Codex
+  - claude-code
   - codex
 ---
 
@@ -51,7 +51,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 
 - Reusable workflow with versioned inputs/outputs; environment-specific deploy workflows; rollback workflow.
 - OIDC trust policy, least-privilege IAM/Vault role binding, deployment-record schema and sink.
-- Pipeline-observability dashboard spec (DORA quad + queue time + stage p95) wired into SigNoz/Prometheus.
+- Pipeline-observability dashboard spec (DORA delivery metrics + queue time + stage p95) wired into SigNoz/Prometheus.
 
 ## Evidence Produced
 
@@ -258,7 +258,7 @@ Rollback is the same workflow with the previous digest. Three rollbacks in a wee
 
 ## §7 Pipeline observability
 
-The four DORA metrics — deployment frequency, lead time for changes, change failure rate, mean time to restore — are the canonical indicators of pipeline health (The DevOps Handbook). Augment with:
+Use deployment frequency, change lead time, failed deployment recovery time, change fail rate and deployment rework rate, following the [DORA measurement guide](https://dora.dev/guides/dora-metrics/). Generic incident MTTR is a separate operational measure, not a substitute for failed-deployment recovery. The following values are illustrative local budgets, not universal DORA thresholds; agree service scope, event definitions and windows before adoption:
 
 - Queue time (`run.created_at` → `run.started_at`) — p95 < 60 s.
 - Stage duration distribution (p50 / p95 / p99 per stage) — commit-stage p95 < 5 min.
@@ -267,7 +267,7 @@ The four DORA metrics — deployment frequency, lead time for changes, change fa
 
 Workflow timings come from `GET /repos/{owner}/{repo}/actions/runs` and `/runs/{id}/jobs`. A small scraper polls and ships line-protocol to the platform observability backend (SigNoz OTLP or Prometheus pushgateway). Schema and scraper pseudocode live in `references/pipeline-observability.md`.
 
-Every successful production deploy emits one row to an append-only sink (S3 + Athena, BigQuery, or a Postgres `deployments` table). DORA metrics are computed from this table — not reconstructed from logs. Pair with `observability-monitoring` for SLO and alert design.
+Record production deployment attempts and outcomes in an append-only sink, linked to commits, deployment-induced failures, recovery events and unplanned remedial deployments. Successful-deployment rows alone cannot establish failure or rework rates. Define denominator and observation window explicitly; see `references/pipeline-observability.md`. Pair with `observability-monitoring` for SLO and alert design.
 
 ## §8 GitHub Actions vs GitLab CI
 
@@ -320,7 +320,7 @@ Pick one per repo and document in `CONTRIBUTING.md`. Conventional commits drive 
 
 - Every workflow PR is reviewed by someone other than the author; `actionlint` is a required status check on any `.github/workflows/*.yml` change.
 - Track DORA metrics off the deployment-record sink; alert when change-failure rate or queue time p95 breach the SLO.
-- Codex and Codex users on the same repo work from the same files — nothing platform-specific in workflow YAML.
+- Claude Code and Codex users on the same repo work from the same workflow files; execution still depends on the configured runner and available credentials.
 
 ## Companion Skills
 

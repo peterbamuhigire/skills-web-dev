@@ -22,7 +22,8 @@ docs describe routing, consolidation, planning, and maintenance policy.
 | `templates/delivery-dod/` | Shared delivery evidence pack template for implementation outputs. |
 | `scripts/skill_catalog_guardrails.py` | Static guardrail scan: active count, duplicate names, frontmatter, UTF-8, description length, `SKILL.md` line count, broken `references/`/`templates/` links, and alias integrity (unrouted, stale, dangling). |
 | `scripts/routing_smoke_test.py` + fixture YAML files | Routing precision measurement: scores fixtured tasks from `scripts/routing_fixtures.yml` and `tests/routing/edge-fixtures.yml` against skill descriptions and fails when an expected skill drifts out of its top matches. `--collisions` reports near-duplicate skills. |
-| `docs/engine-control-plane.json` + `scripts/validate_engine_control_plane.py` | Shared eleven-engine registry and deterministic validation for agents, commands, hooks, evidence, and local routers. |
+| `docs/engine-control-plane.json` + `scripts/validate_engine_control_plane.py` | Twelve-entry registry with separate registry-only and scoped installed-checkout validation; explicit overrides never fall back silently. |
+| `skills/sdlc-meta/skill-writing/scripts/contract_gate.py` | Evidence declarations checked recursively across both active roots; empty inventories and unmatched skill selectors fail. |
 | `.github/workflows/skill-guardrails.yml` | CI: runs both gates on every push and PR touching skills, doctrine, aliases, fixtures, or the scripts. |
 | `skills/sdlc-meta/skill-composition-standards/references/` | Artifact templates (ADR, entity model, threat model, release/rollback plan, runbook, test plan) and the closing Delivery Definition of Done pack. |
 | `skills/languages/python-modern-standards/scripts/desktop_suite_packager.py` | Model-neutral project generator for a committed desktop-suite manifest, generated launcher/spec/installer/CI files, stale-generation check, and release evidence. |

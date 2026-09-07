@@ -4,7 +4,7 @@ description: Use when defining or reviewing software architecture for web apps, 
 metadata:
   portable: true
   compatible_with:
-  - Codex
+  - claude-code
   - codex
 ---
 

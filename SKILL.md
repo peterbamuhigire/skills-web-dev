@@ -22,7 +22,7 @@ Always apply these before domain work:
    book-driven improvement, and post-iteration learning cycle. Published audits are capped at
    65/100; improvement plans target 95/100 and require evidence.
 
-When a task requires external research, use the Digital Research Engine at `C:\wamp64\www\digital-research-engine`, beginning with its `source-evaluation` and `source-verification` skills.
+When a task requires external research, use the Digital Research Engine at `C:\wamp64\www\digital-research-skills`, beginning with its `source-evaluation` and `source-verification` skills.
 
 ## Route by intent
 
@@ -34,6 +34,9 @@ When a task requires external research, use the Digital Research Engine at `C:\w
 | CI/CD, cloud, containers, Kubernetes, release engineering, observability, reliability | `skills/devops-cloud/*` |
 | React, Next.js, Tailwind implementation, frontend performance, image compression, content UX | `skills/frontend-ux/*` |
 | Android, iOS, Kotlin Multiplatform, PWA, mobile operations | `skills/android/*`, `skills/ios/*`, `skills/mobile-cross/*` |
+| Desktop applications, Avalonia UI and Python executable-suite packaging | `skills/frontend-ux/avalonia-desktop-development`, `skills/languages/python-modern-standards`, `skills/languages/csharp-dotnet-development` |
+| GIS maps, spatial data, PostGIS and mapping APIs | `skills/gis/gis-platform-engineering` |
+| Games, gameplay, interactive narrative, game assets, builds and live operations | `skills/game-development/game-development-orchestration` then the required specialist |
 | TypeScript, JavaScript, Python, PHP, C#/.NET, Java/JVM, Spring, Jakarta EE, Hibernate, Maven, Gradle, WebLogic, Quarkus, Micronaut, Helidon, GraalVM | `skills/languages/*` |
 | SaaS tenancy, pricing, billing, entitlements, SSO/SCIM, portability, admin tooling | `skills/saas/*` |
 | Security audit, code safety, DPIA, Linux hardening, network security | `skills/security/*` |
@@ -41,6 +44,8 @@ When a task requires external research, use the Digital Research Engine at `C:\w
 | SDLC documentation, skill writing, catalog guardrails, world-class engineering gates | `skills/sdlc-meta/*` and `00-meta-initialization/*` |
 | Finance/accounting rules, statutory values, IFRS, close, audit, payroll, tax | External `chwezi-accounting-doctrine`; local finance skills only orchestrate implementation |
 | Visual design, typography, UI/UX appearance, documents, slides, spreadsheets, PDF visual polish | External `design-system-skills` |
+| Complete website delivery, content, SEO and launch | External `website-skills`; retain technical implementation here |
+| Formal SRS, lifecycle specifications and governance artefacts | External `srs-skills`; retain implementation evidence here |
 
 ## Running example
 

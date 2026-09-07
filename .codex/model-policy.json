@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "effective_date": "2026-09-07",
+  "owner": "Peter Bamuhigire",
+  "runtime": "codex",
+  "root_model": "gpt-6-astra",
+  "review_model": "gpt-6-astra",
+  "execution_model": "gpt-5.6-luna",
+  "reasoning_effort": "medium",
+  "roles": ["default", "worker", "explorer", "tester", "researcher", "reviewer"],
+  "latest_model_check": "required_at_every_kaizen_start",
+  "replacement_policy": "Evaluate new releases; retain pins until Peter authorises a verified replacement."
+}

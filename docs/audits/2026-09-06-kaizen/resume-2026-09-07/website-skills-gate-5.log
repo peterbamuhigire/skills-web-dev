@@ -1,0 +1,63 @@
+{
+  "id": "website-kaizen-local-fixture",
+  "status": "PASS",
+  "evidence_type": "lab fixture only",
+  "pages": [
+    {
+      "page": "index.html",
+      "links": {
+        "status": "PASS",
+        "broken": []
+      },
+      "semantics": {
+        "status": "PASS",
+        "lang": "en",
+        "main_count": 1,
+        "h1_count": 1,
+        "nav_count": 1,
+        "heading_order": "PASS"
+      },
+      "accessibility_inputs": {
+        "status": "PASS",
+        "images_without_alt": 0,
+        "inputs_without_labels": 0
+      },
+      "metadata": {
+        "status": "PASS"
+      }
+    },
+    {
+      "page": "about.html",
+      "links": {
+        "status": "PASS",
+        "broken": []
+      },
+      "semantics": {
+        "status": "PASS",
+        "lang": "en",
+        "main_count": 1,
+        "h1_count": 1,
+        "nav_count": 1,
+        "heading_order": "PASS"
+      },
+      "accessibility_inputs": {
+        "status": "PASS",
+        "images_without_alt": 0,
+        "inputs_without_labels": 0
+      },
+      "metadata": {
+        "status": "PASS"
+      }
+    }
+  ],
+  "performance_budget_inputs": {
+    "status": "PASS",
+    "budget_file": "performance-budgets.json",
+    "total_weight_budget_kb": 350,
+    "fixture_asset_bytes": 2104,
+    "raw_ceiling_check": "PASS"
+  },
+  "field_core_web_vitals": "NOT ASSESSED"
+}
+
+STDERR:

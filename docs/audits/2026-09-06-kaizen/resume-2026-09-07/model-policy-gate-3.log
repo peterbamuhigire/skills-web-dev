@@ -1,0 +1,2 @@
+routing-smoke: 40/40 top-three matches (100.0%); threshold=100.0%
+- fixture classes: collision, failure-path, limited-capability, negative, positive

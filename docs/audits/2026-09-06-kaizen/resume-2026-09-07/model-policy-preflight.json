@@ -1,0 +1,46 @@
+{
+  "skills-web-dev": {
+    "claude_sha256": "ea8242724f36f1f88e1ab69acb5b0ff8cd4c34f07be47490c76cdc59102779f4",
+    "adapter_ignored": ""
+  },
+  "business-plan-skills": {
+    "claude_sha256": "b21f0e2d0a1e74a47395931873adbac3e1f3f1a1ed4255cc7113f4ede085a882",
+    "adapter_ignored": ""
+  },
+  "chwezi-accounting-doctrine": {
+    "claude_sha256": "93898b8b517df9e80a24a23a00fbd4d07913302409719ed2fed1650d3241d11b",
+    "adapter_ignored": ""
+  },
+  "proposal-skills": {
+    "claude_sha256": "8c37a70e4e4e615dd802ea896099b5185c5d92ca9d3e3becd17eabfff43f0a4f",
+    "adapter_ignored": ""
+  },
+  "social-media-skills": {
+    "claude_sha256": "80f3f8cbd21af556f25758aec71e12ecc6ab1c5156245b79a51c6439b564713c",
+    "adapter_ignored": ""
+  },
+  "linux-skills": {
+    "claude_sha256": "564e787ba1a51445bb7fb83b04389c4afb3d346abfaf93855a387d86a91ecaab",
+    "adapter_ignored": ""
+  },
+  "srs-skills": {
+    "claude_sha256": "0ea0f57f03fb70ce616831ae05dd4955bae5d1529b0004858c794bdf9c3f6fc3",
+    "adapter_ignored": ""
+  },
+  "digital-research-skills": {
+    "claude_sha256": "126ccb0ea7ec6fe9f42587163dc3c082c10e7a037080844367942befe0d6cbbe",
+    "adapter_ignored": ""
+  },
+  "website-skills": {
+    "claude_sha256": "7cc2429bff75634ad3077fdd673ee0bc4967c0d98787cf8074bc58e31d8056a5",
+    "adapter_ignored": ""
+  },
+  "design-system-skills": {
+    "claude_sha256": "5daab492f298bd5e288e8ee88609ccbe07854b6488a662310bad7e7590e50419",
+    "adapter_ignored": ""
+  },
+  "windows-admin-engine-skills": {
+    "claude_sha256": null,
+    "adapter_ignored": ""
+  }
+}

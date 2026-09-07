@@ -4,7 +4,7 @@ description: Use when designing or building an AI-enhanced web app with chat, RA
 metadata:
   portable: true
   compatible_with:
-  - Codex
+  - claude-code
   - codex
 ---
 

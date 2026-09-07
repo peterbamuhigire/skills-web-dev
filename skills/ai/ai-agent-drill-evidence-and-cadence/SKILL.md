@@ -112,11 +112,11 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 
 | Category | Artifact | Format | Example |
 |----------|----------|--------|---------|
-| Compliance | Drill run record | Row + signed pack | `evidence/drills/kill_switch/2026-Q2-W3/` |
-| Compliance | Cadence policy | YAML | `ops/compliance/drill-cadence.yaml` |
-| Compliance | Quarterly drill rollup | tar.gz | `evidence/drills/rollup/2026-Q2.tar.gz` |
-| Compliance | Cadence enforcer heartbeat | JSON | `evidence/drills/enforcer-heartbeat.jsonl` |
-| Compliance | Drill exceptions | Row | `compliance_exceptions WHERE control_id IN ('CC7.4','CC9.2')` |
+| Operability | Drill run record | Row + signed pack | `evidence/drills/kill_switch/2026-Q2-W3/` |
+| Operability | Cadence policy | YAML | `ops/compliance/drill-cadence.yaml` |
+| Operability | Quarterly drill rollup | tar.gz | `evidence/drills/rollup/2026-Q2.tar.gz` |
+| Operability | Cadence enforcer heartbeat | JSON | `evidence/drills/enforcer-heartbeat.jsonl` |
+| Operability | Drill exceptions | Row | `compliance_exceptions WHERE control_id IN ('CC7.4','CC9.2')` |
 
 ## References
 

@@ -1,0 +1,8 @@
+source-currency-validator:
+- manifest: ..\skills-web-dev\docs\source-registers\skills-engine-currentness-2026-09.json
+- as-of: 2026-09-07
+- findings: 2
+[FAIL] impeccable-slop-catalog: unsupported freshness_class: context-bound
+[FAIL] claim-impeccable-anti-slop-taxonomy: source impeccable-slop-catalog is not currentness-qualified
+
+STDERR:

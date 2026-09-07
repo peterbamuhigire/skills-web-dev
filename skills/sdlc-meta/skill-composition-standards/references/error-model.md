@@ -2,7 +2,11 @@
 
 The canonical error-shape artifact produced by `api-design-first`. Consumed by frontend, mobile, SDK, and observability skills.
 
-## Envelope
+## Error object inside the response envelope
+
+The object below is the `error` member of the API response. The complete
+failure response is `{ "success": false, "error": { ... } }`, as defined by
+`api-design-first`. Do not return this inner object as a different wire envelope.
 
 ```json
 {
@@ -39,7 +43,7 @@ Optional: `documentation_url`.
 
 ## Rules
 
-1. Every non-2xx response uses this envelope. No exceptions.
+1. Error responses use the outer failure envelope with this object in `error`.
 2. `code` is a stable identifier; its meaning never changes.
 3. `message` is a one-line human-readable summary. It may change; clients must not parse it.
 4. `details` is a structured object for programmatic use.

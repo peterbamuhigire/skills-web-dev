@@ -9,12 +9,20 @@ skills:
 validation:
   - id: release-gate
     command: >-
-      python scripts/validate_engine_control_plane.py --workspace-root .
+      python scripts/validate_engine_control_plane.py
     working_directory: .
     platforms:
       - windows
       - linux
       - macos
+  - id: catalogue-gate
+    command: python -X utf8 scripts/skill_catalog_guardrails.py
+    working_directory: .
+    platforms: [windows, linux, macos]
+  - id: routing-gate
+    command: python -X utf8 scripts/routing_smoke_test.py
+    working_directory: .
+    platforms: [windows, linux, macos]
 agent_integration:
   supported_modes: [full, sequential, read_only, not_assessed]
   local_context_files: [AGENTS.md, .skills-engine/AGENTS-INTEGRATION.md]

@@ -1,0 +1,87 @@
+{
+  "local_install": [
+    {
+      "action": "--apply",
+      "exit_code": 0,
+      "output": "PASS: Codex model policy is correct\n"
+    },
+    {
+      "action": "--check",
+      "exit_code": 0,
+      "output": "PASS: Codex model policy is correct\n"
+    }
+  ],
+  "repeat_apply_bytes_and_mtime_unchanged": true,
+  "claude_noop": true,
+  "engines": [
+    {
+      "repository": "skills-web-dev",
+      "stored_policy_exit": 0,
+      "adapter_identical": true,
+      "claude_unchanged": true
+    },
+    {
+      "repository": "business-plan-skills",
+      "stored_policy_exit": 0,
+      "adapter_identical": true,
+      "claude_unchanged": true
+    },
+    {
+      "repository": "chwezi-accounting-doctrine",
+      "stored_policy_exit": 0,
+      "adapter_identical": true,
+      "claude_unchanged": true
+    },
+    {
+      "repository": "proposal-skills",
+      "stored_policy_exit": 0,
+      "adapter_identical": true,
+      "claude_unchanged": true
+    },
+    {
+      "repository": "social-media-skills",
+      "stored_policy_exit": 0,
+      "adapter_identical": true,
+      "claude_unchanged": true
+    },
+    {
+      "repository": "linux-skills",
+      "stored_policy_exit": 0,
+      "adapter_identical": true,
+      "claude_unchanged": true
+    },
+    {
+      "repository": "srs-skills",
+      "stored_policy_exit": 0,
+      "adapter_identical": true,
+      "claude_unchanged": true
+    },
+    {
+      "repository": "digital-research-skills",
+      "stored_policy_exit": 0,
+      "adapter_identical": true,
+      "claude_unchanged": true
+    },
+    {
+      "repository": "website-skills",
+      "stored_policy_exit": 0,
+      "adapter_identical": true,
+      "claude_unchanged": true
+    },
+    {
+      "repository": "design-system-skills",
+      "stored_policy_exit": 0,
+      "adapter_identical": true,
+      "claude_unchanged": true
+    },
+    {
+      "repository": "windows-admin-engine-skills",
+      "stored_policy_exit": 0,
+      "adapter_identical": true,
+      "claude_unchanged": true
+    }
+  ],
+  "engineering_tests": "........................................................................ [ 98%]\n.                                                                        [100%]\n73 passed in 1.63s",
+  "effective_runtime_entitlement": "NOT_ASSESSED",
+  "unrelated_local_config_semantics_preserved_against_original_backup": true
+}

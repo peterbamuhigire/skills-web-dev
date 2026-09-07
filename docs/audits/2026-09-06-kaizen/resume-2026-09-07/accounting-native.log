@@ -1,0 +1,23 @@
+Doctrine validation summary
+state: pass
+repo_root: C:\wamp64\www\chwezi-accounting-doctrine
+blocker_findings: 0
+high_findings: 0
+medium_findings: 0
+caveat_findings: 0
+
+Checks
+- mojibake: pass (0 finding(s), exit 0)
+- skill-contracts: pass (0 finding(s), exit 0)
+- frontmatter-yaml: pass (0 finding(s), exit 0)
+- advanced-ifrs-readiness: pass (0 finding(s), exit 0)
+- source-register: pass (0 finding(s), exit 0)
+- links: pass (0 finding(s), exit 0)
+- repository-discovery: pass (0 finding(s), exit 0)
+- router-map: pass (0 finding(s), exit 0)
+- accounting-invariants: pass (0 finding(s), exit 0)
+- router-map-negative-controls: pass (0 finding(s), exit 0)
+- source-register-negative-controls: pass (0 finding(s), exit 0)
+- validation-state-negative-controls: pass (0 finding(s), exit 0)
+
+STDERR:

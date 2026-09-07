@@ -109,7 +109,7 @@ def assess(path: Path, root: Path) -> dict:
         "unique_description": len(re.findall(r"^description\s*:", FRONTMATTER_RE.match(raw).group(1), re.MULTILINE)) == 1 if FRONTMATTER_RE.match(raw) else False,
         "identity": frontmatter.get("name") == path.parent.name,
         "trigger": isinstance(description, str) and description.strip().lower().startswith("use when") and len(description.strip()) <= 350,
-        "portable_metadata": metadata.get("portable") is True and metadata.get("compatible_with") == COMPATIBILITY,
+        "portable_metadata": metadata.get("portable") is True and valid_compatibility(metadata.get("compatible_with")),
         "portable_sections": all(
             any(heading(body, alias) for alias in aliases) or bool(metadata.get(metadata_key))
             for aliases, metadata_key in section_groups.values()
@@ -137,6 +137,16 @@ def assess(path: Path, root: Path) -> dict:
     return {"path": path.relative_to(root).as_posix(), "score": sum(checks.values()), "possible": len(checks), "failed": failed}
 
 
+def valid_compatibility(value: object) -> bool:
+    """Require the canonical runtimes without discarding additional adapters."""
+    return (
+        isinstance(value, list)
+        and all(isinstance(item, str) and item.strip() for item in value)
+        and len(value) == len(set(value))
+        and set(COMPATIBILITY) <= set(value)
+    )
+
+
 def safe_fix(path: Path) -> bool:
     raw = path.read_text(encoding="utf-8", errors="replace")
     fixed = repair_mojibake(raw)
@@ -151,7 +161,9 @@ def safe_fix(path: Path) -> bool:
             if not isinstance(metadata, dict):
                 metadata = {}
             metadata["portable"] = True
-            metadata["compatible_with"] = COMPATIBILITY
+            existing = metadata.get("compatible_with", [])
+            extras = [item for item in existing if isinstance(item, str) and item.strip() and item.casefold() not in COMPATIBILITY] if isinstance(existing, list) else []
+            metadata["compatible_with"] = list(dict.fromkeys([*COMPATIBILITY, *extras]))
             frontmatter["metadata"] = metadata
             prefix = "---\n" + yaml.safe_dump(frontmatter, sort_keys=False, allow_unicode=True, width=1000).strip() + "\n---\n"
             fixed = prefix + fixed[match.end():]

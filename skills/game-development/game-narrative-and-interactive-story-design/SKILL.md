@@ -63,12 +63,12 @@ Load `world-class-engineering`, `game-design-and-experience`, `level-world-and-c
 
 ## Evidence Produced
 
-| Category | Evidence |
-|---|---|
-| Correctness | Reachability/state-transition tests and setup-payoff coverage. |
-| Player experience | Comprehension, motivation, pacing and choice-legibility playtest results. |
-| Cultural safety | Named reviewer, source/provenance link, decision and unresolved caveat. |
-| Release | Build/content revision, localisation completeness and known narrative defects. |
+| Category | Artifact | Format | Example |
+|---|---|---|---|
+| Correctness | Reachability/state-transition tests and setup-payoff coverage. | Test report and coverage matrix | `docs/narrative/reachability-tests.md` |
+| UX quality | Comprehension, motivation, pacing and choice-legibility playtest results. | Playtest report with observations and findings | `docs/narrative/player-experience.md` |
+| UX quality | Cultural safety review | Review record: named reviewer, source/provenance link, decision and unresolved caveat | `docs/narrative/cultural-safety-review.md` |
+| Release evidence | Build/content revision, localisation completeness and known narrative defects. | Release record with revision identity, localisation status and defect list | `docs/narrative/release-evidence.md` |
 <!-- dual-compat-end -->
 
 ## Capability and Degraded Mode

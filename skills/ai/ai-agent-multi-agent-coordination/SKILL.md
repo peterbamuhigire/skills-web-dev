@@ -81,7 +81,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 
 | Category | Artifact | Format | Example |
 |----------|----------|--------|---------|
-| Architecture | Multi-agent topology spec | Markdown + diagram | `docs/ai/multi-agent-topology.md` |
+| Correctness | Multi-agent topology spec | Markdown + diagram | `docs/ai/multi-agent-topology.md` |
 | Correctness | Handoff protocol tests | CI report | `tests/ai/handoff/` |
 | Release evidence | Multi-agent vs single-agent eval | Markdown | `docs/ai/eval/multi-vs-single.md` |
 | Operability | Deadlock incident runbook | Markdown | `docs/runbooks/multi-agent-deadlock.md` |

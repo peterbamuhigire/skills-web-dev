@@ -110,7 +110,7 @@ If production access, policy, telemetry, or authoritative records are unavailabl
 
 | Category | Artifact | Format | Example |
 |----------|----------|--------|---------|
-| Architecture | Rate-limit + quota inventory | Markdown table | `docs/saas/rate-limits.md` |
+| Performance | Rate-limit + quota inventory | Markdown table | `docs/saas/rate-limits.md` |
 | Release evidence | Response contract spec | Markdown doc with examples | `docs/saas/rate-limit-response.md` |
 | Operability | Limit hit + denial dashboard | Dashboard link | `docs/saas/quota-dashboard.md` |
 

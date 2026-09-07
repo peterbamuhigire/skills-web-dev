@@ -84,7 +84,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 | Security | Agent threat model | Markdown | `docs/ai/agent-threat-model.md` |
 | Release evidence | Red-team CI suite | Tests + report | `tests/ai/red-team/agent/` |
 | Operability | Safety event taxonomy | YAML | `ops/alerts/agent-safety.yaml` |
-| Compliance | Indirect-injection findings log | Markdown | `docs/security/indirect-injection-incidents.md` |
+| Security | Indirect-injection findings log | Markdown | `docs/security/indirect-injection-incidents.md` |
 
 ## References
 

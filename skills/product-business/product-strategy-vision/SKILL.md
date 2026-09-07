@@ -4,7 +4,7 @@ description: Use when defining product vision, strategic choices, product princi
 metadata:
   portable: true
   compatible_with:
-  - Codex
+  - claude-code
   - codex
 ---
 

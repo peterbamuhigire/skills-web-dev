@@ -4,7 +4,7 @@ description: Use when implementing or reviewing Tailwind CSS styling, responsive
 metadata:
   portable: true
   compatible_with:
-  - Codex
+  - claude-code
   - codex
 ---
 

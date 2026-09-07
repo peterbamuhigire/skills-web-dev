@@ -4,7 +4,7 @@ description: Use when implementing or reviewing a Next.js App Router application
 metadata:
   portable: true
   compatible_with:
-  - Codex
+  - claude-code
   - codex
 ---
 

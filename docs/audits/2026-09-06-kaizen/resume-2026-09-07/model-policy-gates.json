@@ -1,0 +1,180 @@
+[
+  {
+    "repository": "skills-web-dev",
+    "command": [
+      "scripts/skill_catalog_guardrails.py",
+      "--report-only"
+    ],
+    "exit_code": 0,
+    "log": "model-policy-gate-0.log"
+  },
+  {
+    "repository": "skills-web-dev",
+    "command": [
+      "scripts/routing_smoke_test.py",
+      "--report-only"
+    ],
+    "exit_code": 0,
+    "log": "model-policy-gate-1.log"
+  },
+  {
+    "repository": "business-plan-skills",
+    "command": [
+      "scripts/validate_skill_engine.py",
+      "--baseline",
+      "docs/quality/skill-quality-baseline.json"
+    ],
+    "exit_code": 0,
+    "log": "model-policy-gate-2.log"
+  },
+  {
+    "repository": "business-plan-skills",
+    "command": [
+      "scripts/routing_smoke_test.py",
+      "--threshold",
+      "1.0"
+    ],
+    "exit_code": 0,
+    "log": "model-policy-gate-3.log"
+  },
+  {
+    "repository": "proposal-skills",
+    "command": [
+      "scripts/validate_skills.py",
+      "--baseline",
+      "quality-baseline.json"
+    ],
+    "exit_code": 0,
+    "log": "model-policy-gate-4.log"
+  },
+  {
+    "repository": "proposal-skills",
+    "command": [
+      "scripts/routing_smoke_test.py"
+    ],
+    "exit_code": 0,
+    "log": "model-policy-gate-5.log"
+  },
+  {
+    "repository": "social-media-skills",
+    "command": [
+      "scripts/validate_skill_engine.py",
+      "--baseline",
+      "quality-baseline.json"
+    ],
+    "exit_code": 0,
+    "log": "model-policy-gate-6.log"
+  },
+  {
+    "repository": "social-media-skills",
+    "command": [
+      "scripts/routing_smoke_test.py"
+    ],
+    "exit_code": 0,
+    "log": "model-policy-gate-7.log"
+  },
+  {
+    "repository": "linux-skills",
+    "command": [
+      "scripts/validate_skills.py",
+      "--baseline",
+      "quality-baseline.json"
+    ],
+    "exit_code": 0,
+    "log": "model-policy-gate-8.log"
+  },
+  {
+    "repository": "linux-skills",
+    "command": [
+      "scripts/routing_smoke_test.py"
+    ],
+    "exit_code": 0,
+    "log": "model-policy-gate-9.log"
+  },
+  {
+    "repository": "srs-skills",
+    "command": [
+      "scripts/validate_skill_engine.py",
+      "--baseline",
+      "tests/skill-quality-baseline.json"
+    ],
+    "exit_code": 0,
+    "log": "model-policy-gate-10.log"
+  },
+  {
+    "repository": "srs-skills",
+    "command": [
+      "scripts/routing_smoke_test.py"
+    ],
+    "exit_code": 0,
+    "log": "model-policy-gate-11.log"
+  },
+  {
+    "repository": "srs-skills",
+    "command": [
+      "scripts/validate_engine.py"
+    ],
+    "exit_code": 0,
+    "log": "model-policy-gate-12.log"
+  },
+  {
+    "repository": "digital-research-skills",
+    "command": [
+      "scripts/validate_engine.py"
+    ],
+    "exit_code": 0,
+    "log": "model-policy-gate-13.log"
+  },
+  {
+    "repository": "website-skills",
+    "command": [
+      "scripts/validate-skill-contracts.py",
+      "--baseline",
+      "quality/skill-contract-baseline.json"
+    ],
+    "exit_code": 0,
+    "log": "model-policy-gate-14.log"
+  },
+  {
+    "repository": "website-skills",
+    "command": [
+      "scripts/routing-smoke-test.py"
+    ],
+    "exit_code": 0,
+    "log": "model-policy-gate-15.log"
+  },
+  {
+    "repository": "design-system-skills",
+    "command": [
+      "scripts/validate_engine.py",
+      "--baseline",
+      "tests/quality-baseline.json"
+    ],
+    "exit_code": 0,
+    "log": "model-policy-gate-16.log"
+  },
+  {
+    "repository": "design-system-skills",
+    "command": [
+      "scripts/routing_smoke_test.py"
+    ],
+    "exit_code": 0,
+    "log": "model-policy-gate-17.log"
+  },
+  {
+    "repository": "windows-admin-engine-skills",
+    "command": [
+      "scripts/validate_engine.py"
+    ],
+    "exit_code": 0,
+    "log": "model-policy-gate-18.log"
+  },
+  {
+    "repository": "windows-admin-engine-skills",
+    "command": [
+      "scripts/routing_smoke_test.py"
+    ],
+    "exit_code": 0,
+    "log": "model-policy-gate-19.log"
+  }
+]

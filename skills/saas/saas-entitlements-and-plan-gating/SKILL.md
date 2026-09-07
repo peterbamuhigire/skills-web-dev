@@ -109,7 +109,7 @@ If production access, policy, telemetry, or authoritative records are unavailabl
 
 | Category | Artifact | Format | Example |
 |----------|----------|--------|---------|
-| Architecture | Entitlements model spec | Markdown doc | `docs/saas/entitlements-model.md` |
+| Correctness | Entitlements model spec | Markdown doc | `docs/saas/entitlements-model.md` |
 | Release evidence | Plan × Feature × Limit matrix | Markdown table | `docs/saas/plan-feature-matrix.md` |
 | Operability | Gate-denial analytics dashboard | Dashboard link | `docs/saas/gate-denials-dashboard.md` |
 

@@ -12,6 +12,7 @@ This file tracks the next practical work for the skills repository.
 
 | Work | Why | Start Point |
 | --- | --- | --- |
+| Close evidence gaps exposed by the repaired contract gate | The former gate scanned only one family. Missing declarations and product evidence must be assessed in their domain, not filled with boilerplate. | `docs/audits/2026-09-06-kaizen/portfolio-progress.md` and `skills/sdlc-meta/skill-writing/scripts/contract_gate.py --all` |
 | Grow the routing fixture set with each new skill | The smoke test only guards routes it has fixtures for. | Add a case to `scripts/routing_fixtures.yml` for any skill a neighbour could shadow. |
 | Review inactive aliases for deeper consolidation | `ALIAS.md` preserves content, but durable material should eventually move into retained parent references. | Start with finance and data aliases from `docs/skill-aliases.yml`. |
 | Complete Uganda EFRIS adapter and UAT evidence | The reusable engineering route now exists, but the authenticated URA contract, credentials, sandbox acceptance, and BIRDC production evidence are still provider-gated. | `skills/finance-accounting/electronic-fiscal-taxing/` and the ERP `docs/plans/efris-aug-26/` programme |

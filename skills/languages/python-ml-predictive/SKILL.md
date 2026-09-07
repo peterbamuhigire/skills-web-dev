@@ -4,7 +4,7 @@ description: Use when adding forecasting, classification, regression, or anomaly
 metadata:
   portable: true
   compatible_with:
-  - Codex
+  - claude-code
   - codex
 ---
 

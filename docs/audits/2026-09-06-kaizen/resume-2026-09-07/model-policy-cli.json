@@ -1,0 +1,15 @@
+{
+  "command": "codex features list",
+  "exit_code": 0,
+  "root_model": "gpt-6-astra",
+  "review_model": "gpt-6-astra",
+  "roles": {
+    "default": "gpt-5.6-luna",
+    "worker": "gpt-5.6-luna",
+    "explorer": "gpt-5.6-luna",
+    "reviewer": "gpt-6-astra",
+    "tester": "gpt-5.6-luna",
+    "researcher": "gpt-5.6-luna"
+  },
+  "scope": "Config parser and stored pins; not CLI inference entitlement"
+}

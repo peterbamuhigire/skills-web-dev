@@ -1,0 +1,213 @@
+{
+  "environment_overrides": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "SKILL_ENGINE_LIVE_TESTS": "1",
+    "SKILL_ENGINE_TARGETS": "accounting,business-plan,design,digital-research,engineering,linux,proposal,social-media,srs,website-copy,windows"
+  },
+  "results": [
+    {
+      "repository": "skills-web-dev",
+      "command": [
+        "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "-m",
+        "pytest",
+        "-q",
+        "-p",
+        "no:cacheprovider"
+      ],
+      "cwd": "C:\\wamp64\\www\\skills-web-dev",
+      "started_at": "2026-09-07T09:13:58.496824+03:00",
+      "exit_code": 0,
+      "log": "skills-web-dev-tests.log"
+    },
+    {
+      "repository": "business-plan-skills",
+      "command": [
+        "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "cwd": "C:\\wamp64\\www\\business-plan-skills",
+      "started_at": "2026-09-07T09:14:02.288572+03:00",
+      "exit_code": 0,
+      "log": "business-plan-skills-tests.log"
+    },
+    {
+      "repository": "chwezi-accounting-doctrine",
+      "command": [
+        "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "cwd": "C:\\wamp64\\www\\chwezi-accounting-doctrine",
+      "started_at": "2026-09-07T09:14:03.969838+03:00",
+      "exit_code": 0,
+      "log": "chwezi-accounting-doctrine-tests.log"
+    },
+    {
+      "repository": "proposal-skills",
+      "command": [
+        "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "cwd": "C:\\wamp64\\www\\proposal-skills",
+      "started_at": "2026-09-07T09:14:04.147195+03:00",
+      "exit_code": 0,
+      "log": "proposal-skills-tests.log"
+    },
+    {
+      "repository": "social-media-skills",
+      "command": [
+        "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "cwd": "C:\\wamp64\\www\\social-media-skills",
+      "started_at": "2026-09-07T09:14:04.305373+03:00",
+      "exit_code": 0,
+      "log": "social-media-skills-tests.log"
+    },
+    {
+      "repository": "linux-skills",
+      "command": [
+        "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "cwd": "C:\\wamp64\\www\\linux-skills",
+      "started_at": "2026-09-07T09:14:05.931186+03:00",
+      "exit_code": 0,
+      "log": "linux-skills-tests.log"
+    },
+    {
+      "repository": "srs-skills",
+      "command": [
+        "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "-m",
+        "pytest",
+        "-p",
+        "no:cacheprovider"
+      ],
+      "cwd": "C:\\wamp64\\www\\srs-skills",
+      "started_at": "2026-09-07T09:14:06.068735+03:00",
+      "exit_code": 0,
+      "log": "srs-skills-tests.log"
+    },
+    {
+      "repository": "digital-research-skills",
+      "command": [
+        "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "cwd": "C:\\wamp64\\www\\digital-research-skills",
+      "started_at": "2026-09-07T09:14:21.780251+03:00",
+      "exit_code": 0,
+      "log": "digital-research-skills-tests.log"
+    },
+    {
+      "repository": "website-skills",
+      "command": [
+        "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "-m",
+        "pytest",
+        "-q",
+        "-p",
+        "no:cacheprovider"
+      ],
+      "cwd": "C:\\wamp64\\www\\website-skills",
+      "started_at": "2026-09-07T09:14:22.354561+03:00",
+      "exit_code": 0,
+      "log": "website-skills-tests.log"
+    },
+    {
+      "repository": "design-system-skills",
+      "command": [
+        "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "-m",
+        "pytest",
+        "-q",
+        "-p",
+        "no:cacheprovider"
+      ],
+      "cwd": "C:\\wamp64\\www\\design-system-skills",
+      "started_at": "2026-09-07T09:14:33.763471+03:00",
+      "exit_code": 0,
+      "log": "design-system-skills-tests.log"
+    },
+    {
+      "repository": "windows-admin-engine-skills",
+      "command": [
+        "C:\\Users\\Peter\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/python",
+        "-v"
+      ],
+      "cwd": "C:\\wamp64\\www\\windows-admin-engine-skills",
+      "started_at": "2026-09-07T09:14:36.025125+03:00",
+      "exit_code": 0,
+      "log": "windows-admin-engine-skills-tests.log"
+    }
+  ]
+}

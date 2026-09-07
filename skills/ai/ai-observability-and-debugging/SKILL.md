@@ -111,7 +111,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 
 | Category | Artifact | Format | Example |
 |----------|----------|--------|---------|
-| Architecture | Trace schema | Markdown | `docs/ai/trace-schema.md` |
+| Operability | Trace schema | Markdown | `docs/ai/trace-schema.md` |
 | Operability | Replay CLI | Code + docs | `tools/ai/replay.py` |
 | Operability | Per-feature ops dashboard | Dashboard link | `docs/ai/dashboards/feature-ops.md` |
 | Operability | Triage runbook | Runbook | `docs/runbooks/ai-triage.md` |

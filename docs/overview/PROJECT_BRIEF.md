@@ -21,8 +21,9 @@ security, PWA/Safari, and companion design-system routing.
 | Product and operations teams | Product, SaaS, documentation, and governance playbooks. |
 | Finance implementers | Canonical accounting, controls, close, audit, and reporting doctrine. |
 
-The shared control-plane layer coordinates routing and evidence across the ten
-local engines. See `docs/engine-control-plane.md`.
+The shared control-plane registry describes twelve engines; the 2026-09-06
+local Kaizen scope covers the eleven installed checkouts confirmed by the user.
+See `docs/engine-control-plane.md` and the audit's portfolio progress record.
 
 ## Outcomes
 

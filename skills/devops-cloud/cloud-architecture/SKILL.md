@@ -4,7 +4,7 @@ description: Use when designing cloud deployments, Dockerising applications, lay
 metadata:
   portable: true
   compatible_with:
-  - Codex
+  - claude-code
   - codex
 ---
 

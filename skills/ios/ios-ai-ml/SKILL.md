@@ -60,7 +60,7 @@ Acknowledgement: Shared by Peter Bamuhigire, techguypeter.com, +256 784 464178.
 |----------|----------|--------|---------|
 | Correctness | AI evaluation plan | Markdown doc covering prompts, providers, tools, unavailable states, and regression cases | `docs/ios/ai-evaluations-checkout.md` |
 | Performance | On-device inference budget | Markdown doc covering per-device latency, memory, battery, and thermal budget | `docs/ios/ai-perf-budget.md` |
-| Privacy | AI data-flow record | Markdown doc identifying on-device, PCC, third-party, logs, and retention | `docs/ios/ai-data-flow.md` |
+| Data safety | AI data-flow record | Markdown doc identifying on-device, PCC, third-party, logs, and retention | `docs/ios/ai-data-flow.md` |
 
 ## References
 

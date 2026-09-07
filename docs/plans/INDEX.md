@@ -8,6 +8,7 @@ This index lists planning documents and their current status.
 | --- | --- | --- |
 | Engine phases | `engine-phases/00-engine-roadmap-index.md` | Active roadmap |
 | Catalog priorities | `NEXT_FEATURES.md` | Active |
+| Sequential portfolio Kaizen | `../audits/2026-09-06-kaizen/portfolio-progress.md` | Active; eleven confirmed checkouts under `www` |
 | WWDC26 Apple platform modernization | `2026-06-21-wwdc26-apple-platform-skill-modernization.md` | Implemented 2026-06-21 |
 | Production-readiness audit | `../evaluation/2026-05-30-production-readiness-audit.md` | Complete; all six checklist questions PASS |
 | Eleven-engine control plane | `../updates/2026-08-20-eleven-engine-control-plane.md` | Implemented; Windows engine registered and local-router checks PASS |

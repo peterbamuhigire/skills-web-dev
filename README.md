@@ -27,9 +27,9 @@ Last verified: 2026-09-05.
 |---|---:|
 | Active `SKILL.md` files | 179 |
 | Guardrail maximum | 200 |
-| Routing fixtures | 157 |
-| Routing precision@1 | 91% (143/157) |
-| Routing precision@3 | 100% (157/157) |
+| Routing fixtures | 158 |
+| Routing precision@1 | 91% (144/158) |
+| Routing precision@3 | 100% (158/158) |
 | Catalog guardrail findings | 0 |
 | July portfolio audit baseline | 63/100, capped |
 | Improvement-plan target | 95/100 |
@@ -63,6 +63,9 @@ The active count is produced by the guardrail script. Do not update this table a
 | Requirements, architecture documentation, testing, deployment and governance initialization | `skills/sdlc-meta/`, `00-meta-initialization/` |
 
 ## Kaizen operating contract
+
+The [2026-09-06 sequential audit](docs/audits/2026-09-06-kaizen/portfolio-progress.md)
+records current implementation, baseline failures and remaining evidence gaps.
 
 For a ready-to-run product or project operation, use [`prompts/full-kaizen-operation.md`](prompts/full-kaizen-operation.md).
 

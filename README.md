@@ -21,7 +21,7 @@ Use it for engineering implementation and SDLC quality; bring in companion engin
 
 ## Current status
 
-Last verified: 2026-09-05.
+Last verified: 2026-09-07.
 
 | Measure | Result |
 |---|---:|
@@ -35,6 +35,24 @@ Last verified: 2026-09-05.
 | Improvement-plan target | 95/100 |
 
 The active count is produced by the guardrail script. Do not update this table after adding or removing skills without rerunning the validators.
+
+### September 2026 Kaizen execution update
+
+The first engineering implementation wave corrected two purpose-critical
+examples identified in the current Kaizen plan. The database reliability
+example now converts the weekly error-budget ratio to a percentage explicitly
+and defines latency errors as events above the SLO boundary rather than the
+within-boundary histogram bucket. The multi-tenant permission example now
+evaluates tenant-scoped user denial before a narrowly scoped administrative
+super-admin bypass and keeps the action audited.
+
+Added regression coverage in
+`tests/test_kaizen_semantic_examples.py`. The targeted tests pass, and the
+repository routing smoke test passes at 158/158 top-three fixtures. These
+changes validate the examples and documentation contract; they do not certify
+a running database, tenant isolation, production SLOs, or security posture.
+The next planned experiment is the isolated FieldOps slice, subject to the
+buyer, environment, finance and operations dependencies in the portfolio plan.
 
 ## Start here
 

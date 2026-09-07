@@ -178,8 +178,8 @@ Wrong choice failure modes:
 ### Permission resolution priority
 
 ```text
-1. actor is super_admin            -> ALLOW (always audit)
-2. user_permissions.denied match   -> DENY
+1. user_permissions.denied match   -> DENY for tenant-scoped actions
+2. actor is super_admin            -> ALLOW only for an explicitly scoped administrative permission (always audit)
 3. user_permissions.granted match  -> ALLOW
 4. tenant_role_overrides match     -> ALLOW/DENY per is_enabled
 5. role -> permission via template -> ALLOW
@@ -333,11 +333,11 @@ Priority (highest first): user deny > user grant > tenant override > role permis
 
 ```javascript
 function hasPermission(userId, tenantId, permission) {
-  if (user.type === 'super_admin') {
+  if (userPermissions.denied(userId, tenantId, permission)) return false;
+  if (user.type === 'super_admin' && isScopedAdministrativePermission(permission)) {
     auditLog('PERMISSION_BYPASS', { userId, permission });
     return true;
   }
-  if (userPermissions.denied(userId, tenantId, permission)) return false;
   if (userPermissions.granted(userId, tenantId, permission)) return true;
   for (const role of getUserRoles(userId, tenantId)) {
     const override = tenantRoleOverride(tenantId, role.id, permission);

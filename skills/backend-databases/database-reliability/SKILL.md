@@ -97,7 +97,7 @@ Slow query rate:     <1% of total queries
 Track weekly. 30% consumed by Tuesday → create ticket. 70% consumed with 3+ days left → freeze non-critical deployments. 99.9% SLO = 604.8 seconds budget per week.
 
 ```sql
-SELECT ROUND(SUM(duration_seconds) / 604.8, 1) AS budget_pct_used
+  SELECT ROUND(100.0 * SUM(duration_seconds) / 604.8, 1) AS budget_pct_used
 FROM downtime_log WHERE week_start = CURDATE() - INTERVAL WEEKDAY(CURDATE()) DAY;
 ```
 
@@ -168,7 +168,9 @@ slos:
     description: "P95 query latency under 100ms"
     sli:
       events:
-        error_query: "sum(rate(mysql_query_duration_seconds_bucket{le='0.1'}[5m]))"
+        # Errors are observations above 100 ms: total events minus the
+        # histogram bucket at or below the SLO boundary.
+        error_query: "sum(rate(mysql_query_duration_seconds_count[5m])) - sum(rate(mysql_query_duration_seconds_bucket{le='0.1'}[5m]))"
         total_query: "sum(rate(mysql_query_duration_seconds_count[5m]))"
     alerting:
       name: MySQLQueryLatencyP95

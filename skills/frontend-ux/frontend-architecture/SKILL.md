@@ -38,7 +38,10 @@ metadata:
 3. Choose the smallest architecture that supports the required flows: composition boundaries, state model, loading/error/empty states, accessibility semantics, and extension points.
 4. Connect design, code, documentation, and release checks. Require unit/interaction coverage for logic, visual regression for rendered states, accessibility checks, and performance budgets for critical flows.
 5. Validate a representative flow at narrow and wide viewports, with slow network, keyboard, reduced motion, long content, failure, and localisation cases where applicable.
-6. Document the decision record, migration slice, ownership, rollback path, and next measurable improvement. Standardise only after evidence passes.
+6. For premium or client-facing work, preserve the design thesis, signature choice, real-content
+   hierarchy, and state model in the implementation contract. Treat inspiration as a principle,
+   never as a copied visual surface.
+7. Document the decision record, migration slice, ownership, rollback path, and next measurable improvement. Standardise only after evidence passes.
 
 ## Outputs
 

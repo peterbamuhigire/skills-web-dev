@@ -54,7 +54,10 @@ For a product, assess the applicable combination of requirements, architecture
 or document correctness, security and privacy, accessibility, reliability,
 performance, user value, deployment or handoff, rollback, and evidence quality.
 For an engine, assess doctrine, taxonomy and routing, skill depth, applied
-proof, standards currency, output readiness, hygiene, safety, and integrity.
+proof, standards currency, output readiness, hygiene, safety, and integrity. For
+client-facing web or dashboard work, also load
+`references/purpose-fit-premium-ux-implementation.md` and require an implementation
+slice that preserves the client's design thesis rather than copying a reference product.
 
 ## Quality Standards
 
@@ -74,6 +77,10 @@ proof, standards currency, output readiness, hygiene, safety, and integrity.
 - Closing an action because prose changed. Fix: close only when named acceptance evidence exists and a fresh agent can find the result.
 - Hiding an unavailable check inside an overall score. Fix: mark it `NOT ASSESSED` with an owner and date.
 - Keeping every retrospective note forever. Fix: promote durable learning and remove redundant narrative.
+- Treating a polished screenshot as a premium implementation. Fix: test real content, critical
+  states, responsive reflow, keyboard/focus, reduced motion, performance, and recovery.
+- Copying a recognisable competitor surface. Fix: implement the user principle and the client's
+  visual thesis, then retain a rationale and originality review.
 
 ## Outputs
 
@@ -115,6 +122,7 @@ security, platform, and lifecycle claims; quarantine unsupported claims as
 - `C:/wamp64/www/digital-research-skills/docs/continuous-improvement/portfolio-kaizen-standard-2026-08.md` - cross-engine standard.
 - `skills/sdlc-meta/skill-engine-audit/` - audit dimensions, scoring, and report structure.
 - `skills/sdlc-meta/skill-safety-audit/` - safety and source-ingestion gate.
+- `skills/sdlc-meta/kaizen-improvement-system/references/purpose-fit-premium-ux-implementation.md` - implementation patterns for friction reduction, dashboards, state feedback, and authored visual systems.
 <!-- dual-compat-end -->
 
 ## Inputs
